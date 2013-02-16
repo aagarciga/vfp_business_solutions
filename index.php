@@ -67,7 +67,7 @@ namespace Dandelion\MVC
             return new index();
         }        
     }
-}    
+    
     /*
      * Calling to exit() will flush all buffers started by ob_start() 
      * to default output.
@@ -86,5 +86,5 @@ namespace Dandelion\MVC
     catch (Exceptions\ConfigurationNotChargedException $e) {echo $e->getMessage();}    
     catch (Exception $e) {echo $e->getMessage();}
     
-
+}
 ?>
