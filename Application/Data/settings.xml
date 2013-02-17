@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Application>
+    <Name>mvc</Name>
+    <DefaultController>main</DefaultController>
+    <DefaultAction>index</DefaultAction>
+    <State>Development</State>
+    <DB>
+        <DBManager>MySQLDriver</DBManager>
+        <DBHost>localhost</DBHost>
+        <DBUser>root</DBUser>
+        <DBPassword/>
+        <DBName/>
+    </DB>
+</Application>

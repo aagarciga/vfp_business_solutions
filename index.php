@@ -1,14 +1,74 @@
-<?php
-
-namespace Dandelion\MVC
-
-{
+<?php namespace Dandelion\MVC;
 
     /**
      * Dandelion MVC
-     * (C) 2011-2013 Alex Alvarez Gárciga
+     * 
+     * PHP Version 5.3
+     * 
+     * @author    Alex Alvarez Gárciga <aagarciga@gmail.com>
+     * @copyright 2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+     * @license   http://www.opensource.org/licenses/mit-license.php MIT
+     * @link      http://www.thedandelionproject.com
      */
     
+    
+    /**
+     * 
+     * GLOBAL DEFINITIONS
+     */
+
+    /**
+     * When __DIR__ is not defined, prior 5.3.0
+     */
+    if ( !defined('__DIR__') ) 
+        define('__DIR__', dirname(__FILE__)); 
+
+    define('MVC_DIR_ROOT' , __DIR__);
+
+    define('MVC_DIR_CORE',      MVC_DIR_ROOT . DIRECTORY_SEPARATOR . 'Core');
+    define('MVC_DIR_APP',       MVC_DIR_ROOT . DIRECTORY_SEPARATOR . 'Application');
+    define('MVC_DIR_PUBLIC',    MVC_DIR_ROOT . DIRECTORY_SEPARATOR . 'Public');
+
+    /**
+     * 
+     * CORE DEFINITIONS
+     */
+
+    define('MVC_DIR_CORE_DATA',         MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Data');
+    define('MVC_DIR_CORE_INTERFACES',   MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Interfaces');
+
+    /**
+    * 
+    * APPLICATION DEFINITIONS
+    */
+
+    define('MVC_DIR_APP_CONTROLLERS',   MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Controllers');
+    define('MVC_DIR_APP_DATA',          MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Data');
+    define('MVC_DIR_APP_LIBRARIES',     MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Libraries');
+    define('MVC_DIR_APP_MODELS',         MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Models');
+    define('MVC_DIR_APP_VIEWS',         MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Views');
+
+    define('MVC_DIR_APP_VIEWS_SHARED',  MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . 'Shared');
+
+    /**
+    * 
+    * PUBLIC DEFINITIONS
+    */
+
+    define('MVC_DIR_PUBLIC_IMAGES',     MVC_DIR_PUBLIC . DIRECTORY_SEPARATOR . 'Images');
+    define('MVC_DIR_PUBLIC_SCRIPTS',    MVC_DIR_PUBLIC . DIRECTORY_SEPARATOR . 'Scripts');
+    define('MVC_DIR_PUBLIC_SHARED',     MVC_DIR_PUBLIC . DIRECTORY_SEPARATOR . 'Shared');
+    define('MVC_DIR_PUBLIC_UPLOADS',    MVC_DIR_PUBLIC . DIRECTORY_SEPARATOR . 'Uploads');
+    define('MVC_DIR_PUBLIC_STYLES',     MVC_DIR_PUBLIC . DIRECTORY_SEPARATOR . 'Styles');
+
+    define('MVC_DIR_PUBLIC_SHARED_IMAGES',  MVC_DIR_PUBLIC_SHARED . DIRECTORY_SEPARATOR . 'Images');
+    define('MVC_DIR_PUBLIC_SHARED_SCRIPTS', MVC_DIR_PUBLIC_SHARED . DIRECTORY_SEPARATOR . 'Scripts');
+    define('MVC_DIR_PUBLIC_SHARED_STYLES',  MVC_DIR_PUBLIC_SHARED . DIRECTORY_SEPARATOR . 'Styles');
+
+
+    include_once 'Core/Exceptions.Core.php';
+
+    use Dandelion\MVC\Core;
     use Dandelion\MVC\Core\Definitions;
     use Dandelion\MVC\Core\Exceptions;
     
@@ -46,12 +106,14 @@ namespace Dandelion\MVC
             throw new ClassNotFoundException($className);
     }
     
+    include_once MVC_DIR_CORE.DIRECTORY_SEPARATOR.'FrontController.php';
+    
     /**
      * Index Class
      * 
      * @internal Front Controller instance for Singleton behavior
      */
-    final class index extends FrontController 
+    final class index extends \Dandelion\MVC\Core\FrontController 
     {
         
         /**
@@ -79,12 +141,14 @@ namespace Dandelion\MVC
 
     try 
     {
-        Dandelion\MVC\index::Main()->Dispatch();
+        index::Main()->Dispatch();
     } 
     catch (Exceptions\SystemExit $e) {unset($e);}
     catch (Exceptions\ClassNotFoundException $e) {echo $e->getMessage();}
-    catch (Exceptions\ConfigurationNotChargedException $e) {echo $e->getMessage();}    
+    catch (Exceptions\ConfigurationNotChargedException $e) {echo $e->getMessage();} 
+    catch (Exceptions\ControllerNotFoundException $e) {echo $e->getMessage();} 
+    catch (Exceptions\ActionNotFoundException $e) {echo $e->getMessage();}
+    catch (Exceptions\ViewNotFoundException $e) {echo $e->getMessage();}
     catch (Exception $e) {echo $e->getMessage();}
     
-}
 ?>
