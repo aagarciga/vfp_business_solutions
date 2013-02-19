@@ -14,6 +14,18 @@ class Request implements Interfaces\IDictionary {
     public $controller;
     public $action;
     private $properties = array();
+    
+    /**
+     *
+     * @var Core\Application
+     */
+    public $Application = null;
+    
+    /**
+     *
+     * @var Core\Nomenclatures\RequestMethod 
+     */
+    public $RequestMethod = null;
 
     /**
      * @ParamType controller string

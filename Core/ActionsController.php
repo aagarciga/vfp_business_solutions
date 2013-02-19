@@ -4,7 +4,7 @@ namespace Dandelion\MVC\Core;
 
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'ApplicationState.php';
+require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationState.php';
 
 /**
  * Description of ActionsController

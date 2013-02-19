@@ -1,6 +1,6 @@
 <?php
 
-namespace Dandelion\MVC\Core;
+namespace Dandelion\MVC\Core\Nomenclatures;
 
 /**
  * Description of ApplicationState 

@@ -2,9 +2,12 @@
 
 namespace Dandelion\MVC\Core;
 
+use Dandelion\MVC\Core\Nomenclatures;
+
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Application.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
+require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
 
 /**
  * Description of FrontController
@@ -55,14 +58,14 @@ class FrontController extends Controller {
             $request = new Request($controller, $action);
 
             foreach ($_GET as $key => $value) {
-                if ($key = "controller" or $key = "action") {
+                if ($key == "controller" or $key == "action") {
                     continue;
                 }
                 $request->$key = $value;
             }
 
-            $request->application = $application;
-            $request->httpMethod = 'GET';
+            $request->Application = $application;
+            $request->RequestMethod = Nomenclatures\RequestMethod::GET();
         }
 
         /**
@@ -83,14 +86,14 @@ class FrontController extends Controller {
             $request = new Request($controller, $action);
 
             foreach ($_POST as $key => $value) {
-                if ($key = "controller" or $key = "action") {
+                if ($key == "controller" or $key == "action") {
                     continue;
                 }
                 $request->$key = $value;
             }
 
-            $request->application = $application;
-            $request->httpMethod = 'POST';
+            $request->Application = $application;
+            $request->RequestMethod = Nomenclatures\RequestMethod::POST();
         }
 
         $this->Forward($request);
