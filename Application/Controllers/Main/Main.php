@@ -3,6 +3,7 @@
 namespace Dandelion\MVC\Application\Controllers;
 
 use Dandelion\MVC\Core;
+use Dandelion\MVC\Core\Exceptions;
 
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'ActionsController.php';
@@ -22,7 +23,7 @@ class Main extends Core\ActionsController {
     protected function PostController(Core\Request $request) {
         echo '<br/>Main Postcontroller Execution. <br/>';
         unset($request);
-        throw new SystemExit(); //Finish script execution cleanly
+        throw new Exceptions\SystemExit(); //Finish script execution cleanly
     }
 
 }

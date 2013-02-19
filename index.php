@@ -10,8 +10,7 @@
      * @license   http://www.opensource.org/licenses/mit-license.php MIT
      * @link      http://www.thedandelionproject.com
      */
-    
-    
+        
     /**
      * 
      * GLOBAL DEFINITIONS
@@ -69,7 +68,6 @@
     include_once 'Core/Exceptions.Core.php';
 
     use Dandelion\MVC\Core;
-    use Dandelion\MVC\Core\Definitions;
     use Dandelion\MVC\Core\Exceptions;
     
     /*
@@ -113,7 +111,7 @@
      * 
      * @internal Front Controller instance for Singleton behavior
      */
-    final class index extends \Dandelion\MVC\Core\FrontController 
+    final class index extends Core\FrontController 
     {
         
         /**
