@@ -16,12 +16,10 @@ class Main extends Core\ActionsController {
 
     protected function PreController(Core\Request $request) {
         echo 'Main Precontroller Execution. <br/>';
-        parent::PreController($request);
     }
 
     protected function PostController(Core\Request $request) {
         echo '<br/>Main Postcontroller Execution. <br/>';
-        parent::PostController($request);
     }
 
 }

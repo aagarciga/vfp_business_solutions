@@ -21,6 +21,7 @@ abstract class ActionsController extends Controller {
      * @throws Exception 
      */
     public final function Dispatch(Request $request = null) {
+        
         //e.g. Index
         $actionName = ucfirst($request->action);
 
@@ -64,7 +65,7 @@ abstract class ActionsController extends Controller {
             $action->PostAction();
         }
     }
-
+    
 }
 
 ?>

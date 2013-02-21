@@ -82,24 +82,43 @@ abstract class Controller implements Interfaces\INameable {
         }
 
         $controller = new $class($request->controller);
-
+        
         $controller->PreController($request);
+        $controller->PreControllerInvocation($request);
         $controller->PostController($request);
+        $controller->PostControllerInvocation($request);
     }
 
     /**
      * @ParamType request Mvc.Core.Request
      * @ReturnType void
      */
-    protected function PreController(Request $request) {
+    protected function PreController(Request $request = null) {
+        ;
+    }
+
+    /**
+     * @ParamType request Mvc.Core.Request
+     * @ReturnType void
+     */
+    protected function PostController(Request $request = null) {
+        ;
+    }
+    
+    /**
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
+     */
+    final private function PreControllerInvocation(Request $request){
         $this->Dispatch($request);
     }
-
+    
     /**
-     * @ParamType request Mvc.Core.Request
-     * @ReturnType void
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
+     * @throws Exceptions\SystemExit
      */
-    protected function PostController(Request $request) {
+    final private function PostControllerInvocation(Request $request){
         unset($request);
         throw new Exceptions\SystemExit(); //Finish script execution cleanly
     }
