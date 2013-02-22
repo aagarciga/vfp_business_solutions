@@ -8,48 +8,47 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationStat
 
 
 /**
- * Description of Controller
+ * Dandelion MVC Controller main concept.
  *
- * @abstract
- * @author Alex Alvarez Gárciga
+ * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
+ * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ * @link        http://www.thedandelionproject.com
  */
 abstract class Controller implements Interfaces\INameable {
 
     /**
-     * 
-     * @AttributeType string
-     * @var string 
+     *
+     * @var string
      */
     private $name;
 
     /**
      * 
-     * @ParamType name string
+     * @param string $name
      */
     function __construct($name) {
         $this->name = ucfirst($name);
     }
 
-    /*
+    /**
      * 
-     * @ReturnType string
+     * @return string
      */
-
     public function __toString() {
         return $this->name;
     }
 
     /**
      * 
-     * @ParamType request Dandelion\Mvc\Core\Request
-     * @ReturnType void 
+     * @param \Dandelion\MVC\Core\Request $request
      */
     public abstract function Dispatch(Request $request = null);
 
     /**
-     *
-     * @param Dandelion\MVC\Core\Request $request
-     * @throws Exception 
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
+     * @throws Exceptions\ControllerNotFoundException
      */
     public final function Forward(Request $request) {
         //e.g. Default
@@ -90,16 +89,16 @@ abstract class Controller implements Interfaces\INameable {
     }
 
     /**
-     * @ParamType request Mvc.Core.Request
-     * @ReturnType void
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
      */
     protected function PreController(Request $request) {
         ;
     }
 
     /**
-     * @ParamType request Mvc.Core.Request
-     * @ReturnType void
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
      */
     protected function PostController(Request $request) {
         ;

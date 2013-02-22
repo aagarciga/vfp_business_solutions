@@ -6,6 +6,7 @@ namespace Dandelion\MVC\Core\Exceptions;
  * 
  * EXCEPTIONS CORE DEFINITIONS
  */
+
 final class SystemExit extends \Exception {
     
 }

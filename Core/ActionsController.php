@@ -7,18 +7,24 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
 require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationState.php';
 
 /**
- * Description of ActionsController
+ * Parent of all Dandelion MVC Application controllers.
  * 
- * @abstract
- * @author Alex Alvarez Gárciga
+ * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
+ * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ * @link        http://www.thedandelionproject.com
  */
 abstract class ActionsController extends Controller {
 
+    public final function __construct($name) {
+        parent::__construct($name);
+    }
+    
     /**
-     *
-     * @ParamType request Dandelion\Mvc\Core\Request
-     * @ReturnType void
-     * @throws Exception 
+     * Dispatcher for Controller's Actions.
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
+     * @throws Exceptions\ActionNotFoundException
      */
     public final function Dispatch(Request $request = null) {
         

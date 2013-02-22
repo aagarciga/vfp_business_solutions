@@ -26,7 +26,7 @@ class Main extends Core\ActionsController {
     protected function PostController(Core\Request $request) {
         echo ' ]';
     }
-
+    
 }
 
 ?>

@@ -10,25 +10,26 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
 
 /**
- * Description of FrontController
+ * Dandelion MVC Front Controller.
  *
- * @author Alex Alvarez Gárciga
+ * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
+ * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ * @link        http://www.thedandelionproject.com
  */
 class FrontController extends Controller {
-    /*
-     * @ParamType name string
-     * @DefaultValue index
-     */
-
-    function __construct($name = 'index') {
-        parent::__construct($name);
-    }
 
     /**
      * 
-     * @param Request $request
-     * @ParamType $request Dandelion\MVC\Core\Request
-     * @ReturnType void
+     * @param string $name
+     */
+    final function __construct($name = 'index') {
+        parent::__construct($name);
+    }
+  
+    /**
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
      * @example index.php?controller=<controller>[&action=<action>][<request:&a=1[&b=2...]>]
      */
     public function Dispatch(Request $request = null) {

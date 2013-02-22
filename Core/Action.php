@@ -43,7 +43,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * 
      * @param Request $request
      */
-    public function __construct(Request $request) {
+    public final function __construct(Request $request) {
         $this->request = $request;
         $this->name = ucfirst($request->action);
         $this->view = new View();
@@ -57,7 +57,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @param mixed $key
      * @param mixed $value
      */
-    public function __set($key, $value) {
+    public final function __set($key, $value) {
         $this->data[$key] = $value;
     }
 
@@ -66,7 +66,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @param mixed $key
      * @return mixed
      */
-    public function __get($key) {
+    public final function __get($key) {
         if (array_key_exists($key, $this->data)) {
             return $this->data[$key];
         };
@@ -87,7 +87,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @param \Dandelion\MVC\Core\Request $request
      */
     public function PreAction(Request $request) {
-        
+        ;
     }
 
     /**
@@ -108,7 +108,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * 
      * @throws Exceptions\ViewNotFoundException
      */
-    public function Render() {
+    final public function Render() {
         $controllerName = ucfirst($this->request->controller);
         
         $viewFile = MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $controllerName . DIRECTORY_SEPARATOR . $this . '.View.php';

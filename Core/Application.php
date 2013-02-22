@@ -6,66 +6,81 @@ require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'XmlConfigurationFile.php';
 
 /**
- * Description of Settings
+ * Define the Dandelion MVC Application object for manage it's instance 
+ * configuration data.
  *
- * @author Alex
+ * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
+ * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ * @link        http://www.thedandelionproject.com
  */
 class Application {
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $name;
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $defaultController = 'default';
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $defaultAction = 'index';
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $dbManager;
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $dbHost;
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $dbUser;
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $dbPassword;
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $dbName;
 
     /**
-     * @AttributeType string
+     *
+     * @var string
      */
     private $state;
 
     /**
-     * @AssociationType Dandelion\Mvc\Core\XmlConfigurationFile
+     * 
+     * @var Dandelion\Mvc\Core\XmlConfigurationFile
      */
     public $configuration;
 
     /**
-     * @ParamType configurationFile string
+     * 
+     * @param string $configurationFile
      */
-    public function __construct($configurationFile = 'settings') {
+    public final function __construct($configurationFile = 'settings') {
 
         $this->configuration = new XmlConfigurationFile($configurationFile);
         $this->name = $this->configuration->Read('Name');
@@ -82,133 +97,153 @@ class Application {
     }
 
     /**
-     * @ReturnType void
+     * Save in hard disk the application instance configuration data.
+     * 
+     * @return void
      */
-    public function Flush() {
+    public final function Flush() {
         //TODO: Not yet implemented
     }
 
     /**
-     * @ParamType name string
+     * 
+     * @param string $name
      */
     public function setName($name) {
         $this->name = $name;
     }
 
     /**
-     * @ReturnType string
+     * 
+     * @return string
      */
     public function getName() {
         return $this->name;
     }
 
     /**
-     * @ParamType defaultController string
+     * 
+     * @param string $defaultController
      */
     public function setDefaultController($defaultController) {
         $this->defaultController = $defaultController;
     }
 
     /**
-     * @ReturnType string
+     * 
+     * @return string
      */
     public function getDefaultController() {
         return $this->defaultController;
     }
 
     /**
-     * @ParamType defaultAction string
+     * 
+     * @param string $defaultAction
      */
     public function setDefaultAction($defaultAction) {
         $this->defaultAction = $defaultAction;
     }
 
     /**
-     * @ReturnType string
+     * 
+     * @return string
      */
     public function getDefaultAction() {
         return $this->defaultAction;
     }
 
     /**
-     * @ParamType dbManager string
+     * 
+     * @param string $dbManager
      */
     public function setDbManager($dbManager) {
         $this->dbManager = $dbManager;
     }
 
-    /**
-     * @ReturnType string
+   /**
+     * 
+     * @return string
      */
     public function getDbManager() {
         return $this->dbManager;
     }
 
     /**
-     * @ParamType dbHost string
+     * 
+     * @param string $dbHost
      */
     public function setDbHost($dbHost) {
         $this->dbHost = $dbHost;
     }
 
     /**
-     * @ReturnType string
+     * 
+     * @return string
      */
     public function getDbHost() {
         return $this->dbHost;
     }
 
     /**
-     * @ParamType dbUser string
+     * 
+     * @param string $dbUser
      */
     public function setDbUser($dbUser) {
         $this->dbUser = $dbUser;
     }
 
     /**
-     * @ReturnType string
+     * 
+     * @return string
      */
     public function getDbUser() {
         return $this->dbUser;
     }
 
     /**
-     * @ParamType dbPassword string
+     * 
+     * @param string $dbPassword
      */
     public function setDbPassword($dbPassword) {
         $this->dbPassword = $dbPassword;
     }
 
     /**
-     * @ReturnType string
+     * 
+     * @return string
      */
     public function getDbPassword() {
         return $this->dbPassword;
     }
 
     /**
-     * @ParamType dbName string
+     * 
+     * @param string $dbName
      */
     public function setDbName($dbName) {
         $this->dbName = $dbName;
     }
 
     /**
-     * @ReturnType string
+     * 
+     * @return string
      */
     public function getDbName() {
         return $this->dbName;
     }
 
     /**
-     * @ParamType state string
+     * 
+     * @param string $state
      */
     public function setState($state) {
         $this->state = $state;
     }
 
     /**
-     * @ReturnType string
+     * 
+     * @return string
      */
     public function getState() {
         return $this->state;
