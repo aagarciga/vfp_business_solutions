@@ -55,14 +55,14 @@ abstract class ActionsController extends Controller {
         //Method Exists Verification aim to optimization...
 
         if (method_exists($action, 'PreAction')) {
-            $action->PreAction();
+            $action->PreAction($request);
         }
 
-        $action->Execute();
+        $action->Execute($request);
         $action->Render();
         
         if (method_exists($action, 'PostAction')) {
-            $action->PostAction();
+            $action->PostAction($request);
         }
     }
     

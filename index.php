@@ -12,10 +12,12 @@ namespace Dandelion\MVC;
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://www.thedandelionproject.com
  */
+
 /**
  * 
  * GLOBAL DEFINITIONS
  */
+
 /**
  * When __DIR__ is not defined, prior 5.3.0
  */
@@ -68,13 +70,10 @@ include_once 'Core/Exceptions.Core.php';
 use Dandelion\MVC\Core;
 use Dandelion\MVC\Core\Exceptions;
 
-/*
- * show off @method
- * 
- * This function is for Auto Class Loader feature. 
+/**
+ * @internal This function is for Auto Class Loader feature. 
  * @internal Please don't modify.
- * 
- * {@internal The Auto Class Loader feature only work for classes in to the
+ * @internal The Auto Class Loader feature only work for classes in to the
  *            __autoload folder list:
  *              MVC_DIR_CORE
  *              MVC_DIR_CORE_DATA
@@ -83,7 +82,7 @@ use Dandelion\MVC\Core\Exceptions;
  *              MVC_DIR_APP_CONTROLLERS
  *              MVC_DIR_APP_LIBRARIES
  *              MVC_DIR_APP_MODELS
- * }}
+ * @ignore
  */
 
 function __autoload($className) {
@@ -108,17 +107,19 @@ function __autoload($className) {
 include_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
 
 /**
- * Index Class
+ * Front Controller instance for Singleton behavior.
  * 
- * @internal Front Controller instance for Singleton behavior
+ * @author    Alex Alvarez Gárciga <aagarciga@gmail.com>
+ * @copyright 2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ * @link      http://www.thedandelionproject.com
  */
 final class index extends Core\FrontController {
 
     /**
-     * Main method
+     * Dispatcher Gateway.
      * 
-     * @internal This method is the Dispatcher Gateway
-     * @return self 
+     * @return \Dandelion\MVC\index
      */
     public static function Main() {
         session_start();
@@ -128,7 +129,7 @@ final class index extends Core\FrontController {
 
 }
 
-/*
+/**
  * Calling to exit() will flush all buffers started by ob_start() 
  * to default output.
  * 

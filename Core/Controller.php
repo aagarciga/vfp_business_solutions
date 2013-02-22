@@ -93,7 +93,7 @@ abstract class Controller implements Interfaces\INameable {
      * @ParamType request Mvc.Core.Request
      * @ReturnType void
      */
-    protected function PreController(Request $request = null) {
+    protected function PreController(Request $request) {
         ;
     }
 
@@ -101,7 +101,7 @@ abstract class Controller implements Interfaces\INameable {
      * @ParamType request Mvc.Core.Request
      * @ReturnType void
      */
-    protected function PostController(Request $request = null) {
+    protected function PostController(Request $request) {
         ;
     }
     

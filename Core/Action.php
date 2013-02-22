@@ -8,37 +8,42 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'View.php';
 
 /**
- * Description of Action
+ * Parent of all Dandelion MVC Application controllers actions.
  *
- * @author Alex
+ * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
+ * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ * @link        http://www.thedandelionproject.com
  */
 abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
 
     /**
-     * @AttributeType string
+     *
+     * @var string 
      */
     private $name;
 
     /**
-     * @AttributeType Array
+     * @var Array
      */
     private $data = array();
 
     /**
-     * @AssociationType Dandelion\Mvc\Core\Request
+     * @var Request
      */
     protected $request;
 
     /**
-     * @AssociationType Dandelion\Mvc\Core\View
+     * @var View
      */
     protected $view;
 
     /**
-     *
-     * @ParamType request Dandelion\Mvc\Core\Request
+     * Constructor for Action object.
+     * 
+     * @param Request $request
      */
-    public function __construct($request) {
+    public function __construct(Request $request) {
         $this->request = $request;
         $this->name = ucfirst($request->action);
         $this->view = new View();
@@ -47,10 +52,20 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
         $this->data['action'] = $request->action;
     }
 
+    /**
+     * @ignore
+     * @param mixed $key
+     * @param mixed $value
+     */
     public function __set($key, $value) {
         $this->data[$key] = $value;
     }
 
+    /**
+     * @ignore
+     * @param mixed $key
+     * @return mixed
+     */
     public function __get($key) {
         if (array_key_exists($key, $this->data)) {
             return $this->data[$key];
@@ -58,32 +73,41 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
     }
 
     /**
-     *
-     * @ReturnType string
+     * Return the Action's name.
+     * 
+     * @return string
+     * @ignore
      */
     public function __toString() {
         return $this->name;
     }
 
     /**
-     * @ParamType request Mvc.Core.Request
+     * Pre Action method.
+     * @param \Dandelion\MVC\Core\Request $request
      */
-    public function PreAction() {
+    public function PreAction(Request $request) {
         
     }
 
     /**
-     * @ParamType request Mvc.Core.Request
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
      */
-    public abstract function Execute();
+    public abstract function Execute(Request $request);
 
     /**
-     * @ParamType request Mvc.Core.Request
+     * 
+     * @param \Dandelion\MVC\Core\Request $request
      */
-    public function PostAction() {
+    public function PostAction(Request $request) {
         
     }
 
+    /**
+     * 
+     * @throws Exceptions\ViewNotFoundException
+     */
     public function Render() {
         $controllerName = ucfirst($this->request->controller);
         
