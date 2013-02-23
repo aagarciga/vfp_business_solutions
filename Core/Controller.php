@@ -8,7 +8,7 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationStat
 
 
 /**
- * Dandelion MVC Controller main concept.
+ * Dandelion MVC main controller concept.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
  * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
@@ -34,6 +34,7 @@ abstract class Controller implements Interfaces\INameable {
     /**
      * 
      * @return string
+     * @ignore
      */
     public function __toString() {
         return $this->name;
@@ -46,6 +47,7 @@ abstract class Controller implements Interfaces\INameable {
     public abstract function Dispatch(Request $request = null);
 
     /**
+     * Redirect to the controller action especified in the request object parameter.
      * 
      * @param \Dandelion\MVC\Core\Request $request
      * @throws Exceptions\ControllerNotFoundException

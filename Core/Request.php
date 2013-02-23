@@ -37,9 +37,9 @@ class Request implements Interfaces\IDictionary {
     /**
      * Contains the MVC Application instance.
      *
-     * @var Core\Application
+     * @var \Dandelion\MVC\Core\Application
      */
-    public $Application = null;
+    public $Application;
     
     /**
      * Contains the request method type. These values can be obtained 
@@ -47,22 +47,25 @@ class Request implements Interfaces\IDictionary {
      * 
      * @var string
      */
-    public $RequestMethod = null;
+    public $RequestMethod;
 
     /**
      * 
      * @param string $controller
      * @param string $action
      */
-    public final function __construct($controller, $action) {
+    public final function __construct($controller, $action, $application = null, $method = null) {
         $this->controller = $controller;
         $this->action = $action;
+        $this->Application = $application;
+        $this->RequestMethod = $method;
     }
 
     /**
      * 
      * @param mixed $key
      * @param mixed $value
+     * @ignore
      */
     public final function __set($key, $value) {
         $this->properties[$key] = $value;
@@ -72,6 +75,7 @@ class Request implements Interfaces\IDictionary {
      * 
      * @param mixed $key
      * @return mixed
+     * @ignore
      */
     public final function __get($key) {
         if (array_key_exists($key, $this->properties))

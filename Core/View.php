@@ -18,7 +18,7 @@ class View {
      * @param string $media
      * @return string
      */
-    public function css($file = style, $media = "All") {
+    public function css($file = 'style', $media = 'All') {
         // Not yet implemented
     }
 
@@ -27,7 +27,7 @@ class View {
      * @param string $file
      * @return string
      */
-    public function js($file = script) {
+    public function js($file = 'script') {
         // Not yet implemented
     }
 
@@ -37,7 +37,7 @@ class View {
      * @param string $extension
      * @return string
      */
-    public function imgUrl($file, $extension = "png") {
+    public function imgUrl($file, $extension = 'png') {
         // Not yet implemented
     }
 
