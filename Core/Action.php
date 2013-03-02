@@ -4,11 +4,12 @@ namespace Dandelion\MVC\Core;
 
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'IDictionary.php';
+require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'View.php';
 
 /**
- * Parent of all Dandelion MVC Application controllers actions.
+ * Dandelion MVC parent of all application controllers actions.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
  * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
@@ -44,12 +45,15 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @param Request $request
      */
     public final function __construct(Request $request) {
-        $this->request = $request;
+        $this->request = $request;        
         $this->name = ucfirst($request->action);
+        if ($request->RequestMethod == Nomenclatures\RequestMethod::POST()) {
+            $this->name .= '_Post';
+        }
         $this->view = new View();
-        $this->data['view'] = $this->view;
-        $this->data['controller'] = $request->controller;
-        $this->data['action'] = $request->action;
+        $this->data['View'] = $this->view;
+        $this->data['Controller'] = $request->controller;
+        $this->data['Action'] = $request->action;
     }
 
     /**
@@ -112,7 +116,6 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
         $controllerName = ucfirst($this->request->controller);
         
         $viewFile = MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $controllerName . DIRECTORY_SEPARATOR . $this . '.View.php';
-
         
         if (is_file($viewFile)) {
             extract($this->data);

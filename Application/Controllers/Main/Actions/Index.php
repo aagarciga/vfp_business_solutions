@@ -25,9 +25,7 @@ class Index extends Core\Action {
 //        $request->application   Dandelion\MVC\Core\Application
 //        $request->httpMethod    string(GET | POST)
 //        $request->controller    especialization of Dandelion\MVC\Core\ActionsController 
-//        $request->action        Dandelion\MVC\Core\Action 
-
-        $this->WelcomeMessage .= 'World';
+//        $request->action        Dandelion\MVC\Core\Action         
     }
 
     public function PreAction(Core\Request $request) {
@@ -35,7 +33,7 @@ class Index extends Core\Action {
          * Preaction Logic Here (Can be empty)
          * Before Execute Action Logic and View Rendering... 
          */
-        $this->WelcomeMessage = 'Hello ';
+        $this->Title = 'Dandelion MVC Application Test';
     }
 
     public function PostAction(Core\Request $request) {
@@ -43,9 +41,8 @@ class Index extends Core\Action {
          * Postaction Logic Here (Can be empty) 
          * After Execute Action Logic and View Rendering ...
          */
-        echo('!!!');
     }
-
+    
 }
 
 ?>

@@ -3,7 +3,7 @@
 namespace Dandelion\MVC\Core;
 
 /**
- * Helper for most commond views related needs.
+ * Dandelion MVC helper for most commond views related needs.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
  * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
@@ -39,6 +39,20 @@ class View {
      */
     public function imgUrl($file, $extension = 'png') {
         // Not yet implemented
+    }
+    
+    /**
+     * 
+     * @param string $controller
+     * @param string $action
+     * @param array $vars
+     */
+    public function action($controller = '', $action = ''){
+        // TODO: Implement
+        $_ = 'index.php?';
+        $_ .= !($controller == '') ? "controller=$controller" : '';
+        $_ .= !($action == '') ? "&action=$action" : '';
+         return $_;
     }
 
 }

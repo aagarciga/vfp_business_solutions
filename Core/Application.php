@@ -6,7 +6,7 @@ require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'XmlConfigurationFile.php';
 
 /**
- * Define the Dandelion MVC Application object for manage it's instance 
+ * Dandelion MVC application definition object for manage it's instance 
  * configuration data.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>

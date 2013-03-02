@@ -15,18 +15,6 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'ActionsController.php';
  */
 class Main extends Core\ActionsController {
 
-    protected function PreController(Core\Request $request) {
-        echo '<strong> HTTP Method: </strong>'.$request->RequestMethod.'<br/>';
-        echo '<strong> Controller: </strong>'.$request->controller.'<br/>';
-        echo '<strong> Action: </strong>'.$request->action.'<br/>';
-        echo '<br/>';
-        echo '[ ';
-    }
-
-    protected function PostController(Core\Request $request) {
-        echo ' ]';
-    }
-    
 }
 
 ?>

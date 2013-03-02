@@ -5,9 +5,10 @@ namespace Dandelion\MVC\Core;
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
 require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationState.php';
+require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
 
 /**
- * Parent of all Dandelion MVC Application controllers.
+ * Dandelion MVC parent of all application controllers.
  * 
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
  * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
@@ -28,8 +29,12 @@ abstract class ActionsController extends Controller {
      */
     public final function Dispatch(Request $request = null) {
         
-        //e.g. Index
+//e.g. Index
         $actionName = ucfirst($request->action);
+        if ($request->RequestMethod == Nomenclatures\RequestMethod::POST()) {
+            //e.g. Index_Post
+            $actionName .= '_Post'; 
+        }
 
         //e.g. App/Controllers/Default/Actions/Index.php
         $classFile = MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . 'Actions' . DIRECTORY_SEPARATOR . $actionName . '.php';
