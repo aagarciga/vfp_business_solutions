@@ -5,9 +5,9 @@
         <title><?php echo $Title; ?></title>
     </head>
     <body>
-        <form name="Form1" action="<?php echo $View->action($Controller);?>" method="POST">
+        <form name="Form1" action="<?php echo $View->Action($Controller);?>" method="POST">
             <label for="Name">Your name?</label>
-            <input type="text" name="Name" value="" />
+            <input type="text" name="Name" value="" id="Name" />
             <input type="submit" value="Send" />
         </form>        
     </body>

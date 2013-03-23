@@ -17,20 +17,22 @@ class Index extends Core\Action {
 
     /**
      *
-     * @param Dandelion\MVC\Core\Request $request 
+     * @param \Dandelion\MVC\Core\Request $request
+     * @internal param $
+     * @return void
      */
     public function Execute(Core\Request $request) {
 //        Action logic here (Can be empty)
-//        Some Importan request values:
+//        Some Important request values:
 //        $request->application   Dandelion\MVC\Core\Application
 //        $request->httpMethod    string(GET | POST)
-//        $request->controller    especialization of Dandelion\MVC\Core\ActionsController 
+//        $request->controller    Especialization of Dandelion\MVC\Core\ActionsController
 //        $request->action        Dandelion\MVC\Core\Action         
     }
 
     public function PreAction(Core\Request $request) {
         /**
-         * Preaction Logic Here (Can be empty)
+         * PreAction Logic Here (Can be empty)
          * Before Execute Action Logic and View Rendering... 
          */
         $this->Title = 'Dandelion MVC Application Test';
@@ -38,7 +40,7 @@ class Index extends Core\Action {
 
     public function PostAction(Core\Request $request) {
         /**
-         * Postaction Logic Here (Can be empty) 
+         * PostAction Logic Here (Can be empty)
          * After Execute Action Logic and View Rendering ...
          */
     }

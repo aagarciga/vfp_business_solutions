@@ -16,7 +16,7 @@ class XmlConfigurationFile {
 
     /**
      * 
-     * @var DOMDocument
+     * @var \DOMDocument
      */
     private $xmlDocument;
 
@@ -63,7 +63,7 @@ class XmlConfigurationFile {
         if ($node != null) {
             return $node->nodeValue;
         }
-        return 'Unknow';
+        return 'Unknown';
     }
 
 }

@@ -2,6 +2,8 @@
 
 namespace Dandelion\MVC\Core;
 
+use Dandelion\MVC\Core\Nomenclatures\ApplicationState;
+
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'IDictionary.php';
 require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
@@ -74,6 +76,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
         if (array_key_exists($key, $this->data)) {
             return $this->data[$key];
         };
+        return null;
     }
 
     /**

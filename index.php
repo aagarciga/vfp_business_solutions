@@ -101,7 +101,7 @@ function __autoload($className) {
     else if (is_file(MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php'))
         require_once MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php';
     else
-        throw new ClassNotFoundException($className);
+        throw new Exceptions\ClassNotFoundException($className);
 }
 
 include_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
@@ -152,7 +152,7 @@ try {
     echo $e->getMessage();
 } catch (Exceptions\ViewNotFoundException $e) {
     echo $e->getMessage();
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage();
 }
 ?>

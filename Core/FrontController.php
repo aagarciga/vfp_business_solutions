@@ -36,7 +36,7 @@ class FrontController extends Controller {
 
         $application = new Application();
 
-        $controller = "";
+
         $action = null;
         $request = null;
 

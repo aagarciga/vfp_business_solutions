@@ -2,6 +2,8 @@
 
 namespace Dandelion\MVC\Core;
 
+use Dandelion\MVC\Core\XmlConfigurationFile;
+
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'XmlConfigurationFile.php';
 
@@ -72,7 +74,7 @@ class Application {
 
     /**
      * 
-     * @var Dandelion\Mvc\Core\XmlConfigurationFile
+     * @var \Dandelion\Mvc\Core\XmlConfigurationFile
      */
     public $configuration;
 

@@ -13,10 +13,12 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
  * @ignore
  */
 class Index_Post extends Core\Action{
+
     public function Execute(Core\Request $request) {
         $this->Title = 'Dandelion MVC Application Test';
         $this->Name = $request->Name;
     }
+
 }
 
 ?>

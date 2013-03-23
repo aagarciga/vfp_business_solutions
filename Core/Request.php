@@ -50,9 +50,11 @@ class Request implements Interfaces\IDictionary {
     public $RequestMethod;
 
     /**
-     * 
+     *
      * @param string $controller
      * @param string $action
+     * @param null $application
+     * @param null $method
      */
     public final function __construct($controller, $action, $application = null, $method = null) {
         $this->controller = $controller;
@@ -80,6 +82,7 @@ class Request implements Interfaces\IDictionary {
     public final function __get($key) {
         if (array_key_exists($key, $this->properties))
             return $this->properties[$key];
+        return null;
     }
 
 }

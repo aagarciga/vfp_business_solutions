@@ -2,6 +2,8 @@
 
 namespace Dandelion\MVC\Core;
 
+use Dandelion\MVC\Core\Nomenclatures\ApplicationState;
+
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
 require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationState.php';
@@ -52,6 +54,7 @@ abstract class Controller implements Interfaces\INameable {
      * @param \Dandelion\MVC\Core\Request $request
      * @throws Exceptions\ControllerNotFoundException
      */
+    //TODO: change Controller Forward to static method
     public final function Forward(Request $request) {
         //e.g. Default
         $controllerName = ucfirst($request->controller);
