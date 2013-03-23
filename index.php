@@ -3,7 +3,7 @@
 namespace Dandelion\MVC;
 
 /**
- * Dandelion MVC
+ * Dandelion MVC 1.0.0.11
  * 
  * PHP Version 5.3
  * 
