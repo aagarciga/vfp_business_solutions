@@ -42,7 +42,7 @@ abstract class ActionsController extends Controller {
         $classFile = MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . 'Actions' . DIRECTORY_SEPARATOR . $actionName . '.php';
 
         if (!is_file($classFile)) {
-            if ($request->application->getState() == ApplicationState::Development()) {
+            if ($request->Application->getState() == ApplicationState::Development()) {
                 throw new Exceptions\ActionNotFoundException($actionName);
                 //TODO: Debug error information 
             } else {
@@ -55,7 +55,7 @@ abstract class ActionsController extends Controller {
         $class = "Dandelion\\MVC\\Application\\Controllers\\$this\\Actions\\$actionName";
 
         if (!class_exists($class)) {
-            if ($request->application->getState() == ApplicationState::Development()) {
+            if ($request->Application->getState() == ApplicationState::Development()) {
                 throw new Exceptions\ActionNotFoundException($actionName);
                 //TODO: Debug error information.
             } else {

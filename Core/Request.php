@@ -74,8 +74,9 @@ class Request implements Interfaces\IDictionary {
     }
 
     /**
-     * 
+     *
      * @param mixed $key
+     * @throws Exceptions\PropertyNotFoundException
      * @return mixed
      * @ignore
      */

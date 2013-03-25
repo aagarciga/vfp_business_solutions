@@ -71,6 +71,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
     /**
      * @ignore
      * @param mixed $key
+     * @throws Exceptions\PropertyNotFoundException
      * @return mixed
      */
     public final function __get($key) {
@@ -125,7 +126,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
             extract($this->data);
             include $viewFile;
         } else {
-            if ($this->request->application->getState() == ApplicationState::Development()) {
+            if ($this->request->Application->getState() == ApplicationState::Development()) {
                 throw new Exceptions\ViewNotFoundException($this);
                 //TODO: Debug error information 
             } else {

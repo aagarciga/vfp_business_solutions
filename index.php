@@ -121,7 +121,10 @@ include_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
  * @link      http://www.thedandelionproject.com
  */
 final class index extends Core\FrontController {
-
+    
+    static private $instance = null;
+    static private $sessions = 0;
+    
     /**
      * Dispatcher Gateway.
      * 
@@ -130,7 +133,12 @@ final class index extends Core\FrontController {
     public static function Main() {
         session_start();
         error_reporting(E_ALL);
-        return new index();
+        
+        if (self::$instance == null) {
+            self::$instance = new index();
+        }
+
+        return self::$instance;
     }
 
 }

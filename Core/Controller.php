@@ -64,7 +64,7 @@ abstract class Controller implements Interfaces\INameable {
 
         if (!is_file($classFile)) {
 
-            if ($request->application->getState() == ApplicationState::Development()) {
+            if ($request->Application->getState() == ApplicationState::Development()) {
                 throw new Exceptions\ControllerNotFoundException($controllerName);
                 //TODO: Debug error information 
             } else {
@@ -77,7 +77,7 @@ abstract class Controller implements Interfaces\INameable {
         $class = "Dandelion\\MVC\\Application\\Controllers\\$controllerName";
 
         if (!class_exists($class)) {
-            if ($request->application->getState() == ApplicationState::Development()) {
+            if ($request->Application->getState() == ApplicationState::Development()) {
                 throw new Exceptions\ControllerNotFoundException($controllerName);
                 //TODO: Debug error information.
             } else {

@@ -26,6 +26,10 @@ class FrontController extends Controller {
     final function __construct($name = 'index') {
         parent::__construct($name);
     }
+    
+    final function __clone() {
+        ;
+    }
   
     /**
      * 
