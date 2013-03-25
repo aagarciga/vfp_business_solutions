@@ -3,7 +3,7 @@
 namespace Dandelion\MVC;
 
 /**
- * Dandelion MVC 1.0.0.11
+ * Dandelion MVC 1.0.0.12
  * 
  * PHP Version 5.3
  * 
@@ -63,6 +63,12 @@ define('MVC_DIR_PUBLIC_STYLES', MVC_DIR_PUBLIC . DIRECTORY_SEPARATOR . 'Styles')
 define('MVC_DIR_PUBLIC_SHARED_IMAGES', MVC_DIR_PUBLIC_SHARED . DIRECTORY_SEPARATOR . 'Images');
 define('MVC_DIR_PUBLIC_SHARED_SCRIPTS', MVC_DIR_PUBLIC_SHARED . DIRECTORY_SEPARATOR . 'Scripts');
 define('MVC_DIR_PUBLIC_SHARED_STYLES', MVC_DIR_PUBLIC_SHARED . DIRECTORY_SEPARATOR . 'Styles');
+
+/**
+ *
+ * SETTINGS DEFINITIONS
+ */
+define('MVC_SETTINGS_INSTANCE', 'Application');
 
 
 include_once 'Core/Exceptions.Core.php';
