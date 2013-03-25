@@ -82,7 +82,7 @@ class Request implements Interfaces\IDictionary {
     public final function __get($key) {
         if (array_key_exists($key, $this->properties))
             return $this->properties[$key];
-        return null;
+        throw new Exceptions\PropertyNotFoundException($this, $key);
     }
 
 }

@@ -72,4 +72,12 @@ final class ViewNotFoundException extends \Exception {
 
 }
 
+final class PropertyNotFoundException extends \Exception{
+    
+    public function __construct($class, $property) {
+        $this->message = "$class haven't a property named $property."; 
+        parent::__construct();
+    }
+}
+
 ?>
