@@ -14,7 +14,13 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'ActionsController.php';
  * @ignore
  */
 class Main extends Core\ActionsController {
-
+    protected function PostController(Core\Request $request) {
+        parent::PostController($request);
+        
+        echo "<br />";
+        echo "<hr />";
+        echo "<small>Powered by Dandelion MVC ". MVC_VERSION . "</small>";
+    }
 }
 
 ?>

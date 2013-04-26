@@ -65,18 +65,23 @@ abstract class ActionsController extends Controller {
 
         $action = new $class($request);
 
-        //Method Exists Verification aim to optimization...
-
         if (method_exists($action, 'PreAction')) {
             $action->PreAction($request);
         }
-
-        $action->Execute($request);
-        $action->Render();
         
+        $canRender = true;
+        if ($action->Execute($request) == null) {
+            $canRender = true;
+        }
+                
         if (method_exists($action, 'PostAction')) {
             $action->PostAction($request);
         }
+        
+        if ($canRender) {
+            $action->Render();
+        }
+        
     }
     
 }

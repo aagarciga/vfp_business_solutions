@@ -9,6 +9,6 @@
             <label for="Name">Your name?</label>
             <input type="text" name="Name" value="" id="Name" />
             <input type="submit" value="Send" />
-        </form>        
+        </form>   
     </body>
 </html>
