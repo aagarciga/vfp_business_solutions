@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE Application SYSTEM "settings.dtd">
+
+    <Application>
+    ...
+    </Application>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Application (DB)*>
+<!ATTLIST Application
+    State CDATA #IMPLIED
+    Action CDATA #IMPLIED
+    Controller CDATA #IMPLIED
+    Name CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT DB EMPTY>
+<!ATTLIST DB
+    Password CDATA #IMPLIED
+    User CDATA #IMPLIED
+    Host CDATA #IMPLIED
+    Manager CDATA #IMPLIED
+    Name CDATA #IMPLIED
+  >
