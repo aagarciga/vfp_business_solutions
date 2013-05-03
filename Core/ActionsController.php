@@ -3,6 +3,7 @@
 namespace Dandelion\MVC\Core;
 
 use Dandelion\MVC\Core\Nomenclatures\ApplicationState;
+use Dandelion\MVC\Core\Exceptions\ViewNotFoundException;
 
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
@@ -31,8 +32,8 @@ abstract class ActionsController extends Controller {
      */
     public final function Dispatch(Request $request = null) {
         
-//e.g. Index
-        $actionName = ucfirst($request->action);
+        //e.g. Index
+        $actionName = ucfirst($request->Action);
         if ($request->RequestMethod == Nomenclatures\RequestMethod::POST()) {
             //e.g. Index_Post
             $actionName .= '_Post'; 
@@ -66,22 +67,45 @@ abstract class ActionsController extends Controller {
         $action = new $class($request);
 
         if (method_exists($action, 'PreAction')) {
-            $action->PreAction($request);
+            $action->PreAction();
         }
         
         $canRender = true;
-        if ($action->Execute($request) == null) {
+        if ($action->Execute() == null) {
             $canRender = true;
         }
                 
         if (method_exists($action, 'PostAction')) {
-            $action->PostAction($request);
+            $action->PostAction();
         }
         
         if ($canRender) {
-            $action->Render();
+           $this->Render($action);
         }
         
+    }
+    
+    /**
+     * 
+     * 
+     * @throws Exceptions\ViewNotFoundException
+     */
+    private final function Render(Action $action) {
+        $controllerName = ucfirst($action->Request->Controller);
+        $viewFile = MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $controllerName . DIRECTORY_SEPARATOR . $action . '.View.php';
+        
+        if (is_file($viewFile)) {
+            extract($action->Data());
+            include $viewFile;
+        }
+        else {
+            if ($action->Request->Application->getState() == ApplicationState::Development()) {
+                throw new ViewNotFoundException($this);
+                //TODO: Debug error information 
+            } else {
+                header("Status: 404 Not Found");
+            }
+        }
     }
     
 }

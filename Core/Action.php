@@ -33,14 +33,15 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
     private $data = array();
 
     /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
      * @var View
      */
     protected $view;
+    
+    /**
+     * @var Request
+     */
+    public $Request;
+
 
     /**
      * Constructor for Action object.
@@ -48,15 +49,15 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @param Request $request
      */
     public final function __construct(Request $request) {
-        $this->request = $request;        
-        $this->name = ucfirst($request->action);
+        $this->Request = $request;        
+        $this->name = ucfirst($request->Action);
         if ($request->RequestMethod == Nomenclatures\RequestMethod::POST()) {
             $this->name .= '_Post';
         }
         $this->view = new View();
         $this->data['View'] = $this->view;
-        $this->data['Controller'] = $request->controller;
-        $this->data['Action'] = $request->action;
+        $this->data['Controller'] = $request->Controller;
+        $this->data['Action'] = $request->Action;
     }
 
     /**
@@ -90,49 +91,36 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
     public function __toString() {
         return $this->name;
     }
-
+    
     /**
-     * Pre Action method.
-     * @param \Dandelion\MVC\Core\Request $request
+     * 
+     * 
+     * @return Array
      */
-    public function PreAction(Request $request) {
-        ;
+    public function Data(){
+        return $this->data;
     }
 
-    /**
-     * 
-     * @param \Dandelion\MVC\Core\Request $request
-     */
-    public abstract function Execute(Request $request);
+    public function PreAction() {}
 
-    /**
-     * 
-     * @param \Dandelion\MVC\Core\Request $request
-     */
-    public function PostAction(Request $request) {
-        
-    }
+    public abstract function Execute();
 
+    public function PostAction() {}
+       
     /**
      * 
-     * @throws Exceptions\ViewNotFoundException
+     * 
+     * @param string $controller Controller name
+     * @param string $action Action name
      */
-    final public function Render() {
-        $controllerName = ucfirst($this->request->controller);
+    public final function Redirect($controller, $action = 'index') {
         
-        $viewFile = MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $controllerName . DIRECTORY_SEPARATOR . $this . '.View.php';
+        $this->Request->Controller = $controller;
+        $this->Request->Action = $action;
         
-        if (is_file($viewFile)) {
-            extract($this->data);
-            include $viewFile;
-        } else {
-            if ($this->request->Application->getState() == ApplicationState::Development()) {
-                throw new Exceptions\ViewNotFoundException($this);
-                //TODO: Debug error information 
-            } else {
-                header("Status: 404 Not Found");
-            }
-        }
+        $controller = new FrontController();
+        $controller->Redirect($this->Request);
+        unset($controller);
     }
 
 }

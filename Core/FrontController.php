@@ -100,7 +100,7 @@ class FrontController extends Controller {
             $request->RequestMethod = Nomenclatures\RequestMethod::POST();
         }
 
-        $this->Forward($request);
+        $this->Redirect($request);
     }
 
 }

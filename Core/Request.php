@@ -2,7 +2,11 @@
 
 namespace Dandelion\MVC\Core;
 
+use Dandelion\MVC\Core\Interfaces;
+use Dandelion\MVC\Core\Nomenclatures;
+
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'IDictionary.php';
+require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
 
 /**
  * Dandelion MVC request definition.
@@ -19,14 +23,14 @@ class Request implements Interfaces\IDictionary {
      * 
      * @var string 
      */
-    public $controller;
+    public $Controller;
     
     /**
      * Contains the action name.
      * 
      * @var string
      */
-    public $action;
+    public $Action;
     
     /**
      *
@@ -57,8 +61,8 @@ class Request implements Interfaces\IDictionary {
      * @param null $method
      */
     public final function __construct($controller, $action, $application = null, $method = null) {
-        $this->controller = $controller;
-        $this->action = $action;
+        $this->Controller = $controller;
+        $this->Action = $action;
         $this->Application = $application;
         $this->RequestMethod = $method;
     }
@@ -85,7 +89,14 @@ class Request implements Interfaces\IDictionary {
             return $this->properties[$key];
         throw new Exceptions\PropertyNotFoundException($this, $key);
     }
-
+    
+    //TODO: Gets the collection of form variables that were sent by the client.
+    function Form() {
+        if ($this->RequestMethod == Nomenclatures\RequestMethod::POST()) {
+            //...
+        }
+    }
+    
 }
 
 ?>

@@ -54,10 +54,9 @@ abstract class Controller implements Interfaces\INameable {
      * @param \Dandelion\MVC\Core\Request $request
      * @throws Exceptions\ControllerNotFoundException
      */
-    //TODO: change Controller Forward to static method
-    public final function Forward(Request $request) {
+    public final function Redirect(Request $request) {
         //e.g. Default
-        $controllerName = ucfirst($request->controller);
+        $controllerName = ucfirst($request->Controller);
 
         //e.g. Application/Controller/Default/Default.Controller.php
         $classFile = MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $controllerName . DIRECTORY_SEPARATOR . $controllerName . '.php';
@@ -85,7 +84,7 @@ abstract class Controller implements Interfaces\INameable {
             }
         }
 
-        $controller = new $class($request->controller);
+        $controller = new $class($request->Controller);
         
         $controller->PreController($request);
         $controller->PreControllerInvocation($request);

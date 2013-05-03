@@ -2,9 +2,9 @@
 
 namespace Dandelion\MVC;
 
-define('MVC_VERSION', "1.0.0.13");
+define('MVC_VERSION', "1.0.0.14");
 /**
- * Dandelion MVC 1.0.0.12
+ * Dandelion MVC 1.0.0.14
  * 
  * PHP Version 5.3
  * 
@@ -124,7 +124,6 @@ include_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
 final class index extends Core\FrontController {
     
     static private $instance = null;
-    static private $sessions = 0;
     
     /**
      * Dispatcher Gateway.
