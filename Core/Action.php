@@ -2,7 +2,7 @@
 
 namespace Dandelion\MVC\Core;
 
-use Dandelion\MVC\Core\Nomenclatures\ApplicationState;
+use Dandelion\MVC\Core\Nomenclatures;
 use Dandelion\MVC\Core\Exceptions;
 
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
@@ -54,7 +54,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
         if ($request->RequestMethod == Nomenclatures\RequestMethod::POST()) {
             $this->name .= '_Post';
         }
-        $this->view = new View();
+        $this->view = new View($this);
         $this->data['View'] = $this->view;
         $this->data['Controller'] = $request->Controller;
         $this->data['Action'] = $request->Action;
