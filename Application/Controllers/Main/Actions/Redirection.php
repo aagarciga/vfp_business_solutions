@@ -12,7 +12,7 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
 class Redirection extends Core\Action {
 
     public function Execute() {
-        $this->Redirect('main');
+        $this->Redirect('Main');
     }
    
 }

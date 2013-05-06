@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
 <!DOCTYPE Application SYSTEM "settings.dtd">
-<Application Name="mvc" Controller="main" Action="index" State="Development">
+<Application Name="Dandelion MVC" Controller="main" Action="index" State="Development">
     <DB Name="" Manager="MySQLDriver" Host="localhost" User="root" Password=""/>
 </Application>

@@ -58,14 +58,20 @@ class View {
      * @internal param array $vars
      */
     public function FormAction($controller = '', $action = ''){
-        // TODO: Implement
         $_ = 'index.php?';
         $_ .= !($controller == '') ? "controller=$controller" : '';
         $_ .= !($action == '') ? "&action=$action" : '';
         return $_;
     }
     
-    
+    public function Href($controller = '', $action = ''){
+        // TODO: Implement
+        $_ = 'index.php?';
+        $_ .= !($controller == '') ? "controller=$controller" : '';
+        $_ .= !($action == '') ? "&action=$action" : '';
+        return $_;
+    }
+        
     /**
      * Renders a partial view.
      * 
@@ -150,6 +156,52 @@ class View {
             extract($this->action->Data());
             include $context . $prefix . $fileName . $posfix;
         }
+    }
+    
+    /**
+     * Put an image in Dandelion MVC Public context for using it in markup.
+     * 
+     * @param string $file The file or file path relative to Dandelion MVC Public context.
+     * @return string The relative path to the Dandelion MVC Public context localization.
+     */
+    public function PublicContext($file = ''){
+        return MVC_DIR_PUBLIC . '/' . $file;
+    }
+    
+    /**
+     * Put an image in Dandelion MVC Image context for using it in markup.
+     * 
+     * Example:
+     * <pre>
+     *  echo $View->ImagesContext('image.jpg'); // Is the same of:
+     *  echo $View->ImagesContext().'image.jpg';
+     * </pre>
+     * 
+     * @param string $image The image or image path relative to Dandelion MVC Image context.
+     * @return string The relative path to the Dandelion MVC Image context localization.
+     */
+    public function ImagesContext($image = ''){
+        return MVC_DIR_PUBLIC_IMAGES . '/' . $image;
+    }
+    
+    public function SharedImagesContext($image = ''){
+        return MVC_DIR_PUBLIC_SHARED_IMAGES . '/' . $image;
+    }
+    
+    public function StylesContext($style = ''){
+        return MVC_DIR_PUBLIC_STYLES . '/' . $style;
+    }
+    
+    public function SharedStylesContext($style = ''){
+        return MVC_DIR_PUBLIC_SHARED_STYLES . '/' . $style;
+    }
+    
+    public function ScriptsContext($script = ''){
+        return MVC_DIR_PUBLIC_SCRIPTS . '/' . $script;
+    }
+    
+    public function SharedScriptsContext($script = ''){
+        return MVC_DIR_PUBLIC_SHARED_SCRIPTS . '/' . $script;
     }
 }
 

@@ -58,6 +58,8 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
         $this->data['View'] = $this->view;
         $this->data['Controller'] = $request->Controller;
         $this->data['Action'] = $request->Action;
+        $this->data['Application'] = $request->Application;
+        $this->data['Request'] = $request;
     }
 
     /**

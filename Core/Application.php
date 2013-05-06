@@ -2,6 +2,8 @@
 
 namespace Dandelion\MVC\Core;
 
+use Dandelion\MVC\Core\Interfaces\INameable;
+
 require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
 
 /**
@@ -13,7 +15,7 @@ require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  */
-class Application {
+class Application implements INameable {
 
     //TODO: Do Application multiple DB settings support.
 
@@ -31,6 +33,11 @@ class Application {
     public final function __construct($settingsFile = 'settings') {
         $xmlFilePath = MVC_DIR_APP_DATA . DIRECTORY_SEPARATOR . $settingsFile . '.xml';
         $this->settings = simplexml_load_file($xmlFilePath);
+    }
+    
+    public function __toString() {
+        
+        return (string) $this->settings['Name'];
     }
 
     /**

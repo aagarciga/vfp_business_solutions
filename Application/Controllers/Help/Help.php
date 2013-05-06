@@ -13,7 +13,7 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'ActionsController.php';
  * @author Alex Alvarez Gárciga
  * @ignore
  */
-class Main extends ActionsController {
+class Help extends ActionsController {
 
 }
 

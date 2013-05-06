@@ -12,7 +12,7 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
 class Index extends Core\Action {
 
     public function Execute() {
-        
+
     }
 
     public function PreAction() {
