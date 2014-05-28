@@ -180,6 +180,14 @@ class Application implements INameable {
     }
 
     /**
+     *
+     * @return string
+     */
+    public function getDefaultDbServerType() {
+        return isset($this->settings->DB[0]['ServerType'])? $this->settings->DB[0]['ServerType'] : 'Remote';
+    }
+
+    /**
      * 
      * @param string $state
      */
@@ -193,6 +201,13 @@ class Application implements INameable {
      */
     public function getState() {
         return $this->settings['State'];
+    }
+
+    /**
+     * @return \SimpleXMLElement[]
+     */
+    public function getDBSettingsCollection(){
+        return $this->settings->DB;
     }
 
 }

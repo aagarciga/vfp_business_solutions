@@ -7,7 +7,7 @@
 	<title>Class Dandelion\MVC\Core\Application | Dandelion MVC</title>
 
 	<script type="text/javascript" src="resources/combined.js?1741819518"></script>
-	<script type="text/javascript" src="elementlist.js?63647721"></script>
+	<script type="text/javascript" src="elementlist.js?1738959823"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -25,24 +25,17 @@
 						<ul>
 				<li class="active"><a href="namespace-Dandelion.MVC.html">MVC<span></span></a>
 						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.html">Application<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.html">Controllers<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.Main.html">Main<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.Main.Actions.html">Actions</a>
-						</li>
-							</ul></li></ul></li></ul></li>
 				<li class="active"><a href="namespace-Dandelion.MVC.Core.html">Core<span></span></a>
 						<ul>
 				<li><a href="namespace-Dandelion.MVC.Core.Exceptions.html">Exceptions</a>
 						</li>
 				<li><a href="namespace-Dandelion.MVC.Core.Interfaces.html">Interfaces</a>
 						</li>
-				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.html">Nomenclatures</a>
+				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.html">Nomenclatures<span></span></a>
+						<ul>
+				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.MIMETypes.html">MIMETypes</a>
 						</li>
-							</ul></li></ul></li></ul></li>
+							</ul></li></ul></li></ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -61,7 +54,6 @@
 				<li><a href="class-Dandelion.MVC.Core.FrontController.html">FrontController</a></li>
 				<li><a href="class-Dandelion.MVC.Core.Request.html">Request</a></li>
 				<li><a href="class-Dandelion.MVC.Core.View.html">View</a></li>
-				<li><a href="class-Dandelion.MVC.Core.XmlConfigurationFile.html">XmlConfigurationFile</a></li>
 			</ul>
 
 
@@ -109,7 +101,8 @@
 
 	<div class="description">
 	
-<p>Description of Settings</p>
+<p>Dandelion MVC application definition object for manage it's instance
+configuration data.</p>
 
 	</div>
 
@@ -127,9 +120,17 @@
 		<b>Namespace:</b> <a href="namespace-Dandelion.html">Dandelion</a>\<a href="namespace-Dandelion.MVC.html">MVC</a>\<a href="namespace-Dandelion.MVC.Core.html">Core</a><br />
 		
 
+				<b>Copyright:</b>
+				2011-2013 Alex Alvarez Gárciga / Dandelion (<a
+href="http://www.thedandelionproject.com">http://www.thedandelionproject.com</a>)<br />
+				<b>License:</b>
+				<a href="http://www.opensource.org/licenses/mit-license.php">MIT</a><br />
 				<b>Author:</b>
-				Alex<br />
-		<b>Located at</b> <a href="source-class-Dandelion.MVC.Core.Application.html#8-217" title="Go to source code">Core/Application.php</a><br />
+				Alex Alvarez Gárciga &lt;<a
+href="mailto:aagarciga&#64;gmail.com">aagarciga&#64;<!---->gmail.com</a>&gt;<br />
+				<b>Link:</b>
+				<a href="http://www.thedandelionproject.com">http://www.thedandelionproject.com</a><br />
+		<b>Located at</b> <a href="source-class-Dandelion.MVC.Core.Application.html#7-191" title="Go to source code">Core/Application.php</a><br />
 	</div>
 
 
@@ -139,7 +140,7 @@
 	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
-			 public 
+			final public 
 			
 			
 			</code>
@@ -147,7 +148,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#65-82" title="Go to source code">__construct</a>( <span>mixed <var>$configurationFile</var> = <span class="php-quote">'settings'</span></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#26-34" title="Go to source code">__construct</a>( <span>string <var>$settingsFile</var> = <span class="php-quote">'settings'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -157,13 +158,14 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$settingsFile</var></dt>
+					<dd><code>string</code><br>$settingsFile settings</dd>
+				</dl></div>
 
 
 
-				<h4>ParamType</h4>
-				<div class="list">
-						configurationFile string<br />
-				</div>
 
 
 		</div>
@@ -172,7 +174,7 @@
 	<tr data-order="Flush" id="_Flush">
 
 		<td class="attributes"><code>
-			 public 
+			final public 
 			
 			
 			</code>
@@ -180,23 +182,28 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Flush">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#84-89" title="Go to source code">Flush</a>( )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#36-45" title="Go to source code">Flush</a>( <span>string <var>$settingsFile</var> = <span class="php-quote">'settings'</span></span> )</code>
 
 		<div class="description short">
 			
+<p>Save in hard disk the application instance configuration data.</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Save in hard disk the application instance configuration data.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$settingsFile</var></dt>
+					<dd><code>string</code><br>$settingsFile settings</dd>
+				</dl></div>
 
 
-				<h4>ReturnType</h4>
-				<div class="list">
-						void<br />
-				</div>
+
 
 
 		</div>
@@ -213,7 +220,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setName">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#91-96" title="Go to source code">setName</a>( <span>mixed <var>$name</var></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#47-53" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -223,13 +230,14 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name</dd>
+				</dl></div>
 
 
 
-				<h4>ParamType</h4>
-				<div class="list">
-						name string<br />
-				</div>
 
 
 		</div>
@@ -239,14 +247,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#98-103" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#55-61" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			
@@ -257,12 +265,12 @@
 
 
 
-
-
-				<h4>ReturnType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
@@ -279,7 +287,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDefaultController">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#105-110" title="Go to source code">setDefaultController</a>( <span>mixed <var>$defaultController</var></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#63-69" title="Go to source code">setDefaultController</a>( <span>string <var>$defaultController</var></span> )</code>
 
 		<div class="description short">
 			
@@ -289,13 +297,14 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$defaultController</var></dt>
+					<dd><code>string</code><br>$defaultController</dd>
+				</dl></div>
 
 
 
-				<h4>ParamType</h4>
-				<div class="list">
-						defaultController string<br />
-				</div>
 
 
 		</div>
@@ -305,14 +314,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDefaultController">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#112-117" title="Go to source code">getDefaultController</a>( )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#71-77" title="Go to source code">getDefaultController</a>( )</code>
 
 		<div class="description short">
 			
@@ -323,12 +332,12 @@
 
 
 
-
-
-				<h4>ReturnType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
@@ -345,7 +354,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDefaultAction">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#119-124" title="Go to source code">setDefaultAction</a>( <span>mixed <var>$defaultAction</var></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#79-85" title="Go to source code">setDefaultAction</a>( <span>string <var>$defaultAction</var></span> )</code>
 
 		<div class="description short">
 			
@@ -355,13 +364,14 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$defaultAction</var></dt>
+					<dd><code>string</code><br>$defaultAction</dd>
+				</dl></div>
 
 
 
-				<h4>ParamType</h4>
-				<div class="list">
-						defaultAction string<br />
-				</div>
 
 
 		</div>
@@ -371,14 +381,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDefaultAction">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#126-131" title="Go to source code">getDefaultAction</a>( )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#87-93" title="Go to source code">getDefaultAction</a>( )</code>
 
 		<div class="description short">
 			
@@ -389,18 +399,18 @@
 
 
 
-
-
-				<h4>ReturnType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setDbManager" id="_setDbManager">
+	<tr data-order="setDefaultDbManager" id="_setDefaultDbManager">
 
 		<td class="attributes"><code>
 			 public 
@@ -410,8 +420,42 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setDbManager">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#133-138" title="Go to source code">setDbManager</a>( <span>mixed <var>$dbManager</var></span> )</code>
+		<a class="anchor" href="#_setDefaultDbManager">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#95-101" title="Go to source code">setDefaultDbManager</a>( <span>string <var>$dbManager</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dbManager</var></dt>
+					<dd><code>string</code><br>$dbManager</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDefaultDbManager" id="_getDefaultDbManager">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDefaultDbManager">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#103-109" title="Go to source code">getDefaultDbManager</a>( )</code>
 
 		<div class="description short">
 			
@@ -422,18 +466,18 @@
 
 
 
-
-
-				<h4>ParamType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						dbManager string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getDbManager" id="_getDbManager">
+	<tr data-order="setDefaultDbHost" id="_setDefaultDbHost">
 
 		<td class="attributes"><code>
 			 public 
@@ -443,8 +487,42 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getDbManager">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#140-145" title="Go to source code">getDbManager</a>( )</code>
+		<a class="anchor" href="#_setDefaultDbHost">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#111-117" title="Go to source code">setDefaultDbHost</a>( <span>string <var>$dbHost</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dbHost</var></dt>
+					<dd><code>string</code><br>$dbHost</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDefaultDbHost" id="_getDefaultDbHost">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDefaultDbHost">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#119-125" title="Go to source code">getDefaultDbHost</a>( )</code>
 
 		<div class="description short">
 			
@@ -455,18 +533,18 @@
 
 
 
-
-
-				<h4>ReturnType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setDbHost" id="_setDbHost">
+	<tr data-order="setDefaultDbUser" id="_setDefaultDbUser">
 
 		<td class="attributes"><code>
 			 public 
@@ -476,8 +554,42 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setDbHost">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#147-152" title="Go to source code">setDbHost</a>( <span>mixed <var>$dbHost</var></span> )</code>
+		<a class="anchor" href="#_setDefaultDbUser">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#127-133" title="Go to source code">setDefaultDbUser</a>( <span>string <var>$dbUser</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dbUser</var></dt>
+					<dd><code>string</code><br>$dbUser</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDefaultDbUser" id="_getDefaultDbUser">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDefaultDbUser">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#135-141" title="Go to source code">getDefaultDbUser</a>( )</code>
 
 		<div class="description short">
 			
@@ -488,18 +600,18 @@
 
 
 
-
-
-				<h4>ParamType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						dbHost string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getDbHost" id="_getDbHost">
+	<tr data-order="setDefaultDbPassword" id="_setDefaultDbPassword">
 
 		<td class="attributes"><code>
 			 public 
@@ -509,8 +621,42 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getDbHost">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#154-159" title="Go to source code">getDbHost</a>( )</code>
+		<a class="anchor" href="#_setDefaultDbPassword">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#143-149" title="Go to source code">setDefaultDbPassword</a>( <span>string <var>$dbPassword</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dbPassword</var></dt>
+					<dd><code>string</code><br>$dbPassword</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDefaultDbPassword" id="_getDefaultDbPassword">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDefaultDbPassword">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#151-157" title="Go to source code">getDefaultDbPassword</a>( )</code>
 
 		<div class="description short">
 			
@@ -521,18 +667,18 @@
 
 
 
-
-
-				<h4>ReturnType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setDbUser" id="_setDbUser">
+	<tr data-order="setDefaultDbName" id="_setDefaultDbName">
 
 		<td class="attributes"><code>
 			 public 
@@ -542,8 +688,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setDbUser">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#161-166" title="Go to source code">setDbUser</a>( <span>mixed <var>$dbUser</var></span> )</code>
+		<a class="anchor" href="#_setDefaultDbName">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#159-165" title="Go to source code">setDefaultDbName</a>( <span>string <var>$dbName</var></span> )</code>
 
 		<div class="description short">
 			
@@ -553,30 +699,31 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dbName</var></dt>
+					<dd><code>string</code><br>$dbName</dd>
+				</dl></div>
 
 
 
-				<h4>ParamType</h4>
-				<div class="list">
-						dbUser string<br />
-				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getDbUser" id="_getDbUser">
+	<tr data-order="getDefaultDbName" id="_getDefaultDbName">
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getDbUser">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#168-173" title="Go to source code">getDbUser</a>( )</code>
+		<a class="anchor" href="#_getDefaultDbName">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#167-173" title="Go to source code">getDefaultDbName</a>( )</code>
 
 		<div class="description short">
 			
@@ -587,144 +734,12 @@
 
 
 
-
-
-				<h4>ReturnType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						string<br />
+					<code>string</code><br />
 				</div>
 
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setDbPassword" id="_setDbPassword">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setDbPassword">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#175-180" title="Go to source code">setDbPassword</a>( <span>mixed <var>$dbPassword</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-				<h4>ParamType</h4>
-				<div class="list">
-						dbPassword string<br />
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getDbPassword" id="_getDbPassword">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getDbPassword">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#182-187" title="Go to source code">getDbPassword</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-				<h4>ReturnType</h4>
-				<div class="list">
-						string<br />
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setDbName" id="_setDbName">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setDbName">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#189-194" title="Go to source code">setDbName</a>( <span>mixed <var>$dbName</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-				<h4>ParamType</h4>
-				<div class="list">
-						dbName string<br />
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getDbName" id="_getDbName">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getDbName">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#196-201" title="Go to source code">getDbName</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-				<h4>ReturnType</h4>
-				<div class="list">
-						string<br />
-				</div>
 
 
 		</div>
@@ -741,7 +756,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setState">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#203-208" title="Go to source code">setState</a>( <span>mixed <var>$state</var></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#175-181" title="Go to source code">setState</a>( <span>string <var>$state</var></span> )</code>
 
 		<div class="description short">
 			
@@ -751,13 +766,14 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$state</var></dt>
+					<dd><code>string</code><br>$state</dd>
+				</dl></div>
 
 
 
-				<h4>ParamType</h4>
-				<div class="list">
-						state string<br />
-				</div>
 
 
 		</div>
@@ -767,14 +783,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getState">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.Application.html#210-215" title="Go to source code">getState</a>( )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.Application.html#183-189" title="Go to source code">getState</a>( )</code>
 
 		<div class="description short">
 			
@@ -785,12 +801,12 @@
 
 
 
-
-
-				<h4>ReturnType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
@@ -809,36 +825,6 @@
 
 
 
-	<table class="summary" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="configuration" id="$configuration">
-		<td class="attributes"><code>
-			public  
-			mixed
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Dandelion.MVC.Core.Application.html#60-63" title="Go to source code"><var>$configuration</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$configuration" class="anchor">#</a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-					<h4>AssociationType</h4>
-					<div class="list">
-							Dandelion\Mvc\Core\XmlConfigurationFile<br />
-					</div>
-			</div>
-		</div></td>
-	</tr>
-	</table>
 
 
 

@@ -12,7 +12,7 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
 class Index_Post extends Core\Action{
 
     public function Execute() {
-        $this->Title = 'Dandelion MVC Application Test';
+        $this->Title = 'Welcome to Fermen Warehouse Management System';
         $this->Name = $this->Request->Name;
     }
 

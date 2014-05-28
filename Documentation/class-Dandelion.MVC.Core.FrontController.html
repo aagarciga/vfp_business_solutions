@@ -7,7 +7,7 @@
 	<title>Class Dandelion\MVC\Core\FrontController | Dandelion MVC</title>
 
 	<script type="text/javascript" src="resources/combined.js?1741819518"></script>
-	<script type="text/javascript" src="elementlist.js?63647721"></script>
+	<script type="text/javascript" src="elementlist.js?1738959823"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -25,24 +25,17 @@
 						<ul>
 				<li class="active"><a href="namespace-Dandelion.MVC.html">MVC<span></span></a>
 						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.html">Application<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.html">Controllers<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.Main.html">Main<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.Main.Actions.html">Actions</a>
-						</li>
-							</ul></li></ul></li></ul></li>
 				<li class="active"><a href="namespace-Dandelion.MVC.Core.html">Core<span></span></a>
 						<ul>
 				<li><a href="namespace-Dandelion.MVC.Core.Exceptions.html">Exceptions</a>
 						</li>
 				<li><a href="namespace-Dandelion.MVC.Core.Interfaces.html">Interfaces</a>
 						</li>
-				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.html">Nomenclatures</a>
+				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.html">Nomenclatures<span></span></a>
+						<ul>
+				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.MIMETypes.html">MIMETypes</a>
 						</li>
-							</ul></li></ul></li></ul></li>
+							</ul></li></ul></li></ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -61,7 +54,6 @@
 				<li class="active"><a href="class-Dandelion.MVC.Core.FrontController.html">FrontController</a></li>
 				<li><a href="class-Dandelion.MVC.Core.Request.html">Request</a></li>
 				<li><a href="class-Dandelion.MVC.Core.View.html">View</a></li>
-				<li><a href="class-Dandelion.MVC.Core.XmlConfigurationFile.html">XmlConfigurationFile</a></li>
 			</ul>
 
 
@@ -109,7 +101,7 @@
 
 	<div class="description">
 	
-<p>Description of FrontController</p>
+<p>Dandelion MVC front controller.</p>
 
 	</div>
 
@@ -147,9 +139,17 @@
 		<b>Namespace:</b> <a href="namespace-Dandelion.html">Dandelion</a>\<a href="namespace-Dandelion.MVC.html">MVC</a>\<a href="namespace-Dandelion.MVC.Core.html">Core</a><br />
 		
 
+				<b>Copyright:</b>
+				2011-2013 Alex Alvarez Gárciga / Dandelion (<a
+href="http://www.thedandelionproject.com">http://www.thedandelionproject.com</a>)<br />
+				<b>License:</b>
+				<a href="http://www.opensource.org/licenses/mit-license.php">MIT</a><br />
 				<b>Author:</b>
-				Alex Alvarez Gárciga<br />
-		<b>Located at</b> <a href="source-class-Dandelion.MVC.Core.FrontController.html#12-102" title="Go to source code">Core/FrontController.php</a><br />
+				Alex Alvarez Gárciga &lt;<a
+href="mailto:aagarciga&#64;gmail.com">aagarciga&#64;<!---->gmail.com</a>&gt;<br />
+				<b>Link:</b>
+				<a href="http://www.thedandelionproject.com">http://www.thedandelionproject.com</a><br />
+		<b>Located at</b> <a href="source-class-Dandelion.MVC.Core.FrontController.html#12-106" title="Go to source code">Core/FrontController.php</a><br />
 	</div>
 
 
@@ -159,7 +159,7 @@
 	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
-			 public 
+			final public 
 			
 			
 			</code>
@@ -167,7 +167,43 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.FrontController.html#23-25" title="Go to source code">__construct</a>( <span>mixed <var>$name</var> = <span class="php-quote">'index'</span></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.FrontController.html#22-28" title="Go to source code">__construct</a>( <span>string <var>$name</var> = <span class="php-quote">'index'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Dandelion.MVC.Core.Controller.html#___construct">Dandelion\MVC\Core\Controller::__construct()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__clone" id="___clone">
+
+		<td class="attributes"><code>
+			final public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___clone">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.FrontController.html#30-32" title="Go to source code">__clone</a>( )</code>
 
 		<div class="description short">
 			
@@ -180,13 +216,7 @@
 
 
 
-				<h4>ParamType</h4>
-				<div class="list">
-						name string<br />
-				</div>
 
-				<h4>Overrides</h4>
-				<div class="list"><code><a href="class-Dandelion.MVC.Core.Controller.html#___construct">Dandelion\MVC\Core\Controller::__construct()</a></code></div>
 
 		</div>
 		</div></td>
@@ -202,7 +232,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Dispatch">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.FrontController.html#27-100" title="Go to source code">Dispatch</a>( <span><code><a href="class-Dandelion.MVC.Core.Request.html">Dandelion\MVC\Core\Request</a></code> <var>$request</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.FrontController.html#34-104" title="Go to source code">Dispatch</a>( <span><code><a href="class-Dandelion.MVC.Core.Request.html">Dandelion\MVC\Core\Request</a></code> <var>$request</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -224,14 +254,6 @@
 				<div class="list">
 						index.php?controller=&lt;controller&gt;[&amp;action=&lt;action&gt;][&lt;request:&amp;a=1[&amp;b=2...]&gt;]<br />
 				</div>
-				<h4>ParamType</h4>
-				<div class="list">
-						$request Dandelion\MVC\Core\Request<br />
-				</div>
-				<h4>ReturnType</h4>
-				<div class="list">
-						void<br />
-				</div>
 
 
 		</div>
@@ -245,8 +267,15 @@
 		<td><code>
 			<a href="class-Dandelion.MVC.Core.Controller.html#_Forward">Forward()</a>, 
 			<a href="class-Dandelion.MVC.Core.Controller.html#_PostController">PostController()</a>, 
-			<a href="class-Dandelion.MVC.Core.Controller.html#_PreController">PreController()</a>, 
-			<a href="class-Dandelion.MVC.Core.Controller.html#___toString">__toString()</a>
+			<a href="class-Dandelion.MVC.Core.Controller.html#_PreController">PreController()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Dandelion.MVC.Core.Interfaces.INameable.html#methods">Dandelion\MVC\Core\Interfaces\INameable</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Dandelion.MVC.Core.Interfaces.INameable.html#___toString">__toString()</a>
 		</code></td>
 	</tr>
 	</table>

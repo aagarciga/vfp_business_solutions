@@ -42,13 +42,18 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      */
     public $Request;
 
+    /**
+     * @var ActionsController
+     */
+    protected $controller;
+
 
     /**
      * Constructor for Action object.
      * 
      * @param Request $request
      */
-    public final function __construct(Request $request) {
+    public final function __construct(Request $request, ActionsController $controller) {
         $this->Request = $request;        
         $this->name = ucfirst($request->Action);
         if ($request->RequestMethod == Nomenclatures\RequestMethod::POST()) {
@@ -60,6 +65,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
         $this->data['Action'] = $request->Action;
         $this->data['Application'] = $request->Application;
         $this->data['Request'] = $request;
+        $this->controller = $controller;
     }
 
     /**

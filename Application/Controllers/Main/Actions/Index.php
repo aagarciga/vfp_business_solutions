@@ -12,11 +12,12 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
 class Index extends Core\Action {
 
     public function Execute() {
-
+        $this->Title = 'Fermen Warehouse Management System';
+        $this->Items = $this->controller->UnitOfWork->ICPARM00Repository->GetAll();
     }
 
     public function PreAction() {
-        $this->Title = 'Dandelion MVC Application Test';
+
     }
 
     public function PostAction() {

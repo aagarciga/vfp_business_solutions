@@ -29,4 +29,5 @@
     Host CDATA #IMPLIED
     Manager CDATA #IMPLIED
     Name CDATA #IMPLIED
+    ServerType CDATA #IMPLIED
   >

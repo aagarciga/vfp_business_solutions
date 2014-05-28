@@ -14,14 +14,17 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  * Dandelion MVC parent of all application controllers.
  * 
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright   2011-2014 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  */
 abstract class ActionsController extends Controller {
 
+    abstract protected function Init();
+
     public final function __construct($name) {
         parent::__construct($name);
+        $this->Init();
     }
     
     /**
@@ -64,7 +67,7 @@ abstract class ActionsController extends Controller {
             }
         }
 
-        $action = new $class($request);
+        $action = new $class($request, $this);
 
         if (method_exists($action, 'PreAction')) {
             $action->PreAction();

@@ -1,17 +1,24 @@
-<form name="Form1" action="<?php echo $View->FormAction($Controller);?>" method="POST">
-            <label for="Name">Your name?</label>
-            <input type="text" name="Name" value="" id="Name" />
-            <input type="submit" value="Send" />
-        </form>
+<table>
+    <colgroup>
+        <col class="col-1">
+        <col class="col-2">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Item No.</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tfoot>
 
-        <nav>
-            <ul>
-                <li>
-                    <a href="<?php echo $View->Href('Help', 'Markup');?>" title="The Dandelion MVC <?php echo MVC_VERSION;?> Html5 Boilerplate" >Html5 Boilerplate</a>
-                </li>
-                <li>
-                    <a href="<?php echo $View->Href('Help', 'ExtendingMarkup');?>" title="Extend and customize Dandelion MVC <?php echo MVC_VERSION;?> Html5 Boilerplate" >Extend Html5 Boilerplate</a>
-                </li>
-            </ul>
-        </nav>
-
+    </tfoot>
+    <tbody>
+        <?php $i = 0;?>
+        <?php foreach ($Items as $item):?>
+            <tr class="item <?php echo ($i++ % 2 == 0)? 'even' : 'odd'?>">
+                <td class="item-field"><?php echo trim($item->ITEMNO) ?></td>
+                <td class="item-field"><?php echo trim($item->DESCRIP) ?></td>
+            </tr>
+        <?php endforeach ?>
+    </tbody>
+</table>

@@ -8,7 +8,7 @@
 	<title>File Core/Interfaces/IDictionary.php | Dandelion MVC</title>
 
 	<script type="text/javascript" src="resources/combined.js?1741819518"></script>
-	<script type="text/javascript" src="elementlist.js?63647721"></script>
+	<script type="text/javascript" src="elementlist.js?1738959823"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -26,24 +26,17 @@
 						<ul>
 				<li class="active"><a href="namespace-Dandelion.MVC.html">MVC<span></span></a>
 						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.html">Application<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.html">Controllers<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.Main.html">Main<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.Main.Actions.html">Actions</a>
-						</li>
-							</ul></li></ul></li></ul></li>
 				<li class="active"><a href="namespace-Dandelion.MVC.Core.html">Core<span></span></a>
 						<ul>
 				<li><a href="namespace-Dandelion.MVC.Core.Exceptions.html">Exceptions</a>
 						</li>
 				<li class="active"><a href="namespace-Dandelion.MVC.Core.Interfaces.html">Interfaces</a>
 						</li>
-				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.html">Nomenclatures</a>
+				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.html">Nomenclatures<span></span></a>
+						<ul>
+				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.MIMETypes.html">MIMETypes</a>
 						</li>
-							</ul></li></ul></li></ul></li>
+							</ul></li></ul></li></ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -109,18 +102,21 @@
 </span><span id="8" class="l"><a class="l" href="#8"> 8: </a><span class="php-keyword1">interface</span> <a id="IDictionary" href="#IDictionary">IDictionary</a> {
 </span><span id="9" class="l"><a class="l" href="#9"> 9: </a>
 </span><span id="10" class="l"><a class="l" href="#10">10: </a>    <span class="php-comment">/**
-</span></span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-comment">     * @ParamType key 
-</span></span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment">     * @ParamType value 
+</span></span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-comment">     * @param string $key The key name to put in dictionary.
+</span></span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment">     * @param mixed $value  The value in content to put in dictionary.
 </span></span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-comment">     */</span>
 </span><span id="14" class="l"><a class="l" href="#14">14: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="___set" href="#___set">__set</a>(<span class="php-var">$key</span>, <span class="php-var">$value</span>);
 </span><span id="15" class="l"><a class="l" href="#15">15: </a>
 </span><span id="16" class="l"><a class="l" href="#16">16: </a>    <span class="php-comment">/**
-</span></span><span id="17" class="l"><a class="l" href="#17">17: </a><span class="php-comment">     * @ParamType key 
-</span></span><span id="18" class="l"><a class="l" href="#18">18: </a><span class="php-comment">     */</span>
-</span><span id="19" class="l"><a class="l" href="#19">19: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="___get" href="#___get">__get</a>(<span class="php-var">$key</span>);
-</span><span id="20" class="l"><a class="l" href="#20">20: </a>}
-</span><span id="21" class="l"><a class="l" href="#21">21: </a>
-</span><span id="22" class="l"><a class="l" href="#22">22: </a></span><span class="xlang">?&gt;</span></code></pre>
+</span></span><span id="17" class="l"><a class="l" href="#17">17: </a><span class="php-comment">     * 
+</span></span><span id="18" class="l"><a class="l" href="#18">18: </a><span class="php-comment">     * @param string $key The key in dictionary name. 
+</span></span><span id="19" class="l"><a class="l" href="#19">19: </a><span class="php-comment">     * @return mixed The value in dictionary content.
+</span></span><span id="20" class="l"><a class="l" href="#20">20: </a><span class="php-comment">     * @expectedException Dandelion\MVC\Core\Exceptions\PropertyNotFoundException
+</span></span><span id="21" class="l"><a class="l" href="#21">21: </a><span class="php-comment">     */</span>
+</span><span id="22" class="l"><a class="l" href="#22">22: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="___get" href="#___get">__get</a>(<span class="php-var">$key</span>);
+</span><span id="23" class="l"><a class="l" href="#23">23: </a>}
+</span><span id="24" class="l"><a class="l" href="#24">24: </a>
+</span><span id="25" class="l"><a class="l" href="#25">25: </a></span><span class="xlang">?&gt;</span></code></pre>
 
 	<div id="footer">
 		Dandelion MVC API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

@@ -7,7 +7,7 @@
 	<title>Class Dandelion\MVC\Core\View | Dandelion MVC</title>
 
 	<script type="text/javascript" src="resources/combined.js?1741819518"></script>
-	<script type="text/javascript" src="elementlist.js?63647721"></script>
+	<script type="text/javascript" src="elementlist.js?1738959823"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -25,24 +25,17 @@
 						<ul>
 				<li class="active"><a href="namespace-Dandelion.MVC.html">MVC<span></span></a>
 						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.html">Application<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.html">Controllers<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.Main.html">Main<span></span></a>
-						<ul>
-				<li><a href="namespace-Dandelion.MVC.Application.Controllers.Main.Actions.html">Actions</a>
-						</li>
-							</ul></li></ul></li></ul></li>
 				<li class="active"><a href="namespace-Dandelion.MVC.Core.html">Core<span></span></a>
 						<ul>
 				<li><a href="namespace-Dandelion.MVC.Core.Exceptions.html">Exceptions</a>
 						</li>
 				<li><a href="namespace-Dandelion.MVC.Core.Interfaces.html">Interfaces</a>
 						</li>
-				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.html">Nomenclatures</a>
+				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.html">Nomenclatures<span></span></a>
+						<ul>
+				<li><a href="namespace-Dandelion.MVC.Core.Nomenclatures.MIMETypes.html">MIMETypes</a>
 						</li>
-							</ul></li></ul></li></ul></li>
+							</ul></li></ul></li></ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -61,7 +54,6 @@
 				<li><a href="class-Dandelion.MVC.Core.FrontController.html">FrontController</a></li>
 				<li><a href="class-Dandelion.MVC.Core.Request.html">Request</a></li>
 				<li class="active"><a href="class-Dandelion.MVC.Core.View.html">View</a></li>
-				<li><a href="class-Dandelion.MVC.Core.XmlConfigurationFile.html">XmlConfigurationFile</a></li>
 			</ul>
 
 
@@ -109,7 +101,7 @@
 
 	<div class="description">
 	
-<p>Description of View</p>
+<p>Dandelion MVC helper for most commons views related needs.</p>
 
 	</div>
 
@@ -127,9 +119,17 @@
 		<b>Namespace:</b> <a href="namespace-Dandelion.html">Dandelion</a>\<a href="namespace-Dandelion.MVC.html">MVC</a>\<a href="namespace-Dandelion.MVC.Core.html">Core</a><br />
 		
 
+				<b>Copyright:</b>
+				2011-2013 Alex Alvarez Gárciga / Dandelion (<a
+href="http://www.thedandelionproject.com">http://www.thedandelionproject.com</a>)<br />
+				<b>License:</b>
+				<a href="http://www.opensource.org/licenses/mit-license.php">MIT</a><br />
 				<b>Author:</b>
-				Alex<br />
-		<b>Located at</b> <a href="source-class-Dandelion.MVC.Core.View.html#5-38" title="Go to source code">Core/View.php</a><br />
+				Alex Alvarez Gárciga &lt;<a
+href="mailto:aagarciga&#64;gmail.com">aagarciga&#64;<!---->gmail.com</a>&gt;<br />
+				<b>Link:</b>
+				<a href="http://www.thedandelionproject.com">http://www.thedandelionproject.com</a><br />
+		<b>Located at</b> <a href="source-class-Dandelion.MVC.Core.View.html#5-59" title="Go to source code">Core/View.php</a><br />
 	</div>
 
 
@@ -140,14 +140,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_css">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.View.html#12-19" title="Go to source code">css</a>( <span>mixed <var>$file</var> = style</span>, <span>mixed <var>$media</var> = <span class="php-quote">&quot;All&quot;</span></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.View.html#15-23" title="Go to source code">css</a>( <span>string <var>$file</var> = <span class="php-quote">'style'</span></span>, <span>string <var>$media</var> = <span class="php-quote">'All'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -157,18 +157,20 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$file</var></dt>
+					<dd><code>string</code><br>$file</dd>
+					<dt><var>$media</var></dt>
+					<dd><code>string</code><br>$media</dd>
+				</dl></div>
 
-
-
-				<h4>ParamType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						file string<br />
-						media string<br />
+					<code>string</code><br />
 				</div>
-				<h4>ReturnType</h4>
-				<div class="list">
-						string<br />
-				</div>
+
+
 
 
 		</div>
@@ -178,14 +180,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_js">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.View.html#21-27" title="Go to source code">js</a>( <span>mixed <var>$file</var> = script</span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.View.html#25-32" title="Go to source code">js</a>( <span>string <var>$file</var> = <span class="php-quote">'script'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -195,17 +197,18 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$file</var></dt>
+					<dd><code>string</code><br>$file</dd>
+				</dl></div>
 
-
-
-				<h4>ParamType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						file string<br />
+					<code>string</code><br />
 				</div>
-				<h4>ReturnType</h4>
-				<div class="list">
-						string<br />
-				</div>
+
+
 
 
 		</div>
@@ -215,14 +218,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_imgUrl">#</a>
-		<code><a href="source-class-Dandelion.MVC.Core.View.html#29-36" title="Go to source code">imgUrl</a>( <span>mixed <var>$file</var></span>, <span>mixed <var>$extension</var> = <span class="php-quote">&quot;png&quot;</span></span> )</code>
+		<code><a href="source-class-Dandelion.MVC.Core.View.html#34-42" title="Go to source code">imgUrl</a>( <span>string <var>$file</var></span>, <span>string <var>$extension</var> = <span class="php-quote">'png'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -232,18 +235,60 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$file</var></dt>
+					<dd><code>string</code><br>$file</dd>
+					<dt><var>$extension</var></dt>
+					<dd><code>string</code><br>$extension</dd>
+				</dl></div>
 
-
-
-				<h4>ParamType</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						file string<br />
-						extension string<br />
+					<code>string</code><br />
 				</div>
-				<h4>ReturnType</h4>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Action" id="_Action">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Action">#</a>
+		<code><a href="source-class-Dandelion.MVC.Core.View.html#44-57" title="Go to source code">Action</a>( <span>string <var>$controller</var> = <span class="php-quote">''</span></span>, <span>string <var>$action</var> = <span class="php-quote">''</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$controller</var></dt>
+					<dd><code>string</code><br>$controller</dd>
+					<dt><var>$action</var></dt>
+					<dd><code>string</code><br>$action</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
 				<div class="list">
-						string<br />
+					<code>string</code><br />
 				</div>
+
+
 
 
 		</div>
