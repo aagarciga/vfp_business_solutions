@@ -6,8 +6,8 @@
 
 namespace Dandelion\MVC\Application\Models\Entities;
 
-use Dandelion\MVC\Application\Models\Entities\Base\BaseICPARM00;
+use Dandelion\MVC\Application\Models\Entities\Base\BaseSysuser;
 
-class ICPARM00 extends BaseICPARM00 {
+class Sysuser extends BaseSysuser {
 
 } 

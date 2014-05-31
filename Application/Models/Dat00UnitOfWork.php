@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Alex
- * Date: 23/05/14
- * Time: 20:27
+ * Project:  VFP Business Series
+ * Copyright: 2014. VFP Business Solutions, LLC
  */
 
 namespace Dandelion\MVC\Application\Models;
@@ -15,9 +13,16 @@ use Dandelion\MVC\Application\Models\Repositories\ICPARM00Repository;
 
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR .  'Diana' . DIRECTORY_SEPARATOR . 'Diana.php';
 
-define('MVC_DIR_APP_MODELS_ENTITIES', MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . 'Entities');
-define('MVC_DIR_APP_MODELS_ENTITIES_BASE', MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'Base');
-define('MVC_DIR_APP_MODELS_REPOSITORIES', MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . 'Repositories');
+if(!defined('MVC_DIR_APP_MODELS_ENTITIES')){
+    define('MVC_DIR_APP_MODELS_ENTITIES', MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . 'Entities');
+}
+if(!defined('MVC_DIR_APP_MODELS_ENTITIES_BASE')){
+    define('MVC_DIR_APP_MODELS_ENTITIES_BASE', MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'Base');
+}
+if(!defined('MVC_DIR_APP_MODELS_REPOSITORIES')){
+    define('MVC_DIR_APP_MODELS_REPOSITORIES', MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . 'Repositories');
+}
+
 
 require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseICPARM00.php';
 require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'ICPARM00.php';
@@ -26,7 +31,7 @@ require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'BaseReposi
 require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'ICPARM00Repository.php';
 
 
-class FermenUnitOfWork {
+class Dat00UnitOfWork {
     public $DBDriver;
 
     public $ICPARM00Repository;

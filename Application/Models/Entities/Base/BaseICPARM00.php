@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Alex
- * Date: 23/05/14
- * Time: 20:33
+ * Project:  VFP Business Series
+ * Copyright: 2014. VFP Business Solutions, LLC
  */
 
 namespace Dandelion\MVC\Application\Models\Entities\Base;

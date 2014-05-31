@@ -12,8 +12,9 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
 class Index extends Core\Action {
 
     public function Execute() {
-        $this->Title = 'Fermen Warehouse Management System';
-        $this->Items = $this->controller->UnitOfWork->ICPARM00Repository->GetAll();
+        $this->Title = 'VFP Business Series - Warehouse Management System';
+        $this->Items = $this->controller->Dat00UnitOfWork->ICPARM00Repository->GetAll();
+        $this->Users = $this->controller->FvpDataUnitOfWork->SysuserRepository->GetAll();
     }
 
     public function PreAction() {

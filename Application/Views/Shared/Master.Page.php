@@ -34,10 +34,10 @@
         <?php $View->Partial('body'); ?>
         <footer>
             <hr />
-            <div class="powered">Powered by Dandelion MVC <?php echo MVC_VERSION; ?></div>            
+            <div class="powered">&copy; 2014. VFP Business Solutions, LLC</div>
         </footer>
         
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="<?php echo $View->SharedScriptsContext('jquery-1.9.1.min.js'); ?>"><\/script>')</script>
         <script src="<?php echo $View->ScriptsContext('plugins.js'); ?>"></script>
         <script src="<?php echo $View->ScriptsContext('main.js'); ?>"></script>

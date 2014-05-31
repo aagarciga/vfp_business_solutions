@@ -6,26 +6,24 @@
 
 namespace Dandelion\MVC\Application\Models\Repositories;
 
-
 use Dandelion\Diana\Interfaces\IRepository;
-use Dandelion\MVC\Application\Models\Entities\ICPARM00;
+use Dandelion\MVC\Application\Models\Entities\Sysuser;
 
-class ICPARM00Repository extends BaseRepository implements IRepository {
+
+class SysuserRepository extends BaseRepository implements IRepository{
 
     /**
-     * Return All ICPARM00 elements
-     * @return array of ICPARM00 objects
+     * @return array of Sysuser objects
      */
     public function GetAll()
     {
-
         $sqlString = "SELECT * FROM $this->entityName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
 
         foreach($queryResult as $row){
-            $result []= new ICPARM00($row->ITEMNO, $row->DESCRIP);
+            $result []= new Sysuser($row->USERID, $row->USERCODE, $row->USERNAME, $row->USERPASS, $row->GROUP);
         }
 
         return $result;

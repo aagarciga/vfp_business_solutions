@@ -188,6 +188,105 @@ class Application implements INameable {
     }
 
     /**
+     *
+     * @param string $dbManager
+     * @param int    $index
+     */
+    public function setDbManager($dbManager, $index = 0) {
+        $this->settings->DB[$index]['Manager'] = $dbManager;
+    }
+
+    /**
+     *
+     * @param int $index
+     * @return string
+     */
+    public function getDbManager($index = 0) {
+        return $this->settings->DB[$index]['Manager'];
+    }
+
+    /**
+     *
+     * @param string $dbHost
+     * @param int    $index
+     */
+    public function setDbHost($dbHost, $index = 0) {
+        $this->settings->DB[$index]['Host'] = $dbHost;
+    }
+
+    /**
+     *
+     * @param int $index
+     * @return string
+     */
+    public function getDbHost($index = 0) {
+        return $this->settings->DB[$index]['Host'];
+    }
+
+    /**
+     *
+     * @param string $dbUser
+     * @param int    $index
+     */
+    public function setDbUser($dbUser, $index = 0) {
+        $this->settings->DB[$index]['User'] = $dbUser;
+    }
+
+    /**
+     *
+     * @param int $index
+     * @return string
+     */
+    public function getDbUser($index = 0) {
+        return $this->settings->DB[$index]['User'];
+    }
+
+    /**
+     *
+     * @param string $dbPassword
+     * @param int    $index
+     */
+    public function setDbPassword($dbPassword, $index = 0) {
+        $this->settings->DB[$index]['Password'] = $dbPassword;
+    }
+
+    /**
+     *
+     * @param int $index
+     * @return string
+     */
+    public function getDbPassword($index = 0) {
+        return $this->settings->DB[$index]['Password'];
+    }
+
+    /**
+     *
+     * @param string $dbName
+     * @param int    $index
+     */
+    public function setDbName($dbName, $index = 0) {
+        $this->settings->DB[$index]['Name'] = $dbName;
+    }
+
+    /**
+     *
+     * @param int $index
+     * @return string
+     */
+    public function getDbName($index = 0) {
+        return $this->settings->DB[$index]['Name'];
+    }
+
+    /**
+     *
+     * @param int $index
+     * @return string
+     */
+    public function getDbServerType($index = 0) {
+        return isset($this->settings->DB[$index]['ServerType'])? $this->settings->DB[0]['ServerType'] : 'Remote';
+    }
+
+    /**
      * 
      * @param string $state
      */
