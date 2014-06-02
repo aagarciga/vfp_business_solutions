@@ -16,6 +16,7 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
+ * @ignore
  */
 class FrontController extends Controller {
 
@@ -76,13 +77,13 @@ class FrontController extends Controller {
          * HTTP POST Request Handler
          */
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            if (!empty($_POST['controller'])) {
-                $controller = $_POST['controller'];
+            if (!empty($_GET['controller'])) {
+                $controller = $_GET['controller'];
             } else {
                 $controller = $application->getDefaultController();
             }
-            if (!empty($_POST['action'])) {
-                $action = $_POST['action'];
+            if (!empty($_GET['action'])) {
+                $action = $_GET['action'];
             } else {
                 $action = $application->getDefaultAction();
             }

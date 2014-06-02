@@ -1,5 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!--- Application Element. -->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE Application SYSTEM "settings.dtd">
+
+    <Application Name="VFP Business Series" Controller="main" Action="index" State="Development">
+        <DB Name="vfpdata" Manager="MySQL" Host="localhost" User="vfpdata" Password="vfpdata" />
+        <DB Name="vfpdata.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\" User="" Password="" ServerType="Local" />
+    </Application>
+-->
+
+<!--- Put your DTDDoc comment here. -->
 <!ELEMENT Application (DB)*>
 <!ATTLIST Application
     State CDATA #IMPLIED
@@ -8,13 +22,13 @@
     Name CDATA #IMPLIED
   >
 
-<!--- DB Element -->
+<!--- Put your DTDDoc comment here. -->
 <!ELEMENT DB EMPTY>
 <!ATTLIST DB
+    ServerType CDATA #IMPLIED
     Password CDATA #IMPLIED
     User CDATA #IMPLIED
     Host CDATA #IMPLIED
     Manager CDATA #IMPLIED
     Name CDATA #IMPLIED
-    ServerType CDATA #IMPLIED
   >

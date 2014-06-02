@@ -6,7 +6,10 @@
 
 namespace Dandelion\MVC\Application\Models\Entities\Base;
 
-
+/**
+ * BaseSysuser entity definition to map Sysuser Table to Sysuser objects
+ * 
+ */
 class BaseSysuser {
     private static $_name = "sysuser";
 

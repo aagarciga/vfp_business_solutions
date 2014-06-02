@@ -8,6 +8,9 @@ namespace Dandelion\MVC\Application\Models\Entities;
 
 use Dandelion\MVC\Application\Models\Entities\Base\BaseICPARM00;
 
+/**
+ * ICPARM00 custom entity definitions
+ */
 class ICPARM00 extends BaseICPARM00 {
 
 } 

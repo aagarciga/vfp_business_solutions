@@ -6,6 +6,9 @@
 
 namespace Dandelion\MVC\Application\Models\Entities\Base;
 
+/**
+ * BaseICPARM00 entity definition to map ICPARM00 Table to ICPARM00 objects
+ */
 class BaseICPARM00 {
     private static $_name = "ICPARM00";
 

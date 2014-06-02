@@ -1,10 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03480c6d-8b6a-4e69-b05c-41af9bbd061a" name="Default" comment="">
+    <list default="true" id="03480c6d-8b6a-4e69-b05c-41af9bbd061a" name="Default" comment="Implemented Multiple Database Binding by Application Setting mechanism.&#10;&#10;Dat00UnitOfWork and VfpUnitOfWork implemented for accessing two different database contexts.&#10;&#10;(No Documentation Update)&#10;&#10;">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/php.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Views/User/Singin.View.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Controllers/User/Actions/Singin.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Controllers/User/Actions/Singin_Post.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Controllers/User/User.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Views/User/Singin/body.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Application\Controllers\Main\Actions\Index_Post.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Action.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.ActionsController.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Application.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Controller.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.FrontController.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Interfaces.IDictionary.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Interfaces.INameable.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Nomenclatures.ApplicationState.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Nomenclatures.RequestMethod.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Request.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.View.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\namespace-Dandelion.MVC.Core.Interfaces.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Action.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.ActionsController.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Application.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Controller.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.FrontController.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Interfaces.IDictionary.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Interfaces.INameable.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Nomenclatures.ApplicationState.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Nomenclatures.RequestMethod.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Request.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.View.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/404.html" afterPath="$PROJECT_DIR$/Documentation/404.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Action.php" afterPath="$PROJECT_DIR$/Core/Action.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/ActionsController.php" afterPath="$PROJECT_DIR$/Core/ActionsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Application.php" afterPath="$PROJECT_DIR$/Core/Application.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Nomenclatures/ApplicationState.php" afterPath="$PROJECT_DIR$/Core/Nomenclatures/ApplicationState.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseICPARM00.php" afterPath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseICPARM00.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Repositories/BaseRepository.php" afterPath="$PROJECT_DIR$/Application/Models/Repositories/BaseRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" afterPath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Controller.php" afterPath="$PROJECT_DIR$/Core/Controller.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Dat00UnitOfWork.php" afterPath="$PROJECT_DIR$/Application/Models/Dat00UnitOfWork.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/FrontController.php" afterPath="$PROJECT_DIR$/Core/FrontController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Entities/ICPARM00.php" afterPath="$PROJECT_DIR$/Application/Models/Entities/ICPARM00.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Repositories/ICPARM00Repository.php" afterPath="$PROJECT_DIR$/Application/Models/Repositories/ICPARM00Repository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Interfaces/IDictionary.php" afterPath="$PROJECT_DIR$/Core/Interfaces/IDictionary.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Interfaces/INameable.php" afterPath="$PROJECT_DIR$/Core/Interfaces/INameable.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Controllers/Main/Actions/Index.php" afterPath="$PROJECT_DIR$/Application/Controllers/Main/Actions/Index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Controllers/Main/Main.php" afterPath="$PROJECT_DIR$/Application/Controllers/Main/Main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Request.php" afterPath="$PROJECT_DIR$/Core/Request.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Nomenclatures/RequestMethod.php" afterPath="$PROJECT_DIR$/Core/Nomenclatures/RequestMethod.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Entities/Sysuser.php" afterPath="$PROJECT_DIR$/Application/Models/Entities/Sysuser.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Repositories/SysuserRepository.php" afterPath="$PROJECT_DIR$/Application/Models/Repositories/SysuserRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/VfpDataUnitOfWork.php" afterPath="$PROJECT_DIR$/Application/Models/VfpDataUnitOfWork.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/View.php" afterPath="$PROJECT_DIR$/Core/View.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Views/Main/Index/body.php" afterPath="$PROJECT_DIR$/Application/Views/Main/Index/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ClassNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ClassNotFoundException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ConfigurationNotChargedException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ConfigurationNotChargedException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ControllerNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ControllerNotFoundException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.SystemExit.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.SystemExit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ViewNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ViewNotFoundException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.index.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Exception.html" afterPath="$PROJECT_DIR$/Documentation/class-Exception.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/resources/combined.js" afterPath="$PROJECT_DIR$/Documentation/resources/combined.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/elementlist.js" afterPath="$PROJECT_DIR$/Documentation/elementlist.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/index.html" afterPath="$PROJECT_DIR$/Documentation/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.Core.Exceptions.html" afterPath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.Core.Exceptions.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.Core.Nomenclatures.html" afterPath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.Core.Nomenclatures.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.Core.html" afterPath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.Core.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.html" afterPath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-Dandelion.html" afterPath="$PROJECT_DIR$/Documentation/namespace-Dandelion.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-PHP.html" afterPath="$PROJECT_DIR$/Documentation/namespace-PHP.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/project.properties" afterPath="$PROJECT_DIR$/nbproject/project.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Data/settings.dtd" afterPath="$PROJECT_DIR$/Application/Data/settings.dtd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ClassNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ClassNotFoundException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ConfigurationNotChargedException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ConfigurationNotChargedException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ControllerNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ControllerNotFoundException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.SystemExit.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.SystemExit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ViewNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ViewNotFoundException.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.index.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/tree.html" afterPath="$PROJECT_DIR$/Documentation/tree.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dandelionmvc.iws" />
@@ -27,127 +107,7 @@
     <favorites_list name="dandelionmvc" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Master.Page.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Views/Shared/Master.Page.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="7" selection-start="2361" selection-end="2361" vertical-scroll-proportion="0.0" vertical-offset="782" max-vertical-offset="901">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Controllers/Main/Actions/Index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="45" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="612">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseSysuser.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="57" selection-start="153" selection-end="153" vertical-scroll-proportion="0.1401099" vertical-offset="0" max-vertical-offset="8891">
-              <folding>
-                <element signature="e#6#94#0" expanded="true" />
-                <element signature="e#911#980#0" expanded="true" />
-                <element signature="e#1023#1093#0" expanded="true" />
-                <element signature="e#1143#1223#0" expanded="true" />
-                <element signature="e#1266#1340#0" expanded="true" />
-                <element signature="e#1392#1480#0" expanded="true" />
-                <element signature="e#1523#1597#0" expanded="true" />
-                <element signature="e#1649#1737#0" expanded="true" />
-                <element signature="e#1780#1854#0" expanded="true" />
-                <element signature="e#1906#1994#0" expanded="true" />
-                <element signature="e#2037#2105#0" expanded="true" />
-                <element signature="e#2154#2230#0" expanded="true" />
-                <element signature="e#2273#2349#0" expanded="true" />
-                <element signature="e#2402#2494#0" expanded="true" />
-                <element signature="e#2537#2607#0" expanded="true" />
-                <element signature="e#2657#2737#0" expanded="true" />
-                <element signature="e#2780#2852#0" expanded="true" />
-                <element signature="e#2903#2987#0" expanded="true" />
-                <element signature="e#3030#3100#0" expanded="true" />
-                <element signature="e#3150#3230#0" expanded="true" />
-                <element signature="e#3273#3345#0" expanded="true" />
-                <element signature="e#3396#3480#0" expanded="true" />
-                <element signature="e#3523#3595#0" expanded="true" />
-                <element signature="e#3646#3730#0" expanded="true" />
-                <element signature="e#3773#3847#0" expanded="true" />
-                <element signature="e#3899#3987#0" expanded="true" />
-                <element signature="e#4030#4108#0" expanded="true" />
-                <element signature="e#4162#4258#0" expanded="true" />
-                <element signature="e#4301#4375#0" expanded="true" />
-                <element signature="e#4427#4515#0" expanded="true" />
-                <element signature="e#4558#4635#0" expanded="true" />
-                <element signature="e#4689#4784#0" expanded="true" />
-                <element signature="e#4827#4899#0" expanded="true" />
-                <element signature="e#4950#5034#0" expanded="true" />
-                <element signature="e#5077#5145#0" expanded="true" />
-                <element signature="e#5194#5270#0" expanded="true" />
-                <element signature="e#5313#5383#0" expanded="true" />
-                <element signature="e#5433#5513#0" expanded="true" />
-                <element signature="e#5556#5628#0" expanded="true" />
-                <element signature="e#5679#5763#0" expanded="true" />
-                <element signature="e#5806#5882#0" expanded="true" />
-                <element signature="e#5935#6027#0" expanded="true" />
-                <element signature="e#6070#6146#0" expanded="true" />
-                <element signature="e#6199#6291#0" expanded="true" />
-                <element signature="e#6334#6410#0" expanded="true" />
-                <element signature="e#6463#6555#0" expanded="true" />
-                <element signature="e#6598#6676#0" expanded="true" />
-                <element signature="e#6730#6826#0" expanded="true" />
-                <element signature="e#6869#6947#0" expanded="true" />
-                <element signature="e#7001#7097#0" expanded="true" />
-                <element signature="e#7140#7210#0" expanded="true" />
-                <element signature="e#7260#7340#0" expanded="true" />
-                <element signature="e#7383#7457#0" expanded="true" />
-                <element signature="e#7509#7597#0" expanded="true" />
-                <element signature="e#7603#9870#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="140" column="0" selection-start="4978" selection-end="4978" vertical-scroll-proportion="0.0" vertical-offset="2380" max-vertical-offset="3026">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FrontController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Core/FrontController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="7" selection-start="937" selection-end="937" vertical-scroll-proportion="-17.538462" vertical-offset="37" max-vertical-offset="765">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Data/settings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="73" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.dtd" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Data/settings.dtd">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="10" selection-start="241" selection-end="241" vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="442">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -165,9 +125,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Application/Controllers/Main/Actions/Index_Post.php" />
         <option value="$PROJECT_DIR$/Core/Action.php" />
-        <option value="$PROJECT_DIR$/Core/ActionsController.php" />
         <option value="$PROJECT_DIR$/Application/Controllers/Help/Help.php" />
         <option value="$PROJECT_DIR$/Application/Libraries/Diana/Drivers/AdvantageODBC/AdvantegeODBCDriver.php" />
         <option value="$PROJECT_DIR$/index.php" />
@@ -189,13 +147,20 @@
         <option value="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" />
         <option value="$PROJECT_DIR$/Application/Models/Repositories/SysuserRepository.php" />
         <option value="$PROJECT_DIR$/Core/Application.php" />
-        <option value="$PROJECT_DIR$/Application/Controllers/Main/Main.php" />
         <option value="$PROJECT_DIR$/Application/Models/Dat00UnitOfWork.php" />
         <option value="$PROJECT_DIR$/Application/Models/VfpDataUnitOfWork.php" />
         <option value="$PROJECT_DIR$/Application/Views/Main/Index/body.php" />
-        <option value="$PROJECT_DIR$/Application/Controllers/Main/Actions/Index.php" />
         <option value="$PROJECT_DIR$/Application/Views/Shared/Master.Page.php" />
         <option value="$PROJECT_DIR$/Application/Data/settings.dtd" />
+        <option value="$PROJECT_DIR$/Core/ActionsController.php" />
+        <option value="$PROJECT_DIR$/Application/Views/User/Singin.View.php" />
+        <option value="$PROJECT_DIR$/Application/Controllers/Main/Actions/Index_Post.php" />
+        <option value="$PROJECT_DIR$/Application/Views/User/Singin/body.php" />
+        <option value="$PROJECT_DIR$/Application/Controllers/User/Actions/Singin_Post.php" />
+        <option value="$PROJECT_DIR$/Application/Controllers/Main/Main.php" />
+        <option value="$PROJECT_DIR$/Application/Controllers/User/User.php" />
+        <option value="$PROJECT_DIR$/Application/Controllers/Main/Actions/Index.php" />
+        <option value="$PROJECT_DIR$/Application/Controllers/User/Actions/Singin.php" />
       </list>
     </option>
   </component>
@@ -219,9 +184,20 @@
             <id />
           </State>
           <State>
+            <id>PHP</id>
+          </State>
+          <State>
             <id>SQL</id>
           </State>
+          <State>
+            <id>UndefinedPHP</id>
+          </State>
         </expanded-state>
+        <selected-state>
+          <State>
+            <id>PhpUndefinedNamespaceInspection</id>
+          </State>
+        </selected-state>
       </profile-state>
     </entry>
   </component>
@@ -251,7 +227,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -280,6 +255,148 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Documentation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="User" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="User" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Singin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Index" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Application" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -298,7 +415,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Models" />
+              <option name="myItemId" value="Controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="User" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -316,33 +437,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Models" />
+              <option name="myItemId" value="Controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Repositories" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dandelionmvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemId" value="User" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Entities" />
+              <option name="myItemId" value="Actions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -360,15 +463,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Models" />
+              <option name="myItemId" value="Controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Entities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Base" />
+              <option name="myItemId" value="Main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -386,19 +485,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Data" />
+              <option name="myItemId" value="Controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Actions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/Windows/Temp/php-errors.log" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FullScreen" value="false" />
-    <property name="options.lastSelected" value="preferences.sourceCode.CSS" />
+    <property name="options.lastSelected" value="preferences.sourceCode.PHP" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -462,7 +570,11 @@
       <created>1401563040628</created>
       <updated>1401563040628</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Implemented Multiple Database Binding by Application Setting mechanism.&#10;&#10;Dat00UnitOfWork and VfpUnitOfWork implemented for accessing two different database contexts.&#10;&#10;(No Documentation Update)&#10;&#10;">
+      <created>1401650746741</created>
+      <updated>1401650746741</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -475,19 +587,19 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.249375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42051283" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32948717" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48589742" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -505,7 +617,8 @@
     <MESSAGE value="Dandelion MVC Action Controllers Init mechanism added.&#10;Diana Data Access Added to MVC Application Libraries.&#10;Diana Data Access AdvantageODBC Driver Added with very basic features.&#10;UnitOfWork + Repository Pattern Added to MVC Application.&#10;Entities and BaseEntities Development Structure Added.&#10;&#10;Fermen WSM Application 1.0.0.0&#10;&#10;(No Documentation Update)&#10;Dandelion MVC Help Removed From Default Application" />
     <MESSAGE value="Using DefaultDB Config Mechanism in UnitOfWork&#10;&#10;(No Documentation Update)&#10;" />
     <MESSAGE value="Implemented Multiple Database Binding by Application Setting mechanism.&#10;&#10;Dat00UnitOfWork and VfpUnitOfWork implemented for accessing two different database contexts.&#10;&#10;(No Documentation Update)&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented Multiple Database Binding by Application Setting mechanism.&#10;&#10;Dat00UnitOfWork and VfpUnitOfWork implemented for accessing two different database contexts.&#10;&#10;(No Documentation Update)&#10;" />
+    <MESSAGE value="Implemented Multiple Database Binding by Application Setting mechanism.&#10;&#10;Dat00UnitOfWork and VfpUnitOfWork implemented for accessing two different database contexts.&#10;&#10;(No Documentation Update)&#10;&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented Multiple Database Binding by Application Setting mechanism.&#10;&#10;Dat00UnitOfWork and VfpUnitOfWork implemented for accessing two different database contexts.&#10;&#10;(No Documentation Update)&#10;&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -515,46 +628,10 @@
           <line>133</line>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Application/Data/settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="73" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="221">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/Interfaces/IDBDriver.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="57" selection-start="207" selection-end="207" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="357" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/Drivers/AdvantageODBC/AdvantageODBCDriver.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="70" selection-start="886" selection-end="886" vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="1292" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Data/settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="117" selection-start="274" selection-end="279" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="204">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/FrontController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="33" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1938">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/Diana.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="22" selection-start="759" selection-end="759" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="850" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Views/Main/Index.View.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="35" selection-start="35" selection-end="35" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102" />
@@ -609,29 +686,9 @@
         <state line="4" column="80" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="204" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Core/Exceptions.Core.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1513" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/View.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3621" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Controllers/Main/Actions/Index_Post.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="24" selection-start="274" selection-end="319" vertical-scroll-proportion="-9.153846" vertical-offset="0" max-vertical-offset="459" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/.idea/.name">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="754" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/Action.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="16" selection-start="1222" selection-end="1222" vertical-scroll-proportion="-11.346154" vertical-offset="487" max-vertical-offset="2397" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/Drivers/AdvantageODBC/AdvantageODBCQuery.php">
@@ -642,11 +699,6 @@
     <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/Diana.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="41" selection-start="527" selection-end="527" vertical-scroll-proportion="-5.269231" vertical-offset="101" max-vertical-offset="697" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Controllers/Main/Actions/Redirection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="442" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/Query.php">
@@ -662,16 +714,6 @@
     <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/Interfaces/IDBDriver.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="57" selection-start="207" selection-end="207" vertical-scroll-proportion="0.20695652" vertical-offset="0" max-vertical-offset="575" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/Request.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="5" selection-start="1875" selection-end="1875" vertical-scroll-proportion="1.6543624" vertical-offset="306" max-vertical-offset="1819" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/Controller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="57" selection-start="3112" selection-end="3112" vertical-scroll-proportion="0.62092626" vertical-offset="1440" max-vertical-offset="2329" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Libraries/Diana/QueryResult.php">
@@ -709,21 +751,6 @@
         <state line="4" column="3" selection-start="94" selection-end="94" vertical-scroll-proportion="0.024045262" vertical-offset="0" max-vertical-offset="707" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Core/ActionsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="15" selection-start="818" selection-end="818" vertical-scroll-proportion="0.34512022" vertical-offset="79" max-vertical-offset="2057" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/Application.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="276" column="51" selection-start="6091" selection-end="6091" vertical-scroll-proportion="-9.538462" vertical-offset="4444" max-vertical-offset="5440" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Controllers/Main/Main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="50" selection-start="1445" selection-end="1445" vertical-scroll-proportion="-17.384615" vertical-offset="245" max-vertical-offset="952" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Models/Entities/Sysuser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="27" selection-start="242" selection-end="242" vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="306" />
@@ -739,117 +766,257 @@
         <state line="23" column="1" selection-start="878" selection-end="878" vertical-scroll-proportion="-15.038462" vertical-offset="0" max-vertical-offset="850" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Views/Main/Index/body.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1105" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Views/Main/Index.View.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="35" selection-start="35" selection-end="35" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Controllers/Main/Actions/Index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="45" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="612">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Views/Shared/Master.Page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="7" selection-start="2361" selection-end="2361" vertical-scroll-proportion="0.0" vertical-offset="782" max-vertical-offset="901">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="0" selection-start="4978" selection-end="4978" vertical-scroll-proportion="0.0" vertical-offset="2380" max-vertical-offset="3026">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Data/settings.dtd">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="10" selection-start="241" selection-end="241" vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="442">
+        <state line="24" column="10" selection-start="733" selection-end="733" vertical-scroll-proportion="0.5604396" vertical-offset="0" max-vertical-offset="728">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Data/settings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="73" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/FrontController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="7" selection-start="937" selection-end="937" vertical-scroll-proportion="-17.538462" vertical-offset="37" max-vertical-offset="765">
+        <state line="5" column="73" selection-start="355" selection-end="355" vertical-scroll-proportion="0.1127321" vertical-offset="0" max-vertical-offset="754">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="57" selection-start="153" selection-end="153" vertical-scroll-proportion="0.1401099" vertical-offset="0" max-vertical-offset="8891">
+        <state line="29" column="23" selection-start="670" selection-end="670" vertical-scroll-proportion="0.07005495" vertical-offset="442" max-vertical-offset="8891">
+          <folding>
+            <element signature="e#6#94#0" expanded="false" />
+            <element signature="e#995#1064#0" expanded="false" />
+            <element signature="e#1107#1177#0" expanded="false" />
+            <element signature="e#1227#1307#0" expanded="false" />
+            <element signature="e#1350#1424#0" expanded="false" />
+            <element signature="e#1476#1564#0" expanded="false" />
+            <element signature="e#1607#1681#0" expanded="false" />
+            <element signature="e#1733#1821#0" expanded="false" />
+            <element signature="e#1864#1938#0" expanded="false" />
+            <element signature="e#1990#2078#0" expanded="false" />
+            <element signature="e#2121#2189#0" expanded="false" />
+            <element signature="e#2238#2314#0" expanded="false" />
+            <element signature="e#2357#2433#0" expanded="false" />
+            <element signature="e#2486#2578#0" expanded="false" />
+            <element signature="e#2621#2691#0" expanded="false" />
+            <element signature="e#2741#2821#0" expanded="false" />
+            <element signature="e#2864#2936#0" expanded="false" />
+            <element signature="e#2987#3071#0" expanded="false" />
+            <element signature="e#3114#3184#0" expanded="false" />
+            <element signature="e#3234#3314#0" expanded="false" />
+            <element signature="e#3357#3429#0" expanded="false" />
+            <element signature="e#3480#3564#0" expanded="false" />
+            <element signature="e#3607#3679#0" expanded="false" />
+            <element signature="e#3730#3814#0" expanded="false" />
+            <element signature="e#3857#3931#0" expanded="false" />
+            <element signature="e#3983#4071#0" expanded="false" />
+            <element signature="e#4114#4192#0" expanded="false" />
+            <element signature="e#4246#4342#0" expanded="false" />
+            <element signature="e#4385#4459#0" expanded="false" />
+            <element signature="e#4511#4599#0" expanded="false" />
+            <element signature="e#4642#4719#0" expanded="false" />
+            <element signature="e#4773#4868#0" expanded="false" />
+            <element signature="e#4911#4983#0" expanded="false" />
+            <element signature="e#5034#5118#0" expanded="false" />
+            <element signature="e#5161#5229#0" expanded="false" />
+            <element signature="e#5278#5354#0" expanded="false" />
+            <element signature="e#5397#5467#0" expanded="false" />
+            <element signature="e#5517#5597#0" expanded="false" />
+            <element signature="e#5640#5712#0" expanded="false" />
+            <element signature="e#5763#5847#0" expanded="false" />
+            <element signature="e#5890#5966#0" expanded="false" />
+            <element signature="e#6019#6111#0" expanded="false" />
+            <element signature="e#6154#6230#0" expanded="false" />
+            <element signature="e#6283#6375#0" expanded="false" />
+            <element signature="e#6418#6494#0" expanded="false" />
+            <element signature="e#6547#6639#0" expanded="false" />
+            <element signature="e#6682#6760#0" expanded="false" />
+            <element signature="e#6814#6910#0" expanded="false" />
+            <element signature="e#6953#7031#0" expanded="false" />
+            <element signature="e#7085#7181#0" expanded="false" />
+            <element signature="e#7224#7294#0" expanded="false" />
+            <element signature="e#7344#7424#0" expanded="false" />
+            <element signature="e#7467#7541#0" expanded="false" />
+            <element signature="e#7593#7681#0" expanded="false" />
+            <element signature="e#7687#9954#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Views/Shared/Master.Page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="7" selection-start="2361" selection-end="2361" vertical-scroll-proportion="0.8335664" vertical-offset="186" max-vertical-offset="901">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Windows/Temp/php-errors.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Views/Main/Index/body.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="27" selection-start="78" selection-end="78" vertical-scroll-proportion="-1.9615384" vertical-offset="0" max-vertical-offset="1105">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.213986" vertical-offset="1583" max-vertical-offset="2329">
+          <folding>
+            <element signature="e#1314#1550#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Controllers/Main/Actions/Redirection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="24" selection-start="276" selection-end="276" vertical-scroll-proportion="-9.153846" vertical-offset="0" max-vertical-offset="442">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/Request.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="5" selection-start="1875" selection-end="1875" vertical-scroll-proportion="-13.0" vertical-offset="835" max-vertical-offset="1632">
+          <folding>
+            <element signature="e#2327#2453#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/Exceptions.Core.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="19.73077" vertical-offset="513" max-vertical-offset="1309">
+          <folding>
+            <element signature="e#1297#1429#0" expanded="true" />
+            <element signature="e#1501#1658#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Views/User/Singin.View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="35" selection-start="35" selection-end="35" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="728">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Views/Main/Index.View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="35" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="140" column="0" selection-start="4978" selection-end="4978" vertical-scroll-proportion="-7.576923" vertical-offset="1877" max-vertical-offset="2720">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/Application.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="0" selection-start="1058" selection-end="1058" vertical-scroll-proportion="-7.576923" vertical-offset="398" max-vertical-offset="4318">
+          <folding>
+            <element signature="e#6011#6108#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/FrontController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="104" column="0" selection-start="3107" selection-end="3107" vertical-scroll-proportion="0.7431319" vertical-offset="1193" max-vertical-offset="1921">
+          <folding>
+            <element signature="e#798#885#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/ActionsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="74" selection-start="2365" selection-end="2365" vertical-scroll-proportion="0.3956044" vertical-offset="766" max-vertical-offset="2074">
+          <folding>
+            <element signature="e#906#1013#0" expanded="true" />
+            <element signature="e#3070#3745#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="5" selection-start="919" selection-end="919" vertical-scroll-proportion="0.2706044" vertical-offset="381" max-vertical-offset="1547">
+          <folding>
+            <element signature="e#846#919#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Views/User/Singin/body.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="57" selection-start="157" selection-end="176" vertical-scroll-proportion="0.046703298" vertical-offset="0" max-vertical-offset="728">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/Action.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="15" selection-start="850" selection-end="850" vertical-scroll-proportion="-0.6318681" vertical-offset="800" max-vertical-offset="2295">
+          <folding>
+            <element signature="e#1343#1983#0" expanded="true" />
+            <element signature="e#2292#2502#0" expanded="true" />
+            <element signature="e#3035#3415#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Controllers/User/Actions/Singin_Post.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="46" selection-start="820" selection-end="820" vertical-scroll-proportion="0.51373625" vertical-offset="0" max-vertical-offset="728">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Controllers/Main/Main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="4" selection-start="1161" selection-end="1186" vertical-scroll-proportion="-13.615385" vertical-offset="156" max-vertical-offset="884">
+          <folding>
+            <element signature="e#146#208#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Controllers/User/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="7" selection-start="864" selection-end="928" vertical-scroll-proportion="0.51373625" vertical-offset="51" max-vertical-offset="833">
           <folding>
             <element signature="e#6#94#0" expanded="true" />
-            <element signature="e#911#980#0" expanded="true" />
-            <element signature="e#1023#1093#0" expanded="true" />
-            <element signature="e#1143#1223#0" expanded="true" />
-            <element signature="e#1266#1340#0" expanded="true" />
-            <element signature="e#1392#1480#0" expanded="true" />
-            <element signature="e#1523#1597#0" expanded="true" />
-            <element signature="e#1649#1737#0" expanded="true" />
-            <element signature="e#1780#1854#0" expanded="true" />
-            <element signature="e#1906#1994#0" expanded="true" />
-            <element signature="e#2037#2105#0" expanded="true" />
-            <element signature="e#2154#2230#0" expanded="true" />
-            <element signature="e#2273#2349#0" expanded="true" />
-            <element signature="e#2402#2494#0" expanded="true" />
-            <element signature="e#2537#2607#0" expanded="true" />
-            <element signature="e#2657#2737#0" expanded="true" />
-            <element signature="e#2780#2852#0" expanded="true" />
-            <element signature="e#2903#2987#0" expanded="true" />
-            <element signature="e#3030#3100#0" expanded="true" />
-            <element signature="e#3150#3230#0" expanded="true" />
-            <element signature="e#3273#3345#0" expanded="true" />
-            <element signature="e#3396#3480#0" expanded="true" />
-            <element signature="e#3523#3595#0" expanded="true" />
-            <element signature="e#3646#3730#0" expanded="true" />
-            <element signature="e#3773#3847#0" expanded="true" />
-            <element signature="e#3899#3987#0" expanded="true" />
-            <element signature="e#4030#4108#0" expanded="true" />
-            <element signature="e#4162#4258#0" expanded="true" />
-            <element signature="e#4301#4375#0" expanded="true" />
-            <element signature="e#4427#4515#0" expanded="true" />
-            <element signature="e#4558#4635#0" expanded="true" />
-            <element signature="e#4689#4784#0" expanded="true" />
-            <element signature="e#4827#4899#0" expanded="true" />
-            <element signature="e#4950#5034#0" expanded="true" />
-            <element signature="e#5077#5145#0" expanded="true" />
-            <element signature="e#5194#5270#0" expanded="true" />
-            <element signature="e#5313#5383#0" expanded="true" />
-            <element signature="e#5433#5513#0" expanded="true" />
-            <element signature="e#5556#5628#0" expanded="true" />
-            <element signature="e#5679#5763#0" expanded="true" />
-            <element signature="e#5806#5882#0" expanded="true" />
-            <element signature="e#5935#6027#0" expanded="true" />
-            <element signature="e#6070#6146#0" expanded="true" />
-            <element signature="e#6199#6291#0" expanded="true" />
-            <element signature="e#6334#6410#0" expanded="true" />
-            <element signature="e#6463#6555#0" expanded="true" />
-            <element signature="e#6598#6676#0" expanded="true" />
-            <element signature="e#6730#6826#0" expanded="true" />
-            <element signature="e#6869#6947#0" expanded="true" />
-            <element signature="e#7001#7097#0" expanded="true" />
-            <element signature="e#7140#7210#0" expanded="true" />
-            <element signature="e#7260#7340#0" expanded="true" />
-            <element signature="e#7383#7457#0" expanded="true" />
-            <element signature="e#7509#7597#0" expanded="true" />
-            <element signature="e#7603#9870#0" expanded="true" />
+            <element signature="e#1026#1382#0" expanded="true" />
+            <marker date="1401734618054" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Controllers/Main/Actions/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="19" selection-start="457" selection-end="457" vertical-scroll-proportion="-10.461538" vertical-offset="17" max-vertical-offset="629">
+          <folding>
+            <element signature="e#498#900#0" expanded="true" />
+            <marker date="1401735254450" expanded="true" signature="-1:-1" placeholder=" Action logic ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Controllers/User/Actions/Singin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="352" selection-end="352" vertical-scroll-proportion="0.32692307" vertical-offset="0" max-vertical-offset="728">
+          <folding>
+            <element signature="e#398#951#0" expanded="true" />
           </folding>
         </state>
       </provider>

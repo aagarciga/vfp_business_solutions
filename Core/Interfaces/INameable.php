@@ -3,7 +3,8 @@
 namespace Dandelion\MVC\Core\Interfaces;
 
 /**
- * INameable Interface 
+ * INameable Interface
+ * @ignore 
  */
 interface INameable {
 

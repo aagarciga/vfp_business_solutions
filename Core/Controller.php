@@ -16,6 +16,7 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationStat
  * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
+ * @ignore
  */
 abstract class Controller implements Interfaces\INameable {
 
@@ -85,7 +86,7 @@ abstract class Controller implements Interfaces\INameable {
         }
 
         $controller = new $class($request->Controller);
-        
+
         $controller->PreController($request);
         $controller->PreControllerInvocation($request);
         $controller->PostController($request);

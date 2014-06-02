@@ -25,14 +25,23 @@ if(!defined('MVC_DIR_APP_MODELS_REPOSITORIES')){
 
 require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseSysuser.php';
 require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'Sysuser.php';
-
 require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'BaseRepository.php';
 require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'SysuserRepository.php';
 
-
+/**
+ * VfpData Data Context
+ */
 class VfpDataUnitOfWork {
+    /**
+     *
+     * @var DBDriver 
+     */
     public $DBDriver;
 
+    /**
+     *
+     * @var SysuserRepository 
+     */
     public $SysuserRepository;
 
     public function __construct($dbDriver){

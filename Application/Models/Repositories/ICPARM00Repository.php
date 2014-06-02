@@ -10,6 +10,9 @@ namespace Dandelion\MVC\Application\Models\Repositories;
 use Dandelion\Diana\Interfaces\IRepository;
 use Dandelion\MVC\Application\Models\Entities\ICPARM00;
 
+/**
+ * 
+ */
 class ICPARM00Repository extends BaseRepository implements IRepository {
 
     /**

@@ -1,3 +1,7 @@
+<p>
+    Welcome <strong><?php echo $UserName?></strong>
+</p>
+
 <table>
     <colgroup>
         <col class="col-1">

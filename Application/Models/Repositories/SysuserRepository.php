@@ -29,9 +29,24 @@ class SysuserRepository extends BaseRepository implements IRepository{
         return $result;
     }
 
+    /**
+     * 
+     * @param type $predicate
+     * @return \Dandelion\MVC\Application\Models\Entities\Sysuser
+     */
     public function Get($predicate)
     {
-        // TODO: Implement Get() method.
+        $sqlString = "SELECT * FROM $this->entityName";
+        $sqlString .= ' ' . $predicate;
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = array();
+
+        foreach($queryResult as $row){
+            $result []= new Sysuser($row->USERID, $row->USERCODE, $row->USERNAME, $row->USERPASS, $row->GROUP);
+        }
+
+        return $result;
     }
 
     public function Add($entity)

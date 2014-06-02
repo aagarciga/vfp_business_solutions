@@ -4,6 +4,7 @@ namespace Dandelion\MVC\Core\Nomenclatures;
 
 /**
  * Description of ApplicationState 
+ * @ignore
  */
 class ApplicationState {
 

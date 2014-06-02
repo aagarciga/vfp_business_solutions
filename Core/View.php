@@ -12,6 +12,7 @@ use Dandelion\MVC\Core\Nomenclatures\RequestMethod;
  * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
+ * @ignore
  */
 class View {
     

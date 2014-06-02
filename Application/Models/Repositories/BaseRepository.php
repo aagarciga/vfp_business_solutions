@@ -8,6 +8,9 @@ namespace Dandelion\MVC\Application\Models\Repositories;
 
 use Dandelion\Diana\Interfaces\IDBDriver;
 
+/**
+ * 
+ */
 class BaseRepository {
     /**
      * @var

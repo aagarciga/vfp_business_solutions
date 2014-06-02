@@ -30,10 +30,21 @@ require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'ICPARM00.php';
 require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'BaseRepository.php';
 require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'ICPARM00Repository.php';
 
-
+/**
+ * Dat00 Data Context
+ */
 class Dat00UnitOfWork {
+    
+    /**
+     *
+     * @var DBDriver 
+     */
     public $DBDriver;
 
+    /**
+     * 
+     * @var ICPARM00Repository 
+     */
     public $ICPARM00Repository;
 
     public function __construct($dbDriver){

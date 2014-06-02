@@ -17,10 +17,11 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  * @copyright   2011-2014 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
+ * @ignore
  */
 abstract class ActionsController extends Controller {
 
-    abstract protected function Init();
+    protected function Init(){}
 
     public final function __construct($name) {
         parent::__construct($name);

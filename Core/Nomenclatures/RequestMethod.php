@@ -3,7 +3,8 @@
 namespace Dandelion\MVC\Core\Nomenclatures;
 
 /**
- * Description of RequestMethod 
+ * Description of RequestMethod
+ * @ignore
  */
 class RequestMethod {
 

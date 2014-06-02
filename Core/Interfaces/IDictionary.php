@@ -4,6 +4,7 @@ namespace Dandelion\MVC\Core\Interfaces;
 
 /**
  * IDictionary Interface
+ * @ignore
  */
 interface IDictionary {
 

@@ -18,6 +18,7 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'View.php';
  * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
+ * @ignore
  */
 abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
 
@@ -121,10 +122,11 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @param string $controller Controller name
      * @param string $action Action name
      */
-    public final function Redirect($controller, $action = 'index') {
+    public final function Redirect($controller, $action = 'index', $requestMethod = 'GET') {
         
         $this->Request->Controller = $controller;
         $this->Request->Action = $action;
+        $this->Request->RequestMethod = $requestMethod;
         
         $controller = new FrontController();
         $controller->Redirect($this->Request);
