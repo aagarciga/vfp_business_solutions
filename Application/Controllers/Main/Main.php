@@ -43,13 +43,11 @@ class Main extends ActionsController {
     protected function Init()
     {
         $application = new Application();
-
         $this->Dat00UnitOfWork = new Dat00UnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
             $application->getDefaultDbHost(),
             $application->getDefaultDbUser(),
             $application->getDefaultDbPassword(),
             $application->getDefaultDbServerType()));
-
         $this->FvpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDbName(1),
             $application->getDbHost(1),
             $application->getDbUser(1),
@@ -62,12 +60,8 @@ class Main extends ActionsController {
      * @param \Dandelion\MVC\Core\Request $request
      */
     protected function PreController(Request $request) {
-        parent::PreController($request);
-
-        if(!isset($_SESSION['username'])){
-            
-            $redirectionRequest = new Request('User', 'Singin', $request->Application);
-
+        if(!isset($_SESSION['username'])){            
+            $redirectionRequest = new Request('User', 'Signin', $request->Application);
             $redirectionRequest->previousController = $request->Controller[0];
             $redirectionRequest->previousAction = $request->Action[0];
             $this->Redirect($redirectionRequest);

@@ -11,18 +11,18 @@ use Dandelion\MVC\Core\Action;
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
 
 /**
- * VFP Business Series User Sing in Action
+ * VFP Business Series User Sign in Action
  * @name Index
  */
-class Singin extends Action {
+class Signin extends Action {
 
     /**
-     * Show Sing in Form
+     * Show Sign in Form
      */
     public function Execute()
     {
         session_unset();
-        $this->Title = 'Sing In | VFP Business Series - Warehouse Management System';
+        $this->Title = 'Sign In | VFP Business Series - Warehouse Management System';
         
         $this->PreviousController = (isset($this->Request->previousController)) 
                 ? $this->Request->previousController 
