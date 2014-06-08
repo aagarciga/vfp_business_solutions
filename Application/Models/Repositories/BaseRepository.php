@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Project:  VFP Business Series
  * Copyright: 2014. VFP Business Solutions, LLC
@@ -12,6 +13,7 @@ use Dandelion\Diana\Interfaces\IDBDriver;
  * 
  */
 class BaseRepository {
+
     /**
      * @var
      */
@@ -26,9 +28,10 @@ class BaseRepository {
      * @param IDBDriver $dbDriver
      * @param string    $entityName
      */
-    public function __construct(IDBDriver $dbDriver, $entityName){
+    public function __construct(IDBDriver $dbDriver, $entityName) {
 
         $this->dbDriver = $dbDriver;
         $this->entityName = $entityName;
     }
-} 
+
+}

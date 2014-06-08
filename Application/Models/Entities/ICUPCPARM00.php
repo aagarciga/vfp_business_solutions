@@ -7,11 +7,11 @@
 
 namespace Dandelion\MVC\Application\Models\Entities;
 
-use Dandelion\MVC\Application\Models\Entities\Base\BaseSysuser;
+use Dandelion\MVC\Application\Models\Entities\Base\BaseICUPCPARM00;
 
 /**
- * Sysuser custom entity definitions
+ * ICUPCPARM00 UPC table.
  */
-class Sysuser extends BaseSysuser {
+class ICUPCPARM00 extends BaseICUPCPARM00 {
     
 }

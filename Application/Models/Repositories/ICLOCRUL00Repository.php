@@ -8,12 +8,12 @@
 namespace Dandelion\MVC\Application\Models\Repositories;
 
 use Dandelion\Diana\Interfaces\IRepository;
-use Dandelion\MVC\Application\Models\Entities\Sysuser;
+use Dandelion\MVC\Application\Models\Entities\ICLOCRUL00;
 
-class SysuserRepository extends BaseRepository implements IRepository {
+class ICLOCRUL00Repository extends BaseRepository implements IRepository {
 
     /**
-     * @return array of Sysuser objects
+     * @return array of all ICLOCRUL00 objects from DB
      */
     public function GetAll() {
         $sqlString = "SELECT * FROM $this->entityName";
@@ -22,16 +22,15 @@ class SysuserRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Sysuser($row->USERID, $row->USERCODE, $row->USERNAME, $row->USERPASS, $row->GROUP);
+            $result [] = new ICLOCRUL00($row->ROWID, $row->FROMBIN, $row->TOBIN, $row->ZONE, $row->BINTYPE, $row->SIZECODE, $row->REACHCODE, $row->HEIGHT, $row->FRONT, $row->DEPTH, $row->NDEEP, $row->SKIPCOUNT, $row->COMMENT_IN, $row->HANDLECODE, $row->PICK_TYPE, $row->SUBZONE, $row->PACKSIZE, $row->IS_RANDOM, $row->BILL_ZONE, $row->ISACTIVE, $row->WHSNO, $row->NFLG0, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->DESCRIP, $row->QBLISTID, $row->FUSERID);
         }
 
         return $result;
     }
 
     /**
-     * 
      * @param string $predicate SQL Query Where clause
-     * @return \Dandelion\MVC\Application\Models\Entities\Sysuser
+     * @return \Dandelion\MVC\Application\Models\Entities\ICLOCRUL00
      */
     public function Get($predicate) {
         $sqlString = "SELECT * FROM $this->entityName";
@@ -41,7 +40,7 @@ class SysuserRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Sysuser($row->USERID, $row->USERCODE, $row->USERNAME, $row->USERPASS, $row->GROUP);
+            $result [] = new ICLOCRUL00($row->ROWID, $row->FROMBIN, $row->TOBIN, $row->ZONE, $row->BINTYPE, $row->SIZECODE, $row->REACHCODE, $row->HEIGHT, $row->FRONT, $row->DEPTH, $row->NDEEP, $row->SKIPCOUNT, $row->COMMENT_IN, $row->HANDLECODE, $row->PICK_TYPE, $row->SUBZONE, $row->PACKSIZE, $row->IS_RANDOM, $row->BILL_ZONE, $row->ISACTIVE, $row->WHSNO, $row->NFLG0, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->DESCRIP, $row->QBLISTID, $row->FUSERID);
         }
 
         return $result;

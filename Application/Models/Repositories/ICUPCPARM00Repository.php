@@ -8,12 +8,12 @@
 namespace Dandelion\MVC\Application\Models\Repositories;
 
 use Dandelion\Diana\Interfaces\IRepository;
-use Dandelion\MVC\Application\Models\Entities\Sysuser;
+use Dandelion\MVC\Application\Models\Entities\ICUPCPARM00;
 
-class SysuserRepository extends BaseRepository implements IRepository {
+class ICUPCPARM00Repository extends BaseRepository implements IRepository {
 
     /**
-     * @return array of Sysuser objects
+     * @return array of all ICUPCPARM00 objects from DB
      */
     public function GetAll() {
         $sqlString = "SELECT * FROM $this->entityName";
@@ -22,16 +22,15 @@ class SysuserRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Sysuser($row->USERID, $row->USERCODE, $row->USERNAME, $row->USERPASS, $row->GROUP);
+            $result [] = new ICUPCPARM00($row->ITEMNO, $row->UPCCODE, $row->ISACTIVE, $row->NFLG0, $row->QBLISTID);
         }
 
         return $result;
     }
 
     /**
-     * 
      * @param string $predicate SQL Query Where clause
-     * @return \Dandelion\MVC\Application\Models\Entities\Sysuser
+     * @return \Dandelion\MVC\Application\Models\Entities\ICUPCPARM00
      */
     public function Get($predicate) {
         $sqlString = "SELECT * FROM $this->entityName";
@@ -41,7 +40,7 @@ class SysuserRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Sysuser($row->USERID, $row->USERCODE, $row->USERNAME, $row->USERPASS, $row->GROUP);
+            $result [] = new ICUPCPARM00($row->ITEMNO, $row->UPCCODE, $row->ISACTIVE, $row->NFLG0, $row->QBLISTID);
         }
 
         return $result;
