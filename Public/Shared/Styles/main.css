@@ -93,6 +93,40 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+html, body{
+    height: 100%;
+    background-color: #ccc;
+}
+
+div.viewport{
+    width: 320px;
+    height: 320px;
+    
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    margin-top: -160px;
+    margin-left: -160px;   
+    
+    background: white;
+    box-shadow: 1px 1px 3px #222;
+}
+
+.no-boxshadow div.viewport{
+    border: 1px solid #222;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

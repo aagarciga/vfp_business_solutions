@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Project:  VFP Business Series
  * Copyright: 2014. VFP Business Solutions, LLC
@@ -11,8 +12,8 @@ namespace Dandelion\MVC\Application\Models\Entities\Base;
  * 
  */
 class BaseSysuser {
-    private static $_name = "sysuser";
 
+    private static $_name = "sysuser";
     protected $_userid;
     protected $_usercode;
     protected $_username;
@@ -41,453 +42,375 @@ class BaseSysuser {
     protected $_custno;
     protected $_icprefix;
 
-    public static function toString(){
+    public static function toString() {
         return self::$_name;
     }
 
     /**
      * @return mixed
      */
-    public function getUserid()
-    {
+    public function getUserid() {
         return $this->_userid;
     }
 
     /**
      * @param mixed $userid
      */
-    public function setUserid($userid)
-    {
+    public function setUserid($userid) {
         $this->_userid = $userid;
     }
 
     /**
      * @return mixed
      */
-    public function getUsercode()
-    {
+    public function getUsercode() {
         return $this->_usercode;
     }
 
     /**
      * @param mixed $usercode
      */
-    public function setUsercode($usercode)
-    {
+    public function setUsercode($usercode) {
         $this->_usercode = $usercode;
     }
 
     /**
      * @return mixed
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->_username;
     }
 
     /**
      * @param mixed $username
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->_username = $username;
     }
 
     /**
      * @return mixed
      */
-    public function getUserpass()
-    {
+    public function getUserpass() {
         return $this->_userpass;
     }
 
     /**
      * @param mixed $userpass
      */
-    public function setUserpass($userpass)
-    {
+    public function setUserpass($userpass) {
         $this->_userpass = $userpass;
     }
 
     /**
      * @return mixed
      */
-    public function getGroup()
-    {
+    public function getGroup() {
         return $this->_group;
     }
 
     /**
      * @param mixed $group
      */
-    public function setGroup($group)
-    {
+    public function setGroup($group) {
         $this->_group = $group;
     }
 
     /**
      * @return mixed
      */
-    public function getUserstat0()
-    {
+    public function getUserstat0() {
         return $this->_userstat0;
     }
 
     /**
      * @param mixed $userstat0
      */
-    public function setUserstat0($userstat0)
-    {
+    public function setUserstat0($userstat0) {
         $this->_userstat0 = $userstat0;
     }
 
     /**
      * @return mixed
      */
-    public function getOndate()
-    {
+    public function getOndate() {
         return $this->_ondate;
     }
 
     /**
      * @param mixed $ondate
      */
-    public function setOndate($ondate)
-    {
+    public function setOndate($ondate) {
         $this->_ondate = $ondate;
     }
 
     /**
      * @return mixed
      */
-    public function getOffdate()
-    {
+    public function getOffdate() {
         return $this->_offdate;
     }
 
     /**
      * @param mixed $offdate
      */
-    public function setOffdate($offdate)
-    {
+    public function setOffdate($offdate) {
         $this->_offdate = $offdate;
     }
 
     /**
      * @return mixed
      */
-    public function getOntime()
-    {
+    public function getOntime() {
         return $this->_ontime;
     }
 
     /**
      * @param mixed $ontime
      */
-    public function setOntime($ontime)
-    {
+    public function setOntime($ontime) {
         $this->_ontime = $ontime;
     }
 
     /**
      * @return mixed
      */
-    public function getOfftime()
-    {
+    public function getOfftime() {
         return $this->_offtime;
     }
 
     /**
      * @param mixed $offtime
      */
-    public function setOfftime($offtime)
-    {
+    public function setOfftime($offtime) {
         $this->_offtime = $offtime;
     }
 
     /**
      * @return mixed
      */
-    public function getFscreen()
-    {
+    public function getFscreen() {
         return $this->_fscreen;
     }
 
     /**
      * @param mixed $fscreen
      */
-    public function setFscreen($fscreen)
-    {
+    public function setFscreen($fscreen) {
         $this->_fscreen = $fscreen;
     }
 
     /**
      * @return mixed
      */
-    public function getFstartup()
-    {
+    public function getFstartup() {
         return $this->_fstartup;
     }
 
     /**
      * @param mixed $fstartup
      */
-    public function setFstartup($fstartup)
-    {
+    public function setFstartup($fstartup) {
         $this->_fstartup = $fstartup;
     }
 
     /**
      * @return mixed
      */
-    public function getFuserlpdev()
-    {
+    public function getFuserlpdev() {
         return $this->_fuserlpdev;
     }
 
     /**
      * @param mixed $fuserlpdev
      */
-    public function setFuserlpdev($fuserlpdev)
-    {
+    public function setFuserlpdev($fuserlpdev) {
         $this->_fuserlpdev = $fuserlpdev;
     }
 
     /**
      * @return mixed
      */
-    public function getFuercomp()
-    {
+    public function getFuercomp() {
         return $this->_fuercomp;
     }
 
     /**
      * @param mixed $fuercomp
      */
-    public function setFuercomp($fuercomp)
-    {
+    public function setFuercomp($fuercomp) {
         $this->_fuercomp = $fuercomp;
     }
 
     /**
      * @return mixed
      */
-    public function getFlangCtrl()
-    {
+    public function getFlangCtrl() {
         return $this->_flang_ctrl;
     }
 
     /**
      * @param mixed $flang_ctrl
      */
-    public function setFlangCtrl($flang_ctrl)
-    {
+    public function setFlangCtrl($flang_ctrl) {
         $this->_flang_ctrl = $flang_ctrl;
     }
 
     /**
      * @return mixed
      */
-    public function getFormini()
-    {
+    public function getFormini() {
         return $this->_formini;
     }
 
     /**
      * @param mixed $formini
      */
-    public function setFormini($formini)
-    {
+    public function setFormini($formini) {
         $this->_formini = $formini;
     }
 
     /**
      * @return mixed
      */
-    public function getNflg0()
-    {
+    public function getNflg0() {
         return $this->_nflg0;
     }
 
     /**
      * @param mixed $nflg0
      */
-    public function setNflg0($nflg0)
-    {
+    public function setNflg0($nflg0) {
         $this->_nflg0 = $nflg0;
     }
 
     /**
      * @return mixed
      */
-    public function getWhsdef()
-    {
+    public function getWhsdef() {
         return $this->_whsdef;
     }
 
     /**
      * @param mixed $whsdef
      */
-    public function setWhsdef($whsdef)
-    {
+    public function setWhsdef($whsdef) {
         $this->_whsdef = $whsdef;
     }
 
     /**
      * @return mixed
      */
-    public function getPosctrl()
-    {
+    public function getPosctrl() {
         return $this->_posctrl;
     }
 
     /**
      * @param mixed $posctrl
      */
-    public function setPosctrl($posctrl)
-    {
+    public function setPosctrl($posctrl) {
         $this->_posctrl = $posctrl;
     }
 
     /**
      * @return mixed
      */
-    public function getPsdrwopen()
-    {
+    public function getPsdrwopen() {
         return $this->_psdrwopen;
     }
 
     /**
      * @param mixed $psdrwopen
      */
-    public function setPsdrwopen($psdrwopen)
-    {
+    public function setPsdrwopen($psdrwopen) {
         $this->_psdrwopen = $psdrwopen;
     }
 
     /**
      * @return mixed
      */
-    public function getPsdrwport()
-    {
+    public function getPsdrwport() {
         return $this->_psdrwport;
     }
 
     /**
      * @param mixed $psdrwport
      */
-    public function setPsdrwport($psdrwport)
-    {
+    public function setPsdrwport($psdrwport) {
         $this->_psdrwport = $psdrwport;
     }
 
     /**
      * @return mixed
      */
-    public function getPsbarcdlp()
-    {
+    public function getPsbarcdlp() {
         return $this->_psbarcdlp;
     }
 
     /**
      * @param mixed $psbarcdlp
      */
-    public function setPsbarcdlp($psbarcdlp)
-    {
+    public function setPsbarcdlp($psbarcdlp) {
         $this->_psbarcdlp = $psbarcdlp;
     }
 
     /**
      * @return mixed
      */
-    public function getSetconfirm()
-    {
+    public function getSetconfirm() {
         return $this->_setconfirm;
     }
 
     /**
      * @param mixed $setconfirm
      */
-    public function setSetconfirm($setconfirm)
-    {
+    public function setSetconfirm($setconfirm) {
         $this->_setconfirm = $setconfirm;
     }
 
     /**
      * @return mixed
      */
-    public function getDerdirname()
-    {
+    public function getDerdirname() {
         return $this->_derdirname;
     }
 
     /**
      * @param mixed $derdirname
      */
-    public function setDerdirname($derdirname)
-    {
+    public function setDerdirname($derdirname) {
         $this->_derdirname = $derdirname;
     }
 
     /**
      * @return mixed
      */
-    public function getCustno()
-    {
+    public function getCustno() {
         return $this->_custno;
     }
 
     /**
      * @param mixed $custno
      */
-    public function setCustno($custno)
-    {
+    public function setCustno($custno) {
         $this->_custno = $custno;
     }
 
     /**
      * @return mixed
      */
-    public function getIcprefix()
-    {
+    public function getIcprefix() {
         return $this->_icprefix;
     }
 
     /**
      * @param mixed $icprefix
      */
-    public function setIcprefix($icprefix)
-    {
+    public function setIcprefix($icprefix) {
         $this->_icprefix = $icprefix;
     }
 
-    public function __construct( $userid,
-                                $usercode,
-                                $username,
-                                $userpass,
-                                $group,
-                                $userstat0 = '',
-                                $ondate = '',
-                                $offdate = '',
-                                $ontime = '',
-                                $offtime = '',
-                                $fscreen = '',
-                                $fstartup = '',
-                                $fuserlpdev = '',
-                                $fuercomp = '',
-                                $flang_ctrl = '',
-                                $formini = '',
-                                $nflg0 = '',
-                                $whsdef = '',
-                                $posctrl = '',
-                                $psdrwopen = '',
-                                $psdrwport = '',
-                                $psbarcdlp = '',
-                                $setconfirm = '',
-                                $derdirname = '',
-                                $email = '',
-                                $custno = '',
-                                $icprefix = ''  ){
+    public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = '', $whsdef = '', $posctrl = '', $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = '', $derdirname = '', $email = '', $custno = '', $icprefix = '') {
 
         $this->_userid = $userid;
         $this->_usercode = $usercode;
@@ -518,4 +441,4 @@ class BaseSysuser {
         $this->_icprefix = $icprefix;
     }
 
-} 
+}

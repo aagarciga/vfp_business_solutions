@@ -1,63 +1,33 @@
-<p>
-    Welcome <strong><?php echo $UserName?></strong>
-</p>
-
-<table>
-    <colgroup>
-        <col class="col-1">
-        <col class="col-2">
-        <col class="col-3">
-        <col class="col-4">
-    </colgroup>
-    <thead>
-    <tr>
-        <th>User ID</th>
-        <th>User Code</th>
-        <th>Username</th>
-        <th>Password</th>
-    </tr>
-    </thead>
-    <tfoot>
-
-    </tfoot>
-    <tbody>
-    <?php $i = 0;?>
-    <?php foreach ($Users as $user):?>
-        <tr class="item <?php echo ($i++ % 2 == 0)? 'even' : 'odd'?>">
-            <td class="item-field"><?php echo trim($user->getUserid()) ?></td>
-            <td class="item-field"><?php echo trim($user->getUsercode()) ?></td>
-            <td class="item-field"><?php echo trim($user->getUsername()) ?></td>
-            <td class="item-field"><?php echo trim($user->getUserpass()) ?></td>
-        </tr>
-    <?php endforeach ?>
-    </tbody>
-</table>
-
-<hr/>
-
-<table>
-    <colgroup>
-        <col class="col-1">
-        <col class="col-2">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Item No.</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tfoot>
-
-    </tfoot>
-    <tbody>
-        <?php $i = 0;?>
-        <?php foreach ($Items as $item):?>
-            <tr class="item <?php echo ($i++ % 2 == 0)? 'even' : 'odd'?>">
-                <td class="item-field"><?php echo trim($item->getItemno()) ?></td>
-                <td class="item-field"><?php echo trim($item->getDescrip()) ?></td>
-            </tr>
-        <?php endforeach ?>
-    </tbody>
-</table>
-
+<div class="viewport">
+    <nav class="row row-1 col-4">
+        <ul>
+            <li><a href="#" class="disabled items-to-bin"><span class="label">Items to Bin</span></a></li>
+            <li><a href="#" class="disabled bin-to-bin"><span class="label">Bin to Bin</span></a></li>
+            <li><a href="#" class="physical-count"><span class="label">Physical Count</span></a></li>
+            <li><a href="#" class="disabled change-properties"><span class="label">Change Properties</span></a></li>
+        </ul>
+    </nav>
+    <nav class="row row-2 col-4">
+        <ul>
+            <li><a href="#" class="disabled pick-ticket"><span class="label">Pick Ticket</span></a></li>
+            <li><a href="#" class="disabled packing"><span class="label">Packing</span></a></li>
+            <li><a href="#" class="disabled shipping"><span class="label">Shipping</span></a></li>
+        </ul>
+    </nav>
+    <nav class="row row-3 col-3">
+        <ul>
+            <li><a href="#" class="disabled shipment"><span class="label">Shipment</span></a></li>
+            <li><a href="#" class="disabled return"><span class="label">Return</span></a></li>            
+        </ul>
+    </nav>
+    <nav class="row row-3 col-1">
+        <ul>
+            <li><a href="#" class="disabled exit"><span class="label">Exit</span></a></li>
+        </ul>
+    </nav>
+    
+    <footer>
+        <div class="powered">&copy; 2014. VFP Business Solutions, LLC</div>
+    </footer>
+</div>
 

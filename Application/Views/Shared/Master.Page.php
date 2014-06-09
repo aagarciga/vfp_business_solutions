@@ -32,10 +32,6 @@
         
         <!-- Your site or application content go here -->
         <?php $View->Partial('body'); ?>
-        <footer>
-            <hr />
-            <div class="powered">&copy; 2014. VFP Business Solutions, LLC</div>
-        </footer>
         
         <script src="ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="<?php echo $View->SharedScriptsContext('jquery-1.9.1.min.js'); ?>"><\/script>')</script>
