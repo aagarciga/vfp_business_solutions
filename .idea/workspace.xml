@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03480c6d-8b6a-4e69-b05c-41af9bbd061a" name="Default" comment="Implemented User Controller and Authentication Mechanism&#10;&#10;Documentation Updated&#10;&#10;">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Public/Images/Main/exit.png" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Action.html" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.ActionsController.html" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Application.html" afterPath="" />
@@ -30,6 +31,16 @@
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Nomenclatures.RequestMethod.html" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Request.html" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.View.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\bin-to-bin.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\change-properties.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\items-to-bin.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\packing.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\physical-count.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\pick-ticket.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\return.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\shipment.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Images\Main\shipping.gif" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" afterPath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/404.html" afterPath="$PROJECT_DIR$/Documentation/404.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" afterPath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" />
@@ -293,6 +304,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Actions" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dandelionmvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
