@@ -4,7 +4,7 @@ div.viewport{
 
 nav.row{
     height: 80px;
-    background-color: #b3d4fc;
+    background-color: #88ccfc;
     border-radius: 12px;
 }
 
@@ -71,7 +71,7 @@ nav > ul > li > a:visited{
 }
 
 nav > ul > li > a:hover{
-   color: white;
+   color: #1e5eb6;
 }
 
 nav > ul > li > a.disabled:hover{
@@ -87,11 +87,11 @@ nav > ul > li > a > span.label{
 }
 
 .items-to-bin{
-    background: transparent url('../../Images/Main/items-to-bin.gif') no-repeat 50% 5px ;
+    background: transparent url('../../Images/Main/items-to-bin.png') no-repeat 50% 5px ;
 }
 
 .bin-to-bin{
-    background: transparent url('../../Images/Main/bin-to-bin.gif') no-repeat 50% 5px ;
+    background: transparent url('../../Images/Main/bin-to-bin.png') no-repeat 50% 5px ;
 }
 
 .bin-to-bin > span.label{
@@ -99,15 +99,15 @@ nav > ul > li > a > span.label{
 }
 
 .physical-count{
-    background: transparent url('../../Images/Main/physical-count.gif') no-repeat 50% 2px ;
+    background: transparent url('../../Images/Main/physical-count.png') no-repeat 50% 2px ;
 }
 
 .change-properties{
-    background: transparent url('../../Images/Main/change-properties.gif') no-repeat 50% 2px ;
+    background: transparent url('../../Images/Main/change-properties.png') no-repeat 50% 2px ;
 }
 
 .pick-ticket{
-    background: transparent url('../../Images/Main/pick-ticket.gif') no-repeat 50% 2px ;
+    background: transparent url('../../Images/Main/pick-ticket.png') no-repeat 50% 2px ;
 }
 
 .pick-ticket > span.label{
@@ -115,7 +115,7 @@ nav > ul > li > a > span.label{
 }
 
 .packing{
-    background: transparent url('../../Images/Main/packing.jpg') no-repeat 50% 2px ;
+    background: transparent url('../../Images/Main/packing.png') no-repeat 50% 2px ;
 }
 
 .packing > span.label{
@@ -123,7 +123,7 @@ nav > ul > li > a > span.label{
 }
 
 .shipping{
-    background: transparent url('../../Images/Main/shipping.gif') no-repeat 50% 2px ;
+    background: transparent url('../../Images/Main/shipping.png') no-repeat 50% 2px ;
 }
 
 .shipping > span.label{
@@ -131,11 +131,11 @@ nav > ul > li > a > span.label{
 }
 
 .shipment{
-    background: transparent url('../../Images/Main/shipment.gif') no-repeat 50% 2px ;
+    background: transparent url('../../Images/Main/shipment.png') no-repeat 50% 2px ;
 }
 
 .return{
-    background: transparent url('../../Images/Main/return.gif') no-repeat 50% 5px ;
+    background: transparent url('../../Images/Main/return.png') no-repeat 50% 5px ;
 }
 
 .exit{
