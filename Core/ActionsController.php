@@ -74,8 +74,9 @@ abstract class ActionsController extends Controller {
             $action->PreAction();
         }
         
-        $canRender = true;
-        if ($action->Execute() == null) {
+        $canRender = false;
+        $executeResult = $action->Execute();
+        if ( $executeResult === null) {
             $canRender = true;
         }
                 
@@ -85,6 +86,9 @@ abstract class ActionsController extends Controller {
         
         if ($canRender) {
            $this->Render($action);
+        }
+        else{
+            echo $executeResult ;
         }
         
     }

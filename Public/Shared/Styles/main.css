@@ -118,6 +118,51 @@ html, body{
     border: 1px solid #222;
 }
 
+input[type=text], input[type=password], input[type=number]{
+    transition: border 1s;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 3px 5px;
+    outline: none;
+    box-shadow: none;
+}
+
+input[type=text]:hover, input[type=password]:hover, input[type=number]:hover{
+    border: 2px solid #88ccfc;
+}
+
+input[type=text].has-error{
+    border: 2px solid #cd051b;
+}
+
+input[type=text].success{
+    border: 2px solid #2ac58e;
+}
+
+.btn{
+    transition: color .5s;
+    transition: background-color 1s;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 3px 28px;
+}
+
+.btn:hover{
+    border: 2px solid #88ccfc;
+    background-color: #88ccfc;
+    color: white;
+}
+
+a.btn{
+    text-decoration: none;
+    color: #222;
+    display: inline-block;
+}
+
+a.btn:hover{
+
+}
+
 
 
 
