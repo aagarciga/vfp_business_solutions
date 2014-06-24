@@ -5,10 +5,10 @@ namespace Dandelion\MVC\Core;
 use Dandelion\MVC\Core\Nomenclatures\ApplicationState;
 use Dandelion\MVC\Core\Exceptions\ViewNotFoundException;
 
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
-require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationState.php';
-require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
+//require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
+//require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
+//require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'ApplicationState.php';
+//require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
 
 /**
  * Dandelion MVC parent of all application controllers.

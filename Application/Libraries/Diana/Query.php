@@ -9,7 +9,6 @@
 
 namespace Dandelion\Diana;
 
-
 abstract class Query {
 
     /**

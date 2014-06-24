@@ -8,8 +8,6 @@ namespace Dandelion\MVC\Application\Controllers\PhysicalCount\Actions;
 
 use Dandelion\MVC\Core\Action;
 
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
-
 /**
  * Ajax Location Verification
  * @name Index

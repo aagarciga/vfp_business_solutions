@@ -7,51 +7,15 @@
 
 namespace Dandelion\MVC\Application\Models;
 
-use Dandelion\Diana;
+use Dandelion\Diana\UnitOfWork;
 use Dandelion\Diana\Interfaces;
 use Dandelion\MVC\Application\Models\Entities;
 use Dandelion\MVC\Application\Models\Repositories;
 
-require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_SEPARATOR . 'Diana.php';
-
-if (!defined('MVC_DIR_APP_MODELS_ENTITIES')) {
-    define('MVC_DIR_APP_MODELS_ENTITIES', MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . 'Entities');
-}
-if (!defined('MVC_DIR_APP_MODELS_ENTITIES_BASE')) {
-    define('MVC_DIR_APP_MODELS_ENTITIES_BASE', MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'Base');
-}
-if (!defined('MVC_DIR_APP_MODELS_REPOSITORIES')) {
-    define('MVC_DIR_APP_MODELS_REPOSITORIES', MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . 'Repositories');
-}
-
-require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseICPARM00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseICBARCODE00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseICLOC00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseICLOCRUL00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseICPARM00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseICUPCPARM00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES_BASE . DIRECTORY_SEPARATOR . 'BaseWMSCAN00.php';
-
-require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'ICBARCODE00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'ICLOC00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'ICLOCRUL00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'ICPARM00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'ICUPCPARM00.php';
-require_once MVC_DIR_APP_MODELS_ENTITIES . DIRECTORY_SEPARATOR . 'WMSCAN00.php';
-
-require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'BaseRepository.php';
-
-require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'ICBARCODE00Repository.php';
-require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'ICLOC00Repository.php';
-require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'ICLOCRUL00Repository.php';
-require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'ICPARM00Repository.php';
-require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'ICUPCPARM00Repository.php';
-require_once MVC_DIR_APP_MODELS_REPOSITORIES . DIRECTORY_SEPARATOR . 'WMSCAN00Repository.php';
-
 /**
  * Dat00 Data Context
  */
-class Dat00UnitOfWork {
+class Dat00UnitOfWork extends UnitOfWork {
 
     /**
      *
@@ -100,6 +64,7 @@ class Dat00UnitOfWork {
      * @param Interfaces\IDBDriver $dbDriver
      */
     public function __construct($dbDriver) {
+        parent::__construct();
         $this->DBDriver = $dbDriver;
         
         $this->ICBARCODE00Repository = new Repositories\ICBARCODE00Repository($dbDriver, Entities\ICBARCODE00::toString());

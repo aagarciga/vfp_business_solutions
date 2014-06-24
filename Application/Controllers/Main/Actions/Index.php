@@ -8,8 +8,6 @@ namespace Dandelion\MVC\Application\Controllers\Main\Actions;
 
 use Dandelion\MVC\Core\Action;
 
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
-
 /**
  * VFP Business Series Default Controller Action
  * @name Index

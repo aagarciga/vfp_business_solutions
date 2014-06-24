@@ -4,7 +4,7 @@ namespace Dandelion\MVC\Core;
 
 use Dandelion\MVC\Core\Interfaces\INameable;
 
-require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
+//require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
 
 /**
  * Dandelion MVC application definition object for manage it's instance 

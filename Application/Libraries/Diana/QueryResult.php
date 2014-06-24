@@ -9,7 +9,6 @@
 
 namespace Dandelion\Diana;
 
-
 class QueryResult {
     private $_results = array();
 

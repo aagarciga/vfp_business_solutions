@@ -1,6 +1,6 @@
 <?php
 /**
- * Diana Data Access 1.0.0.2
+ * Diana Data Access 1.0.0.7
  *
  * PHP Version 5.3
  *
@@ -10,7 +10,9 @@
  * @link      http://www.thedandelionproject.com
  */
 
-define('DIANA_VERSION', "1.0.0.2");
+namespace Dandelion\Diana;
+
+define('DIANA_VERSION', "1.0.0.7");
 
 /**
  *
@@ -34,11 +36,46 @@ define('DIANA_DIR_INTERFACES', DIANA_DIR_ROOT . DIRECTORY_SEPARATOR . 'Interface
  */
 define('DIANA_DIR_DRIVER_ADVANTAGE_ODBC', DIANA_DIR_DRIVERS . DIRECTORY_SEPARATOR . 'AdvantageODBC');
 
-require_once DIANA_DIR_ROOT . DIRECTORY_SEPARATOR . 'Query.php';
-require_once DIANA_DIR_ROOT . DIRECTORY_SEPARATOR . 'QueryResult.php';
+/**
+ * Diana Instace
+ */
+final class Diana {
+    
+    static private $instance = null;
+    
+    public static function Init() {
+        
+        if (self::$instance == null) {
+            self::$instance = new Diana();            
+        }
+        spl_autoload_register(array(self::$instance, 'classLoader'));
+        
+        return self::$instance;
+    }
+    
+    final function __construct() {
+        
+    }
+    
+    final function __clone() {
+        ;
+    }
 
-require_once DIANA_DIR_INTERFACES . DIRECTORY_SEPARATOR . 'IDBDriver.php';
-require_once DIANA_DIR_INTERFACES . DIRECTORY_SEPARATOR . 'IRepository.php';
+    /**
+     * 
+     * @param type $className
+     */
+    private function classLoader($className) {
+        $className = explode("\\", $className);
+        $className = $className[count($className)-1];
 
-require_once DIANA_DIR_DRIVER_ADVANTAGE_ODBC . DIRECTORY_SEPARATOR . 'AdvantageODBCDriver.php';
-require_once DIANA_DIR_DRIVER_ADVANTAGE_ODBC . DIRECTORY_SEPARATOR . 'AdvantageODBCQuery.php';
+        if (is_file(DIANA_DIR_ROOT . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once DIANA_DIR_ROOT . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(DIANA_DIR_INTERFACES . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once DIANA_DIR_INTERFACES . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(DIANA_DIR_DRIVER_ADVANTAGE_ODBC . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once DIANA_DIR_DRIVER_ADVANTAGE_ODBC . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . $className . '.php';            
+    }
+}

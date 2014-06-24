@@ -2,7 +2,7 @@
 
 namespace Dandelion\MVC;
 
-define('MVC_VERSION', "1.0.0.16");
+define('MVC_VERSION', "1.0.0.24");
 /**
  * Dandelion MVC 1.0.0.16
  * 
@@ -71,47 +71,12 @@ define('MVC_DIR_PUBLIC_SHARED_STYLES', MVC_DIR_PUBLIC_SHARED . '/' . 'Styles');
  */
 define('MVC_SETTINGS_INSTANCE', 'Application');
 
-
-include_once 'Core/Exceptions.Core.php';
-
 use Dandelion\MVC\Core;
 use Dandelion\MVC\Core\Exceptions;
 
-/**
- * @internal This function is for Auto Class Loader feature. 
- * @internal Please don't modify.
- * @internal The Auto Class Loader feature only work for classes in to the
- *            __autoload folder list:
- *              MVC_DIR_CORE
- *              MVC_DIR_CORE_DATA
- *              MVC_DIR_CORE_INTERFACES
- *              MVC_DIR_CORE_NOMENCLATURES 
- *              MVC_DIR_APP_CONTROLLERS
- *              MVC_DIR_APP_LIBRARIES
- *              MVC_DIR_APP_MODELS
- * @ignore
- */
-
-function __autoload($className) {
-    if (is_file(MVC_DIR_CORE . DIRECTORY_SEPARATOR . $className . '.php'))
-        require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . $className . '.php';
-    else if (is_file(MVC_DIR_CORE_DATA . DIRECTORY_SEPARATOR . $className . '.php'))
-        require_once MVC_DIR_CORE_DATA . DIRECTORY_SEPARATOR . $className . '.php';
-    else if (is_file(MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . $className . '.php'))
-        require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . $className . '.php';
-    else if (is_file(MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . $className . '.php'))
-        require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . $className . '.php';
-    else if (is_file(MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $className . '.php'))
-        require_once MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $className . '.php';
-    else if (is_file(MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . $className . '.php'))
-        require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . $className . '.php';
-    else if (is_file(MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php'))
-        require_once MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php';
-    else
-        throw new Exceptions\ClassNotFoundException($className);
-}
-
-include_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
+require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
+require_once 'Core/Exceptions.Core.php';
+require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_SEPARATOR . 'Diana.php';
 
 /**
  * Front Controller instance for Singleton behavior.
@@ -133,14 +98,60 @@ final class index extends Core\FrontController {
     public static function Main() {
         session_start();
         error_reporting(E_ALL);
-        
+        \Dandelion\Diana\Diana::Init();
+              
         if (self::$instance == null) {
             self::$instance = new index();
+            spl_autoload_register(array(self::$instance, 'loader'));
         }
 
         return self::$instance;
     }
-
+    /**
+     * @internal This function is for Auto Class Loader feature. 
+     * @internal Please don't modify.
+     * @internal The Auto Class Loader feature only work for classes in to the
+     *           folder list:
+     *              MVC_DIR_CORE
+     *              MVC_DIR_CORE_DATA
+     *              MVC_DIR_CORE_INTERFACES
+     *              MVC_DIR_CORE_NOMENCLATURES 
+     *              MVC_DIR_APP_CONTROLLERS
+     *              MVC_DIR_APP_LIBRARIES
+     *              MVC_DIR_APP_MODELS
+     * @ignore
+     * @param type $className
+     */
+    private function loader($className) {
+        
+        $className = explode("\\", $className);
+        $className = $className[count($className)-1];
+        
+        if (is_file(MVC_DIR_CORE . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_CORE_DATA . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_CORE_DATA . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php';
+                    
+    }
+    
+    /**
+     * @internal This 
+     * @param type $className
+     * @throws Exceptions\ClassNotFoundException
+     */
+    public static function throwClassNotFoundException($className){
+        throw new Exceptions\ClassNotFoundException($className);
+    }
 }
 
 /**
@@ -154,6 +165,7 @@ final class index extends Core\FrontController {
 
 try {
     index::Main()->Dispatch();
+    spl_autoload_register(__NAMESPACE__ .'\index::throwClassNotFoundException'); // As of PHP 5.3.0
 } catch (Exceptions\SystemExit $e) {
     unset($e);
 } catch (Exceptions\ClassNotFoundException $e) {
@@ -169,4 +181,3 @@ try {
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
-?>

@@ -18,7 +18,7 @@ final class ClassNotFoundException extends \Exception {
      * @param string $className 
      */
     public function __construct($className) {
-        $this->message = "Dandelion MVC Core can't find " . $className . "in any of his commons locations";
+        $this->message = "Dandelion MVC Core can't find " . $className . " in any of his commons locations";
         parent::__construct();
     }
 

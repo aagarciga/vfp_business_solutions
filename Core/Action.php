@@ -5,11 +5,11 @@ namespace Dandelion\MVC\Core;
 use Dandelion\MVC\Core\Nomenclatures;
 use Dandelion\MVC\Core\Exceptions;
 
-require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
-require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'IDictionary.php';
-require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'View.php';
+//require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
+//require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'IDictionary.php';
+//require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
+//require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
+//require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'View.php';
 
 /**
  * Dandelion MVC parent of all application controllers actions.

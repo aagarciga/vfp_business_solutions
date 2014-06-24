@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <!DOCTYPE Application SYSTEM "settings.dtd">
-<Application Name="VFP Business Series" Controller="main" Action="index" State="Development">
+<Application Name="VFP Business Series" Controller="main" Action="index" State="Development" >
     <DB Name="dat00.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\DAT00\" User="" Password="" ServerType="Local"/>
     <DB Name="vfpdata.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\" User="" Password="" ServerType="Local"/>
 </Application>

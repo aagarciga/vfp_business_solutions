@@ -8,8 +8,6 @@ namespace Dandelion\MVC\Application\Controllers\Main\Actions;
 
 use Dandelion\MVC\Core\Action;
 
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Action.php';
-
 /**
  * Page to show some user and ICPARM00 data in order to demostrate 
  * multiple data context mechanism feature.
