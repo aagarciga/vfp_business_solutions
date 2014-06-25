@@ -57,5 +57,5 @@ class ICBARCODE00Repository extends BaseRepository implements IRepository {
     public function Delete($entity) {
         // TODO: Implement Delete() method.
     }
-
+    
 }

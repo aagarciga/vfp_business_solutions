@@ -37,6 +37,7 @@
             type: 'post',
             beforeSend: function(){
                 //$('body').html("loading...");
+                $('.loading').show();
             },
             success: function (response){
                 if(response === 'true'){
@@ -58,7 +59,7 @@
                     
                     ShowFeedback("Location not found.");
                 }
-                
+                $('.loading').hide();
             }            
         });
     }
@@ -83,6 +84,7 @@
             type: 'post',
             beforeSend: function(){
                 //$('body').html("loading...");
+                $('.loading').show();
             },
             success: function (response){
                 var _response = $.parseJSON(response);
@@ -105,7 +107,7 @@
                     ShowFeedback("Item "+ _response.descrip +" found.");
                 }                
                 $('#txDescrip').val(_response.descrip);
-                
+                $('.loading').hide();
             }            
         });
     }
@@ -209,14 +211,19 @@
     });
         
     /// 
-    function addItemCount(count, location, barcode){
-        var params = {"barcode" : barcode };
+    function addItemCountOld(count, location, barcode){
+        var params = {
+            'barcode' : barcode,
+            'location' : location,
+            'count' : count
+        };
         $.ajax({
             data: params,
             url: '<?php echo $View->Href("PhysicalCount", "GetItem") ?>',
             type: 'post',
             beforeSend: function(){
                 //$('body').html("loading...");
+                $('.loading').show();
             },
             success: function (response){
                 var _response = $.parseJSON(response);
@@ -237,6 +244,45 @@
                         location+"</td><td>"+
                         _response.upccode+"</td></tr>");
                 updateTotal(count);
+                $('.loading').hide();
+            }            
+        });        
+    }
+    
+    function addItemCount(count, location, barcode){
+        var params = {
+            'barcode' : barcode,
+            'location' : location,
+            'count' : count
+        };
+        $.ajax({
+            data: params,
+            url: '<?php echo $View->Href("PhysicalCount", "AddItemCount") ?>',
+            type: 'post',
+            beforeSend: function(){
+                //$('body').html("loading...");
+                $('.loading').show();
+            },
+            success: function (response){
+                var _response = $.parseJSON(response);
+                var $markerRow = $('#marker-row');
+                var _rowType;
+                
+                if($markerRow.hasClass("even")){
+                    _rowType = "odd";
+                    $markerRow.removeClass("even");
+                }
+                else{
+                    _rowType = "even";
+                    $markerRow.addClass("even");
+                }
+                $markerRow.after('<tr class="'+_rowType+'"><td>'+
+                        count+"</td><td>"+
+                        _response.itemno+"</td><td>"+
+                        location+"</td><td>"+
+                        _response.upccode+"</td></tr>");
+                updateTotal(count);
+                $('.loading').hide();
             }            
         });        
     }

@@ -33,6 +33,9 @@
         <!-- Your site or application content go here -->
         <?php $View->Partial('body'); ?>
         
+        <div class="loading">           
+        </div>
+        
         <script src="ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="<?php echo $View->SharedScriptsContext('jquery-1.9.1.min.js'); ?>"><\/script>')</script>
         <script src="<?php echo $View->ScriptsContext('plugins.js'); ?>"></script>

@@ -163,6 +163,30 @@ a.btn:hover{
 
 }
 
+.loading{
+    display: none;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    width: 50px;
+    height: 50px;
+    
+    margin-top: -25px;
+    margin-left: -25px;
+    
+    background: white url('../images/spindicate.gif') no-repeat 50% 50%;
+    
+    box-shadow: 1px 1px 5px #222;
+    border-radius: 8px;
+        
+}
+
+.no-boxshadow .loading{
+    background-color: transparent;
+}
+
 
 
 

@@ -73,7 +73,7 @@
                 <li>
                     <a id="num-9-Key" class="btn numpad-key" href="#">9</a>
                 </li>
-                <li>
+                <li class="last">
                     <a id="delete-Key" class="btn" href="#">Del</a>
                 </li>
             </ul>
@@ -87,7 +87,7 @@
                 <li>
                     <a id="num-6-Key" class="btn numpad-key" href="#">6</a>
                 </li>
-                <li>
+                 <li class="last">
                     <a id="minus-Key" class="btn" href="#">-</a>
                 </li>
             </ul>
@@ -101,7 +101,7 @@
                 <li>
                     <a id="num-3-Key" class="btn numpad-key" href="#">3</a>
                 </li>
-                <li>
+                 <li class="last">
                     <a id="plus-Key" class="btn" href="#">+</a>
                 </li>
             </ul>
@@ -112,7 +112,7 @@
                 <li>
                     <a id="clear-Key" class="btn " href="#">Clear</a>
                 </li>
-                <li>
+                 <li class="last">
                     <a id="enter-Key" class="btn" href="#">Enter</a>
                 </li>
 
