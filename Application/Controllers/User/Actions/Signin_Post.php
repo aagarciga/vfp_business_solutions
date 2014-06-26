@@ -20,10 +20,21 @@ class Signin_Post extends Action{
      */
     public function Execute()
     {        
-        $user = $this->controller->FvpDataUnitOfWork->SysuserRepository->Get("WHERE USERNAME = '".$this->Request->txtUsername."'");
-        if ($user) {
-            if(trim($user[0]->getUserpass()) === $this->Request->txtPassword){
+        $queryResult = $this->controller->FvpDataUnitOfWork->SysuserRepository->Get("WHERE USERNAME = '".$this->Request->txtUsername."'");
+        if (count($queryResult)) {
+            $user = $queryResult[0];
+            if(trim($user->getUserpass()) === $this->Request->txtPassword){
                 $_SESSION['username'] = $this->Request->txtUsername;
+                $_SESSION['usercomp'] = $user->getFusercomp();
+                
+                $user->setOndate(date("Y-m-d"));
+                $user->setOntime(date("H:i:s"));
+                
+                $_SESSION['user'] = $user;
+                
+                // Updating Ondate and Ontime fields
+                $this->controller->FvpDataUnitOfWork->SysuserRepository->Update($user);
+                
                 $this->Redirect($this->Request->hdnController, $this->Request->hdnAction);
             }
         }        

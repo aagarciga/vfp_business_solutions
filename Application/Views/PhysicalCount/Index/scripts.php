@@ -36,7 +36,6 @@
             url: '<?php echo $View->Href("PhysicalCount", "VerifyLocation") ?>',
             type: 'post',
             beforeSend: function(){
-                //$('body').html("loading...");
                 $('.loading').show();
             },
             success: function (response){
@@ -64,6 +63,8 @@
         });
     }
     
+    
+    
     $('#txLocation').keypress(function(event){
         // Verify on Return key pressed
         if ( event.which === 13 ) {
@@ -72,6 +73,16 @@
             verifyLocation(locno);
         }
     });
+//    
+//    $('#txLocation').on('focus', function(){
+//        console.log($('#txBarcode').val());
+//        if ($('#txBarcode').val() !== '') {
+//            verifyItem($('#txBarcode').val())
+//        }
+//    });
+//    
+
+    
 </script>
 
 <script>
@@ -83,7 +94,6 @@
             url: '<?php echo $View->Href("PhysicalCount", "VerifyItem") ?>',
             type: 'post',
             beforeSend: function(){
-                //$('body').html("loading...");
                 $('.loading').show();
             },
             success: function (response){
@@ -95,6 +105,7 @@
                     if ($('#txLocation').hasClass('success')) {
                         ShowFeedback("Enter quantity for " + _response.descrip +".");
                         $('#quantityForm').show();
+                        $$('#quantityForm').focus();
                     }
                     else{
                         $('#txLocation').focus();
@@ -118,6 +129,12 @@
             //event.preventDefault();
             var barcode = $(this).val();
             verifyItem(barcode);
+        }
+    });
+    
+    $('#txBarcode').on('focus', function(){
+        if (!$('#txLocation').hasClass('success')) {
+            verifyLocation($('#txLocation').val());
         }
     });
 </script>
@@ -222,7 +239,6 @@
             url: '<?php echo $View->Href("PhysicalCount", "GetItem") ?>',
             type: 'post',
             beforeSend: function(){
-                //$('body').html("loading...");
                 $('.loading').show();
             },
             success: function (response){
@@ -260,7 +276,6 @@
             url: '<?php echo $View->Href("PhysicalCount", "AddItemCount") ?>',
             type: 'post',
             beforeSend: function(){
-                //$('body').html("loading...");
                 $('.loading').show();
             },
             success: function (response){

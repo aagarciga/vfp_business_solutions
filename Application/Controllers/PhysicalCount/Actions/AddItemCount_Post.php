@@ -62,14 +62,17 @@ class AddItemCount_Post extends Action {
         $location = filter_input(INPUT_POST, 'location');
         $count = filter_input(INPUT_POST, 'count');
         
-        $fuserid = $_SESSION['username'];        
+        $fuserid = $_SESSION['username'];  
+        $fupdtime = date("m/d/Y h:i:s A"); // 10/23/2012 02:37:54 PM
+        $fupddate = date("m/d/Y"); // 10/23/2012        
         
         $result = array();
 
         if ($barcode != '') {
             $item = $this->FindItem($barcode);
-            if ($item !== null) {
+            if ($item !== null) {                
                 
+                $docno = \Dandelion\GUIDGenerator::getGUID(); // To make GUID for unique id
                 $type = 'ME';
                 $itmcount = 'OK';
                 $upccode = $item->getUpccode();
