@@ -15,6 +15,7 @@
                 <th>User Code</th>
                 <th>Username</th>
                 <th>Password</th>
+                <th>Company</th>
             </tr>
             </thead>
             <tfoot>
@@ -28,6 +29,7 @@
                     <td class="item-field"><?php echo trim($user->getUsercode()) ?></td>
                     <td class="item-field"><?php echo trim($user->getUsername()) ?></td>
                     <td class="item-field"><?php echo trim($user->getUserpass()) ?></td>
+                    <td class="item-field"><?php echo trim($user->getFusercomp()) ?></td>
                 </tr>
             <?php endforeach ?>
             </tbody>

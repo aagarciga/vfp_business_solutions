@@ -105,7 +105,7 @@
                     if ($('#txLocation').hasClass('success')) {
                         ShowFeedback("Enter quantity for " + _response.descrip +".");
                         $('#quantityForm').show();
-                        $$('#quantityForm').focus();
+                        $('#quantityForm').focus();
                     }
                     else{
                         $('#txLocation').focus();
@@ -296,7 +296,11 @@
                         _response.itemno+"</td><td>"+
                         location+"</td><td>"+
                         _response.upccode+"</td></tr>");
-                updateTotal(count);
+                updateTotal();
+                console.log(_response.isDuplicated);
+                if (_response.isDuplicated) {
+                    updateDup();
+                }
                 $('.loading').hide();
             }            
         });        
@@ -305,10 +309,17 @@
 
 <script>
     // Update total count
-    function updateTotal(lastCount){
-        var _lastCount = parseInt(lastCount);
+    function updateTotal(){
         var $totalField = $('#txCount');
-        $totalField.val(parseInt($totalField.val())+ _lastCount);        
+        $totalField.val(parseInt($totalField.val())+ 1);        
+    }
+</script>
+
+<script>
+    // Update DUP count
+    function updateDup(){
+        var $dupField = $('#txNetCount');
+        $dupField.val(parseInt($dupField.val())+ 1);        
     }
 </script>
 
