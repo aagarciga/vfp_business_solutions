@@ -115,11 +115,11 @@ class AddItemCount_Post extends Action {
                         $updpono);
                 
                 if (!$this->Exist($entity)) {
-                    $result['isDuplicated'] = true;
+                    $result['isDuplicated'] = false;
                     $queryResult = $this->controller->Dat00UnitOfWork->ICBARCODE00Repository->Add($entity);                    
                 }
                 else{
-                    $result['isDuplicated'] = false;
+                    $result['isDuplicated'] = true;
                     $entity->setDuprecord(true);
                     $entity->setDuprecdel(true);
                     $entity->setItmcount('DUP');

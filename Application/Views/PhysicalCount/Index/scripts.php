@@ -5,13 +5,10 @@
 <script>
     // Reset button behavior Script
     $('a#clear').on('click', function(){
-        
         $('#txLocation').focus();
-        $('input[type=text]').val('').removeClass('has-error').removeClass('success');
-
-        $('.feedback').fadeOut('slow', function() {
-
-        });
+        $('input[type=text].input').val('').parent().removeClass('has-error has-success');
+        
+        ShowFeedback(" Physical Count Screen ");
      
     });
 </script>
@@ -21,7 +18,7 @@
         $('.feedback').fadeOut('slow', function() {
             $('.feedback').html(message);
             $('.feedback').fadeIn('slow', function() {
-                
+                //
             });
         });
     }
@@ -40,10 +37,10 @@
             },
             success: function (response){
                 if(response === 'true'){
-                    $('#txLocation').addClass('success');
-                    $('#txLocation').removeClass('has-error');
+                    $('#txLocation').parent().addClass('has-success');
+                    $('#txLocation').parent().removeClass('has-error');
                     
-                    if ($('#txBarcode').hasClass('success')) {
+                    if ($('#txBarcode').parent().hasClass('has-success')) {
                         ShowFeedback("Enter quantity for " + $('#txDescrip').val() +".");
                         $('#quantityForm').show();
                     }
@@ -53,8 +50,8 @@
                     }
                     
                 }else{
-                    $('#txLocation').removeClass('success');
-                    $('#txLocation').addClass('has-error');
+                    $('#txLocation').parent().removeClass('has-success');
+                    $('#txLocation').parent().addClass('has-error');
                     
                     ShowFeedback("Location not found.");
                 }
@@ -63,26 +60,14 @@
         });
     }
     
-    
-    
     $('#txLocation').keypress(function(event){
         // Verify on Return key pressed
         if ( event.which === 13 ) {
-            //event.preventDefault();
+            event.preventDefault();
             var locno = $(this).val();
             verifyLocation(locno);
         }
     });
-//    
-//    $('#txLocation').on('focus', function(){
-//        console.log($('#txBarcode').val());
-//        if ($('#txBarcode').val() !== '') {
-//            verifyItem($('#txBarcode').val())
-//        }
-//    });
-//    
-
-    
 </script>
 
 <script>
@@ -99,12 +84,13 @@
             success: function (response){
                 var _response = $.parseJSON(response);
                 if(_response.verified === 'true'){
-                    $('#txBarcode').addClass('success');
-                    $('#txBarcode').removeClass('has-error');
+                    $('#txBarcode').parent().addClass('has-success');
+                    $('#txBarcode').parent().removeClass('has-error');
                     
-                    if ($('#txLocation').hasClass('success')) {
+                    if ($('#txLocation').parent().hasClass('has-success')) {
                         ShowFeedback("Enter quantity for " + _response.descrip +".");
                         $('#quantityForm').show();
+                        $('#txBarcode').blur();
                         $('#quantityForm').focus();
                     }
                     else{
@@ -112,10 +98,10 @@
                     }
                      
                 }else{
-                    $('#txBarcode').removeClass('success');
-                    $('#txBarcode').addClass('has-error');
+                    $('#txBarcode').parent().removeClass('has-success');
+                    $('#txBarcode').parent().addClass('has-error');
 
-                    ShowFeedback("Item "+ _response.descrip +" found.");
+                    ShowFeedback("Item not found.");
                 }                
                 $('#txDescrip').val(_response.descrip);
                 $('.loading').hide();
@@ -133,7 +119,7 @@
     });
     
     $('#txBarcode').on('focus', function(){
-        if (!$('#txLocation').hasClass('success')) {
+        if (!$('#txLocation').parent().hasClass('has-success')) {
             verifyLocation($('#txLocation').val());
         }
     });
@@ -145,15 +131,19 @@
         var value = $key.html();
         
         var $field = $('#quantityField');
-        var fieldValue = $field.val();
-        if(value === '0' && fieldValue === ''){
-            
+        var fieldValue = $field.html();
+        
+        if(fieldValue === '0'){
+            if (value === '0') {
+
+            }
+            else {
+                $field.html(value);
+            }
         }
         else{
-            $field.val(fieldValue + value);
-        }
-        $field.focus();
-            
+            $field.html(fieldValue + value);
+        }           
     });
 //    $('.numpad-key').on('keypress', function (event){
 //        console.log(event.which);
@@ -175,38 +165,41 @@
 <script>
     $('#delete-Key').on('click',function (){
         var $field = $('#quantityField');
-        $field.val($field.val().slice(0, -1));
-        $field.focus();
+        
+        $field.html($field.html().slice(0, -1));
+        if (!($field.html() > 1)) {
+            $field.html('0');
+        }
     });
 </script>
 
 <script>
     $('#minus-Key').on('click',function (){
         var $field = $('#quantityField');
-        var value = parseInt($field.val());
+        var value = parseInt($field.html());
         
         if (value > 1) {
-            $field.val( value - 1);
+            $field.html( value - 1);
         }    
         else{
-            $field.val('');
+            $field.html('0');
         }
     });
     
     $('#plus-Key').on('click',function (){
         var $field = $('#quantityField');
-        var value = parseInt($field.val());
+        var value = parseInt($field.html());
         if(isNaN(value)){
             value = 0;
         }
         if (value >= 0) {
-            $field.val( value + 1);
+            $field.html( value + 1);
         }        
     });
     
     $('#clear-Key').on('click',function (){
         var $field = $('#quantityField');
-        $field.val('');
+        $field.html('0');
     });
 </script>
 
@@ -214,7 +207,7 @@
     $('#enter-Key').on('click',function (){
         $('#quantityForm').hide();
         
-        var quantity = parseInt($('#quantityField').val());        
+        var quantity = parseInt($('#quantityField').html());        
         if (isNaN(quantity)) {
             quantity = 0;
         }
@@ -226,45 +219,7 @@
         $('a#clear').click();
         $('#clear-Key').click();
     });
-        
-    /// 
-    function addItemCountOld(count, location, barcode){
-        var params = {
-            'barcode' : barcode,
-            'location' : location,
-            'count' : count
-        };
-        $.ajax({
-            data: params,
-            url: '<?php echo $View->Href("PhysicalCount", "GetItem") ?>',
-            type: 'post',
-            beforeSend: function(){
-                $('.loading').show();
-            },
-            success: function (response){
-                var _response = $.parseJSON(response);
-                var $markerRow = $('#marker-row');
-                var _rowType;
-                
-                if($markerRow.hasClass("even")){
-                    _rowType = "odd";
-                    $markerRow.removeClass("even");
-                }
-                else{
-                    _rowType = "even";
-                    $markerRow.addClass("even");
-                }
-                $markerRow.after('<tr class="'+_rowType+'"><td>'+
-                        count+"</td><td>"+
-                        _response.itemno+"</td><td>"+
-                        location+"</td><td>"+
-                        _response.upccode+"</td></tr>");
-                updateTotal(count);
-                $('.loading').hide();
-            }            
-        });        
-    }
-    
+   
     function addItemCount(count, location, barcode){
         var params = {
             'barcode' : barcode,
@@ -292,13 +247,14 @@
                     $markerRow.addClass("even");
                 }
                 $markerRow.after('<tr class="'+_rowType+'"><td>'+
-                        count+"</td><td>"+
+                        '<span class="badge">'+count+'</span>'+
+                        "</td><td>"+
                         _response.itemno+"</td><td>"+
                         location+"</td><td>"+
                         _response.upccode+"</td></tr>");
                 updateTotal();
-                console.log(_response.isDuplicated);
                 if (_response.isDuplicated) {
+                    console.log("here: ", _response.isDuplicated);
                     updateDup();
                 }
                 $('.loading').hide();
@@ -311,15 +267,20 @@
     // Update total count
     function updateTotal(){
         var $totalField = $('#txCount');
-        $totalField.val(parseInt($totalField.val())+ 1);        
+        $totalField.val(++$.TotalCount);
     }
 </script>
 
 <script>
     // Update DUP count
     function updateDup(){
-        var $dupField = $('#txNetCount');
-        $dupField.val(parseInt($dupField.val())+ 1);        
+        var $dupField = $('#txNetCount');  
+        $dupField.val(++$.DUPCount);
     }
+</script>
+
+<script>
+    $.TotalCount = 0;
+    $.DUPCount = 0;
 </script>
 

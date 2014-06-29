@@ -1,46 +1,39 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="application-name" content="<?php echo $Application; ?>">
-        <title><?php echo $Title; ?></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <?php $View->Partial('meta'); ?>
-        
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="shortcut icon" href="<?php echo $View->SharedImagesContext('favicon.ico'); ?>" type="image/ico" />
+<html>
+  <head>
+    <title><?php echo $Title; ?></title>
+    <meta name="application-name" content="<?php echo $Application; ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="<?php echo $View->SharedImagesContext('favicon.ico'); ?>" type="image/ico" />
+    
+    <?php $View->Partial('meta'); ?>
+    <!-- Bootstrap -->
+    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap-theme.min.css'); ?>" rel="stylesheet" media="screen">
+    
+    <link href="<?php echo $View->SharedStylesContext('main.css'); ?>" rel="stylesheet" media="screen">
+    <?php $View->Partial('styles'); ?>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="<?php echo $View->PublicVendorContext('assets/js/html5shiv.js'); ?>"></script>
+        <script src="<?php echo $View->PublicVendorContext('assets/js/respond.min.js'); ?>"></script>
+    <![endif]-->
+    <?php $View->Partial('head'); ?> 
+  </head>
+  <body>    
 
-        
-        <link rel="stylesheet" href="<?php echo $View->SharedStylesContext('normalize.css'); ?>">
-        <link rel="stylesheet" href="<?php echo $View->SharedStylesContext('main.css'); ?>">
-        <?php $View->Partial('styles'); ?>
-        
-        <script src="<?php echo $View->SharedScriptsContext('modernizr-2.6.2.min.js'); ?>"></script>
+    <?php $View->Partial('body'); ?>
+    
+    <div class="loading"></div>
 
-        
-        <?php $View->Partial('head'); ?>        
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-        
-        <!-- Your site or application content go here -->
-        <?php $View->Partial('body'); ?>
-        
-        <div class="loading">           
-        </div>
-        
-        <script src="ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="<?php echo $View->SharedScriptsContext('jquery-1.9.1.min.js'); ?>"><\/script>')</script>
-        <script src="<?php echo $View->ScriptsContext('plugins.js'); ?>"></script>
-        <script src="<?php echo $View->ScriptsContext('main.js'); ?>"></script>
-
-        <?php $View->Partial('scripts'); ?>
-    </body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="<?php echo $View->SharedScriptsContext('jquery-1.10.2.min.js'); ?>"></script>
+    <!--    <script src="//code.jquery.com/jquery.js"></script>-->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/bootstrap.min.js'); ?>"></script>
+    <?php $View->Partial('scripts'); ?>
+  </body>
 </html>

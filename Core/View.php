@@ -204,6 +204,10 @@ class View {
     public function SharedScriptsContext($script = ''){
         return MVC_DIR_PUBLIC_SHARED_SCRIPTS . '/' . $script;
     }
+    
+    public function PublicVendorContext($file = ''){
+        return MVC_DIR_PUBLIC . '/Vendor/' . $file;
+    }
 }
 
 ?>

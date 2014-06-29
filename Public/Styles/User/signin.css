@@ -1,59 +1,59 @@
-.viewport{
-    text-align: center;
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
 }
 
-h1{
-    color: #337199;
-    line-height: 32px;
-    margin-bottom: 30px;
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading {
+  margin-bottom: 10px;
 }
 
-label{
-    color: #444;
-    width: 80px;
-    display: inline-block;
-
-    margin-bottom: 10px;
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-input[type=text], input[type=password]{
-    transition: border 1s;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 3px 5px;
-    margin-bottom: 10px;
+.form-signin .form-control:focus {
+  z-index: 2;
 }
 
-input[type=text]:hover, input[type=password]:hover{
-    border: 2px solid #88ccfc;
+.input-group.text > input{
+    margin-bottom: -1px;
 }
 
-input[type=submit]{
-    transition: color .5s;
-    transition: background-color 1s;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 3px 28px;
+.input-group.text > span {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
 }
 
-input[type=submit]:hover{
-    border: 2px solid #88ccfc;
-    background-color: #88ccfc;
-    color: white;
+.input-group.text input[type="text"]{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
-
-
-
-footer {
-    width: 100%;
-    height: 30px;
-    position: absolute;
-    bottom: 0px;
-    text-align: center;
-}
-footer div.powered{
-    font-size: small;
-    color: #999;
+.input-group.text input[type="text"]:focus{
+      z-index: 3;
 }
 
+.input-group.password{
+    margin-bottom: 15px;
+}
+
+.input-group.password > span{
+    border-top-left-radius: 0;
+}
+
+.input-group.password input[type="password"]{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

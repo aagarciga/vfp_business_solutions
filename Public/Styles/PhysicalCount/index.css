@@ -1,286 +1,34 @@
-div.viewport{
-    text-align: left;    
-}
-
-.feedback-container{
-    height: 28px;
-    margin-bottom: 5px;
-    background-color: #88ccfc;
-}
-
-.feedback{    
-    padding: 2px 10px;
-    color: #222;
-    margin: 0px 0px;
-    display: none;
-}
-
-section.controls-0{
-    float: right;
-    width: 80px;
-    height: 109px;    
-}
-
-section.controls-0 > a.btn{
-    width: 70px;
-    height: 57px;
-    padding: 0px;
-    text-align: center;
-    line-height: 55px;
-}
-
-.lt-ie9 section.controls-0 > a.btn{
-    height: 55px;
-}
-
-section.controls-0 > a#clear.btn{
-    margin-top: 3px;
-}
-
-section.controls-1{
-    display: inline-block;
-    width: 230px;
-}
-
-section.controls-1 > label, section.controls-1 > input[type=button]{
-    display: inline-block;
-    text-align: center;
-    width: 80px;
-    margin-left: 3px;
-}
-
-section.controls-1 > input[type=text]{
-    width: 125px;
-    margin-bottom: 3px;
-}
-
-#txDescrip{
-    margin-left: 3px;
-    width: 209px;
-}
-
-section.controls-2{
-    display: inline-block;
-    width: 226px;
-    text-align: right;
-}
-
-section.controls-2 > label{
-    font-weight: bold;
-}
-
-section.controls-2 > input{
-    width: 50px;
-    text-align: right;
-}
-
-.table-wrapper{
-    height: 127px;
-    width: 319px;
-    overflow: auto;
-    margin: 0px;
-    margin-top: 5px;
-}
-
-table{
-    border: none;
-    margin: 0px;
-    padding: 0px;
-    width: 296px;
-    margin: 4px 5px;
-}
-
-thead{
-    margin-top: -4px;
-    margin-left: -1px;
-    position: absolute;
-    background-color: #fff; 
-    width: 295px;
-    border-bottom: 1px solid #aaa;
-    color: #444;
-    font-size: 14px;
-    text-align: left;
-}
-
-.th-count{
-    width: 60px;
-}
-
-.th-itemno{
-    width: 70px;
-}
-
-.th-location{
-    width: 75px;
-}
-
-.th-upccode{
-    width: 70px;
-}
-
-#marker-row{
-    visibility: hidden;
-}
-
-tr.odd{
-    background-color: #eee;
-}
-
-table .col-1{
-    width: 60px;    
-}
-
-table .col-2{
-    width: 70px;    
-}
-
-table .col-3{
-    width: 75px;
-}
-
-table .col-4{
-    width: 70px;
+#close, #clear{
+    line-height: 2.10;
 }
 
 #quantityForm{
-    top:28px;
-    width: 320px;
-    height: 292px;
+    top:53px;
+    width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers
+    height: 100%;
     display: none;
     position: absolute;
     z-index: 1000;
     background-color: white;
+    margin-left: -15px;
 }
 
-#quantityForm > input[type=number]{
-    text-align: right;
-    margin: 5px auto;
-    display: block;
-    width: 257px;
-}
-
-#numPad{
-    margin-left: 25px;
-    padding: 0px;
-    width: 280px;
-    display: inline-block;
-}
-
-#numPad > ul.numpad-row{
-    margin: 0px;
-    margin-bottom: 5px;
-    padding: 0px;
-}
-
-#numPad > ul.numpad-row > li{
-    display: inline-block;
-}
-
-#numPad > ul.numpad-row > li > .btn{
-    padding: 16px 26px;
-    outline: none;
-}
-
-/*#numPad > ul.numpad-row > li > #num-0-Key.btn{
-    padding: 0px;
-    width: 138px;
-    height: 52px;
-    line-height: 52px;
-    text-align: center;
-}*/
-
-/*#numPad > ul.numpad-row > li > #clear-Key.btn{
-    padding: 0px;
-    width:65px;
-    height: 52px;
-    line-height: 52px;
-    text-align: center;
-}*/
-
-#sidePad{
-    display: inline-block;
-    width: 20px;
-    vertical-align: top;
-    margin: 0px;
-    padding: 0px;
-}
-
-#sidePad li{
-    display: inline-block;
-}
-
-#sidePad li > .btn{ 
-    margin: 0px;
-    margin-bottom: 5px;
-    padding: 16px 16px;
-    width: 1em;
-    text-align: center;
-}
-
-/*#sidePad li > #enter-Key.btn{
-    padding: 0px;
-    width: 49px;
-    height: 116px;
-    line-height: 116px;
-}*/
-
-#numPad > ul.numpad-row > li > #delete-Key.btn{
-    padding: 16px 14px;
-    width: 25px;
-}
-
-#numPad > ul.numpad-row > li > #minus-Key.btn{
-    padding: 16px 14px;
-    text-align: center;
-    width: 25px;
-}
-
-#numPad > ul.numpad-row > li > #plus-Key.btn{
-    padding: 16px 14px;
-    text-align: center;
-    width: 25px;
-}
-
-#numPad > ul.numpad-row > li > #clear-Key.btn{
-    padding: 16px 0px;
-    text-align: center;
-    width: 62px;
-}
-
-#numPad > ul.numpad-row > li > #num-0-Key.btn{
-    text-align: center;
-    width: 78px;
-}
-
-#numPad > ul.numpad-row > li > #enter-Key.btn{
-    padding: 16px 0px;
-    text-align: center;
-    width: 52px;
-}
-
-#numPad > ul.numpad-row > li.last{
-    width: 60px;
+#quantityField{
     text-align: right;
 }
 
-/*#numPad > ul.numpad-row > li:last-child{
-    width: 50px;
-}*/
-
-#enter-Key.btn:hover{
-    border: 2px solid #2ac58e;
-    background-color: #2ac58e;
-}
-
-footer {
-    width: 100%;
-    height: 30px;
-    position: absolute;
-    bottom: 0px;
-    text-align: center;
-}
-footer div.powered{
-    font-size: small;
-    color: #999;
-}
-
+  .nav-justified.nav-justified-xs > li {
+    display: table-cell !important;
+    width: 1% !important;
+  }
+  .nav-justified.nav-justified-xs > li > a {
+    margin-bottom: 0 !important;
+  }
+  
+  #quantityForm .btn{
+      border: 1px solid #ccc;
+  }
+  
+  #quantityForm .bottom-actions{
+      margin-top: 10px;
+  }
