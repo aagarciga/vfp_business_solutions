@@ -173,6 +173,20 @@
     });
 </script>
 
+<script>   
+    $('#unknow-Key, #zero-qty-Key, #no-change-Key').on('click',function (){
+        $('#quantityForm').hide();
+        
+        var location = $('#txLocation').val();
+        var barcode = $('#txBarcode').val();
+        
+        addItemCount(0, location, barcode);
+        
+        $('a#clear').click();
+        $('#clear-Key').click();
+    });
+</script>
+
 <script>
     $('#minus-Key').on('click',function (){
         var $field = $('#quantityField');

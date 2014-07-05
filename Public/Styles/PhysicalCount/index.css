@@ -4,7 +4,7 @@
 
 #quantityForm{
     top:53px;
-    width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers
+    /*width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers*/
     height: 100%;
     display: none;
     position: absolute;

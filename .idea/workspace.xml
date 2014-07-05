@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03480c6d-8b6a-4e69-b05c-41af9bbd061a" name="Default" comment="Implemented User Controller and Authentication Mechanism&#10;&#10;Documentation Updated&#10;&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Controllers/PhysicalCount/Actions/VerifyItem_Post.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Controllers/PhysicalCount/Actions/VerifyLocation_Post.php" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Action.html" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.ActionsController.html" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\class-Dandelion.MVC.Core.Application.html" afterPath="" />
@@ -32,11 +30,19 @@
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Nomenclatures.RequestMethod.html" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.Request.html" afterPath="" />
       <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Documentation\source-class-Dandelion.MVC.Core.View.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\404.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Shared\Scripts\jquery-1.9.1.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Shared\Scripts\modernizr-2.6.2.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\inetpub\wwwroot\dandelionmvc\Public\Shared\Styles\normalize.css" afterPath="" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" afterPath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/404.html" afterPath="$PROJECT_DIR$/Documentation/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/ActionsController.php" afterPath="$PROJECT_DIR$/Core/ActionsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Controllers/PhysicalCount/Actions/AddItemCount_Post.php" afterPath="$PROJECT_DIR$/Application/Controllers/PhysicalCount/Actions/AddItemCount_Post.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" afterPath="$PROJECT_DIR$/Application/Models/Entities/Base/BaseSysuser.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Views/Shared/Master.Page.php" afterPath="$PROJECT_DIR$/Application/Views/Shared/Master.Page.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/View.php" afterPath="$PROJECT_DIR$/Core/View.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Views/Main/Index/body.php" afterPath="$PROJECT_DIR$/Application/Views/Main/Index/body.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Views/PhysicalCount/Index/body.php" afterPath="$PROJECT_DIR$/Application/Views/PhysicalCount/Index/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Views/User/Signin/body.php" afterPath="$PROJECT_DIR$/Application/Views/User/Signin/body.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ClassNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ClassNotFoundException.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ConfigurationNotChargedException.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.Core.Exceptions.ConfigurationNotChargedException.html" />
@@ -46,6 +52,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.index.html" afterPath="$PROJECT_DIR$/Documentation/class-Dandelion.MVC.index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/resources/combined.js" afterPath="$PROJECT_DIR$/Documentation/resources/combined.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/elementlist.js" afterPath="$PROJECT_DIR$/Documentation/elementlist.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Public/Styles/Main/index.css" afterPath="$PROJECT_DIR$/Public/Styles/Main/index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Public/Styles/PhysicalCount/index.css" afterPath="$PROJECT_DIR$/Public/Styles/PhysicalCount/index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/index.html" afterPath="$PROJECT_DIR$/Documentation/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Public/Shared/Styles/main.css" afterPath="$PROJECT_DIR$/Public/Shared/Styles/main.css" />
@@ -54,6 +61,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.Core.html" afterPath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.Core.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.html" afterPath="$PROJECT_DIR$/Documentation/namespace-Dandelion.MVC.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/namespace-Dandelion.html" afterPath="$PROJECT_DIR$/Documentation/namespace-Dandelion.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Views/PhysicalCount/Index/scripts.php" afterPath="$PROJECT_DIR$/Application/Views/PhysicalCount/Index/scripts.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Public/Styles/User/signin.css" afterPath="$PROJECT_DIR$/Public/Styles/User/signin.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ActionNotFoundException.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ClassNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ClassNotFoundException.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ConfigurationNotChargedException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ConfigurationNotChargedException.html" />
@@ -62,7 +71,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ViewNotFoundException.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.Core.Exceptions.ViewNotFoundException.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.index.html" afterPath="$PROJECT_DIR$/Documentation/source-class-Dandelion.MVC.index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/tree.html" afterPath="$PROJECT_DIR$/Documentation/tree.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dandelionmvc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,7 +105,7 @@
       <file leaf-file-name="Master.Page.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Application/Views/Shared/Master.Page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="22" selection-start="547" selection-end="547" vertical-scroll-proportion="0.16890594" vertical-offset="82" max-vertical-offset="833">
+            <state line="10" column="4" selection-start="480" selection-end="480" vertical-scroll-proportion="0.16890594" vertical-offset="82" max-vertical-offset="714">
               <folding />
             </state>
           </provider>
@@ -106,7 +114,7 @@
       <file leaf-file-name="Action.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Core/Action.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="4" selection-start="1250" selection-end="1250" vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="2448">
+            <state line="52" column="4" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.0" vertical-offset="884" max-vertical-offset="2448">
               <folding />
             </state>
           </provider>
@@ -151,25 +159,7 @@
       <file leaf-file-name="index.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Public/Styles/Main/index.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="3" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0" vertical-offset="316" max-vertical-offset="2839">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="normalize.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Public/Shared/Styles/normalize.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="26" selection-start="583" selection-end="583" vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="9163">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="404.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Public/404.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="153" column="25" selection-start="4359" selection-end="4359" vertical-scroll-proportion="0.0" vertical-offset="222" max-vertical-offset="2771">
+            <state line="24" column="3" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" vertical-offset="316" max-vertical-offset="2839">
               <folding />
             </state>
           </provider>
@@ -296,6 +286,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -462,7 +453,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -557,7 +547,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26799387" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27182236" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42051283" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -565,12 +555,12 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48589742" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.48" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -600,7 +590,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/index.php</url>
-          <line>133</line>
+          <line>99</line>
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="2" />
@@ -844,28 +834,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Public/Styles/Main/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="3" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0" vertical-offset="316" max-vertical-offset="2839">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Public/Shared/Styles/normalize.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="26" selection-start="583" selection-end="583" vertical-scroll-proportion="0.0" vertical-offset="452" max-vertical-offset="9163">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Public/404.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="25" selection-start="4359" selection-end="4359" vertical-scroll-proportion="0.0" vertical-offset="222" max-vertical-offset="2771">
+        <state line="24" column="3" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" vertical-offset="316" max-vertical-offset="2839">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Core/Action.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="4" selection-start="1250" selection-end="1250" vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="2448">
+        <state line="52" column="4" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.0" vertical-offset="884" max-vertical-offset="2448">
           <folding />
         </state>
       </provider>
@@ -879,7 +855,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Views/Shared/Master.Page.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="22" selection-start="547" selection-end="547" vertical-scroll-proportion="0.16890594" vertical-offset="82" max-vertical-offset="833">
+        <state line="10" column="4" selection-start="480" selection-end="480" vertical-scroll-proportion="0.16890594" vertical-offset="82" max-vertical-offset="714">
           <folding />
         </state>
       </provider>
