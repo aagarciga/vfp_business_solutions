@@ -8,14 +8,14 @@
 namespace Dandelion\MVC\Application\Models\Entities\Base;
 
 /**
- * BaseICLOC00
+ * BaseICLOC
  */
-class BaseICLOC00 {
+class BaseICLOC {
 
     /**
      * Private fields
      */
-    private static $_name = "ICLOC00";
+    private static $_name = "ICLOC";
 
     /**
      * Protected fields

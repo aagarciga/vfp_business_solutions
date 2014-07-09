@@ -7,20 +7,17 @@
 
 namespace Dandelion\MVC\Application\Models\Entities\Base;
 
-/**
- * BaseICBARCODE00
- */
-class BaseICBARCODE00 {
+use Dandelion\MVC\Application\Models\Entities\Base\VFPBSBase;
 
+/**
+ * BaseICBARCODE
+ */
+class BaseICBARCODE {
     /**
      * Private fields
      */
-    private static $_name = "ICBARCODE00";
-
-    /**
-     * Protected fields
-     */
-
+    private static $_name = "ICBARCODE";
+    
     /**
      * @var Char
      */
@@ -654,7 +651,7 @@ class BaseICBARCODE00 {
         $this->_updpodate = $updpodate;
         $this->_updpono = $updpono;
     }
-
+    
     public static function toString() {
         return self::$_name;
     }

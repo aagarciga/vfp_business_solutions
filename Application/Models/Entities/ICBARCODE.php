@@ -7,11 +7,11 @@
 
 namespace Dandelion\MVC\Application\Models\Entities;
 
-use Dandelion\MVC\Application\Models\Entities\Base\BaseICUPCPARM00;
+use Dandelion\MVC\Application\Models\Entities\Base\BaseICBARCODE;
 
 /**
- * ICUPCPARM00 UPC table.
+ * ICBARCODE Working table that stores the physical count records.
  */
-class ICUPCPARM00 extends BaseICUPCPARM00 {
+class ICBARCODE extends BaseICBARCODE {
     
 }

@@ -9,7 +9,6 @@ namespace Dandelion\MVC\Application\Controllers\PhysicalCount\Actions;
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Application\Models\Entities;
-use Dandelion\MVC\Application\Models\Repositories;
 
 /**
  * Ajax Get Item Itemno and Upccode
@@ -81,7 +80,7 @@ class AddItemCount_Post extends Action {
                 $descrip = $item->getDescrip();
                 $qty = $count;
                 
-                $entity = new Entities\ICBARCODE00(
+                $entity = new Entities\ICBARCODE(
                         $docno, 
                         $type, 
                         $barcode, 
@@ -116,14 +115,14 @@ class AddItemCount_Post extends Action {
                 
                 if (!$this->Exist($entity)) {
                     $result['isDuplicated'] = false;
-                    $queryResult = $this->controller->Dat00UnitOfWork->ICBARCODE00Repository->Add($entity);                    
+                    $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Add($entity);                    
                 }
                 else{
                     $result['isDuplicated'] = true;
                     $entity->setDuprecord(true);
                     $entity->setDuprecdel(true);
                     $entity->setItmcount('DUP');
-                    $queryResult = $this->controller->Dat00UnitOfWork->ICBARCODE00Repository->Update($entity);
+                    $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Update($entity);
                 }
                 $result['itemno'] = trim($item->getItemno());
                 $result['upccode'] = trim($item->getUpccode());
@@ -132,11 +131,11 @@ class AddItemCount_Post extends Action {
         return json_encode($result);
     }
     
-    private function Exist(Entities\ICBARCODE00 $entity) {
+    private function Exist(Entities\ICBARCODE $entity) {
         $location = trim($entity->getLocation());
         $itemno = trim($entity->getItemno());
         
-        $queryResult = $this->controller->Dat00UnitOfWork->ICBARCODE00Repository->Get("WHERE ITEMNO = $itemno AND LOCATION = $location");
+        $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Get("WHERE ITEMNO = $itemno AND LOCATION = $location");
         if(count($queryResult)){
             return true;
         }
@@ -168,7 +167,7 @@ class AddItemCount_Post extends Action {
     private function FindItemByICPARM($barcode) {
 
         $lowerBarcode = strtolower($barcode);
-        $queryResult = $this->controller->Dat00UnitOfWork->ICPARM00Repository->Get("WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'");
+        $queryResult = $this->controller->DatUnitOfWork->ICPARMRepository->Get("WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'");
         if (count($queryResult)) {
             return $queryResult[0];
         }
@@ -182,10 +181,10 @@ class AddItemCount_Post extends Action {
      */
     private function FindItemByICUPCPARM($barcode) {
         $lowerBarcode = strtolower($barcode);
-        $queryResult = $this->controller->Dat00UnitOfWork->ICUPCPARM00Repository->Get("WHERE lower(UPCCODE) = '$lowerBarcode'");
+        $queryResult = $this->controller->DatUnitOfWork->ICUPCPARMRepository->Get("WHERE lower(UPCCODE) = '$lowerBarcode'");
         if (count($queryResult)) {
             $itemno = strtolower($queryResult[0]->getItemno());
-            $queryResultFromICPARM = $this->controller->Dat00UnitOfWork->ICPARM00Repository->Get("WHERE lower(ITEMNO) = '$itemno'");
+            $queryResultFromICPARM = $this->controller->DatUnitOfWork->ICPARMRepository->Get("WHERE lower(ITEMNO) = '$itemno'");
             if (count($queryResultFromICPARM)) {
                 return $queryResultFromICPARM[0];
             }

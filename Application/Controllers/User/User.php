@@ -28,11 +28,11 @@ class User extends ActionsController {
      */
     protected function Init() {
         $application = new Application();
-        $this->FvpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDbName(1),
-            $application->getDbHost(1),
-            $application->getDbUser(1),
-            $application->getDbPassword(1),
-            $application->getDbServerType(1)));
+        $this->FvpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
+            $application->getDefaultDbHost(),
+            $application->getDefaultDbUser(),
+            $application->getDefaultDbPassword(),
+            $application->getDefaultDbServerType()));
     }
     
 } 

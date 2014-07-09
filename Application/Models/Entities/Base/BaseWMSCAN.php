@@ -8,14 +8,14 @@
 namespace Dandelion\MVC\Application\Models\Entities\Base;
 
 /**
- * BaseWMSCAN00
+ * BaseWMSCAN
  */
-class BaseWMSCAN00 {
+class BaseWMSCAN {
 
     /**
      * Private fields
      */
-    private static $_name = "WMSCAN00";
+    private static $_name = "WMSCAN";
 
     /**
      * Protected fields

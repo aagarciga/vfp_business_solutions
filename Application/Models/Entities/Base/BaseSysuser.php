@@ -14,6 +14,7 @@ namespace Dandelion\MVC\Application\Models\Entities\Base;
 class BaseSysuser {
 
     private static $_name = "sysuser";
+    
     protected $_userid;
     protected $_usercode;
     protected $_username;
@@ -27,7 +28,7 @@ class BaseSysuser {
     protected $_fscreen;
     protected $_fstartup;
     protected $_fuserlpdev;
-    protected $_fuercomp;
+    protected $_fusercomp;
     protected $_flang_ctrl;
     protected $_formini;
     protected $_nflg0;
@@ -37,7 +38,7 @@ class BaseSysuser {
     protected $_psdrwport;
     protected $_psbarcdlp;
     protected $_setconfirm;
-    protected $_derdirname;
+    protected $_defdirname;
     protected $_email;
     protected $_custno;
     protected $_icprefix;
@@ -50,7 +51,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getUserid() {
-        return $this->_userid;
+        return trim($this->_userid);
     }
 
     /**
@@ -64,7 +65,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getUsercode() {
-        return $this->_usercode;
+        return trim($this->_usercode);
     }
 
     /**
@@ -78,7 +79,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getUsername() {
-        return $this->_username;
+        return trim($this->_username);
     }
 
     /**
@@ -92,7 +93,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getUserpass() {
-        return $this->_userpass;
+        return trim($this->_userpass);
     }
 
     /**
@@ -106,7 +107,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getGroup() {
-        return $this->_group;
+        return trim($this->_group);
     }
 
     /**
@@ -120,7 +121,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getUserstat0() {
-        return $this->_userstat0;
+        return trim($this->_userstat0);
     }
 
     /**
@@ -134,7 +135,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getOndate() {
-        return $this->_ondate;
+        return trim($this->_ondate);
     }
 
     /**
@@ -148,7 +149,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getOffdate() {
-        return $this->_offdate;
+        return trim($this->_offdate);
     }
 
     /**
@@ -162,7 +163,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getOntime() {
-        return $this->_ontime;
+        return trim($this->_ontime);
     }
 
     /**
@@ -176,7 +177,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getOfftime() {
-        return $this->_offtime;
+        return trim($this->_offtime);
     }
 
     /**
@@ -190,7 +191,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getFscreen() {
-        return $this->_fscreen;
+        return trim($this->_fscreen);
     }
 
     /**
@@ -204,7 +205,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getFstartup() {
-        return $this->_fstartup;
+        return trim($this->_fstartup);
     }
 
     /**
@@ -218,7 +219,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getFuserlpdev() {
-        return $this->_fuserlpdev;
+        return trim($this->_fuserlpdev);
     }
 
     /**
@@ -231,22 +232,22 @@ class BaseSysuser {
     /**
      * @return mixed
      */
-    public function getFuercomp() {
-        return $this->_fuercomp;
+    public function getFusercomp() {
+        return trim($this->_fusercomp);
     }
 
     /**
-     * @param mixed $fuercomp
+     * @param mixed $fusercomp
      */
-    public function setFuercomp($fuercomp) {
-        $this->_fuercomp = $fuercomp;
+    public function setFusercomp($fusercomp) {
+        $this->_fusercomp = $fusercomp;
     }
 
     /**
      * @return mixed
      */
     public function getFlangCtrl() {
-        return $this->_flang_ctrl;
+        return trim($this->_flang_ctrl);
     }
 
     /**
@@ -260,7 +261,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getFormini() {
-        return $this->_formini;
+        return trim($this->_formini);
     }
 
     /**
@@ -271,14 +272,14 @@ class BaseSysuser {
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function getNflg0() {
-        return $this->_nflg0;
+        return trim($this->_nflg0);
     }
 
     /**
-     * @param mixed $nflg0
+     * @param bool $nflg0
      */
     public function setNflg0($nflg0) {
         $this->_nflg0 = $nflg0;
@@ -288,7 +289,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getWhsdef() {
-        return $this->_whsdef;
+        return trim($this->_whsdef);
     }
 
     /**
@@ -299,14 +300,14 @@ class BaseSysuser {
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function getPosctrl() {
-        return $this->_posctrl;
+        return trim($this->_posctrl);
     }
 
     /**
-     * @param mixed $posctrl
+     * @param bool $posctrl
      */
     public function setPosctrl($posctrl) {
         $this->_posctrl = $posctrl;
@@ -316,7 +317,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getPsdrwopen() {
-        return $this->_psdrwopen;
+        return trim($this->_psdrwopen);
     }
 
     /**
@@ -330,7 +331,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getPsdrwport() {
-        return $this->_psdrwport;
+        return trim($this->_psdrwport);
     }
 
     /**
@@ -344,7 +345,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getPsbarcdlp() {
-        return $this->_psbarcdlp;
+        return trim($this->_psbarcdlp);
     }
 
     /**
@@ -355,14 +356,14 @@ class BaseSysuser {
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function getSetconfirm() {
-        return $this->_setconfirm;
+        return trim($this->_setconfirm);
     }
 
     /**
-     * @param mixed $setconfirm
+     * @param bool $setconfirm
      */
     public function setSetconfirm($setconfirm) {
         $this->_setconfirm = $setconfirm;
@@ -371,22 +372,36 @@ class BaseSysuser {
     /**
      * @return mixed
      */
-    public function getDerdirname() {
-        return $this->_derdirname;
+    public function getDefdirname() {
+        return trim($this->_defdirname);
     }
 
     /**
-     * @param mixed $derdirname
+     * @param mixed $defdirname
      */
-    public function setDerdirname($derdirname) {
-        $this->_derdirname = $derdirname;
+    public function setDefdirname($defdirname) {
+        $this->_defdirname = $defdirname;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getEmail() {
+        return trim($this->_email);
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email) {
+        $this->_email = $email;
     }
 
     /**
      * @return mixed
      */
     public function getCustno() {
-        return $this->_custno;
+        return trim($this->_custno);
     }
 
     /**
@@ -400,7 +415,7 @@ class BaseSysuser {
      * @return mixed
      */
     public function getIcprefix() {
-        return $this->_icprefix;
+        return trim($this->_icprefix);
     }
 
     /**
@@ -410,8 +425,7 @@ class BaseSysuser {
         $this->_icprefix = $icprefix;
     }
 
-    public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = '', $whsdef = '', $posctrl = '', $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = '', $derdirname = '', $email = '', $custno = '', $icprefix = '') {
-
+    public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $custno = '', $icprefix = '') {
         $this->_userid = $userid;
         $this->_usercode = $usercode;
         $this->_username = $username;
@@ -425,7 +439,7 @@ class BaseSysuser {
         $this->_fscreen = $fscreen;
         $this->_fstartup = $fstartup;
         $this->_fuserlpdev = $fuserlpdev;
-        $this->_fuercomp = $fuercomp;
+        $this->_fusercomp = $fuercomp;
         $this->_flang_ctrl = $flang_ctrl;
         $this->_formini = $formini;
         $this->_nflg0 = $nflg0;
@@ -435,7 +449,7 @@ class BaseSysuser {
         $this->_psdrwport = $psdrwport;
         $this->_psbarcdlp = $psbarcdlp;
         $this->_setconfirm = $setconfirm;
-        $this->_derdirname = $derdirname;
+        $this->_defdirname = $defdirname;
         $this->_email = $email;
         $this->_custno = $custno;
         $this->_icprefix = $icprefix;

@@ -30,7 +30,7 @@ class Signin_Post extends Action{
                 $user->setOndate(date("Y-m-d"));
                 $user->setOntime(date("H:i:s"));
                 
-                $_SESSION['user'] = $user;
+//                $_SESSION['user'] = $user; Not work
                 
                 // Updating Ondate and Ontime fields
                 $this->controller->FvpDataUnitOfWork->SysuserRepository->Update($user);

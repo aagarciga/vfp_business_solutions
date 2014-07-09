@@ -22,7 +22,7 @@ class VerifyLocation_Post extends Action {
         $queryResult = null;
         $result = 'false';
         if($locno != ''){
-            $queryResult = $this->controller->Dat00UnitOfWork->ICLOC00Repository->Get("WHERE lower(LOCNO) = '$locno'");
+            $queryResult = $this->controller->DatUnitOfWork->ICLOCRepository->Get("WHERE lower(LOCNO) = '$locno'");
             if(count($queryResult)){
                 $result = 'true';
             }

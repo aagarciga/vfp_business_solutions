@@ -7,11 +7,11 @@
 
 namespace Dandelion\MVC\Application\Models\Entities;
 
-use Dandelion\MVC\Application\Models\Entities\Base\BaseICPARM00;
+use Dandelion\MVC\Application\Models\Entities\Base\BaseSyscomp;
 
 /**
- * ICPARM00 The inventory master table.
+ * Syscomp custom entity definitions
  */
-class ICPARM00 extends BaseICPARM00 {
+class Syscomp extends BaseSyscomp {
     
 }

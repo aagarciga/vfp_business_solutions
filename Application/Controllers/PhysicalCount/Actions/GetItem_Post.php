@@ -48,7 +48,7 @@ class GetItem_Post extends Action {
     private function FindItemByICPARM($barcode) {
         
         $lowerBarcode = strtolower($barcode);
-        $queryResult = $this->controller->Dat00UnitOfWork->ICPARM00Repository->Get("WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'");
+        $queryResult = $this->controller->DatUnitOfWork->ICPARMRepository->Get("WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'");
         if (count($queryResult)) {
             return $queryResult[0];
         }
@@ -62,10 +62,10 @@ class GetItem_Post extends Action {
      */
     private function FindItemByICUPCPARM($barcode) {
         $lowerBarcode = strtolower($barcode);
-        $queryResult = $this->controller->Dat00UnitOfWork->ICUPCPARM00Repository->Get("WHERE lower(UPCCODE) = '$lowerBarcode'");
+        $queryResult = $this->controller->DatUnitOfWork->ICUPCPARMRepository->Get("WHERE lower(UPCCODE) = '$lowerBarcode'");
         if (count($queryResult)) {
             $itemno = strtolower($queryResult[0]->getItemno());
-            $queryResultFromICPARM = $this->controller->Dat00UnitOfWork->ICPARM00Repository->Get("WHERE lower(ITEMNO) = '$itemno'");
+            $queryResultFromICPARM = $this->controller->DatUnitOfWork->ICPARMRepository->Get("WHERE lower(ITEMNO) = '$itemno'");
             if (count($queryResultFromICPARM)) {
                 return $queryResultFromICPARM[0];
             }

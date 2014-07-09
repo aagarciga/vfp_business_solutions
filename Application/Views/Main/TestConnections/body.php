@@ -1,8 +1,9 @@
-        <p>
+<div class="container">
+    <p>
             Welcome <strong><?php echo $UserName?></strong>
         </p>
 
-        <table>
+        <table class="table-condensed table-striped">
             <colgroup>
                 <col class="col-1">
                 <col class="col-2">
@@ -24,7 +25,7 @@
             <tbody>
             <?php $i = 0;?>
             <?php foreach ($Users as $user):?>
-                <tr class="item <?php echo ($i++ % 2 == 0)? 'even' : 'odd'?>">
+                <tr>
                     <td class="item-field"><?php echo trim($user->getUserid()) ?></td>
                     <td class="item-field"><?php echo trim($user->getUsercode()) ?></td>
                     <td class="item-field"><?php echo trim($user->getUsername()) ?></td>
@@ -37,7 +38,7 @@
 
         <hr/>
 
-        <table>
+        <table class="table-condensed table-striped">
             <colgroup>
                 <col class="col-1">
                 <col class="col-2">
@@ -61,8 +62,5 @@
                 <?php endforeach ?>
             </tbody>
         </table>
+</div>       
 
-        <footer>
-            <hr />
-            <div class="powered">&copy; 2014. VFP Business Solutions, LLC</div>
-        </footer>

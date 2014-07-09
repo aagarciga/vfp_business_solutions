@@ -8,14 +8,14 @@
 namespace Dandelion\MVC\Application\Models\Entities\Base;
 
 /**
- * BaseICUPCPARM00
+ * BaseICUPCPARM
  */
-class BaseICUPCPARM00 {
+class BaseICUPCPARM {
 
     /**
      * Private fields
      */
-    private static $_name = "ICUPCPARM00";
+    private static $_name = "ICUPCPARM";
 
     /**
      * Protected fields

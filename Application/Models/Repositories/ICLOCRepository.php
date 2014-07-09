@@ -8,21 +8,22 @@
 namespace Dandelion\MVC\Application\Models\Repositories;
 
 use Dandelion\Diana\Interfaces\IRepository;
-use Dandelion\MVC\Application\Models\Entities\ICLOC00;
+use Dandelion\MVC\Application\Models\Entities\ICLOC;
 
-class ICLOC00Repository extends BaseRepository implements IRepository {
+class ICLOCRepository extends VFPRepository implements IRepository {
 
     /**
-     * @return array of all ICLOC00 objects from DB
+     * @return array of all ICLOC objects from DB
      */
     public function GetAll() {
-        $sqlString = "SELECT * FROM $this->entityName";
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new ICLOC00($row->LOCNO, $row->DESCRIP, $row->NFLG0, $row->WHSNO, $row->HEIGHT, $row->WIDTH, $row->DEPTH, $row->CUBIC, $row->BINTYPE, $row->ZONE, $row->SUBZONE, $row->COMMENT, $row->ROWID, $row->NOTES, $row->WEIGHTCAP, $row->ISACTIVE, $row->MULTISKU, $row->QBLISTID, $row->CASESINGLE);
+            $result [] = new ICLOC($row->LOCNO, $row->DESCRIP, $row->NFLG0, $row->WHSNO, $row->HEIGHT, $row->WIDTH, $row->DEPTH, $row->CUBIC, $row->BINTYPE, $row->ZONE, $row->SUBZONE, $row->COMMENT, $row->ROWID, $row->NOTES, $row->WEIGHTCAP, $row->ISACTIVE, $row->MULTISKU, $row->QBLISTID, $row->CASESINGLE);
         }
 
         return $result;
@@ -30,17 +31,18 @@ class ICLOC00Repository extends BaseRepository implements IRepository {
 
     /**
      * @param string $predicate SQL Query Where clause
-     * @return \Dandelion\MVC\Application\Models\Entities\ICLOC00
+     * @return \Dandelion\MVC\Application\Models\Entities\ICLOC
      */
     public function Get($predicate) {
-        $sqlString = "SELECT * FROM $this->entityName";
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
         $sqlString .= ' ' . $predicate;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new ICLOC00($row->LOCNO, $row->DESCRIP, $row->NFLG0, $row->WHSNO, $row->HEIGHT, $row->WIDTH, $row->DEPTH, $row->CUBIC, $row->BINTYPE, $row->ZONE, $row->SUBZONE, $row->COMMENT, $row->ROWID, $row->NOTES, $row->WEIGHTCAP, $row->ISACTIVE, $row->MULTISKU, $row->QBLISTID, $row->CASESINGLE);
+            $result [] = new ICLOC($row->LOCNO, $row->DESCRIP, $row->NFLG0, $row->WHSNO, $row->HEIGHT, $row->WIDTH, $row->DEPTH, $row->CUBIC, $row->BINTYPE, $row->ZONE, $row->SUBZONE, $row->COMMENT, $row->ROWID, $row->NOTES, $row->WEIGHTCAP, $row->ISACTIVE, $row->MULTISKU, $row->QBLISTID, $row->CASESINGLE);
         }
 
         return $result;

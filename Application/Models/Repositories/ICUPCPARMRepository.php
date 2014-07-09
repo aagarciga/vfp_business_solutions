@@ -8,21 +8,22 @@
 namespace Dandelion\MVC\Application\Models\Repositories;
 
 use Dandelion\Diana\Interfaces\IRepository;
-use Dandelion\MVC\Application\Models\Entities\ICUPCPARM00;
+use Dandelion\MVC\Application\Models\Entities\ICUPCPARM;
 
-class ICUPCPARM00Repository extends BaseRepository implements IRepository {
+class ICUPCPARMRepository extends VFPRepository implements IRepository {
 
     /**
-     * @return array of all ICUPCPARM00 objects from DB
+     * @return array of all ICUPCPARM objects from DB
      */
     public function GetAll() {
-        $sqlString = "SELECT * FROM $this->entityName";
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new ICUPCPARM00($row->ITEMNO, $row->UPCCODE, $row->ISACTIVE, $row->NFLG0, $row->QBLISTID);
+            $result [] = new ICUPCPARM($row->ITEMNO, $row->UPCCODE, $row->ISACTIVE, $row->NFLG0, $row->QBLISTID);
         }
 
         return $result;
@@ -30,17 +31,18 @@ class ICUPCPARM00Repository extends BaseRepository implements IRepository {
 
     /**
      * @param string $predicate SQL Query Where clause
-     * @return \Dandelion\MVC\Application\Models\Entities\ICUPCPARM00
+     * @return \Dandelion\MVC\Application\Models\Entities\ICUPCPARM
      */
     public function Get($predicate) {
-        $sqlString = "SELECT * FROM $this->entityName";
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
         $sqlString .= ' ' . $predicate;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new ICUPCPARM00($row->ITEMNO, $row->UPCCODE, $row->ISACTIVE, $row->NFLG0, $row->QBLISTID);
+            $result [] = new ICUPCPARM($row->ITEMNO, $row->UPCCODE, $row->ISACTIVE, $row->NFLG0, $row->QBLISTID);
         }
 
         return $result;
