@@ -7,8 +7,6 @@
 
 namespace Dandelion\MVC\Application\Models\Entities\Base;
 
-use Dandelion\MVC\Application\Models\Entities\Base\VFPBSBase;
-
 /**
  * BaseICBARCODE
  */
@@ -61,7 +59,7 @@ class BaseICBARCODE {
     /**
      * @var Char
      */
-    protected $_user;
+    protected $_vfpuser;
 
     /**
      * @var TimeStamp
@@ -71,7 +69,7 @@ class BaseICBARCODE {
     /**
      * @var Logical
      */
-    protected $_delete;
+    protected $_vfpdelete;
 
     /**
      * @var Logical
@@ -181,77 +179,77 @@ class BaseICBARCODE {
      * @return Char
      */
     public function getDocno() {
-        return $this->_docno;
+        return trim($this->_docno);
     }
 
     /**
      * @return Char
      */
     public function getType() {
-        return $this->_type;
+        return trim($this->_type);
     }
 
     /**
      * @return Char
      */
     public function getBarcode() {
-        return $this->_barcode;
+        return trim($this->_barcode);
     }
 
     /**
      * @return Char
      */
     public function getSerialno() {
-        return $this->_serialno;
+        return trim($this->_serialno);
     }
 
     /**
      * @return Char
      */
     public function getWhs() {
-        return $this->_whs;
+        return trim($this->_whs);
     }
 
     /**
      * @return Char
      */
     public function getItmcount() {
-        return $this->_itmcount;
+        return trim($this->_itmcount);
     }
 
     /**
      * @return Char
      */
     public function getLocation() {
-        return $this->_location;
+        return trim($this->_location);
     }
 
     /**
      * @return Numeric
      */
     public function getQty() {
-        return $this->_qty;
+        return trim($this->_qty);
     }
 
     /**
      * @return Char
      */
-    public function getUser() {
-        return $this->_user;
+    public function getVfpuser() {
+        return trim($this->_vfpuser);
     }
 
     /**
      * @return TimeStamp
      */
     public function getDate() {
-        return $this->_date;
+        return trim($this->_date);
     }
 
     /**
      * @return Logical
      */
-    public function getDelete() {
-        return $this->_delete;
+    public function getVfpdelete() {
+        return $this->_vfpdelete;
     }
 
     /**
@@ -272,126 +270,126 @@ class BaseICBARCODE {
      * @return Char
      */
     public function getFupdtime() {
-        return $this->_fupdtime;
+        return trim($this->_fupdtime);
     }
 
     /**
      * @return Date
      */
     public function getFupddate() {
-        return $this->_fupddate;
+        return trim($this->_fupddate);
     }
 
     /**
      * @return Char
      */
     public function getFstation() {
-        return $this->_fstation;
+        return trim($this->_fstation);
     }
 
     /**
      * @return Char
      */
     public function getFuserid() {
-        return $this->_fuserid;
+        return trim($this->_fuserid);
     }
 
     /**
      * @return Char
      */
     public function getItemno() {
-        return $this->_itemno;
+        return trim($this->_itemno);
     }
 
     /**
      * @return Char
      */
     public function getDescrip() {
-        return $this->_descrip;
+        return trim($this->_descrip);
     }
 
     /**
      * @return Logical
      */
     public function getDuprecord() {
-        return $this->_duprecord;
+        return trim($this->_duprecord);
     }
 
     /**
      * @return Logical
      */
     public function getDuprecdel() {
-        return $this->_duprecdel;
+        return trim($this->_duprecdel);
     }
 
     /**
      * @return Char
      */
     public function getLocno() {
-        return $this->_locno;
+        return trim($this->_locno);
     }
 
     /**
      * @return Char
      */
     public function getUpccode() {
-        return $this->_upccode;
+        return trim($this->_upccode);
     }
 
     /**
      * @return Char
      */
     public function getQblistid() {
-        return $this->_qblistid;
+        return trim($this->_qblistid);
     }
 
     /**
      * @return Char
      */
     public function getWhsno() {
-        return $this->_whsno;
+        return trim($this->_whsno);
     }
 
     /**
      * @return Char
      */
     public function getPono() {
-        return $this->_pono;
+        return trim($this->_pono);
     }
 
     /**
      * @return Numeric
      */
     public function getQtyscan() {
-        return $this->_qtyscan;
+        return trim($this->_qtyscan);
     }
 
     /**
      * @return Char
      */
     public function getProstatus() {
-        return $this->_prostatus;
+        return trim($this->_prostatus);
     }
 
     /**
      * @return Numeric
      */
     public function getQtytopo() {
-        return $this->_qtytopo;
+        return trim($this->_qtytopo);
     }
 
     /**
      * @return Date
      */
     public function getUpdpodate() {
-        return $this->_updpodate;
+        return trim($this->_updpodate);
     }
 
     /**
      * @return Char
      */
     public function getUpdpono() {
-        return $this->_updpono;
+        return trim($this->_updpono);
     }
 
     /**
@@ -457,8 +455,8 @@ class BaseICBARCODE {
     /**
      * @param Char
      */
-    public function setUser($value) {
-        $this->_user = $value;
+    public function setVfpuser($value) {
+        $this->_vfpuser = $value;
     }
 
     /**
@@ -471,8 +469,8 @@ class BaseICBARCODE {
     /**
      * @param Logical
      */
-    public function setDelete($value) {
-        $this->_delete = $value;
+    public function setVfpdelete($value) {
+        $this->_vfpdelete = $value;
     }
 
     /**
@@ -618,7 +616,7 @@ class BaseICBARCODE {
     /**
      * Constructor
      */
-    public function __construct($docno, $type, $barcode, $serialno, $whs, $itmcount, $location, $qty, $user, $date, $delete, $nflg0, $serialnf, $fupdtime, $fupddate, $fstation, $fuserid, $itemno, $descrip, $duprecord, $duprecdel, $locno, $upccode, $qblistid, $whsno, $pono, $qtyscan, $prostatus, $qtytopo, $updpodate, $updpono) {
+    public function __construct($docno, $type, $barcode, $serialno, $whs, $itmcount, $location, $qty, $vfpuser, $date, $vfpdelete, $nflg0, $serialnf, $fupdtime, $fupddate, $fstation, $fuserid, $itemno, $descrip, $duprecord, $duprecdel, $locno, $upccode, $qblistid, $whsno, $pono, $qtyscan, $prostatus, $qtytopo, $updpodate, $updpono) {
         $this->_docno = $docno;
         $this->_type = $type;
         $this->_barcode = $barcode;
@@ -627,11 +625,11 @@ class BaseICBARCODE {
         $this->_itmcount = $itmcount;
         $this->_location = $location;
         $this->_qty = $qty;
-        $this->_user = $user;
+        $this->_vfpuser = $vfpuser;
         $this->_date = $date;
-        $this->_delete = $delete;
-        $this->_nflg0 = $nflg0;
-        $this->_serialnf = $serialnf;
+        $this->_vfpdelete = ($vfpdelete === null)? false : $vfpdelete;
+        $this->_nflg0 = ($nflg0 === null)? false : $nflg0 ;
+        $this->_serialnf = ($serialnf === null)? false : $serialnf ;
         $this->_fupdtime = $fupdtime;
         $this->_fupddate = $fupddate;
         $this->_fstation = $fstation;

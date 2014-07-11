@@ -59,7 +59,7 @@ abstract class DatActionsController extends ActionsController {
         }
         else{
             // TODO: Remove last parameter in order to set Remote DB connection
-            $driver = $this->BuildDatConnection( $_SESSION['usercomp'], 'Local');
+            $driver = $this->BuildDatConnection( $_SESSION['usercomp'],'Local');
             $this->DatUnitOfWork = new DatUnitOfWork($driver, $_SESSION['usercomp']);
         }
     }

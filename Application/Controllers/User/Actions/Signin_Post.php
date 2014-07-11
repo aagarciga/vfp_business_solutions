@@ -26,6 +26,7 @@ class Signin_Post extends Action{
             if(trim($user->getUserpass()) === $this->Request->txtPassword){
                 $_SESSION['username'] = $this->Request->txtUsername;
                 $_SESSION['usercomp'] = $user->getFusercomp();
+                $_SESSION['userwhsdef'] = $user->getWhsdef();
                 
                 $user->setOndate(date("Y-m-d"));
                 $user->setOntime(date("H:i:s"));

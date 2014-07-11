@@ -99,6 +99,8 @@ final class index extends Core\FrontController {
         session_start();
         error_reporting(E_ALL);
         \Dandelion\Diana\Diana::Init();
+        
+        date_default_timezone_set("America/New_York");
               
         if (self::$instance == null) {
             self::$instance = new index();

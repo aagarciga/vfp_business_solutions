@@ -56,14 +56,18 @@ class AddItemCount_Post extends Action {
      * Ajax Get Item Itemno and Upccode
      */
     public function Execute() {
-
+        
+        
         $barcode = filter_input(INPUT_POST, 'barcode');
         $location = filter_input(INPUT_POST, 'location');
-        $count = filter_input(INPUT_POST, 'count');
+        $count = filter_input(INPUT_POST, 'count');    
         
         $fuserid = $_SESSION['username'];  
-        $fupdtime = date("m/d/Y h:i:s A"); // 10/23/2012 02:37:54 PM
-        $fupddate = date("m/d/Y"); // 10/23/2012        
+        $whs = isset($_SESSION['userwhsdef'])?$_SESSION['userwhsdef'] : '000'; //Default Warehouse       
+        
+        $fupdtime = date("m/d/Y h:i:s A"); // 10/23/2012 02:37:54 PM   
+        $fupddate = date("Y-m-d"); // 10/23/2012 "m/d/Y"  (1992-05-25)  
+        $date = date("Y-m-d h:i:s.u"); //(1999-03-19 13:45:33.013)
         
         $result = array();
 
@@ -79,6 +83,10 @@ class AddItemCount_Post extends Action {
                 $locno = $location;
                 $descrip = $item->getDescrip();
                 $qty = $count;
+                $duprecord = false; // by default
+                $fstation = $fuserid;
+                $qtyscan = $qtytopo = 0; // Initializing Numeric Fields
+                $updpodate = date("Y-m-d");
                 
                 $entity = new Entities\ICBARCODE(
                         $docno, 
@@ -89,9 +97,9 @@ class AddItemCount_Post extends Action {
                         $itmcount, 
                         $location, 
                         $qty, 
-                        $user, 
+//                        $user, 
                         $date, 
-                        $delete, 
+//                        $delete, 
                         $nflg0, 
                         $serialnf, 
                         $fupdtime, 
@@ -113,14 +121,16 @@ class AddItemCount_Post extends Action {
                         $updpodate, 
                         $updpono);
                 
-                if (!$this->Exist($entity)) {
+                $docnoIfDuplicated = $this->IsDuplicated($entity);
+                if (!$docnoIfDuplicated) {
                     $result['isDuplicated'] = false;
-                    $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Add($entity);                    
+                    $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Add($entity); 
                 }
                 else{
                     $result['isDuplicated'] = true;
+                    $entity->setDocno($docnoIfDuplicated);
                     $entity->setDuprecord(true);
-                    $entity->setDuprecdel(true);
+//                    $entity->setDuprecdel(false);
                     $entity->setItmcount('DUP');
                     $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Update($entity);
                 }
@@ -131,16 +141,29 @@ class AddItemCount_Post extends Action {
         return json_encode($result);
     }
     
-    private function Exist(Entities\ICBARCODE $entity) {
-        $location = trim($entity->getLocation());
-        $itemno = trim($entity->getItemno());
+    /**
+     * 
+     * @param \Dandelion\MVC\Application\Models\Entities\ICBARCODE $entity
+     * @return boolean
+     */
+    private function IsDuplicated(Entities\ICBARCODE $entity) {
+//        $location = trim($entity->getLocation());
+//        $itemno = trim($entity->getItemno());
+//        
+//        $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Get("WHERE ITEMNO = '$itemno' AND LOCATION = '$location'");
+//        if(count($queryResult)){
+//            return true;
+//        }
+//        return false;
         
-        $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Get("WHERE ITEMNO = $itemno AND LOCATION = $location");
-        if(count($queryResult)){
-            return true;
+        $result = $this->controller->DatUnitOfWork->ICBARCODERepository->GetByItemnoAndLocation($entity->getItemno(), $entity->getLocation());
+        if ($result !== null) {
+            return $result->getDocno();
         }
         return false;
     }
+    
+    
 
     /**
      * Find item by barcode first in ICPARM and return an ICPARM object if exist, 

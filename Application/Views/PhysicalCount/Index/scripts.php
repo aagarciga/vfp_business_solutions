@@ -112,7 +112,7 @@
     $('#txBarcode').keypress(function(event){
         // Verify on Return key pressed
         if ( event.which === 13 ) {
-            //event.preventDefault();
+            event.preventDefault();
             var barcode = $(this).val();
             verifyItem(barcode);
         }
@@ -268,12 +268,17 @@
                         _response.upccode+"</td></tr>");
                 updateTotal();
                 if (_response.isDuplicated) {
-                    console.log("here: ", _response.isDuplicated);
                     updateDup();
                 }
                 $('.loading').hide();
             }            
         });        
+    }
+</script>
+
+<script>
+    function updateDuplicatedRow(count, location, barcode){
+        // Todo: Update duplicated rows in client tables
     }
 </script>
 
