@@ -47,13 +47,13 @@ class AdvantageODBCDriver implements IDBDriver {
      * @param string $serverType
      * @param bool   $debugMode
      */
-    public final function __construct($dbName, $host, $user, $password, $serverType = 'Remote', $debugMode = false) {
+    public final function __construct($dbName, $host, $user, $password, $serverType, $debugMode = false) {
 
         $this->dbName = $dbName;
         $this->host = $host;
         $this->user = $user;
         $this->password = $password;
-        $this->serverType = $serverType;
+        $this->serverType = strtolower($serverType);
         $this->debugMode = $debugMode;
     }
 
@@ -67,7 +67,7 @@ class AdvantageODBCDriver implements IDBDriver {
         $connectionString = 'Driver={Advantage StreamlineSQL ODBC}'.
             ';AdvantageLocking=off'.
             ';DefaultType=FoxPro'.
-            ';ServerTypes='. ($this->serverType == 'Local' ? '1' : '2').
+            ';ServerTypes='. ($this->serverType == 'local' ? '1' : '2').
             ';MaxTableCloseCache=5'.
             ';Locking=Record'.
             ';DataDirectory='.$this->host.$this->dbName;

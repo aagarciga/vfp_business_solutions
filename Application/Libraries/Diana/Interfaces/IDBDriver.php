@@ -10,7 +10,7 @@ namespace Dandelion\Diana\Interfaces;
 
 
 interface IDBDriver {
-    function __construct($dbName, $host, $user, $password, $serverType = 'Remote', $debugMode = false);
+    function __construct($dbName, $host, $user, $password, $serverType, $debugMode = false);
     function GetConnection();
     function GetQuery();
 } 
