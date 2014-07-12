@@ -11,166 +11,144 @@ use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Application\Models\Entities;
 
 /**
- * Ajax Get Item Itemno and Upccode
+ * Ajax Item Count Logic
  * @name AddItemCount_Post
  */
 class AddItemCount_Post extends Action {
-    /*
-     * Voy con los Duplicados para que no tengas que volver atras despues
-
-      1- Si se escanea un item que ya esta con ese Location+ itemno en la tabla ICBARCode entonces marcar ese item con DUPRECORD = .t.
-      2- anadir entonces ese nuevo item a la tabla
-      3- solo se mostrara el ultimo scaneado del mismo item en el grid
-      4- Mostrar en DUP  la suma de todos los dup que encuentres ( contador)
-      5- Mostrar en TOT la suma de todos los scaneados (contador)
-      Duplicados
-
-      Update IcBarCodedbf Set DUPRECORD=.T.,itmcount='DUP',DupRecDel=.t. ;
-      WHERE IcBarCodedbf.LocNo+IcBarCodedbf.ItemNo=cSearch
-
-      Este es el Insert en la tabla de Icbarcode, Docno lo generas como esta ahi( es importante llenar los campos con el userid la estacion el tiempo
-
-
-      cfupdtime=Time()
-      cfupddate=Date()
-      cfuserid=Allt(cusername)
-      cfstation=Alltrim(Sys(0))
-      cType="ME"
-      citmcount="OK"
-
-      Select IcBarCodedbf
-
-      cDocNo=STR(RECCOUNT()+1000000,7)
-
-      Insert Into IcBarCodedbf
-      (DocNo,Type,barcode,UpcCode,ItemNo,whs,LocNo,location,;
-      Descrip,DUPRECORD,itmcount,Date,qty,;
-      fupdtime,fupddate,fuserid,fstation) Values ;
-      (cDocNo,cType,pUpcCode,pUpcCode,pItemNo,sv_DefWhs,pLocNo,pLocNo,;
-      pDescrip,cDuplicate,citmcount,Datetime(),qtypcs,;
-      cfupdtime,cfupddate,cfuserid,cfstation)
-
-     */
-
+    
     /**
-     * Ajax Get Item Itemno and Upccode
+     * Ajax Item Count Logic
      */
     public function Execute() {
-        
-        
+
         $barcode = filter_input(INPUT_POST, 'barcode');
         $location = filter_input(INPUT_POST, 'location');
-        $count = filter_input(INPUT_POST, 'count');    
-        
-        $fuserid = $_SESSION['username'];  
-        $whs = isset($_SESSION['userwhsdef'])?$_SESSION['userwhsdef'] : '000'; //Default Warehouse       
-        
-        $fupdtime = date("m/d/Y h:i:s A"); // 10/23/2012 02:37:54 PM   
-        $fupddate = date("Y-m-d"); // 10/23/2012 "m/d/Y"  (1992-05-25)  
-        $date = date("Y-m-d h:i:s.u"); //(1999-03-19 13:45:33.013)
-        
+        $count = filter_input(INPUT_POST, 'count');
+
         $result = array();
 
-        if ($barcode != '') {
+        if ($barcode != '' && $location != '') {
             $item = $this->FindItem($barcode);
-            if ($item !== null) {                
-                
-                $docno = \Dandelion\GUIDGenerator::getGUID(); // To make GUID for unique id
-                $type = 'ME';
-                $itmcount = 'OK';
-                $upccode = $item->getUpccode();
-                $itemno = $item->getItemno();
-                $locno = $location;
-                $descrip = $item->getDescrip();
-                $qty = $count;
-                $duprecord = false; // by default
-                $fstation = $fuserid;
-                $qtyscan = $qtytopo = 0; // Initializing Numeric Fields
-                $updpodate = date("Y-m-d");
-                
-                $entity = new Entities\ICBARCODE(
-                        $docno, 
-                        $type, 
-                        $barcode, 
-                        $serialno, 
-                        $whs, 
-                        $itmcount, 
-                        $location, 
-                        $qty, 
-//                        $user, 
-                        $date, 
-//                        $delete, 
-                        $nflg0, 
-                        $serialnf, 
-                        $fupdtime, 
-                        $fupddate, 
-                        $fstation, 
-                        $fuserid, 
-                        $itemno, 
-                        $descrip, 
-                        $duprecord, 
-                        $duprecdel, 
-                        $locno, 
-                        $upccode, 
-                        $qblistid, 
-                        $whsno, 
-                        $pono, 
-                        $qtyscan, 
-                        $prostatus, 
-                        $qtytopo, 
-                        $updpodate, 
-                        $updpono);
-                
+            
+            if ($item !== null) {
+                $entity = $this->CreateDefaultValuesEntity($barcode, $location, $count, $item);
+                // Verifying before insert
                 $docnoIfDuplicated = $this->IsDuplicated($entity);
-                if (!$docnoIfDuplicated) {
-                    $result['isDuplicated'] = false;
-                    $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Add($entity); 
+
+                if ($this->InsertInICBARCODE($entity)) {
+                    $result['error'] = false;
+
+                    if (!$docnoIfDuplicated) {
+                        $result['isDuplicated'] = false;
+                    } else {
+                        $result['isDuplicated'] = true;
+                        
+                        if ($this->InsertDupInICBARCODE($entity, $docnoIfDuplicated)) {
+                            $result['error'] = false;
+                        } else {
+                            $result['error'] = true;
+                            $result['errorMsg'] = 'Unable to insert Dup in ICBARCODE Table';
+                        }
+                    }
+                } else {
+                    $result['error'] = true;
+                    $result['errorMsg'] = 'Unable to insert in ICBARCODE Table';
                 }
-                else{
-                    $result['isDuplicated'] = true;
-                    $entity->setDocno($docnoIfDuplicated);
-                    $entity->setDuprecord(true);
-//                    $entity->setDuprecdel(false);
-                    $entity->setItmcount('DUP');
-                    $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Update($entity);
-                }
+
                 $result['itemno'] = trim($item->getItemno());
                 $result['upccode'] = trim($item->getUpccode());
             }
         }
         return json_encode($result);
     }
-    
+
     /**
-     * 
+     * Returns the GUID Docno if the entity already exist (same location and itemno) and itemcount value is 'OK'
      * @param \Dandelion\MVC\Application\Models\Entities\ICBARCODE $entity
-     * @return boolean
+     * @return Mixed GUID if duplicated, false otherwise
      */
     private function IsDuplicated(Entities\ICBARCODE $entity) {
-//        $location = trim($entity->getLocation());
-//        $itemno = trim($entity->getItemno());
-//        
-//        $queryResult = $this->controller->DatUnitOfWork->ICBARCODERepository->Get("WHERE ITEMNO = '$itemno' AND LOCATION = '$location'");
-//        if(count($queryResult)){
-//            return true;
-//        }
-//        return false;
-        
-        $result = $this->controller->DatUnitOfWork->ICBARCODERepository->GetByItemnoAndLocation($entity->getItemno(), $entity->getLocation());
+       
+        $result = $this->controller->DatUnitOfWork->ICBARCODERepository->GetByItemnoAndLocationOK($entity->getItemno(), $entity->getLocation());
         if ($result !== null) {
             return $result->getDocno();
         }
         return false;
     }
     
+    /**
+     * Create a entity with all values by default to work with
+     * @param type $barcode
+     * @param type $location
+     * @param type $count
+     * @param \Dandelion\MVC\Application\Models\Entities\ICPARM $item
+     * @return \Dandelion\MVC\Application\Models\Entities\ICBARCODE
+     */
+    private function CreateDefaultValuesEntity($barcode, $location, $count, Entities\ICPARM $item){
+        
+        $docno = $serialno = $itmcount = $qblistid = $whsno = $pono = $prostatus = $updpono = '';
+        $type = 'ME';
+        
+        $locno = $location;
+        $qty = $count;
+        
+        $upccode = $item->getUpccode();
+        $itemno = $item->getItemno();
+        $descrip = $item->getDescrip(); 
+        
+        $vfpuser = $fstation = $fuserid = $_SESSION['username'];
+        
+        // Default Warehouse 
+        $whs = isset($_SESSION['userwhsdef'])?$_SESSION['userwhsdef'] : '000'; 
+        
+        // Date Time related fields
+        $fupdtime = date("m/d/Y h:i:s A");      // (10/23/2012 02:37:54 PM)  
+        $updpodate = $fupddate = date("Y-m-d"); // (1992-05-25)  
+        $date = date("Y-m-d h:i:s.u");          // (1999-03-19 13:45:33.013)
+        
+        // Initializing Logical Fields by default
+        $vfpdelete = $nflg0 = $serialnf = $duprecord = $duprecdel = false;
+        
+        // Initializing Numeric Fields by default
+        $qtyscan = $qtytopo = 0; 
+        
+        $result = new Entities\ICBARCODE($docno, $type, $barcode, $serialno, $whs, $itmcount, $location, $qty, $vfpuser, $date, $vfpdelete, $nflg0, $serialnf, $fupdtime, $fupddate, $fstation, $fuserid, $itemno, $descrip, $duprecord, $duprecdel, $locno, $upccode, $qblistid, $whsno, $pono, $qtyscan, $prostatus, $qtytopo, $updpodate, $updpono);
+        return $result;
+    }
     
+    /**
+     * Set entity itemcount to 'OK' and give an unique identifier in order to insert in ICBARCODE Table
+     * @param \Dandelion\MVC\Application\Models\Entities\ICBARCODE $entity
+     * @return bool
+     */
+    private function InsertInICBARCODE(Entities\ICBARCODE $entity){
+        
+        // To make GUID for unique id
+        $entity->setDocno(\Dandelion\GUIDGenerator::getGUID());
+        $entity->setItmcount('OK');
+        return $this->controller->DatUnitOfWork->ICBARCODERepository->Add($entity);
+    }
+    
+    /**
+     * Set entity duprecord to 'true' and itemcount to 'DUP' and update the duplicated entity in ICBARCODE Table
+     * @param \Dandelion\MVC\Application\Models\Entities\ICBARCODE $entity
+     * @return bool
+     */
+    private function InsertDupInICBARCODE(Entities\ICBARCODE $entity, $duplicatedDocno){
+
+        // If Already exist one Update the last one in db                                
+        $entity->setDocno($duplicatedDocno);
+        $entity->setDuprecord(true);
+        $entity->setItmcount('DUP');
+        return $this->controller->DatUnitOfWork->ICBARCODERepository->Update($entity);
+    }
 
     /**
      * Find item by barcode first in ICPARM and return an ICPARM object if exist, 
      * if not find in ICUPCPARM and return an ICUPCPARM object if exist. 
      * Null otherwise.
-     * @param type $barcode
-     * @return ICPARM00 or null
+     * @param string $barcode
+     * @return \Dandelion\MVC\Application\Models\Entities\ICPARM or null
      */
     private function FindItem($barcode) {
 
@@ -185,7 +163,7 @@ class AddItemCount_Post extends Action {
     /**
      * Find item in ICPARM by itemno, upccode and venstkno fields
      * @param string $barcode
-     * @return ICPARM Object ,null otherwise
+     * @return \Dandelion\MVC\Application\Models\Entities\ICPARM ,null otherwise
      */
     private function FindItemByICPARM($barcode) {
 
@@ -200,7 +178,7 @@ class AddItemCount_Post extends Action {
     /**
      * Find item in ICUPCPARM by upccode field, if exist find item in ICPARM by the itemno from ICUPCPARM.
      * @param string $barcode
-     * @return ICPARM Object ,null otherwise
+     * @return \Dandelion\MVC\Application\Models\Entities\ICPARM ,null otherwise
      */
     private function FindItemByICUPCPARM($barcode) {
         $lowerBarcode = strtolower($barcode);

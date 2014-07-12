@@ -249,36 +249,61 @@
             },
             success: function (response){
                 var _response = $.parseJSON(response);
-                var $markerRow = $('#marker-row');
-                var _rowType;
                 
-                if($markerRow.hasClass("even")){
-                    _rowType = "odd";
-                    $markerRow.removeClass("even");
+                if(!_response.error){
+                    
+                    updateItemsTable(count, _response.itemno, location, _response.upccode, _response.isDuplicated);
                 }
                 else{
-                    _rowType = "even";
-                    $markerRow.addClass("even");
-                }
-                $markerRow.after('<tr class="'+_rowType+'"><td>'+
-                        '<span class="badge">'+count+'</span>'+
-                        "</td><td>"+
-                        _response.itemno+"</td><td>"+
-                        location+"</td><td>"+
-                        _response.upccode+"</td></tr>");
-                updateTotal();
-                if (_response.isDuplicated) {
-                    updateDup();
-                }
+                    ShowFeedback(_response.errorMsg);
+                }               
+                
                 $('.loading').hide();
             }            
         });        
     }
+    
+    function updateItemsTable(count, itemno, location, upccode, isDuplicated){
+        var $markerRow = $('#marker-row');
+        var _rowType;
+        
+        updateTotal();
+        
+        if (isDuplicated) {
+            removeDuplicatedRow(itemno, location);
+            updateDup();
+        }
+
+        if($markerRow.hasClass("even")){
+            _rowType = "odd";
+            $markerRow.removeClass("even");
+        }
+        else{
+            _rowType = "even";
+            $markerRow.addClass("even");
+        }
+        
+        $markerRow.after('<tr class="' + _rowType + '"><td>' +
+                        '<span class="badge">' + count + '</span>' +
+                        '</td><td class="itemno">' +
+                        itemno + '</td><td class="location">' +
+                        location + "</td><td>" +
+                        upccode + "</td></tr>");
+    }
+    
 </script>
 
 <script>
-    function updateDuplicatedRow(count, location, barcode){
-        // Todo: Update duplicated rows in client tables
+    function removeDuplicatedRow(itemno, location){
+        $('#marker-row ~ tr').each(function(){
+            var $currentRow = $(this);
+            var $itemnoTd = $currentRow.children('td.itemno');
+            var $locationTd = $currentRow.children('td.location');
+            
+            if ($itemnoTd.html() === itemno && $locationTd.html() === location) {
+                $currentRow.remove();
+            }
+        });
     }
 </script>
 
