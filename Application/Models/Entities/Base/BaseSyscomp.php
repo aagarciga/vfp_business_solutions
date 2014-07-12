@@ -21,6 +21,9 @@ class BaseSyscomp {
     protected $_qbstatus;
     protected $_adssqldba;
     protected $_dbpath;
+    protected $_dbsvrtype;
+    protected $_dbuser;
+    protected $_dbpass;
 
     public static function toString() {
         return self::$_name;
@@ -102,7 +105,7 @@ class BaseSyscomp {
     public function getDbpath() {
         return trim($this->_dbpath);
     }
-
+    
     /**
      * @param string $dbpath
      */
@@ -111,22 +114,70 @@ class BaseSyscomp {
     }
 
     /**
-     * 
-     * @param string $actcomp
-     * @param string $company
-     * @param bool $nflg0
-     * @param bool $qbstatus
-     * @param bool $adssqldba
-     * @param string $dbpath
+     * @param string $dbsvrtype
      */
-    public function __construct($actcomp, $company, $nflg0, $qbstatus, $adssqldba, $dbpath) {
+    public function setDbsvrtype($dbsvrtype) {
+        $this->_dbsvrtype = $dbsvrtype;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getDbsvrtype() {
+        return trim($this->_dbsvrtype);
+    }
+    
+    /**
+     * @param string $dbuser
+     */
+    public function setDbuser($dbuser) {
+        $this->_dbuser = $dbuser;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getDbuser() {
+        return trim($this->_dbuser);
+    }
+    
+    /**
+     * @param string $dbpass
+     */
+    public function setDbpass($dbpass) {
+        $this->_dbpass = $dbpass;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getDbpass() {
+        return trim($this->_dbpass);
+    }
+
+    /**
+     * 
+     * @param type $actcomp
+     * @param type $company
+     * @param type $nflg0
+     * @param type $qbstatus
+     * @param type $adssqldba
+     * @param type $dbpath
+     * @param type $dbsvrtype
+     * @param type $dbuser
+     * @param type $dbpass
+     */
+    public function __construct($actcomp, $company, $nflg0, $qbstatus, $adssqldba, $dbpath, $dbsvrtype, $dbuser, $dbpass) {
         
         $this->_actcomp = $actcomp;
         $this->_company = $company;
         $this->_nflg0 = $nflg0;
         $this->_qbstatus = $qbstatus;
         $this->_adssqldba = $adssqldba;
-        $this->_dbpath = $dbpath;        
+        $this->_dbpath = $dbpath;  
+        $this->_dbsvrtype = $dbsvrtype;
+        $this->_dbuser = $dbuser;
+        $this->_dbpass = $dbpass;
     }
 
 }

@@ -37,7 +37,6 @@ abstract class DatActionsController extends ActionsController {
     {
         $application = new Application();
         
-        // TODO: You know what to do.
         $this->FvpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
             $application->getDefaultDbHost(),
             $application->getDefaultDbUser(),
@@ -58,8 +57,7 @@ abstract class DatActionsController extends ActionsController {
             $this->Redirect($redirectionRequest);
         }
         else{
-            // TODO: Remove last parameter in order to set Remote DB connection
-            $driver = $this->BuildDatConnection( $_SESSION['usercomp'],'Local');
+            $driver = $this->BuildDatConnection( $_SESSION['usercomp']);
             $this->DatUnitOfWork = new DatUnitOfWork($driver, $_SESSION['usercomp']);
         }
     }
@@ -72,14 +70,18 @@ abstract class DatActionsController extends ActionsController {
      * @param string $dbservertype
      * @return \Dandelion\Diana\Drivers\AdvantageODBC\AdvantageODBCDriver
      */
-    private function BuildDatConnection($usercomp, $dbservertype = 'Remote', $dbuser = '', $dbpassword = ''){
+    private function BuildDatConnection($usercomp){
 
         $company = $this->FvpDataUnitOfWork->SyscompRepository->GetByActcomp($usercomp);
         $result = null;
         if ($company) {
 
             $dbName = "Dat$usercomp.add";
-            $dbHost = $company->getDbpath();     
+            $dbHost = $company->getDbpath();
+            $dbuser = $company->getDbuser();
+            $dbpassword = $company->getDbpass();
+            $dbservertype = $company->getDbsvrtype();
+            
             $result = new AdvantageODBCDriver($dbName,
                 $dbHost,
                 $dbuser,
