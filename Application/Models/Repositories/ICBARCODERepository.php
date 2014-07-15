@@ -158,6 +158,31 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
     }
     
     /**
+     * Returns ICBARCODE entity by a given docno
+     * @param string $docno
+     * @return \Dandelion\MVC\Application\Models\Entities\ICBARCODE
+     */
+    public function GetByDocno($docno) {
+        
+        $lowerDocno = strtolower($docno);
+        
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE lower(DOCNO) = '$lowerDocno'";
+        
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = null;
+        
+        if (count($queryResult)) {
+            $row = $queryResult[0];
+            $result = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->DATE, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
+        }
+
+        return $result;
+    }
+    
+    /**
      * Returns ICBARCODE entity by a given itemno and location with OK Itemcount value , null otherwise.
      * @param type $itemno
      * @param type $location

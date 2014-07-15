@@ -104,7 +104,7 @@ class AddItemCount_Post extends Action {
         // Date Time related fields
         $fupdtime = date("m/d/Y h:i:s A");      // (10/23/2012 02:37:54 PM)  
         $updpodate = $fupddate = date("Y-m-d"); // (1992-05-25)  
-        $date = date("Y-m-d h:i:s.u");          // (1999-03-19 13:45:33.013)
+        $date = date("Y-m-d h:i:s");          // (1999-03-19 13:45:33)
         
         // Initializing Logical Fields by default
         $vfpdelete = $nflg0 = $serialnf = $duprecord = $duprecdel = false;
@@ -136,8 +136,10 @@ class AddItemCount_Post extends Action {
      */
     private function InsertDupInICBARCODE(Entities\ICBARCODE $entity, $duplicatedDocno){
 
-        // If Already exist one Update the last one in db                                
-        $entity->setDocno($duplicatedDocno);
+        // If Already exist one Update the last one in db 
+        
+        $entity = $this->controller->DatUnitOfWork->ICBARCODERepository->GetByDocno($duplicatedDocno);
+//        $entity->setDocno($duplicatedDocno);
         $entity->setDuprecord(true);
         $entity->setItmcount('DUP');
         return $this->controller->DatUnitOfWork->ICBARCODERepository->Update($entity);
