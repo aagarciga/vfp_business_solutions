@@ -102,9 +102,9 @@ class AddItemCount_Post extends Action {
         $whs = isset($_SESSION['userwhsdef'])?$_SESSION['userwhsdef'] : '000'; 
         
         // Date Time related fields
-        $fupdtime = date("m/d/Y h:i:s A");      // (10/23/2012 02:37:54 PM)  
+        // $fupdtime = date("m/d/Y h:i:s A");      // (10/23/2012 02:37:54 PM)  
         $updpodate = $fupddate = date("Y-m-d"); // (1992-05-25)  
-        $date = date("Y-m-d h:i:s");          // (1999-03-19 13:45:33)
+        $fupdtime = $date = date("Y-m-d h:i:s");          // (1999-03-19 13:45:33)
         
         // Initializing Logical Fields by default
         $vfpdelete = $nflg0 = $serialnf = $duprecord = $duprecdel = false;
