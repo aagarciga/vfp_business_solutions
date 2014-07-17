@@ -32,7 +32,7 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <label class="control-label" for="txNetCount">DUP</label>
-                <input type="text" class="form-control"  name="txNetCount" id="txNetCount" readonly placeholder="0">
+                <input type="text" class="form-control"  name="txNetCount" id="txNetCount" readonly placeholder="0" value="<?php echo $Dup ?>">
 
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <label class="control-label" for="txCount">TOT</label>
-                <input type="text" class="form-control"  name="txCount" id="txCount" readonly placeholder="0">
+                <input type="text" class="form-control"  name="txCount" id="txCount" readonly placeholder="0" value="<?php echo ($Dup + count($IcbarcodeRows))?>">
 
             </div>
         </div>
@@ -71,6 +71,16 @@
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
+            
+            <?php // $i = 0;?>
+            <?php foreach ($IcbarcodeRows as $row):?>
+                <tr class="item <?php // echo ($i++ % 2 == 0)? 'even' : 'odd'?>">
+                    <td class="item-field"><span class="badge"><?php echo intval($row->getQty())  ?></span></td>
+                    <td class="item-field itemno"><?php echo $row->getItemno() ?></td>
+                    <td class="item-field location"><?php echo trim($row->getLocno()) ?></td>
+                    <td class="item-field"><?php echo $row->getUpccode() ?></td>
+                </tr>                
+            <?php endforeach ?>
 
         </tbody>
     </table>

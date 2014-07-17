@@ -96,7 +96,8 @@ class AddItemCount_Post extends Action {
         $itemno = $item->getItemno();
         $descrip = $item->getDescrip(); 
         
-        $vfpuser = $fstation = $fuserid = $_SESSION['username'];
+        $vfpuser = $fuserid = $_SESSION['username'];
+        $fstation = $this->getClientIp();
         
         // Default Warehouse 
         $whs = isset($_SESSION['userwhsdef'])?$_SESSION['userwhsdef'] : '000'; 
@@ -104,7 +105,8 @@ class AddItemCount_Post extends Action {
         // Date Time related fields
         // $fupdtime = date("m/d/Y h:i:s A");      // (10/23/2012 02:37:54 PM)  
         $updpodate = $fupddate = date("Y-m-d"); // (1992-05-25)  
-        $fupdtime = $date = date("Y-m-d h:i:s");          // (1999-03-19 13:45:33)
+        //      $fupdtime = $date = date("Y-m-d h:i:s");    // (1999-03-19 13:45:33)
+        $fupdtime = date("Y-m-d h:i:s"); 
         
         // Initializing Logical Fields by default
         $vfpdelete = $nflg0 = $serialnf = $duprecord = $duprecdel = false;
@@ -112,10 +114,30 @@ class AddItemCount_Post extends Action {
         // Initializing Numeric Fields by default
         $qtyscan = $qtytopo = 0; 
         
-        $result = new Entities\ICBARCODE($docno, $type, $barcode, $serialno, $whs, $itmcount, $location, $qty, $vfpuser, $date, $vfpdelete, $nflg0, $serialnf, $fupdtime, $fupddate, $fstation, $fuserid, $itemno, $descrip, $duprecord, $duprecdel, $locno, $upccode, $qblistid, $whsno, $pono, $qtyscan, $prostatus, $qtytopo, $updpodate, $updpono);
+        $result = new Entities\ICBARCODE($docno, $type, $barcode, $serialno, $whs, $itmcount, $location, $qty, $vfpuser, $vfpdelete, $nflg0, $serialnf, $fupdtime, $fupddate, $fstation, $fuserid, $itemno, $descrip, $duprecord, $duprecdel, $locno, $upccode, $qblistid, $whsno, $pono, $qtyscan, $prostatus, $qtytopo, $updpodate, $updpono);
         return $result;
     }
     
+    function getClientIp() {
+        $ipaddress = '';
+        if (getenv('HTTP_CLIENT_IP'))
+            $ipaddress = getenv('HTTP_CLIENT_IP');
+        else if (getenv('HTTP_X_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+        else if (getenv('HTTP_X_FORWARDED'))
+            $ipaddress = getenv('HTTP_X_FORWARDED');
+        else if (getenv('HTTP_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_FORWARDED_FOR');
+        else if (getenv('HTTP_FORWARDED'))
+            $ipaddress = getenv('HTTP_FORWARDED');
+        else if (getenv('REMOTE_ADDR'))
+            $ipaddress = getenv('REMOTE_ADDR');
+        else
+            $ipaddress = 'UNKNOWN';
+
+        return $ipaddress;
+    }
+
     /**
      * Set entity itemcount to 'OK' and give an unique identifier in order to insert in ICBARCODE Table
      * @param \Dandelion\MVC\Application\Models\Entities\ICBARCODE $entity

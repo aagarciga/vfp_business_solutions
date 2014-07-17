@@ -64,7 +64,7 @@ class BaseICBARCODE {
     /**
      * @var TimeStamp
      */
-    protected $_date;
+//    protected $_date;
 
     /**
      * @var Logical
@@ -241,9 +241,9 @@ class BaseICBARCODE {
     /**
      * @return TimeStamp
      */
-    public function getDate() {
-        return trim($this->_date);
-    }
+//    public function getDate() {
+//        return trim($this->_date);
+//    }
 
     /**
      * @return Logical
@@ -462,9 +462,9 @@ class BaseICBARCODE {
     /**
      * @param TimeStamp
      */
-    public function setDate($value) {
-        $this->_date = $value;
-    }
+//    public function setDate($value) {
+//        $this->_date = $value;
+//    }
 
     /**
      * @param Logical
@@ -616,7 +616,7 @@ class BaseICBARCODE {
     /**
      * Constructor
      */
-    public function __construct($docno, $type, $barcode, $serialno, $whs, $itmcount, $location, $qty, $vfpuser, $date, $vfpdelete, $nflg0, $serialnf, $fupdtime, $fupddate, $fstation, $fuserid, $itemno, $descrip, $duprecord, $duprecdel, $locno, $upccode, $qblistid, $whsno, $pono, $qtyscan, $prostatus, $qtytopo, $updpodate, $updpono) {
+    public function __construct($docno, $type, $barcode, $serialno, $whs, $itmcount, $location, $qty, $vfpuser, $vfpdelete, $nflg0, $serialnf, $fupdtime, $fupddate, $fstation, $fuserid, $itemno, $descrip, $duprecord, $duprecdel, $locno, $upccode, $qblistid, $whsno, $pono, $qtyscan, $prostatus, $qtytopo, $updpodate, $updpono) {
         $this->_docno = $docno;
         $this->_type = $type;
         $this->_barcode = $barcode;
@@ -626,7 +626,7 @@ class BaseICBARCODE {
         $this->_location = $location;
         $this->_qty = $qty;
         $this->_vfpuser = $vfpuser;
-        $this->_date = $date;
+//        $this->_date = $date;
         $this->_vfpdelete = ($vfpdelete === null)? false : $vfpdelete;
         $this->_nflg0 = ($nflg0 === null)? false : $nflg0 ;
         $this->_serialnf = ($serialnf === null)? false : $serialnf ;

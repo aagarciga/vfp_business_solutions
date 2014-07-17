@@ -23,7 +23,7 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->DATE, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
+            $result [] = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
         }
 
         return $result;
@@ -42,7 +42,7 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->DATE, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
+            $result [] = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
         }
 
         return $result;
@@ -59,7 +59,7 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         $location = $entity->getLocation();
         $qty = $entity->getQty();
         $vfpuser = $entity->getVfpuser();
-        $date = $entity->getDate();
+//        $date = $entity->getDate();
         $vfpdelete = $entity->getVfpdelete()? "True" : "False";
         $nflg0 = $entity->getNflg0() ? "True" : "False";
         $serialnf = $entity->getSerialnf()? "True" : "False";
@@ -83,8 +83,8 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         $updpono = $entity->getUpdpono();
         
         $sqlString = "INSERT INTO " . $this->entityName . $this->companySuffix 
-                . " (       DOCNO,      \"TYPE\",   BARCODE,    SERIALNO,       WHS,    ITMCOUNT,       LOCATION,       QTY,    VFPUSER,        \"DATE\", VFPDELETE,   NFLG0,  SERIALNF,   FUPDTIME,       FUPDDATE,       FSTATION,       FUSERID,        ITEMNO,     DESCRIP,    DUPRECORD,  DUPRECDEL,  LOCNO,      UPCCODE,    QBLISTID,       WHSNO,      PONO,       QTYSCAN,    PROSTATUS,      QTYTOPO,    UPDPODATE,      UPDPONO)"
-                . " VALUES('$docno' ,   '$type',    '$barcode', '$serialno',    '$whs', '$itmcount',    '$location',    $qty,   '$vfpuser',    '$date',   $vfpdelete,  $nflg0, $serialnf,  '$fupdtime',    '$fupddate',    '$fstation',    '$fuserid',     '$itemno',  '$descrip', $duprecord, $duprecdel, '$locno',   '$upccode', '$qblistid',    '$whsno',   '$pono',    $qtyscan,   '$prostatus',   $qtytopo,   '$updpodate',   '$updpono')";
+                . " (       DOCNO,      \"TYPE\",   BARCODE,    SERIALNO,       WHS,    ITMCOUNT,       LOCATION,       QTY,    VFPUSER,      VFPDELETE,   NFLG0,  SERIALNF,   FUPDTIME,       FUPDDATE,       FSTATION,       FUSERID,        ITEMNO,     DESCRIP,    DUPRECORD,  DUPRECDEL,  LOCNO,      UPCCODE,    QBLISTID,       WHSNO,      PONO,       QTYSCAN,    PROSTATUS,      QTYTOPO,    UPDPODATE,      UPDPONO)"
+                . " VALUES('$docno' ,   '$type',    '$barcode', '$serialno',    '$whs', '$itmcount',    '$location',    $qty,   '$vfpuser',   $vfpdelete,  $nflg0, $serialnf,  '$fupdtime',    '$fupddate',    '$fstation',    '$fuserid',     '$itemno',  '$descrip', $duprecord, $duprecdel, '$locno',   '$upccode', '$qblistid',    '$whsno',   '$pono',    $qtyscan,   '$prostatus',   $qtytopo,   '$updpodate',   '$updpono')";
        
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
@@ -101,7 +101,7 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         $location = $entity->getLocation();
         $qty = $entity->getQty();
         $vfpuser = $entity->getVfpuser();
-        $date = $entity->getDate();
+//        $date = $entity->getDate();
         $vfpdelete = $entity->getVfpdelete()? "True" : "False";
         $nflg0 = $entity->getNflg0() ? "True" : "False";
         $serialnf = $entity->getSerialnf()? "True" : "False";
@@ -124,7 +124,7 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         $updpodate = $entity->getUpdpodate();
         $updpono = $entity->getUpdpono();
         
-        $sqlString = "UPDATE " . $this->entityName . $this->companySuffix . " SET \"TYPE\" = '$type', BARCODE = '$barcode', SERIALNO = '$serialno', WHS = '$whs', ITMCOUNT = '$itmcount', LOCATION = '$location', QTY = $qty, VFPUSER = '$vfpuser', \"DATE\" = '$date', VFPDELETE = $vfpdelete, NFLG0 = $nflg0, SERIALNF = $serialnf, FUPDTIME = '$fupdtime', FUPDDATE = '$fupddate', FSTATION = '$fstation', FUSERID = '$fuserid', ITEMNO = '$itemno', DESCRIP = '$descrip', DUPRECORD = $duprecord, DUPRECDEL = $duprecdel, LOCNO = '$locno', UPCCODE = '$upccode', QBLISTID = '$qblistid', WHSNO = '$whsno', PONO = '$pono', QTYSCAN = $qtyscan, PROSTATUS = '$prostatus', QTYTOPO = $qtytopo, UPDPODATE = '$updpodate', UPDPONO = '$updpono'"
+        $sqlString = "UPDATE " . $this->entityName . $this->companySuffix . " SET \"TYPE\" = '$type', BARCODE = '$barcode', SERIALNO = '$serialno', WHS = '$whs', ITMCOUNT = '$itmcount', LOCATION = '$location', QTY = $qty, VFPUSER = '$vfpuser', VFPDELETE = $vfpdelete, NFLG0 = $nflg0, SERIALNF = $serialnf, FUPDTIME = '$fupdtime', FUPDDATE = '$fupddate', FSTATION = '$fstation', FUSERID = '$fuserid', ITEMNO = '$itemno', DESCRIP = '$descrip', DUPRECORD = $duprecord, DUPRECDEL = $duprecdel, LOCNO = '$locno', UPCCODE = '$upccode', QBLISTID = '$qblistid', WHSNO = '$whsno', PONO = '$pono', QTYSCAN = $qtyscan, PROSTATUS = '$prostatus', QTYTOPO = $qtytopo, UPDPODATE = '$updpodate', UPDPONO = '$updpono'"
                 . " WHERE DOCNO = '$docno'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
@@ -151,7 +151,7 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         
         if (count($queryResult)) {
             $row = $queryResult[0];
-            $result = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->DATE, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
+            $result = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
         }
 
         return $result;
@@ -176,7 +176,7 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         
         if (count($queryResult)) {
             $row = $queryResult[0];
-            $result = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->DATE, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
+            $result = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
         }
 
         return $result;
@@ -203,9 +203,45 @@ class ICBARCODERepository extends VFPRepository implements IRepository {
         
         if (count($queryResult)) {
             $row = $queryResult[0];
-            $result = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->DATE, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
+            $result = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
         }
 
+        return $result;
+    }
+    
+    public function GetByUserAndStation($user, $station){
+        
+        $lowerUser = strtolower($user);
+        $lowerStation = strtolower($station);
+        
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE lower(FUSERID) = '$lowerUser' AND lower(FSTATION) = '$lowerStation' AND ITMCOUNT = 'OK'";
+        
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = array();        
+       
+        foreach ($queryResult as $row) {
+            $result [] = new ICBARCODE($row->DOCNO, $row->TYPE, $row->BARCODE, $row->SERIALNO, $row->WHS, $row->ITMCOUNT, $row->LOCATION, $row->QTY, $row->VFPUSER, $row->VFPDELETE, $row->NFLG0, $row->SERIALNF, $row->FUPDTIME, $row->FUPDDATE, $row->FSTATION, $row->FUSERID, $row->ITEMNO, $row->DESCRIP, $row->DUPRECORD, $row->DUPRECDEL, $row->LOCNO, $row->UPCCODE, $row->QBLISTID, $row->WHSNO, $row->PONO, $row->QTYSCAN, $row->PROSTATUS, $row->QTYTOPO, $row->UPDPODATE, $row->UPDPONO);
+        }
+
+        return $result;
+    }
+    
+    public function GetDupByUserAndStation($user, $station){
+        
+        $lowerUser = strtolower($user);
+        $lowerStation = strtolower($station);
+        
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE lower(FUSERID) = '$lowerUser' AND lower(FSTATION) = '$lowerStation' AND ITMCOUNT = 'DUP'";
+        
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = count($queryResult);        
+        
         return $result;
     }
     

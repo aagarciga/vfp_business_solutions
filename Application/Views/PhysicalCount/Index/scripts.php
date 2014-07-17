@@ -311,15 +311,17 @@
     // Update total count
     function updateTotal(){
         var $totalField = $('#txCount');
-        $totalField.val(++$.TotalCount);
+        var count = $totalField.val();
+        $totalField.val(++count);
     }
 </script>
 
 <script>
     // Update DUP count
     function updateDup(){
-        var $dupField = $('#txNetCount');  
-        $dupField.val(++$.DUPCount);
+        var $dupField = $('#txNetCount'); 
+        var dup = $dupField.val();
+        $dupField.val(++dup);
     }
 </script>
 
