@@ -425,6 +425,36 @@ class BaseSysuser {
         $this->_icprefix = $icprefix;
     }
 
+    /**
+     * Constructor
+     * @param type $userid
+     * @param type $usercode
+     * @param type $username
+     * @param type $userpass
+     * @param type $group
+     * @param type $userstat0
+     * @param type $ondate
+     * @param type $offdate
+     * @param type $ontime
+     * @param type $offtime
+     * @param type $fscreen
+     * @param type $fstartup
+     * @param type $fuserlpdev
+     * @param type $fuercomp
+     * @param type $flang_ctrl
+     * @param type $formini
+     * @param type $nflg0
+     * @param type $whsdef
+     * @param type $posctrl
+     * @param type $psdrwopen
+     * @param type $psdrwport
+     * @param type $psbarcdlp
+     * @param type $setconfirm
+     * @param type $defdirname
+     * @param type $email
+     * @param type $custno
+     * @param type $icprefix
+     */
     public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $custno = '', $icprefix = '') {
         $this->_userid = $userid;
         $this->_usercode = $usercode;

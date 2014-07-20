@@ -563,6 +563,34 @@ class BaseICLOCRUL {
 
     /**
      * Constructor
+     * @param type $rowid
+     * @param type $frombin
+     * @param type $tobin
+     * @param type $zone
+     * @param type $bintype
+     * @param type $sizecode
+     * @param type $reachcode
+     * @param type $height
+     * @param type $front
+     * @param type $depth
+     * @param type $ndeep
+     * @param type $skipcount
+     * @param type $comment_in
+     * @param type $handlecode
+     * @param type $pick_type
+     * @param type $subzone
+     * @param type $packsize
+     * @param type $is_random
+     * @param type $bill_zone
+     * @param type $isactive
+     * @param type $whsno
+     * @param type $nflg0
+     * @param type $fupdtime
+     * @param type $fupddate
+     * @param type $fstation
+     * @param type $descrip
+     * @param type $qblistid
+     * @param type $fuserid
      */
     public function __construct($rowid, $frombin, $tobin, $zone, $bintype, $sizecode, $reachcode, $height, $front, $depth, $ndeep, $skipcount, $comment_in, $handlecode, $pick_type, $subzone, $packsize, $is_random, $bill_zone, $isactive, $whsno, $nflg0, $fupdtime, $fupddate, $fstation, $descrip, $qblistid, $fuserid) {
         $this->_rowid = $rowid;

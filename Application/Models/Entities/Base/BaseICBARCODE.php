@@ -615,6 +615,36 @@ class BaseICBARCODE {
 
     /**
      * Constructor
+     * @param type $docno
+     * @param type $type
+     * @param type $barcode
+     * @param type $serialno
+     * @param type $whs
+     * @param type $itmcount
+     * @param type $location
+     * @param type $qty
+     * @param type $vfpuser
+     * @param type $vfpdelete
+     * @param bool $nflg0
+     * @param type $serialnf
+     * @param type $fupdtime
+     * @param type $fupddate
+     * @param type $fstation
+     * @param type $fuserid
+     * @param type $itemno
+     * @param type $descrip
+     * @param type $duprecord
+     * @param type $duprecdel
+     * @param type $locno
+     * @param type $upccode
+     * @param type $qblistid
+     * @param type $whsno
+     * @param type $pono
+     * @param type $qtyscan
+     * @param type $prostatus
+     * @param type $qtytopo
+     * @param type $updpodate
+     * @param type $updpono
      */
     public function __construct($docno, $type, $barcode, $serialno, $whs, $itmcount, $location, $qty, $vfpuser, $vfpdelete, $nflg0, $serialnf, $fupdtime, $fupddate, $fstation, $fuserid, $itemno, $descrip, $duprecord, $duprecdel, $locno, $upccode, $qblistid, $whsno, $pono, $qtyscan, $prostatus, $qtytopo, $updpodate, $updpono) {
         $this->_docno = $docno;

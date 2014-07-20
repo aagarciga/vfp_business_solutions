@@ -392,6 +392,25 @@ class BaseICLOC {
 
     /**
      * Constructor
+     * @param type $locno
+     * @param type $descrip
+     * @param type $nflg0
+     * @param type $whsno
+     * @param type $height
+     * @param type $width
+     * @param type $depth
+     * @param type $cubic
+     * @param type $bintype
+     * @param type $zone
+     * @param type $subzone
+     * @param type $comment
+     * @param type $rowid
+     * @param type $notes
+     * @param type $weightcap
+     * @param type $isactive
+     * @param type $multisku
+     * @param type $qblistid
+     * @param type $casesingle
      */
     public function __construct($locno, $descrip, $nflg0, $whsno, $height, $width, $depth, $cubic, $bintype, $zone, $subzone, $comment, $rowid, $notes, $weightcap, $isactive, $multisku, $qblistid, $casesingle) {
         $this->_locno = $locno;

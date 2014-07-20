@@ -620,6 +620,37 @@ class BaseWMSCAN {
 
     /**
      * Constructor
+     * @param type $code
+     * @param type $scanid
+     * @param type $descrip
+     * @param type $status
+     * @param type $menu
+     * @param type $locswitch
+     * @param type $location
+     * @param type $pickticket
+     * @param type $ordnum
+     * @param type $palletno
+     * @param type $packno
+     * @param type $barcode
+     * @param type $picture
+     * @param type $error
+     * @param type $errormsg
+     * @param type $userid
+     * @param type $nflg0
+     * @param type $quantities
+     * @param type $shipping
+     * @param type $binloc
+     * @param type $moveitem
+     * @param type $bintobin
+     * @param type $phycount
+     * @param type $chgprop
+     * @param type $pono
+     * @param type $itemno
+     * @param string $rimno
+     * @param bool $shipment
+     * @param bool $return
+     * @param string $qblistid
+     * @param bool $binlocal
      */
     public function __construct($code, $scanid, $descrip, $status, $menu, $locswitch, $location, $pickticket, $ordnum, $palletno, $packno, $barcode, $picture, $error, $errormsg, $userid, $nflg0, $quantities, $shipping, $binloc, $moveitem, $bintobin, $phycount, $chgprop, $pono, $itemno, $rimno, $shipment, $return, $qblistid, $binlocal) {
         $this->_code = $code;
@@ -649,10 +680,10 @@ class BaseWMSCAN {
         $this->_pono = $pono;
         $this->_itemno = $itemno;
         $this->_rimno = $rimno;
-        $this->_shipment = $shipment;
-        $this->_return = $return;
+        $this->_shipment = ($shipment === null) ? false : $shipment;
+        $this->_return = ($return === null) ? false : $return;
         $this->_qblistid = $qblistid;
-        $this->_binlocal = $binlocal;
+        $this->_binlocal = ($binlocal === null) ? false : $binlocal;
     }
 
     public static function toString() {

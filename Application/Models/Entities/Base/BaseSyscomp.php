@@ -156,7 +156,7 @@ class BaseSyscomp {
     }
 
     /**
-     * 
+     * Constructor
      * @param type $actcomp
      * @param type $company
      * @param type $nflg0

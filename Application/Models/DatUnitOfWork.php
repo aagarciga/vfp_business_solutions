@@ -58,6 +58,18 @@ class DatUnitOfWork extends UnitOfWork {
      * @var WMSCANRepository 
      */
     public $WMSCANRepository;
+    
+    /**
+     * 
+     * @var ICITLORepository 
+     */
+    public $ICITLORepository;
+    
+    /**
+     * 
+     * @var ICWHSRepository 
+     */
+    public $ICWHSRepository;
 
     /**
      * 
@@ -73,6 +85,8 @@ class DatUnitOfWork extends UnitOfWork {
         $this->ICPARMRepository = new Repositories\ICPARMRepository($dbDriver, Entities\ICPARM::toString(), $companySuffix);
         $this->ICUPCPARMRepository = new Repositories\ICUPCPARMRepository($dbDriver, Entities\ICUPCPARM::toString(), $companySuffix);
         $this->WMSCANRepository = new Repositories\WMSCANRepository($dbDriver, Entities\WMSCAN::toString(), $companySuffix);
+        $this->ICITLORepository = new Repositories\ICITLORepository($dbDriver, Entities\ICITLO::toString(), $companySuffix);
+        $this->ICWHSRepository = new Repositories\ICWHSRepository($dbDriver, Entities\ICWHS::toString(), $companySuffix);
     }
 
 }

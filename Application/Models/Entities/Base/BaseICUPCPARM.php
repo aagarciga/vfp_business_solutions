@@ -126,12 +126,17 @@ class BaseICUPCPARM {
 
     /**
      * Constructor
+     * @param string $itemno
+     * @param string $upccode
+     * @param bool $isactive
+     * @param bool $nflg0
+     * @param string $qblistid
      */
     public function __construct($itemno, $upccode, $isactive, $nflg0, $qblistid) {
         $this->_itemno = $itemno;
         $this->_upccode = $upccode;
-        $this->_isactive = $isactive;
-        $this->_nflg0 = $nflg0;
+        $this->_isactive = ($isactive === null) ? false : $isactive;
+        $this->_nflg0 = ($nflg0 === null) ? false : $nflg0;
         $this->_qblistid = $qblistid;
     }
 
