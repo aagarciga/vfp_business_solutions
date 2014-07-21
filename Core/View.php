@@ -160,6 +160,25 @@ class View {
     }
     
     /**
+     * Renders a Control layout commons to a group of pages.
+     * 
+     * @param string $fileName
+     * @param string $prefix
+     * @param string $posfix
+     * @param string $context
+     */
+    public function Control($fileName, $prefix = '', $posfix = '.Control.php', $context = ''){
+        if ($context == '') {
+            extract($this->action->Data());
+            include MVC_DIR_APP_VIEWS_SHARED . DIRECTORY_SEPARATOR . $prefix . $fileName . $posfix;
+        }
+        else {
+            extract($this->action->Data());
+            include $context . $prefix . $fileName . $posfix;
+        }
+    }
+    
+    /**
      * Put an image in Dandelion MVC Public context for using it in markup.
      * 
      * @param string $file The file or file path relative to Dandelion MVC Public context.
