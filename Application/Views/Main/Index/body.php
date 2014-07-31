@@ -35,7 +35,7 @@
                         <img src="<?php echo $View->ImagesContext("main/items-to-bin.png") ?>"/> Items to Bin</a>
                 </li>
                 <li>
-                    <a href="#" class="bin-to-bin">
+                    <a href="<?php echo $View->Href("BinToBin") ?>" class="bin-to-bin">
                         <img src="<?php echo $View->ImagesContext("main/bin-to-bin.png") ?>"/> Bin to Bin</a>
                 </li>
                 <li class="-active">

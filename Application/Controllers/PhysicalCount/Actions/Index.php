@@ -9,7 +9,7 @@ namespace Dandelion\MVC\Application\Controllers\PhysicalCount\Actions;
 use Dandelion\MVC\Core\Action;
 
 /**
- * VFP Business Series Default Controller Action
+ * VFP Business Series Physical Count Default Controller Action
  * @name Index
  */
 class Index extends Action {
@@ -18,7 +18,7 @@ class Index extends Action {
      * Default system page. Show Main menu.
      */
     public function Execute() {
-        $this->Title = 'VFP Business Series - Warehouse Management System';
+        $this->Title = 'Physical Count | VFP Business Series - Warehouse Management System';
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         
@@ -48,5 +48,3 @@ class Index extends Action {
     }
 
 }
-
-?>

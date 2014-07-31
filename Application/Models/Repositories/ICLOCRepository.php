@@ -61,5 +61,21 @@ class ICLOCRepository extends VFPRepository implements IRepository {
     public function Delete($entity) {
         // TODO: Implement Delete() method.
     }
+    
+    public function GetActives() {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= ' WHERE IsActive = False' ;
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = array();
+
+        foreach ($queryResult as $row) {
+            $result [] = new ICLOC(trim($row->LOCNO), trim($row->DESCRIP), trim($row->NFLG0), trim($row->WHSNO), trim($row->HEIGHT), trim($row->WIDTH), trim($row->DEPTH), trim($row->CUBIC), trim($row->BINTYPE), trim($row->ZONE), trim($row->SUBZONE), trim($row->COMMENT), trim($row->ROWID), trim($row->NOTES), trim($row->WEIGHTCAP), trim($row->ISACTIVE), trim($row->MULTISKU), trim($row->QBLISTID), trim($row->CASESINGLE));
+            //$result [] = new ICLOC($row->LOCNO, $row->DESCRIP, $row->NFLG0, $row->WHSNO, $row->HEIGHT, $row->WIDTH, $row->DEPTH, $row->CUBIC, $row->BINTYPE, $row->ZONE, $row->SUBZONE, $row->COMMENT, $row->ROWID, $row->NOTES, $row->WEIGHTCAP, $row->ISACTIVE, $row->MULTISKU, $row->QBLISTID, $row->CASESINGLE);
+        }
+
+        return $result;
+    }
 
 }
