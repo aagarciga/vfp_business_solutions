@@ -77,5 +77,24 @@ class ICLOCRepository extends VFPRepository implements IRepository {
 
         return $result;
     }
+    
+    public function GetActiveByLocno($locno) {
+        $tableName = $this->entityName . $this->companySuffix;
+        $lowerLocno = strtolower($locno);
+        
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE IsActive = False AND lower(LOCNO) = '$lowerLocno'" ;
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        
+        $result = null;
+
+        if (count($queryResult)) {
+            $row = $queryResult[0];
+            $result = new ICLOC(trim($row->LOCNO), trim($row->DESCRIP), trim($row->NFLG0), trim($row->WHSNO), trim($row->HEIGHT), trim($row->WIDTH), trim($row->DEPTH), trim($row->CUBIC), trim($row->BINTYPE), trim($row->ZONE), trim($row->SUBZONE), trim($row->COMMENT), trim($row->ROWID), trim($row->NOTES), trim($row->WEIGHTCAP), trim($row->ISACTIVE), trim($row->MULTISKU), trim($row->QBLISTID), trim($row->CASESINGLE));
+        }
+            
+        return $result;
+    }
 
 }

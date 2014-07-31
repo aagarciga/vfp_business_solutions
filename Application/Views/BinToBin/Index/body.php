@@ -36,10 +36,11 @@
     <div class="row ">
         <div class="col-xs-6">
             <div class="form-group">
-                <label class="control-label" for="seLocation"><span class="glyphicon glyphicon-export"></span> From</label>
-                <select class="form-control input" name="seLocation" id="seLocation" title="Select Location">
+                <label class="control-label" for="txLocation"><span class="glyphicon glyphicon-export"></span> From</label>
+                <input type="text" name="txLocation" id="txLocation" class="form-control input" title="Fill from location. Then press [Enter]"/>
+<!--                <select class="form-control input" name="seLocation" id="seLocation" title="Select Location">
                     
-                </select>
+                </select>-->
 
             </div>
         </div>
@@ -56,14 +57,14 @@
     <div class="row ">
         <div class="col-xs-6">
             <div class="form-group">
-                <label class="control-label" for="seActiveLocation"><span class="glyphicon glyphicon-import"></span> To</label>
+                <label class="control-label" for="txActiveLocation"><span class="glyphicon glyphicon-import"></span> To</label>
                 
-
-                <select class="form-control input" name="seActiveLocation" id="seActiveLocation">
-                <?php foreach ($ActivesLocations as $location): ?>                        
-                    <option value="<?php echo $location->getLocno() ?>"><?php echo $location->getLocno() ?></option>
-                <?php endforeach ?>
-                </select>
+                <input type="text" name="txActiveLocation" id="txActiveLocation" class="form-control input" title="Fill to location. Then press [Enter]"/>
+<!--                <select class="form-control input" name="seActiveLocation" id="seActiveLocation">
+                <?php // foreach ($ActivesLocations as $location): ?>                        
+                    <option value="<?php // echo $location->getLocno() ?>"><?php // echo $location->getLocno() ?></option>
+                <?php // endforeach ?>
+                </select>-->
 
             </div>
         </div>

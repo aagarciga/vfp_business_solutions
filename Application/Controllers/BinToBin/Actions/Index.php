@@ -26,5 +26,12 @@ class Index extends Action {
         
         $this->ActivesLocations = $this->controller->DatUnitOfWork->ICLOCRepository->GetActives();
         
+        $jsonActivesLocations = array();
+        foreach ($this->ActivesLocations as $location){
+            $jsonActivesLocations []= $location->getLocno();
+        }
+        
+        $this->jsonActivesLocations = json_encode($jsonActivesLocations);
+        
     }
 }

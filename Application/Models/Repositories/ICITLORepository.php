@@ -134,6 +134,26 @@ class ICITLORepository extends VFPRepository implements IRepository {
         return $result;
     }
     
+    public function GetByItemnoAndLocation($itemno, $location) {
+        $lowerItemno = strtolower($itemno);
+        $lowerLocation = strtolower($location);
+        
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE lower(ITEMNO) = '$lowerItemno' AND lower(LOCNO) = '$lowerLocation'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        $result = null;
+
+        if (count($queryResult)) {
+            $row = $queryResult[0];
+            $result = new ICITLO(trim($row->ITEMNO), trim($row->ITMWHS), trim($row->LOCNO), trim($row->NFLG0), trim($row->ONHAND), trim($row->QTYPICK), trim($row->QTYSHPREL), trim($row->LOCALFSORT), trim($row->ZONE), trim($row->QBLISTID), trim($row->CASESINGLE));
+        }
+            
+        return $result;
+    }
+    
     /**
      * Get ICITLO by it's primary key columns (itemno, itmwhs, locno)
      * @param string $itemno
