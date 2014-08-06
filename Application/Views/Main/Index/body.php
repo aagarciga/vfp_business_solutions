@@ -72,26 +72,31 @@
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
                 <li>
-                    <a href="#" class="shipment">
+                    <a href="<?php echo $View->Href("Shipment") ?>" class="shipment">
                         <img src="<?php echo $View->ImagesContext("main/shipment.png") ?>"/> Shipment</a>
                 </li>
                 <li><a href="#" class="return">
                         <img src="<?php echo $View->ImagesContext("main/return.png") ?>"/> Return</a>
                 </li> 
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <ul class="nav nav-pills nav-stacked">
-                <li>
+                
+                <li class="right">
                     <a href="<?php echo $View->Href("User", "Signout") ?>" class="exit">
                         <img src="<?php echo $View->ImagesContext("main/exit.png") ?>"/> Exit</a>
                 </li>
             </ul>
         </div>
     </div>
+
+<!--    <div class="panel panel-default">
+        <div class="panel-body">
+            <ul class="nav nav-pills ">
+                <li>
+                    <a href="<?php echo $View->Href("User", "Signout") ?>" class="exit">
+                        <img src="<?php echo $View->ImagesContext("main/exit.png") ?>"/> Exit</a>
+                </li>
+            </ul>
+        </div>
+    </div>-->
 
 </div>
 

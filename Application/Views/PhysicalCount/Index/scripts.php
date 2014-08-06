@@ -14,17 +14,6 @@
 </script>
 
 <script>
-    function ShowFeedback(message){
-        $('.feedback').fadeOut('slow', function() {
-            $('.feedback').html(message);
-            $('.feedback').fadeIn('slow', function() {
-                //
-            });
-        });
-    }
-</script>
-
-<script>
     // Verify Location Script
     function verifyLocation(locno){
         var params = {"locno" : locno };

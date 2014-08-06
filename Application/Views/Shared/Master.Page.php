@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <title><?php echo $Title; ?></title>
     <meta name="application-name" content="<?php echo $Application; ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,9 +22,9 @@
         <script src="<?php echo $View->PublicVendorContext('assets/js/html5shiv.js'); ?>"></script>
         <script src="<?php echo $View->PublicVendorContext('assets/js/respond.min.js'); ?>"></script>
     <![endif]-->
-    <?php $View->Partial('head'); ?> 
+    <?php $View->Partial('head'); ?>
   </head>
-  <body>    
+  <body>
 
     <?php $View->Partial('body'); ?>
     
@@ -34,6 +35,7 @@
     <!--    <script src="//code.jquery.com/jquery.js"></script>-->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo $View->ScriptsContext('main.js'); ?>"></script>
     <?php $View->Partial('scripts'); ?>
   </body>
 </html>
