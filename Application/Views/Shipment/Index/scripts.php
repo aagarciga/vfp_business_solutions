@@ -1,32 +1,86 @@
-    <script>
-        function verifyItem(barcode){
-        var params = {"barcode" : barcode };
+<script>
+    /// TODO: The code below can be used like verification template. 
+    /// The input control associated to the verification data is in one place.
+    function verifyPono($pono, $nextControl, $table){
+        var params = {"pono" : $pono.val()};
         $.ajax({
             data: params,
-            url: '<?php echo $View->Href("PhysicalCount", "VerifyItem") ?>',
+            url: '<?php echo $View->Href("Shipment", "VerifyPono") ?>',
             type: 'post',
             beforeSend: function(){
                 $('.loading').show();
             },
             success: function (response){
-                var _response = $.parseJSON(response);
-                if(_response.verified === 'true'){
-                    $('#txBarcode').parent().addClass('has-success');
-                    $('#txBarcode').parent().removeClass('has-error'); 
-                    
-                    // MARK: Select location by barcode from Dropdown mechanism
-                    // (Remove this comment to work with, and look at the markup)
-                    //getLocations(barcode);
-                    
-                    // Mark: Select location by barcode from Textbox mechanism
-                    $('#txLocation').focus();
-                     
-                }else{
-                    $('#txBarcode').parent().removeClass('has-success');
-                    $('#txBarcode').parent().addClass('has-error');
+                var _response = $.parseJSON(response); 
+                if (_response.verified === true) {                    
+                    if (_response.postatus === "A" || _response.postatus === "C" || _response.postatus === "H") {
+                        $pono.parent().removeClass('has-success').addClass('has-error');                        
+                        ShowFeedback("PO not available, Status for this PO is : " + _response.postatus);
+                        $table.children('tbody').children().remove();
+                    }
+                    else{
+                        $pono.parent().removeClass('has-error').addClass('has-success');
+                        relatedPonoItemsDataBind($table ,$pono);
+                        doFiltering($('#chFilter')[0].checked);
+                        ShowFeedback("PO found. Now you can enter the Barcode.");
+                        $nextControl.focus();
+                    }
+                }
+                else{
+                    $pono.parent().removeClass('has-success').addClass('has-error');
+                    ShowFeedback("PO Not Found.");
+                }
+                                
+                $('.loading').hide();
+            }            
+        });
+    }
+    
+    $('#txPono').keypress(function(event){
+        // Verify on Return key pressed
+        if ( event.which === 13 ) {
+            event.preventDefault();
+            verifyPono($(this), $('#txBarcode'), $('#related-pono-items'));
+        }
+    });
+</script>
 
-                    ShowFeedback("Item not found.");
-                }                
+<script>
+    function showQtyFormWithSugerence(qtyleft){
+        if (qtyleft < 0) {
+            qtyleft = 0;
+        }
+        ShowFeedback("Quantity must be less or equal to: " + qtyleft);
+        $('#quantityForm').show();                    
+        $('#unknow-Key').attr('title', 'Possible greatest value').children('span').text(qtyleft).css('visibility', 'visible');
+    }
+</script>
+
+<script>
+    function verifyBarcode($pono, $barcode){
+        var params = {
+            'pono' : $pono.val(),
+            'barcode' : $barcode.val()
+        };
+        $.ajax({
+            data: params,
+            url: '<?php echo $View->Href("Shipment", "VerifyBarcode") ?>',
+            type: 'post',
+            beforeSend: function(){
+                $('.loading').show();
+            },
+            success: function (response){
+                var _response = $.parseJSON(response); 
+                if (_response.verified === true) { 
+                    $barcode.parent().removeClass('has-error').addClass('has-success');                    
+                    $barcode.blur();                    
+                    showQtyFormWithSugerence(_response.qtyleft);                    
+                }
+                else{
+                    $barcode.parent().removeClass('has-success').addClass('has-error');
+                    ShowFeedback("Item not found for PO : " + $pono.val());
+                }
+                                
                 $('.loading').hide();
             }            
         });
@@ -36,69 +90,14 @@
         // Verify on Return key pressed
         if ( event.which === 13 ) {
             event.preventDefault();
-            var barcode = $(this).val();
-            verifyItem(barcode);
+            verifyBarcode($('#txPono'),$(this));
         }
     });
-    
-    </script>
-    
-    <script>
-    function getLocations(barcode){
-        var params = {"barcode" : barcode };
-        $.ajax({
-            data: params,
-            url: '<?php echo $View->Href("BinToBin", "GetLocationsByBarcode") ?>',
-            type: 'post',
-            beforeSend: function(){
-                $('.loading').show();
-            },
-            success: function (response){
-                var _response = $.parseJSON(response); 
-                if (_response.length > 0) {
-                    fillFromComponents($('#seLocation'), $('#txOnhand'), _response);
-                }
-                                
-                $('.loading').hide();
-            }            
-        });
-    }
-    </script>
-    
-    <script>
-//        function fillFromComponents($select, $textbox, data){
-//            $select.children().remove();
-//            $textbox.val(0);
-//            
-//            $textbox.val(data[0].onhand);
-//            $(data).each(function(){
-//                $select.append('<option value="'+$(this)[0].onhand+'">'+$(this)[0].locno+'</option>')
-//            });
-//        }
+</script>
 
-        function fillFromComponents($fromLocation, $onHand, data){
-            $fromLocation.val('');
-            $onHand.val(0);
-            
-            
-        }
-    </script>
+<script>
+    ///Quantity Form related logic
     
-    <script>
-        $('#seLocation').on('change', function(){
-
-                var $onhand = $('#txOnhand');            
-                $onhand.val($(this).val());
-        });
-    </script>
-    
-    <script>
-        $('#btnShowQuantityForm').on('click', function(){
-            $('#quantityForm').show();
-        });        
-    </script>
-    
-    <script>
     $('.numpad-key').on('click',function (){
         var $key = $(this);
         var value = $key.html();
@@ -112,365 +111,170 @@
             }
             else {
                 $field.html(value);
-                }
+            }
+        }
+        else {
+            $field.html(fieldValue + value);
+        }
+    });
+    
+    $('#unknow-Key').on('click',function (){
+        var $key = $(this).children('span');
+        var value = $key.html();
+        
+        var $field = $('#quantityField');
+        var fieldValue = $field.html();
+        
+        if(fieldValue === '0'){
+            if (value === '0') {
+
             }
             else {
-                $field.html(fieldValue + value);
+                $field.html(value);
             }
-        });
-    </script>
+        }
+        else {
+            $field.html(fieldValue + value);
+        }
+    });
     
-    <script>
     $('#delete-Key').on('click',function (){
         var $field = $('#quantityField');
-        
         $field.html($field.html().slice(0, -1));
-        if (!($field.html() > 1)) {
+        if (!($field.html() > 0)) {
             $field.html('0');
         }
     });
-    </script>
     
-    <script>   
-    $('#unknow-Key, #zero-qty-Key, #no-change-Key').on('click',function (){
+    $('#zero-qty-Key, #no-change-Key').on('click',function (){
         $('#quantityForm').hide();
         
         $('#txToQuantity').val(0);        
         
         $('#clear-Key').click();
     });
-    </script>
+    
+    $('#minus-Key').on('click',function (){
+        var $field = $('#quantityField');
+        var value = parseInt($field.html());
 
-    <script>
-        $('#minus-Key').on('click',function (){
-            var $field = $('#quantityField');
-            var value = parseInt($field.html());
-
-            if (value > 1) {
-                $field.html(value - 1);
-            }
-            else {
-                $field.html('0');
-            }
-        });
-
-        $('#plus-Key').on('click', function() {
-            var $field = $('#quantityField');
-            var value = parseInt($field.html());
-            if (isNaN(value)) {
-                value = 0;
-            }
-            if (value >= 0) {
-                $field.html(value + 1);
-            }
-        });
-
-        $('#clear-Key').on('click', function() {
-            var $field = $('#quantityField');
+        if (value > 1) {
+            $field.html(value - 1);
+        }
+        else {
             $field.html('0');
-        });
-    </script>
-    
-    <script>
-    $('#enter-Key').on('click',function (){
-        $('#quantityForm').hide();
-        
-        var quantity = parseInt($('#quantityField').html());        
-        if (isNaN(quantity)) {
-            quantity = 0;
         }
-        $('#txToQuantity').val(quantity);
-        $('#clear-Key').click();
     });
-    </script>
-    
-    <script>
-        $('#btnOk').on('click', function(){
-            var $warehouse = $('#seWarehouse option:selected').val();
-            var $toQuantity = $('#txToQuantity');
-            var $toQuantityValue = $toQuantity.val();
-            var $fromLocation = $('#txLocation');
-            var $fromLocationValue = $fromLocation.val();
-            var $onHandFromLocation = $('#txOnhand');            
-            var $toLocation = $('#txActiveLocation');
-            var $toLocationValue = $toLocation.val();
-                var $barcode = $('#txBarcode');
-                var $barcodeValue = $barcode.val();
 
-                if ($barcode.val() === '') {
-                    ShowFeedback('<strong>Barcode</strong> field can not be empty');
-                } else
-                if ($barcode.parent().hasClass('has-error')) {
-                    ShowFeedback('Please enter a valid <strong>Barcode</strong> in order to show all associated locations in the <strong>From</strong> field');
-                } else
-                if ($toQuantity.val() <= 0) {
-                    ShowFeedback('Please enter a quantity greather than Zero');
-                } else
-                if ($fromLocation.val() === '' || $toLocation.val() === '') {
-                    ShowFeedback('Please enter a <strong>From</strong> and <strong>To</strong> Location');
-                } else
-                if ($fromLocationValue === $toLocation.val()) {
-                    ShowFeedback('Locations can not be the same');
-                } else
-                if ($fromLocationValue === undefined) {
-                    ShowFeedback('The <strong>Barcode</strong> entered have not associated locations');
-                } else
-                if (!verifyFromIsActive()) {
-                    ShowFeedback('The <strong>From</strong> location does not exist.  Please select another location.');
-                } else
-                if (parseInt($toQuantity.val()) > parseInt($onHandFromLocation.val())) {
-                    ShowFeedback('Quantity in From location is less than the quantity to move.  Please re-enter a lesser quantity.');
-                } else {
-                    var params = {
-                        "quantity": $toQuantityValue,
-                        "fromlocno": $fromLocationValue,
-                        "tolocno": $toLocationValue,
-                        "warehouse": $warehouse,
-                        "barcode": $barcodeValue
-                    };
-                    $.ajax({
-                        data: params,
-                        url: '<?php echo $View->Href("BinToBin", "Index") ?>',
-                        type: 'post',
-                        beforeSend: function() {
-                            $('.loading').show();
-                        },
-                        success: function(response) {
-                            var _response = $.parseJSON(response);
-                            if (_response.success === 'true') {
-                                clearBinToBinForm();
-                                ShowFeedback("Transaction Success");
-                            } else {
-                                ShowFeedback(_response.message);
-                            }
-                            $('.loading').hide();
-                        }
-                    });
-                }
-
-            });
-        
-        function clearBinToBinForm(){
-            var $barcode = $('#txBarcode');
-            $barcode.val("");
-            $barcode.parent().removeClass('has-success has-error');
-            
-            var $fromLocation = $('#txLocation');
-            $fromLocation.val("");
-            $fromLocation.parent().removeClass('has-success has-error');
-            
-            var $onHandFromLocation = $('#txOnhand'); 
-            $onHandFromLocation.val("");
-            
-            var $toLocation = $('#txActiveLocation');
-            $toLocation.val("");
-            $toLocation.parent().removeClass('has-success has-error');
-            
-            var $toQuantity = $('#txToQuantity');
-            $toQuantity.val("");
+    $('#plus-Key').on('click', function() {
+        var $field = $('#quantityField');
+        var value = parseInt($field.html());
+        if (isNaN(value)) {
+            value = 0;
         }
+        if (value >= 0) {
+            $field.html(value + 1);
+        }
+    });
+
+    $('#clear-Key').on('click', function() {
+        var $field = $('#quantityField');
+        $field.html('0');
+    });
+    
+    $('#enter-Key').on('click',function (){
+        var a = $('#quantityField').html();
+        var b = $('#unknow-Key-value').html();
         
-        /**
-        * Verify if From Location is active
-        * @returns {Boolean}         
-        */       
-        function verifyFromIsActive(){
-            var _result = false;
-            var $fromLocationValue = $('#txLocation').val();
-            
-            var _activesLocations = <?php echo $jsonActivesLocations ?>;
-            
-            for (i = 0; i < _activesLocations.length; i++) {
-                var currentValue = _activesLocations[i];
-                if( currentValue === $fromLocationValue){
-                    _result = true;
-                    break;
-                }
+        if (parseInt(a) > parseInt(b)) {
+            ShowFeedback("Quantity exceeds the maximun permited");
+        }else{
+            $('#quantityForm').hide();
+        
+            var quantity = parseInt($('#quantityField').html());        
+            if (isNaN(quantity)) {
+                quantity = 0;
             }
             
-            return _result;
-        };
-    </script>
-    
-    <script>
-//        $('#btnOk').on('click', function(){
-//            
-//            var $warehouse = $('#seWarehouse option:selected').val();
-//            var $toQuantity = $('#txToQuantity');
-//            var $toQuantityValue = $toQuantity.val();
-//            var $fromLocation = $('#seLocation');
-//            var $fromLocationValue = $('#seLocation option:selected').html();
-//            var $onHandFromLocation = $('#txOnhand');            
-//            var $toLocation = $('#seActiveLocation');
-//            var $toLocationValue = $('#seActiveLocation option:selected').val();
-//            var $barcode = $('#txBarcode');
-//            var $barcodeValue = $barcode.val();
-//            
-//            if($barcode.val() === ''){
-//                ShowFeedback('<strong>Barcode</strong> field can not be empty');
-//            }else
-//            if($barcode.parent().hasClass('has-error')){
-//                ShowFeedback('Please enter a valid <strong>Barcode</strong> in order to show all associated locations in the <strong>From</strong> field');
-//            } else
-//            if($toQuantity.val() <= 0){
-//                ShowFeedback('Please enter a quantity greather than Zero');
-//            } else
-//            if($fromLocation.val() === '' || $toLocation.val() === ''){
-//                ShowFeedback('Please enter a <strong>From</strong> and <strong>To</strong> Location');
-//            } else
-//            if($fromLocationValue === $toLocation.val()){
-//                ShowFeedback('Locations can not be the same');
-//            } else
-//            if($fromLocationValue === undefined){
-//                ShowFeedback('The <strong>Barcode</strong> entered have not associated locations');
-//            } else
-//            if(!verifyFromExistInTo()){
-//                ShowFeedback('The <strong>From</strong> location does not exist.  Please select another location.');
-//            } else
-//            if(parseInt($toQuantity.val()) > parseInt($onHandFromLocation.val()) ){                
-//                ShowFeedback('Quantity in From location is less than the quantity to move.  Please re-enter a lesser quantity.');
-//            } else{
-//                var params = {  
-//                    "quantity" : $toQuantityValue,
-//                    "fromlocno" : $fromLocationValue,
-//                    "tolocno" : $toLocationValue,
-//                    "warehouse" : $warehouse,
-//                    "barcode" : $barcodeValue
-//                    };
-//                    console.log("Post Params: ", params);
-//                $.ajax({
-//                    data: params,
-//                    url: '<?php echo $View->Href("BinToBin", "Index") ?>',
-//                    type: 'post',
-//                    beforeSend: function(){
-//                        $('.loading').show();
-//                    },
-//                    success: function (response){
-//                        var _response = $.parseJSON(response);
-//                        if(_response.success === 'true'){
-//                            clearBinToBinForm();
-//                            ShowFeedback("Transaction Success");
-//                        }else{
-//                            ShowFeedback(_response.message); 
-//                        }                    
-//                        $('.loading').hide();
-//                    }            
-//                });
-//            }
-//
-//        });
-//        
-//        function clearBinToBinForm(){
-//            var $barcode = $('#txBarcode');
-//            $barcode.val("");
-//            $barcode.parent().removeClass('has-success has-error');
-//            
-//            var $fromLocation = $('#seLocation');
-//            $fromLocation.children().remove();
-//            
-//            var $onHandFromLocation = $('#txOnhand'); 
-//            $onHandFromLocation.val("");
-//            
-//            var $toQuantity = $('#txToQuantity');
-//            $toQuantity.val("");
-//        }
-//
-//        /**
-//        * Verify if From Location is not on To Location list        
-//         * @returns {Boolean}         */
-//        function verifyFromExistInTo(){
-//            var _result = false;
-//            var $fromLocationValue = $('#seLocation option:selected').html();
-//            var $toLocationOptions = $('#seActiveLocation').children();           
-//            
-//            $toLocationOptions.each(function(){
-//                if ($fromLocationValue === $(this).val() ) {                    
-//                    _result = true;
-//                }
-//            });          
-//            
-//            return _result;
-//        };
-    </script>
-    
-    <script>
-        /// Select location by barcode from textbox mechanism
-        $('#txLocation').keypress(function(event){
-            // Verify on Return key pressed
-            if ( event.which === 13 ) {
-                event.preventDefault();
-                var barcode = $('#txBarcode').val();
-                var location = $(this).val();
-                verifyFromLocation(location ,barcode);
-            }
-        });
-    
-    function verifyFromLocation(location, barcode){
+            var $recv = $.$SelectedTr.children('.td-qty-recv'),
+                recvValue = parseInt($recv.html());
+            $recv.html(recvValue + quantity);
+            
+            var $left = $.$SelectedTr.children('.td-qty-left'),
+                leftValue = parseInt($left.html());
+                
+                $left.html(leftValue - quantity);
+            
+            doFiltering($('#chFilter')[0].checked);
+            $('#clear-Key').click();
+            ShowFeedback("Shipment");
+        }
+    });
+</script>
+
+<script>
+    function relatedPonoItemsDataBind($table, $pono){
         var params = {
-            "location" : location,
-            "barcode" : barcode };
+            'pono' : $pono.val()
+        };
         $.ajax({
             data: params,
-            url: '<?php echo $View->Href("BinToBin", "VerifyFromLocation") ?>',
+            url: '<?php echo $View->Href("Shipment", "GetRelatedPonoItems") ?>',
             type: 'post',
             beforeSend: function(){
                 $('.loading').show();
             },
             success: function (response){
                 var _response = $.parseJSON(response); 
-                if (_response.verified === true) {
-                    
-                    $('#txLocation').parent().addClass('has-success');
-                    $('#txLocation').parent().removeClass('has-error');
-                    $('#txOnhand').val(_response.onhand);
-                    $('#txActiveLocation').focus();
-                }
-                else{
-                    $('#txLocation').parent().addClass('has-error');
-                    $('#txLocation').parent().removeClass('has-success');
-                }
                                 
+                $table.children('tbody').children().remove();
+                
+                for(index in  _response){
+                    with (_response[index]){
+                        var $tr = $('<tr><td class="td-itemno">'+itemno+'</td><td class="td-qty-left">'+qtyleft+'</td><td class="td-qty-recv">'+qtyrec0+'</td><td class="td-binloc">'+locno+"</td></tr>");
+                        $table.children('tbody').append($tr);
+                        $tr.on('click', function(){
+                            var $itemno = $(this).children('.td-itemno'),
+                                $qtyleft = $(this).children('.td-qty-left'),
+                                $qtyrec0 = $(this).children('.td-qty-recv'),
+                                $locno = $(this).children('.td-binloc');
+                                $.$SelectedTr = $(this);  
+                                showQtyFormWithSugerence(parseInt($qtyleft.html()));
+                        });
+                    }
+                }
+                
+                 
+                
                 $('.loading').hide();
             }            
         });
     }
+</script>
+
+<script>
+    // TODO: Remember in the updating process include the qtyleft value in POITOP table.
+</script>
+
+<script>
+    $('#chFilter').on('click', function(){
+        doFiltering($(this)[0].checked);
+    });
     
-    </script>
-    
-    <script>
-        
-        /// Select location by barcode from textbox mechanism
-        $('#txActiveLocation').keypress(function(event){
-            // Verify on Return key pressed
-            if ( event.which === 13 ) {
-                event.preventDefault();
-                var location = $(this).val();
-                verifyToLocation(location);
+    function doFiltering(checked){
+        $('#related-pono-items > tbody > tr').each(function(){
+            var $currentTr = $(this),
+            $qtyleft = $currentTr.children('.td-qty-left'),
+            $qtyrec0 = $currentTr.children('.td-qty-recv');
+            
+            if(checked){
+                if ($qtyleft.html() === $qtyrec0.html()) {
+                    $currentTr.hide();
+                }
+            }        
+            else{
+                $currentTr.show();
             }
         });
-    
-    function verifyToLocation(location){
-        var params = {"location" : location};
-        $.ajax({
-            data: params,
-            url: '<?php echo $View->Href("BinToBin", "VerifyToLocation") ?>',
-            type: 'post',
-            beforeSend: function(){
-                $('.loading').show();
-            },
-            success: function (response){
-                var _response = $.parseJSON(response); 
-                if (_response.verified === true) {
-                    $('#txActiveLocation').parent().addClass('has-success');
-                    $('#txActiveLocation').parent().removeClass('has-error');
-                }
-                else{
-                    $('#txActiveLocation').parent().addClass('has-error');
-                    $('#txActiveLocation').parent().removeClass('has-success');
-                }
-                                
-                $('.loading').hide();
-            }            
-        });
     }
-    </script>    
+</script>

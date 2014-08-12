@@ -13,7 +13,7 @@ use Dandelion\MVC\Application\Models\Entities;
 use Dandelion\MVC\Application\Models\Repositories;
 
 /**
- * Dat00 Data Context
+ * Dat Data Context (Dependency Injection Container)
  */
 class DatUnitOfWork extends UnitOfWork {
 
@@ -70,6 +70,18 @@ class DatUnitOfWork extends UnitOfWork {
      * @var ICWHSRepository 
      */
     public $ICWHSRepository;
+    
+    /**
+     * 
+     * @var POHDOPRepository 
+     */
+    public $POHDOPRepository;
+    
+    /**
+     * 
+     * @var POITOPRepository 
+     */
+    public $POITOPRepository;
 
     /**
      * 
@@ -86,7 +98,11 @@ class DatUnitOfWork extends UnitOfWork {
         $this->ICUPCPARMRepository = new Repositories\ICUPCPARMRepository($dbDriver, Entities\ICUPCPARM::toString(), $companySuffix);
         $this->WMSCANRepository = new Repositories\WMSCANRepository($dbDriver, Entities\WMSCAN::toString(), $companySuffix);
         $this->ICITLORepository = new Repositories\ICITLORepository($dbDriver, Entities\ICITLO::toString(), $companySuffix);
-        $this->ICWHSRepository = new Repositories\ICWHSRepository($dbDriver, Entities\ICWHS::toString(), $companySuffix);
+        $this->ICWHSRepository = new Repositories\ICWHSRepository($dbDriver, Entities\ICWHS::toString(), $companySuffix);        
+        $this->POHDOPRepository = new Repositories\POHDOPRepository($dbDriver, Entities\POHDOP::toString(), $companySuffix);
+        $this->POITOPRepository = new Repositories\POITOPRepository($dbDriver, Entities\POITOP::toString(), $companySuffix);
+    
+        
     }
 
 }

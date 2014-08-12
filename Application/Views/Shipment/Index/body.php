@@ -30,22 +30,7 @@
         </div>
     </div>
             
-    <div class="row ">
-        <div class="col-xs-6">
-            <div class="form-group">
-                <a class="btn btn-default btn-block btn-lg" href="#" id="btnShowQuantityForm" title="Show Quantity Form">Location</a>
-            </div>
-        </div>
-
-        <div class="col-xs-6">
-            <div class="form-group">
-                <input type="text" class="form-control"  name="txToQuantity" id="txToQuantity" readonly="readonly" placeholder="0" >
-
-            </div>
-        </div>
-    </div>
-    
-    <table class="table table-striped table-condensed">
+    <table id="related-pono-items" class="table table-striped table-condensed table-hover">
         <colgroup>
             <col class="col-1">
             <col class="col-2">
@@ -64,13 +49,6 @@
 
         </tfoot>
         <tbody>
-            <tr id="marker-row" style="display: none">
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-
 
         </tbody>
     </table>

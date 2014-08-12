@@ -123,9 +123,8 @@
     <script>
     $('#delete-Key').on('click',function (){
         var $field = $('#quantityField');
-        
         $field.html($field.html().slice(0, -1));
-        if (!($field.html() > 1)) {
+        if (!($field.html() > 0)) {
             $field.html('0');
         }
     });
