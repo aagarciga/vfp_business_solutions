@@ -183,15 +183,15 @@
     });
     
     $('#enter-Key').on('click',function (){
-        var a = $('#quantityField').html();
+        var qtyField = $('#quantityField').html();
         var b = $('#unknow-Key-value').html();
         
-        if (parseInt(a) > parseInt(b)) {
+        if (parseInt(qtyField) > parseInt(b)) {
             ShowFeedback("Quantity exceeds the maximun permited");
         }else{
             $('#quantityForm').hide();
         
-            var quantity = parseInt($('#quantityField').html());        
+            var quantity = parseInt(qtyField);        
             if (isNaN(quantity)) {
                 quantity = 0;
             }
@@ -202,12 +202,18 @@
             
             var $left = $.$SelectedTr.children('.td-qty-left'),
                 leftValue = parseInt($left.html());
-                
-                $left.html(leftValue - quantity);
+            
+            leftValue -= quantity;
+                $left.html(leftValue);
+            if (leftValue === 0) {
+                $.$SelectedTr.addClass('zero-qty-left');
+            }
             
             doFiltering($('#chFilter')[0].checked);
             $('#clear-Key').click();
             ShowFeedback("Shipment");
+            
+            $('#txBarcode').focus();
         }
     });
 </script>
@@ -231,16 +237,20 @@
                 
                 for(index in  _response){
                     with (_response[index]){
-                        var $tr = $('<tr><td class="td-itemno">'+itemno+'</td><td class="td-qty-left">'+qtyleft+'</td><td class="td-qty-recv">'+qtyrec0+'</td><td class="td-binloc">'+locno+"</td></tr>");
+                        var $tr = $('<tr><td class="td-itemno"><a href="#">'+itemno+'</a></td><td class="td-qty-left">'+qtyleft+'</td><td class="td-qty-recv">'+qtyrec0+'</td><td class="td-binloc">'+locno+"</td></tr>");
                         $table.children('tbody').append($tr);
-                        $tr.on('click', function(){
-                            var $itemno = $(this).children('.td-itemno'),
-                                $qtyleft = $(this).children('.td-qty-left'),
-                                $qtyrec0 = $(this).children('.td-qty-recv'),
-                                $locno = $(this).children('.td-binloc');
-                                $.$SelectedTr = $(this);  
-                                showQtyFormWithSugerence(parseInt($qtyleft.html()));
-                        });
+                        $tr.children('.td-itemno').children('a').on('click', function(){                         
+                            $.$SelectedTr = $(this).parent().parent();
+                            showQtyFormWithSugerence(parseInt($.$SelectedTr.children('.td-qty-left').html()));
+                        }).attr('title', 'Edit');
+//                        $tr.on('click', function(){
+//                            var $itemno = $(this).children('.td-itemno'),
+//                                $qtyleft = $(this).children('.td-qty-left'),
+//                                $qtyrec0 = $(this).children('.td-qty-recv'),
+//                                $locno = $(this).children('.td-binloc');
+//                                $.$SelectedTr = $(this);  
+//                                showQtyFormWithSugerence(parseInt($qtyleft.html()));
+//                        });
                     }
                 }
                 
@@ -267,8 +277,8 @@
             $qtyleft = $currentTr.children('.td-qty-left'),
             $qtyrec0 = $currentTr.children('.td-qty-recv');
             
-            if(checked){
-                if ($qtyleft.html() === $qtyrec0.html()) {
+            if(!checked){
+                if ($qtyleft.html() === "0") {
                     $currentTr.hide();
                 }
             }        

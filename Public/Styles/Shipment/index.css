@@ -1,9 +1,21 @@
+.zero-qty-left{
+    color: #b92c28;
+}
+
+.zero-qty-left td{
+    background-color: #f4eaea !important;
+}
+
+.zero-qty-left td a{
+    color: #b92c28;
+}
+
 #txPono{
 
 }
 
 .table-hover > tbody > tr:hover > td{
-    cursor: pointer;
+/*    cursor: pointer;*/
 }
 
 #chFilter{
