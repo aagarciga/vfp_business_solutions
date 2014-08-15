@@ -70,6 +70,24 @@ class POHDOPRepository extends VFPRepository implements IRepository {
 
         return $result;
     }
+    
+    /**
+     * 
+     * @param \Dandelion\MVC\Application\Models\Entities\POHDOP $entity
+     * @return boolean True if update successful, false otherwise.
+     */
+    public function UpdateShipment(POHDOP $entity) {
+
+        $pono = $entity->getPono();
+        $postat = $entity->getPopstat();       
+        
+        $tablename = $this->entityName . $this->companySuffix;
+                
+        $sqlString = "UPDATE $tablename SET POPSTAT = '$postat'"
+                . " WHERE lower(PONO) = '$pono'";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
 
     public function Add($entity) {
         // TODO: Implement Add() method.

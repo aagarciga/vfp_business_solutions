@@ -195,15 +195,22 @@
             if (isNaN(quantity)) {
                 quantity = 0;
             }
+            if($.$SelectedTr === undefined){
+                var barcode = $('#txBarcode').val();
+                $('#related-pono-items > tbody > tr > td').each(function(){
+                    if($(this).children('a').html() === barcode){
+                        $.$SelectedTr = $(this).parent();
+                    }
+                });
+            }            
             
             var $recv = $.$SelectedTr.children('.td-qty-recv'),
                 recvValue = parseInt($recv.html());
-            $recv.html(recvValue + quantity);
-            
+                $recv.html(recvValue + quantity);
+
             var $left = $.$SelectedTr.children('.td-qty-left'),
                 leftValue = parseInt($left.html());
-            
-            leftValue -= quantity;
+                leftValue -= quantity;
                 $left.html(leftValue);
             if (leftValue === 0) {
                 $.$SelectedTr.addClass('zero-qty-left');
@@ -213,7 +220,7 @@
             $('#clear-Key').click();
             ShowFeedback("Shipment");
             
-            $('#txBarcode').focus();
+            $('#txBarcode').val('').removeClass('has-success').focus();
         }
     });
 </script>
@@ -232,7 +239,6 @@
             },
             success: function (response){
                 var _response = $.parseJSON(response); 
-                                
                 $table.children('tbody').children().remove();
                 
                 for(index in  _response){
@@ -274,8 +280,7 @@
     function doFiltering(checked){
         $('#related-pono-items > tbody > tr').each(function(){
             var $currentTr = $(this),
-            $qtyleft = $currentTr.children('.td-qty-left'),
-            $qtyrec0 = $currentTr.children('.td-qty-recv');
+            $qtyleft = $currentTr.children('.td-qty-left');
             
             if(!checked){
                 if ($qtyleft.html() === "0") {
@@ -287,4 +292,49 @@
             }
         });
     }
+</script>
+
+<script>
+    $('#btnOk').on('click', function(){
+        var updateObjects = new Array();
+        
+        var $trCollection = $('#related-pono-items').children('tbody').children('tr');
+        $trCollection.each(function(index){
+            var $current = $(this),
+                $itemno = $current.children('.td-itemno').children('a'),
+                $qtyleft = $current.children('.td-qty-left'),
+                $qtyrec0 = $current.children('.td-qty-recv'),
+                $locno = $current.children('.td-binloc');
+            updateObjects[index] = $itemno.html() + ',' + $qtyleft.html() + ',' + $qtyrec0.html() + ',' + $locno.html();
+                
+        });
+        
+        var _array = JSON.stringify(updateObjects);
+        
+        var params = {
+            'pono' : $('#txPono').val(),
+            'updateObjects' : _array         
+            };
+            $.ajax({
+                data: params,
+                url: '<?php echo $View->Href("Shipment", "ShipmentUpdate") ?>',
+                type: 'post',
+                beforeSend: function(){
+                    $('.loading').show();
+                },
+                success: function (response){
+                    var _response = $.parseJSON(response);
+                    if (_response.success) {
+                        ShowFeedback("Shipment");
+                        $('#txPono').val('').removeClass('has-error has-success');
+                        $('#txPono').val('').removeClass('has-error has-success').focus();
+                        $('#related-pono-items').children('tbody').children('tr').remove();
+                    }
+                    else{
+                        ShowFeedback("Error Saving Shipment Changes");
+                    }
+                    $('.loading').hide();
+                }            
+            });
+        });
 </script>

@@ -13,5 +13,5 @@ use Dandelion\MVC\Application\Models\Entities\Base\BasePOITOP;
  * POITOP 
  */
 class POITOP extends BasePOITOP {
-    
+
 }

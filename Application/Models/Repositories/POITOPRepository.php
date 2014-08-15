@@ -122,6 +122,27 @@ class POITOPRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
+    /**
+     * 
+     * @param \Dandelion\MVC\Application\Models\Entities\POITOP $entity
+     * @return boolean True if update successful, false otherwise.
+     */
+    public function UpdateShipment(POITOP $entity) {
+
+        $pono = $entity->getPono();
+        $itemno = $entity->getItemno();
+        $larv_date = $entity->getLarv_date();
+        $qtyrec0 = intval($entity->getQtyrec0());
+        $locno = $entity->getLocno();
+        
+        $tablename = $this->entityName . $this->companySuffix;
+                
+        $sqlString = "UPDATE $tablename SET LARV_DATE = '$larv_date', QTYREC0 = $qtyrec0, LOCNO = '$locno'"
+                . " WHERE lower(PONO) = '$pono' AND lower(ITEMNO) = '$itemno'";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
     public function Add($entity) {
         // TODO: Implement Add() method.
     }
