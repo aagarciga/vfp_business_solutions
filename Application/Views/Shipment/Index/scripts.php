@@ -146,7 +146,7 @@
         }
     });
     
-    $('#zero-qty-Key, #no-change-Key').on('click',function (){
+    $('#zero-qty-Key').on('click',function (){
         $('#quantityForm').hide();
         
         $('#txToQuantity').val(0);        
@@ -185,7 +185,7 @@
     $('#enter-Key').on('click',function (){
         var qtyField = $('#quantityField').html();
         var b = $('#unknow-Key-value').html();
-        
+                
         if (parseInt(qtyField) > parseInt(b)) {
             ShowFeedback("Quantity exceeds the maximun permited");
         }else{
@@ -205,7 +205,7 @@
             }            
             
             var $recv = $.$SelectedTr.children('.td-qty-recv'),
-                recvValue = parseInt($recv.html());
+                recvValue = parseInt($recv.html());             
                 $recv.html(recvValue + quantity);
 
             var $left = $.$SelectedTr.children('.td-qty-left'),
@@ -337,4 +337,60 @@
                 }            
             });
         });
+</script>
+
+<script>
+    $('#zero-qty-Key').on('click',function (){
+        $('#quantityForm').hide();
+
+        var quantity = 0; 
+        
+        if($.$SelectedTr === undefined){
+            var barcode = $('#txBarcode').val();
+            $('#related-pono-items > tbody > tr > td').each(function(){
+                if($(this).children('a').html() === barcode){
+                    $.$SelectedTr = $(this).parent();
+                }
+            });
+        }
+
+        var $recv = $.$SelectedTr.children('.td-qty-recv'),
+            recvValue = parseInt($recv.html());             
+            $recv.html(0);
+
+        var params = {
+            'pono' : $('#txPono').val(),
+            'itemno' : $.$SelectedTr.children('.td-itemno').children('a').html()
+        };
+        $.ajax({
+            data: params,
+            url: '<?php echo $View->Href("Shipment", "GetQtyLeft") ?>',
+            type: 'post',
+            beforeSend: function(){
+                $('.loading').show();
+            },
+            success: function (response){
+                var _response = $.parseJSON(response); 
+                if (_response.success === true) {                    
+                    var $left = $.$SelectedTr.children('.td-qty-left'),
+                    leftValue = _response.qtyleft;
+                    $left.html(leftValue);
+                    if (leftValue === 0) {
+                        $.$SelectedTr.addClass('zero-qty-left');
+                    }
+                }
+                else{
+                    ShowFeedback("Error retrieving quantity left.");
+                }
+                                
+                $('.loading').hide();
+            }            
+        });
+
+        doFiltering($('#chFilter')[0].checked);
+        $('#clear-Key').click();
+        ShowFeedback("Shipment");
+        
+        $('#txBarcode').val('').removeClass('has-success').focus();
+    });
 </script>
