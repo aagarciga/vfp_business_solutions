@@ -78,13 +78,13 @@ class POHDOPRepository extends VFPRepository implements IRepository {
      */
     public function UpdateShipment(POHDOP $entity) {
 
-        $pono = $entity->getPono();
+        $lowerPono = strtolower($entity->getPono());
         $postat = $entity->getPopstat();       
         
         $tablename = $this->entityName . $this->companySuffix;
                 
         $sqlString = "UPDATE $tablename SET POPSTAT = '$postat'"
-                . " WHERE lower(PONO) = '$pono'";
+                . " WHERE lower(PONO) = '$lowerPono'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

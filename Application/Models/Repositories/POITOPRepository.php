@@ -129,8 +129,8 @@ class POITOPRepository extends VFPRepository implements IRepository {
      */
     public function UpdateShipment(POITOP $entity) {
 
-        $pono = $entity->getPono();
-        $itemno = $entity->getItemno();
+        $lowerPono = strtolower($entity->getPono()) ;
+        $lowerItemno = strtolower($entity->getItemno()) ;
         $larv_date = $entity->getLarv_date();
         $qtyrec0 = intval($entity->getQtyrec0());
         $locno = $entity->getLocno();
@@ -138,7 +138,7 @@ class POITOPRepository extends VFPRepository implements IRepository {
         $tablename = $this->entityName . $this->companySuffix;
                 
         $sqlString = "UPDATE $tablename SET LARV_DATE = '$larv_date', QTYREC0 = $qtyrec0, LOCNO = '$locno'"
-                . " WHERE lower(PONO) = '$pono' AND lower(ITEMNO) = '$itemno'";
+                . " WHERE lower(PONO) = '$lowerPono' AND lower(ITEMNO) = '$lowerItemno'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
