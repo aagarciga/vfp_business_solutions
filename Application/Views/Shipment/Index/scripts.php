@@ -183,15 +183,25 @@
     });
     
     $('#enter-Key').on('click',function (){
-        var qtyField = $('#quantityField').html();
-        var b = $('#unknow-Key-value').html();
+        var quantity = parseInt($('#quantityField').html());
+        var maxQty = parseInt($('#unknow-Key-value').html());
                 
-        if (parseInt(qtyField) > parseInt(b)) {
+        if (quantity > maxQty) {
             ShowFeedback("Quantity exceeds the maximun permited");
+
+            $('#overwrite-modal').modal('show');
+            $('#overwrite-yes').on('click', function(){
+                updateQuantity(quantity);
+                $('#overwrite-modal').modal('hide');
+            });
+
         }else{
-            $('#quantityForm').hide();
-        
-            var quantity = parseInt(qtyField);        
+            updateQuantity(quantity);
+        }
+    });
+    
+    function updateQuantity(quantity){
+        $('#quantityForm').hide();      
             if (isNaN(quantity)) {
                 quantity = 0;
             }
@@ -210,8 +220,11 @@
 
             var $left = $.$SelectedTr.children('.td-qty-left'),
                 leftValue = parseInt($left.html());
-                leftValue -= quantity;
-                $left.html(leftValue);
+                leftValue -= quantity;                
+            if (leftValue < 0) {
+                leftValue = 0;
+            }    
+            $left.html(leftValue);
             if (leftValue === 0) {
                 $.$SelectedTr.addClass('zero-qty-left');
             }
@@ -221,8 +234,7 @@
             ShowFeedback("Shipment");
             
             $('#txBarcode').val('').removeClass('has-success').focus();
-        }
-    });
+    }
 </script>
 
 <script>
@@ -377,6 +389,9 @@
                     $left.html(leftValue);
                     if (leftValue === 0) {
                         $.$SelectedTr.addClass('zero-qty-left');
+                    }
+                    else{
+                        $.$SelectedTr.removeClass('zero-qty-left');
                     }
                 }
                 else{
