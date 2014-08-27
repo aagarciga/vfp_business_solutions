@@ -188,16 +188,15 @@
                 
         if (quantity > maxQty) {
             ShowFeedback("Quantity exceeds the maximun permited");
-
-            $('#overwrite-modal').modal('show');
-            $('#overwrite-yes').on('click', function(){
-                updateQuantity(quantity);
-                $('#overwrite-modal').modal('hide');
-            });
-
+            $('#overwrite-modal').modal('show');          
         }else{
             updateQuantity(quantity);
         }
+    });
+    
+    $('#overwrite-yes').on('click', function(){
+        updateQuantity(parseInt($('#quantityField').html()));
+        $('#overwrite-modal').modal('hide');
     });
     
     function updateQuantity(quantity){
@@ -212,7 +211,7 @@
                         $.$SelectedTr = $(this).parent();
                     }
                 });
-            }            
+            }    
             
             var $recv = $.$SelectedTr.children('.td-qty-recv'),
                 recvValue = parseInt($recv.html());             
@@ -234,7 +233,7 @@
             ShowFeedback("Shipment");
             
             $('#txBarcode').val('').removeClass('has-success').focus();
-    }
+    }  
 </script>
 
 <script>

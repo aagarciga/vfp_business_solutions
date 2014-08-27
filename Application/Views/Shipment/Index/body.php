@@ -65,7 +65,7 @@
         <h4 class="modal-title">Overwrite?</h4>
       </div>
       <div class="modal-body">
-        <p>Quantity exceeds the maximun permited. Dou you preffer overwrite it</p>
+        <p>Quantity Exceeds Required Quantity, Overwrite it ?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
