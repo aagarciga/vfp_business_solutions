@@ -82,6 +82,18 @@ class DatUnitOfWork extends UnitOfWork {
      * @var POITOPRepository 
      */
     public $POITOPRepository;
+    
+    /**
+     * 
+     * @var SOSHPRELHRepository 
+     */
+    public $SOSHPRELHRepository;
+    
+    /**
+     * 
+     * @var SOSHPRELRepository 
+     */
+    public $SOSHPRELRepository;
 
     /**
      * 
@@ -101,6 +113,9 @@ class DatUnitOfWork extends UnitOfWork {
         $this->ICWHSRepository = new Repositories\ICWHSRepository($dbDriver, Entities\ICWHS::toString(), $companySuffix);        
         $this->POHDOPRepository = new Repositories\POHDOPRepository($dbDriver, Entities\POHDOP::toString(), $companySuffix);
         $this->POITOPRepository = new Repositories\POITOPRepository($dbDriver, Entities\POITOP::toString(), $companySuffix);
+    
+        $this->SOSHPRELHRepository = new Repositories\SOSHPRELHRepository($dbDriver, Entities\SOSHPRELH::toString(), $companySuffix);
+        $this->SOSHPRELRepository = new Repositories\SOSHPRELRepository($dbDriver, Entities\SOSHPREL::toString(), $companySuffix);
     
         
     }
