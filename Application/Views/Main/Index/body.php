@@ -54,7 +54,7 @@
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
                 <li>
-                    <a href="#" class="pick-ticket">
+                    <a href="<?php echo $View->Href("PickTicket") ?>" class="pick-ticket">
                         <img src="<?php echo $View->ImagesContext("main/pick-ticket.png") ?>"/> Pick Ticket</a>
                 </li>
                 <li>
