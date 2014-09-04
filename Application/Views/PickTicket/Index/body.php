@@ -11,29 +11,29 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Ticket No.</button>
+                        <button class="btn btn-default" type="button" id="btnTicketNo">Ticket No</button>
                     </span>
                     <input type="text" id="txShpRelNo" name="txShpRelNo"  class="form-control">
-                     <span class="input-group-addon">
-                         <input type="checkbox">
-                     </span>
+                    <span class="input-group-addon">
+                        <input type="checkbox">
+                    </span>
                 </div><!-- /input-group -->
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="txLocation"><span class="glyphicon glyphicon-barcode"></span> Location</label>
+                <label class="control-label" for="txLocation"><span class="glyphicon glyphicon-globe"></span> Location</label>
                 <input type="text" class="form-control input" name="txLocation" id="txLocation" title="Fill the location. Then press [Enter]"/>
             </div>
-            
+
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Barcode</button>
+                        <button class="btn btn-default" type="button">Barcode &nbsp;</button>
                     </span>
                     <input type="text" id="txBarcode" name="txBarcode"  class="form-control">
-                     <span class="input-group-addon">
-                         <input type="checkbox">
-                     </span>
+                    <span class="input-group-addon">
+                        <input type="checkbox">
+                    </span>
                 </div><!-- /input-group -->
             </div>
 
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <table id="related-pono-items" class="table table-striped table-condensed table-hover">
+    <table id="related-tickets-items" class="table table-striped table-condensed table-hover">
         <colgroup>
             <col class="col-1">
             <col class="col-2">
@@ -76,19 +76,46 @@
 
 </div>
 
-<div class="modal fade" id="overwrite-modal">
+<div class="modal fade" id="tickets-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Overwrite?</h4>
+                <h4 class="modal-title">Select a Pick Ticket</h4>
             </div>
             <div class="modal-body">
-                <p>Quantity Exceeds Required Quantity, Overwrite it ?</p>
+                <table id="tickets" class="table table-striped table-condensed table-hover">
+                    <colgroup>
+                        <col class="col-1">
+                        <col class="col-2">
+                        <col class="col-3">
+                        <col class="col-4">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="th-itemno">Pick Ticket</th>
+                            <th class="th-qty-left">Qty Order</th>
+                            <th class="th-qty-recv">Qty Pick</th>
+                            <th class="th-binloc">Company</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+
+                    </tfoot>
+                    <tbody>
+                        <?php foreach ($Tickets as $ticket):?>
+                        <tr>
+                            <td class="item-field"><?php echo $ticket->getItemno() ?></td>
+                            <td class="item-field"><?php echo $ticket->getItemno() ?></td>
+                            <td class="item-field"><?php echo $ticket->getQtypick() ?></td>
+                            <td class="item-field"><?php echo $ticket->getBinlocal() ?></td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" id="overwrite-yes">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>                
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

@@ -16,7 +16,8 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
      * @return array of all SOSHPREL objects from DB
      */
     public function GetAll() {
-        $sqlString = "SELECT * FROM $this->entityName";
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();

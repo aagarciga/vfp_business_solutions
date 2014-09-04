@@ -19,5 +19,7 @@ class Index extends Action {
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         
+        $this->Tickets = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetAll();
+        
     }
 }
