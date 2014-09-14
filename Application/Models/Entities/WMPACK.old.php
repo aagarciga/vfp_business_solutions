@@ -7,11 +7,11 @@
 
 namespace Dandelion\MVC\Application\Models\Entities;
 
-use Dandelion\MVC\Application\Models\Entities\Base\BaseSOHEAD;
+use Dandelion\MVC\Application\Models\Entities\Base\BaseWMPACK;
 
 /**
- * SOHEAD Sales Order file
+ * WMPACK Shipment description 
  */
-class SOHEAD extends BaseSOHEAD {
-
-} 
+class WMPACK extends BaseWMPACK {
+    
+}

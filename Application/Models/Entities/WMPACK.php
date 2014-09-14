@@ -13,5 +13,5 @@ use Dandelion\MVC\Application\Models\Entities\Base\BaseWMPACK;
  * WMPACK Shipment description 
  */
 class WMPACK extends BaseWMPACK {
-    
-}
+
+} 

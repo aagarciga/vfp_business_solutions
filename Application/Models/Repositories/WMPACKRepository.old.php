@@ -16,8 +16,7 @@ class WMPACKRepository extends VFPRepository implements IRepository {
      * @return array of all WMPACK objects from DB
      */
     public function GetAll() {
-        $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT * FROM $tableName";
+        $sqlString = "SELECT * FROM $this->entityName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -34,8 +33,7 @@ class WMPACKRepository extends VFPRepository implements IRepository {
      * @return \Dandelion\MVC\Application\Models\Entities\WMPACK
      */
     public function Get($predicate) {
-        $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT * FROM $tableName";
+        $sqlString = "SELECT * FROM $this->entityName";
         $sqlString .= ' ' . $predicate;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);

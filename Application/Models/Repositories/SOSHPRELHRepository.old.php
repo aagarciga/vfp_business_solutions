@@ -16,8 +16,7 @@ class SOSHPRELHRepository extends VFPRepository implements IRepository {
      * @return array of all SOSHPRELH objects from DB
      */
     public function GetAll() {
-        $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT * FROM $tableName";
+        $sqlString = "SELECT * FROM $this->entityName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -34,8 +33,7 @@ class SOSHPRELHRepository extends VFPRepository implements IRepository {
      * @return \Dandelion\MVC\Application\Models\Entities\SOSHPRELH
      */
     public function Get($predicate) {
-        $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT * FROM $tableName";
+        $sqlString = "SELECT * FROM $this->entityName";
         $sqlString .= ' ' . $predicate;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
@@ -46,20 +44,6 @@ class SOSHPRELHRepository extends VFPRepository implements IRepository {
         }
 
         return $result;
-    }
-    
-    public function GetTicketCompanyByOrdNum($ordnum) {
-        $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT SHPCOMPNAM FROM $tableName";
-        $sqlString .= " WHERE ORDNUM = '$ordnum'";
-        $query = $this->dbDriver->GetQuery();
-        $queryResult = $query->Execute($sqlString);
-        
-        if (count($queryResult)) {
-            return trim($queryResult[0]->SHPCOMPNAM);
-        }
-        return "";
-        
     }
 
     public function Add($entity) {

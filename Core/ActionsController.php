@@ -25,6 +25,7 @@ abstract class ActionsController extends Controller {
 
     public final function __construct($name) {
         parent::__construct($name);
+        spl_autoload_register(array($this, 'ViewModelLoader'));
         $this->Init();
     }
     
@@ -114,6 +115,15 @@ abstract class ActionsController extends Controller {
                 header("Status: 404 Not Found");
             }
         }
+    }
+    
+    private function ViewModelLoader($className) {
+        
+        $className = explode("\\", $className);
+        $className = $className[count($className)-1];
+        
+        if (is_file(MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php';      
     }
     
 }

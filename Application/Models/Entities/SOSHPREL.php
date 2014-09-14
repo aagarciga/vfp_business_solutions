@@ -13,5 +13,7 @@ use Dandelion\MVC\Application\Models\Entities\Base\BaseSOSHPREL;
  * SOSHPREL Related Ticket Items
  */
 class SOSHPREL extends BaseSOSHPREL {
-    
-}
+    public function getQtypick() {
+        return intval(parent::getQtypick());
+    }
+} 

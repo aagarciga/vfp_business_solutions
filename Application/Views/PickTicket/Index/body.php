@@ -105,10 +105,10 @@
                     <tbody>
                         <?php foreach ($Tickets as $ticket):?>
                         <tr>
-                            <td class="item-field"><?php echo $ticket->getItemno() ?></td>
-                            <td class="item-field"><?php echo $ticket->getItemno() ?></td>
+                            <td class="item-field"><?php echo $ticket->getShprelno() ?></td>
                             <td class="item-field"><?php echo $ticket->getQtypick() ?></td>
-                            <td class="item-field"><?php echo $ticket->getBinlocal() ?></td>
+                            <td class="item-field"><?php echo $ticket->getQtypack() ?></td>
+                            <td class="item-field"><?php echo $ticket->getCompany() ?></td>
                         </tr>
                         <?php endforeach ?>
                     </tbody>

@@ -7,11 +7,11 @@
 
 namespace Dandelion\MVC\Application\Models\Entities;
 
-use Dandelion\MVC\Application\Models\Entities\Base\BaseSOHEAD;
+use Dandelion\MVC\Application\Models\Entities\Base\BaseSOSHPREL;
 
 /**
- * SOHEAD Sales Order file
+ * SOSHPREL Related Ticket Items
  */
-class SOHEAD extends BaseSOHEAD {
-
-} 
+class SOSHPREL extends BaseSOSHPREL {
+    
+}

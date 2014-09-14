@@ -12,1370 +12,1374 @@ namespace Dandelion\MVC\Application\Models\Entities\Base;
  */
 class BaseSOSHPRELH {
 
-    /**
-     * Private fields
-     */
+	/**
+	 * Private fields
+	 */
     private static $_name = "SOSHPRELH";
 
-    /**
-     * Protected fields
-     */
-
-    /**
+	/**
+	 * Protected fields
+	 */
+	 
+	/**
      * @var Char
      */
-    protected $_shprelno;
+	protected $_shprelno;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_ordnum;
+	protected $_ordnum;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_picticbano;
+	protected $_picticbano;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_custno;
+	protected $_custno;
 
-    /**
+	/**
      * @var Date
      */
-    protected $_shpreldate;
+	protected $_shpreldate;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shipvia;
+	protected $_shipvia;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shipvname;
+	protected $_shipvname;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_txrt;
+	protected $_txrt;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_ftaxcode;
+	protected $_ftaxcode;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_shipping;
+	protected $_shipping;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_fuserid;
+	protected $_fuserid;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_fstation;
+	protected $_fstation;
 
-    /**
+	/**
      * @var Date
      */
-    protected $_fupddate;
+	protected $_fupddate;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_fupdtime;
+	protected $_fupdtime;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_newuserid;
+	protected $_newuserid;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_newdtetime;
+	protected $_newdtetime;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_newstation;
+	protected $_newstation;
 
-    /**
+	/**
      * @var Logical
      */
-    protected $_nflg0;
+	protected $_nflg0;
 
-    /**
+	/**
      * @var Memo
      */
-    protected $_shprelcomm;
+	protected $_shprelcomm;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_freight;
+	protected $_freight;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_cartoons;
+	protected $_cartoons;
 
-    /**
+	/**
      * @var Logical
      */
-    protected $_void;
+	protected $_void;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shipdriver;
+	protected $_shipdriver;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_itmcount;
+	protected $_itmcount;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_total;
+	protected $_total;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_inspectno;
+	protected $_inspectno;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_packno;
+	protected $_packno;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_trackno;
+	protected $_trackno;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_wmstatus;
+	protected $_wmstatus;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_itemtax;
+	protected $_itemtax;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_tax;
+	protected $_tax;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_subtotal;
+	protected $_subtotal;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_totweight;
+	protected $_totweight;
 
-    /**
+	/**
      * @var Date
      */
-    protected $_shipdate;
+	protected $_shipdate;
 
-    /**
+	/**
      * @var Memo
      */
-    protected $_tracknom;
+	protected $_tracknom;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_refno;
+	protected $_refno;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_prepaid;
+	protected $_prepaid;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpaddrs1;
+	protected $_shpaddrs1;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpaddrs2;
+	protected $_shpaddrs2;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpcity;
+	protected $_shpcity;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpstate;
+	protected $_shpstate;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpzip;
+	protected $_shpzip;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpcompnam;
+	protected $_shpcompnam;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpphone;
+	protected $_shpphone;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_residenid;
+	protected $_residenid;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_packtype;
+	protected $_packtype;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_servtype;
+	protected $_servtype;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpemail;
+	protected $_shpemail;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpcountry;
+	protected $_shpcountry;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpbillopt;
+	protected $_shpbillopt;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpnotifop;
+	protected $_shpnotifop;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shplocid;
+	protected $_shplocid;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shipid;
+	protected $_shipid;
 
-    /**
+	/**
      * @var Logical
      */
-    protected $_noshipchg;
+	protected $_noshipchg;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_ca_id;
+	protected $_ca_id;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_nampicker;
+	protected $_nampicker;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_nampacker;
+	protected $_nampacker;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_boxtype;
+	protected $_boxtype;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_shpcontact;
+	protected $_shpcontact;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_boxlength;
+	protected $_boxlength;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_boxwidth;
+	protected $_boxwidth;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_boxheight;
+	protected $_boxheight;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_qblistid;
+	protected $_qblistid;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_namshipper;
+	protected $_namshipper;
 
-    /**
+	/**
      * @var Char
      */
-    protected $_namchecker;
+	protected $_namchecker;
 
-    /**
+	/**
      * @var Numeric
      */
-    protected $_custdisc;
+	protected $_custdisc;
 
-    /**
+	/**
      * @var Logical
      */
-    protected $_blindship;
+	protected $_blindship;
 
-    /**
-     * Getters
-     */
 
+	/**
+	 * Getters
+	 */
+	
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShprelno() {
-        return $this->_shprelno;
-    }
+	public function getShprelno(){
+		return $this->_shprelno;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getOrdnum() {
-        return $this->_ordnum;
-    }
+	public function getOrdnum(){
+		return $this->_ordnum;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getPicticbano() {
-        return $this->_picticbano;
-    }
+	public function getPicticbano(){
+		return $this->_picticbano;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getCustno() {
-        return $this->_custno;
-    }
+	public function getCustno(){
+		return $this->_custno;
+	}
 
     /**
-     * @return Date
+	 * @return Date
      */
-    public function getShpreldate() {
-        return $this->_shpreldate;
-    }
+	public function getShpreldate(){
+		return $this->_shpreldate;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShipvia() {
-        return $this->_shipvia;
-    }
+	public function getShipvia(){
+		return $this->_shipvia;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShipvname() {
-        return $this->_shipvname;
-    }
+	public function getShipvname(){
+		return $this->_shipvname;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getTxrt() {
-        return $this->_txrt;
-    }
+	public function getTxrt(){
+		return $this->_txrt;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getFtaxcode() {
-        return $this->_ftaxcode;
-    }
+	public function getFtaxcode(){
+		return $this->_ftaxcode;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getShipping() {
-        return $this->_shipping;
-    }
+	public function getShipping(){
+		return $this->_shipping;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getFuserid() {
-        return $this->_fuserid;
-    }
+	public function getFuserid(){
+		return $this->_fuserid;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getFstation() {
-        return $this->_fstation;
-    }
+	public function getFstation(){
+		return $this->_fstation;
+	}
 
     /**
-     * @return Date
+	 * @return Date
      */
-    public function getFupddate() {
-        return $this->_fupddate;
-    }
+	public function getFupddate(){
+		return $this->_fupddate;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getFupdtime() {
-        return $this->_fupdtime;
-    }
+	public function getFupdtime(){
+		return $this->_fupdtime;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getNewuserid() {
-        return $this->_newuserid;
-    }
+	public function getNewuserid(){
+		return $this->_newuserid;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getNewdtetime() {
-        return $this->_newdtetime;
-    }
+	public function getNewdtetime(){
+		return $this->_newdtetime;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getNewstation() {
-        return $this->_newstation;
-    }
+	public function getNewstation(){
+		return $this->_newstation;
+	}
 
     /**
-     * @return Logical
+	 * @return Logical
      */
-    public function getNflg0() {
-        return $this->_nflg0;
-    }
+	public function getNflg0(){
+		return $this->_nflg0;
+	}
 
     /**
-     * @return Memo
+	 * @return Memo
      */
-    public function getShprelcomm() {
-        return $this->_shprelcomm;
-    }
+	public function getShprelcomm(){
+		return $this->_shprelcomm;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getFreight() {
-        return $this->_freight;
-    }
+	public function getFreight(){
+		return $this->_freight;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getCartoons() {
-        return $this->_cartoons;
-    }
+	public function getCartoons(){
+		return $this->_cartoons;
+	}
 
     /**
-     * @return Logical
+	 * @return Logical
      */
-    public function getVoid() {
-        return $this->_void;
-    }
+	public function getVoid(){
+		return $this->_void;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShipdriver() {
-        return $this->_shipdriver;
-    }
+	public function getShipdriver(){
+		return $this->_shipdriver;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getItmcount() {
-        return $this->_itmcount;
-    }
+	public function getItmcount(){
+		return $this->_itmcount;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getTotal() {
-        return $this->_total;
-    }
+	public function getTotal(){
+		return $this->_total;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getInspectno() {
-        return $this->_inspectno;
-    }
+	public function getInspectno(){
+		return $this->_inspectno;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getPackno() {
-        return $this->_packno;
-    }
+	public function getPackno(){
+		return $this->_packno;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getTrackno() {
-        return $this->_trackno;
-    }
+	public function getTrackno(){
+		return $this->_trackno;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getWmstatus() {
-        return $this->_wmstatus;
-    }
+	public function getWmstatus(){
+		return $this->_wmstatus;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getItemtax() {
-        return $this->_itemtax;
-    }
+	public function getItemtax(){
+		return $this->_itemtax;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getTax() {
-        return $this->_tax;
-    }
+	public function getTax(){
+		return $this->_tax;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getSubtotal() {
-        return $this->_subtotal;
-    }
+	public function getSubtotal(){
+		return $this->_subtotal;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getTotweight() {
-        return $this->_totweight;
-    }
+	public function getTotweight(){
+		return $this->_totweight;
+	}
 
     /**
-     * @return Date
+	 * @return Date
      */
-    public function getShipdate() {
-        return $this->_shipdate;
-    }
+	public function getShipdate(){
+		return $this->_shipdate;
+	}
 
     /**
-     * @return Memo
+	 * @return Memo
      */
-    public function getTracknom() {
-        return $this->_tracknom;
-    }
+	public function getTracknom(){
+		return $this->_tracknom;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getRefno() {
-        return $this->_refno;
-    }
+	public function getRefno(){
+		return $this->_refno;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getPrepaid() {
-        return $this->_prepaid;
-    }
+	public function getPrepaid(){
+		return $this->_prepaid;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpaddrs1() {
-        return $this->_shpaddrs1;
-    }
+	public function getShpaddrs1(){
+		return $this->_shpaddrs1;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpaddrs2() {
-        return $this->_shpaddrs2;
-    }
+	public function getShpaddrs2(){
+		return $this->_shpaddrs2;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpcity() {
-        return $this->_shpcity;
-    }
+	public function getShpcity(){
+		return $this->_shpcity;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpstate() {
-        return $this->_shpstate;
-    }
+	public function getShpstate(){
+		return $this->_shpstate;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpzip() {
-        return $this->_shpzip;
-    }
+	public function getShpzip(){
+		return $this->_shpzip;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpcompnam() {
-        return $this->_shpcompnam;
-    }
+	public function getShpcompnam(){
+		return $this->_shpcompnam;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpphone() {
-        return $this->_shpphone;
-    }
+	public function getShpphone(){
+		return $this->_shpphone;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getResidenid() {
-        return $this->_residenid;
-    }
+	public function getResidenid(){
+		return $this->_residenid;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getPacktype() {
-        return $this->_packtype;
-    }
+	public function getPacktype(){
+		return $this->_packtype;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getServtype() {
-        return $this->_servtype;
-    }
+	public function getServtype(){
+		return $this->_servtype;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpemail() {
-        return $this->_shpemail;
-    }
+	public function getShpemail(){
+		return $this->_shpemail;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpcountry() {
-        return $this->_shpcountry;
-    }
+	public function getShpcountry(){
+		return $this->_shpcountry;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpbillopt() {
-        return $this->_shpbillopt;
-    }
+	public function getShpbillopt(){
+		return $this->_shpbillopt;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpnotifop() {
-        return $this->_shpnotifop;
-    }
+	public function getShpnotifop(){
+		return $this->_shpnotifop;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShplocid() {
-        return $this->_shplocid;
-    }
+	public function getShplocid(){
+		return $this->_shplocid;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShipid() {
-        return $this->_shipid;
-    }
+	public function getShipid(){
+		return $this->_shipid;
+	}
 
     /**
-     * @return Logical
+	 * @return Logical
      */
-    public function getNoshipchg() {
-        return $this->_noshipchg;
-    }
+	public function getNoshipchg(){
+		return $this->_noshipchg;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getCa_id() {
-        return $this->_ca_id;
-    }
+	public function getCa_id(){
+		return $this->_ca_id;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getNampicker() {
-        return $this->_nampicker;
-    }
+	public function getNampicker(){
+		return $this->_nampicker;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getNampacker() {
-        return $this->_nampacker;
-    }
+	public function getNampacker(){
+		return $this->_nampacker;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getBoxtype() {
-        return $this->_boxtype;
-    }
+	public function getBoxtype(){
+		return $this->_boxtype;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getShpcontact() {
-        return $this->_shpcontact;
-    }
+	public function getShpcontact(){
+		return $this->_shpcontact;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getBoxlength() {
-        return $this->_boxlength;
-    }
+	public function getBoxlength(){
+		return $this->_boxlength;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getBoxwidth() {
-        return $this->_boxwidth;
-    }
+	public function getBoxwidth(){
+		return $this->_boxwidth;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getBoxheight() {
-        return $this->_boxheight;
-    }
+	public function getBoxheight(){
+		return $this->_boxheight;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getQblistid() {
-        return $this->_qblistid;
-    }
+	public function getQblistid(){
+		return $this->_qblistid;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getNamshipper() {
-        return $this->_namshipper;
-    }
+	public function getNamshipper(){
+		return $this->_namshipper;
+	}
 
     /**
-     * @return Char
+	 * @return Char
      */
-    public function getNamchecker() {
-        return $this->_namchecker;
-    }
+	public function getNamchecker(){
+		return $this->_namchecker;
+	}
 
     /**
-     * @return Numeric
+	 * @return Numeric
      */
-    public function getCustdisc() {
-        return $this->_custdisc;
-    }
+	public function getCustdisc(){
+		return $this->_custdisc;
+	}
 
     /**
-     * @return Logical
+	 * @return Logical
      */
-    public function getBlindship() {
-        return $this->_blindship;
-    }
+	public function getBlindship(){
+		return $this->_blindship;
+	}
 
-    /**
-     * Setters
-     */
 
-    /**
-     * @param Char
+	/**
+	 * Setters
+	 */
+	
+	/**
+	 * @param Char
      */
-    public function setShprelno($value) {
-        $this->_shprelno = $value;
-    }
+	public function setShprelno($value){
+		$this->_shprelno = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setOrdnum($value) {
-        $this->_ordnum = $value;
-    }
+	public function setOrdnum($value){
+		$this->_ordnum = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setPicticbano($value) {
-        $this->_picticbano = $value;
-    }
+	public function setPicticbano($value){
+		$this->_picticbano = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setCustno($value) {
-        $this->_custno = $value;
-    }
+	public function setCustno($value){
+		$this->_custno = $value;
+	}
 
-    /**
-     * @param Date
+	/**
+	 * @param Date
      */
-    public function setShpreldate($value) {
-        $this->_shpreldate = $value;
-    }
+	public function setShpreldate($value){
+		$this->_shpreldate = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShipvia($value) {
-        $this->_shipvia = $value;
-    }
+	public function setShipvia($value){
+		$this->_shipvia = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShipvname($value) {
-        $this->_shipvname = $value;
-    }
+	public function setShipvname($value){
+		$this->_shipvname = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setTxrt($value) {
-        $this->_txrt = $value;
-    }
+	public function setTxrt($value){
+		$this->_txrt = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setFtaxcode($value) {
-        $this->_ftaxcode = $value;
-    }
+	public function setFtaxcode($value){
+		$this->_ftaxcode = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setShipping($value) {
-        $this->_shipping = $value;
-    }
+	public function setShipping($value){
+		$this->_shipping = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setFuserid($value) {
-        $this->_fuserid = $value;
-    }
+	public function setFuserid($value){
+		$this->_fuserid = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setFstation($value) {
-        $this->_fstation = $value;
-    }
+	public function setFstation($value){
+		$this->_fstation = $value;
+	}
 
-    /**
-     * @param Date
+	/**
+	 * @param Date
      */
-    public function setFupddate($value) {
-        $this->_fupddate = $value;
-    }
+	public function setFupddate($value){
+		$this->_fupddate = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setFupdtime($value) {
-        $this->_fupdtime = $value;
-    }
+	public function setFupdtime($value){
+		$this->_fupdtime = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setNewuserid($value) {
-        $this->_newuserid = $value;
-    }
+	public function setNewuserid($value){
+		$this->_newuserid = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setNewdtetime($value) {
-        $this->_newdtetime = $value;
-    }
+	public function setNewdtetime($value){
+		$this->_newdtetime = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setNewstation($value) {
-        $this->_newstation = $value;
-    }
+	public function setNewstation($value){
+		$this->_newstation = $value;
+	}
 
-    /**
-     * @param Logical
+	/**
+	 * @param Logical
      */
-    public function setNflg0($value) {
-        $this->_nflg0 = $value;
-    }
+	public function setNflg0($value){
+		$this->_nflg0 = $value;
+	}
 
-    /**
-     * @param Memo
+	/**
+	 * @param Memo
      */
-    public function setShprelcomm($value) {
-        $this->_shprelcomm = $value;
-    }
+	public function setShprelcomm($value){
+		$this->_shprelcomm = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setFreight($value) {
-        $this->_freight = $value;
-    }
+	public function setFreight($value){
+		$this->_freight = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setCartoons($value) {
-        $this->_cartoons = $value;
-    }
+	public function setCartoons($value){
+		$this->_cartoons = $value;
+	}
 
-    /**
-     * @param Logical
+	/**
+	 * @param Logical
      */
-    public function setVoid($value) {
-        $this->_void = $value;
-    }
+	public function setVoid($value){
+		$this->_void = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShipdriver($value) {
-        $this->_shipdriver = $value;
-    }
+	public function setShipdriver($value){
+		$this->_shipdriver = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setItmcount($value) {
-        $this->_itmcount = $value;
-    }
+	public function setItmcount($value){
+		$this->_itmcount = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setTotal($value) {
-        $this->_total = $value;
-    }
+	public function setTotal($value){
+		$this->_total = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setInspectno($value) {
-        $this->_inspectno = $value;
-    }
+	public function setInspectno($value){
+		$this->_inspectno = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setPackno($value) {
-        $this->_packno = $value;
-    }
+	public function setPackno($value){
+		$this->_packno = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setTrackno($value) {
-        $this->_trackno = $value;
-    }
+	public function setTrackno($value){
+		$this->_trackno = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setWmstatus($value) {
-        $this->_wmstatus = $value;
-    }
+	public function setWmstatus($value){
+		$this->_wmstatus = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setItemtax($value) {
-        $this->_itemtax = $value;
-    }
+	public function setItemtax($value){
+		$this->_itemtax = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setTax($value) {
-        $this->_tax = $value;
-    }
+	public function setTax($value){
+		$this->_tax = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setSubtotal($value) {
-        $this->_subtotal = $value;
-    }
+	public function setSubtotal($value){
+		$this->_subtotal = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setTotweight($value) {
-        $this->_totweight = $value;
-    }
+	public function setTotweight($value){
+		$this->_totweight = $value;
+	}
 
-    /**
-     * @param Date
+	/**
+	 * @param Date
      */
-    public function setShipdate($value) {
-        $this->_shipdate = $value;
-    }
+	public function setShipdate($value){
+		$this->_shipdate = $value;
+	}
 
-    /**
-     * @param Memo
+	/**
+	 * @param Memo
      */
-    public function setTracknom($value) {
-        $this->_tracknom = $value;
-    }
+	public function setTracknom($value){
+		$this->_tracknom = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setRefno($value) {
-        $this->_refno = $value;
-    }
+	public function setRefno($value){
+		$this->_refno = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setPrepaid($value) {
-        $this->_prepaid = $value;
-    }
+	public function setPrepaid($value){
+		$this->_prepaid = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpaddrs1($value) {
-        $this->_shpaddrs1 = $value;
-    }
+	public function setShpaddrs1($value){
+		$this->_shpaddrs1 = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpaddrs2($value) {
-        $this->_shpaddrs2 = $value;
-    }
+	public function setShpaddrs2($value){
+		$this->_shpaddrs2 = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpcity($value) {
-        $this->_shpcity = $value;
-    }
+	public function setShpcity($value){
+		$this->_shpcity = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpstate($value) {
-        $this->_shpstate = $value;
-    }
+	public function setShpstate($value){
+		$this->_shpstate = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpzip($value) {
-        $this->_shpzip = $value;
-    }
+	public function setShpzip($value){
+		$this->_shpzip = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpcompnam($value) {
-        $this->_shpcompnam = $value;
-    }
+	public function setShpcompnam($value){
+		$this->_shpcompnam = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpphone($value) {
-        $this->_shpphone = $value;
-    }
+	public function setShpphone($value){
+		$this->_shpphone = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setResidenid($value) {
-        $this->_residenid = $value;
-    }
+	public function setResidenid($value){
+		$this->_residenid = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setPacktype($value) {
-        $this->_packtype = $value;
-    }
+	public function setPacktype($value){
+		$this->_packtype = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setServtype($value) {
-        $this->_servtype = $value;
-    }
+	public function setServtype($value){
+		$this->_servtype = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpemail($value) {
-        $this->_shpemail = $value;
-    }
+	public function setShpemail($value){
+		$this->_shpemail = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpcountry($value) {
-        $this->_shpcountry = $value;
-    }
+	public function setShpcountry($value){
+		$this->_shpcountry = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpbillopt($value) {
-        $this->_shpbillopt = $value;
-    }
+	public function setShpbillopt($value){
+		$this->_shpbillopt = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpnotifop($value) {
-        $this->_shpnotifop = $value;
-    }
+	public function setShpnotifop($value){
+		$this->_shpnotifop = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShplocid($value) {
-        $this->_shplocid = $value;
-    }
+	public function setShplocid($value){
+		$this->_shplocid = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShipid($value) {
-        $this->_shipid = $value;
-    }
+	public function setShipid($value){
+		$this->_shipid = $value;
+	}
 
-    /**
-     * @param Logical
+	/**
+	 * @param Logical
      */
-    public function setNoshipchg($value) {
-        $this->_noshipchg = $value;
-    }
+	public function setNoshipchg($value){
+		$this->_noshipchg = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setCa_id($value) {
-        $this->_ca_id = $value;
-    }
+	public function setCa_id($value){
+		$this->_ca_id = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setNampicker($value) {
-        $this->_nampicker = $value;
-    }
+	public function setNampicker($value){
+		$this->_nampicker = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setNampacker($value) {
-        $this->_nampacker = $value;
-    }
+	public function setNampacker($value){
+		$this->_nampacker = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setBoxtype($value) {
-        $this->_boxtype = $value;
-    }
+	public function setBoxtype($value){
+		$this->_boxtype = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setShpcontact($value) {
-        $this->_shpcontact = $value;
-    }
+	public function setShpcontact($value){
+		$this->_shpcontact = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setBoxlength($value) {
-        $this->_boxlength = $value;
-    }
+	public function setBoxlength($value){
+		$this->_boxlength = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setBoxwidth($value) {
-        $this->_boxwidth = $value;
-    }
+	public function setBoxwidth($value){
+		$this->_boxwidth = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setBoxheight($value) {
-        $this->_boxheight = $value;
-    }
+	public function setBoxheight($value){
+		$this->_boxheight = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setQblistid($value) {
-        $this->_qblistid = $value;
-    }
+	public function setQblistid($value){
+		$this->_qblistid = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setNamshipper($value) {
-        $this->_namshipper = $value;
-    }
+	public function setNamshipper($value){
+		$this->_namshipper = $value;
+	}
 
-    /**
-     * @param Char
+	/**
+	 * @param Char
      */
-    public function setNamchecker($value) {
-        $this->_namchecker = $value;
-    }
+	public function setNamchecker($value){
+		$this->_namchecker = $value;
+	}
 
-    /**
-     * @param Numeric
+	/**
+	 * @param Numeric
      */
-    public function setCustdisc($value) {
-        $this->_custdisc = $value;
-    }
+	public function setCustdisc($value){
+		$this->_custdisc = $value;
+	}
 
-    /**
-     * @param Logical
+	/**
+	 * @param Logical
      */
-    public function setBlindship($value) {
-        $this->_blindship = $value;
-    }
+	public function setBlindship($value){
+		$this->_blindship = $value;
+	}
 
-    /**
-     * Constructor
-     */
-    public function __construct($shprelno, $ordnum, $picticbano, $custno, $shpreldate, $shipvia, $shipvname, $txrt, $ftaxcode, $shipping, $fuserid, $fstation, $fupddate, $fupdtime, $newuserid, $newdtetime, $newstation, $nflg0, $shprelcomm, $freight, $cartoons, $void, $shipdriver, $itmcount, $total, $inspectno, $packno, $trackno, $wmstatus, $itemtax, $tax, $subtotal, $totweight, $shipdate, $tracknom, $refno, $prepaid, $shpaddrs1, $shpaddrs2, $shpcity, $shpstate, $shpzip, $shpcompnam, $shpphone, $residenid, $packtype, $servtype, $shpemail, $shpcountry, $shpbillopt, $shpnotifop, $shplocid, $shipid, $noshipchg, $ca_id, $nampicker, $nampacker, $boxtype, $shpcontact, $boxlength, $boxwidth, $boxheight, $qblistid, $namshipper, $namchecker, $custdisc, $blindship) {
-        $this->_shprelno = $shprelno;
-        $this->_ordnum = $ordnum;
-        $this->_picticbano = $picticbano;
-        $this->_custno = $custno;
-        $this->_shpreldate = $shpreldate;
-        $this->_shipvia = $shipvia;
-        $this->_shipvname = $shipvname;
-        $this->_txrt = $txrt;
-        $this->_ftaxcode = $ftaxcode;
-        $this->_shipping = $shipping;
-        $this->_fuserid = $fuserid;
-        $this->_fstation = $fstation;
-        $this->_fupddate = $fupddate;
-        $this->_fupdtime = $fupdtime;
-        $this->_newuserid = $newuserid;
-        $this->_newdtetime = $newdtetime;
-        $this->_newstation = $newstation;
-        $this->_nflg0 = $nflg0;
-        $this->_shprelcomm = $shprelcomm;
-        $this->_freight = $freight;
-        $this->_cartoons = $cartoons;
-        $this->_void = $void;
-        $this->_shipdriver = $shipdriver;
-        $this->_itmcount = $itmcount;
-        $this->_total = $total;
-        $this->_inspectno = $inspectno;
-        $this->_packno = $packno;
-        $this->_trackno = $trackno;
-        $this->_wmstatus = $wmstatus;
-        $this->_itemtax = $itemtax;
-        $this->_tax = $tax;
-        $this->_subtotal = $subtotal;
-        $this->_totweight = $totweight;
-        $this->_shipdate = $shipdate;
-        $this->_tracknom = $tracknom;
-        $this->_refno = $refno;
-        $this->_prepaid = $prepaid;
-        $this->_shpaddrs1 = $shpaddrs1;
-        $this->_shpaddrs2 = $shpaddrs2;
-        $this->_shpcity = $shpcity;
-        $this->_shpstate = $shpstate;
-        $this->_shpzip = $shpzip;
-        $this->_shpcompnam = $shpcompnam;
-        $this->_shpphone = $shpphone;
-        $this->_residenid = $residenid;
-        $this->_packtype = $packtype;
-        $this->_servtype = $servtype;
-        $this->_shpemail = $shpemail;
-        $this->_shpcountry = $shpcountry;
-        $this->_shpbillopt = $shpbillopt;
-        $this->_shpnotifop = $shpnotifop;
-        $this->_shplocid = $shplocid;
-        $this->_shipid = $shipid;
-        $this->_noshipchg = $noshipchg;
-        $this->_ca_id = $ca_id;
-        $this->_nampicker = $nampicker;
-        $this->_nampacker = $nampacker;
-        $this->_boxtype = $boxtype;
-        $this->_shpcontact = $shpcontact;
-        $this->_boxlength = $boxlength;
-        $this->_boxwidth = $boxwidth;
-        $this->_boxheight = $boxheight;
-        $this->_qblistid = $qblistid;
-        $this->_namshipper = $namshipper;
-        $this->_namchecker = $namchecker;
-        $this->_custdisc = $custdisc;
-        $this->_blindship = $blindship;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct( $shprelno, $ordnum, $picticbano, $custno, $shpreldate, $shipvia, $shipvname, $txrt, $ftaxcode, $shipping, $fuserid, $fstation, $fupddate, $fupdtime, $newuserid, $newdtetime, $newstation, $nflg0, $shprelcomm, $freight, $cartoons, $void, $shipdriver, $itmcount, $total, $inspectno, $packno, $trackno, $wmstatus, $itemtax, $tax, $subtotal, $totweight, $shipdate, $tracknom, $refno, $prepaid, $shpaddrs1, $shpaddrs2, $shpcity, $shpstate, $shpzip, $shpcompnam, $shpphone, $residenid, $packtype, $servtype, $shpemail, $shpcountry, $shpbillopt, $shpnotifop, $shplocid, $shipid, $noshipchg, $ca_id, $nampicker, $nampacker, $boxtype, $shpcontact, $boxlength, $boxwidth, $boxheight, $qblistid, $namshipper, $namchecker, $custdisc, $blindship ){
+		$this->_shprelno = $shprelno;
+		$this->_ordnum = $ordnum;
+		$this->_picticbano = $picticbano;
+		$this->_custno = $custno;
+		$this->_shpreldate = $shpreldate;
+		$this->_shipvia = $shipvia;
+		$this->_shipvname = $shipvname;
+		$this->_txrt = $txrt;
+		$this->_ftaxcode = $ftaxcode;
+		$this->_shipping = $shipping;
+		$this->_fuserid = $fuserid;
+		$this->_fstation = $fstation;
+		$this->_fupddate = $fupddate;
+		$this->_fupdtime = $fupdtime;
+		$this->_newuserid = $newuserid;
+		$this->_newdtetime = $newdtetime;
+		$this->_newstation = $newstation;
+		$this->_nflg0 = $nflg0;
+		$this->_shprelcomm = $shprelcomm;
+		$this->_freight = $freight;
+		$this->_cartoons = $cartoons;
+		$this->_void = $void;
+		$this->_shipdriver = $shipdriver;
+		$this->_itmcount = $itmcount;
+		$this->_total = $total;
+		$this->_inspectno = $inspectno;
+		$this->_packno = $packno;
+		$this->_trackno = $trackno;
+		$this->_wmstatus = $wmstatus;
+		$this->_itemtax = $itemtax;
+		$this->_tax = $tax;
+		$this->_subtotal = $subtotal;
+		$this->_totweight = $totweight;
+		$this->_shipdate = $shipdate;
+		$this->_tracknom = $tracknom;
+		$this->_refno = $refno;
+		$this->_prepaid = $prepaid;
+		$this->_shpaddrs1 = $shpaddrs1;
+		$this->_shpaddrs2 = $shpaddrs2;
+		$this->_shpcity = $shpcity;
+		$this->_shpstate = $shpstate;
+		$this->_shpzip = $shpzip;
+		$this->_shpcompnam = $shpcompnam;
+		$this->_shpphone = $shpphone;
+		$this->_residenid = $residenid;
+		$this->_packtype = $packtype;
+		$this->_servtype = $servtype;
+		$this->_shpemail = $shpemail;
+		$this->_shpcountry = $shpcountry;
+		$this->_shpbillopt = $shpbillopt;
+		$this->_shpnotifop = $shpnotifop;
+		$this->_shplocid = $shplocid;
+		$this->_shipid = $shipid;
+		$this->_noshipchg = $noshipchg;
+		$this->_ca_id = $ca_id;
+		$this->_nampicker = $nampicker;
+		$this->_nampacker = $nampacker;
+		$this->_boxtype = $boxtype;
+		$this->_shpcontact = $shpcontact;
+		$this->_boxlength = $boxlength;
+		$this->_boxwidth = $boxwidth;
+		$this->_boxheight = $boxheight;
+		$this->_qblistid = $qblistid;
+		$this->_namshipper = $namshipper;
+		$this->_namchecker = $namchecker;
+		$this->_custdisc = $custdisc;
+		$this->_blindship = $blindship;
+		
     }
 
-    public static function toString() {
+	public static function toString(){
         return self::$_name;
     }
 

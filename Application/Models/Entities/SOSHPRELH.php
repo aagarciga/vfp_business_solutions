@@ -13,5 +13,5 @@ use Dandelion\MVC\Application\Models\Entities\Base\BaseSOSHPRELH;
  * SOSHPRELH Tickets header table
  */
 class SOSHPRELH extends BaseSOSHPRELH {
-    
-}
+
+} 
