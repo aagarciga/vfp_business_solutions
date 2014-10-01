@@ -5,12 +5,15 @@
     </div>
 
     <div class="row ">
-        <div class="col-xs-8">
+        <div class="col-xs-8">           
             <div class="form-group">
                 <label class="control-label" for="txPono"><span class="glyphicon glyphicon-list"></span> Po No</label>
-                <input type="checkbox" class="form-control" id="chFilter"/>
-                <input type="text" class="form-control input" name="txPono" id="txPono" title=". Then press [Enter]"/>
-                
+                <div class="input-group">
+                    <input type="text" class="form-control" name="txPono" id="txPono" title=". Then press [Enter]"/>
+                    <span class="input-group-addon">
+                        <input type="checkbox" id="chFilter"/>
+                    </span>  
+                </div><!-- /input-group -->
             </div>
 
             <div class="form-group">

@@ -21,8 +21,11 @@ class Index extends Action {
         $this->Title = 'Pick Ticket | VFP Business Series - Warehouse Management System';
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
+       
+        $this->Pager = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetTicketsPager(10);
+        $this->Pager->ajaxPaginate(5);
         
-        $tickets = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetTickets();        
+        $tickets = $this->Pager->getCurrentPagedItems();
         $ticketsViewModel = array();
         
         foreach ($tickets as $ticket) {

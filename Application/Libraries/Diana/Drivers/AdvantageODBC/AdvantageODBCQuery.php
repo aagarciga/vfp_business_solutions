@@ -16,7 +16,7 @@ class AdvantageODBCQuery extends Query {
 
     function Execute($sqlString)
     {
-        $resource = @odbc_exec($this->connection, $sqlString);
+        $resource = odbc_exec($this->connection, $sqlString);
 
         if($resource)
         {
@@ -47,5 +47,14 @@ class AdvantageODBCQuery extends Query {
             }
         }
 
+    }
+    
+    function ExecutePaged($sqlString, $itemsPerPage, $offset){
+        $search = "select";
+        // The ADS SQL Dialect way
+        $replace = "SELECT TOP $itemsPerPage START AT $offset";
+        $sqlString = str_ireplace($search, $replace, $sqlString);
+        
+        return $this->Execute($sqlString);
     }
 }

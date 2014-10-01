@@ -113,8 +113,14 @@
                         <?php endforeach ?>
                     </tbody>
                 </table>
+                <div class="text-center">
+                   <?php echo $Pager->getPagerControl(); ?> 
+                </div>
+                                
+                
             </div>
             <div class="modal-footer">
+                
                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>                
             </div>
         </div><!-- /.modal-content -->

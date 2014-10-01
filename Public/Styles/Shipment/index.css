@@ -18,6 +18,7 @@
 /*    cursor: pointer;*/
 }
 
+/*
 #chFilter{
     width: 20px;
     height: 20px;
@@ -31,7 +32,7 @@
 #chFilter:focus{
     outline: thin dotted;
     outline-offset: -10px;
-}
+}*/
 
 #close, #btnOk{
     line-height: 2.10;
