@@ -74,7 +74,17 @@ abstract class Pager {
     /**
      * @var
      */
-    protected $range;    
+    protected $range;   
+    
+    /**
+     * @var
+     */
+    protected $previusPage;
+    
+    /**
+     * @var
+     */
+    protected $nextPage;
        
     /**
      * 
@@ -94,6 +104,41 @@ abstract class Pager {
         $this->middleRange = (isset($middleRange)) ? $middleRange : 5;
         $this->itemsPerPage = (isset($itemPerPage)) ? $itemPerPage : 5;        
         $this->setItemsCount($itemsCount);
+    }
+    
+    public function paginate($page = 1){
+        if (!is_numeric($this->itemsPerPage) OR $this->itemsPerPage <= 0) {
+            $this->itemsPerPage = $this->defaultItemPerPage;
+        }
+        $this->pagesCount = ceil($this->getItemsCount() / $this->itemsPerPage);
+        
+        if (!is_numeric($page) OR $page <= 0) {
+            $this->currentPage = 1;
+        } else {
+            $this->currentPage = $page;
+        }
+        if ($this->currentPage > $this->pagesCount) {
+            $this->currentPage = $this->pagesCount;
+        }
+
+        $this->previusPage = $this->currentPage - 1;
+        $this->nextPage = $this->currentPage + 1;
+        
+        if ($this->pagesCount > $this->showPagerControlsIfMoreThan) {
+            $this->startRange = $this->currentPage - floor($this->middleRange / 2);
+            $this->endRange = $this->currentPage + floor($this->middleRange / 2);
+
+            if ($this->startRange <= 0) {
+                $this->endRange += abs($this->startRange) + 1;
+                $this->startRange = 1;
+            }
+
+            if ($this->endRange > $this->pagesCount) {
+                $this->startRange -= $this->endRange - $this->pagesCount;
+                $this->endRange = $this->pagesCount;
+            }
+            $this->range = range($this->startRange, $this->endRange);
+        }
     }
     
     public function getPagerControl(){

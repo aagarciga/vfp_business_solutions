@@ -113,7 +113,7 @@
                         <?php endforeach ?>
                     </tbody>
                 </table>
-                <div class="text-center">
+                <div class="text-center pager-wrapper">
                    <?php echo $Pager->getPagerControl(); ?> 
                 </div>
                                 
