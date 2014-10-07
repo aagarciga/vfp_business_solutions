@@ -19,11 +19,6 @@ abstract class Pager {
     /**
      * @var
      */
-    protected $entityName;
-
-    /**
-     * @var
-     */
     protected $sql;
 
     /**
@@ -89,16 +84,14 @@ abstract class Pager {
     /**
      * 
      * @param \Dandelion\Diana\Interfaces\IDBDriver $dbDriver
-     * @param string $entityName
      * @param string $sql
      * @param int $itemPerPage
      * @param int $middleRange This parameter must be an even value
      * @param type $itemsCount User for uncommon sql queries that can't be converted in a count sql query
      */
-    public function __construct(IDBDriver $dbDriver, $entityName, $sql, $itemPerPage = 5, $middleRange = 5, $itemsCount = null) {
+    public function __construct(IDBDriver $dbDriver, $sql, $itemPerPage = 5, $middleRange = 5, $itemsCount = null) {
 
         $this->dbDriver = $dbDriver;
-        $this->entityName = $entityName;
         $this->sql = $sql;
         $this->currentPage = 1;
         $this->middleRange = (isset($middleRange)) ? $middleRange : 5;

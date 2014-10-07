@@ -62,8 +62,8 @@
     function buildTicketsTableRow($dataRow, trClass, tdClass){
         var result = document.createElement('tr'),
             tdShprelno = document.createElement('td'),
-            tdQtypick = document.createElement('td'),
-            tdQtypack = document.createElement('td'),
+            tdQtyshprel = document.createElement('td'),
+            tdQtypick = document.createElement('td'),            
             tdCompany = document.createElement('td');
     
             with (tdShprelno){
@@ -71,15 +71,16 @@
                 appendChild(document.createTextNode($dataRow.shprelno));
             }
             
+            with (tdQtyshprel){
+                className = tdClass;
+                appendChild(document.createTextNode($dataRow.qtyshprel));
+            }
+            
             with (tdQtypick){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.qtypick));
-            }
+            }           
             
-            with (tdQtypack){
-                className = tdClass;
-                appendChild(document.createTextNode($dataRow.qtypack));
-            }
             
             with (tdCompany){
                 className = tdClass;
@@ -89,8 +90,8 @@
             with (result) {
                 className = trClass;
                 appendChild(tdShprelno);
-                appendChild(tdQtypick);
-                appendChild(tdQtypack);
+                appendChild(tdQtyshprel);
+                appendChild(tdQtypick);                
                 appendChild(tdCompany);
             }
             return result;

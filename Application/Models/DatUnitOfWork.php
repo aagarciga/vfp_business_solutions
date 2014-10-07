@@ -22,6 +22,12 @@ class DatUnitOfWork extends UnitOfWork {
      * @var DBDriver 
      */
     public $DBDriver;
+    
+    /**
+     *
+     * @var CompanySuffix 
+     */
+    public $CompanySuffix;
 
     /**
      * 
@@ -114,6 +120,7 @@ class DatUnitOfWork extends UnitOfWork {
     public function __construct($dbDriver, $companySuffix = "00") {
         parent::__construct();
         $this->DBDriver = $dbDriver;
+        $this->CompanySuffix = $companySuffix; 
 
         $this->ICBARCODERepository = new Repositories\ICBARCODERepository($dbDriver, Entities\ICBARCODE::toString(), $companySuffix);
         $this->ICLOCRepository = new Repositories\ICLOCRepository($dbDriver, Entities\ICLOC::toString(), $companySuffix);

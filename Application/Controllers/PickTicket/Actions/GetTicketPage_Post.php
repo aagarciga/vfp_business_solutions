@@ -25,18 +25,19 @@ class GetTicketPage_Post extends Action {
         $result = array();
         
         if (is_numeric($page)) {
-            $this->Pager = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetTicketsPager(10);
+            $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
+            $this->Pager = $this->controller->GetTicketsPager($this->UserName, 10);
             
             $pager = $this->Pager->getAjaxResponse($page);
             $currentPagedItems = $pager['currentPagedItems'];
             foreach ($currentPagedItems as $row){
                 $current = array();
-                $current['company'] = trim($this->controller->DatUnitOfWork->SOSHPRELHRepository->GetTicketCompanyByOrdNum(trim($row->ORDNUM))); 
+                $current['company'] = trim($row->COMPANY);
                 $current['shprelno'] = trim($row->SHPRELNO);
                 $current['ordnum'] = trim($row->ORDNUM);
                 $current['shpreldate'] = trim($row->SHPRELDATE);
                 $current['bath_no'] = trim($row->BATCH_NO);
-                $current['qtyshprel'] = trim($row->QTYSHPREL);
+                $current['qtyshprel'] = intval($row->QTYSHPREL);
                 $current['qtypick'] = intval($row->QTYPICK);
                 $current['qtypack'] = intval($row->QTYPACK);
                 $current['weight'] = trim($row->WEIGHT);

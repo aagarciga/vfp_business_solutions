@@ -61,6 +61,20 @@ class SOSHPRELHRepository extends VFPRepository implements IRepository {
         return "";
         
     }
+    
+    public function GetTicketScanIdByOrdNum($ordnum) {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT SCANID FROM $tableName";
+        $sqlString .= " WHERE ORDNUM = '$ordnum'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        
+        if (count($queryResult)) {
+            return trim($queryResult[0]->SCANID);
+        }
+        return "";
+        
+    }
 
     public function Add($entity) {
         // TODO: Implement Add() method.

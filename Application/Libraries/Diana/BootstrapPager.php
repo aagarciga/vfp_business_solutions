@@ -19,14 +19,13 @@ class BootstrapPager extends Pager {
     /**
      * 
      * @param \Dandelion\Diana\Interfaces\IDBDriver $dbDriver
-     * @param type $entityName
      * @param type $sql
      * @param type $itemPerPage
      * @param int $middleRange
      * @param int $showPagerControlsIfMoreThan
      */
-    public function __construct($dbDriver, $entityName, $sql, $itemPerPage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $itemsCount = null) {
-        parent::__construct($dbDriver, $entityName, $sql, $itemPerPage, $middleRange, $itemsCount);
+    public function __construct($dbDriver, $sql, $itemPerPage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $itemsCount = null) {
+        parent::__construct($dbDriver, $sql, $itemPerPage, $middleRange, $itemsCount);
         
         $this->pagerControl = "<ul class=\"pagination\">\n";
         $this->showPagerControlsIfMoreThan = $showPagerControlsIfMoreThan;

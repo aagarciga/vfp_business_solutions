@@ -20,16 +20,13 @@ class Index extends Action {
     public function Execute() {
         $this->Title = 'Pick Ticket | VFP Business Series - Warehouse Management System';
         
-        $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
-       
-        $this->Pager = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetTicketsPager(10);
-        $this->Pager->ajaxPaginate();
-        
+        $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];        
+        $this->Pager = $this->controller->GetTicketsPager($this->UserName, 10);       
+        $this->Pager->ajaxPaginate();        
         $tickets = $this->Pager->getCurrentPagedItems();
         $ticketsViewModel = array();
         
         foreach ($tickets as $ticket) {
-            $ticket->COMPANY = $this->controller->DatUnitOfWork->SOSHPRELHRepository->GetTicketCompanyByOrdNum(trim($ticket->ORDNUM));
             $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->SHPRELDATE, $ticket->BATCH_NO, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK, $ticket->WEIGHT, $ticket->COMPANY);
             $ticketsViewModel []= $currentTicket;
         }

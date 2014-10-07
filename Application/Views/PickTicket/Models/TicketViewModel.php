@@ -157,14 +157,14 @@ class TicketViewModel {
      * @param string $company
      */
     public function __construct($shprelno, $ordnum, $shpreldate, $batch_no, $qtyshprel, $qtypick, $qtypack, $weight, $company) {
-        $this->_shprelno = $shprelno;
-        $this->_ordnum = $ordnum;
-        $this->_shpreldate = $shpreldate;
-        $this->_batch_no = $batch_no;
-        $this->_qtyshprel = $qtyshprel;
+        $this->_shprelno = trim($shprelno);
+        $this->_ordnum = trim($ordnum);
+        $this->_shpreldate = trim($shpreldate);
+        $this->_batch_no = trim($batch_no);
+        $this->_qtyshprel = intval($qtyshprel);
         $this->_qtypick = intval($qtypick);
         $this->_qtypack = intval($qtypack);
-        $this->_weight = $weight;
-        $this->_company = $company;
+        $this->_weight = trim($weight);
+        $this->_company = trim($company);
     }
 }
