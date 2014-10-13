@@ -30,10 +30,10 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
-                <li>
+<!--                <li>
                     <a href="#" class="items-to-bin">
                         <img src="<?php echo $View->ImagesContext("main/items-to-bin.png") ?>"/> Items to Bin</a>
-                </li>
+                </li>-->
                 <li>
                     <a href="<?php echo $View->Href("BinToBin") ?>" class="bin-to-bin">
                         <img src="<?php echo $View->ImagesContext("main/bin-to-bin.png") ?>"/> Bin to Bin</a>
@@ -42,10 +42,10 @@
                     <a href="<?php echo $View->Href("PhysicalCount") ?>" class="physical-count">
                         <img src="<?php echo $View->ImagesContext("main/physical-count.png") ?>"/> Physical Count</a>
                 </li>
-                <li>
+<!--                <li>
                     <a href="#" class="change-properties">
                         <img src="<?php echo $View->ImagesContext("main/change-properties.png") ?>"/> Change Properties</a>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
@@ -57,13 +57,13 @@
                     <a href="<?php echo $View->Href("PickTicket") ?>" class="pick-ticket">
                         <img src="<?php echo $View->ImagesContext("main/pick-ticket.png") ?>"/> Pick Ticket</a>
                 </li>
-                <li>
+<!--                <li>
                     <a href="#" class="packing">
                         <img src="<?php echo $View->ImagesContext("main/packing.png") ?>"/> Packing</a>
-                </li>
-                <li><a href="#" class="shipping">
+                </li>-->
+<!--                <li><a href="#" class="shipping">
                         <img src="<?php echo $View->ImagesContext("main/shipping.png") ?>"/> Shipping</a>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
@@ -75,9 +75,9 @@
                     <a href="<?php echo $View->Href("Shipment") ?>" class="shipment">
                         <img src="<?php echo $View->ImagesContext("main/shipment.png") ?>"/> Shipment</a>
                 </li>
-                <li><a href="#" class="return">
+<!--                <li><a href="#" class="return">
                         <img src="<?php echo $View->ImagesContext("main/return.png") ?>"/> Return</a>
-                </li> 
+                </li> -->
                 
                 <li class="right">
                     <a href="<?php echo $View->Href("User", "Signout") ?>" class="exit">
