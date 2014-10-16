@@ -1,0 +1,78 @@
+.container{
+    width: 100%;
+}
+
+a.panel-togle-visibility-button{
+    /*float: right;*/
+    color:#5E5E5E;
+}
+
+a.panel-togle-visibility-button:focus{
+    outline: none;
+}
+.glyphicon-action-button{
+    position: relative;
+    display: inline-block;
+    font-family: "Glyphicons Halflings";
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+.panel-table{
+    overflow-x: auto;
+}
+/*th{
+    outline: thin solid red;
+}*/
+/*col.col-1{
+    min-width: 150px;
+}
+
+col.col-2{
+    min-width: 190px;
+}
+
+col.col-3{
+    min-width: 65px;
+}
+
+col.col-4{
+    min-width: 65px;
+}
+
+col.col-5{
+    min-width: 90px;
+}
+col.col-6{
+    min-width: 80px;
+}
+col.col-7{
+    min-width: 80px;
+}
+col.col-8{
+    min-width: 90px;
+}
+
+col.col-9{
+    min-width: 125px;
+}
+
+col.col-10{
+    min-width: 60px;
+}
+col.col-11{
+    min-width: 135px;
+}
+col.col-12{
+    min-width: 100px;
+}
+col.col-13{
+    min-width: 85px;
+}
+col.col-14{
+    min-width: 100px;
+}
+col.col-15{
+    min-width: 120px;
+}*/
