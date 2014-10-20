@@ -66,7 +66,7 @@
         </div>
 
         <div class="panel-table">
-            <table class="table table-striped">
+            <table class="table table-striped" id="dashboardTable">
                 <colgroup>
                     <col class="col-1"/>
                     <col class="col-2"/>
@@ -104,76 +104,30 @@
                     </tr>
                 </thead>
                 <body>
-                    <tr>
-                        <td>1000</td>
-                        <td>1000</td>
-                        <td>Olympus Marine Group</td>
-                        <td>Vessel</td>
-                        <td>10/01/2014</td>
-                        <td>10/01/2015</td>
-                        <td>Job Type</td>
-                        <td>Description</td>
-                        <td>Material Status</td>
-                        <td>Status</td>
-                        <td>Vivian Alonso</td>
-                        <td>10/01/2014</td>
-                        <td>Quote No</td>
-                        <td>Cost Center</td>
-                        <td><a href="#"><span class="glyphicon glyphicon-folder-close"></span></a></td>                               
-                    </tr>
-                    <tr>
-                        <td>1000</td>
-                        <td>1000</td>
-                        <td>Olympus Marine Group</td>
-                        <td>Vessel</td>
-                        <td>10/01/2014</td>
-                        <td>10/01/2015</td>
-                        <td>Job Type</td>
-                        <td>Description</td>
-                        <td>Material Status</td>
-                        <td>Status</td>
-                        <td>Vivian Alonso</td>
-                        <td>10/01/2014</td>
-                        <td>Quote No</td>
-                        <td>Cost Center</td>
-                        <td><a href="#"><span class="glyphicon glyphicon-folder-close"></span></a></td>                               
-                    </tr>
-                    <tr>
-                        <td>1000</td>
-                        <td>1000</td>
-                        <td>Olympus Marine Group</td>
-                        <td>Vessel</td>
-                        <td>10/01/2014</td>
-                        <td>10/01/2015</td>
-                        <td>Job Type</td>
-                        <td>Description</td>
-                        <td>Material Status</td>
-                        <td>Status</td>
-                        <td>Vivian Alonso</td>
-                        <td>10/01/2014</td>
-                        <td>Quote No</td>
-                        <td>Cost Center</td>
-                        <td><a href="#"><span class="glyphicon glyphicon-folder-close"></span></a></td>                               
-                    </tr>
-                    <tr>
-                        <td>1000</td>
-                        <td>1000</td>
-                        <td>Olympus Marine Group</td>
-                        <td>Vessel</td>
-                        <td>10/01/2014</td>
-                        <td>10/01/2015</td>
-                        <td>Job Type</td>
-                        <td>Description</td>
-                        <td>Material Status</td>
-                        <td>Status</td>
-                        <td>Vivian Alonso</td>
-                        <td>10/01/2014</td>
-                        <td>Quote No</td>
-                        <td>Cost Center</td>
-                        <td><a href="#"><span class="glyphicon glyphicon-folder-close"></span></a></td>                               
-                    </tr>
+                    <?php foreach ($DashboardItems as $item):?>
+                        <tr>
+                            <td class="item-field"><?php echo $item->getOrdnum() ?></td>
+                            <td class="item-field"><?php echo $item->getPonum() ?></td>
+                            <td class="item-field"><?php echo $item->getCompany() ?></td>
+                            <td class="item-field"><?php echo $item->getDestino() ?></td>
+                            <td class="item-field"><?php echo $item->getProStartDT() ?></td>
+                            <td class="item-field"><?php echo $item->getProEndDT() ?></td>
+                            <td class="item-field"><?php echo $item->getSotype() ?></td>
+                            <td class="item-field"><?php echo $item->getInspectno() ?></td>
+                            <td>Material Status</td>
+                            <td>Status</td>
+                            <td>Vivian Alonso</td>
+                            <td class="item-field"><?php echo $item->getPodate() ?></td>
+                            <td class="item-field"><?php echo $item->getQutno() ?></td>
+                            <td class="item-field"><?php echo $item->getCstctid() ?></td>
+                            <td><a href="#"><span class="glyphicon glyphicon-folder-close"></span></a></td>
+                        </tr>
+                        <?php endforeach ?>
                 </body>
             </table>
+            <div class="text-center pager-wrapper">
+                <?php echo $Pager->getPagerControl(); ?> 
+             </div>
         </div>
 
         <!-- Table -->
