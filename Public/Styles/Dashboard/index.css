@@ -22,6 +22,35 @@ a.panel-togle-visibility-button:focus{
 .panel-table{
     overflow-x: auto;
 }
+
+.btn-group, .btn-group-vertical{
+    display: block;
+}
+
+.btn-filter-modifier{
+    display:inline-block; 
+    width:80px;
+    min-height: 34px;
+}
+
+.dropdown-menu li.current{
+    display: none;
+}
+
+@media (min-width: 768px){
+    .form-inline .form-group {
+/*        display: block; */
+        margin-bottom: 15px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    
+    .btn-group, .btn-group-vertical{
+        display: inline-block; 
+        margin-bottom: 15px;
+    }
+}
+
 /*th{
     outline: thin solid red;
 }*/

@@ -36,72 +36,28 @@
         <div class="panel-heading">Projects <span class="badge">4</span> <a href="#" id="dashboard-panel-togle-visibility-button" class="panel-togle-visibility-button pull-right" title="Show/Hide Filter"><span class="glyphicon glyphicon-eye-open"></span></a></div>
         <div class="panel-body">
             <form class="form-inline" role="form">
-                <div class="form-group">
-                    <label class="sr-only" for="txSonumber">Sell Order</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="txSonumber" placeholder="Sell Order">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default glyphicon-action-button glyphicon-minus" type="button"></button>
-                        </span>
-                    </div><!-- /input-group -->
-                </div><!-- /form-group -->
-
-                <div class="form-group">
-                    <label class="sr-only" for="txStartdate">Start Date</label>
-                    <div class="input-prepend input-group" title="Start Date">
-                        <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" name="txStartdate" id="txStartdate" class="form-control daterangepicker-single" placeholder="Start Date"/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default glyphicon-action-button glyphicon-minus" type="button"></button>
-                        </span>
-                    </div><!-- /input-group -->
-                </div><!-- /form-group -->
-
-                <div class="form-group">
-                    <label class="sr-only" for="txEnddate">End Date</label>
-                    <div class="input-prepend input-group" title="End Date">
-                        <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" name="txEnddate" id="txStartdate" class="form-control daterangepicker-single" placeholder="End Date"/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default glyphicon-action-button glyphicon-minus" type="button"></button>
-                        </span>
-                    </div><!-- /input-group -->
-                </div><!-- /form-group -->
-
-                <div class="form-group">
-                    <label class="sr-only" for="txSonumber">Company</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="txCompany" placeholder="Company">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default glyphicon-action-button glyphicon-minus" type="button"></button>
-                        </span>
-                    </div><!-- /input-group -->
-                </div><!-- /form-group -->
-
-                <!-- Split button -->
-                <div class="btn-group">
+                
+                <div  class="btn-group filter-button left">
                     <button type="button" class="btn btn-primary">Filter</button>
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li role="presentation" class="dropdown-header">By</li>
-                        <li><a href="#">Sales Order</a></li>
-                        <li><a href="#">Purchase Order</a></li>
-                        <li><a href="#">Company</a></li>
-                        <li><a href="#">Vessel</a></li>
-                        <li><a href="#">Start Date</a></li>
-                        <li><a href="#">End Date</a></li>
-                        <li><a href="#">Job Type</a></li>
-                        <li><a href="#">Material Status</a></li>
-                        <li><a href="#">Status</a></li>
-                        <li><a href="#">Project Manager</a></li>
-                        <li><a href="#">Create Date</a></li>
-                        <li><a href="#">Quote No</a></li>
-                        <li><a href="#">Cost Center</a></li>
-                        <li><a href="#">Has Attached Files</a></li>
-                        <li class="divider"></li>
-                        <li role="presentation" class="dropdown-header">Add Modifier</li>
-                        <li><a href="#">Not</a></li>
-                        <li><a href="#">Or</a></li>
+                        <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Sales Order</a></li>
+                        <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Purchase Order</a></li>
+                        <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a></li>
+                        <li><a href="#" class="filter-field" data-field="destino" data-field-type="text">Vessel</a></li>
+                        <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
+                        <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
+                        <li><a href="#" class="filter-field" data-field="sotype" data-field-type="text">Job Type</a></li>
+                        <li><a href="#" class="filter-field" data-field="" data-field-type="text">Material Status</a></li>
+                        <li><a href="#" class="filter-field" data-field="" data-field-type="text">Status</a></li>
+                        <li><a href="#" class="filter-field" data-field="" data-field-type="text">Project Manager</a></li>
+                        <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
+                        <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
+                        <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="text">Cost Center</a></li>
+                        <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>
                     </ul>
                 </div>
 

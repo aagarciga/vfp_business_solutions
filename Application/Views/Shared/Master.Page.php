@@ -12,8 +12,8 @@
     
     <?php $View->Partial('meta'); ?>
     <!-- Bootstrap -->
-    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
-    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap-theme.min.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap-theme.css'); ?>" rel="stylesheet" media="screen">
     
     <link href="<?php echo $View->SharedStylesContext('main.css'); ?>" rel="stylesheet" media="screen">
     <?php $View->Partial('styles'); ?>
