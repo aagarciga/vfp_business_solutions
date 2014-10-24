@@ -4,6 +4,18 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.daterangepicker-single').daterangepicker({singleDatePicker: true, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+        
+    });
+</script>
+
+<script>
+    $('.top-pager-itemmperpage-control a').on('click', function(){
+        // Update Control Selected Value
+        $('.top-pager-itemmperpage-control button span.value').text($(this).text());
+        // Always show page one
+        var $table = $('#dashboardTable');
+        var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+        page(1, $itemsperpage, $table); // 
     });
 </script>
 
@@ -12,14 +24,14 @@
         $('#dashboard-panel-togle-visibility-button').on('click', function() {
             var $button = $(this),
                     $icon = $button.children('span'),
-                    $panelBody = $('.panel-body');
+                    $filter = $('.panel-body form');
             if ($icon.hasClass('glyphicon-eye-open')) {
                 $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
-                $panelBody.hide();
+                $filter.hide();
             }
             else {
                 $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
-                $panelBody.show();
+                $filter.show();
             }
         });
     })(window, document, jQuery);
@@ -36,39 +48,6 @@
         (function () {
 
             Dandelion.DynamicFilter = {
-//                load : function (viewport, page, callback) {
-//                    viewport.innerHTML = '<object type="text/html" data="pages/' + page + '.html" ></object>';
-//                    callback();
-//                }
-                fields : [
-                    'ordnum',                         
-                    'ponum',         
-                    'company',  
-                    'destino',
-                    'ProStartDT',
-                    'ProEndDT',
-                    'sotype',
-                    'inspectno',
-                    'podate',
-                    'qutno',
-                    'Cstctid'
-                ],
-                fieldsDisplayNames : [
-                    'Sales Order', 
-                    'Purchase Order', 
-                    'Company',
-                    'Vessel',
-                    'Start Date',
-                    'End Date',
-                    'Job Type',
-                    'Material Status',
-                    'Status',
-                    'Project Manager',
-                    'Create Date',
-                    'Quote No',
-                    'Cost Center',
-                    'Has Attached Files'
-                ],
                 createTextFilter : function(fieldName, fieldDisplayName){
                     var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
@@ -407,8 +386,8 @@
 
 
 <script>
-    function page($page, $table){
-        var params = {"page" : $page};
+    function page($page, $itemsperpage, $table){
+        var params = {"page" : $page, "itemsperpage" : $itemsperpage};
         $.ajax({
             data: params,
             url: '<?php echo $View->Href("Dashboard", "GetDashboardItemsPage") ?>',
@@ -422,7 +401,6 @@
                 
                 var pager = new Pager(_response);
                 
-                // TODO: render page control
                 var pagerControl = pager.getPagerControl(); 
                 $(".pager-wrapper").html("").append(pagerControl);
                 
@@ -430,7 +408,8 @@
                 $('.pager-btn').on("click", function(){
                     var $table = $('#dashboardTable');
                     var $currentButton = $(this);
-                    page($currentButton.data('page'), $table);
+                    var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+                    page($currentButton.data('page'), $itemsperpage, $table);
                 });
                 
                 var pagerItems = pager.getCurrentPagedItems();
@@ -446,7 +425,8 @@
     $('.pager-btn').on("click", function(){
         var $table = $('#dashboardTable');
         var $currentButton = $(this);
-        page($currentButton.data('page'), $table);
+        var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+        page($currentButton.data('page'), $itemsperpage, $table);
     });
 </script>
 
@@ -462,99 +442,120 @@
     }
     
     function buildDashboardItemTableRow($dataRow, trClass, tdClass){
-        var result = document.createElement('tr'),
-            tdOrdnum = document.createElement('td'),
-            tdPonum = document.createElement('td'),
-            tdCompany = document.createElement('td'),            
-            tdDestino = document.createElement('td'),
-            tdProStartDT = document.createElement('td'),
-            tdProEndDT = document.createElement('td'),
-            tdSotype = document.createElement('td'),
-            tdInspectno = document.createElement('td'),
-            tdMaterialStatus = document.createElement('td'),
-            tdStatus = document.createElement('td'),
-            tdProjectManager = document.createElement('td'),
-            tdPodate = document.createElement('td'),
-            tdQutno = document.createElement('td'), 
-            tdCstctid = document.createElement('td'),
-            tdAttachedFiles = document.createElement('td');
+        var _result = document.createElement('tr'),
+            _tdOrdnum = document.createElement('td'),
+            _aOrdnum = document.createElement('a'),
+            _tdPonum = document.createElement('td'),
+            _tdCompany = document.createElement('td'),            
+            _tdDestino = document.createElement('td'),
+            _tdProStartDT = document.createElement('td'),
+            _tdProEndDT = document.createElement('td'),
+            _tdSotypecode = document.createElement('td'),
+            _tdDescription = document.createElement('td'),
+            _tdMaterialStatus = document.createElement('td'),
+            _tdStatus = document.createElement('td'),
+            _tdProjectManager = document.createElement('td'),
+            _tdPodate = document.createElement('td'),
+            _tdQutno = document.createElement('td'), 
+            _tdCstctid = document.createElement('td'),
+            _tdAttachedFiles = document.createElement('td'),
+            _aAttachedFiles = document.createElement('a'),
+            _spanGlyphIcon = document.createElement('span');
     
     
-            with (tdOrdnum){
+            with (_tdOrdnum){
+                _aOrdnum.href = "#";
+                _aOrdnum.appendChild(document.createTextNode($dataRow.ordnum));
                 className = tdClass;
-                appendChild(document.createTextNode($dataRow.ordnum));
+                appendChild(_aOrdnum);
             }
             
-            with (tdPonum){
+            with (_tdPonum){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.ponum));
             }
             
-            with (tdCompany){
+            with (_tdCompany){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.company));
             }           
             
-            
-            with (tdDestino){
+            with (_tdDestino){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.destino));
             }
             
-            with (tdProStartDT){
+            with (_tdProStartDT){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.ProStartDT));
             }
             
-            with (tdProEndDT){
+            with (_tdProEndDT){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.ProEndDT));
             }
             
-            with (tdSotype){
+            with (_tdSotypecode){
                 className = tdClass;
-                appendChild(document.createTextNode($dataRow.sotype));
+                appendChild(document.createTextNode($dataRow.sotypecode));
             }
             
-            with (tdInspectno){
+            with (_tdMaterialStatus){
+                className = tdClass;
+                appendChild(document.createTextNode($dataRow.mtrlstatus));
+            }
+            
+            with (_tdStatus){
+                className = tdClass;
+                appendChild(document.createTextNode($dataRow.jobstatus));
+            }
+            
+            with (_tdProjectManager){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.inspectno));
             }
             
-            with (tdPodate){
+            with (_tdPodate){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.podate));
             }
             
-            with (tdQutno){
+            with (_tdQutno){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.qutno));
             }
             
-            with (tdCstctid){
+            with (_tdCstctid){
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.Cstctid));
             }
             
-            with (result) {
-                className = trClass;
-                appendChild(tdOrdnum);
-                appendChild(tdPonum);
-                appendChild(tdCompany);                
-                appendChild(tdDestino);
-                appendChild(tdProStartDT);
-                appendChild(tdProEndDT);
-                appendChild(tdSotype);
-                appendChild(tdInspectno); 
-                appendChild(tdMaterialStatus); 
-                appendChild(tdStatus);  
-                appendChild(tdProjectManager); 
-                appendChild(tdPodate); 
-                appendChild(tdQutno);  
-                appendChild(tdCstctid);
-                appendChild(tdAttachedFiles); 
+            with (_tdAttachedFiles){
+                _spanGlyphIcon.className = "glyphicon glyphicon-folder-close";
+                _aAttachedFiles.href = "#";
+                _aAttachedFiles.appendChild(_spanGlyphIcon);
+                appendChild(_aAttachedFiles);
             }
-            return result;
+                        
+            with (_result) {
+                className = trClass;
+                appendChild(_tdOrdnum);
+                appendChild(_tdPonum);
+                appendChild(_tdCompany);                
+                appendChild(_tdDestino);
+                appendChild(_tdProStartDT);
+                appendChild(_tdProEndDT);
+                appendChild(_tdSotypecode);
+                appendChild(_tdDescription); 
+                appendChild(_tdMaterialStatus); 
+                appendChild(_tdStatus);  
+                appendChild(_tdProjectManager); 
+                appendChild(_tdPodate); 
+                appendChild(_tdQutno);  
+                appendChild(_tdCstctid);
+                appendChild(_tdAttachedFiles);
+            }
+            return _result;
         };
 </script>
 
@@ -586,6 +587,10 @@
     }
     
     Pager.prototype.getPagerControl = function (){
+        // Don't show pager control if only one page
+        if (this.pagesCount <= 1) {
+            return "";
+        }
         
         if (this.showExtendedNavigation) {
             
@@ -622,7 +627,6 @@
                         _currentLi.childNodes[0].appendChild(_activeSpan);
                     }
                     this.pagerControl.appendChild(_currentLi);
-
                 }
                 
                 // Append Last Dotted Control

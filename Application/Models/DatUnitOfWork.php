@@ -112,6 +112,13 @@ class DatUnitOfWork extends UnitOfWork {
      * @var SOHEADRepository 
      */
     public $SOHEADRepository;
+    
+    /**
+     * 
+     * @var SOEDISTATUSRepository 
+     */
+    public $SOEDISTATUSRepository;
+    
 
     /**
      * 
@@ -132,11 +139,12 @@ class DatUnitOfWork extends UnitOfWork {
         $this->ICWHSRepository = new Repositories\ICWHSRepository($dbDriver, Entities\ICWHS::toString(), $companySuffix);
         $this->POHDOPRepository = new Repositories\POHDOPRepository($dbDriver, Entities\POHDOP::toString(), $companySuffix);
         $this->POITOPRepository = new Repositories\POITOPRepository($dbDriver, Entities\POITOP::toString(), $companySuffix);
-
         $this->SOSHPRELHRepository = new Repositories\SOSHPRELHRepository($dbDriver, Entities\SOSHPRELH::toString(), $companySuffix);
         $this->SOSHPRELRepository = new Repositories\SOSHPRELRepository($dbDriver, Entities\SOSHPREL::toString(), $companySuffix);
         $this->WMPACKRepository = new Repositories\WMPACKRepository($dbDriver, Entities\WMPACK::toString(), $companySuffix);
         $this->SOHEADRepository = new Repositories\SOHEADRepository($dbDriver, Entities\SOHEAD::toString(), $companySuffix);
+        $this->SOEDISTATUSRepository = new Repositories\SOEDISTATUSRepository($dbDriver, Entities\SOEDISTATUS::toString(), $companySuffix);
+        
     }
 
 }

@@ -22,20 +22,22 @@ class Index extends Action {
         $this->Title = 'Dashboard | VFP Business Series - Warehouse Management System';
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
+        $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
         
-        $this->Pager = $this->controller->GetDashboardPager($this->UserName, 15);
+        $this->Pager = $this->controller->GetDashboardPager($this->UserName, $this->ItemPerPage);
         $this->Pager->ajaxPaginate();        
-        $dashboardItems = $this->Pager->getCurrentPagedItems();
+        $dashboardItems = $this->Pager->getCurrentPagedItems();        
         $dashboardViewModel = array();
         
         foreach ($dashboardItems as $dashboardItem) {
-            //ORDNUM, PONUM, COMPANY, DESTINO, PROSTARTDT, PROENDDT, SOTYPE, INSPECTNO, PODATE, QUTNO, CSTCTID
-            //ordnum, ponum, company, destino, ProStartDT, ProEndDT, sotype, inspectno, podate, qutno, Cstctid
-            $currentDashboardItem = new DashboardViewModel($dashboardItem->ordnum, $dashboardItem->ponum, $dashboardItem->company, $dashboardItem->destino, $dashboardItem->ProStartDT, $dashboardItem->ProEndDT, $dashboardItem->sotype, $dashboardItem->inspectno, $dashboardItem->podate, $dashboardItem->qutno, $dashboardItem->Cstctid);
+            $currentDashboardItem = new DashboardViewModel($dashboardItem->ordnum, $dashboardItem->ponum, $dashboardItem->company, $dashboardItem->destino, $dashboardItem->ProStartDT, $dashboardItem->ProEndDT, $dashboardItem->sotypecode, $dashboardItem->MTRLSTATUS, $dashboardItem->JOBSTATUS, $dashboardItem->inspectno, $dashboardItem->podate, $dashboardItem->qutno, $dashboardItem->Cstctid);
             $dashboardViewModel []= $currentDashboardItem;
         }
         
         $this->DashboardItems = $dashboardViewModel;
+        
+        $this->MaterialStatusItems = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetMaterialStatus();
+        $this->JobStatusItems = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetJobStatus();
     }
 
 }

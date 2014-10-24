@@ -24,7 +24,8 @@ a.panel-togle-visibility-button:focus{
 }
 
 .btn-group, .btn-group-vertical{
-    display: block;
+    /*display: block;*/
+    margin-bottom: 0px !important;
 }
 
 .btn-filter-modifier{
@@ -35,6 +36,20 @@ a.panel-togle-visibility-button:focus{
 
 .dropdown-menu li.current{
     display: none;
+}
+
+.top-pager-itemmperpage-control{
+    margin: -7px 12px 0px 12px;
+}
+
+.form-inline {
+    margin-bottom: 15px;
+}
+.pager-wrapper{
+    line-height: 10px;
+}
+ul.pagination{
+    margin: 0px;
 }
 
 @media (min-width: 768px){

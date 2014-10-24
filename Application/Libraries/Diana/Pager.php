@@ -134,8 +134,9 @@ abstract class Pager {
         }
     }
     
-    public function getPagerControl(){
-        return $this->pagerControl;
+    public function getPagerControl(){   
+        // Don't show pager control if only one page
+        return $this->pagesCount > 1 ? $this->pagerControl : "";
     }
     
     /**

@@ -21,16 +21,18 @@ class GetDashboardItemsPage_Post extends Action {
      */
     public function Execute() {
         $page = filter_input(INPUT_POST, 'page');
+        $itemsperpage = filter_input(INPUT_POST, 'itemsperpage');
+        $this->ItemPerPage = $_SESSION['itemperpages'] = (!isset($itemsperpage))? 10 : $itemsperpage;
         
         $result = array();
         
         if (is_numeric($page)) {
-            $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
-            $this->Pager = $this->controller->GetDashboardPager($this->UserName, 15);
+            $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];             
+            
+            $this->Pager = $this->controller->GetDashboardPager($this->UserName, $this->ItemPerPage);
             
             $pager = $this->Pager->getAjaxResponse($page);
             $currentPagedItems = $pager['currentPagedItems'];
-            //ordnum, ponum, company, destino, ProStartDT, ProEndDT, sotype, inspectno, podate, qutno, Cstctid
             
             foreach ($currentPagedItems as $row){
                 $current = array();
@@ -38,18 +40,19 @@ class GetDashboardItemsPage_Post extends Action {
                 $current['ponum'] = trim($row->ponum);
                 $current['company'] = trim($row->company);
                 $current['destino'] = trim($row->destino);
-                $current['ProStartDT'] = trim($row->ProStartDT);
-                $current['ProEndDT'] = trim($row->ProEndDT);
-                $current['sotype'] = trim($row->sotype);
+                $current['ProStartDT'] = trim($row->ProStartDT === "1899-12-30" ? "" : $row->ProStartDT);
+                $current['ProEndDT'] = trim($row->ProEndDT === "1899-12-30" ? "" : $row->ProEndDT);
+                $current['sotypecode'] = trim($row->sotypecode);
+                $current['mtrlstatus'] = trim($row->MTRLSTATUS);
+                $current['jobstatus'] = trim($row->JOBSTATUS);
                 $current['inspectno'] = trim($row->inspectno);
-                $current['podate'] = trim($row->podate);
-                $current['qutno'] = intval($row->qutno);
-                $current['Cstctid'] = intval($row->Cstctid);
+                $current['podate'] = trim($row->podate === "1899-12-30" ? "" : $row->podate);
+                $current['qutno'] = trim($row->qutno);
+                $current['Cstctid'] = trim($row->Cstctid);
                 $result[] = $current;
             }
             $pager['currentPagedItems'] = $result;
         }
         return json_encode($pager);
     }
-    
 }
