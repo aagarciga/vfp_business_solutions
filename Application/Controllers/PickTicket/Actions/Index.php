@@ -22,7 +22,7 @@ class Index extends Action {
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];        
         $this->Pager = $this->controller->GetTicketsPager($this->UserName, 10);       
-        $this->Pager->ajaxPaginate();        
+        $this->Pager->Paginate();        
         $tickets = $this->Pager->getCurrentPagedItems();
         $ticketsViewModel = array();
         

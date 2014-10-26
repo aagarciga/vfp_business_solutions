@@ -31,7 +31,7 @@ class GetDashboardItemsPage_Post extends Action {
             
             $this->Pager = $this->controller->GetDashboardPager($this->UserName, $this->ItemPerPage);
             
-            $pager = $this->Pager->getAjaxResponse($page);
+            $pager = $this->Pager->PaginateForAjax($page);
             $currentPagedItems = $pager['currentPagedItems'];
             
             foreach ($currentPagedItems as $row){

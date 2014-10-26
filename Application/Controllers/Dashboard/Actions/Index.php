@@ -25,7 +25,7 @@ class Index extends Action {
         $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
         
         $this->Pager = $this->controller->GetDashboardPager($this->UserName, $this->ItemPerPage);
-        $this->Pager->ajaxPaginate();        
+        $this->Pager->Paginate();        
         $dashboardItems = $this->Pager->getCurrentPagedItems();        
         $dashboardViewModel = array();
         

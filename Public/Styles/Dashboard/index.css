@@ -23,9 +23,9 @@ a.panel-togle-visibility-button:focus{
     overflow-x: auto;
 }
 
-.btn-group, .btn-group-vertical{
+.btn-group, .form-group, .btn-group-vertical{
     /*display: block;*/
-    margin-bottom: 0px !important;
+    /*margin-bottom: 0px !important;*/
 }
 
 .btn-filter-modifier{

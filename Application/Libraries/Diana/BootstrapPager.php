@@ -31,7 +31,7 @@ class BootstrapPager extends Pager {
         $this->showPagerControlsIfMoreThan = $showPagerControlsIfMoreThan;
     }
 
-    public function ajaxPaginate($page = 1) {
+    public function Paginate($page = 1) {
         parent::paginate($page);
 
         if ($this->pagesCount > $this->showPagerControlsIfMoreThan) { // if more than ten pages
@@ -78,7 +78,7 @@ class BootstrapPager extends Pager {
         }
     }
 
-    public function getAjaxResponse($page) {
+    public function PaginateForAjax($page) {
         parent::paginate($page);
 
         $pager = array();
@@ -101,4 +101,11 @@ class BootstrapPager extends Pager {
         return $pager;
     }
 
+    /**
+     * Returns the BootstrapPager Object to use it with AJAX
+     * @return String
+     */
+    public function GetJavascriptPager(){
+        return file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'BootstrapPager.js');
+    }
 }

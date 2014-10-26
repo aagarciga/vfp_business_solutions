@@ -37,6 +37,6 @@ class Dashboard extends DatActionsController {
 //        $query = $this->DatUnitOfWork->DBDriver->GetQuery();
 //        $queryResult = $query->Execute($sqlString);        
 //        $itemsCount = count($queryResult);
-        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan); 
+        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 }
