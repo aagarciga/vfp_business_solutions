@@ -11,9 +11,9 @@ use Dandelion\MVC\Core\Action;
 
 /**
  * Ajax Get Material Status Items
- * @name GetMaterialStatusItems_Post
+ * @name UpdateSOHEADMaterialStatus_Post
  */
-class GetMaterialStatusItems_Post extends Action {
+class UpdateSOHEADMaterialStatus_Post extends Action {
 
     /**
      * Returns Material Status Items
@@ -21,15 +21,15 @@ class GetMaterialStatusItems_Post extends Action {
      */
     public function Execute() {
                 
+        $ordnum = filter_input(INPUT_POST, 'ordnum');
+        $mtrlstatus = filter_input(INPUT_POST, 'mtrlstatus');
+                
         $result = array();
-        $materialStatusCollection = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetMaterialStatus();
-
-        foreach ($materialStatusCollection as $row){
-            $current = array();
-            $current['edistatid'] = trim($row->getEdistatid());
-            $current['descrip'] = trim($row->getDescrip());
-            $result[] = $current;
+        $success = $this->controller->DatUnitOfWork->SOHEADRepository->UpdateMaterialStatus($ordnum, $mtrlstatus);
+        if ($success) {
+            $result = 'success';
         }
+        
         return json_encode($result);
     }
 }

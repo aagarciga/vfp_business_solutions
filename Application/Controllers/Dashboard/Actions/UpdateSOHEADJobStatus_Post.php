@@ -10,26 +10,25 @@ namespace Dandelion\MVC\Application\Controllers\Dashboard\Actions;
 use Dandelion\MVC\Core\Action;
 
 /**
- * Ajax Job Status Items
+ * Ajax Update Job Status in SPHEAD Record
  * @name GetJobStatusItems_Post
  */
-class GetJobStatusItems_Post extends Action {
+class UpdateSOHEADJobStatus_Post extends Action {
 
     /**
      * Returns Job Status Items
      * @return JSON
      */
     public function Execute() {
+        $ordnum = filter_input(INPUT_POST, 'ordnum');
+        $jobstatus = filter_input(INPUT_POST, 'jobstatus');
                 
         $result = array();
-        $jobStatusCollection = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetJobStatus();
-
-        foreach ($jobStatusCollection as $row){
-            $current = array();
-            $current['edistatid'] = trim($row->getEdistatid());
-            $current['descrip'] = trim($row->getDescrip());
-            $result[] = $current;
+        $success = $this->controller->DatUnitOfWork->SOHEADRepository->UpdateJobStatus($ordnum, $jobstatus);
+        if ($success) {
+            $result = 'success';
         }
+        
         return json_encode($result);
     }
 }

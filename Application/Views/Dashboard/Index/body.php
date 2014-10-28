@@ -9,7 +9,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Dashboard</a>
+            <a class="navbar-brand" href="#">
+                <img src="<?php echo $View->ImagesContext("dashboard/olimpus-imagotype-small.png") ?>"/>
+                 Dashboard
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -133,16 +136,16 @@
                             <td class="item-field"><?php echo $item->getSotypecode() ?></td>
                             <td class="item-field">Project Description</td>
                             <td class="item-field">
-                                <select class="form-control">
+                                <select class="form-control update-dropdown material-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
                                     <?php foreach ($MaterialStatusItems as $msItem): ?>
-                                        <option <?php echo ($item->getMtrlstatus() !== $msItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $msItem->getEdistatid() ?>"><?php echo $msItem->getDescrip() ?></option>
+                                        <option <?php echo ($item->getMtrlstatus() !== $msItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $msItem->getEdistatid() ?>" ><?php echo $msItem->getDescrip() ?></option>
                                     <?php endforeach ?> 
                                 </select>
                             </td>
                             <td class="item-field">
-                                <select class="form-control">
+                                <select class="form-control  update-dropdown job-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
                                     <?php foreach ($JobStatusItems as $jobItem): ?>
-                                        <option <?php echo ($item->getJobstatus() !== $jobItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $jobItem->getEdistatid() ?>"><?php echo $jobItem->getDescrip() ?></option>
+                                        <option <?php echo ($item->getJobstatus() !== $jobItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $jobItem->getEdistatid() ?>" ><?php echo $jobItem->getDescrip() ?></option>
                                     <?php endforeach ?> 
                                 </select>
                             </td>

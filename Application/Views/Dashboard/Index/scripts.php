@@ -7,6 +7,7 @@
     (function(window, document, $) {
         $(document).ready(function() {
             $('.daterangepicker-single').daterangepicker({singleDatePicker: true, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+            bindUpdateDropdownClick();
         });
     })(window, document, jQuery);
 </script>
@@ -134,12 +135,63 @@
 </script>
 
 <script>
+    function bindUpdateDropdownClick(){
+    $('.update-dropdown').on('change', function(){        
+        var $dropdown = $(this),
+            params = {'ordnum' : $dropdown.data('ordnum'), 'mtrlstatus' : $dropdown.val(), 'jobstatus' : $dropdown.val()};
+        if ($dropdown.hasClass('material-status')) {
+            $.ajax({
+                data: params,
+                url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADMaterialStatus') ?>',
+                type: 'post',
+                beforeSend: function(){
+                    $('.loading').show();
+                },
+                success: function (response){
+                    var _response = $.parseJSON(response);
+                    if (_response === 'success') {
+                        console.log(_response);                        
+                    }else {
+                        console.log(_response);
+                    }
+                    $('.loading').hide();
+                }            
+            });
+        }
+        if ($dropdown.hasClass('job-status')) {
+            $.ajax({
+                data: params,
+                url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>',
+                type: 'post',
+                beforeSend: function(){
+                    $('.loading').show();
+                },
+                success: function (response){
+                    var _response = $.parseJSON(response);
+                    if (_response === 'success') {
+                        console.log(_response);
+                    }else {
+                        console.log(_response);
+                    }
+                    $('.loading').hide();
+                }            
+            });
+        }
+    });
+    }
+    
+    
+    
+</script>
+
+<script>
     function updateDashboardTable($table, $data){
         var $tableBody = $table.children('tbody');
         $tableBody.html('');
         for(index in $data){  
             $tableBody.append(buildDashboardItemTableRow($data[index], '', "item-field"));
         }
+        bindUpdateDropdownClick();
     }
     
     function buildDashboardItemTableRow($dataRow, trClass, tdClass){
@@ -204,13 +256,21 @@
             with (_tdMaterialStatus){
                 className = tdClass;
                 //appendChild(document.createTextNode($dataRow.mtrlstatus));
-                appendChild(buildStatusControl($dataRow.mtrlstatus, window.MaterialStatus));
+                var _materialStatusControl = buildStatusControl($dataRow.mtrlstatus, window.MaterialStatus);
+                _materialStatusControl.dataset['ordnum'] = $dataRow.ordnum;
+                _materialStatusControl.className += ' material-status';
+                appendChild(_materialStatusControl);
             }
             
             with (_tdStatus){
                 className = tdClass;                
                 //appendChild(document.createTextNode($dataRow.jobstatus));
-                appendChild(buildStatusControl($dataRow.jobstatus, window.JobStatus));
+                //appendChild(buildStatusControl($dataRow.jobstatus, window.JobStatus));
+                
+                var _jobStatusControl = buildStatusControl($dataRow.jobstatus, window.JobStatus);
+                _jobStatusControl.dataset['ordnum'] = $dataRow.ordnum;
+                _jobStatusControl.className += ' job-status';
+                appendChild(_jobStatusControl);
             }
             
             with (_tdProjectManager){
@@ -273,7 +333,7 @@
                 }
                 _select.appendChild(_option);
             }
-            _select.className = 'form-control';
+            _select.className = 'form-control update-dropdown';
             return _select;
         }
 </script>

@@ -55,7 +55,29 @@ class SOHEADRepository extends VFPRepository implements IRepository {
     public function Update($entity) {
         // TODO: Implement Update() method.
     }
-
+    
+    public function UpdateMaterialStatus($ordnum, $mtrlstatus) {
+        $tableName = $this->entityName . $this->companySuffix;
+        
+        $sqlString = "UPDATE $tableName SET ".
+        "MTRLSTATUS = '$mtrlstatus' ".        
+        "WHERE ordnum = '$ordnum'";
+        
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+    
+    public function UpdateJobStatus($ordnum, $jobstatus) {
+        $tableName = $this->entityName . $this->companySuffix;
+        
+        $sqlString = "UPDATE $tableName SET ".
+        "JOBSTATUS = '$jobstatus' ".        
+        "WHERE ordnum = '$ordnum'";
+        
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+    
     public function Delete($entity) {
         // TODO: Implement Delete() method.
     }

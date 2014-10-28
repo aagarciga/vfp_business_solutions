@@ -13,5 +13,6 @@ use Dandelion\MVC\Application\Models\Entities\Base\BaseSOHEAD;
  * SOHEAD Sales Order file
  */
 class SOHEAD extends BaseSOHEAD {
+    
 
 } 
