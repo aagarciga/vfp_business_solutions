@@ -102,6 +102,38 @@
 </script>
 
 <script>
+    $.ajax({
+        data: {},
+        url: '<?php echo $View->Href('Dashboard', 'GetMaterialStatusItems') ?>',
+        type: 'post',
+        beforeSend: function(){
+            $('.loading').show();
+        },
+        success: function (response){
+            var _response = $.parseJSON(response);
+            window.MaterialStatus = _response;
+            $('.loading').hide();
+        }            
+    });
+</script>
+
+<script>
+    $.ajax({
+        data: {},
+        url: '<?php echo $View->Href('Dashboard', 'GetJobStatusItems') ?>',
+        type: 'post',
+        beforeSend: function(){
+            $('.loading').show();
+        },
+        success: function (response){
+            var _response = $.parseJSON(response);
+            window.JobStatus = _response;
+            $('.loading').hide();
+        }            
+    });
+</script>
+
+<script>
     function updateDashboardTable($table, $data){
         var $tableBody = $table.children('tbody');
         $tableBody.html('');
@@ -171,12 +203,14 @@
             
             with (_tdMaterialStatus){
                 className = tdClass;
-                appendChild(document.createTextNode($dataRow.mtrlstatus));
+                //appendChild(document.createTextNode($dataRow.mtrlstatus));
+                appendChild(buildStatusControl($dataRow.mtrlstatus, window.MaterialStatus));
             }
             
             with (_tdStatus){
-                className = tdClass;
-                appendChild(document.createTextNode($dataRow.jobstatus));
+                className = tdClass;                
+                //appendChild(document.createTextNode($dataRow.jobstatus));
+                appendChild(buildStatusControl($dataRow.jobstatus, window.JobStatus));
             }
             
             with (_tdProjectManager){
@@ -226,6 +260,22 @@
             }
             return _result;
         };
+        
+        function buildStatusControl(current, values){
+            var _select = document.createElement('select');
+
+            for(index in values){  
+                var _option = document.createElement('option');
+                _option.value = values[index]['edistatid'];
+                _option.appendChild(document.createTextNode(values[index]['descrip']));
+                if (current === values[index]['edistatid'] ) {
+                    _option.selected = "selected";
+                }
+                _select.appendChild(_option);
+            }
+            _select.className = 'form-control';
+            return _select;
+        }
 </script>
 
 <script>

@@ -28,7 +28,7 @@ class GetTicketPage_Post extends Action {
             $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
             $this->Pager = $this->controller->GetTicketsPager($this->UserName, 10);
             
-            $pager = $this->Pager->getAjaxResponse($page);
+            $pager = $this->Pager->PaginateForAjax($page);
             $currentPagedItems = $pager['currentPagedItems'];
             foreach ($currentPagedItems as $row){
                 $current = array();
