@@ -65,18 +65,9 @@
                 },
                 success: function (response){
                     var _response = $.parseJSON(response);
-                    var pager = new BootstrapPager(_response);
+                    var pager = new BootstrapPager(_response, PagerControl_OnClick);
                     var pagerControl = pager.getPagerControl(); 
                     $('.pager-wrapper').html('').append(pagerControl);
-
-                    // TODO Pendient big refactoring......
-                    $('.pager-btn').on('click', function(){
-                        var $table = $('#dashboardTable');
-                        var $currentButton = $(this);
-                        var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-                        page($currentButton.data('page'), $itemsperpage, $table);
-                    });
-
                     var pagerItems = pager.getCurrentPagedItems();
                     updateDashboardTable($table, pagerItems);
                     $('.loading').hide();
@@ -84,12 +75,14 @@
             });
         }
         
-        $('.pager-btn').on("click", function(){
+        $('.pager-btn').on("click", PagerControl_OnClick);
+        
+        function PagerControl_OnClick(){
             var $table = $('#dashboardTable');
             var $currentButton = $(this);
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
             page($currentButton.data('page'), $itemsperpage, $table);
-        });
+        }
         
         $('.top-pager-itemmperpage-control a').on('click', function(){
             // Update Control Selected Value
@@ -150,7 +143,8 @@
                 success: function (response){
                     var _response = $.parseJSON(response);
                     if (_response === 'success') {
-                        console.log(_response);                        
+                        console.log(_response); 
+                        //console.log($dropdown);
                     }else {
                         console.log(_response);
                     }

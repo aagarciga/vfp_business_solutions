@@ -1,12 +1,13 @@
 ;(function(window, document){
     'use strict';
     
-    function BootstrapPager(ajaxResponse){
+    function BootstrapPager(ajaxResponse, buttonOnClickCallback){
         this.currentPage = parseInt(ajaxResponse.currentPage);
         this.itemsCount = parseInt(ajaxResponse.itemsCount);        
         this.pagesCount = parseInt(ajaxResponse.pagesCount);
         this.itemsPerPage = parseInt(ajaxResponse.itemsPerPage);        
         this.showPagerControlsIfMoreThan = parseInt(ajaxResponse.showPagerControlsIfMoreThan);
+        this.buttonOnClickCallback = buttonOnClickCallback;
         
         this.showExtendedNavigation = this.pagesCount > this.showPagerControlsIfMoreThan;
         
@@ -117,7 +118,11 @@
             _a.title = title;
             _a.dataset['page'] = page;
             _a.dataset['ipp'] = ipp;
-            _a.appendChild(_textNode);          
+            _a.appendChild(_textNode); 
+            
+            if (this.buttonOnClickCallback && typeof this.buttonOnClickCallback === 'function') {
+                _a.addEventListener('click', this.buttonOnClickCallback);
+            }
         
             _li.appendChild(_a);
             return _li;
