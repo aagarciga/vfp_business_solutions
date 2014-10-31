@@ -132,7 +132,7 @@
                             <td class="item-field"><?php echo $item->getProStartDT() ?></td>
                             <td class="item-field"><?php echo $item->getProEndDT() ?></td>
                             <td class="item-field"><?php echo $item->getSotypecode() ?></td>
-                            <td class="item-field">Project Description</td>
+                            <td class="item-field"><?php echo $item->getJobDescrip() ?></td>
                             <td class="item-field">
                                 <select class="form-control update-dropdown material-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
                                     <?php foreach ($MaterialStatusItems as $msItem): ?>
@@ -147,7 +147,7 @@
                                     <?php endforeach ?> 
                                 </select>
                             </td>
-                            <td class="item-field"><?php echo $item->getInspectno() ?></td>
+                            <td class="item-field"><?php echo $item->getProjectManager() ?></td>
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
                             <td class="item-field"><?php echo $item->getQutno() ?></td>
                             <td class="item-field"><?php echo $item->getCstctid() ?></td>

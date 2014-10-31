@@ -18,10 +18,11 @@ class DashboardViewModel {
     protected $_sotypecode;
     protected $_mtrlstatus;
     protected $_jobstatus;
-    protected $_inspectno;
+    protected $_projectManager;
     protected $_podate;
     protected $_qutno;
     protected $_Cstctid;
+    protected $_jobDescrip; 
     
     /**
      * @return string
@@ -90,8 +91,8 @@ class DashboardViewModel {
      * Project Manager
      * @return string
      */
-    public function getInspectno() {
-        return $this->_inspectno;
+    public function getProjectManager() {
+        return $this->_projectManager;
     }
     
     /**
@@ -115,6 +116,12 @@ class DashboardViewModel {
         return $this->_Cstctid;
     }
     
+    /**
+     * @return string
+     */
+    public function getJobDescrip() {
+        return $this->_jobDescrip;
+    } 
     
     /**
      * @param string
@@ -183,8 +190,8 @@ class DashboardViewModel {
      * Project Manager
      * @param string
      */
-    public function setInspectno($value) {
-        $this->_Inspectno = $value;
+    public function setProjectManager($value) {
+        $this->_projectManager = $value;
     }
     
     /**
@@ -207,7 +214,16 @@ class DashboardViewModel {
     public function setCstctid($value) {
         $this->_Cstctid = $value;
     }
-
+    
+    /**
+     * @param string
+     */
+    public function setJobDescrip($value) {
+        $this->_jobDescrip = $value;
+    }
+    
+    
+    
    /**
     * 
     * @param string $ordnum Sell Order Number
@@ -219,12 +235,13 @@ class DashboardViewModel {
     * @param string $sotypecode Job Type
     * @param string $mtrlstatus Material Status
     * @param string $jobstatus Status
-    * @param string $inspectno Project manager
+    * @param string $projectManager Project Manager
     * @param date $podate Create Date
     * @param int $qutno Quote No
     * @param int $Cstctid Cost Center
+    * @param string $jobDescrip Job Description
     */
-    public function __construct($ordnum, $ponum, $company, $destino, $ProStartDT, $ProEndDT, $sotypecode, $mtrlstatus , $jobstatus, $inspectno, $podate, $qutno, $Cstctid) {
+    public function __construct($ordnum, $ponum, $company, $destino, $ProStartDT, $ProEndDT, $sotypecode, $mtrlstatus , $jobstatus, $projectManager, $podate, $qutno, $Cstctid, $jobDescrip) {
 
         $this->_ordnum = trim($ordnum);
         $this->_ponum = trim($ponum);
@@ -235,10 +252,11 @@ class DashboardViewModel {
         $this->_sotypecode = trim($sotypecode);
         $this->_mtrlstatus = trim($mtrlstatus);
         $this->_jobstatus = trim($jobstatus);
-        $this->_inspectno = trim($inspectno);
+        $this->_projectManager = trim($projectManager);
         $this->_podate = $podate === "1899-12-30" ? "" : $podate;
         $this->_qutno = trim($qutno);
         $this->_Cstctid = trim($Cstctid);
+        $this->_jobDescrip = trim($jobDescrip);
         
     }
 }

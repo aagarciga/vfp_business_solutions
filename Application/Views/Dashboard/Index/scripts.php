@@ -281,6 +281,11 @@ Dropzone.options.filesModalDropzone = {
                 appendChild(document.createTextNode($dataRow.sotypecode));
             }
             
+            with (_tdDescription){
+                className = tdClass;
+                appendChild(document.createTextNode($dataRow.JobDescrip));
+            }
+            
             with (_tdMaterialStatus){
                 className = tdClass;
                 //appendChild(document.createTextNode($dataRow.mtrlstatus));
@@ -303,7 +308,7 @@ Dropzone.options.filesModalDropzone = {
             
             with (_tdProjectManager){
                 className = tdClass;
-                appendChild(document.createTextNode($dataRow.inspectno));
+                appendChild(document.createTextNode($dataRow.projectManager));
             }
             
             with (_tdPodate){

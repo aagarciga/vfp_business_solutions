@@ -28,10 +28,12 @@ class Dashboard extends DatActionsController {
                 . "sotypecode, "
                 . "MTRLSTATUS, "
                 . "JOBSTATUS, "
-                . "inspectno, "
+                . "TECHPM1 as projectManager, "
                 . "podate, "
                 . "qutno, "
-                . "Cstctid FROM SOHEAD$companySuffix "
+                . "Cstctid ,"
+                . "JobDescrip "
+                . "FROM SOHEAD$companySuffix "
                 . "WHERE  NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')";
         // Lets BootstrapPager deal with item count
 //        $query = $this->DatUnitOfWork->DBDriver->GetQuery();
