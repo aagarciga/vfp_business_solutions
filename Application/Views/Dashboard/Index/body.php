@@ -176,10 +176,11 @@
                 <h4 class="modal-title">Files</h4>
             </div>
             <div class="modal-body">
-                <div id="files-modal-dropzone" class="dropzone">
-                    
-                </div>
-                
+                <form id="filesModalDropzone" action="<?php echo $View->Href('Dashboard', 'UploadFile') ?>" class="dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 

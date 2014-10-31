@@ -14,11 +14,26 @@
 </script>
 
 <script>
-    $("div#files-modal-dropzone").dropzone({ url: "<?php echo $View->Href('Dashboard', 'UploadFile') ?>", 
-        addRemoveLinks: true, 
-        acceptedFiles: "image/*,application/pdf,.psd" ,
-        dictDefaultMessage: "Drop your files to instantly upload"
-    });
+//    $("div#files-modal-dropzone").dropzone({ url: "<?php echo $View->Href('Dashboard', 'UploadFile') ?>", 
+//        addRemoveLinks: true, 
+//        acceptedFiles: "image/*,application/pdf,.psd" ,
+//        dictDefaultMessage: "Drop your files to instantly upload"
+//    });
+
+// "filesModalDropzone" is the camelized version of the HTML element's ID
+Dropzone.options.filesModalDropzone = {
+    paramName: "file", // The name that will be used to transfer the file
+    maxFilesize: 2, // MB
+    maxThumbnailFilesize : 1, // MB
+    addRemoveLinks: true,
+    acceptedFiles: "image/*,application/pdf,.psd" ,
+    accept: function(file, done) {
+        if (file.name === "Alex.jpg") {
+            done("Hello Creator.");
+        }
+        else { done(); }
+    }
+};
 </script>
 
 <script>
