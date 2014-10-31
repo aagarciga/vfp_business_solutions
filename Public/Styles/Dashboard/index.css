@@ -52,6 +52,12 @@ ul.pagination{
     margin: 0px;
 }
 
+/*#files-modal-dropzone{
+    outline: thin solid red;
+    width: 200px;
+    height: 200px;
+}*/
+
 @media (min-width: 768px){
     .form-inline .form-group {
 /*        display: block; */

@@ -82,10 +82,8 @@
                         <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>
                     </ul>
                 </div>
-
-
             </form>
-
+            
             <div class="panel-table">
                 <table class="table table-striped" id="dashboardTable">
                     <colgroup>
@@ -153,24 +151,41 @@
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
                             <td class="item-field"><?php echo $item->getQutno() ?></td>
                             <td class="item-field"><?php echo $item->getCstctid() ?></td>
-                            <td><a href="#"><span class="glyphicon glyphicon-folder-close"></span></a></td>
+                            <td><a href="#" class="btn-files-dialog"><span class="glyphicon glyphicon-folder-close"></span></a></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
                 </table>
 
-            </div>
-
-            <!-- Table -->
+            </div><!-- /.panel-table -->
         </div>
         <div class="panel-footer">
             <div class="text-center pager-wrapper">
                 <?php echo $Pager->getPagerControl(); ?> 
              </div>
         </div>
+    </div><!-- /.panel -->
+</div><!-- /.container -->
 
 
-    </div>
-
-</div>
+<div class="modal fade" id="files-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Files</h4>
+            </div>
+            <div class="modal-body">
+                <div id="files-modal-dropzone" class="dropzone">
+                    
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 

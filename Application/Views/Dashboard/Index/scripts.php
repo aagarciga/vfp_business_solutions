@@ -1,5 +1,6 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
 <script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.js'); ?>"></script>
 <script src="<?php echo $View->PublicContext('scripts/Dandelion/BootstrapDynamicFilter.js'); ?>"></script>
 
@@ -10,6 +11,23 @@
             bindUpdateDropdownClick();
         });
     })(window, document, jQuery);
+</script>
+
+<script>
+    $("div#files-modal-dropzone").dropzone({ url: "<?php echo $View->Href('Dashboard', 'UploadFile') ?>", 
+        addRemoveLinks: true, 
+        acceptedFiles: "image/*,application/pdf,.psd" ,
+        dictDefaultMessage: "Drop your files to instantly upload"
+    });
+</script>
+
+<script>
+    function Files_OnClick(data){
+        $('#files-modal').modal('show');
+        //console.log($(data.currentTarget).parent());
+    }
+    
+    $('.btn-files-dialog').on('click', Files_OnClick); 
 </script>
 
 <script>
@@ -77,6 +95,7 @@
         
         $('.pager-btn').on("click", PagerControl_OnClick);
         
+        // Pager Control Buttons On Click Handler
         function PagerControl_OnClick(){
             var $table = $('#dashboardTable');
             var $currentButton = $(this);
@@ -290,6 +309,8 @@
             with (_tdAttachedFiles){
                 _spanGlyphIcon.className = "glyphicon glyphicon-folder-close";
                 _aAttachedFiles.href = "#";
+                _aAttachedFiles.className = "btn-files-dialog";
+                _aAttachedFiles.addEventListener('click', Files_OnClick);
                 _aAttachedFiles.appendChild(_spanGlyphIcon);
                 appendChild(_aAttachedFiles);
             }
