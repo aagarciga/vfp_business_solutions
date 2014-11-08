@@ -89,8 +89,8 @@
                 _inputGroup.appendChild(_spanInputGroupButton);
                 _formGroup.appendChild(_inputGroup);
 
-                // Initializing datepicker jQuery Object
-                $(_input).daterangepicker({singleDatePicker: true, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+                // Initializing datepicker jQuery Object (Ranged)
+                $(_input).daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
                 return _formGroup;
 
             },

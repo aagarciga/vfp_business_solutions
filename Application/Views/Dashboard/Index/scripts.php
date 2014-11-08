@@ -1,13 +1,16 @@
+<script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
-<script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
-<script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.js'); ?>"></script>
 <script src="<?php echo $View->PublicContext('scripts/Dandelion/BootstrapDynamicFilter.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
+<script src="<?php echo $View->PublicContext('scripts/jstree.init.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
+
 
 <script type="text/javascript">
     (function(window, document, $) {
         $(document).ready(function() {
-            $('.daterangepicker-single').daterangepicker({singleDatePicker: true, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+            $('.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
             bindUpdateDropdownClick();
         });
     })(window, document, jQuery);

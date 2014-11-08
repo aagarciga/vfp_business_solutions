@@ -6,3 +6,12 @@ function ShowFeedback(message){
         });
     });
 }
+
+;(function(window, document, $, undefined){
+    "use strict";
+
+    // Application Namespace
+    var App = {};
+    window.App = App;
+    
+})(window, document, jQuery, undefined);
