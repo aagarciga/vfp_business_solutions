@@ -28,17 +28,15 @@ class Dashboard extends DatActionsController {
                 . "sotypecode, "
                 . "MTRLSTATUS, "
                 . "JOBSTATUS, "
-                . "TECHPM1 as projectManager, "
+                . "TECHNAM1 as projectManager1, "
+                . "TECHNAM2 as projectManager2, "
                 . "podate, "
                 . "qutno, "
                 . "Cstctid ,"
                 . "JobDescrip "
                 . "FROM SOHEAD$companySuffix "
                 . "WHERE  NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')";
-        // Lets BootstrapPager deal with item count
-//        $query = $this->DatUnitOfWork->DBDriver->GetQuery();
-//        $queryResult = $query->Execute($sqlString);        
-//        $itemsCount = count($queryResult);
+
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 }

@@ -18,7 +18,8 @@ class DashboardViewModel {
     protected $_sotypecode;
     protected $_mtrlstatus;
     protected $_jobstatus;
-    protected $_projectManager;
+    protected $_projectManager1;
+    protected $_projectManager2;
     protected $_podate;
     protected $_qutno;
     protected $_Cstctid;
@@ -88,11 +89,19 @@ class DashboardViewModel {
     }
     
     /**
-     * Project Manager
+     * Project Manager 1
      * @return string
      */
-    public function getProjectManager() {
-        return $this->_projectManager;
+    public function getProjectManager1() {
+        return $this->_projectManager1;
+    }
+    
+    /**
+     * Project Manager 2
+     * @return string
+     */
+    public function getProjectManager2() {
+        return $this->_projectManager2;
     }
     
     /**
@@ -187,11 +196,19 @@ class DashboardViewModel {
     }
     
     /**
-     * Project Manager
+     * Project Manager 1
      * @param string
      */
-    public function setProjectManager($value) {
-        $this->_projectManager = $value;
+    public function setProjectManager1($value) {
+        $this->_projectManager1 = $value;
+    }
+    
+    /**
+     * Project Manager 2
+     * @param string
+     */
+    public function setProjectManager2($value) {
+        $this->_projectManager2 = $value;
     }
     
     /**
@@ -235,13 +252,14 @@ class DashboardViewModel {
     * @param string $sotypecode Job Type
     * @param string $mtrlstatus Material Status
     * @param string $jobstatus Status
-    * @param string $projectManager Project Manager
+    * @param string $projectManager1 Project Manager 1
+    * @param string $projectManager2 Project Manager 2
     * @param date $podate Create Date
     * @param int $qutno Quote No
     * @param int $Cstctid Cost Center
     * @param string $jobDescrip Job Description
     */
-    public function __construct($ordnum, $ponum, $company, $destino, $ProStartDT, $ProEndDT, $sotypecode, $mtrlstatus , $jobstatus, $projectManager, $podate, $qutno, $Cstctid, $jobDescrip) {
+    public function __construct($ordnum, $ponum, $company, $destino, $ProStartDT, $ProEndDT, $sotypecode, $mtrlstatus , $jobstatus, $projectManager1, $projectManager2, $podate, $qutno, $Cstctid, $jobDescrip) {
 
         $this->_ordnum = trim($ordnum);
         $this->_ponum = trim($ponum);
@@ -252,7 +270,8 @@ class DashboardViewModel {
         $this->_sotypecode = trim($sotypecode);
         $this->_mtrlstatus = trim($mtrlstatus);
         $this->_jobstatus = trim($jobstatus);
-        $this->_projectManager = trim($projectManager);
+        $this->_projectManager1 = trim($projectManager1);
+        $this->_projectManager2 = trim($projectManager2);
         $this->_podate = $podate === "1899-12-30" ? "" : $podate;
         $this->_qutno = trim($qutno);
         $this->_Cstctid = trim($Cstctid);

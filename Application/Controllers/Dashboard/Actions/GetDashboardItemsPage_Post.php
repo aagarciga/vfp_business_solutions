@@ -45,7 +45,8 @@ class GetDashboardItemsPage_Post extends Action {
                 $current['sotypecode'] = trim($row->sotypecode);
                 $current['mtrlstatus'] = trim($row->MTRLSTATUS);
                 $current['jobstatus'] = trim($row->JOBSTATUS);
-                $current['projectManager'] = trim($row->projectManager);
+                $current['projectManager1'] = trim($row->projectManager1);
+                $current['projectManager2'] = trim($row->projectManager2);
                 $current['podate'] = trim($row->podate === "1899-12-30" ? "" : $row->podate);
                 $current['qutno'] = trim($row->qutno);
                 $current['Cstctid'] = trim($row->Cstctid);

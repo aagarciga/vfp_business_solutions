@@ -270,7 +270,8 @@ Dropzone.options.filesModalDropzone = {
             _tdDescription = document.createElement('td'),
             _tdMaterialStatus = document.createElement('td'),
             _tdStatus = document.createElement('td'),
-            _tdProjectManager = document.createElement('td'),
+            _tdProjectManager1 = document.createElement('td'),
+            _tdProjectManager2 = document.createElement('td'),
             _tdPodate = document.createElement('td'),
             _tdQutno = document.createElement('td'), 
             _tdCstctid = document.createElement('td'),
@@ -341,9 +342,14 @@ Dropzone.options.filesModalDropzone = {
                 appendChild(_jobStatusControl);
             }
             
-            with (_tdProjectManager){
+            with (_tdProjectManager1){
                 className = tdClass;
-                appendChild(document.createTextNode($dataRow.projectManager));
+                appendChild(document.createTextNode($dataRow.projectManager1));
+            }
+            
+            with (_tdProjectManager2){
+                className = tdClass;
+                appendChild(document.createTextNode($dataRow.projectManager2));
             }
             
             with (_tdPodate){
@@ -382,7 +388,8 @@ Dropzone.options.filesModalDropzone = {
                 appendChild(_tdDescription); 
                 appendChild(_tdMaterialStatus); 
                 appendChild(_tdStatus);  
-                appendChild(_tdProjectManager); 
+                appendChild(_tdProjectManager1); 
+                appendChild(_tdProjectManager2);
                 appendChild(_tdPodate); 
                 appendChild(_tdQutno);  
                 appendChild(_tdCstctid);

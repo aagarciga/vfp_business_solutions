@@ -75,7 +75,8 @@
                         <li><a href="#" class="filter-field" data-field="sotype" data-field-type="text">Job Type</a></li>
                         <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="text">Material Status</a></li>
                         <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="text">Status</a></li>
-                        <li><a href="#" class="filter-field" data-field="inspectno" data-field-type="text">Project Manager</a></li>
+                        <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="text">Project Manager 1</a></li>
+                        <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="text">Project Manager 2</a></li>
                         <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
                         <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
                         <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="text">Cost Center</a></li>
@@ -115,7 +116,8 @@
                             <th>Description</th>
                             <th>Material Status</th>
                             <th>Status</th>
-                            <th>Project Manager</th>
+                            <th>Project Manager 1</th>
+                            <th>Project Manager 2</th>
                             <th>Create</th>
                             <th>Quote No</th>
                             <th>Cost Center</th>
@@ -147,7 +149,8 @@
                                     <?php endforeach ?> 
                                 </select>
                             </td>
-                            <td class="item-field"><?php echo $item->getProjectManager() ?></td>
+                            <td class="item-field"><?php echo $item->getProjectManager1() ?></td>
+                            <td class="item-field"><?php echo $item->getProjectManager2() ?></td>
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
                             <td class="item-field"><?php echo $item->getQutno() ?></td>
                             <td class="item-field"><?php echo $item->getCstctid() ?></td>
