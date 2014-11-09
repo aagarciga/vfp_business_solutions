@@ -61,8 +61,8 @@
                     //,"wholerow" 
                 ],
                 "types" : {
-                    "#" : { "max_children" : 1, "max_depth" : 4, "valid_children" : ["default"], "icon" : "glyphicon glyphicon-folder-open" },
-                    "default" : {  "icon" : "glyphicon glyphicon-folder-open", "valid_children" : ["default"] }
+                    "#" : { "max_children" : 1, "max_depth" : 4, "valid_children" : ["default"], "icon" : "glyphicon glyphicon-folder-close" },
+                    "default" : {  "icon" : "glyphicon glyphicon-folder-close", "valid_children" : ["default"] }
                 },
                 'core' : {
                     'themes' : {
@@ -75,37 +75,31 @@
                     'data' : [
                         { 
                             "text" : "./", 
-                            "state" : { "opened" : true }, 
-                            "icon" : "glyphicon glyphicon-folder-open",
                             "children" : [
-                                { 
-                                    "text" : "Pdf", 
-                                    "state" : { "selected" : true },
-                                    "icon" : "glyphicon glyphicon-folder-close"
+                                { "text" : "Pdf" },
+                                {"text" : "Photos",
+                                    "state": "close",
+                                    "children" : [{ "text" : "Before" },{ "text" : "After" }]
                                 },
-                                { 
-                                    "text" : "Photos", 
-                                    "icon" : "glyphicon glyphicon-folder-open",
-                                    "children" : [
-                                        { 
-                                            "text" : "Before", 
-                                            "icon" : "glyphicon glyphicon-folder-close"
-                                        },
-                                        { 
-                                            "text" : "After", 
-                                            "icon" : "glyphicon glyphicon-folder-close"
-                                        }
-                                    ]
-                                },
-                                { 
-                                    "text" : "Videos", 
-                                    "state" : { "disabled" : true },
-                                    "icon" : "glyphicon glyphicon-folder-close"
-                                }
+                                { "text" : "Videos" }
                             ]
                         }
                     ]
                 }
+            });
+            
+            // bind customize icon change function in jsTree open_node event. 
+            $(this.id).on('open_node.jstree', function(e, data){
+               $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
+                    .removeClass('glyphicon-folder-close').addClass('glyphicon-folder-open');
+                
+            });
+
+            // bind customize icon change function in jsTree close_node event. 
+            $(this.id).on('close_node.jstree', function(e, data){
+               $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
+                    .removeClass('glyphicon-folder-open').addClass('glyphicon-folder-close');
+                
             });
         }
     };
