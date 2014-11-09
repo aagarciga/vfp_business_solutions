@@ -38,14 +38,14 @@
             var to = false;
             (function(id, searchControlId){
                 $(searchControlId).keyup(function() {
-                if (to) {
-                    clearTimeout(to);
-                }
-                to = setTimeout(function() {
-                    var value = $(searchControlId).val();
-                    $(id).jstree(true).search(value);
-                }, 250);
-            });
+                    if (to) {
+                        clearTimeout(to);
+                    }
+                    to = setTimeout(function() {
+                        var value = $(searchControlId).val();
+                        $(id).jstree(true).search(value);
+                    }, 250);
+                });
             })(this.id, this.searchControlId);          
             
             // Setting jsTree jQuery Pluging

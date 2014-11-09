@@ -42,13 +42,13 @@ Dropzone.options.filesModalDropzone = {
 <script>
     function Files_OnClick(data){
         $('#files-modal').modal('show');
-        //console.log($(data.currentTarget).parent());
     }
     
     $('.btn-files-dialog').on('click', Files_OnClick); 
 </script>
 
 <script>
+    /// Filter Form Show/Hide control behavior
     (function(window, document, $) {
         $('#dashboard-panel-togle-visibility-button').on('click', function() {
             var $button = $(this),
@@ -67,7 +67,9 @@ Dropzone.options.filesModalDropzone = {
 </script>
 
 <script>
+    /// Filter Control Behavior
     (function(window, document, $) {
+        /// Filter Fields OnClick event handler
         $('.filter-field').on('click', function(){
             var $filterField = $(this),
                 _filterField = $filterField[0],
@@ -85,7 +87,37 @@ Dropzone.options.filesModalDropzone = {
                 $filterButton.before(Dandelion.BootstrapDynamicFilter.createDateFilter($filterField.data('field'), $filterField.text()));
             }
         });
+        
+        /// Filter Button OnClick event handler
+        $('#filterButton').on('click', function(){
+            var predicate = "";
+            
+            $('#filterForm').children().each(function(index){
+                
+                if ($(this).hasClass('btn-group') && !$(this).hasClass('filter-button')) {
+                    var value = $(this).children('button').text();
+                    predicate += value + " ";
+                }
+                else if($(this).hasClass('form-group')){
+                    var $input = $(this).find('input');
+                                        
+                        if ($input.hasClass('daterangepicker-single')) {
+                             var range = ["", ""];
+                            if ($input.val() !== "") {
+                                range = $input.val().split(' - ');                                
+                            }
+                            predicate += "(" + $input.data('fieldname') + " >= '" + range[0] + "' ";
+                            predicate += "And " + $input.data('fieldname') + " <= '" + range[1] + "') ";
+                        }
+                        else{
+                            predicate += $input.data('fieldname') + " = '" + $input.val() + "' ";
+                        }
+                }
+            });
+            console.log("Predicate: ", predicate);
+        });
     })(window, document, jQuery);
+    
 </script>
 
 <script>

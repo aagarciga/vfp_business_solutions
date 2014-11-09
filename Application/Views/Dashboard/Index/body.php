@@ -57,10 +57,10 @@
             <span class="pull-right">paged by </span>
         </div>
         <div class="panel-body">
-            <form class="form-inline" role="form">
+            <form id="filterForm" class="form-inline" role="form">
 
                 <div  class="btn-group filter-button left">
-                    <button type="button" class="btn btn-primary">Filter</button>
+                    <button id="filterButton" type="button" class="btn btn-primary">Filter</button>
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
@@ -73,8 +73,8 @@
                         <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
                         <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
                         <li><a href="#" class="filter-field" data-field="sotype" data-field-type="text">Job Type</a></li>
-                        <li><a href="#" class="filter-field" data-field="" data-field-type="text">Material Status</a></li>
-                        <li><a href="#" class="filter-field" data-field="" data-field-type="text">Status</a></li>
+                        <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="text">Material Status</a></li>
+                        <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="text">Status</a></li>
                         <li><a href="#" class="filter-field" data-field="inspectno" data-field-type="text">Project Manager</a></li>
                         <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
                         <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
