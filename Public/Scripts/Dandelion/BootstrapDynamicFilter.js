@@ -28,12 +28,26 @@
                 _button.title = "Delete Filter Field"
                 _button.type = "button";
                 _button.addEventListener('click', function() {
-                    // Remove from its parent by default
+                    var _firstModifier = _formGroup.parentNode.firstChild.nextSibling,
+                        _previuosSibling = _formGroup.previousSibling,
+                        _nextSibling = _formGroup.nextSibling,
+                        _filterButton = _formGroup.parentNode.lastChild.previousSibling;
+                        
                     if (_formGroup.parentNode) {
-                        // Remove Previous Sibling  from its parent if any
-                        if (_formGroup.previousSibling) {
-                            _formGroup.parentNode.removeChild(_formGroup.previousSibling);
+                        if (_formGroup.previousSibling === _firstModifier) {
+                            if (_formGroup.nextSibling === _filterButton) {
+                                // Remove Previous Sibling from its parent if any
+                                _formGroup.parentNode.removeChild(_previuosSibling);
+                            }   
+                            else{                                
+                                _formGroup.parentNode.removeChild(_nextSibling);
+                            }
                         }
+                        else{
+                            // Remove Previous Sibling from its parent if any
+                            _formGroup.parentNode.removeChild(_previuosSibling);
+                        }
+                        // Remove from its parent by default
                         _formGroup.parentNode.removeChild(_formGroup);
                     }
                     // release memory in IE
@@ -74,12 +88,26 @@
                 _button.type = "button";
                 _button.className = "btn btn-default glyphicon-action-button glyphicon-minus";
                 _button.addEventListener('click', function() {
-                    // Remove from its parent by default
+                    var _firstModifier = _formGroup.parentNode.firstChild.nextSibling,
+                        _previuosSibling = _formGroup.previousSibling,
+                        _nextSibling = _formGroup.nextSibling,
+                        _filterButton = _formGroup.parentNode.lastChild.previousSibling;
+                        
                     if (_formGroup.parentNode) {
-                        // Remove Previous Sibling from its parent if any
-                        if (_formGroup.previousSibling) {
-                            _formGroup.parentNode.removeChild(_formGroup.previousSibling);
+                        if (_formGroup.previousSibling === _firstModifier) {
+                            if (_formGroup.nextSibling === _filterButton) {
+                                // Remove Previous Sibling from its parent if any
+                                _formGroup.parentNode.removeChild(_previuosSibling);
+                            }   
+                            else{                                
+                                _formGroup.parentNode.removeChild(_nextSibling);
+                            }
                         }
+                        else{
+                            // Remove Previous Sibling from its parent if any
+                            _formGroup.parentNode.removeChild(_previuosSibling);
+                        }
+                        // Remove from its parent by default
                         _formGroup.parentNode.removeChild(_formGroup);
                     }
                     // release memory in IE
