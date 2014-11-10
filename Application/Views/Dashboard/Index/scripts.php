@@ -8,14 +8,15 @@
 
 
 <script>
-;(function(window, document, $, App, undefined){
-    "use strict";
+    ;
+    (function(window, document, App) {
+        "use strict";
 
-    // Dashboard Namespace
-    var Dashboard = {};
-    App.Dashboard = Dashboard;
-    
-})(window, document, jQuery, App, undefined);
+        // Dashboard Namespace
+        var Dashboard = {};
+        App.Dashboard = Dashboard;
+
+    })(window, document, App);
 </script>
 
 <script type="text/javascript">
@@ -28,34 +29,30 @@
 </script>
 
 <script>
-//    $("div#files-modal-dropzone").dropzone({ url: "<?php echo $View->Href('Dashboard', 'UploadFile') ?>", 
-//        addRemoveLinks: true, 
-//        acceptedFiles: "image/*,application/pdf,.psd" ,
-//        dictDefaultMessage: "Drop your files to instantly upload"
-//    });
-
-// "filesModalDropzone" is the camelized version of the HTML element's ID
-Dropzone.options.filesModalDropzone = {
-    paramName: "file", // The name that will be used to transfer the file
-    maxFilesize: 2, // MB
-    maxThumbnailFilesize : 1, // MB
-    addRemoveLinks: true,
-    acceptedFiles: "image/*,application/pdf,.psd" ,
-    accept: function(file, done) {
-        if (file.name === "Alex.jpg") {
-            done("Hello Creator.");
+    // "filesModalDropzone" is the camelized version of the HTML element's ID
+    Dropzone.options.filesModalDropzone = {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        maxThumbnailFilesize: 1, // MB
+        addRemoveLinks: true,
+        acceptedFiles: "image/*,application/pdf,.psd",
+        accept: function(file, done) {
+            if (file.name === "Alex.jpg") {
+                done("Hello Creator.");
+            }
+            else {
+                done();
+            }
         }
-        else { done(); }
-    }
-};
+    };
 </script>
 
 <script>
-    function Files_OnClick(data){
+    function Files_OnClick(data) {
         $('#files-modal').modal('show');
     }
-    
-    $('.btn-files-dialog').on('click', Files_OnClick); 
+
+    $('.btn-files-dialog').on('click', Files_OnClick);
 </script>
 
 <script>
@@ -81,14 +78,14 @@ Dropzone.options.filesModalDropzone = {
     /// Filter Control Behavior
     (function(window, document, $, Dashboard) {
         /// Filter Fields OnClick event handler
-        $('.filter-field').on('click', function(){
+        $('.filter-field').on('click', function() {
             var $filterField = $(this),
-                _filterField = $filterField[0],
-                $filterButton = $('.filter-button');            
-            if(_filterField.parentElement.parentElement.parentElement.previousSibling.previousSibling !== null){
+                    _filterField = $filterField[0],
+                    $filterButton = $('.filter-button');
+            if (_filterField.parentElement.parentElement.parentElement.previousSibling.previousSibling !== null) {
                 $filterButton.before(Dandelion.BootstrapDynamicFilter.createModifier());
             }
-            else{
+            else {
                 $filterButton.before(Dandelion.BootstrapDynamicFilter.createFirstModifier());
             }
             if ($filterField.data('field-type') === "text") {
@@ -97,295 +94,302 @@ Dropzone.options.filesModalDropzone = {
             if ($filterField.data('field-type') === "date") {
                 $filterButton.before(Dandelion.BootstrapDynamicFilter.createDateFilter($filterField.data('field'), $filterField.text()));
             }
+            if ($filterField.data('field-type') === "job-status") {
+                $filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus));
+            }
+            if ($filterField.data('field-type') === "material-status") {
+                $filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus));
+            }
         });
-        
+
         /// Filter Button OnClick event handler
-        $('#filterButton').on('click', function(){
+        $('#filterButton').on('click', function() {
             var predicate = "";
-            
-            $('#filterForm').children().each(function(index){
-                
+
+            $('#filterForm').children().each(function(index) {
+
                 if ($(this).hasClass('btn-group') && !$(this).hasClass('filter-button')) {
                     var value = $(this).children('button').text();
                     predicate += value + " ";
                 }
-                else if($(this).hasClass('form-group')){
-                    var $input = $(this).find('input');
-                                        
-                        if ($input.hasClass('daterangepicker-single')) {
-                             var range = ["", ""];
-                            if ($input.val() !== "") {
-                                range = $input.val().split(' - ');                                
-                            }
-                            predicate += "(" + $input.data('fieldname') + " >= '" + range[0] + "' ";
-                            predicate += "And " + $input.data('fieldname') + " <= '" + range[1] + "') ";
-                        }
-                        else{
-                            predicate += $input.data('fieldname') + " = '" + $input.val() + "' ";
-                        }
+                else if ($(this).hasClass('form-group')) {
+                    var $control = $(this).find('input, select');                    
+                    if ($control.val() === "") {
+                         predicate += 'EMPTY('+$control.data('fieldname')+') ';
+                    }
+                    else if($control.hasClass('daterangepicker-single')){
+                        var range = $control.val().split(' - ');
+                        predicate += "(" + $control.data('fieldname') + " >= '" + range[0] + "' ";
+                        predicate += "And " + $control.data('fieldname') + " <= '" + range[1] + "') ";
+                    }
+                    else{
+                        predicate += $control.data('fieldname') + " = '" + $control.val() + "' ";
+                    }
                 }
             });
-            console.log("Predicate: ", predicate);
             Dashboard.filterPredicate = predicate;
-            
+
             var $table = $('#dashboardTable');
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
             Dashboard.Page(Dashboard.filterPredicate, 1, $itemsperpage, $table);
         });
     })(window, document, jQuery, App.Dashboard);
-    
+
 </script>
 
 <script>
     (function(window, document, $, Dashboard) {
-        function page($filter, $page, $itemsperpage, $table){
-            var params = {'filterPredicate': $filter, 'page' : $page, 'itemsperpage' : $itemsperpage};
+        function page($filter, $page, $itemsperpage, $table) {
+            var params = {'filterPredicate': $filter, 'page': $page, 'itemsperpage': $itemsperpage};
             $.ajax({
                 data: params,
                 url: '<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>',
                 type: 'post',
-                beforeSend: function(){
+                beforeSend: function() {
                     $('.loading').show();
                 },
-                success: function (response){
+                success: function(response) {
                     var _response = $.parseJSON(response);
                     var pager = new BootstrapPager(_response, PagerControl_OnClick);
-                    var pagerControl = pager.getPagerControl(); 
+                    var pagerControl = pager.getPagerControl();
                     $('.pager-wrapper').html('').append(pagerControl);
                     var pagerItems = pager.getCurrentPagedItems();
-                    updateDashboardTable($table, pagerItems);
+                    Dashboard.updateDashboardTable($table, pagerItems);
                     $('.loading').hide();
-                }            
+                }
             });
         }
-        
+
         Dashboard.Page = page;
-        
+
         $('.pager-btn').on("click", PagerControl_OnClick);
-        
+
         // Pager Control Buttons On Click Handler
-        function PagerControl_OnClick(){
+        function PagerControl_OnClick() {
             var $table = $('#dashboardTable');
             var $currentButton = $(this);
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            page(Dashboard.filterPredicate, $currentButton.data('page'), $itemsperpage, $table);
+            Dashboard.Page(Dashboard.filterPredicate, $currentButton.data('page'), $itemsperpage, $table);
         }
-        
-        $('.top-pager-itemmperpage-control a').on('click', function(){
+
+        $('.top-pager-itemmperpage-control a').on('click', function() {
             // Update Control Selected Value
             $('.top-pager-itemmperpage-control button span.value').text($(this).text());
             // Always show page one
             var $table = $('#dashboardTable');
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            page(Dashboard.filterPredicate, 1, $itemsperpage, $table); // 
+            Dashboard.Page(Dashboard.filterPredicate, 1, $itemsperpage, $table); // 
         });
     })(window, document, jQuery, App.Dashboard);
 </script>
 
 <script>
-    $.ajax({
-        data: {},
-        url: '<?php echo $View->Href('Dashboard', 'GetMaterialStatusItems') ?>',
-        type: 'post',
-        beforeSend: function(){
-            $('.loading').show();
-        },
-        success: function (response){
-            var _response = $.parseJSON(response);
-            window.MaterialStatus = _response;
-            $('.loading').hide();
-        }            
-    });
+    (function(window, document, jQuery, Dashboard) {
+        $.ajax({
+            data: {},
+            url: '<?php echo $View->Href('Dashboard', 'GetMaterialStatusItems') ?>',
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function(response) {
+                var _response = $.parseJSON(response);
+                Dashboard.MaterialStatus = _response;
+                $('.loading').hide();
+            }
+        });
+    })(window, document, jQuery, App.Dashboard);
 </script>
 
 <script>
-    $.ajax({
-        data: {},
-        url: '<?php echo $View->Href('Dashboard', 'GetJobStatusItems') ?>',
-        type: 'post',
-        beforeSend: function(){
-            $('.loading').show();
-        },
-        success: function (response){
-            var _response = $.parseJSON(response);
-            window.JobStatus = _response;
-            $('.loading').hide();
-        }            
-    });
+    (function(window, document, jQuery, Dashboard) {
+        $.ajax({
+            data: {},
+            url: '<?php echo $View->Href('Dashboard', 'GetJobStatusItems') ?>',
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function(response) {
+                var _response = $.parseJSON(response);
+                Dashboard.JobStatus = _response;
+                $('.loading').hide();
+            }
+        });
+    })(window, document, jQuery, App.Dashboard);
 </script>
 
 <script>
-    function bindUpdateDropdownClick(){
-    $('.update-dropdown').on('change', function(){        
-        var $dropdown = $(this),
-            params = {'ordnum' : $dropdown.data('ordnum'), 'mtrlstatus' : $dropdown.val(), 'jobstatus' : $dropdown.val()};
-        if ($dropdown.hasClass('material-status')) {
-            $.ajax({
-                data: params,
-                url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADMaterialStatus') ?>',
-                type: 'post',
-                beforeSend: function(){
-                    $('.loading').show();
-                },
-                success: function (response){
-                    var _response = $.parseJSON(response);
-                    if (_response === 'success') {
-                        console.log(_response); 
-                        //console.log($dropdown);
-                    }else {
-                        console.log(_response);
+    function bindUpdateDropdownClick() {
+        $('.update-dropdown').on('change', function() {
+            var $dropdown = $(this),
+                    params = {'ordnum': $dropdown.data('ordnum'), 'mtrlstatus': $dropdown.val(), 'jobstatus': $dropdown.val()};
+            if ($dropdown.hasClass('material-status')) {
+                $.ajax({
+                    data: params,
+                    url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADMaterialStatus') ?>',
+                    type: 'post',
+                    beforeSend: function() {
+                        $('.loading').show();
+                    },
+                    success: function(response) {
+                        var _response = $.parseJSON(response);
+                        if (_response === 'success') {
+                            console.log(_response);
+                            //console.log($dropdown);
+                        } else {
+                            console.log(_response);
+                        }
+                        $('.loading').hide();
                     }
-                    $('.loading').hide();
-                }            
-            });
-        }
-        if ($dropdown.hasClass('job-status')) {
-            $.ajax({
-                data: params,
-                url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>',
-                type: 'post',
-                beforeSend: function(){
-                    $('.loading').show();
-                },
-                success: function (response){
-                    var _response = $.parseJSON(response);
-                    if (_response === 'success') {
-                        console.log(_response);
-                    }else {
-                        console.log(_response);
+                });
+            }
+            if ($dropdown.hasClass('job-status')) {
+                $.ajax({
+                    data: params,
+                    url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>',
+                    type: 'post',
+                    beforeSend: function() {
+                        $('.loading').show();
+                    },
+                    success: function(response) {
+                        var _response = $.parseJSON(response);
+                        if (_response === 'success') {
+                            console.log(_response);
+                        } else {
+                            console.log(_response);
+                        }
+                        $('.loading').hide();
                     }
-                    $('.loading').hide();
-                }            
-            });
-        }
-    });
+                });
+            }
+        });
     }
-    
-    
-    
+
+
+
 </script>
 
 <script>
-    function updateDashboardTable($table, $data){
-        var $tableBody = $table.children('tbody');
-        $tableBody.html('');
-        for(index in $data){  
-            $tableBody.append(buildDashboardItemTableRow($data[index], '', "item-field"));
+    (function(window, document, jQuery, Dashboard) {
+        
+        Dashboard.updateDashboardTable = function($table, $data) {
+            var $tableBody = $table.children('tbody');
+            $tableBody.html('');
+            for (index in $data) {
+                $tableBody.append(Dashboard.buildDashboardItemTableRow($data[index], '', "item-field"));
+            }
+            bindUpdateDropdownClick();
         }
-        bindUpdateDropdownClick();
-    }
-    
-    function buildDashboardItemTableRow($dataRow, trClass, tdClass){
-        var _result = document.createElement('tr'),
-            _tdOrdnum = document.createElement('td'),
-            _aOrdnum = document.createElement('a'),
-            _tdPonum = document.createElement('td'),
-            _tdCompany = document.createElement('td'),            
-            _tdDestino = document.createElement('td'),
-            _tdProStartDT = document.createElement('td'),
-            _tdProEndDT = document.createElement('td'),
-            _tdSotypecode = document.createElement('td'),
-            _tdDescription = document.createElement('td'),
-            _tdMaterialStatus = document.createElement('td'),
-            _tdStatus = document.createElement('td'),
-            _tdProjectManager1 = document.createElement('td'),
-            _tdProjectManager2 = document.createElement('td'),
-            _tdPodate = document.createElement('td'),
-            _tdQutno = document.createElement('td'), 
-            _tdCstctid = document.createElement('td'),
-            _tdAttachedFiles = document.createElement('td'),
-            _aAttachedFiles = document.createElement('a'),
-            _spanGlyphIcon = document.createElement('span');
-    
-    
-            with (_tdOrdnum){
+
+        Dashboard.buildDashboardItemTableRow = function($dataRow, trClass, tdClass) {
+            var _result = document.createElement('tr'),
+                    _tdOrdnum = document.createElement('td'),
+                    _aOrdnum = document.createElement('a'),
+                    _tdPonum = document.createElement('td'),
+                    _tdCompany = document.createElement('td'),
+                    _tdDestino = document.createElement('td'),
+                    _tdProStartDT = document.createElement('td'),
+                    _tdProEndDT = document.createElement('td'),
+                    _tdSotypecode = document.createElement('td'),
+                    _tdDescription = document.createElement('td'),
+                    _tdMaterialStatus = document.createElement('td'),
+                    _tdStatus = document.createElement('td'),
+                    _tdProjectManager1 = document.createElement('td'),
+                    _tdProjectManager2 = document.createElement('td'),
+                    _tdPodate = document.createElement('td'),
+                    _tdQutno = document.createElement('td'),
+                    _tdCstctid = document.createElement('td'),
+                    _tdAttachedFiles = document.createElement('td'),
+                    _aAttachedFiles = document.createElement('a'),
+                    _spanGlyphIcon = document.createElement('span');
+
+
+            with (_tdOrdnum) {
                 _aOrdnum.href = "#";
                 _aOrdnum.appendChild(document.createTextNode($dataRow.ordnum));
                 className = tdClass;
                 appendChild(_aOrdnum);
             }
-            
-            with (_tdPonum){
+
+            with (_tdPonum) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.ponum));
             }
-            
-            with (_tdCompany){
+
+            with (_tdCompany) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.company));
-            }           
-            
-            with (_tdDestino){
+            }
+
+            with (_tdDestino) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.destino));
             }
-            
-            with (_tdProStartDT){
+
+            with (_tdProStartDT) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.ProStartDT));
             }
-            
-            with (_tdProEndDT){
+
+            with (_tdProEndDT) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.ProEndDT));
             }
-            
-            with (_tdSotypecode){
+
+            with (_tdSotypecode) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.sotypecode));
             }
-            
-            with (_tdDescription){
+
+            with (_tdDescription) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.JobDescrip));
             }
-            
-            with (_tdMaterialStatus){
+
+            with (_tdMaterialStatus) {
                 className = tdClass;
                 //appendChild(document.createTextNode($dataRow.mtrlstatus));
-                var _materialStatusControl = buildStatusControl($dataRow.mtrlstatus, window.MaterialStatus);
+                var _materialStatusControl = Dashboard.buildStatusControl($dataRow.mtrlstatus, Dashboard.MaterialStatus);
                 _materialStatusControl.dataset['ordnum'] = $dataRow.ordnum;
                 _materialStatusControl.className += ' material-status';
                 appendChild(_materialStatusControl);
             }
-            
-            with (_tdStatus){
-                className = tdClass;                
-                //appendChild(document.createTextNode($dataRow.jobstatus));
-                //appendChild(buildStatusControl($dataRow.jobstatus, window.JobStatus));
-                
-                var _jobStatusControl = buildStatusControl($dataRow.jobstatus, window.JobStatus);
+
+            with (_tdStatus) {
+                className = tdClass;
+                var _jobStatusControl = Dashboard.buildStatusControl($dataRow.jobstatus, Dashboard.JobStatus);
                 _jobStatusControl.dataset['ordnum'] = $dataRow.ordnum;
                 _jobStatusControl.className += ' job-status';
                 appendChild(_jobStatusControl);
             }
-            
-            with (_tdProjectManager1){
+
+            with (_tdProjectManager1) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.projectManager1));
             }
-            
-            with (_tdProjectManager2){
+
+            with (_tdProjectManager2) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.projectManager2));
             }
-            
-            with (_tdPodate){
+
+            with (_tdPodate) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.podate));
             }
-            
-            with (_tdQutno){
+
+            with (_tdQutno) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.qutno));
             }
-            
-            with (_tdCstctid){
+
+            with (_tdCstctid) {
                 className = tdClass;
                 appendChild(document.createTextNode($dataRow.Cstctid));
             }
-            
-            with (_tdAttachedFiles){
+
+            with (_tdAttachedFiles) {
                 className = "item-action item-files";
                 _spanGlyphIcon.className = "glyphicon glyphicon-folder-close";
                 _aAttachedFiles.href = "#";
@@ -394,37 +398,40 @@ Dropzone.options.filesModalDropzone = {
                 _aAttachedFiles.appendChild(_spanGlyphIcon);
                 appendChild(_aAttachedFiles);
             }
-                        
+
             with (_result) {
                 className = trClass;
                 appendChild(_tdOrdnum);
                 appendChild(_tdPonum);
-                appendChild(_tdCompany);                
+                appendChild(_tdCompany);
                 appendChild(_tdDestino);
                 appendChild(_tdProStartDT);
                 appendChild(_tdProEndDT);
                 appendChild(_tdSotypecode);
-                appendChild(_tdDescription); 
-                appendChild(_tdMaterialStatus); 
-                appendChild(_tdStatus);  
-                appendChild(_tdProjectManager1); 
+                appendChild(_tdDescription);
+                appendChild(_tdMaterialStatus);
+                appendChild(_tdStatus);
+                appendChild(_tdProjectManager1);
                 appendChild(_tdProjectManager2);
-                appendChild(_tdPodate); 
-                appendChild(_tdQutno);  
+                appendChild(_tdPodate);
+                appendChild(_tdQutno);
                 appendChild(_tdCstctid);
                 appendChild(_tdAttachedFiles);
             }
             return _result;
-        };
-        
-        function buildStatusControl(current, values){
-            var _select = document.createElement('select');
+        }
+        ;
 
-            for(index in values){  
+        Dashboard.buildStatusControl = function(current, values) {
+            var _select = document.createElement('select');
+            var _optionEmpty = document.createElement('option');
+                _optionEmpty.appendChild(document.createTextNode("Empty"));
+                _select.appendChild(_optionEmpty);
+            for (index in values) {
                 var _option = document.createElement('option');
                 _option.value = values[index]['edistatid'];
                 _option.appendChild(document.createTextNode(values[index]['descrip']));
-                if (current === values[index]['edistatid'] ) {
+                if (current === values[index]['edistatid']) {
                     _option.selected = "selected";
                 }
                 _select.appendChild(_option);
@@ -432,8 +439,9 @@ Dropzone.options.filesModalDropzone = {
             _select.className = 'form-control update-dropdown';
             return _select;
         }
+    })(window, document, jQuery, App.Dashboard);
 </script>
 
 <script>
-    <?php echo $Pager->GetJavascriptPager(); ?>
+<?php echo $Pager->GetJavascriptPager(); ?>
 </script>

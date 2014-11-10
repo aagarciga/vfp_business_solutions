@@ -73,14 +73,14 @@
                         <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
                         <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
                         <li><a href="#" class="filter-field" data-field="sotype" data-field-type="text">Job Type</a></li>
-                        <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="text">Material Status</a></li>
-                        <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="text">Status</a></li>
+                        <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="material-status">Material Status</a></li>
+                        <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="job-status">Status</a></li>
                         <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="text">Project Manager 1</a></li>
                         <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="text">Project Manager 2</a></li>
                         <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
                         <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
                         <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="text">Cost Center</a></li>
-                        <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>
+<!--                        <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>-->
                     </ul>
                 </div>
             </form>
@@ -138,6 +138,7 @@
                             <td class="item-field"><?php echo $item->getJobDescrip() ?></td>
                             <td class="item-field">
                                 <select class="form-control update-dropdown material-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                    <option>Empty</option>
                                     <?php foreach ($MaterialStatusItems as $msItem): ?>
                                         <option <?php echo ($item->getMtrlstatus() !== $msItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $msItem->getEdistatid() ?>" ><?php echo $msItem->getDescrip() ?></option>
                                     <?php endforeach ?> 
@@ -145,6 +146,7 @@
                             </td>
                             <td class="item-field">
                                 <select class="form-control  update-dropdown job-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                    <option>Empty</option>
                                     <?php foreach ($JobStatusItems as $jobItem): ?>
                                         <option <?php echo ($item->getJobstatus() !== $jobItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $jobItem->getEdistatid() ?>" ><?php echo $jobItem->getDescrip() ?></option>
                                     <?php endforeach ?> 
