@@ -52,11 +52,15 @@ ul.pagination{
     margin: 0px;
 }
 
-/*#files-modal-dropzone{
-    outline: thin solid red;
-    width: 200px;
-    height: 200px;
-}*/
+.material-status,.job-status{
+   height: 2em;
+   padding: 4px 12px;
+   text-overflow: ellipsis;
+}
+
+.item-action.item-files{
+    text-align: center;
+}
 
 @media (min-width: 768px){
     .form-inline .form-group {
@@ -72,57 +76,74 @@ ul.pagination{
     }
 }
 
-/*th{
-    outline: thin solid red;
-}*/
-/*col.col-1{
-    min-width: 150px;
+#dashboardTable{
+    width: 180em;
+    max-width: 180em;
 }
 
-col.col-2{
-    min-width: 190px;
+col.col-sales-order{
+   width: 7em; 
 }
 
-col.col-3{
-    min-width: 65px;
+col.col-purchase-order{
+   width: 9em; 
 }
 
-col.col-4{
-    min-width: 65px;
+col.col-company{
+   width: 14em; 
 }
 
-col.col-5{
-    min-width: 90px;
-}
-col.col-6{
-    min-width: 80px;
-}
-col.col-7{
-    min-width: 80px;
-}
-col.col-8{
-    min-width: 90px;
+col.col-vessel{
+   width: 10em; 
 }
 
-col.col-9{
-    min-width: 125px;
+col.col-start{
+   width: 7em; 
+   color: red;
 }
 
-col.col-10{
-    min-width: 60px;
+col.col-end{
+   width: 7em; 
 }
-col.col-11{
-    min-width: 135px;
+
+col.col-job-type{
+   width: 6em; 
 }
-col.col-12{
-    min-width: 100px;
+
+col.col-description{
+   width: 18em; 
 }
-col.col-13{
-    min-width: 85px;
+
+col.col-material-status{
+   width: 9em; 
 }
-col.col-14{
-    min-width: 100px;
+
+col.col-status{
+   width: 9em; 
+   
 }
-col.col-15{
-    min-width: 120px;
-}*/
+
+col.col-project-manager-1{
+   width: 13em; 
+}
+
+col.col-project-manager-2{
+   width: 13em; 
+}
+
+col.col-create{
+   width: 7em; 
+}
+
+col.col-quote-no{
+   width: 6em; 
+}
+
+col.col-cost-center{
+   width: 6em; 
+}
+
+col.col-attached-files{
+   width: 7em; 
+   text-align: right;
+}

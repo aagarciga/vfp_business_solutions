@@ -88,21 +88,22 @@
             <div class="panel-table">
                 <table class="table table-striped" id="dashboardTable">
                     <colgroup>
-                        <col class="col-1"/>
-                        <col class="col-2"/>
-                        <col class="col-3"/>
-                        <col class="col-4"/>
-                        <col class="col-5"/>
-                        <col class="col-6"/>
-                        <col class="col-7"/>
-                        <col class="col-8"/>
-                        <col class="col-9"/>
-                        <col class="col-10"/>
-                        <col class="col-11"/>
-                        <col class="col-12"/>
-                        <col class="col-13"/>
-                        <col class="col-14"/>
-                        <col class="col-15"/>
+                        <col class="col-sales-order"/>
+                        <col class="col-purchase-order"/>
+                        <col class="col-company"/>
+                        <col class="col-vessel"/>
+                        <col class="col-start"/>
+                        <col class="col-end"/>
+                        <col class="col-job-type"/>
+                        <col class="col-description"/>
+                        <col class="col-material-status"/>
+                        <col class="col-status"/>
+                        <col class="col-project-manager-1"/>
+                        <col class="col-project-manager-2"/>
+                        <col class="col-create"/>
+                        <col class="col-quote-no"/>
+                        <col class="col-cost-center"/>
+                        <col class="col-attached-files"/>
                     </colgroup>
                     <thead>
                         <tr>
@@ -154,7 +155,7 @@
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
                             <td class="item-field"><?php echo $item->getQutno() ?></td>
                             <td class="item-field"><?php echo $item->getCstctid() ?></td>
-                            <td><a href="#" class="btn-files-dialog"><span class="glyphicon glyphicon-folder-close"></span></a></td>
+                            <td class="item-action item-files"><a href="#" class="btn-files-dialog"><span class="glyphicon glyphicon-folder-close"></span></a></td>
                         </tr>
                     <?php endforeach ?>
                     </body>

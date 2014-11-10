@@ -7,6 +7,17 @@
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
 
 
+<script>
+;(function(window, document, $, App, undefined){
+    "use strict";
+
+    // Dashboard Namespace
+    var Dashboard = {};
+    App.Dashboard = Dashboard;
+    
+})(window, document, jQuery, App, undefined);
+</script>
+
 <script type="text/javascript">
     (function(window, document, $) {
         $(document).ready(function() {
@@ -68,7 +79,7 @@ Dropzone.options.filesModalDropzone = {
 
 <script>
     /// Filter Control Behavior
-    (function(window, document, $) {
+    (function(window, document, $, Dashboard) {
         /// Filter Fields OnClick event handler
         $('.filter-field').on('click', function(){
             var $filterField = $(this),
@@ -115,15 +126,20 @@ Dropzone.options.filesModalDropzone = {
                 }
             });
             console.log("Predicate: ", predicate);
+            Dashboard.filterPredicate = predicate;
+            
+            var $table = $('#dashboardTable');
+            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+            Dashboard.Page(Dashboard.filterPredicate, 1, $itemsperpage, $table);
         });
-    })(window, document, jQuery);
+    })(window, document, jQuery, App.Dashboard);
     
 </script>
 
 <script>
-    (function(window, document, $) {
-        function page($page, $itemsperpage, $table){
-            var params = {'page' : $page, 'itemsperpage' : $itemsperpage};
+    (function(window, document, $, Dashboard) {
+        function page($filter, $page, $itemsperpage, $table){
+            var params = {'filterPredicate': $filter, 'page' : $page, 'itemsperpage' : $itemsperpage};
             $.ajax({
                 data: params,
                 url: '<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>',
@@ -143,6 +159,8 @@ Dropzone.options.filesModalDropzone = {
             });
         }
         
+        Dashboard.Page = page;
+        
         $('.pager-btn').on("click", PagerControl_OnClick);
         
         // Pager Control Buttons On Click Handler
@@ -150,7 +168,7 @@ Dropzone.options.filesModalDropzone = {
             var $table = $('#dashboardTable');
             var $currentButton = $(this);
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            page($currentButton.data('page'), $itemsperpage, $table);
+            page(Dashboard.filterPredicate, $currentButton.data('page'), $itemsperpage, $table);
         }
         
         $('.top-pager-itemmperpage-control a').on('click', function(){
@@ -159,9 +177,9 @@ Dropzone.options.filesModalDropzone = {
             // Always show page one
             var $table = $('#dashboardTable');
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            page(1, $itemsperpage, $table); // 
+            page(Dashboard.filterPredicate, 1, $itemsperpage, $table); // 
         });
-    })(window, document, jQuery);
+    })(window, document, jQuery, App.Dashboard);
 </script>
 
 <script>
@@ -368,6 +386,7 @@ Dropzone.options.filesModalDropzone = {
             }
             
             with (_tdAttachedFiles){
+                className = "item-action item-files";
                 _spanGlyphIcon.className = "glyphicon glyphicon-folder-close";
                 _aAttachedFiles.href = "#";
                 _aAttachedFiles.className = "btn-files-dialog";

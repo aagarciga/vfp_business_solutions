@@ -16,7 +16,10 @@ use Dandelion\Diana\BootstrapPager;
 class Dashboard extends DatActionsController {
     
     // Because in the feature this will be an INNER JOIN
-    public function GetDashboardPager($userid, $itemsPerpage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+    public function GetDashboardPager($userid, $predicate, $itemsPerpage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+        if($predicate !== ""){
+            $predicate = " AND ".$predicate;
+        } 
         $companySuffix = $this->DatUnitOfWork->CompanySuffix;        
         $sqlString = "SELECT "
                 . "ordnum, "
@@ -35,7 +38,7 @@ class Dashboard extends DatActionsController {
                 . "Cstctid ,"
                 . "JobDescrip "
                 . "FROM SOHEAD$companySuffix "
-                . "WHERE  NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')";
+                . "WHERE NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A') $predicate";
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
