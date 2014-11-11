@@ -3,13 +3,13 @@
 }
 
 a.panel-togle-visibility-button{
-    /*float: right;*/
     color:#5E5E5E;
 }
 
 a.panel-togle-visibility-button:focus{
     outline: none;
 }
+
 .glyphicon-action-button{
     position: relative;
     display: inline-block;
@@ -18,14 +18,8 @@ a.panel-togle-visibility-button:focus{
     font-weight: 400;
 }
 
-
 .panel-table{
     overflow-x: auto;
-}
-
-.btn-group, .form-group, .btn-group-vertical{
-    /*display: block;*/
-    /*margin-bottom: 0px !important;*/
 }
 
 .btn-filter-modifier{
@@ -64,7 +58,6 @@ ul.pagination{
 
 @media (min-width: 768px){
     .form-inline .form-group {
-/*        display: block; */
         margin-bottom: 15px;
         margin-left: 5px;
         margin-right: 5px;
@@ -76,7 +69,7 @@ ul.pagination{
     }
 }
 
-#dashboardTable{
+/*#dashboardTable{
     width: 180em;
     max-width: 180em;
 }
@@ -146,4 +139,4 @@ col.col-cost-center{
 col.col-attached-files{
    width: 7em; 
    text-align: right;
-}
+}*/
