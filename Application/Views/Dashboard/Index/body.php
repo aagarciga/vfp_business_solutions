@@ -57,7 +57,7 @@
             <span class="pull-right">paged by </span>
         </div>
         <div class="panel-body">
-            <form id="filterForm" class="form-inline" role="form">
+            <div id="filterForm" class="form-inline" role="form">
 
                 <div  class="btn-group filter-button left">
                     <button id="filterButton" type="button" class="btn btn-primary">Filter</button>
@@ -72,7 +72,7 @@
                         <li><a href="#" class="filter-field" data-field="destino" data-field-type="text">Vessel</a></li>
                         <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
                         <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
-                        <li><a href="#" class="filter-field" data-field="sotype" data-field-type="text">Job Type</a></li>
+                        <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
                         <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="material-status">Material Status</a></li>
                         <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="job-status">Status</a></li>
                         <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="text">Project Manager 1</a></li>
@@ -83,7 +83,7 @@
 <!--                        <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>-->
                     </ul>
                 </div>
-            </form>
+            </div>
             
             <div class="panel-table">
                 <table class="table table-striped" id="dashboardTable">

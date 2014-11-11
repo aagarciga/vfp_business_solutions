@@ -3,7 +3,7 @@
 
     (function() {
         Dandelion.BootstrapDynamicFilter = {
-            createTextFilter: function(fieldName, fieldDisplayName) {
+            createTextFilter: function(fieldName, fieldDisplayName, $filterButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
                         _inputGroup = document.createElement('div'),
@@ -22,6 +22,12 @@
                 _input.className = "form-control";
                 _input.dataset['fieldname'] = fieldName;
                 _input.placeholder = fieldDisplayName;
+                
+                _input.addEventListener('keypress', function(event){
+                    if(event.keyCode === 13){
+                        $filterButton.click();                       
+                    }
+                });
                 _inputGroup.appendChild(_input);
                 _span.className = "input-group-btn";
                 _button.className = "btn btn-default glyphicon-action-button glyphicon-minus";
@@ -59,7 +65,7 @@
                 return _formGroup;
             },
             //
-            createDropdownFilter: function(fieldName, fieldDisplayName, optionList) {
+            createDropdownFilter: function(fieldName, fieldDisplayName, optionList, $filterButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
                         _inputGroup = document.createElement('div'),
@@ -77,11 +83,17 @@
                 _select.className = "form-control";
                 _select.dataset['fieldname'] = fieldName;
                 
+                _select.addEventListener('keypress', function(event){
+                    if(event.keyCode === 13){
+                        $filterButton.click();                       
+                    }
+                });
+                
                 // Create Empty Option
                 var _option = document.createElement('option');
                 _option.value = "";
                 _option.appendChild(document.createTextNode("Empty"));
-                _select.appendChild(_option);
+                _select.appendChild(_option);              
                 
                 for(var index in optionList) {
                     var _option = document.createElement('option');
@@ -125,7 +137,7 @@
                 _formGroup.appendChild(_inputGroup);
                 return _formGroup;
             },
-            createDateFilter: function(fieldName, fieldDisplayName) {
+            createDateFilter: function(fieldName, fieldDisplayName, $filterButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
                         _inputGroup = document.createElement('div'),
@@ -149,6 +161,12 @@
                 _input.className = "form-control daterangepicker-single";
                 _input.dataset['fieldname'] = fieldName;
                 _input.placeholder = fieldDisplayName;
+                _input.addEventListener('keypress', function(event){
+                    if(event.keyCode === 13){
+                        $filterButton.click();                       
+                    }
+                });
+                
                 _inputGroup.appendChild(_spanInputGroupAddOn);
                 _inputGroup.appendChild(_input);
                 _spanInputGroupButton.className = "input-group-btn";

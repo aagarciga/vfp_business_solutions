@@ -8,8 +8,7 @@
 
 
 <script>
-    ;
-    (function(window, document, App) {
+   ;(function(window, document, App) {
         "use strict";
 
         // Dashboard Namespace
@@ -89,16 +88,16 @@
                 $filterButton.before(Dandelion.BootstrapDynamicFilter.createFirstModifier());
             }
             if ($filterField.data('field-type') === "text") {
-                $filterButton.before(Dandelion.BootstrapDynamicFilter.createTextFilter($filterField.data('field'), $filterField.text()));
+                $filterButton.before(Dandelion.BootstrapDynamicFilter.createTextFilter($filterField.data('field'), $filterField.text(), $('#filterButton')));
             }
             if ($filterField.data('field-type') === "date") {
-                $filterButton.before(Dandelion.BootstrapDynamicFilter.createDateFilter($filterField.data('field'), $filterField.text()));
+                $filterButton.before(Dandelion.BootstrapDynamicFilter.createDateFilter($filterField.data('field'), $filterField.text(), $('#filterButton')));
             }
             if ($filterField.data('field-type') === "job-status") {
-                $filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus));
+                $filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus, $('#filterButton')));
             }
             if ($filterField.data('field-type') === "material-status") {
-                $filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus));
+                $filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus, $('#filterButton')));
             }
         });
 
@@ -123,9 +122,11 @@
                         predicate += "And " + $control.data('fieldname') + " <= '" + range[1] + "') ";
                     }
                     else{
-                        predicate += $control.data('fieldname') + " = '" + $control.val() + "' ";
+                        predicate += "LOWER(" + $control.data('fieldname') + ") LIKE '%" + $control.val().toLowerCase() + "%' ";                       
                     }
                 }
+                
+                //console.log(predicate);
             });
             Dashboard.filterPredicate = predicate;
 
