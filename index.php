@@ -2,7 +2,7 @@
 
 namespace Dandelion\MVC;
 
-define('MVC_VERSION', "1.0.0.24");
+define('MVC_VERSION', "1.0.0.47");
 /**
  * Dandelion MVC 1.0.0.16
  * 
