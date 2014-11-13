@@ -58,6 +58,8 @@
                     }
                     // release memory in IE
                     _formGroup = null;
+                    // Refilter
+                    $filterButton.click();
                 });
                 _span.appendChild(_button);
                 _inputGroup.appendChild(_span);
@@ -131,6 +133,7 @@
                     }
                     // release memory in IE
                     _formGroup = null;
+                    $filterButton.click();
                 });
                 _span.appendChild(_button);
                 _inputGroup.appendChild(_span);
@@ -197,6 +200,7 @@
                     }
                     // release memory in IE
                     _formGroup = null;
+                    $filterButton.click();
                 });
                 _spanInputGroupButton.appendChild(_button);
                 _inputGroup.appendChild(_spanInputGroupButton);

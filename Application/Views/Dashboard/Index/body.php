@@ -58,9 +58,9 @@
         </div>
         <div class="panel-body">
             <div id="filterForm" class="form-inline" role="form">
-
                 <div  class="btn-group filter-button left">
-                    <button id="filterButton" type="button" class="btn btn-primary">Filter</button>
+                    <button id="filterResetButton"type="button" class="btn btn-default">Reset</button>
+                    <button id="filterButton" type="button" class="btn btn-primary">Filter</button>                    
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
@@ -83,7 +83,9 @@
 <!--                        <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>-->
                     </ul>
                 </div>
+                
             </div>
+            
             
             <div class="panel-table">
                 <table class="table table-striped" id="dashboardTable">

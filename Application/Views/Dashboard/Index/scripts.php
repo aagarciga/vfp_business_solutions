@@ -76,6 +76,9 @@
 <script>
     /// Filter Control Behavior
     (function(window, document, $, Dashboard) {
+        
+
+        
         /// Filter Fields OnClick event handler
         $('.filter-field').on('click', function() {
             var $filterField = $(this),
@@ -99,6 +102,16 @@
             if ($filterField.data('field-type') === "material-status") {
                 $filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus, $('#filterButton')));
             }
+        });
+        
+        /// Filter Button OnClick event handler
+        $('#filterResetButton').on('click', function() {
+            $('#filterForm').children().each(function(){
+                if (!$(this).hasClass('filter-button')) {
+                    $(this).remove();
+                }
+            });
+            $('#filterButton').click();
         });
 
         /// Filter Button OnClick event handler
