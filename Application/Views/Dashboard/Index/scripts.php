@@ -60,7 +60,7 @@
         $('#dashboard-panel-togle-visibility-button').on('click', function() {
             var $button = $(this),
                     $icon = $button.children('span'),
-                    $filter = $('.panel-body form');
+                    $filter = $('#filterForm');
             if ($icon.hasClass('glyphicon-eye-open')) {
                 $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
                 $filter.hide();
