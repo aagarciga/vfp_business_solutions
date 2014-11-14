@@ -2,9 +2,9 @@
 
 namespace Dandelion\MVC;
 
-define('MVC_VERSION', "1.0.0.49");
+define('MVC_VERSION', "1.0.0.50");
 /**
- * Dandelion MVC 1.0.0.16
+ * Dandelion MVC 1.0.0.50
  * 
  * PHP Version 5.3
  * 
@@ -22,8 +22,9 @@ define('MVC_VERSION', "1.0.0.49");
 /**
  * When __DIR__ is not defined, prior 5.3.0
  */
-if (!defined('__DIR__'))
+if (!defined('__DIR__')){
     define('__DIR__', dirname(__FILE__));
+}
 
 define('MVC_DIR_ROOT', __DIR__);
 
@@ -82,7 +83,7 @@ require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_S
  * Front Controller instance for Singleton behavior.
  * 
  * @author    Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright 2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright 2011-2014 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://www.thedandelionproject.com
  */
