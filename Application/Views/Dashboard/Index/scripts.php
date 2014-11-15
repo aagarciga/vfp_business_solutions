@@ -76,14 +76,12 @@
 <script>
     /// Filter Control Behavior
     (function(window, document, $, Dashboard) {
-        
-
-        
+                
         /// Filter Fields OnClick event handler
         $('.filter-field').on('click', function() {
             var $filterField = $(this),
                     _filterField = $filterField[0],
-                    $filterButton = $('.filter-button');
+                    $filterButton = $('.filter-button');                    
             if (_filterField.parentElement.parentElement.parentElement.previousSibling.previousSibling !== null) {
                 $filterButton.before(Dandelion.BootstrapDynamicFilter.createModifier());
             }
@@ -104,7 +102,7 @@
             }
         });
         
-        /// Filter Button OnClick event handler
+        /// Reset Filter Button OnClick event handler
         $('#filterResetButton').on('click', function() {
             $('#filterForm').children().each(function(){
                 if (!$(this).hasClass('filter-button')) {
@@ -118,7 +116,7 @@
         $('#filterButton').on('click', function() {
             var predicate = "";
 
-            $('#filterForm').children().each(function(index) {
+            $('#filterForm').children().each(function() {
 
                 if ($(this).hasClass('btn-group') && !$(this).hasClass('filter-button')) {
                     var value = $(this).children('button').text();
@@ -138,14 +136,13 @@
                         predicate += "LOWER(" + $control.data('fieldname') + ") LIKE '%" + $control.val().toLowerCase() + "%' ";                       
                     }
                 }
-                
-                //console.log(predicate);
+                Dandelion.BootstrapDynamicFilter.FilterString = predicate;
             });
-            Dashboard.filterPredicate = predicate;
+            Dashboard.DynamicFilter = Dandelion.BootstrapDynamicFilter;
 
             var $table = $('#dashboardTable');
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.filterPredicate, 1, $itemsperpage, $table);
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table);
         });
     })(window, document, jQuery, App.Dashboard);
 
@@ -183,7 +180,7 @@
             var $table = $('#dashboardTable');
             var $currentButton = $(this);
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.filterPredicate, $currentButton.data('page'), $itemsperpage, $table);
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, $currentButton.data('page'), $itemsperpage, $table);
         }
 
         $('.top-pager-itemmperpage-control a').on('click', function() {
@@ -192,7 +189,7 @@
             // Always show page one
             var $table = $('#dashboardTable');
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.filterPredicate, 1, $itemsperpage, $table); // 
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table); // 
         });
     })(window, document, jQuery, App.Dashboard);
 </script>

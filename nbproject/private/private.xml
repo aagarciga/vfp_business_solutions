@@ -6,11 +6,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Public/Scripts/Dandelion/BootstrapDynamicFilter.js</file>
-            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Controllers/Dashboard/Dashboard.php</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Views/Dashboard/Index/scripts.php</file>
-            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Views/Dashboard/Models/DashboardViewModel.php</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Views/Dashboard/Index/body.php</file>
-            <file>file:/C:/inetpub/wwwroot/dandelionmvc/index.php</file>
         </group>
     </open-files>
 </project-private>

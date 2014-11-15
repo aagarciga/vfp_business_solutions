@@ -60,6 +60,7 @@
             <div id="filterForm" class="form-inline" role="form">
                 <div  class="btn-group filter-button left">
                     <button id="filterResetButton"type="button" class="btn btn-default">Reset</button>
+                    <button id="filterSaveButton"type="button" class="btn btn-success">Save</button>
                     <button id="filterButton" type="button" class="btn btn-primary">Filter</button>                    
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>

@@ -3,6 +3,7 @@
 
     (function() {
         Dandelion.BootstrapDynamicFilter = {
+            FilterString : "",
             createTextFilter: function(fieldName, fieldDisplayName, $filterButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
@@ -66,7 +67,6 @@
                 _formGroup.appendChild(_inputGroup);
                 return _formGroup;
             },
-            //
             createDropdownFilter: function(fieldName, fieldDisplayName, optionList, $filterButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
@@ -346,6 +346,6 @@
 
                 return _buttonGroup;
             }
-        }
-    })(Dandelion);
+        };
+    })(window.Dandelion);
 })(window, document, undefined);
