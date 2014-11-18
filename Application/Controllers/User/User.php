@@ -18,17 +18,17 @@ use Dandelion\MVC\Core\Application;
 class User extends ActionsController {
 
     /**
-     * FvpData Context object
-     * @var FvpDataUnitOfWork 
+     * VfpData Context object
+     * @var VfpDataUnitOfWork 
      */
-    public $FvpDataUnitOfWork;
+    public $VfpDataUnitOfWork;
 
     /**
      * Controller initialization method
      */
     protected function Init() {
         $application = new Application();
-        $this->FvpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
+        $this->VfpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
             $application->getDefaultDbHost(),
             $application->getDefaultDbUser(),
             $application->getDefaultDbPassword(),

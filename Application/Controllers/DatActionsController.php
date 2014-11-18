@@ -26,9 +26,9 @@ abstract class DatActionsController extends ActionsController {
 
     /**
      * FvpData Context object
-     * @var FvpDataUnitOfWork
+     * @var VfpDataUnitOfWork
      */
-    public $FvpDataUnitOfWork;
+    public $VfpDataUnitOfWork;
 
     /**
      * Controller initialization method
@@ -37,7 +37,7 @@ abstract class DatActionsController extends ActionsController {
     {
         $application = new Application();
         
-        $this->FvpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
+        $this->VfpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
             $application->getDefaultDbHost(),
             $application->getDefaultDbUser(),
             $application->getDefaultDbPassword(),
@@ -72,7 +72,7 @@ abstract class DatActionsController extends ActionsController {
      */
     private function BuildDatConnection($usercomp){
 
-        $company = $this->FvpDataUnitOfWork->SyscompRepository->GetByActcomp($usercomp);
+        $company = $this->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($usercomp);
         $result = null;
         if ($company) {
 

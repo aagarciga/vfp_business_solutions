@@ -20,7 +20,7 @@ class Signin_Post extends Action{
      */
     public function Execute()
     {        
-        $queryResult = $this->controller->FvpDataUnitOfWork->SysuserRepository->Get("WHERE USERNAME = '".$this->Request->txtUsername."'");
+        $queryResult = $this->controller->VfpDataUnitOfWork->SysuserRepository->Get("WHERE USERNAME = '".$this->Request->txtUsername."'");
         if (count($queryResult)) {
             $user = $queryResult[0];
             if(trim($user->getUserpass()) === $this->Request->txtPassword){
@@ -34,7 +34,7 @@ class Signin_Post extends Action{
 //                $_SESSION['user'] = $user; Not work
                 
                 // Updating Ondate and Ontime fields
-                $this->controller->FvpDataUnitOfWork->SysuserRepository->Update($user);
+                $this->controller->VfpDataUnitOfWork->SysuserRepository->Update($user);
                 
                 $this->Redirect($this->Request->hdnController, $this->Request->hdnAction);
             }

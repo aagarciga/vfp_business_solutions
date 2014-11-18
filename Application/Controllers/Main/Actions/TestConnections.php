@@ -21,7 +21,7 @@ class TestConnections extends Action {
      */
     public function Execute() {
         $this->Title = 'Test Connections | VFP Business Series - Warehouse Management System';
-        $this->Users = $this->controller->FvpDataUnitOfWork->SysuserRepository->GetAll();
+        $this->Users = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetAll();
         $this->Items = $this->controller->DatUnitOfWork->ICPARMRepository->GetAll();
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
