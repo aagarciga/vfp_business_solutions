@@ -19,3 +19,18 @@
 .no-boxshadow .loading{
     background-color: transparent;
 }
+
+/* Bootstrap Overrides */
+
+/* Imput modal definitions */
+
+.modal.modal-input .modal-dialog.modal-sm .modal-content .modal-header{
+    padding-bottom: 0px;
+    border-bottom: none;
+}
+
+.modal.modal-input .modal-dialog.modal-sm .modal-content .modal-footer{
+    margin-top: 0px;
+    padding-top: 0px;
+    border-top: none;
+}

@@ -111,6 +111,32 @@
             });
             $('#filterButton').click();
         });
+        
+        $('#filterSaveButton').on('click', function(){
+            $('#filterSaveModal').modal();
+        });
+        
+        $('#filterSaveModalSubmit').on('click', function(){
+            (function(window, document, jQuery, Dashboard) {
+                $.ajax({
+                    data: {
+                        filterName: $('#filterSaveModalFilterName').val(),
+                        filterString: Dandelion.BootstrapDynamicFilter.FilterString,
+                        filterHtml: ''
+                    },
+                    url: '<?php echo $View->Href('Dashboard', 'SaveFilter') ?>',
+                    type: 'post',
+                    beforeSend: function() {
+                        $('.loading').show();
+                    },
+                    success: function(response) {
+                        var _response = $.parseJSON(response);
+                        console.log("saving filter ...", _response);
+                        $('.loading').hide();
+                    }
+                });
+            })(window, document, jQuery, App.Dashboard);
+        });
 
         /// Filter Button OnClick event handler
         $('#filterButton').on('click', function() {

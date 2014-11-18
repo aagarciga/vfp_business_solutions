@@ -10,6 +10,7 @@ use Dandelion\Diana\UnitOfWork;
 use Dandelion\MVC\Application\Models\Entities;
 use Dandelion\MVC\Application\Models\Repositories\SysuserRepository;
 use Dandelion\MVC\Application\Models\Repositories\SyscompRepository;
+use Dandelion\MVC\Application\Models\Repositories\SysexportRepository;
 
 /**
  * VfpData Data Context
@@ -32,6 +33,12 @@ class VfpDataUnitOfWork extends UnitOfWork {
      * @var SyscompRepository 
      */
     public $SyscompRepository;
+    
+    /**
+     *
+     * @var SysexportRepository 
+     */
+    public $SysexportRepository;
 
     public function __construct($dbDriver){
         parent::__construct();
@@ -39,7 +46,7 @@ class VfpDataUnitOfWork extends UnitOfWork {
         $this->DBDriver = $dbDriver;
         $this->SysuserRepository = new SysuserRepository($dbDriver, Entities\Sysuser::toString());
         $this->SyscompRepository = new SyscompRepository($dbDriver, Entities\Syscomp::toString());
-        
+        $this->SysexportRepository = new SysexportRepository($dbDriver, Entities\SYSEXPORT::toString());
     }
 
 } 
