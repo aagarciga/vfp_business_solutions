@@ -23,7 +23,7 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new SYSEXPORT(trim($row->EXPORTID), trim($row->DESCRIP), trim($row->EXPFIELDS), trim($row->EXPFROM), trim($row->EXPFILTER), trim($row->EXPLINK), trim($row->EXPORDERBY), trim($row->FUSERID));
+            $result [] = new SYSEXPORT(trim($row->EXPORTID), trim($row->DESCRIP), trim($row->EXPFIELDS), trim($row->EXPFROM), trim($row->EXPFILTER), trim($row->EXPLINK), trim($row->EXPORDERBY), trim($row->FUSERID), trim($row->FILTERID));
         }
 
         return $result;
@@ -41,7 +41,36 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new SYSEXPORT(trim($row->EXPORTID), trim($row->DESCRIP), trim($row->EXPFIELDS), trim($row->EXPFROM), trim($row->EXPFILTER), trim($row->EXPLINK), trim($row->EXPORDERBY), trim($row->FUSERID));
+            $result [] = new SYSEXPORT(trim($row->EXPORTID), trim($row->DESCRIP), trim($row->EXPFIELDS), trim($row->EXPFROM), trim($row->EXPFILTER), trim($row->EXPLINK), trim($row->EXPORDERBY), trim($row->FUSERID), trim($row->FILTERID));
+        }
+
+        return $result;
+    }
+    
+    /**
+     * 
+     * @param type $userid
+     * @param type $limit
+     * @return \Dandelion\MVC\Application\Models\Entities\SYSEXPORT
+     */
+    public function GetSavedFiltersByUser($userid ,$limit = 10) {
+        
+        $countSqlString = "SELECT COUNT(*) AS LENGHT FROM $this->entityName";
+        $countSqlString .= " WHERE FUSERID = '$userid'";
+        $countQuery = $this->dbDriver->GetQuery();
+        $countQueryResult = $countQuery->Execute($countSqlString);
+        $count = intval($countQueryResult[0]->LENGHT);
+        
+        $startAt = ($count < $limit)? 0 : $count - $limit;     
+        
+        $sqlString = "SELECT TOP $limit START AT $startAt * FROM $this->entityName";
+        $sqlString .= " WHERE FUSERID = '$userid'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = array(); 
+        
+        foreach ($queryResult as $row) {
+            $result [] = new SYSEXPORT(trim($row->EXPORTID), trim($row->DESCRIP), trim($row->EXPFIELDS), trim($row->EXPFROM), trim($row->EXPFILTER), trim($row->EXPLINK), trim($row->EXPORDERBY), trim($row->FUSERID), trim($row->FILTERID));
         }
 
         return $result;
@@ -58,23 +87,15 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $explink = $entity->getExplink();
         $exporderby = $entity->getExporderby();
         $fuserid = $entity->getFuserid();
+        $filterid = $entity->getFilterid();
         
         $sqlString = "INSERT INTO $this->entityName"
-            . " (EXPORTID, DESCRIP, EXPFIELDS, EXPFILTER, EXPFROM, EXPLINK, EXPORDERBY, FUSERID)"
-            . " VALUES('$exportid', '$descrip', '$expfields', '$expfilter', '$expfrom', '$explink', '$exporderby', '$fuserid');";
+            . " (EXPORTID, DESCRIP, EXPFIELDS, EXPFILTER, EXPFROM, EXPLINK, EXPORDERBY, FUSERID, FILTERID)"
+            . " VALUES('$exportid', '$descrip', '$expfields', '$expfilter', '$expfrom', '$explink', '$exporderby', '$fuserid', '$filterid');";
         
         $query = $this->dbDriver->GetQuery();
         
         return $query->Execute($sqlString);
-        
-//        if ($query->Execute($sqlString)) {
-//            return $entity; //Return the Entity Object with the Export id setted
-//        }
-//        return false;
-        
-//        INSERT INTO SYSEXPORT (EXPORTID, DESCRIP, EXPFIELDS, EXPFILTER, EXPFROM, EXPLINK, EXPORDERBY, FUSERID)
-//        VALUES( NEWIDSTRING(D), 'Test GUID', '$expfields', '$expfilter', '$expfrom', '$explink', '$exporderby', '$fuserid')
-
     }
 
     public function Update($entity) {
@@ -86,9 +107,10 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $explink = $entity->getExplink();
         $exporderby = $entity->getExporderby();
         $fuserid = $entity->getFuserid();
+        $filterid = $entity->getFilterid();
         
-        $sqlString = "UPDATE $this->entityName SET DESCRIP = '$descrip', EXPFIELDS = $expfields, EXPFILTER = $expfilter, EXPFROM = $expfrom, EXPLINK = '$explink', EXPORDERBY = '$exporderby', FUSERID = '$fuserid'"
-                    . " WHERE EXPORTID = '$exportid'";
+        $sqlString = "UPDATE $this->entityName SET EXPORTID = '$exportid', DESCRIP = '$descrip', EXPFIELDS = $expfields, EXPFILTER = $expfilter, EXPFROM = $expfrom, EXPLINK = '$explink', EXPORDERBY = '$exporderby', FUSERID = '$fuserid'"
+                    . " WHERE FILTERID = '$filterid'";
         
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);

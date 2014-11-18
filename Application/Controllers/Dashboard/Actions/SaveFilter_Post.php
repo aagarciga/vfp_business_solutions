@@ -35,7 +35,7 @@ class SaveFilter_Post extends Action {
         $filterStringSerialized = strtr($filterString, array("'" => "\"")); // Remenber deserialize replacing " by '
         
         $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
-        $entity = new SYSEXPORT(GUIDGenerator::getGUID(), $filterName, $filterHtml, "", $filterStringSerialized, "", "", $user->getUserid());      
+        $entity = new SYSEXPORT($filterName, "", $filterHtml, "", $filterStringSerialized, "", "", $user->getUserid(), GUIDGenerator::getGUID());      
         $success = $this->controller->VfpDataUnitOfWork->SysexportRepository->Add($entity);        
         $result = $success ? 'success' : 'failure';
         

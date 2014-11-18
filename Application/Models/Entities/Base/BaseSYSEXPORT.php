@@ -60,6 +60,11 @@ class BaseSYSEXPORT {
      * @var char
      */
     protected $_fuserid;
+    
+    /**
+     * @var char
+     */
+    protected $_filterid;
 
     /**
      * Getters
@@ -119,6 +124,13 @@ class BaseSYSEXPORT {
      */
     public function getFuserid() {
         return $this->_fuserid;
+    }
+    
+    /**
+     * @return Char
+     */
+    public function getFilterid() {
+        return $this->_filterid;
     }
 
     /**
@@ -180,6 +192,13 @@ class BaseSYSEXPORT {
     public function setFuserid($value) {
         $this->_fuserid = $value;
     }
+    
+    /**
+     * @param Char
+     */
+    public function setFilterid($value) {
+        $this->_filterid = $value;
+    }
 
     /**
      * Constructor
@@ -191,8 +210,9 @@ class BaseSYSEXPORT {
      * @param type $explink
      * @param type $exporderby
      * @param type $fuserid
+     * @param char(38) $filterid
      */
-    public function __construct($exportid, $descrip, $expfields, $expfrom, $expfilter, $explink, $exporderby, $fuserid) {
+    public function __construct($exportid, $descrip, $expfields, $expfrom, $expfilter, $explink, $exporderby, $fuserid, $filterid) {
         $this->_exportid = $exportid;
         $this->_descrip = $descrip;
         $this->_expfields = $expfields;
@@ -201,6 +221,7 @@ class BaseSYSEXPORT {
         $this->_explink = $explink;
         $this->_exporderby = $exporderby;
         $this->_fuserid = $fuserid;
+        $this->_filterid = $filterid;
     }
 
     public static function toString() {

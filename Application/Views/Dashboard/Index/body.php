@@ -36,7 +36,7 @@
 
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Projects <span class="badge"><?php echo $Pager->getItemsCount(); ?> </span> 
+        <div class="panel-heading">Projects <span id="panelHeadingItemsCount" class="badge"><?php echo $Pager->getItemsCount(); ?> </span> 
 
             <a href="#" id="dashboard-panel-togle-visibility-button" class="panel-togle-visibility-button pull-right" title="Show/Hide Filter"><span class="glyphicon glyphicon-eye-open"></span></a>
             
@@ -59,32 +59,50 @@
         <div class="panel-body">
             <div id="filterForm" class="form-inline" role="form">
                 <div  class="btn-group filter-button left">
-                    <button id="filterResetButton"type="button" class="btn btn-default">Reset</button>
-                    <button id="filterSaveButton"type="button" class="btn btn-success">Save</button>
-                    <button id="filterButton" type="button" class="btn btn-primary">Filter</button>                    
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation" class="dropdown-header">By</li>
-                        <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Sales Order</a></li>
-                        <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Purchase Order</a></li>
-                        <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a></li>
-                        <li><a href="#" class="filter-field" data-field="destino" data-field-type="text">Vessel</a></li>
-                        <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
-                        <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
-                        <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
-                        <li><a href="#" class="filter-field" data-field="JobDescrip" data-field-type="text">Description</a></li>
-                        <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="material-status">Material Status</a></li>
-                        <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="job-status">Status</a></li>
-                        <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="text">Project Manager 1</a></li>
-                        <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="text">Project Manager 2</a></li>
-                        <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
-                        <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
-                        <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="text">Cost Center</a></li>
-<!--                        <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>-->
-                    </ul>
+                    <button id="filterResetButton"type="button" class="btn btn-default disabled">Reset</button>
+                    
+                    <div class="btn-group">
+                        <button id="filterSaveButton" type="button" class="btn btn-success disabled">Save</button>
+                        <?php if(count($SavedUserFilters)):?>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation" class="dropdown-header">Load Saved Filter</li>
+                            <?php foreach ($SavedUserFilters as $filter): ?>
+                            <li><a href="#" class="saved-filter-field"><?php echo $filter->getExportid() ?></a></li>
+                            <?php endforeach ?>                                
+                        </ul>
+                        <?php endif ?>
+                    </div> 
+                    
+                    <div class="btn-group">
+                        <button id="filterButton" type="button" class="btn btn-primary disabled">Filter</button>                    
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation" class="dropdown-header">By</li>
+                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Sales Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Purchase Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a></li>
+                            <li><a href="#" class="filter-field" data-field="destino" data-field-type="text">Vessel</a></li>
+                            <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="JobDescrip" data-field-type="text">Description</a></li>
+                            <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="material-status">Material Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="job-status">Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="text">Project Manager 1</a></li>
+                            <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="text">Project Manager 2</a></li>
+                            <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
+                            <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="text">Cost Center</a></li>
+                            <!--                        <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>-->
+                        </ul>
+                    </div>
                 </div>
+                    
                 
             </div>
             

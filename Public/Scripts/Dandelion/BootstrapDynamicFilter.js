@@ -4,7 +4,7 @@
     (function() {
         Dandelion.BootstrapDynamicFilter = {
             FilterString : "",
-            createTextFilter: function(fieldName, fieldDisplayName, $filterButton) {
+            createTextFilter: function(fieldName, fieldDisplayName, $filterButton, $filterResetButton, $filterSaveButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
                         _inputGroup = document.createElement('div'),
@@ -31,8 +31,8 @@
                 });
                 _inputGroup.appendChild(_input);
                 _span.className = "input-group-btn";
-                _button.className = "btn btn-default glyphicon-action-button glyphicon-minus";
-                _button.title = "Delete Filter Field"
+                _button.className = "btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field";
+                _button.title = "Delete Filter Field";
                 _button.type = "button";
                 _button.addEventListener('click', function() {
                     var _firstModifier = _formGroup.parentNode.firstChild.nextSibling,
@@ -45,9 +45,12 @@
                             if (_formGroup.nextSibling === _filterButton) {
                                 // Remove Previous Sibling from its parent if any
                                 _formGroup.parentNode.removeChild(_previuosSibling);
+                                $filterButton.addClass('disabled');
+                                $filterResetButton.addClass('disabled');
+                                $filterSaveButton.addClass('disabled');
                             }   
                             else{                                
-                                _formGroup.parentNode.removeChild(_nextSibling);
+                                _formGroup.parentNode.removeChild(_nextSibling);                                
                             }
                         }
                         else{
@@ -61,13 +64,14 @@
                     _formGroup = null;
                     // Refilter
                     $filterButton.click();
+
                 });
                 _span.appendChild(_button);
                 _inputGroup.appendChild(_span);
                 _formGroup.appendChild(_inputGroup);
                 return _formGroup;
             },
-            createDropdownFilter: function(fieldName, fieldDisplayName, optionList, $filterButton) {
+            createDropdownFilter: function(fieldName, fieldDisplayName, optionList, $filterButton, $filterResetButton, $filterSaveButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
                         _inputGroup = document.createElement('div'),
@@ -105,7 +109,7 @@
                 }
                 _inputGroup.appendChild(_select);
                 _span.className = "input-group-btn";
-                _button.className = "btn btn-default glyphicon-action-button glyphicon-minus";
+                _button.className = "btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field";
                 _button.title = "Delete Filter Field"
                 _button.type = "button";
                 _button.addEventListener('click', function() {
@@ -119,6 +123,9 @@
                             if (_formGroup.nextSibling === _filterButton) {
                                 // Remove Previous Sibling from its parent if any
                                 _formGroup.parentNode.removeChild(_previuosSibling);
+                                $filterButton.addClass('disabled');
+                                $filterResetButton.addClass('disabled');
+                                $filterSaveButton.addClass('disabled');
                             }   
                             else{                                
                                 _formGroup.parentNode.removeChild(_nextSibling);
@@ -140,7 +147,7 @@
                 _formGroup.appendChild(_inputGroup);
                 return _formGroup;
             },
-            createDateFilter: function(fieldName, fieldDisplayName, $filterButton) {
+            createDateFilter: function(fieldName, fieldDisplayName, $filterButton, $filterResetButton, $filterSaveButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
                         _inputGroup = document.createElement('div'),
@@ -174,7 +181,7 @@
                 _inputGroup.appendChild(_input);
                 _spanInputGroupButton.className = "input-group-btn";
                 _button.type = "button";
-                _button.className = "btn btn-default glyphicon-action-button glyphicon-minus";
+                _button.className = "btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field";
                 _button.addEventListener('click', function() {
                     var _firstModifier = _formGroup.parentNode.firstChild.nextSibling,
                         _previuosSibling = _formGroup.previousSibling,
@@ -186,6 +193,9 @@
                             if (_formGroup.nextSibling === _filterButton) {
                                 // Remove Previous Sibling from its parent if any
                                 _formGroup.parentNode.removeChild(_previuosSibling);
+                                $filterButton.addClass('disabled');
+                                $filterResetButton.addClass('disabled');
+                                $filterSaveButton.addClass('disabled');
                             }   
                             else{                                
                                 _formGroup.parentNode.removeChild(_nextSibling);
