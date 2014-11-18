@@ -7,7 +7,11 @@
         <group>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Public/Scripts/Dandelion/BootstrapDynamicFilter.js</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Views/Dashboard/Index/scripts.php</file>
+            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Controllers/Dashboard/Actions/Index.php</file>
+            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Public/Shared/Styles/main.css</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Views/Dashboard/Index/body.php</file>
+            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Models/Repositories/SysexportRepository.php</file>
+            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Controllers/Dashboard/Actions/SaveFilter_Post.php</file>
         </group>
     </open-files>
 </project-private>

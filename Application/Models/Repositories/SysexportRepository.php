@@ -9,8 +9,9 @@ namespace Dandelion\MVC\Application\Models\Repositories;
 
 use Dandelion\Diana\Interfaces\IRepository;
 use Dandelion\MVC\Application\Models\Entities\SYSEXPORT;
+//use Dandelion\GUIDGenerator;
 
-class SYSEXPORTRepository extends BaseRepository implements IRepository {
+class SysexportRepository extends BaseRepository implements IRepository {
 
     /**
      * @return array of all SYSEXPORT objects from DB
@@ -47,7 +48,33 @@ class SYSEXPORTRepository extends BaseRepository implements IRepository {
     }
 
     public function Add($entity) {
-        // TODO: Implement Add() method.
+        $exportid =  $entity->getExportid();
+//        $exportid = GUIDGenerator::getGUID(); // In ADS Server can be used NEWIDSTRING(D)
+//        $entity->setExportid($exportid);
+        $descrip = $entity->getDescrip();
+        $expfields = $entity->getExpfields();
+        $expfilter = $entity->getExpfilter();
+        $expfrom = $entity->getExpfrom();
+        $explink = $entity->getExplink();
+        $exporderby = $entity->getExporderby();
+        $fuserid = $entity->getFuserid();
+        
+        $sqlString = "INSERT INTO $this->entityName"
+            . "(EXPORTID, DESCRIP, EXPFIELDS, EXPFILTER, EXPFROM, EXPLINK, EXPORDERBY, FUSERID)"
+            ."VALUES('$exportid', '$descrip', '$expfields', '$expfilter', '$expfrom', '$explink', '$exporderby', '$fuserid')";
+        
+        $query = $this->dbDriver->GetQuery();
+        
+        return $query->Execute($sqlString);
+        
+//        if ($query->Execute($sqlString)) {
+//            return $entity; //Return the Entity Object with the Export id setted
+//        }
+//        return false;
+        
+//        INSERT INTO SYSEXPORT (EXPORTID, DESCRIP, EXPFIELDS, EXPFILTER, EXPFROM, EXPLINK, EXPORDERBY, FUSERID)
+//        VALUES( NEWIDSTRING(D), 'Test GUID', '$expfields', '$expfilter', '$expfrom', '$explink', '$exporderby', '$fuserid')
+
     }
 
     public function Update($entity) {
