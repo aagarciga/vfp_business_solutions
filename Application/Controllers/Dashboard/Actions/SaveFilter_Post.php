@@ -32,7 +32,10 @@ class SaveFilter_Post extends Action {
             return json_encode('failure');
         }
         
-        $entity = new SYSEXPORT(GUIDGenerator::getGUID(), $filterName, $filterHtml, "", $filterString, "", "", $this->UserName);        
+        $filterStringSerialized = strtr($filterString, array("'" => "\"")); // Remenber deserialize replacing " by '
+        
+        $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
+        $entity = new SYSEXPORT(GUIDGenerator::getGUID(), $filterName, $filterHtml, "", $filterStringSerialized, "", "", $user->getUserid());      
         $success = $this->controller->VfpDataUnitOfWork->SysexportRepository->Add($entity);        
         $result = $success ? 'success' : 'failure';
         

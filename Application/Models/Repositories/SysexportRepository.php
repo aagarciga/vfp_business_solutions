@@ -60,8 +60,8 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $fuserid = $entity->getFuserid();
         
         $sqlString = "INSERT INTO $this->entityName"
-            . "(EXPORTID, DESCRIP, EXPFIELDS, EXPFILTER, EXPFROM, EXPLINK, EXPORDERBY, FUSERID)"
-            ."VALUES('$exportid', '$descrip', '$expfields', '$expfilter', '$expfrom', '$explink', '$exporderby', '$fuserid')";
+            . " (EXPORTID, DESCRIP, EXPFIELDS, EXPFILTER, EXPFROM, EXPLINK, EXPORDERBY, FUSERID)"
+            . " VALUES('$exportid', '$descrip', '$expfields', '$expfilter', '$expfrom', '$explink', '$exporderby', '$fuserid');";
         
         $query = $this->dbDriver->GetQuery();
         

@@ -9,8 +9,10 @@ namespace Dandelion;
 class GUIDGenerator {
 
     /**
-     * 
-     * @return string Guid
+     * Returns a GUID formatted as a string. 
+     * The GUID string is formatted as a hexadecimal string 
+     * with the following pattern {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}.
+     * @return string 38 Lenght GUID.      
      */
     public static function getGUID(){
         if (function_exists('com_create_guid')){
