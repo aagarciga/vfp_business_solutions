@@ -48,6 +48,23 @@ class SysexportRepository extends BaseRepository implements IRepository {
     }
     
     /**
+     * @param string $filterid
+     * @return \Dandelion\MVC\Application\Models\Entities\SYSEXPORT
+     */
+    public function GetByFilterid($filterid) {
+        $sqlString = "SELECT * FROM $this->entityName";
+        $sqlString .= " WHERE FILTERID = '$filterid'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        if (count($queryResult)) {
+            $row = $queryResult[0];
+            return new SYSEXPORT(trim($row->EXPORTID), trim($row->DESCRIP), trim($row->EXPFIELDS), trim($row->EXPFROM), trim($row->EXPFILTER), trim($row->EXPLINK), trim($row->EXPORDERBY), trim($row->FUSERID), trim($row->FILTERID));
+        }
+        return "";
+    }
+    
+    /**
      * 
      * @param type $userid
      * @param type $limit
@@ -61,7 +78,7 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $countQueryResult = $countQuery->Execute($countSqlString);
         $count = intval($countQueryResult[0]->LENGHT);
         
-        $startAt = ($count < $limit)? 0 : $count - $limit;     
+        $startAt = ($count < $limit)? 0 : $count - $limit + 1;     
         
         $sqlString = "SELECT TOP $limit START AT $startAt * FROM $this->entityName";
         $sqlString .= " WHERE FUSERID = '$userid'";

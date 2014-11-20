@@ -16,7 +16,137 @@
         App.Dashboard = Dashboard;
         
         Dashboard.DynamicFilter = Dandelion.BootstrapDynamicFilter;
+        Dashboard.DynamicFilter.FilterString = "";
+        Dashboard.DynamicFilter.Controls = {
+            resetButton: $('#filterResetButton'),
+            saveButton: $('#filterSaveButton'),
+            filterButton: $('#filterButton')
+        };    
+        Dashboard.DynamicFilter.FilterFields = $('#filterFormFields');
+        
+        Dashboard.DynamicFilter._DisableFilterControls = function(){
+            
+            Dashboard.DynamicFilter.Controls.resetButton.addClass('disabled');
+            Dashboard.DynamicFilter.Controls.saveButton.addClass('disabled');            
+            Dashboard.DynamicFilter.Controls.filterButton.addClass('disabled');
+        };        
+        Dashboard.DynamicFilter._EnableFilterControls = function(){
+            
+            Dashboard.DynamicFilter.Controls.resetButton.removeClass('disabled');
+            Dashboard.DynamicFilter.Controls.saveButton.removeClass('disabled');            
+            Dashboard.DynamicFilter.Controls.filterButton.removeClass('disabled');
+        };
+        Dashboard.DynamicFilter._LoadFilterCallback = function(event){ 
+            
+            var _filterid = event.currentTarget.dataset['filterid'];
+            
+            Dashboard.DynamicFilter.Controls.resetButton.click();         
+            $.ajax({
+                data: {
+                    filterid: _filterid
+                },
+                url: '<?php echo $View->Href('Dashboard', 'GetSavedFilter') ?>',
+                type: 'post',
+                beforeSend: function() {
+                    $('.loading').show();
+                },
+                success: function(response) {
+                    var _response = $.parseJSON(response);
+                    var _values = _response.expfrom.split(",");
+                    Dashboard.DynamicFilter.FilterFields.append(_response.expfields);
+                    Dashboard.DynamicFilter.FilterFields.find('select, input').each(function(index){
+                        $(this).val(_values[index]);
+                    });
+                    $('.loading').hide();
+                }
+            });
+            Dashboard.DynamicFilter._FilterCallback();
+            Dashboard.DynamicFilter.Init();
+            Dashboard.DynamicFilter._EnableFilterControls();
+        };
+        Dashboard.DynamicFilter._FilterCallback = function(){
+            var predicate = "";
+            console.log("_FilterCallback Called");
+            
+            Dashboard.DynamicFilter.FilterFields.children().each(function() {                
+                if ($(this).hasClass('btn-group')) {
+                    var value = $(this).children('button').text();
+                    predicate += value + " ";
+                }
+                else if ($(this).hasClass('form-group')) {
+                    var $control = $(this).find('input, select');                    
+                    if ($control.val() === "") {
+                         predicate += 'EMPTY('+$control.data('fieldname')+') ';
+                    }
+                    else if($control.hasClass('daterangepicker-single')){
+                        var range = $control.val().split(' - ');
+                        predicate += "(" + $control.data('fieldname') + " >= '" + range[0] + "' ";
+                        predicate += "And " + $control.data('fieldname') + " <= '" + range[1] + "') ";
+                    }
+                    else{
+                        predicate += "LOWER(" + $control.data('fieldname') + ") LIKE '%" + $control.val().toLowerCase() + "%' ";                       
+                    }
+                }                
+            });
+            
+            Dashboard.DynamicFilter.FilterString = predicate;
+            //Dashboard.DynamicFilter = Dandelion.BootstrapDynamicFilter;
 
+            var $table = $('#dashboardTable');
+            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table);
+        };
+        Dashboard.DynamicFilter._ResetCallback = function(){
+            Dashboard.DynamicFilter.FilterFields.children().remove();
+            Dashboard.DynamicFilter._DisableFilterControls();
+            Dashboard.DynamicFilter._FilterCallback();
+            Dashboard.DynamicFilter.Controls.filterButton.next().focus();
+        };
+        Dashboard.DynamicFilter.Init = function(){
+            //DynamicFilter Initialization
+            
+            // Filter Button OnClick event handler
+            Dashboard.DynamicFilter.Controls.filterButton.on('click', Dashboard.DynamicFilter._FilterCallback);
+            
+            /// Reset Filter Button OnClick event handler
+            $('#filterResetButton').on('click', Dashboard.DynamicFilter._ResetCallback);
+            
+            // Save Filter Button OnClick event handler
+            Dashboard.DynamicFilter.Controls.saveButton.on('click', function(){
+                $('#filterSaveModal').modal();
+            });
+            
+            // Saved Filter Item List OnCLick event handler
+            $('.saved-filter-field').on('click', Dashboard.DynamicFilter._LoadFilterCallback);
+            
+            /// Filter Fields OnClick event handler
+            $('.filter-field').on('click', function() {
+                var $filterField = $(this); 
+                    
+                if ($('#filterFormFields').children().length > 0) {
+                    $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createModifier());
+                }
+                else {
+                    $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createFirstModifier());
+                }
+                if ($filterField.data('field-type') === "text") {
+                    $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createTextFilter($filterField.data('field'), $filterField.text(), $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
+                }
+                if ($filterField.data('field-type') === "date") {
+                    $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createDateFilter($filterField.data('field'), $filterField.text(), $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
+                }
+                if ($filterField.data('field-type') === "job-status") {
+                    $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus, $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
+                }
+                if ($filterField.data('field-type') === "material-status") {
+                    $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus, $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
+                }
+                
+                Dashboard.DynamicFilter._EnableFilterControls();
+            });
+        };
+
+        Dashboard.DynamicFilter.Init();
     })(window, document, App);
 </script>
 
@@ -25,6 +155,7 @@
         $(document).ready(function() {
             $('.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
             bindUpdateDropdownClick();
+            
         });
     })(window, document, jQuery);
 </script>
@@ -78,75 +209,29 @@
 <script>
     /// Filter Control Behavior
     (function(window, document, $, Dashboard) {
-                
-        /// Filter Fields OnClick event handler
-        $('.filter-field').on('click', function() {
-            var $filterField = $(this),
-                    _filterField = $filterField[0],
-                    $filterButton = $('.filter-button'); 
-            //_filterField.parentElement.parentElement.parentElement.parentElement.previousSibling.previousSibling !== null
-            if ($('#filterFormFields').children().length > 0) {
-                //$filterButton.before(Dandelion.BootstrapDynamicFilter.createModifier());
-                $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createModifier());
-            }
-            else {
-                $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createFirstModifier());
-                //$filterButton.before(Dandelion.BootstrapDynamicFilter.createFirstModifier());
-            }
-            if ($filterField.data('field-type') === "text") {
-                $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createTextFilter($filterField.data('field'), $filterField.text(), $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
-                //$filterButton.before(Dandelion.BootstrapDynamicFilter.createTextFilter($filterField.data('field'), $filterField.text(), $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
-            }
-            if ($filterField.data('field-type') === "date") {
-                $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createDateFilter($filterField.data('field'), $filterField.text(), $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
-                //$filterButton.before(Dandelion.BootstrapDynamicFilter.createDateFilter($filterField.data('field'), $filterField.text(), $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
-            }
-            if ($filterField.data('field-type') === "job-status") {
-                $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus, $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
-                //$filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus, $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
-            }
-            if ($filterField.data('field-type') === "material-status") {
-                $('#filterFormFields').append(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus, $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
-                //$filterButton.before(Dandelion.BootstrapDynamicFilter.createDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus, $('#filterButton'), $('#filterResetButton'), $('#filterSaveButton')));
-            }
-            $('#filterSaveButton').removeClass('disabled');
-            $('#filterResetButton').removeClass('disabled');
-            $('#filterButton').removeClass('disabled');
-        });
         
-        /// Reset Filter Button OnClick event handler
-        $('#filterResetButton').on('click', function() {
-//            $('#filterForm').children().each(function(){
-//                if (!$(this).hasClass('filter-button')) {
-//                    $(this).remove();
-//                }
-//            });
-
-            $('#filterFormFields').children().remove();
-            
-            $('#filterSaveButton').addClass('disabled');
-            $('#filterResetButton').addClass('disabled');
-            $('#filterButton').addClass('disabled');
-            $('#filterButton').click();
-            $('#filterButton').next().focus();
-        });
-        
-        $('#filterSaveButton').on('click', function(){
-            $('#filterSaveModal').modal();
-        });
+ 
         
         $('#filterSaveModalSubmit').on('click', function(){
             var filterName = $('#filterSaveModalFilterName').val();
             var filterFields = $('#filterFormFields').html();
-            console.log(filterFields);
+            var filterFieldsValues = "";
+
+            $('#filterFormFields').find('select, input[type=text]').each(function(){
+                filterFieldsValues += $(this).val()+",";
+            });
+            
+            // Cleaning the string (last colom removed) ;)
+            filterFieldsValues = filterFieldsValues.substring(0, filterFieldsValues.length-1);
             
             if (filterName !== "") {
                 (function(window, document, jQuery, Dashboard) {
                     $.ajax({
                         data: {
                             filterName: filterName ,
-                            filterString: Dandelion.BootstrapDynamicFilter.FilterString,
-                            filterHtml: ''
+                            filterString: Dashboard.DynamicFilter.FilterString,
+                            filterHtml: filterFields,
+                            filterValues: filterFieldsValues
                         },
                         url: '<?php echo $View->Href('Dashboard', 'SaveFilter') ?>',
                         type: 'post',
@@ -155,7 +240,8 @@
                         },
                         success: function(response) {
                             var _response = $.parseJSON(response);
-                            $('#savedFilterList').append('<li><a href="#" class="saved-filter-field">'+filterName+'</a></li>');
+                            $('#savedFilterList').append('<li><a href="#" class="saved-filter-field" data-filterid="'+_response.filterid+'">'+filterName+'</a></li>');
+                            $('.saved-filter-field').on('click', Dashboard.DynamicFilter._LoadFilterCallback);
                             $('#filterSaveModal').modal('hide');
                             $('.loading').hide();
                         }
@@ -169,61 +255,7 @@
             }
         });
   
-        /// Filter Button OnClick event handler
-        $('#filterButton').on('click', function() {
-            var predicate = "";
-
-//            $('#filterForm').children().each(function() {
-//
-//                if ($(this).hasClass('btn-group') && !$(this).hasClass('filter-button')) {
-//                    var value = $(this).children('button').text();
-//                    predicate += value + " ";
-//                }
-//                else if ($(this).hasClass('form-group')) {
-//                    var $control = $(this).find('input, select');                    
-//                    if ($control.val() === "") {
-//                         predicate += 'EMPTY('+$control.data('fieldname')+') ';
-//                    }
-//                    else if($control.hasClass('daterangepicker-single')){
-//                        var range = $control.val().split(' - ');
-//                        predicate += "(" + $control.data('fieldname') + " >= '" + range[0] + "' ";
-//                        predicate += "And " + $control.data('fieldname') + " <= '" + range[1] + "') ";
-//                    }
-//                    else{
-//                        predicate += "LOWER(" + $control.data('fieldname') + ") LIKE '%" + $control.val().toLowerCase() + "%' ";                       
-//                    }
-//                }
-//                Dandelion.BootstrapDynamicFilter.FilterString = predicate;
-//            });
-//            
-            $('#filterFormFields').children().each(function() {
-
-                if ($(this).hasClass('btn-group')) {
-                    var value = $(this).children('button').text();
-                    predicate += value + " ";
-                }
-                else if ($(this).hasClass('form-group')) {
-                    var $control = $(this).find('input, select');                    
-                    if ($control.val() === "") {
-                         predicate += 'EMPTY('+$control.data('fieldname')+') ';
-                    }
-                    else if($control.hasClass('daterangepicker-single')){
-                        var range = $control.val().split(' - ');
-                        predicate += "(" + $control.data('fieldname') + " >= '" + range[0] + "' ";
-                        predicate += "And " + $control.data('fieldname') + " <= '" + range[1] + "') ";
-                    }
-                    else{
-                        predicate += "LOWER(" + $control.data('fieldname') + ") LIKE '%" + $control.val().toLowerCase() + "%' ";                       
-                    }
-                }                
-            });
-            Dashboard.DynamicFilter.FilterString = predicate;
-            //Dashboard.DynamicFilter = Dandelion.BootstrapDynamicFilter;
-
-            var $table = $('#dashboardTable');
-            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table);
-        });
+        
     })(window, document, jQuery, App.Dashboard);
 
 </script>
