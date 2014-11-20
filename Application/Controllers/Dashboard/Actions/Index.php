@@ -23,7 +23,7 @@ class Index extends Action {
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
-        $this->FilterPredicate = (!isset($_SESSION['filterPredicate']))? "" : $_SESSION['filterPredicate'];
+        $this->FilterPredicate = "";//(!isset($_SESSION['filterPredicate']))? "" : $_SESSION['filterPredicate'];
         
         $this->Pager = $this->controller->GetDashboardPager($this->UserName, $this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();        

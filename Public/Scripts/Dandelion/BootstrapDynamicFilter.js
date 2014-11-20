@@ -42,7 +42,7 @@
                         
                     if (_formGroup.parentNode) {
                         if (_formGroup.previousSibling === _firstModifier) {
-                            if (_formGroup.nextSibling === _filterButton) {
+                            if (_formGroup.nextSibling === null) { // filterButton
                                 // Remove Previous Sibling from its parent if any
                                 _formGroup.parentNode.removeChild(_previuosSibling);
                                 $filterButton.addClass('disabled');
@@ -120,7 +120,7 @@
                         
                     if (_formGroup.parentNode) {
                         if (_formGroup.previousSibling === _firstModifier) {
-                            if (_formGroup.nextSibling === _filterButton) {
+                            if (_formGroup.nextSibling === null) { // filterButton
                                 // Remove Previous Sibling from its parent if any
                                 _formGroup.parentNode.removeChild(_previuosSibling);
                                 $filterButton.addClass('disabled');
@@ -190,7 +190,7 @@
                         
                     if (_formGroup.parentNode) {
                         if (_formGroup.previousSibling === _firstModifier) {
-                            if (_formGroup.nextSibling === _filterButton) {
+                            if (_formGroup.nextSibling === null) { // filterButton
                                 // Remove Previous Sibling from its parent if any
                                 _formGroup.parentNode.removeChild(_previuosSibling);
                                 $filterButton.addClass('disabled');

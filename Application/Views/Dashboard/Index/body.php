@@ -57,7 +57,10 @@
             <span class="pull-right">paged by </span>
         </div>
         <div class="panel-body">
-            <div id="filterForm" class="form-inline" role="form">
+            <div id="filterForm" class="form-inline" role="form">   
+                <div id="filterFormFields">
+                    
+                </div>
                 <div  class="btn-group filter-button left">
                     <button id="filterResetButton"type="button" class="btn btn-default disabled">Reset</button>
                     
@@ -67,7 +70,7 @@
                         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" role="menu">
+                        <ul id="savedFilterList" class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">Load Saved Filter</li>
                             <?php foreach ($SavedUserFilters as $filter): ?>
                             <li><a href="#" class="saved-filter-field"><?php echo $filter->getExportid() ?></a></li>
@@ -239,12 +242,12 @@
             </div>
             <div class="modal-body row">
                 <div class="form-group col-xs-12">
-                    <input type="text" class="form-control" value="" id="filterSaveModalFilterName" placeholder="Filter Name" />
+                    <input type="text" class="form-control" value="" id="filterSaveModalFilterName" placeholder="Filter Name" data-content="Filter name is required" data-placement="top"/>
                 </div>
             </div><!-- /.modal-body -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="filterSaveModalSubmit">Save Filter</button>
+                <button type="button" class="btn btn-primary" id="filterSaveModalSubmit">Save Filter</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
