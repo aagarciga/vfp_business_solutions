@@ -73,18 +73,17 @@
                         $(this).val(_values[index]);                    
                     });
                     Dashboard.DynamicFilter._BindLoadedControlsHandlers();
+                    Dashboard.DynamicFilter._FilterCallback();
                     $('.loading').hide();
                 }
             });
-            Dashboard.DynamicFilter._FilterCallback();
-            //Dashboard.DynamicFilter.Init();
             
             Dashboard.DynamicFilter._EnableFilterControls();
         };
         Dashboard.DynamicFilter._FilterCallback = function(){
             var predicate = "";
             
-            Dashboard.DynamicFilter.FilterFields.children().each(function() {                
+            Dashboard.DynamicFilter.FilterFields.children().each(function() {    
                 if ($(this).hasClass('btn-group')) {
                     var value = $(this).children('button').text();
                     predicate += value + " ";
@@ -104,10 +103,8 @@
                     }
                 }                
             });
-            
             Dashboard.DynamicFilter.FilterString = predicate;
-            //Dashboard.DynamicFilter = Dandelion.BootstrapDynamicFilter;
-
+            
             var $table = $('#dashboardTable');
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
             Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table);
@@ -255,8 +252,7 @@
                     Dashboard.DynamicFilter._FilterCallback(); 
                 });
             });            
-        };
-        
+        };        
         Dashboard.DynamicFilter._BindLoadedControlsHandlers = function(){
             
             // Bind On Enter Key Press Behavior to Inputs
