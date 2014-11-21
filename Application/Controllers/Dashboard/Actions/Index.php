@@ -42,7 +42,7 @@ class Index extends Action {
         
         $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
         
-        $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUser($user->getUserid());
+        $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($user->getUsername());
     }
 
 }

@@ -66,14 +66,14 @@ class SysexportRepository extends BaseRepository implements IRepository {
     
     /**
      * 
-     * @param type $userid
+     * @param type $username
      * @param type $limit
      * @return \Dandelion\MVC\Application\Models\Entities\SYSEXPORT
      */
-    public function GetSavedFiltersByUser($userid ,$limit = 10) {
+    public function GetSavedFiltersByUserName($username ,$limit = 10) {
         
         $countSqlString = "SELECT COUNT(*) AS LENGHT FROM $this->entityName";
-        $countSqlString .= " WHERE FUSERID = '$userid'";
+        $countSqlString .= " WHERE FUSERID = '$username'";
         $countQuery = $this->dbDriver->GetQuery();
         $countQueryResult = $countQuery->Execute($countSqlString);
         $count = intval($countQueryResult[0]->LENGHT);
@@ -81,7 +81,7 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $startAt = ($count < $limit)? 0 : $count - $limit + 1;     
         
         $sqlString = "SELECT TOP $limit START AT $startAt * FROM $this->entityName";
-        $sqlString .= " WHERE FUSERID = '$userid'";
+        $sqlString .= " WHERE FUSERID = '$username'";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array(); 

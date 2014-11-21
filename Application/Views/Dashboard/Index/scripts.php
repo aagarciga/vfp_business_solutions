@@ -349,13 +349,15 @@
                             },
                             success: function(response) {
                                 var _response = $.parseJSON(response);
-                                Dashboard.DynamicFilter.SavedFilterList.append('<li><a href="#" class="saved-filter-list-item" data-filterid="'+_response.filterid+'">'+_filterName+'</a></li>');
-                                Dashboard.DynamicFilter.SavedFilterListItems.on('click', Dashboard.DynamicFilter._LoadFilterCallback);
+                                var $newItemList = $('<li><a href="#" class="saved-filter-list-item" data-filterid="'+_response.filterid+'">'+_filterName+'</a></li>');
+                                Dashboard.DynamicFilter.SavedFilterList.append($newItemList);                                
+                                $newItemList.find('a').on('click', Dashboard.DynamicFilter._LoadFilterCallback);                                
                                 Dashboard.DynamicFilter.SaveModalWindow.modal('hide');
+                                Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.parent().removeClass('has-error');
                                 $('.loading').hide();
                             }
                         });
-                        Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.parent().removeClass('has-error');
+                        
                     })(jQuery, Dashboard);
                 }
                 else{

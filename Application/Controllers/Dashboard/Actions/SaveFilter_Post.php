@@ -42,7 +42,7 @@ class SaveFilter_Post extends Action {
         
         $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
         $filterId = GUIDGenerator::getGUID();
-        $entity = new SYSEXPORT($filterName, "", $filterHtml, $filterValues, $filterStringSerialized, "", "", $user->getUserid(), $filterId);      
+        $entity = new SYSEXPORT($filterName, "", $filterHtml, $filterValues, $filterStringSerialized, "", "", $user->getUsername(), $filterId);      
         $success = $this->controller->VfpDataUnitOfWork->SysexportRepository->Add($entity);        
         $result['status'] = $success ? 'success' : 'failure';
         $result['filterid'] = $filterId;        
