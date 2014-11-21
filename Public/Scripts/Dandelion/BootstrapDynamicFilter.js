@@ -1,9 +1,13 @@
+/*
+ * Alex: Unused TODO: Clean in the future.
+ */
+
 ;(function(window, document, undefined) {
     "use strict";
 
     (function() {
         Dandelion.BootstrapDynamicFilter = {
-            FilterString : "",
+            //FilterString : "",
             createTextFilter: function(fieldName, fieldDisplayName, $filterButton, $filterResetButton, $filterSaveButton) {
                 var _formGroup = document.createElement('div'),
                         _label = document.createElement('label'),
