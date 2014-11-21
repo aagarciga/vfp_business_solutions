@@ -1,25 +1,24 @@
 <script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
-<!--<script src="<?php echo $View->PublicContext('scripts/Dandelion/BootstrapDynamicFilter.js'); ?>"></script>-->
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicContext('scripts/jstree.init.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
 
 
 <script>
-   ;(function(window, document, App) {
+   ;(function(App) {
         "use strict";
 
         // Dashboard Namespace
         var Dashboard = {};
         App.Dashboard = Dashboard;
         
-    })(window, document, App);
+    })(window.App);
 </script>
 
 <script>
-    ;(function(window, document, Dandelion, Dashboard) {
+    ;(function(Dashboard) {
         "use strict";
         
         // DynamicFilter Namespace
@@ -71,13 +70,15 @@
                     var _values = _response.expfrom.split(",");
                     Dashboard.DynamicFilter.FilterFields.append(_response.expfields);
                     Dashboard.DynamicFilter.FilterFields.find('select, input').each(function(index){
-                        $(this).val(_values[index]);
+                        $(this).val(_values[index]);                    
                     });
+                    Dashboard.DynamicFilter._BindLoadedControlsHandlers();
                     $('.loading').hide();
                 }
             });
             Dashboard.DynamicFilter._FilterCallback();
-            Dashboard.DynamicFilter.Init();
+            //Dashboard.DynamicFilter.Init();
+            
             Dashboard.DynamicFilter._EnableFilterControls();
         };
         Dashboard.DynamicFilter._FilterCallback = function(){
@@ -139,15 +140,16 @@
             }
             $formGroup.remove();            
             Dashboard.DynamicFilter._FilterCallback();            
-        };        
+        };  
+        Dashboard.DynamicFilter._OnEnterKeyPressCallback = function(event){
+            if(event.keyCode === 13){
+                Dashboard.DynamicFilter._FilterCallback();                       
+            }
+        };
         Dashboard.DynamicFilter._CreateTextFilter = function(fieldName, fieldDisplayName){
             var $formGroup = $('<div class="form-group" title="'+fieldDisplayName+'"><label class="sr-only">'+fieldDisplayName+'</label><div class="input-group"><input type="text" class="form-control" data-fieldname="'+fieldName+'" placeholder="'+fieldDisplayName+'"><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
         
-            $formGroup.find('input').on('keypress', function(event){
-                if(event.keyCode === 13){
-                    Dashboard.DynamicFilter._FilterCallback();                       
-                }
-            });            
+            $formGroup.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);            
             $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
             
             return $formGroup;        
@@ -162,11 +164,7 @@
                 $select.append($('<option value="'+_current.edistatid+'">'+_current.descrip+'</option>'));
             }
             
-            $select.on('keypress', function(event){
-                if(event.keyCode === 13){
-                    Dashboard.DynamicFilter._FilterCallback();                       
-                }
-            });  
+            $select.on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);  
             $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
             
             return $formGroup;
@@ -174,11 +172,7 @@
         Dashboard.DynamicFilter._CreateDateFilter = function(fieldName, fieldDisplayName){
             var $formGroup = $('<div class="form-group"><label class="sr-only">Start Date</label><div class="input-prepend input-group" title="'+fieldDisplayName+'"><span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" class="form-control daterangepicker-single" data-fieldname="'+fieldName+'" placeholder="'+fieldDisplayName+'"><span class="input-group-btn"><button type="button" class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field"></button></span></div></div>');
             
-            $formGroup.find('input').on('keypress', function(event){
-                if(event.keyCode === 13){
-                    Dashboard.DynamicFilter._FilterCallback();                       
-                }
-            }).daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+            $formGroup.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback).daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
             $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
             
             return $formGroup; 
@@ -226,8 +220,64 @@
             return $buttonGroup;
         };
         
+        Dashboard.DynamicFilter._BindFirstModifierClick = function($modifier){
+            var $button = $modifier.find('button').first();
+            
+            $modifier.find('li').each(function(){
+                var _current = $(this);
+                
+                _current.on('click', function(){                    
+                    // Change Current Modifier Text
+                    if (_current.find('a').html() === "Clear Not") {
+                        $button.html("");
+                    } else {
+                        $button.html(_current.find('a').html());                        
+                    }                        
+                    // Update Current Modifier
+                    $modifier.find('li.current').removeClass('current');
+                    _current.addClass('current');
+                    Dashboard.DynamicFilter._FilterCallback(); 
+                });
+            });            
+        };
+        Dashboard.DynamicFilter._BindModifierClick = function($modifier){
+            var $button = $modifier.find('button').first();
+            
+            $modifier.find('li').each(function(){
+                var _current = $(this);
+                
+                _current.on('click', function(){                    
+                    // Change Current Modifier Text
+                    $button.html(_current.find('a').html());                        
+                    // Update Current Modifier
+                    $modifier.find('li.current').removeClass('current');
+                    _current.addClass('current');
+                    Dashboard.DynamicFilter._FilterCallback(); 
+                });
+            });            
+        };
         
-        
+        Dashboard.DynamicFilter._BindLoadedControlsHandlers = function(){
+            
+            // Bind On Enter Key Press Behavior to Inputs
+            Dashboard.DynamicFilter.FilterFields.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);
+            
+            // Bind Modifier Behavior
+            Dashboard.DynamicFilter.FilterFields.find('.btn-group').each(function(index){
+                var _current = $(this);
+                if (index === 0) {
+                    Dashboard.DynamicFilter._BindFirstModifierClick(_current);
+                }
+                else{
+                    Dashboard.DynamicFilter._BindModifierClick(_current);
+                }
+            });
+            
+            //Bind Delete Filter Field On Click Behavior                       
+            Dashboard.DynamicFilter.FilterFields.find('.input-group-btn button').each(function(){
+                $(this).on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
+            });
+        };
         
         Dashboard.DynamicFilter.Init = function(){
             //DynamicFilter Initialization
@@ -244,7 +294,7 @@
                 Dashboard.DynamicFilter.SaveModalWindow.modal();
             });
             
-            // Saved Filter Item List OnCLick event handler
+            // Saved Filter Item List OnClick event handler
             Dashboard.DynamicFilter.SavedFilterListItems.on('click', Dashboard.DynamicFilter._LoadFilterCallback);
             
             // Filter Fields OnClick event handler
@@ -320,7 +370,7 @@
         };
 
         Dashboard.DynamicFilter.Init();
-    })(window, document, window.Dandelion, App.Dashboard);
+    })(App.Dashboard);
 </script>
 
 <script type="text/javascript">
