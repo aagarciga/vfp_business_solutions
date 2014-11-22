@@ -242,7 +242,7 @@
             </div>
             <div class="modal-body row">
                 <div class="form-group col-xs-12">
-                    <input type="text" class="form-control" value="" id="filterSaveModalFilterName" placeholder="Filter Name" data-content="Filter name is required" data-placement="top"/>
+                    <input type="text" class="form-control" value="" id="filterSaveModalFilterName" maxlength="20" placeholder="Filter Name" data-content="Please enter a valid filter name. Only letters and numbers are permitted and can't be empty." data-placement="top"/>
                 </div>
             </div><!-- /.modal-body -->
             <div class="modal-footer">
