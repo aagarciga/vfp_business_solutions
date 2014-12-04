@@ -9,7 +9,7 @@ define('MVC_VERSION', "1.0.0.51");
  * PHP Version 5.3
  * 
  * @author    Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright 2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright 2011-2014 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://www.thedandelionproject.com
  */

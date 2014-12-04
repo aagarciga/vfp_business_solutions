@@ -73,7 +73,7 @@
                         <ul id="savedFilterList" class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">Load Saved Filter</li>
                             <?php foreach ($SavedUserFilters as $filter): ?>
-                            <li><a href="#" class="saved-filter-list-item" data-filterid="<?php echo $filter->getFilterid() ?>"><?php echo $filter->getExportid() ?></a></li>
+                            <li><a href="#" class="saved-filter-list-item" data-filterid="<?php echo $filter->getFilterid() ?>"><?php echo $filter->getExportid() ?></a><button type="button" class="close" aria-hidden="true">&times;</button></li>
                             <?php endforeach ?>                                
                         </ul>
                         <?php endif ?>

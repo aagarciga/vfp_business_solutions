@@ -25,14 +25,10 @@
             if ($icon.hasClass('glyphicon-eye-open')) {
                 $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
                 $filter.hide("slow");
-                //$filter.slideUp("slow");
-                //$filter.fadeIn("slow");
             }
             else {
                 $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
                 $filter.show("slow");
-                //$filter.slideDown("slow");
-                //$filter.fadeOut("slow");
             }
         };
         
@@ -54,6 +50,7 @@
         Dashboard.DynamicFilter.FilterString = "";
         Dashboard.DynamicFilter.SavedFilterList = $('#savedFilterList');
         Dashboard.DynamicFilter.SavedFilterListItems = $('.saved-filter-list-item');
+        Dashboard.DynamicFilter.SavedFilterListItemsDelete = $('#savedFilterList li .close');
         Dashboard.DynamicFilter.SaveModalWindow = $('#filterSaveModal');
         Dashboard.DynamicFilter.FilterFields = $('#filterFormFields');
         Dashboard.DynamicFilter.Controls = {
@@ -146,7 +143,7 @@
         };
         Dashboard.DynamicFilter._DeleteFilterFieldCallback = function(event){
             var $firstModifier = $('.btn-filter-modifier').first().parent(),
-                $formGroup = $(event.currentTarget).parents('.form-group'),                
+                $formGroup = $(event.currentTarget).parents('.form-group'),
                 $previousControl = $formGroup.prev(),
                 $nextControl = $formGroup.next();
         
@@ -164,9 +161,34 @@
                 // Remove Previous Control if any
                 $previousControl.remove();
             }
-            $formGroup.remove();            
-            Dashboard.DynamicFilter._FilterCallback();            
-        };  
+            $formGroup.remove();
+            Dashboard.DynamicFilter._FilterCallback();
+        };
+        Dashboard.DynamicFilter._DeleteFilterCallback = function(event){
+            var _filterId = $(event.currentTarget).parent().find('a').data('filterid');                
+            $.ajax({
+                data: {
+                    filterId: _filterId
+                },
+                url: '<?php echo $View->Href('Dashboard', 'DeleteFilter') ?>',
+                type: 'post',
+                beforeSend: function() {
+                    $('.loading').show();
+                },
+                success: function(response) {
+                    var _response = $.parseJSON(response);
+                    if (Dashboard.DynamicFilter.SavedFilterList.children().length > 2) {
+                        $('[data-filterid="'+_response.filterid+'"]').parent().remove();
+                    }else{
+                        Dashboard.DynamicFilter.SavedFilterList.prev('button').remove();
+                        Dashboard.DynamicFilter.SavedFilterList.remove();
+                        Dashboard.DynamicFilter.SavedFilterList = null;
+                    }
+                                                           
+                    $('.loading').hide();
+                }
+            });
+        };
         Dashboard.DynamicFilter._OnEnterKeyPressCallback = function(event){
             if(event.keyCode === 13){
                 Dashboard.DynamicFilter._FilterCallback();                       
@@ -287,6 +309,9 @@
             // Bind On Enter Key Press Behavior to Inputs
             Dashboard.DynamicFilter.FilterFields.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);
             
+            // Bind Daterangepicker control
+            Dashboard.DynamicFilter.FilterFields.find('input.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+            
             // Bind Modifier Behavior
             Dashboard.DynamicFilter.FilterFields.find('.btn-group').each(function(index){
                 var _current = $(this);
@@ -321,6 +346,9 @@
             
             // Saved Filter Item List OnClick event handler
             Dashboard.DynamicFilter.SavedFilterListItems.on('click', Dashboard.DynamicFilter._LoadFilterCallback);
+            
+            // Saved Filter Delete Item List OnClick Event handler
+            Dashboard.DynamicFilter.SavedFilterListItemsDelete.on('click', Dashboard.DynamicFilter._DeleteFilterCallback);
             
             // Filter Fields OnClick event handler
             $('.filter-field').on('click', function() {
@@ -379,9 +407,8 @@
                                 },
                                 success: function(response) {
                                     var _response = $.parseJSON(response);
-                                    var $newItemList = $('<li><a href="#" class="saved-filter-list-item" data-filterid="'+_response.filterid+'">'+_filterName+'</a></li>');
-
-                                    if(Dashboard.DynamicFilter.SavedFilterList.length === 0) {
+                                    var $newItemList = $('<li><a href="#" class="saved-filter-list-item" data-filterid="'+_response.filterid+'">'+_filterName+'</a><button type="button" class="close" aria-hidden="true">&times;</button></li>');
+                                    if(Dashboard.DynamicFilter.SavedFilterList === null || Dashboard.DynamicFilter.SavedFilterList.length === 0) {
                                         // Adding Save Dropdown markup
                                         var $dropControl = $('<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>');
                                         Dashboard.DynamicFilter.Controls.saveButton.after($dropControl);
@@ -389,7 +416,8 @@
                                         Dashboard.DynamicFilter.SavedFilterList = $('#savedFilterList');
                                     }
                                     Dashboard.DynamicFilter.SavedFilterList.append($newItemList);                                
-                                    $newItemList.find('a').on('click', Dashboard.DynamicFilter._LoadFilterCallback);                                
+                                    $newItemList.find('a').on('click', Dashboard.DynamicFilter._LoadFilterCallback); 
+                                    $newItemList.find('button.close').on('click', Dashboard.DynamicFilter._DeleteFilterCallback);
                                     Dashboard.DynamicFilter.SaveModalWindow.modal('hide');
                                     Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.val('').popover('hide').parent().removeClass('has-error');
                                     $('.loading').hide();
@@ -448,25 +476,6 @@
     }
 
     $('.btn-files-dialog').on('click', Files_OnClick);
-</script>
-
-<script>
-    /// Filter Form Show/Hide control behavior
-//    (function(window, document, $) {
-//        $('#dashboard-panel-togle-visibility-button').on('click', function() {
-//            var $button = $(this),
-//                    $icon = $button.children('span'),
-//                    $filter = $('#filterForm');
-//            if ($icon.hasClass('glyphicon-eye-open')) {
-//                $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
-//                $filter.hide();
-//            }
-//            else {
-//                $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
-//                $filter.show();
-//            }
-//        });
-//    })(window, document, jQuery);
 </script>
 
 <script>
