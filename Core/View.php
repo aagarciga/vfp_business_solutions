@@ -2,7 +2,6 @@
 
 namespace Dandelion\MVC\Core;
 
-use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Core\Nomenclatures\RequestMethod;
 
 /**

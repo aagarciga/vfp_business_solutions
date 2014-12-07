@@ -74,5 +74,15 @@ class AdvantageODBCDriver implements IDBDriver {
 
         return odbc_connect($connectionString, $this->user, $this->password);
     }
+    
+    public function Convert2($columnName, $dataType){
+        return "CONVERT($columnName, $dataType)";
+    }
+    
+    public function Convert2Integer($columnName){
+        return "CONVERT($columnName, SQL_INTEGER)";
+    }
+    
+    //SQL_BINARY, SQL_VARBINARY, SQL_BIT (logical), SQL_LONGVARCHAR, SQL_VARCHAR, SQL_CHAR, SQL_WLONGVARCHAR, SQL_WVARCHAR, SQL_WCHAR, SQL_DATE, SQL_DOUBLE, SQL_INTEGER, SQL_NUMERIC, SQL_TIME, SQL_TIMESTAMP, or SQL_MONEY
 
 }

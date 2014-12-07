@@ -34,3 +34,19 @@
     padding-top: 0px;
     border-top: none;
 }
+
+.btn-table-sort{
+    border: none;
+    display: inline-block;
+    width: 21px;
+    height: 9px;
+    background: transparent url('../images/table-sort.gif') no-repeat 50% 50%;
+}
+
+.btn-table-sort.asc{
+    background: transparent url('../images/table-sort-asc.gif') no-repeat 50% 60%;
+}
+
+.btn-table-sort.desc{
+    background: transparent url('../images/table-sort-desc.gif') no-repeat 50% 40%;
+}
