@@ -135,7 +135,12 @@ class SysexportRepository extends BaseRepository implements IRepository {
     }
 
     public function Delete($entity) {
-        // TODO: Implement Delete() method.
+        $filterid = $entity->getFilterid();
+        
+        $sqlString = "DELETE FROM $this->entityName WHERE FILTERID = '$filterid'";
+        
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
     }
 
 }

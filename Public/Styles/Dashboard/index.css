@@ -69,6 +69,13 @@ ul.pagination{
     }
 }
 
+#savedFilterList li button.close{
+    display: inline-block;
+    position: relative;
+    margin-top: -23px;
+    left: -5px;
+}
+
 /*#dashboardTable{
     width: 180em;
     max-width: 180em;
