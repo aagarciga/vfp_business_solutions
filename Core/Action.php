@@ -54,6 +54,8 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * 
      * @param Request $request
      */
+
+
     public final function __construct(Request $request, ActionsController $controller) {
         $this->Request = $request;        
         $this->name = ucfirst($request->Action);

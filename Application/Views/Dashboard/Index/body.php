@@ -132,21 +132,21 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Sales Order</th>
-                            <th>Purchase Order</th>
-                            <th>Company</th>
-                            <th>Vessel</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Job Type</th>
-                            <th>Description</th>
-                            <th>Material Status</th>
-                            <th>Status</th>
-                            <th>Project Manager 1</th>
-                            <th>Project Manager 2</th>
-                            <th>Create</th>
-                            <th>Quote No</th>
-                            <th>Cost Center</th>
+                            <th>Sales Order <button data-field="ordnum" class="btn-table-sort"></button></th>
+                            <th>Purchase Order <button data-field="ponum" class="btn-table-sort"></button></th>
+                            <th>Company <button data-field="company" class="btn-table-sort"></button></th>
+                            <th>Vessel <button data-field="destino" class="btn-table-sort"></button></th>
+                            <th>Start<button data-field="ProStartDT" class="btn-table-sort"></button> </th>
+                            <th>End <button data-field="ProEndDT" class="btn-table-sort"></button></th>
+                            <th>Job Type <button data-field="sotypecode" class="btn-table-sort"></button></th>
+                            <th>Description <button data-field="JobDescrip" class="btn-table-sort"></button></th>
+                            <th>Material Status <button data-field="MTRLSTATUS" class="btn-table-sort"></button></th>
+                            <th>Status <button data-field="JOBSTATUS" class="btn-table-sort"></button></th>
+                            <th>Project Manager 1 <button data-field="TECHNAM1" class="btn-table-sort"></button></th>
+                            <th>Project Manager 2 <button data-field="TECHNAM2" class="btn-table-sort"></button></th>
+                            <th>Create <button data-field="podate" class="btn-table-sort"></button></th>
+                            <th>Quote No <button data-field="qutno" class="btn-table-sort"></button></th>
+                            <th>Cost Center <button data-field="Cstctid" class="btn-table-sort"></button></th>
                             <th>Attached Files</th>                               
                         </tr>
                     </thead>

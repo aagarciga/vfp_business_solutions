@@ -23,6 +23,8 @@ class GetDashboardItemsPage_Post extends Action {
         $page = filter_input(INPUT_POST, 'page');
         $itemsperpage = filter_input(INPUT_POST, 'itemsperpage');
         $filterPredicate = filter_input(INPUT_POST, 'filterPredicate');
+        $orderby = filter_input(INPUT_POST, 'orderby');
+        $order = filter_input(INPUT_POST, 'order');
         $this->ItemPerPage = $_SESSION['itemperpages'] = (!isset($itemsperpage))? 10 : $itemsperpage;
         $this->FilterPredicate = $_SESSION['filterPredicate'] = (!isset($filterPredicate))? "" : $filterPredicate;
         
@@ -31,7 +33,7 @@ class GetDashboardItemsPage_Post extends Action {
         if (is_numeric($page)) {
             $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];             
             
-            $this->Pager = $this->controller->GetDashboardPager($this->UserName, $this->FilterPredicate , $this->ItemPerPage);
+            $this->Pager = $this->controller->GetDashboardPager($this->UserName, $this->FilterPredicate , $this->ItemPerPage, 5, 10, $orderby, $order);
             
             $pager = $this->Pager->PaginateForAjax($page);
             $currentPagedItems = $pager['currentPagedItems'];
