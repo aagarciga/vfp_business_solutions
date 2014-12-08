@@ -169,7 +169,7 @@
             
             var $table = $('#dashboardTable');
             var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table);
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
         };
         Dashboard.DynamicFilter._ResetCallback = function(){
             Dashboard.DynamicFilter.FilterFields.children().remove();

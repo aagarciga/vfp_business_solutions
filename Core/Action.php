@@ -51,8 +51,9 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
 
     /**
      * Constructor for Action object.
-     * 
-     * @param Request $request
+     *
+     * @param Request           $request
+     * @param ActionsController $controller
      */
 
 
@@ -117,12 +118,13 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
     public abstract function Execute();
 
     public function PostAction() {}
-       
+
     /**
-     * 
-     * 
+     *
+     *
      * @param string $controller Controller name
-     * @param string $action Action name
+     * @param string $action     Action name
+     * @param string $requestMethod
      */
     public final function Redirect($controller, $action = 'index', $requestMethod = 'GET') {
         
