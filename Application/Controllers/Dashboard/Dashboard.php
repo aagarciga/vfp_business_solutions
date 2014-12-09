@@ -54,7 +54,7 @@ class Dashboard extends DatActionsController {
     
     private function prepareOrderByField($orderByFiled){
         $result = $orderByFiled;
-        if ($orderByFiled === "qutno" || $orderByFiled === "Cstctid") {
+        if ($orderByFiled === "qutno" ){//|| $orderByFiled === "Cstctid") { // TODO Ask and fix that
             $result = $this->DatUnitOfWork->DBDriver->Convert2Integer($orderByFiled);
         }
         return $result;
