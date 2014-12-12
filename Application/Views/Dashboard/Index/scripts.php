@@ -36,6 +36,20 @@
         };
         
         Dashboard.Init = function(){
+            
+            // TODO: Big Refactoring Here ...
+            
+            $('.item-field a').on('click', function(){
+                var _salesOrder = $(this).html();
+                var _form = document.createElement('form');
+                _form.action = "<?php echo $View->FormAction('SalesOrder', 'Index') ?>" ;
+                _form.method = "POST";
+                var $hidden = $("<input type=\"hidden\" name=\"salesorder\" value=\""+_salesOrder+"\" />");
+                $(_form).append($hidden);
+                $(_form).submit();
+            });
+            
+            
             Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);
             
             $('.btn-table-sort').on('click', function(){
