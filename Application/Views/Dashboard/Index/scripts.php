@@ -7,7 +7,7 @@
 
 
 <script>
-   ;(function(App) {
+   ;(function(App, Dandelion) {
         "use strict";
 
         // Dashboard Namespace
@@ -37,18 +37,9 @@
         
         Dashboard.Init = function(){
             
-            // TODO: Big Refactoring Here ...
-            
             $('.item-field a').on('click', function(){
-                var _salesOrder = $(this).html();
-                var _form = document.createElement('form');
-                _form.action = "<?php echo $View->FormAction('SalesOrder', 'Index') ?>" ;
-                _form.method = "POST";
-                var $hidden = $("<input type=\"hidden\" name=\"salesorder\" value=\""+_salesOrder+"\" />");
-                $(_form).append($hidden);
-                $(_form).submit();
+                Dandelion.Redirect('SalesOrder', 'Index', { salesorder: $(this).html()});
             });
-            
             
             Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);
             
@@ -87,7 +78,7 @@
         };
         
         Dashboard.Init();
-    })(window.App);
+    })(window.App, Dandelion);
 </script>
 
 <script>
