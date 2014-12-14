@@ -8,7 +8,7 @@
         <div class="col-xs-4">           
             <div class="form-group">
                 <label class="control-label"><span class="glyphicon glyphicon-list"></span> SO No.</label>
-                <input type="text" class="form-control input" title="Then press [Enter]" value="<?php echo isset($SalesOrder) ? $SalesOrder : ""  ?>"/>
+                <input type="text" class="form-control input" title="Then press [Enter]" value="<?php echo isset($SalesOrder) ? $SalesOrder : "" ?>"/>
             </div>
         </div>
         <div class="col-xs-4">
@@ -19,7 +19,7 @@
         </div>          
         <div class="col-xs-4">
             <div class="form-group">
-                <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href("Main") ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
+                <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href( isset($FromController)? $FromController: "main", isset($FromAction) ? $FromAction : "index" ) ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
             <div class="form-group">
                 <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>
@@ -176,7 +176,20 @@
 
         </tfoot>
         <tbody>
-
+            <?php foreach ($SalesOrderItems as $item): ?>
+                <tr>
+                    <td class="item-field"><a href="#"><?php echo $item->getItmcount() ?></a></td>                    
+                    <td class="item-field"></td>
+                    <td class="item-field"><?php echo $item->getItemno() ?></td>
+                    <td class="item-field"><?php echo $item->getItmwhs() ?></td>
+                    <td class="item-field"><?php echo $item->getDescrip() ?></td>
+                    <td class="item-field"><?php echo $item->getUnit() ?></td>
+                    <td class="item-field"><?php echo $item->getQtyord() ?></td>
+                    <td class="item-field"><?php echo $item->getQtyshp() ?></td>
+                    <td class="item-field"><?php echo $item->getUnitprice() ?></td>
+                    <td class="item-field"><?php echo $item->getExtprice() ?></td>
+                </tr>
+            <?php endforeach ?>
         </tbody>
     </table>
 </div>

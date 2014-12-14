@@ -35,11 +35,13 @@
             }
         };
         
+        Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
+            Dandelion.Redirect('SalesOrder', 'Index', { salesorder: $(event.target).html(), fromcontroller: "Dashboard", fromaction:"index"});
+        };
+        
         Dashboard.Init = function(){
             
-            $('.item-field a').on('click', function(){
-                Dandelion.Redirect('SalesOrder', 'Index', { salesorder: $(this).html()});
-            });
+            $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);
             
             Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);
             
@@ -537,6 +539,8 @@
                     $('.pager-wrapper').html('').append(pagerControl);
                     var pagerItems = pager.getCurrentPagedItems();
                     Dashboard.updateDashboardTable($table, pagerItems);
+                    // SalesOrder Link on click handler
+                    $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);
                     $('#panelHeadingItemsCount').html(pager.itemsCount);
                     $('.loading').hide();
                 }

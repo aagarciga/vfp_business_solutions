@@ -7,6 +7,7 @@
 namespace Dandelion\MVC\Application\Controllers\SalesOrder\Actions;
 
 use Dandelion\MVC\Core\Action;
+use Dandelion\MVC\Application\Controllers\SalesOrder\Models\SalesOrderItemViewModel;
 
 /**
  * VFP Business Series Dashboard Controller Action
@@ -24,6 +25,20 @@ class Index_Post extends Action {
         $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
         
         $this->SalesOrder = filter_input(INPUT_POST, 'salesorder');
+        $this->FromController = filter_input(INPUT_POST, 'fromcontroller');
+        $this->FromAction = filter_input(INPUT_POST, 'fromaction');
+        
+        $this->Pager = $this->controller->GetSalesOrderItemsPager($this->UserName, $this->SalesOrder, $this->ItemPerPage);
+        $this->Pager->Paginate();  
+        $salesOrderItems = $this->Pager->getCurrentPagedItems();        
+        $salesOrderItemsViewModel = array();
+        
+        foreach ($salesOrderItems as $item) {
+            $currentItem = new SalesOrderItemViewModel($item->ORDNUM, $item->ITMCOUNT, $item->ITEMNO, $item->ITMWHS, $item->DESCRIP, $item->UNIT, $item->QTYORD, $item->QTYSHP, $item->UNITPRICE, $item->EXTPRICE);
+            $salesOrderItemsViewModel []= $currentItem;
+        }
+        
+        $this->SalesOrderItems= $salesOrderItemsViewModel;
         
     }
 
