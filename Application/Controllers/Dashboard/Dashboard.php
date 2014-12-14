@@ -29,7 +29,7 @@ class Dashboard extends DatActionsController {
      * @internal Because in the feature this will be an INNER JOIN
      */
     public function GetDashboardPager($userid, $predicate, $itemsPerpage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC" ){
-        if($predicate !== "") { $predicate = " AND ".$predicate; } 
+        if($predicate !== "") { $predicate = " WHERE ".$predicate; } 
         $orderby = $this->prepareOrderByField($orderby); // Converting String yo Integer for correct representation
         $companySuffix = $this->DatUnitOfWork->CompanySuffix;
         $sqlString = "SELECT "
@@ -48,7 +48,8 @@ class Dashboard extends DatActionsController {
                 . "qutno, "
                 . "Cstctid ,"
                 . "JobDescrip "
-                . "FROM SOHEAD$companySuffix WHERE NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')$predicate GROUP BY ordnum, ponum, company, destino, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
+                . "FROM SOHEAD$companySuffix $predicate GROUP BY ordnum, ponum, company, destino, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
+                //. "FROM SOHEAD$companySuffix WHERE NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')$predicate GROUP BY ordnum, ponum, company, destino, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
     

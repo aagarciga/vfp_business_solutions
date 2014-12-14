@@ -1,4 +1,5 @@
 <script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.js'); ?>"></script>
+<script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.MVC.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
@@ -7,7 +8,7 @@
 
 
 <script>
-   ;(function(App) {
+   ;(function(App, Dandelion) {
         "use strict";
 
         // Dashboard Namespace
@@ -35,7 +36,14 @@
             }
         };
         
+        Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
+            Dandelion.MVC.Redirect('SalesOrder', 'Index', { salesorder: $(event.target).html(), fromcontroller: "Dashboard", fromaction:"index"});
+        };
+        
         Dashboard.Init = function(){
+            
+            $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);
+            
             Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);
             
             $('.btn-table-sort').on('click', function(){
@@ -73,7 +81,7 @@
         };
         
         Dashboard.Init();
-    })(window.App);
+    })(window.App, Dandelion);
 </script>
 
 <script>
@@ -532,6 +540,8 @@
                     $('.pager-wrapper').html('').append(pagerControl);
                     var pagerItems = pager.getCurrentPagedItems();
                     Dashboard.updateDashboardTable($table, pagerItems);
+                    // SalesOrder Link on click handler
+                    $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);
                     $('#panelHeadingItemsCount').html(pager.itemsCount);
                     $('.loading').hide();
                 }
