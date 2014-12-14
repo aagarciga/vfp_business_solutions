@@ -1,4 +1,5 @@
 <script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.js'); ?>"></script>
+<script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.MVC.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
@@ -36,7 +37,7 @@
         };
         
         Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
-            Dandelion.Redirect('SalesOrder', 'Index', { salesorder: $(event.target).html(), fromcontroller: "Dashboard", fromaction:"index"});
+            Dandelion.MVC.Redirect('SalesOrder', 'Index', { salesorder: $(event.target).html(), fromcontroller: "Dashboard", fromaction:"index"});
         };
         
         Dashboard.Init = function(){
