@@ -8,7 +8,7 @@
         <div class="col-xs-4">           
             <div class="form-group">
                 <label class="control-label"><span class="glyphicon glyphicon-list"></span> SO No.</label>
-                <input type="text" class="form-control input" title="Then press [Enter]" value="<?php echo isset($SalesOrder) ? $SalesOrder : "" ?>"/>
+                <input type="text" class="form-control input" title="Sales Order" disabled="disabled" value="<?php echo isset($SalesOrder) ? $SalesOrder : "" ?>"/>
             </div>
         </div>
         <div class="col-xs-4">
