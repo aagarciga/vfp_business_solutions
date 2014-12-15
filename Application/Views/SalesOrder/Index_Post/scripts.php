@@ -2,7 +2,12 @@
     Dandelion.namespace('App.Screen.SalesOrder', window);
     
     // Module Pattern
-    window.App.Screen.SalesOrder = (function (){
+    App.Screen.SalesOrder = (function (App, global){
+
+        // references to the global object    
+        // and to the global app namespace object    
+        // are now localized
+        
         // Dependencies
 //        var objectA = App.Classes.ClassA,
 //            objectB = App.Classes.ClassB;
@@ -27,9 +32,10 @@
         return {
             publicMethod1 : function(){
                 // TODO: Public Method1 Code goes here...
+                console.log(App, global);
             }
         };
         
         this.init();
-    })();
+    })(App, this); 
 </script>
