@@ -20,8 +20,26 @@
     "use strict";
 
     // Dandelion Namespace
-    var Dandelion = {};
+    var Dandelion = Dandelion || {};
     window.Dandelion = Dandelion;
+    
+    Dandelion.namespace = function(nsString){
+        var parts = nsString.split('.'),
+            parent = Dandelion,
+            i;
+        // strip redundant leading global
+        if (parts[0] === "Dandelion") {
+            parts = parts.slice(1);
+        }
+        for (i = 0; i < parts.length; i++) {
+            // create a property if it doesn't exist
+            if (typeof parent[parts[i]] === "undefined") {
+                parent[parts[i]] = {};
+            }
+            parent = parent[parts[i]];
+        }
+        return parent;
+    };
     
 })(window);
 

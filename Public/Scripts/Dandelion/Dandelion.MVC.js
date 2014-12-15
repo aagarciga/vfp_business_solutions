@@ -20,7 +20,7 @@
     "use strict";
     
     // Dandelion MVC Namespace
-    var MVC = {};
+    var MVC = MVC || {};
     Dandelion.MVC = MVC;
     
     MVC.Redirect = function(controller, action, data, type){    
