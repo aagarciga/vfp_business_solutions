@@ -11,7 +11,7 @@ function ShowFeedback(message){
     "use strict";
 
     // Application Namespace
-    var App = {};
+    var App = App || {};
     window.App = App;
     
 })(window, document, jQuery, undefined);

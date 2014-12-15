@@ -12,7 +12,7 @@
         "use strict";
 
         // Dashboard Namespace
-        var Dashboard = {};
+        var Dashboard = Dashboard || {};
         App.Dashboard = Dashboard;
         
         Dashboard.FilterForm = $('#filterForm');
