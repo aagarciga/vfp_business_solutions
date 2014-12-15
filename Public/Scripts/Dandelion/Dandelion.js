@@ -23,9 +23,9 @@
     var Dandelion = Dandelion || {};
     window.Dandelion = Dandelion;
     
-    Dandelion.namespace = function(nsString){
+    Dandelion.namespace = function(nsString, root){
         var parts = nsString.split('.'),
-            parent = Dandelion,
+            parent = root || Dandelion,
             i;
         // strip redundant leading global
         if (parts[0] === "Dandelion") {

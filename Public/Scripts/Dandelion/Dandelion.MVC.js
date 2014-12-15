@@ -20,8 +20,7 @@
     "use strict";
     
     // Dandelion MVC Namespace
-    var MVC = MVC || {};
-    Dandelion.MVC = MVC;
+    var MVC = Dandelion.namespace('MVC'); 
     
     MVC.Redirect = function(controller, action, data, type){    
         var _form = document.createElement('form'),

@@ -1,5 +1,3 @@
-<script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.js'); ?>"></script>
-<script src="<?php echo $View->PublicContext('scripts/Dandelion/Dandelion.MVC.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
@@ -12,8 +10,7 @@
         "use strict";
 
         // Dashboard Namespace
-        var Dashboard = Dashboard || {};
-        App.Dashboard = Dashboard;
+        var Dashboard = Dandelion.namespace('App.Dashboard', window);
         
         Dashboard.FilterForm = $('#filterForm');
         Dashboard.TableSortLastButton = null;

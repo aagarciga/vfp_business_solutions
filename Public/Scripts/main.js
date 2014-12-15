@@ -7,11 +7,10 @@ function ShowFeedback(message){
     });
 }
 
-;(function(window, document, $, undefined){
+;(function(window, document, $, Dandelion, undefined){
     "use strict";
 
     // Application Namespace
-    var App = App || {};
-    window.App = App;
+    var App = Dandelion.namespace('App', window);    
     
-})(window, document, jQuery, undefined);
+})(window, document, jQuery, window.Dandelion, undefined);
