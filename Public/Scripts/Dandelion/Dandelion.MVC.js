@@ -58,6 +58,22 @@
         _form.submit();
         
     };
+    
+    
+    MVC.Model = function(){};
+    //Inheritance using Object.create() method
+    MVC.Model.prototype = Object.create(Dandelion.Observable.prototype);
+    // The method that will be called by Controller
+    // This method can be very simple, or it can use some Ajax calls to get some information from DataBase.
+    // Instead of using the data parameter is possible to use the model like the below sample:
+    //    MVC.Model.prototype.update = function () {
+    //       this.notifyObservers({ Name: "Alex", age: 27 });
+    //    };
+
+    MVC.Model.prototype.update = function(data){
+        this.notifyObservers(data);
+    };
+    
 })(window.document, window.Dandelion);
 
 
