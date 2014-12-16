@@ -7,6 +7,7 @@
 namespace Dandelion\MVC\Application\Controllers\SalesOrder\Actions;
 
 use Dandelion\MVC\Core\Action;
+use Dandelion\MVC\Application\Controllers\SalesOrder\Models\SalesOrderViewModel;
 use Dandelion\MVC\Application\Controllers\SalesOrder\Models\SalesOrderItemViewModel;
 
 /**
@@ -24,11 +25,15 @@ class Index_Post extends Action {
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
         
-        $this->SalesOrder = filter_input(INPUT_POST, 'salesorder');
+        
         $this->FromController = filter_input(INPUT_POST, 'fromcontroller');
         $this->FromAction = filter_input(INPUT_POST, 'fromaction');
         
-        $this->Pager = $this->controller->GetSalesOrderItemsPager($this->UserName, $this->SalesOrder, $this->ItemPerPage);
+        $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum(filter_input(INPUT_POST, 'salesorder'));
+        
+        $this->SalesOrder = new SalesOrderViewModel($soheadData->getOrdnum(), $soheadData->getPodate(), $soheadData->getCustno());
+        
+        $this->Pager = $this->controller->GetSalesOrderItemsPager($this->UserName, $this->SalesOrder->getOrdnum(), $this->ItemPerPage);
         $this->Pager->Paginate();  
         $salesOrderItems = $this->Pager->getCurrentPagedItems();        
         $salesOrderItemsViewModel = array();

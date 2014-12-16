@@ -8,13 +8,13 @@
         <div class="col-xs-4">           
             <div class="form-group">
                 <label class="control-label"><span class="glyphicon glyphicon-list"></span> SO No.</label>
-                <input type="text" class="form-control input" title="Sales Order" disabled="disabled" value="<?php echo isset($SalesOrder) ? $SalesOrder : "" ?>"/>
+                <input type="text" class="form-control input" title="Sales Order" disabled="disabled" value="<?php echo isset($SalesOrder) ? $SalesOrder->getOrdnum() : "" ?>"/>
             </div>
         </div>
         <div class="col-xs-4">
             <div class="form-group">
                 <label class="control-label"><span class="glyphicon glyphicon-calendar"></span> Date</label>
-                <input type="text" class="form-control input"/>
+                <input type="text" class="form-control input" value="<?php echo isset($SalesOrder) ? $SalesOrder->getDate() : "" ?>"/>
             </div>
         </div>          
         <div class="col-xs-4">
@@ -30,7 +30,7 @@
         <div class="col-xs-8">
             <div class="form-group">
                 <label class="control-label"><span class="glyphicon glyphicon-list-alt"></span> Cust ID</label>
-                <input type="text" class="form-control input"/>
+                <input type="text" class="form-control input" value="<?php echo isset($SalesOrder) ? $SalesOrder->getCustno() : "" ?>"/>
 
             </div>
 
@@ -173,7 +173,7 @@
             </tr>
         </thead>
         <tfoot>
-
+            <?php echo $Pager->getPagerControl(); ?>
         </tfoot>
         <tbody>
             <?php foreach ($SalesOrderItems as $item): ?>
