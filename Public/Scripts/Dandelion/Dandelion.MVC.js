@@ -22,7 +22,7 @@
     // Dandelion MVC Namespace
     var MVC = Dandelion.namespace('MVC'); 
     
-    MVC.Redirect = function(controller, action, data, type){    
+    MVC.redirect = function(controller, action, data, type){    
         var _form = document.createElement('form'),
             _formAction = 'index.php?';
         
@@ -57,7 +57,6 @@
         _form.submit();
         
     };
-    
     
     MVC.Model = function(){};
     //Inheritance using Object.create() method
