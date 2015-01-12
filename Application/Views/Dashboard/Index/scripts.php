@@ -1,7 +1,7 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
-<script src="<?php echo $View->PublicContext('scripts/jstree.init.js'); ?>"></script>
+<script src="<?php echo $View->SharedScriptsContext('jstree.init.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
 
 
