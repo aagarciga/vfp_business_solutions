@@ -24,7 +24,7 @@ use Dandelion\MVC\Core\Action;
 /**
  * 
  */
-class Index extends Action {
+class Controllers extends Action {
 
     public function Execute() {
         $this->Title = 'Creator | Dandelion MVC Solutions';
