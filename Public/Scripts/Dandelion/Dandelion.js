@@ -16,16 +16,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-/*global Dandelion */ 
+/*global Dandelion */
 
-;(function(window){
+(function (global) {
     "use strict";
 
     // Dandelion Namespace
-    var Dandelion = Dandelion || {};
-    window.Dandelion = Dandelion;
-    
-    Dandelion.namespace = function(nsString, root){
+    var Dandelion = {};
+    global.Dandelion = Dandelion;
+    Dandelion.namespace = function (nsString, root) {
         var parts = nsString.split('.'),
             parent = root || Dandelion,
             i;
@@ -33,7 +32,7 @@
         if (parts[0] === "Dandelion") {
             parts = parts.slice(1);
         }
-        for (i = 0; i < parts.length; i++) {
+        for (i = 0; i < parts.length; i += 1) {
             // create a property if it doesn't exist
             if (typeof parent[parts[i]] === "undefined") {
                 parent[parts[i]] = {};
@@ -42,8 +41,7 @@
         }
         return parent;
     };
-    
-})(window);
+}(window));
 
 /// It can be used as the below simple example :
 ///
