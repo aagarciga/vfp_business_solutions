@@ -32,3 +32,4 @@ class Index extends Action {
 
 }
 
+?>
