@@ -1,5 +1,5 @@
 
-<h1>Dandelion MVC Creator <?php echo $Title?></h1>
+<h1>Dandelion MVC Creator</h1>
 <nav>
     <ul>
         <li>

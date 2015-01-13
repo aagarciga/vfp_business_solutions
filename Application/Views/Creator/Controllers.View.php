@@ -1,1 +1,1 @@
-<?php $View->Template('Master'); ?>
+<?php $View->Template('Creator');

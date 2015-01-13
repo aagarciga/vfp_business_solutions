@@ -17,13 +17,13 @@
  */
 
 ;
-(function(global, Dandelion) {
+(function(global, dandelion) {
     "use strict";
 
     // Dandelion JS Namespace
-    var JS = Dandelion.namespace('JS');
+    var js = dandelion.namespace('js');
 
-    JS.isNumber = function(value) {
+    js.isNumber = function(value) {
         return typeof value === 'number' && isFinite(value);
     };
 
@@ -50,6 +50,5 @@
         };
     });
 
-
-})(window, window.Dandelion);
+})(window, window.dandelion);
 

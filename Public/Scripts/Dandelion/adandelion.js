@@ -22,14 +22,14 @@
     "use strict";
 
     // Dandelion Namespace
-    var Dandelion = {};
-    global.Dandelion = Dandelion;
-    Dandelion.namespace = function (nsString, root) {
+    var dandelion = {};
+    global.dandelion = global.Dandelion = dandelion;     
+    dandelion.namespace = function (nsString, root) {
         var parts = nsString.split('.'),
-            parent = root || Dandelion,
+            parent = root || dandelion,
             i;
         // strip redundant leading global
-        if (parts[0] === "Dandelion") {
+        if (parts[0] === "dandelion") {
             parts = parts.slice(1);
         }
         for (i = 0; i < parts.length; i += 1) {
