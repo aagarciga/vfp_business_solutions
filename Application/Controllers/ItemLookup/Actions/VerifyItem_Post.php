@@ -21,29 +21,38 @@ class VerifyItem_Post extends Action {
     public function Execute() {
         $barcode = filter_input(INPUT_POST, 'barcode');
         $result = array();
+        
         $result['verified'] = 'false';
         if ($barcode != '') {
             $item = $this->FindItemByICPARM($barcode);
             if ($item !== null) {
-                //$result = 'true';                
                 $result['barcode'] = trim($item->getItemno());
                 $result['upccode'] = trim($item->getUpccode());
-                $result['description'] = trim($item->getDescrip());                
+                $result['description'] = trim($item->getDescrip());
                 $result['onhand'] = trim($item->getOnhand());
                 $result['onsalesorder'] = trim($item->getCommitted());
-                $result['onpo'] = trim($item->getOnorder()); 
-                
-                $result['location'] = trim($item->getLocno()); 
-                
+                $result['onpo'] = trim($item->getOnorder());
+
+                $result['location'] = trim($item->getLocno());
+
+                $this->LoadFieldsFromICPARM($item, $result);
+
                 $result['verified'] = 'true';
             } else {
                 $item = $this->FindItemByICUPCPARM($barcode);
                 if ($item !== null) {
-                    //$result = 'true';                
+
+                    $item = $this->FindItemByICPARM($barcode);
+
                     $result['barcode'] = trim($item->getItemno());
                     $result['upccode'] = trim($item->getUpccode());
                     $result['description'] = trim($item->getDescrip());
-               
+                    $result['onhand'] = trim($item->getOnhand());
+                    $result['onsalesorder'] = trim($item->getCommitted());
+                    $result['onpo'] = trim($item->getOnorder());
+
+                    $result['location'] = trim($item->getLocno());
+
                     $result['verified'] = 'true';
                 }
             }
@@ -58,7 +67,6 @@ class VerifyItem_Post extends Action {
      * @return null
      */
     private function FindItemByICPARM($barcode) {
-        
         $lowerBarcode = strtolower($barcode);
         $queryResult = $this->controller->DatUnitOfWork->ICPARMRepository->Get("WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'");
         if (count($queryResult)) {
@@ -86,4 +94,3 @@ class VerifyItem_Post extends Action {
     }
 
 }
-

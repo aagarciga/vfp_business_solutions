@@ -42,7 +42,6 @@
                     event.preventDefault();
                     var barcode = $(this).val();
                     itemlookup.verifyItem(barcode);
-                    console.dir(itemlookup.model);
                 }
             });            
             itemlookup.controls['txLocation'].keypress(function (event) {
@@ -102,8 +101,7 @@
                     var _response = $.parseJSON(response);
                     if (_response.verified === 'true') {
                         itemlookup.controls['txLocation'].parent().addClass('has-success');
-                        itemlookup.controls['txLocation'].parent().removeClass('has-error');
-                    
+                        itemlookup.controls['txLocation'].parent().removeClass('has-error');                    
                     } else {
                         itemlookup.controls['txLocation'].parent().removeClass('has-success');
                         itemlookup.controls['txLocation'].parent().addClass('has-error');
