@@ -55,6 +55,19 @@ class ICPARMRepository extends VFPRepository implements IRepository {
     public function Update($entity) {
         // TODO: Implement Update() method.
     }
+    
+    public function UpdateBinLocation($barcode, $location) {
+        
+        $lowerBarcode = strtolower($barcode);
+        $lowerLocation = strtolower($location);
+        
+        $tablename = $this->entityName . $this->companySuffix;
+                
+        $sqlString = "UPDATE $tablename SET LOCNO = '$lowerLocation'"
+                . " WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
 
     public function Delete($entity) {
         // TODO: Implement Delete() method.

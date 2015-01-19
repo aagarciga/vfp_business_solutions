@@ -32,7 +32,8 @@
             };
             this.onSaveLocation = function (view_model, event) {
                 if (itemlookup.viewModel.locationChangedAndVerifed()) {
-                    itemlookup.clear();
+                    itemlookup.updateBinLocation(view_model);
+                    
                 }
                 return view_model;
             };
@@ -132,6 +133,38 @@
                 }
             });
         };
+        
+        itemlookup.updateBinLocation = function (itemlookupViewModel) {
+            var params = {'barcode': itemlookupViewModel.barcode(), 'location': itemlookupViewModel.location()};
+            $.ajax({
+                data: params,
+                url: '<?php echo $View->Href("ItemLookup", "UpdateItemBinLocation") ?>',
+                type: 'post',
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (response) {
+                    var _response = $.parseJSON(response);
+                    if (_response.success === 'true') {
+                        itemlookup.controls['txLocation'].parent().addClass('has-success');
+                        itemlookup.controls['txLocation'].parent().removeClass('has-error');
+                        ShowFeedback("Item Bin Location updated.");
+                        itemlookup.clear();
+                        itemlookup.controls['txBarcode'].parent().removeClass('has-error');
+                        itemlookup.controls['txBarcode'].parent().removeClass('has-success');
+                        itemlookup.controls['txLocation'].parent().removeClass('has-error');
+                        itemlookup.controls['txLocation'].parent().removeClass('has-success');
+                    } else {
+                        itemlookupViewModel.locationChangedAndVerifed(false);
+                        itemlookup.controls['txLocation'].parent().removeClass('has-success');
+                        itemlookup.controls['txLocation'].parent().addClass('has-error');
+                        ShowFeedback("Error trying to update Item Bin Location.");
+                    }
+                    $('.loading').hide();
+                }
+            });
+        };
+        
         itemlookup.verifyLocation = function (itemlookupViewModel) {
             var params = {'location': itemlookupViewModel.location()};
             $.ajax({
