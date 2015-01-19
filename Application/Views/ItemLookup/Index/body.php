@@ -8,7 +8,7 @@
         <div class="col-xs-8">
             <div class="form-group">
                 <label class="control-label" for="txBarcode"><span class="glyphicon glyphicon-barcode"></span> Item Number</label>
-                <input type="text" class="form-control input"  name="txBarcode" id="txBarcode"  data-bind="value: barcode" title="Fill Bar Code or Item Number. Then press [Tab] or [Enter]">
+                <input type="text" class="form-control input"  name="txBarcode" id="txBarcode"  data-bind="value: barcode, valueUpdate: 'afterkeydown', event: {keyup: onEnterBarcode}" title="Fill Bar Code or Item Number. Then press [Tab] or [Enter]">
 
             </div>
 
@@ -23,7 +23,7 @@
                 <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href("Main") ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
             <div class="form-group">
-                <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>
+                <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok" data-bind="click: onSaveLocation"><span class="glyphicon glyphicon-ok"></span></a>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
             </div>
         </div>        
     </div>
-    
+
     <div class="row ">
         <div class="col-xs-12">
             <div class="form-group">
@@ -45,15 +45,15 @@
                 <select class="form-control input" name="seWarehouse" id="seWarehouse" title="Choose a warehouse from the list">
                 
                 </select>-->
-<label class="control-label" for="txLocation">Bin Location</label>
-                <input type="text" class="form-control"  name="txLocation" id="txLocation" data-bind="value: location">
+                <label class="control-label" for="txLocation">Bin Location</label>
+                <input type="text" class="form-control"  name="txLocation" id="txLocation" data-bind="value: location, valueUpdate: 'afterkeydown', event: {keyup: onEnterLocation}">
 
             </div>
 
         </div>
     </div>
-    
-    <div class="row ">
+
+    <div class="row">
 
         <div class="col-xs-4">
             <div class="form-group">
@@ -62,7 +62,7 @@
 
             </div>
         </div>
-        
+
         <div class="col-xs-4">
             <div class="form-group">
                 <label class="control-label" for="txOnhand">On Sales Order</label>
@@ -70,7 +70,7 @@
 
             </div>
         </div>
-        
+
         <div class="col-xs-4">
             <div class="form-group">
                 <label class="control-label" for="txOnhand">On PO</label>
@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-    
+
     <?php $View->Control('QuantityForm'); ?>    
 
 </div>

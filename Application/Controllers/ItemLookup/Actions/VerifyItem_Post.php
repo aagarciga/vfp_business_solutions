@@ -35,8 +35,6 @@ class VerifyItem_Post extends Action {
 
                 $result['location'] = trim($item->getLocno());
 
-                $this->LoadFieldsFromICPARM($item, $result);
-
                 $result['verified'] = 'true';
             } else {
                 $item = $this->FindItemByICUPCPARM($barcode);

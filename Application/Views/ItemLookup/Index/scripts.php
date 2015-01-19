@@ -2,60 +2,97 @@
 
 <script>
     (function (global, dandelion) {
-        // Itemlookup Namespace
-        var itemlookup = dandelion.namespace('App.itemlookup', global);
+        var ENTER_KEY = 13;
 
+        // Itemlookup Namespace
+        var itemlookup = dandelion.namespace('App.itemlookup', global),
+        ItemlookupViewModel = function (model) {
+            this.barcode = kb.observable(model, 'barcode');
+            this.upccode = kb.observable(model, 'upccode');
+            this.description = kb.observable(model, 'description');
+            this.onhand = kb.observable(model, 'onhand');
+            this.onsalesorder = kb.observable(model, 'onsalesorder');
+            this.onpo = kb.observable(model, 'onpo');
+            this.location = kb.observable(model, 'location');
+            this.locationChangedAndVerifed = ko.observable(false);
+            
+            this.onEnterBarcode = function (view_model, event){
+                if (event.keyCode !== ENTER_KEY) {                   
+                    return true;
+                }        
+                itemlookup.verifyItem(view_model);
+                return view_model;
+            };
+            this.onEnterLocation = function (view_model, event) {
+                if (event.keyCode !== ENTER_KEY) {                   
+                    return true;
+                }
+                itemlookup.verifyLocation(view_model);
+                return view_model;
+            };
+            this.onSaveLocation = function (view_model, event) {
+                if (itemlookup.viewModel.locationChangedAndVerifed()) {
+                    itemlookup.clear();
+                }
+                return view_model;
+            };
+        };
+        
         itemlookup.$view = $('#kb-view-itemlookup');
         itemlookup.view = itemlookup.$view[0];
 
         itemlookup.controls = [];
         itemlookup.controls['txBarcode'] = $('#txBarcode');
-        itemlookup.controls['txLocation'] = $('#txLocation'); 
+        itemlookup.controls['txLocation'] = $('#txLocation');
         
-        itemlookup.model = new Backbone.Model({
-            barcode: '', // _response.barcode,
-            upccode: '', // _response.upccode,
-            description: '', // _response.description 
-            onhand : '',
-            onsalesorder : '',
-            onpo : '',
-            location : ''
-        });
-        
-        itemlookup.viewModel = {
-            barcode : kb.observable(itemlookup.model, 'barcode'),
-            upccode : kb.observable(itemlookup.model, 'upccode'),
-            description : kb.observable(itemlookup.model, 'description'),
-            onhand : kb.observable(itemlookup.model, 'onhand'),
-            onsalesorder : kb.observable(itemlookup.model, 'onsalesorder'),
-            onpo : kb.observable(itemlookup.model, 'onpo'),
-            location : kb.observable(itemlookup.model, 'location')
-
+        itemlookup.defaultModel = {
+            barcode: '',
+            upccode: '',
+            description: '', 
+            onhand: '',
+            onsalesorder: '',
+            onpo: '',
+            location: ''
         };
+
+//        itemlookup.viewModel = {
+//            barcode: kb.observable(itemlookup.model, 'barcode'),
+//            upccode: kb.observable(itemlookup.model, 'upccode'),
+//            description: kb.observable(itemlookup.model, 'description'),
+//            onhand: kb.observable(itemlookup.model, 'onhand'),
+//            onsalesorder: kb.observable(itemlookup.model, 'onsalesorder'),
+//            onpo: kb.observable(itemlookup.model, 'onpo'),
+//            location: kb.observable(itemlookup.model, 'location'),
+//            locationChangedAndVerifed: ko.observable(false),
+//            onEnterBarcode: function (view_model, event){
+//                if (event.keyCode !== ENTER_KEY) {                   
+//                    return true;
+//                }        
+//                itemlookup.verifyItem(view_model);
+//                return view_model;
+//            },
+//            onEnterLocation: function (view_model, event) {
+//                if (event.keyCode !== ENTER_KEY) {                   
+//                    return true;
+//                }        
+//                itemlookup.verifyLocation(view_model);
+//                return view_model;
+//            },
+//            onSaveLocation: function (view_model, event) {
+//                console.log(view_model.barcode());        
+//                itemlookup.clear();
+//                console.log(view_model.barcode());
+//                return view_model;
+//            }
+//        };
 
         itemlookup.init = function () {
-            ko.applyBindings(itemlookup.viewModel, itemlookup.view);      
-
-            itemlookup.controls['txBarcode'].keypress(function (event) {
-                // Verify on Return key pressed
-                if (event.which === 13) {
-                    event.preventDefault();
-                    var barcode = $(this).val();
-                    itemlookup.verifyItem(barcode);
-                }
-            });            
-            itemlookup.controls['txLocation'].keypress(function (event) {
-                // Verify on Return key pressed
-                if (event.which === 13) {
-                    event.preventDefault();
-                    var location = $(this).val();
-                    itemlookup.verifyLocation(location);
-                }
-            });
+            itemlookup.model = new Backbone.Model(itemlookup.defaultModel);
+            itemlookup.viewModel = new ItemlookupViewModel(itemlookup.model);
+            ko.applyBindings(itemlookup.viewModel, itemlookup.view);
         };
-
-        itemlookup.verifyItem = function (barcode) {
-            var params = {'barcode': barcode};
+        itemlookup.verifyItem = function (itemlookupViewModel) {
+            var params = {'barcode': itemlookupViewModel.barcode()};
             $.ajax({
                 data: params,
                 url: '<?php echo $View->Href("ItemLookup", "VerifyItem") ?>',
@@ -69,15 +106,22 @@
                     if (_response.verified === 'true') {
                         itemlookup.controls['txBarcode'].parent().addClass('has-success');
                         itemlookup.controls['txBarcode'].parent().removeClass('has-error');
-
-                        itemlookup.model.set('barcode', _response.barcode);
-                        itemlookup.model.set('upccode', _response.upccode);
-                        itemlookup.model.set('description', _response.description);
-                        itemlookup.model.set('onhand', _response.onhand);
-                        itemlookup.model.set('onsalesorder', _response.onsalesorder);                        
-                        itemlookup.model.set('onpo', _response.onpo);
-                        itemlookup.model.set('location', _response.location);
-
+                        
+                        itemlookupViewModel.upccode(_response.upccode);
+                        itemlookupViewModel.description(_response.description);
+                        itemlookupViewModel.onhand(_response.onhand);
+                        itemlookupViewModel.onsalesorder(_response.onsalesorder);
+                        itemlookupViewModel.onpo(_response.onpo);
+                        itemlookupViewModel.location(_response.location);
+                        
+//                        itemlookup.model.set('barcode', _response.barcode);
+//                        itemlookup.model.set('upccode', _response.upccode);
+//                        itemlookup.model.set('description', _response.description);
+//                        itemlookup.model.set('onhand', _response.onhand);
+//                        itemlookup.model.set('onsalesorder', _response.onsalesorder);
+//                        itemlookup.model.set('onpo', _response.onpo);
+//                        itemlookup.model.set('location', _response.location);
+                        ShowFeedback("Item Lookup Screen");
                     } else {
                         itemlookup.controls['txBarcode'].parent().removeClass('has-success');
                         itemlookup.controls['txBarcode'].parent().addClass('has-error');
@@ -88,8 +132,8 @@
                 }
             });
         };
-        itemlookup.verifyLocation = function (location) {
-            var params = {'location': location};
+        itemlookup.verifyLocation = function (itemlookupViewModel) {
+            var params = {'location': itemlookupViewModel.location()};
             $.ajax({
                 data: params,
                 url: '<?php echo $View->Href("ItemLookup", "VerifyLocation") ?>',
@@ -101,8 +145,18 @@
                     var _response = $.parseJSON(response);
                     if (_response.verified === 'true') {
                         itemlookup.controls['txLocation'].parent().addClass('has-success');
-                        itemlookup.controls['txLocation'].parent().removeClass('has-error');                    
+                        itemlookup.controls['txLocation'].parent().removeClass('has-error');
+                        
+                        if (itemlookupViewModel.barcode()) {     
+                            itemlookupViewModel.locationChangedAndVerifed(true);
+                            ShowFeedback("Item Lookup Screen");
+                        }
+                        else{
+                            itemlookupViewModel.locationChangedAndVerifed(false);
+                            ShowFeedback("Location found but missing item data.");
+                        }
                     } else {
+                        itemlookupViewModel.locationChangedAndVerifed(false);
                         itemlookup.controls['txLocation'].parent().removeClass('has-success');
                         itemlookup.controls['txLocation'].parent().addClass('has-error');
                         ShowFeedback("Location not found.");
@@ -111,7 +165,17 @@
                 }
             });
         };
-        
+        itemlookup.clear = function () {
+            itemlookup.viewModel.barcode('');
+            itemlookup.viewModel.upccode('');
+            itemlookup.viewModel.description('');
+            itemlookup.viewModel.onhand('');
+            itemlookup.viewModel.onsalesorder('');
+            itemlookup.viewModel.onpo('');
+            itemlookup.viewModel.location('');
+            itemlookup.viewModel.locationChangedAndVerifed(false);
+        };
+
         itemlookup.init();
     }(window, window.dandelion));
 </script>
