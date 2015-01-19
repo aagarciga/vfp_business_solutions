@@ -107,7 +107,7 @@
                     if (_response.verified === 'true') {
                         itemlookup.controls['txBarcode'].parent().addClass('has-success');
                         itemlookup.controls['txBarcode'].parent().removeClass('has-error');
-                        
+                        itemlookupViewModel.barcode(_response.barcode);
                         itemlookupViewModel.upccode(_response.upccode);
                         itemlookupViewModel.description(_response.description);
                         itemlookupViewModel.onhand(_response.onhand);
