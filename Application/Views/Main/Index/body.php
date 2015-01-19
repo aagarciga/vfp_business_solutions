@@ -50,6 +50,10 @@
                     <a href="#" class="change-properties">
                         <img src="<?php echo $View->ImagesContext("main/change-properties.png") ?>"/> Change Properties</a>
                 </li>-->
+                <li>
+                    <a href="<?php echo $View->Href("ItemLookup") ?>" class="change-properties">
+                        <img src="<?php echo $View->ImagesContext("main/search-good-icon.png") ?>"/> Item Lookup</a>
+                </li>
             </ul>
         </div>
     </div>
