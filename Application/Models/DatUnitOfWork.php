@@ -119,6 +119,12 @@ class DatUnitOfWork extends UnitOfWork {
      */
     public $SOEDISTATUSRepository;
     
+    /**
+     * 
+     * @var ARCOMPRepository 
+     */
+    public $ARCOMPRepository;
+    
 
     /**
      * 
@@ -144,6 +150,7 @@ class DatUnitOfWork extends UnitOfWork {
         $this->WMPACKRepository = new Repositories\WMPACKRepository($dbDriver, Entities\WMPACK::toString(), $companySuffix);
         $this->SOHEADRepository = new Repositories\SOHEADRepository($dbDriver, Entities\SOHEAD::toString(), $companySuffix);
         $this->SOEDISTATUSRepository = new Repositories\SOEDISTATUSRepository($dbDriver, Entities\SOEDISTATUS::toString(), $companySuffix);
+        $this->ARCOMPRepository = new Repositories\ARCOMPRepository($dbDriver, Entities\ARCOMP::toString(), $companySuffix);
         
     }
 
