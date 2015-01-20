@@ -14,7 +14,7 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  * Dandelion MVC parent of all application controllers.
  * 
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright   2011-2014 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright   2011-2015 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  * @ignore
@@ -122,10 +122,9 @@ abstract class ActionsController extends Controller {
         $className = explode("\\", $className);
         $className = $className[count($className)-1];
         
-        if (is_file(MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php'))
-            require_once MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php';      
+        if (is_file(MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php')){
+            require_once MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php';   
+        }   
     }
     
 }
-
-?>

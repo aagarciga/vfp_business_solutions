@@ -4,21 +4,17 @@ namespace Dandelion\MVC\Core;
 
 use Dandelion\MVC\Core\Interfaces\INameable;
 
-//require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
-
 /**
  * Dandelion MVC application definition object for manage it's instance 
  * configuration data.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright   2011-2015 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  * @ignore
  */
 class Application implements INameable {
-
-    //TODO: Do Application multiple DB settings support.
 
     /**
      * 

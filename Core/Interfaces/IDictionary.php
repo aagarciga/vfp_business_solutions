@@ -22,5 +22,3 @@ interface IDictionary {
      */
     public function __get($key);
 }
-
-?>

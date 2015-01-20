@@ -5,17 +5,11 @@ namespace Dandelion\MVC\Core;
 use Dandelion\MVC\Core\Nomenclatures;
 use Dandelion\MVC\Core\Exceptions;
 
-//require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'INameable.php';
-//require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'IDictionary.php';
-//require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
-//require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
-//require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'View.php';
-
 /**
  * Dandelion MVC parent of all application controllers actions.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright   2011-2015 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  * @ignore
@@ -48,14 +42,12 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      */
     protected $controller;
 
-
     /**
      * Constructor for Action object.
      *
      * @param Request           $request
      * @param ActionsController $controller
      */
-
 
     public final function __construct(Request $request, ActionsController $controller) {
         $this->Request = $request;        
@@ -138,5 +130,3 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
     }
 
 }
-
-?>

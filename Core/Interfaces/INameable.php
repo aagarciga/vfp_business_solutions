@@ -13,5 +13,3 @@ interface INameable {
      */
     public function __toString();
 }
-
-?>

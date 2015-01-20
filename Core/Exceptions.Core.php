@@ -79,5 +79,3 @@ final class PropertyNotFoundException extends \Exception{
         parent::__construct();
     }
 }
-
-?>

@@ -13,7 +13,7 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  * Dandelion MVC front controller.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright   2011-2013 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright   2011-2015 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  * @ignore
@@ -105,5 +105,3 @@ class FrontController extends Controller {
     }
 
 }
-
-?>
