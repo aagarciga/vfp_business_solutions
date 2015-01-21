@@ -187,6 +187,10 @@ class View {
         return MVC_DIR_PUBLIC . '/' . $file;
     }
     
+    public function UploadsContext($file = ''){
+        return MVC_DIR_PUBLIC_UPLOADS . '/' . $file;
+    }
+    
     /**
      * Put an image in Dandelion MVC Image context for using it in markup.
      * 

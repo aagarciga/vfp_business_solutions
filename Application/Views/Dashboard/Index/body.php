@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <img src="<?php echo $View->ImagesContext("dashboard/olimpus-imagotype-small.png") ?>"/>
+                <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
                  Dashboard
             </a>
         </div>
