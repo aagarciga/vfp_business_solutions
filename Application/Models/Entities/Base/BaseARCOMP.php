@@ -340,6 +340,11 @@ class BaseARCOMP {
      * @var Char
      */
     protected $_picbckgrnd;
+    
+    /**
+     * @var Char
+     */
+    protected $_logo;
 
     /**
      * Getters
@@ -786,6 +791,13 @@ class BaseARCOMP {
         return $this->_finchgmes;
     }
 
+    /**
+     * @return Char
+     */
+    public function getLogo() {
+        return $this->_logo;
+    }
+    
     /**
      * @return Char
      */
@@ -1241,6 +1253,13 @@ class BaseARCOMP {
     /**
      * @param Char
      */
+    public function setLogo($value) {
+        $this->_logo = $value;
+    }
+    
+    /**
+     * @param Char
+     */
     public function setPicbckgrnd($value) {
         $this->_picbckgrnd = $value;
     }
@@ -1248,7 +1267,7 @@ class BaseARCOMP {
     /**
      * Constructor
      */
-    public function __construct($prepacct, $nflg0, $arposacct, $arperlock, $arcashprt, $glaccticar, $dbcount, $crcount, $aptabstop, $arslsrepch, $poscredit, $discid, $cshrcpar, $shiptono, $autshptono, $autshp15, $arqryshpto, $autcontno, $contno, $taxwhsno, $salesflag, $cstsynpath, $cstsyntabl, $cstfldnam, $cstfldlen, $contflag, $glarcredit, $arformat, $depgrpauto, $extpatha, $extpathb, $prorateso, $chgtaxso, $sowarnflg, $localhost, $ardefault, $ccverifyad, $hidecustin, $depgroupdf, $defundep, $genfldlbl1, $genfldlbl2, $genfldlbl3, $aremailbdy, $arnotecust, $arstateper, $cctieralmt, $cctierblmt, $cctierctrl, $autocustno, $depgrpmsg, $lbltieracc, $lbltierbcc, $mestieracc, $mestierbcc, $glecommfee, $glecommbnk, $amazonlink, $qblistid, $ardbonly, $xlsopenok, $ccurl, $finchgmes, $picbckgrnd) {
+    public function __construct($prepacct, $nflg0, $arposacct, $arperlock, $arcashprt, $glaccticar, $dbcount, $crcount, $aptabstop, $arslsrepch, $poscredit, $discid, $cshrcpar, $shiptono, $autshptono, $autshp15, $arqryshpto, $autcontno, $contno, $taxwhsno, $salesflag, $cstsynpath, $cstsyntabl, $cstfldnam, $cstfldlen, $contflag, $glarcredit, $arformat, $depgrpauto, $extpatha, $extpathb, $prorateso, $chgtaxso, $sowarnflg, $localhost, $ardefault, $ccverifyad, $hidecustin, $depgroupdf, $defundep, $genfldlbl1, $genfldlbl2, $genfldlbl3, $aremailbdy, $arnotecust, $arstateper, $cctieralmt, $cctierblmt, $cctierctrl, $autocustno, $depgrpmsg, $lbltieracc, $lbltierbcc, $mestieracc, $mestierbcc, $glecommfee, $glecommbnk, $amazonlink, $qblistid, $ardbonly, $xlsopenok, $ccurl, $finchgmes, $picbckgrnd, $logo) {
         $this->_prepacct = $prepacct;
         $this->_nflg0 = $nflg0;
         $this->_arposacct = $arposacct;
@@ -1313,6 +1332,7 @@ class BaseARCOMP {
         $this->_ccurl = $ccurl;
         $this->_finchgmes = $finchgmes;
         $this->_picbckgrnd = $picbckgrnd;
+        $this->_logo = $logo;
     }
 
     public static function toString() {

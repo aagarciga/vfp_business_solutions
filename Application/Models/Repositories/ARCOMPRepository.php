@@ -35,12 +35,12 @@ class ARCOMPRepository extends VFPRepository implements IRepository {
      */
     public function GetCompanyLogo() {
         $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT TOP 1 PICBCKGRND FROM $tableName";
+        $sqlString = "SELECT TOP 1 LOGO FROM $tableName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         
         if (count($queryResult)) {
-            return $queryResult[0]->PICBCKGRND;
+            return $queryResult[0]->LOGO;
         }
         return "";        
     }
