@@ -1,3 +1,11 @@
+.dz-message.custom{
+    font-size: 1.5em;
+    color: #aaa;
+    text-align: center;
+    display: block;
+     
+}
+
 .container{
     width: 100%;
 }

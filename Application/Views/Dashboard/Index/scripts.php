@@ -507,13 +507,26 @@
             else {
                 done();
             }
+        },
+        init: function(){
+            this.on('removedfile', function (file) {
+                console.log("Removing:", file);
+            });
+            this.on('sending', function (file, xhr, formData) {
+                if (App.Dashboard.currentSalesOrder) {
+                    formData.append('salesorder', App.Dashboard.currentSalesOrder);
+                }
+                console.log(formData);
+            });
         }
     };
 </script>
 
 <script>
-    function Files_OnClick(data) {
+    function Files_OnClick(event) {
         $('#files-modal').modal('show');
+        // TODO: Beautify this. Please don't forget...
+        App.Dashboard.currentSalesOrder = $(event.currentTarget).parent().parent().find('.item-field a').html();
     }
 
     $('.btn-files-dialog').on('click', Files_OnClick);

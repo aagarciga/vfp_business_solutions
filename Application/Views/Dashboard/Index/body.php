@@ -219,7 +219,8 @@
                     <div id="jstree">
                     </div>
                 </div>
-                <form id="filesModalDropzone" action="<?php echo $View->Href('Dashboard', 'UploadFile') ?>" class="dropzone col-xs-12 col-md-7 col-lg-8">
+                <form id="filesModalDropzone" action="<?php echo $View->Href('Dashboard', 'UploadFile') ?>" class="dropzone square  col-xs-12 col-md-7 col-lg-8">
+                    <span class="dz-message custom">Drop files to upload (or click)</span>
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                     </div>

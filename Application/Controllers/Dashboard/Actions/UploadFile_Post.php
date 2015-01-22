@@ -20,10 +20,17 @@ class UploadFile_Post extends Action {
      * @return JSON
      */
     public function Execute() {
+        
+        $salesorder = filter_input(INPUT_POST, 'salesorder');
 
         $storeFolder = MVC_DIR_ROOT . 
                 DIRECTORY_SEPARATOR . "Public" . 
-                DIRECTORY_SEPARATOR . "Uploads";
+                DIRECTORY_SEPARATOR . "Uploads" .
+                DIRECTORY_SEPARATOR . $salesorder;
+        
+        if (!is_dir($storeFolder)) {
+            mkdir($storeFolder);
+        }
 
         if (!empty($_FILES)) {
 
