@@ -28,7 +28,7 @@ class UploadFile_Post extends Action {
                 DIRECTORY_SEPARATOR . "Uploads" .
                 DIRECTORY_SEPARATOR . $salesorder;
         
-        if (!is_dir($storeFolder)) {
+        if (!is_dir($storeFolder)) { // mkdir(path, mode, recursive = bool)
             mkdir($storeFolder);
         }
 

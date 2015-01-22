@@ -1,7 +1,7 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
-<script src="<?php echo $View->SharedScriptsContext('jstree.init.js'); ?>"></script>
+
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
 
 
@@ -47,14 +47,11 @@
                 
                 if (Dashboard.TableSortLastButton !== null) {
                     Dashboard.TableSortLastButton.removeClass('asc desc');
-                }              
-                
+                }
                 if (Dashboard.TableSortField !== $(this).data('field')) {
                     Dashboard.TableSortFieldOrder = '';
                 }
-                
-                Dashboard.TableSortField = $(this).data('field');
-                
+                Dashboard.TableSortField = $(this).data('field');                
                 if(Dashboard.TableSortFieldOrder === '' ){
                     Dashboard.TableSortFieldOrder = 'ASC';
                     $(this).addClass('desc').removeClass('asc');
@@ -67,10 +64,8 @@
                     Dashboard.TableSortFieldOrder = 'ASC';
                     
                     $(this).addClass('desc').removeClass('asc');
-                }
-                
-                Dashboard.TableSortLastButton = $(this);
-                
+                }                
+                Dashboard.TableSortLastButton = $(this);                
                 var $table = $('#dashboardTable');
                 var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
                 Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
@@ -515,21 +510,37 @@
             this.on('sending', function (file, xhr, formData) {
                 if (App.Dashboard.currentSalesOrder) {
                     formData.append('salesorder', App.Dashboard.currentSalesOrder);
-                }
-                console.log(formData);
+                }                
             });
         }
     };
 </script>
 
 <script>
-    function Files_OnClick(event) {
-        $('#files-modal').modal('show');
-        // TODO: Beautify this. Please don't forget...
-        App.Dashboard.currentSalesOrder = $(event.currentTarget).parent().parent().find('.item-field a').html();
-    }
+    (function (global, dandelion) {
+        var app = global.App,
+        dashboard = app.Dashboard;
+        dashboard.currentProject = {'salesorder' : ''};
+        
+        dashboard.projectAttachButton_OnClick = function (event) {            
+            dashboard.currentProject.salesorder = $(event.currentTarget).parent().parent().find('.item-field a').html();
+            dashboard.jsTreeInstance.init(dashboard.currentProject);
+            $('#files-modal').modal('show');
+        };
+        
+        
+        $('.btn-files-dialog').on('click', dashboard.projectAttachButton_OnClick);
+    }(window, window.dandelion));
+</script>
 
-    $('.btn-files-dialog').on('click', Files_OnClick);
+<script>
+//    function Files_OnClick(event) {
+//        $('#files-modal').modal('show');
+//        // TODO: Beautify this. Please don't forget...
+//        App.Dashboard.currentSalesOrder = $(event.currentTarget).parent().parent().find('.item-field a').html();
+//    }
+//
+//    $('.btn-files-dialog').on('click', Files_OnClick);
 </script>
 
 <script>
@@ -843,3 +854,5 @@
 <script>
 <?php echo $Pager->GetJavascriptPager(); ?>
 </script>
+
+<script src="<?php echo $View->SharedScriptsContext('jstree.init.js'); ?>"></script>

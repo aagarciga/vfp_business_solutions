@@ -1,6 +1,6 @@
 ;(function(window, document, $, undefined){
     "use strict";
-
+    
     // jsTree 
     var jsTreeInstance = {
         'id': '#jstree',
@@ -32,7 +32,9 @@
             }
             ref.delete_node(sel);
         },
-        '_Init' : function(){
+        'init' : function(currentProject){
+            console.log(currentProject);
+            var getAction = 'index.php?controller=Dashboard&action=GetCurrentProjectsDir&salesorder=' + currentProject.salesorder;
             
             // Binding Searching Behavior
             var to = false;
@@ -72,19 +74,13 @@
                     },  
                     'animation': true,
                     'check_callback' : true,
-                    'data' : [
-                        { 
-                            "text" : "./", 
-                            "children" : [
-                                { "text" : "Pdf" },
-                                {"text" : "Photos",
-                                    "state": "close",
-                                    "children" : [{ "text" : "Before" },{ "text" : "After" }]
-                                },
-                                { "text" : "Videos" }
-                            ]
+                    'data' : {
+                        'url' : getAction,
+                        "dataType" : "json", 
+                        'data' : function (node) {
+                            return {'id' : node.id };
                         }
-                    ]
+                    }
                 }
             });
             
@@ -101,12 +97,16 @@
                     .removeClass('glyphicon-folder-open').addClass('glyphicon-folder-close');
                 
             });
+            
+            $(this.id).on('changed.jstree', function (event, data) {
+                console.log(data);
+            });
         }
     };
     
-    jsTreeInstance._Init();
+    //jsTreeInstance._Init();
     
-    window.App.jsTreeInstance = jsTreeInstance;
+    window.App.Dashboard.jsTreeInstance = jsTreeInstance;
     
 })(window, document, jQuery, undefined);
 
