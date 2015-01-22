@@ -2,6 +2,7 @@
 
 namespace Dandelion;
 
+
 class FileSystem {
 
     protected $base = null;
@@ -9,7 +10,7 @@ class FileSystem {
     protected function Real($path) {
         $temp = realpath($path);
         if (!$temp) {
-            throw new Exception('Path does not exist: ' . $path);
+            throw new \Exception('Path does not exist: ' . $path);
         }
         if ($this->base && strlen($this->base)) {
             if (strpos($temp, $this->base) !== 0) {

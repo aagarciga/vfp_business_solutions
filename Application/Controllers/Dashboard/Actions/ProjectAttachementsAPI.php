@@ -39,6 +39,10 @@ class ProjectAttachementsAPI extends Action {
                 DIRECTORY_SEPARATOR . "Public" .
                 DIRECTORY_SEPARATOR . "Uploads" .
                 DIRECTORY_SEPARATOR . $salesorder;
+        
+        if (!is_dir($rootDir)) { // mkdir(path, mode, recursive = bool)
+            mkdir($rootDir);
+        }
 
         $fs = new FileSystem($rootDir);
         try {
