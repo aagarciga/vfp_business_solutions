@@ -890,6 +890,7 @@
 
 <script>
     (function(window, document, jQuery, Dashboard) {
+        var dashboard = Dashboard;
         
         Dashboard.updateDashboardTable = function($table, $data) {
             var $tableBody = $table.children('tbody');
@@ -1012,7 +1013,7 @@
                 _spanGlyphIcon.className = "glyphicon glyphicon-folder-close";
                 _aAttachedFiles.href = "#";
                 _aAttachedFiles.className = "btn-files-dialog";
-                _aAttachedFiles.addEventListener('click', Files_OnClick);
+                _aAttachedFiles.addEventListener('click', dashboard.projectAttachButton_OnClick);
                 _aAttachedFiles.appendChild(_spanGlyphIcon);
                 appendChild(_aAttachedFiles);
             }
