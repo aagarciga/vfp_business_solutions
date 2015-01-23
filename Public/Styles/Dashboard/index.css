@@ -6,6 +6,10 @@
      
 }
 
+.vakata-context.jstree-contextmenu.jstree-default-contextmenu{
+    z-index: 10000;
+}
+
 .container{
     width: 100%;
 }
