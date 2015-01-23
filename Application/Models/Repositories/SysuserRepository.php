@@ -60,7 +60,7 @@ class SysuserRepository extends BaseRepository implements IRepository {
 
         if (count($queryResult)) {
             $row = $queryResult[0];
-            return new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->CUSTNO), trim($row->ICPREFIX));
+            return new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX));
         }
         return "";
     }
