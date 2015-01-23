@@ -212,9 +212,9 @@
                         <input type="text" class="form-control" value="" id="tree-search" placeholder="Search" />
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-default btn-sm" onclick="App.jsTreeInstance.Create();"><i class="glyphicon glyphicon-asterisk"></i> Create</button>
-                        <button type="button" class="btn btn-default btn-sm" onclick="App.jsTreeInstance.Rename();"><i class="glyphicon glyphicon-pencil"></i> Rename</button>
-                        <button type="button" class="btn btn-default btn-sm" onclick="App.jsTreeInstance.Delete();"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.filesModal.createDir();"><i class="glyphicon glyphicon-asterisk"></i> Create</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.filesModal.renameDir();"><i class="glyphicon glyphicon-pencil"></i> Rename</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.filesModal.deleteDir();"><i class="glyphicon glyphicon-remove"></i> Delete</button>
                     </div>
                     <div id="jstree">
                     </div>

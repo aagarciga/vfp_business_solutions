@@ -564,16 +564,19 @@
                         variant : 'medium',
                         stripes : false
                     },
-                    check_callback : function(operation, node, node_parent, node_position, more) {
+                    check_callback: function (operation, node, node_parent, node_position, more) {
                         if(more && more.dnd && more.pos !== 'i') { return false; } // If error change 'i' for node_position
                         if(operation === "move_node" || operation === "copy_node") {
                             if(this.get_node(node).parent === this.get_node(node_parent).id) { return false; }
                         }
                         return true;
                     },
+                    error: function (instance){
+                        console.log('Error callback:', instance);
+                    },
                     animation: true
                 },
-                sort: function(a, b) {
+                sort: function (a, b) {
                     return this.get_type(a) === this.get_type(b) ? (this.get_text(a) > this.get_text(b) ? 1 : -1) : (this.get_type(a) >= this.get_type(b) ? 1 : -1);
                 },
                 types: {
@@ -598,9 +601,9 @@
                                 "label"	: "Folder",
                                 "action" : function (data) {
                                     var inst = $.jstree.reference(data.reference),
-                                            obj = inst.get_node(data.reference);
+                                        obj = inst.get_node(data.reference);
                                     inst.create_node(obj, { type : "default" }, "last", function (new_node) {
-                                            setTimeout(function () { inst.edit(new_node); },0);
+                                        setTimeout(function () { inst.edit(new_node); },0);
                                     });
                                 }
                             }
@@ -661,6 +664,18 @@
                         data.instance.refresh();
                     });
             })
+            // bind customize icon change function in jsTree open_node event. 
+//            .on('open_node.jstree', function (e, data) {
+//                $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
+//                        .removeClass('glyphicon-folder-close').addClass('glyphicon-folder-open');
+//
+//            })
+//            // bind customize icon change function in jsTree close_node event. 
+//            .on('close_node.jstree', function (e, data) {
+//                $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
+//                        .removeClass('glyphicon-folder-open').addClass('glyphicon-folder-close');
+//
+//            })
             .on('changed.jstree', function (e, data) {
                 console.log('event', e);
                 console.log('data', data);
@@ -702,9 +717,41 @@
 //                    $('#data .content').hide();
 //                    $('#data .default').html('Select a file from the tree.').show();
 //                }
-        });
+            });
         };
-        
+        dashboard.filesModal.createDir = function () {
+            var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
+            sel = ref.get_selected();
+
+            if (!sel.length) {
+                return false;
+            }
+            sel = sel[0];
+            sel = ref.create_node(sel, {type: 'default'}, 'last', function (new_node) {
+                setTimeout(function () {
+                    ref.edit(new_node);
+                }, 0);
+            });
+        };
+        dashboard.filesModal.renameDir = function () {
+            var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
+            sel = ref.get_selected();
+            if (!sel.length) {
+                return false;
+            }
+            sel = sel[0];
+            ref.edit(sel);
+        };
+        dashboard.filesModal.deleteDir = function () {
+            var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
+            sel = ref.get_selected();
+    
+            if (!sel.length) {
+                return false;
+            }
+            ref.delete_node(sel);
+        };
+                
         $('.btn-files-dialog').on('click', dashboard.projectAttachButton_OnClick);
     }(window, window.dandelion));
 </script>
@@ -714,22 +761,22 @@
         var app = global.App,
         dashboard = app.Dashboard;
         
-        Dropzone.options.filesModalDropzone = {
-        paramName: "file", // The name that will be used to transfer the file
-        maxFilesize: 2, // MB
-        maxThumbnailFilesize: 1, // MB
-        addRemoveLinks: true,
-        acceptedFiles: "image/*,application/pdf,.psd",
-        accept: function(file, done) {
-            if (file.name === "Alex.jpg") {
-                done("Hello Creator.");
-            }
-            else {
-                done();
-            }
-        },
-        init: function(){
-            this.on('removedfile', function (file) {
+        global.Dropzone.options.filesModalDropzone = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            maxThumbnailFilesize: 1, // MB
+            addRemoveLinks: true,
+            acceptedFiles: "image/*,application/pdf,.psd",
+            accept: function(file, done) {
+                if (file.name === "Alex.jpg") {
+                    done("Hello Creator.");
+                }
+                else {
+                    done();
+                }
+            },
+            init: function(){
+                this.on('removedfile', function (file) {
                 console.log("Removing:", file);
             });
             this.on('sending', function (file, xhr, formData) {
@@ -883,9 +930,6 @@
             }
         });
     }
-
-
-
 </script>
 
 <script>

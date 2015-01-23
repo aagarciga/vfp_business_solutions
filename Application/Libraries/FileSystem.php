@@ -58,13 +58,14 @@ class FileSystem {
                 continue;
             }
             if (is_dir($dir . DIRECTORY_SEPARATOR . $item)) {
-                $res[] = array('text' => $item, 'children' => true, 'id' => $this->GetId($dir . DIRECTORY_SEPARATOR . $item), 'icon' => 'folder');
-            } else {
-                $res[] = array('text' => $item, 'children' => false, 'id' => $this->GetId($dir . DIRECTORY_SEPARATOR . $item), 'type' => 'file', 'icon' => 'file file-' . substr($item, strrpos($item, '.') + 1));
-            }
+                $res[] = array('text' => $item, 'children' => true, 'id' => $this->GetId($dir . DIRECTORY_SEPARATOR . $item));
+            } 
+//            else {
+//                $res[] = array('text' => $item, 'children' => false, 'id' => $this->GetId($dir . DIRECTORY_SEPARATOR . $item), 'type' => 'file', 'icon' => 'file file-' . substr($item, strrpos($item, '.') + 1));
+//            }
         }
         if ($with_root && $this->GetId($dir) === '/') {
-            $res = array(array('text' => basename($this->base), 'children' => $res, 'id' => '/', 'icon' => 'folder', 'state' => array('opened' => true, 'disabled' => true)));
+            $res = array(array('text' => basename($this->base), 'children' => $res, 'id' => '/', 'state' => array('opened' => true, 'disabled' => false)));
         }
         return $res;
     }
@@ -154,9 +155,9 @@ class FileSystem {
 
     public function Remove($id) {
         $dir = $this->Path($id);
-        if ($dir === $this->base) {
-            throw new Exception('Cannot remove root');
-        }
+//        if ($dir === $this->base) {
+//            throw new Exception('Cannot remove root');
+//        }
         if (is_dir($dir)) {
             foreach (array_diff(scandir($dir), array(".", "..")) as $f) {
                 $this->Remove($this->GetId($dir . DIRECTORY_SEPARATOR . $f));

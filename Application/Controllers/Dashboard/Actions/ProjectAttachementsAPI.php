@@ -17,15 +17,7 @@ class ProjectAttachementsAPI extends Action {
      * @return JSON
      */
     public function Execute() {
-//        $salesorder = filter_input(INPUT_GET, 'salesorder');
-//
-//        $result = array();
-//
-//        $result[] = array('id' => $salesorder, 'text' => $salesorder, 'children' => false);
-//
-//        header('Content-Type: application/json; charset=utf-8');
-//        return json_encode($result);
-        // -----------------------------------------------
+
         // API Operation parameter. example: get_node
         $operation = filter_input(INPUT_GET, 'operation');
         $id = filter_input(INPUT_GET, 'id');
@@ -46,7 +38,6 @@ class ProjectAttachementsAPI extends Action {
 
         $fs = new FileSystem($rootDir);
         try {
-
             $result = null;
             switch ($operation) {
                 case 'get_node':
