@@ -528,6 +528,9 @@
         dashboard.filesModal.controls['jstree'] = {
             id : '#jstree'
         };
+        dashboard.filesModal.controls['tree-search']= {
+            id: '#tree-search'
+        };
         
         dashboard.$filesModal = $(dashboard.filesModal.id);
         
@@ -542,6 +545,7 @@
         dashboard.filesModal.loadProjectTree = function (currentProject) {
             console.log(currentProject.salesorder);         
             
+            
             // TODO: Create jsTree Instance
             $jstree = $(dashboard.filesModal.controls['jstree'].id);            
             
@@ -550,7 +554,7 @@
                 dashboard.filesModal.controls['jstree'].instance.jstree('destroy');
             }
             dashboard.filesModal.controls['jstree'].instance = $jstree.jstree({
-                plugins : ['state','dnd','sort','types','contextmenu','unique'],
+                plugins : ['state','dnd','sort','types','contextmenu','unique', 'search'],
                 core: {
                     data: {
                         url: 'index.php?controller=dashboard&action=projectattachementsapi&salesorder='+currentProject.salesorder+'&operation=get_node',
@@ -705,6 +709,21 @@
 //                    $('#data .default').html('Select a file from the tree.').show();
 //                }
             });
+            
+            // Binding Searching Behavior
+            var to = false;
+            (function (instance, searchControlId) {
+                $(searchControlId).keyup(function () {
+                    if (to) {
+                        clearTimeout(to);
+                    }
+                    to = setTimeout(function () {
+                        var value = $(searchControlId).val();
+                        instance.jstree(true).search(value);
+                    }, 250);
+                });
+            })(dashboard.filesModal.controls['jstree'].instance, dashboard.filesModal.controls['tree-search'].id);
+            
         };
         dashboard.filesModal.createDir = function () {
             var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
