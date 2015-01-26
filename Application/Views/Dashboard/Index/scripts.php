@@ -786,8 +786,11 @@
                 console.log("Removing:", file);
             });
             this.on('sending', function (file, xhr, formData) {
+                var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
+                    selectedDir = ref.get_selected();
                 if (dashboard.currentProject.salesorder) {
                     formData.append('salesorder', dashboard.currentProject.salesorder);
+                    formData.append('selectedDir', selectedDir);
                 }                
             });
         }
