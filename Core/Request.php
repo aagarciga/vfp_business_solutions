@@ -86,10 +86,44 @@ class Request implements Interfaces\IDictionary {
      * @ignore
      */
     public final function __get($key) {
-        if (array_key_exists($key, $this->properties))
+        if (array_key_exists($key, $this->properties)){
             return $this->properties[$key];
-        throw new Exceptions\PropertyNotFoundException($this, $key);
+        }
+        
+        $trace = debug_backtrace();
+        trigger_error(
+            'Undefined property via __get(): ' . $key .
+            ' in ' . $trace[0]['file'] .
+            ' on line ' . $trace[0]['line'],
+            E_USER_NOTICE);
+        return null;
+
+//        throw new Exceptions\PropertyNotFoundException("Request", $key);
     }
+    
+    /**
+     * Secure method of get request properties (GET | POST)
+     * @param type $key
+     * @return property value. false otherwise.
+     */
+    public final function hasProperty($key){
+        return array_key_exists($key, $this->properties) ? $this->properties[$key] : false;
+    }
+    
+    public function __isset($key) {
+        if (array_key_exists($key, $this->properties)){
+            return isset($this->properties[$key]);
+        }
+        $trace = debug_backtrace();
+        trigger_error(
+            'Undefined property via __isset(): ' . $key .
+            ' in ' . $trace[0]['file'] .
+            ' on line ' . $trace[0]['line'],
+            E_USER_NOTICE);
+        return null;
+//        throw new Exceptions\PropertyNotFoundException("Request", $key);
+    }
+
     
     //TODO: Gets the collection of form variables that were sent by the client.
     function Form() {

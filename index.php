@@ -98,7 +98,21 @@ final class index extends Core\FrontController {
      */
     public static function Main() {
         session_start();
+        
+        // For Development Application Mode
+        // Reporting E_NOTICE can be good too (to report uninitialized
+        // variables or catch variable name misspellings ...)
+        //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
         error_reporting(E_ALL);
+        
+        
+        // For Production Application Mode
+        // Report all PHP errors (see changelog)
+        //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
+
+
+
         \Dandelion\Diana\Diana::Init();
         
         date_default_timezone_set("America/New_York");
