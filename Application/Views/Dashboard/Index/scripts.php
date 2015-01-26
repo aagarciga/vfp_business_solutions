@@ -782,17 +782,46 @@
                 }
             },
             init: function(){
+                
                 this.on('removedfile', function (file) {
-                console.log("Removing:", file);
-            });
-            this.on('sending', function (file, xhr, formData) {
-                var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
+                    var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = ref.get_selected();
-                if (dashboard.currentProject.salesorder) {
-                    formData.append('salesorder', dashboard.currentProject.salesorder);
-                    formData.append('selectedDir', selectedDir);
-                }                
-            });
+                    console.log("Removing:", file);
+                    
+                    var params = { postSalesOrder: dashboard.currentProject.salesorder, postFilePath : selectedDir[0], postFileName : file.name };
+//                    console.log(params);
+//                    $.ajax({
+//                        data: params,
+//                        url: '<?php echo $View->Href('Dashboard', 'DeleteFile') ?>',
+//                        type: 'post',
+//                        beforeSend: function() {
+//                            $('.loading').show();
+//                        },
+//                        success: function(response) {
+//                            console.log(response);
+//                            var _response = $.parseJSON(response);
+//                            console.log(_response);
+//                            $('.loading').hide();
+//                        }
+//                    });
+                
+                    $.post('<?php echo $View->Href('Dashboard', 'DeleteFile') ?>', params)
+                    .done(function (d) {
+                        console.log('done:', d);
+                    })
+                    .fail(function (d) {
+                        console.log('fail:', d);
+                    });
+                
+                });
+                this.on('sending', function (file, xhr, formData) {
+                    var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
+                    selectedDir = ref.get_selected();
+                    if (dashboard.currentProject.salesorder) {
+                        formData.append('salesorder', dashboard.currentProject.salesorder);
+                        formData.append('selectedDir', selectedDir);
+                    }                
+                });
         }
     };
     }(window, window.dandelion));
