@@ -66,7 +66,8 @@ class FrontController extends Controller {
                 if ($key == "controller" or $key == "action") {
                     continue;
                 }
-                $request->$key = $value;
+//                $request->$key =  $value;
+                $request->$key = filter_input(INPUT_GET, $key);                
             }
 
             $request->Application = $application;
@@ -94,7 +95,15 @@ class FrontController extends Controller {
                 if ($key == "controller" or $key == "action") {
                     continue;
                 }
-                $request->$key = $value;
+                $request->$key = filter_input(INPUT_POST, $key);
+            }
+            
+            foreach ($_GET as $key => $value) {
+                if ($key == "controller" or $key == "action") {
+                    continue;
+                }
+//                $request->$key =  $value;
+                $request->$key = filter_input(INPUT_GET, $key);                
             }
 
             $request->Application = $application;
