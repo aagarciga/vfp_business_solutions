@@ -2,9 +2,9 @@
 
 namespace Dandelion\MVC;
 
-define('MVC_VERSION', "1.0.0.61");
+define('MVC_VERSION', "1.0.0.62");
 /**
- * Dandelion MVC 1.0.0.61
+ * Dandelion MVC 1.0.0.62
  * 
  * PHP Version 5.3
  * 
@@ -105,13 +105,9 @@ final class index extends Core\FrontController {
         //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
         error_reporting(E_ALL);
         
-        
         // For Production Application Mode
         // Report all PHP errors (see changelog)
         //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-
-
-
 
         \Dandelion\Diana\Diana::Init();
         
