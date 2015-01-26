@@ -113,10 +113,10 @@ class SysuserRepository extends BaseRepository implements IRepository {
         $setconfirm = $entity->getSetconfirm();
         $defdirname = $entity->getDefdirname();
         $email = $entity->getEmail();
-        $custno = $entity->getCustno();
+//        $custno = $entity->getCustno();
         $icprefix = $entity->getIcprefix();
 
-        $sqlString = "UPDATE $this->entityName SET USERCODE = '$usercode', USERNAME = '$username', USERPASS = '$userpass', \"GROUP\" = '$group', USERSTAT0 = '$userstat0', ONDATE = '$ondate', OFFDATE = '$offdate', ONTIME = '$ontime', OFFTIME = '$offtime', FSCREEN = '$fscreen', FSTARTUP = '$fstartup', FUSERLPDEV = '$fuserlpdev', FUSERCOMP = '$fusercomp', FLANG_CTRL = '$flang_ctrl', FORMINI = '$formini', NFLG0 = $nflg0, WHSDEF = '$whsdef', POSCTRL = $posctrl, PSDRWOPEN = '$psdrwopen', PSDRWPORT = '$psdrwport', PSBARCDLP = '$psbarcdlp', SETCONFIRM = $setconfirm, DEFDIRNAME = '$defdirname', EMAIL = '$email', CUSTNO = '$custno', ICPREFIX = '$icprefix'"
+        $sqlString = "UPDATE $this->entityName SET USERCODE = '$usercode', USERNAME = '$username', USERPASS = '$userpass', \"GROUP\" = '$group', USERSTAT0 = '$userstat0', ONDATE = '$ondate', OFFDATE = '$offdate', ONTIME = '$ontime', OFFTIME = '$offtime', FSCREEN = '$fscreen', FSTARTUP = '$fstartup', FUSERLPDEV = '$fuserlpdev', FUSERCOMP = '$fusercomp', FLANG_CTRL = '$flang_ctrl', FORMINI = '$formini', NFLG0 = $nflg0, WHSDEF = '$whsdef', POSCTRL = $posctrl, PSDRWOPEN = '$psdrwopen', PSDRWPORT = '$psdrwport', PSBARCDLP = '$psbarcdlp', SETCONFIRM = $setconfirm, DEFDIRNAME = '$defdirname', EMAIL = '$email', ICPREFIX = '$icprefix'" // , CUSTNO = '$custno'
                 . " WHERE USERID = '$userid'";
 
         $query = $this->dbDriver->GetQuery();
