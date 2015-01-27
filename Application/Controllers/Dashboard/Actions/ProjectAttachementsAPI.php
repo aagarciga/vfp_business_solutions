@@ -20,10 +20,10 @@ class ProjectAttachementsAPI extends Action {
 
         // API Operation parameter. example: get_node
         $operation = $this->Request->hasProperty('operation') ? $this->Request->operation : "";
-        $id = $this->Request->hasProperty('id') ? $this->Request->id: "";        
-        $text = $this->Request->hasProperty('text') ? $this->Request->text: "";
-        $type = $this->Request->hasProperty('type') ? $this->Request->type: "";
-        $parent = $this->Request->hasProperty('parent') ? $this->Request->parent: "";
+        $id = $this->Request->hasProperty('id') ? $this->Request->id : "";        
+        $text = $this->Request->hasProperty('text') ? $this->Request->text : "";
+        $type = $this->Request->hasProperty('type') ? $this->Request->type : "";
+        $parent = $this->Request->hasProperty('parent') ? $this->Request->parent : "";
 
         // Current Project ID
         $salesorder = filter_input(INPUT_GET, 'salesorder');

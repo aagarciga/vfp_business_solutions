@@ -89,13 +89,12 @@ class Request implements Interfaces\IDictionary {
         if (array_key_exists($key, $this->properties)){
             return $this->properties[$key];
         }
-        
-        $trace = debug_backtrace();
-        trigger_error(
-            'Undefined property via __get(): ' . $key .
-            ' in ' . $trace[0]['file'] .
-            ' on line ' . $trace[0]['line'],
-            E_USER_NOTICE);
+//        $trace = debug_backtrace();
+//        trigger_error(
+//            'Undefined property via __get(): ' . $key .
+//            ' in ' . $trace[0]['file'] .
+//            ' on line ' . $trace[0]['line'],
+//            E_USER_NOTICE);
         return null;
 
 //        throw new Exceptions\PropertyNotFoundException("Request", $key);
@@ -107,20 +106,20 @@ class Request implements Interfaces\IDictionary {
      * @return property value. false otherwise.
      */
     public final function hasProperty($key){
-        return array_key_exists($key, $this->properties) ? $this->properties[$key] : false;
+        return array_key_exists($key, $this->properties) ? true : false;
     }
     
     public function __isset($key) {
         if (array_key_exists($key, $this->properties)){
             return isset($this->properties[$key]);
         }
-        $trace = debug_backtrace();
-        trigger_error(
-            'Undefined property via __isset(): ' . $key .
-            ' in ' . $trace[0]['file'] .
-            ' on line ' . $trace[0]['line'],
-            E_USER_NOTICE);
-        return null;
+//        $trace = debug_backtrace();
+//        trigger_error(
+//            'Undefined property via __isset(): ' . $key .
+//            ' in ' . $trace[0]['file'] .
+//            ' on line ' . $trace[0]['line'],
+//            E_USER_NOTICE);
+        return false;
 //        throw new Exceptions\PropertyNotFoundException("Request", $key);
     }
 

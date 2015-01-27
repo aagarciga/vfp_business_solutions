@@ -20,13 +20,14 @@ class DeleteFile_Post extends Action {
      * @return JSON
      */
     public function Execute() {
-        error_log($this->Request->hasProperty('postSalesOrder'));
-        error_log($this->Request->hasProperty('postFilePath'));
-        error_log($this->Request->hasProperty('postFileName'));
+
+        $salesorder = $this->Request->hasProperty('postSalesOrder') ? $this->Request->postSalesOrder : '';
+        $selectedDir = $this->Request->hasProperty('postFilePath') ? $this->Request->postFilePath : '';
+        $fileName = $this->Request->hasProperty('postFileName') ? $this->Request->postFileName : '';
         
-        $salesorder = $this->Request->hasProperty('postSalesOrder');
-        $selectedDir = $this->Request->hasProperty('postFilePath');
-        $fileName = $this->Request->hasProperty('postFileName');
+        error_log("Sales Order: " . $salesorder);
+        error_log("File Path: " . $selectedDir);
+        error_log("File Name: " . $fileName);
         
         $currentProjectDir = MVC_DIR_ROOT . 
                     DIRECTORY_SEPARATOR . "Public" . 
@@ -36,10 +37,11 @@ class DeleteFile_Post extends Action {
         $path = explode('/', $selectedDir);
         foreach ($path as $value) {
             $currentProjectDir .= DIRECTORY_SEPARATOR . $value;
-        }
-        
+        }        
         $currentProjectDir .= DIRECTORY_SEPARATOR . $fileName;
+        
         error_log($currentProjectDir);
+        
         if (is_file($currentProjectDir)) {
             unlink($currentProjectDir);
             return json_encode('success');
