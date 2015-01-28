@@ -543,8 +543,6 @@
         };
         
         dashboard.filesModal.loadProjectTree = function (currentProject) {
-            console.log(currentProject.salesorder);         
-            
             
             // TODO: Create jsTree Instance
             $jstree = $(dashboard.filesModal.controls['jstree'].id);            
@@ -670,6 +668,8 @@
             .on('changed.jstree', function (e, data) {
                 console.log('event', e);
                 console.log('data', data);
+                
+                
 //                if(data && data.selected && data.selected.length) {
 //                    $.get('?operation=get_content&id=' + data.selected.join(':'), function (d) {
 //                        if(d && typeof d.type !== 'undefined') {
@@ -724,6 +724,9 @@
                 });
             })(dashboard.filesModal.controls['jstree'].instance, dashboard.filesModal.controls['tree-search'].id);
             
+            // Select by default the root dir
+            dashboard.filesModal.controls['jstree'].instance.jstree(true).select_node('/');
+            
         };
         dashboard.filesModal.createDir = function () {
             var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
@@ -751,8 +754,11 @@
         dashboard.filesModal.deleteDir = function () {
             var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
             sel = ref.get_selected();
-    
             if (!sel.length) {
+                return false;
+            }
+            if (sel[0] === "\/") {
+                alert("Project folder can't be deleted.");
                 return false;
             }
             ref.delete_node(sel);

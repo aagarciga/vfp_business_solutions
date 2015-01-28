@@ -155,9 +155,10 @@ class FileSystem {
 
     public function Remove($id) {
         $dir = $this->Path($id);
-//        if ($dir === $this->base) {
+        if ($dir === $this->base) {
+            return array('status' => 'OK');
 //            throw new Exception('Cannot remove root');
-//        }
+        }
         if (is_dir($dir)) {
             foreach (array_diff(scandir($dir), array(".", "..")) as $f) {
                 $this->Remove($this->GetId($dir . DIRECTORY_SEPARATOR . $f));
