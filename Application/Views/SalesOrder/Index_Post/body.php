@@ -118,10 +118,13 @@
 
     <div class="row">
         <div class="col-xs-4">
-
             <label class="control-label"><span class="glyphicon glyphicon-phone"></span> Phone</label>
-
-            <input type="text" class="form-control input"/>
+            <div class="input-prepend input-group" title="Phone">
+                <input type="text" class="form-control input"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default glyphicon-action-button" title="Add another phone number"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                </span>
+            </div>
         </div>
         <div class="col-xs-4">
 
@@ -140,7 +143,14 @@
     <div class="row">
         <div class="col-xs-4">
             <div class="form-group">
-                <a class="btn btn-default btn-block btn-lg" title="Add another phone" href="#"><span class="glyphicon glyphicon-phone"></span><span class="glyphicon glyphicon-plus-sign"></span></a>
+                <label class="control-label"><span class="glyphicon glyphicon-map-marker"></span> Project Location</label>
+                <input type="text" class="form-control input" value="<?php echo isset($SalesOrder) ? $SalesOrder->getProjectLocation() : "" ?>"/>
+            </div>
+        </div>
+        <div class="col-xs-8">
+            <div class="form-group">
+                <label class="control-label"><span class="glyphicon glyphicon-book"></span> Notes</label>
+                <input type="text" class="form-control input" value="<?php echo isset($SalesOrder) ? $SalesOrder->getNotes() : "" ?>"/>
             </div>
         </div>
     </div>

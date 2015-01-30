@@ -23,7 +23,7 @@ class Index_Post extends Action {
         $this->Title = 'Sales Order | VFP Business Series - Warehouse Management System';
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
-        $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
+        $this->ItemPerPage = 1000;//(!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
         
         
         $this->FromController = filter_input(INPUT_POST, 'fromcontroller');
@@ -31,7 +31,7 @@ class Index_Post extends Action {
         
         $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum(filter_input(INPUT_POST, 'salesorder'));
         
-        $this->SalesOrder = new SalesOrderViewModel($soheadData->getOrdnum(), $soheadData->getPodate(), $soheadData->getCustno());
+        $this->SalesOrder = new SalesOrderViewModel($soheadData->getOrdnum(), $soheadData->getPodate(), $soheadData->getCustno(), $soheadData->getShipfrom(), $soheadData->getInhsecomm() );
         
         $this->Pager = $this->controller->GetSalesOrderItemsPager($this->UserName, $this->SalesOrder->getOrdnum(), $this->ItemPerPage);
         $this->Pager->Paginate();  
