@@ -683,6 +683,17 @@
                 console.log('event', e);
                 console.log('data', data);
                 
+                //window.Dropzone.instances[0].getAcceptedFiles();
+                
+                var dropzoneFiles = window.Dropzone.instances[0].files;
+                var i = 0;
+                for(i; i < dropzoneFiles.length; i += 1){
+                    dropzoneFiles[i].ready4Remove = false;
+                }
+                
+                window.Dropzone.instances[0].removeAllFiles();
+                
+                console.log(window.Dropzone.instances[0].getAcceptedFiles());
                 
 //                if(data && data.selected && data.selected.length) {
 //                    $.get('?operation=get_content&id=' + data.selected.join(':'), function (d) {
@@ -803,40 +814,32 @@
             },
             init: function(){
                 
-                this.on('removedfile', function (file) {
+                this.on('removedfile', function (file, a) {
                     var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = ref.get_selected();
                     console.log("Removing:", file);
+                    console.log(a);
+                    if (file.ready4Remove) {
+                        var params = { postSalesOrder: dashboard.currentProject.salesorder, postFilePath : selectedDir[0], postFileName : file.name };
+                        $.post('<?php echo $View->Href('Dashboard', 'DeleteFile') ?>', params)
+                        .done(function (d) {
+                            console.log('done:', d);
+                        })
+                        .fail(function (d) {
+                            console.log('fail:', d);
+                        });
+                    }
+                    file.ready4Remove = true;
                     
-                    var params = { postSalesOrder: dashboard.currentProject.salesorder, postFilePath : selectedDir[0], postFileName : file.name };
-//                    console.log(params);
-//                    $.ajax({
-//                        data: params,
-//                        url: '<?php echo $View->Href('Dashboard', 'DeleteFile') ?>',
-//                        type: 'post',
-//                        beforeSend: function() {
-//                            $('.loading').show();
-//                        },
-//                        success: function(response) {
-//                            console.log(response);
-//                            var _response = $.parseJSON(response);
-//                            console.log(_response);
-//                            $('.loading').hide();
-//                        }
-//                    });
-                
-                    $.post('<?php echo $View->Href('Dashboard', 'DeleteFile') ?>', params)
-                    .done(function (d) {
-                        console.log('done:', d);
-                    })
-                    .fail(function (d) {
-                        console.log('fail:', d);
-                    });
                 
                 });
                 this.on('sending', function (file, xhr, formData) {
                     var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = ref.get_selected();
+                    
+                    ////// TODO SEEEEEEEEEEEEEEE HERE IDEA. Attashed UploadPath to the FIle when sending to the server.
+                    file.ready4Remove = true;
+                    file.uploadPath = dashboard.currentProject.salesorder + '/' +selectedDir ;
                     if (dashboard.currentProject.salesorder) {
                         formData.append('salesorder', dashboard.currentProject.salesorder);
                         formData.append('selectedDir', selectedDir);
