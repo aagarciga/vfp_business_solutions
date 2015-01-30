@@ -51,9 +51,8 @@ abstract class DatActionsController extends ActionsController {
     protected function PreController(Request $request) {
         if(!isset($_SESSION['username'])){
             $redirectionRequest = new Request('User', 'Signin', $request->Application);
-            // TODO : FIX that
-            $redirectionRequest->previousController = $request->Controller[0];
-            $redirectionRequest->previousAction = $request->Action[0];
+            $redirectionRequest->previousController = $request->Controller;
+            $redirectionRequest->previousAction = $request->Action;
             $this->Redirect($redirectionRequest);
         }
         else{

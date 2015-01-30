@@ -24,7 +24,8 @@ class BaseSyscomp {
     protected $_dbsvrtype;
     protected $_dbuser;
     protected $_dbpass;
-
+    protected $_dboption;
+    
     public static function toString() {
         return self::$_name;
     }
@@ -154,6 +155,17 @@ class BaseSyscomp {
     public function getDbpass() {
         return trim($this->_dbpass);
     }
+    
+    public function setDboption($dboption) {
+        $this->_dboption = $dboption;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getDboption() {
+        return trim($this->_dboption);
+    }
 
     /**
      * Constructor
@@ -167,7 +179,7 @@ class BaseSyscomp {
      * @param type $dbuser
      * @param type $dbpass
      */
-    public function __construct($actcomp, $company, $nflg0, $qbstatus, $adssqldba, $dbpath, $dbsvrtype, $dbuser, $dbpass) {
+    public function __construct($actcomp, $company, $nflg0, $qbstatus, $adssqldba, $dbpath, $dbsvrtype, $dbuser, $dbpass, $dboption) {
         
         $this->_actcomp = $actcomp;
         $this->_company = $company;
@@ -178,6 +190,7 @@ class BaseSyscomp {
         $this->_dbsvrtype = $dbsvrtype;
         $this->_dbuser = $dbuser;
         $this->_dbpass = $dbpass;
+        $this->_dboption = $dboption;
     }
 
 }

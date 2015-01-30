@@ -25,18 +25,26 @@ class Signin_Post extends Action{
             $user = $queryResult[0];
             if(trim($user->getUserpass()) === $this->Request->txtPassword){
                 $_SESSION['username'] = $this->Request->txtUsername;
-                $_SESSION['usercomp'] = $user->getFusercomp();
+                
+                $userCompany = $user->getFusercomp();                
+                $_SESSION['usercomp'] = $userCompany;
+                
                 $_SESSION['userwhsdef'] = $user->getWhsdef();
                 
                 $user->setOndate(date("Y-m-d"));
                 $user->setOntime(date("H:i:s"));
                 
-//                $_SESSION['user'] = $user; Not work
-                
                 // Updating Ondate and Ontime fields
                 $this->controller->VfpDataUnitOfWork->SysuserRepository->Update($user);
                 
-                $this->Redirect($this->Request->hdnController, $this->Request->hdnAction);
+                $companyEntity = $this->controller->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($userCompany);
+                
+                // If Current User Company got DBOPTION Field Value equals to 'ALL0000' (No Case Sensitive)
+                if ( strtolower($companyEntity->getDboption()) === "all0000") {
+                    $this->Redirect($this->Request->hdnController, $this->Request->hdnAction);
+                }
+                // Redirect to Dashboard Screen
+                $this->Redirect('Dashboard', 'Index');
             }
         }        
         $this->Request->previousController = $this->Request->hdnController;

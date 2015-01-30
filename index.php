@@ -2,9 +2,9 @@
 
 namespace Dandelion\MVC;
 
-define('MVC_VERSION', "1.0.0.62");
+define('MVC_VERSION', "1.0.0.63");
 /**
- * Dandelion MVC 1.0.0.62
+ * Dandelion MVC 1.0.0.63
  * 
  * PHP Version 5.3
  * 

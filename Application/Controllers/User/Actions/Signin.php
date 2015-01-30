@@ -22,10 +22,10 @@ class Signin extends Action {
         session_unset();
         $this->Title = 'Sign In | VFP Business Series - Warehouse Management System';
         
-        $this->PreviousController = (isset($this->Request->previousController)) 
+        $this->PreviousController = ($this->Request->hasProperty('previousController')) 
                 ? $this->Request->previousController 
                 : $this->Request->Application->getDefaultController();
-        $this->PreviousAction = (isset($this->Request->previousAction)) 
+        $this->PreviousAction = ($this->Request->hasProperty('previousAction')) 
                 ? $this->Request->previousAction 
                 : $this->Request->Application->getDefaultAction();
     }

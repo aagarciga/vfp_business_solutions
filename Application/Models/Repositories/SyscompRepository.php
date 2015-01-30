@@ -22,7 +22,7 @@ class SyscompRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS);
+            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION);
         }
 
         return $result;
@@ -41,7 +41,7 @@ class SyscompRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS);
+            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION);
         }
 
         return $result;
@@ -60,7 +60,7 @@ class SyscompRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS);
+            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION);
         }
 
         return $result[0];
@@ -80,8 +80,9 @@ class SyscompRepository extends BaseRepository implements IRepository {
         $dbsvrtype = $entity->getDbsvrtype();
         $dbuser = $entity->getDbuser();
         $dbpass = $entity->getDbpass();
+        $dboption = $entity->getDboption();
         
-        $sqlString = "UPDATE $this->entityName SET COMPANY = '$company', NFLG0 = $nflg0, QBSTATUS = $qbstatus, ADSSQLDBA = $adssqldba, DBPATH = '$dbpath', DBSVRTYPE = '$dbsvrtype', DBUSER = '$dbuser', DBPASS = '$dbpass'"
+        $sqlString = "UPDATE $this->entityName SET COMPANY = '$company', NFLG0 = $nflg0, QBSTATUS = $qbstatus, ADSSQLDBA = $adssqldba, DBPATH = '$dbpath', DBSVRTYPE = '$dbsvrtype', DBUSER = '$dbuser', DBPASS = '$dbpass', DBOPTION = '$dboption',"
                 . " WHERE ACTCOMP = '$actcomp'";
         
         $query = $this->dbDriver->GetQuery();
