@@ -44,6 +44,8 @@ class Index extends Action {
         
         $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
         
+        $this->DefaultUserFilterId = $user->getDbfilter();
+        
         $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($user->getUsername());
         
         $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();

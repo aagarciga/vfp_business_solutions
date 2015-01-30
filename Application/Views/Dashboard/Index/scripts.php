@@ -116,9 +116,16 @@
             var _filterid = event.currentTarget.dataset['filterid'];
             
             Dashboard.DynamicFilter.Controls.resetButton.click();         
+            
+            Dashboard.DynamicFilter._LoadFilter(_filterid);
+            
+            Dashboard.DynamicFilter._EnableFilterControls();
+        };
+        
+        Dashboard.DynamicFilter._LoadFilter = function(filterId){
             $.ajax({
                 data: {
-                    filterid: _filterid
+                    filterid: filterId
                 },
                 url: '<?php echo $View->Href('Dashboard', 'GetSavedFilter') ?>',
                 type: 'post',
@@ -139,8 +146,6 @@
                     $('.loading').hide();
                 }
             });
-            
-            Dashboard.DynamicFilter._EnableFilterControls();
         };
         Dashboard.DynamicFilter._FilterCallback = function(){
             var predicate = "";
@@ -365,7 +370,16 @@
             });
         };
         
-        Dashboard.DynamicFilter.Init = function(){
+        Dashboard.DynamicFilter.Init = function(filterId){
+            console.log(filterId);
+            if (filterId) {
+                console.log("Loading Default User Saved Filter");
+                Dashboard.DynamicFilter.Controls.resetButton.click();         
+
+                Dashboard.DynamicFilter._LoadFilter(filterId);
+
+                Dashboard.DynamicFilter._EnableFilterControls();
+            }
             //DynamicFilter Initialization
             
             // Dashboard.DynamicFilter.Controls Filter Button OnClick event handler
@@ -473,7 +487,7 @@
             
         };
 
-        Dashboard.DynamicFilter.Init();
+        Dashboard.DynamicFilter.Init('<?php echo $DefaultUserFilterId ?>');
     })(App.Dashboard);
 </script>
 

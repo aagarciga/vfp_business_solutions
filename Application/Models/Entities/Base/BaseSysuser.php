@@ -40,8 +40,9 @@ class BaseSysuser {
     protected $_setconfirm;
     protected $_defdirname;
     protected $_email;
-    protected $_custno;
+//    protected $_custno;
     protected $_icprefix;
+    protected $_dbfilter;
 
     public static function toString() {
         return self::$_name;
@@ -397,19 +398,19 @@ class BaseSysuser {
         $this->_email = $email;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCustno() {
-        return trim($this->_custno);
-    }
-
-    /**
-     * @param mixed $custno
-     */
-    public function setCustno($custno) {
-        $this->_custno = $custno;
-    }
+//    /**
+//     * @return mixed
+//     */
+//    public function getCustno() {
+//        return trim($this->_custno);
+//    }
+//
+//    /**
+//     * @param mixed $custno
+//     */
+//    public function setCustno($custno) {
+//        $this->_custno = $custno;
+//    }
 
     /**
      * @return mixed
@@ -423,6 +424,20 @@ class BaseSysuser {
      */
     public function setIcprefix($icprefix) {
         $this->_icprefix = $icprefix;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getDbfilter() {
+        return trim($this->_dbfilter);
+    }
+
+    /**
+     * @param mixed $icprefix
+     */
+    public function setDbfilter($dbfilter) {
+        $this->_dbfilter = $dbfilter;
     }
 
     /**
@@ -452,10 +467,10 @@ class BaseSysuser {
      * @param type $setconfirm
      * @param type $defdirname
      * @param type $email
-     * @param type $custno
      * @param type $icprefix
+     * @param GUID $dbfilter
      */
-    public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $custno = '', $icprefix = '') {
+    public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $icprefix = '', $dbfilter = '') {
         $this->_userid = $userid;
         $this->_usercode = $usercode;
         $this->_username = $username;
@@ -481,8 +496,8 @@ class BaseSysuser {
         $this->_setconfirm = $setconfirm;
         $this->_defdirname = $defdirname;
         $this->_email = $email;
-        $this->_custno = $custno;
         $this->_icprefix = $icprefix;
+        $this->_dbfilter = $dbfilter;
     }
 
 }
