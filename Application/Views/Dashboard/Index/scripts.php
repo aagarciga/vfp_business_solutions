@@ -34,7 +34,7 @@
         };
         
         Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
-            Dandelion.mvc.redirect('SalesOrder', 'Index', { salesorder: $(event.target).html(), fromcontroller: "Dashboard", fromaction:"index"});
+            Dandelion.mvc.redirect('SalesOrder', 'Index', { salesorder: $(event.target).html(), fromcontroller: "Dashboard", fromaction:"index"},'GET');
         };
         
         Dashboard.Init = function(){

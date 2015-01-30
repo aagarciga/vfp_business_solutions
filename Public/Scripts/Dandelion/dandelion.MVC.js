@@ -16,45 +16,55 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-;(function(document, dandelion){
+;(function(global){
     "use strict";
     
     // Dandelion MVC Namespace
-    var mvc = dandelion.namespace('mvc'); 
+    var dandelion = global.dandelion,
+    document = global.document,
+    mvc = dandelion.namespace('mvc'); 
     
     mvc.redirect = function(controller, action, data, type){    
-        var _form = document.createElement('form'),
+        
+        if (!type) {
+            type = 'POST';
+        }
+        
+        if (type === 'POST') {
+            
+            var _form = document.createElement('form'),
             _formAction = 'index.php?';
+
+            if (controller === undefined) {
+                throw new Error("Controller is required");
+            }  
+            _formAction += 'controller=' + controller;
+
+            if (action === undefined) {
+                action = 'index';
+            }        
+
+            _formAction += '&action=' + action;
+
+            _form.action = _formAction;
+            _form.method = type;        
         
-        if (controller === undefined) {
-            throw new Error("Controller is required");
-        }  
-        _formAction += 'controller=' + controller;
-        
-        if (action === undefined) {
-            action = "index";
-        }        
-        
-        _formAction += '&action=' + action;
-        
-        _form.action = _formAction;
-        
-        if (type === undefined) {
-            type = "POST";
+            if (typeof data === "object" && data) {
+                var key;
+                for(key in data){
+                    var _inputHidden = document.createElement('input');
+                    _inputHidden.type = 'hidden';
+                    _inputHidden.name = key.toString();
+                    _inputHidden.value = data[key];
+                    _form.appendChild(_inputHidden);
+                }
+            }
+            _form.submit();
+        }
+        else{
+            global.location = 'index.php?controller='+controller+'&action='+action+'&salesorder='+data.salesorder+'&from_controller='+data.fromcontroller+'&from_action='+data.fromaction;
         }
         
-        _form.method = type;        
-        
-        if (typeof data === "object" && data) {
-            Object.keys(data).forEach(function(key){
-                var _inputHidden = document.createElement('input');
-                _inputHidden.type = 'hidden';
-                _inputHidden.name = key.toString();
-                _inputHidden.value = eval("data." + key.toString());
-                _form.appendChild(_inputHidden);
-            });
-        }
-        _form.submit();
         
     };
 //    
@@ -72,6 +82,6 @@
 //        this.notifyObservers(data);
 //    };
     
-})(window.document, window.dandelion);
+}(window));
 
 

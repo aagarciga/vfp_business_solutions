@@ -80,7 +80,7 @@ abstract class ActionsController extends Controller {
         if ( $executeResult === null) {
             $canRender = true;
         }
-                
+        
         if (method_exists($action, 'PostAction')) {
             $action->PostAction();
         }

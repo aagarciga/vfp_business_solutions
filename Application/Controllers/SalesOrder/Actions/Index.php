@@ -14,7 +14,7 @@ use Dandelion\MVC\Application\Controllers\SalesOrder\Models\SalesOrderItemViewMo
  * VFP Business Series Dashboard Controller Action
  * @name Index
  */
-class Index_Post extends Action {
+class Index extends Action {
 
     /**
      * Default Dashboard page.
@@ -25,10 +25,12 @@ class Index_Post extends Action {
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = 1000;//(!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
         
-        $this->FromController = $this->Request->hasProperty('fromcontroller') ? $this->Request->fromcontroller : "";
-        $this->FromAction = $this->Request->hasProperty('fromaction') ? $this->Request->fromaction : "";
+        $this->FromController = $this->Request->hasProperty('from_controller') ? $this->Request->from_controller : "";
+        $this->FromAction = $this->Request->hasProperty('from_action') ? $this->Request->from_action : "";
         
-        $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum(filter_input(INPUT_POST, 'salesorder'));
+        $this->SalesOrder = $this->Request->hasProperty('salesorder') ? $this->Request->salesorder : "";
+        
+        $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($this->SalesOrder);
         
         $this->SalesOrder = new SalesOrderViewModel($soheadData->getOrdnum(), $soheadData->getPodate(), $soheadData->getCustno(), $soheadData->getShipfrom(), $soheadData->getInhsecomm() );
         
@@ -42,7 +44,8 @@ class Index_Post extends Action {
             $salesOrderItemsViewModel []= $currentItem;
         }
         
-        $this->SalesOrderItems= $salesOrderItemsViewModel;        
+        $this->SalesOrderItems= $salesOrderItemsViewModel;
+        
     }
 
 }
