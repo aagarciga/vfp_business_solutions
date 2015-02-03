@@ -27,10 +27,21 @@ class Index_Post extends Action {
         
         $this->FromController = $this->Request->hasProperty('fromController') ? $this->Request->fromController : "";
         $this->FromAction = $this->Request->hasProperty('fromAction') ? $this->Request->fromAction : "";
+        $this->TableSortField = $this->Request->hasProperty('tableSortField') ? $this->Request->tableSortField : "";
+        $this->TableSortFieldOrder = $this->Request->hasProperty('tableSortFieldOrder') ? $this->Request->tableSortFieldOrder : "";
+        $this->ItemPerPage = $this->Request->hasProperty('itemPerPage') ? $this->Request->itemPerPage : "";
+        $this->CurrentFilterId = $this->Request->hasProperty('currentFilterId') ? $this->Request->currentFilterId : "";
+        
+        $this->HttpParams = '&tableSortField=' . $this->TableSortField;
+        $this->HttpParams .= '&tableSortFieldOrder=' . $this->TableSortFieldOrder;
+        $this->HttpParams .= '&itemPerPage=' . $this->ItemPerPage;
+        $this->HttpParams .= '&currentFilterId=' . $this->CurrentFilterId;
         
         $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum(filter_input(INPUT_POST, 'salesorder'));
         
         $this->SalesOrder = new SalesOrderViewModel($soheadData->getOrdnum(), $soheadData->getPodate(), $soheadData->getCustno(), $soheadData->getShipfrom(), $soheadData->getInhsecomm() );
+        
+        
         
         $this->Pager = $this->controller->GetSalesOrderItemsPager($this->UserName, $this->SalesOrder->getOrdnum(), $this->ItemPerPage);
         $this->Pager->Paginate();  

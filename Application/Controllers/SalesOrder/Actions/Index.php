@@ -29,6 +29,15 @@ class Index extends Action {
         $this->FromAction = $this->Request->hasProperty('fromAction') ? $this->Request->fromAction : "";
         
         $this->SalesOrder = $this->Request->hasProperty('salesorder') ? $this->Request->salesorder : "";
+        $this->TableSortField = $this->Request->hasProperty('tableSortField') ? $this->Request->tableSortField : "";
+        $this->TableSortFieldOrder = $this->Request->hasProperty('tableSortFieldOrder') ? $this->Request->tableSortFieldOrder : "";
+        $this->ItemPerPage = $this->Request->hasProperty('itemPerPage') ? $this->Request->itemPerPage : "";
+        $this->CurrentFilterId = $this->Request->hasProperty('currentFilterId') ? $this->Request->currentFilterId : "";
+        
+        $this->HttpParams = '&tableSortField=' . $this->TableSortField;
+        $this->HttpParams .= '&tableSortFieldOrder=' . $this->TableSortFieldOrder;
+        $this->HttpParams .= '&itemPerPage=' . $this->ItemPerPage;
+        $this->HttpParams .= '&currentFilterId=' . $this->CurrentFilterId;
         
         $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($this->SalesOrder);
         

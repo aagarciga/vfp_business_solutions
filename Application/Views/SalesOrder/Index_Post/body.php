@@ -19,7 +19,7 @@
         </div>          
         <div class="col-xs-4">
             <div class="form-group">
-                <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href( isset($FromController)? $FromController: "main", isset($FromAction) ? $FromAction : "index" ) ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
+                <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href( isset($FromController)? $FromController: "main", isset($FromAction) ? $FromAction : "index" ) . $HttpParams ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
             <div class="form-group">
                 <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>

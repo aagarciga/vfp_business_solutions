@@ -42,3 +42,26 @@
         return parent;
     };
 }(window));
+
+(function (global){
+    "use strict";
+    
+    var navigator = global.dandelion.namespace('navigator');
+    
+    navigator.isChrome = function () {
+        return global.navigator.userAgent.indexOf("Chrome") !== -1;
+    };
+    
+    navigator.isFirefox = function () {
+        return global.navigator.userAgent.indexOf("Firefox") !== -1;
+    };
+    
+    navigator.isOpera = function () {
+        return global.navigator.userAgent.indexOf("Opera") !== -1;
+    };
+    
+    navigator.isIE = function () {
+        return ((global.navigator.userAgent.indexOf("MSIE") !== -1 ) ||
+                (!!global.document.documentMode === true ));
+    };
+}(window));

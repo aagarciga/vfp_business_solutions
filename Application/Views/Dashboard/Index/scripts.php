@@ -13,6 +13,7 @@
         var Dashboard = Dandelion.namespace('App.Dashboard', window);
         
         Dashboard.FilterForm = $('#filterForm');
+        Dashboard.itemPerPage = $('.top-pager-itemmperpage-control button span.value').text();
         Dashboard.TableSortLastButton = null;
         Dashboard.TableSortField = "ordnum"; // Default Order By Fields
         Dashboard.TableSortFieldOrder = "ASC"; // Default Order
@@ -34,7 +35,23 @@
         };
         
         Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
-            Dandelion.mvc.redirect('SalesOrder', 'Index', { salesorder: $(event.target).html(), fromController: "Dashboard", fromAction:"index"},'POST');
+            var requestType = 'GET', 
+                    params = {
+                        salesorder: $(event.target).html(),
+                        fromController: 'Dashboard',
+                        fromAction: 'index',
+                        tableSortField: Dashboard.TableSortField,
+                        tableSortFieldOrder: Dashboard.TableSortFieldOrder,
+                        itemPerPage: Dashboard.itemPerPage,
+                        currentFilterId: Dashboard.DynamicFilter.currentFilterId
+                        // TODO Load filter (Saved or not)
+                    };
+            if (Dandelion.navigator.isChrome()) {
+                requestType = 'POST';
+            }            
+            
+            
+            Dandelion.mvc.redirect('SalesOrder', 'Index', params, requestType);
         };
         
         Dashboard.Init = function(){
@@ -67,8 +84,8 @@
                 }                
                 Dashboard.TableSortLastButton = $(this);                
                 var $table = $('#dashboardTable');
-                var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-                Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
+//                var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+                Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
             });
         };
         
@@ -83,6 +100,7 @@
         // DynamicFilter Namespace
         var DynamicFilter = {};
         Dashboard.DynamicFilter = DynamicFilter;
+        Dashboard.DynamicFilter.currentFilterId = '';
         Dashboard.DynamicFilter.FilterString = "";
         Dashboard.DynamicFilter.SavedFilterList = $('#savedFilterList');
         Dashboard.DynamicFilter.SavedFilterListItems = $('.saved-filter-list-item');
@@ -173,8 +191,8 @@
             Dashboard.DynamicFilter.FilterString = predicate;
             
             var $table = $('#dashboardTable');
-            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
+//            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
         };
         Dashboard.DynamicFilter._ResetCallback = function(){
             Dashboard.DynamicFilter.FilterFields.children().remove();
@@ -371,9 +389,8 @@
         };
         
         Dashboard.DynamicFilter.Init = function(filterId){
-            console.log(filterId);
             if (filterId) {
-                console.log("Loading Default User Saved Filter");
+                Dashboard.DynamicFilter.currentFilterId = filterId;
                 Dashboard.DynamicFilter.Controls.resetButton.click();         
 
                 Dashboard.DynamicFilter._LoadFilter(filterId);
@@ -894,17 +911,18 @@
         function PagerControl_OnClick() {
             var $table = $('#dashboardTable');
             var $currentButton = $(this);
-            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, $currentButton.data('page'), $itemsperpage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
+//            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, $currentButton.data('page'), Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
         }
 
         $('.top-pager-itemmperpage-control a').on('click', function() {
             // Update Control Selected Value
-            $('.top-pager-itemmperpage-control button span.value').text($(this).text());
+            Dashboard.itemPerPage = $(this).text();
+            $('.top-pager-itemmperpage-control button span.value').text(Dashboard.itemPerPage);
             // Always show page one
             var $table = $('#dashboardTable');
-            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, $itemsperpage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder); // 
+//            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder); // 
         });
     })(window, document, jQuery, App.Dashboard);
 </script>
