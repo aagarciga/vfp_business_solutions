@@ -25,8 +25,8 @@ class Index extends Action {
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = 1000;//(!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
         
-        $this->FromController = $this->Request->hasProperty('from_controller') ? $this->Request->from_controller : "";
-        $this->FromAction = $this->Request->hasProperty('from_action') ? $this->Request->from_action : "";
+        $this->FromController = $this->Request->hasProperty('fromController') ? $this->Request->fromController : "";
+        $this->FromAction = $this->Request->hasProperty('fromAction') ? $this->Request->fromAction : "";
         
         $this->SalesOrder = $this->Request->hasProperty('salesorder') ? $this->Request->salesorder : "";
         
@@ -49,6 +49,3 @@ class Index extends Action {
     }
 
 }
-
-?>
-

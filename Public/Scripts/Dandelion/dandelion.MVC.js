@@ -62,7 +62,18 @@
             _form.submit();
         }
         else{
-            global.location = 'index.php?controller='+controller+'&action='+action+'&salesorder='+data.salesorder+'&from_controller='+data.fromcontroller+'&from_action='+data.fromaction;
+            var location = 'index.php?';
+            
+            location += 'controller=' + controller;
+            location += '&action=' + action;
+            
+            if (typeof data === "object" && data) {
+                var key;
+                for(key in data){
+                    location += '&' + key + '=' + data[key];
+                }
+            }
+            global.location = location;
         }
         
         

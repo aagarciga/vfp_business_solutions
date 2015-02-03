@@ -25,8 +25,8 @@ class Index_Post extends Action {
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = 1000;//(!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
         
-        $this->FromController = $this->Request->hasProperty('fromcontroller') ? $this->Request->fromcontroller : "";
-        $this->FromAction = $this->Request->hasProperty('fromaction') ? $this->Request->fromaction : "";
+        $this->FromController = $this->Request->hasProperty('fromController') ? $this->Request->fromController : "";
+        $this->FromAction = $this->Request->hasProperty('fromAction') ? $this->Request->fromAction : "";
         
         $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum(filter_input(INPUT_POST, 'salesorder'));
         
