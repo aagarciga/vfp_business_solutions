@@ -1,6 +1,7 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
+<script src="<?php echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?>"></script>
 
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
 
@@ -10,7 +11,8 @@
         "use strict";
 
         // Dashboard Namespace
-        var Dashboard = Dandelion.namespace('App.Dashboard', window);
+        var Dashboard = Dandelion.namespace('App.Dashboard', window),
+            SalesOrder = dandelion.namespace('App.Dashboard.SalesOrder', window);
         
         Dashboard.FilterForm = $('#filterForm');
         Dashboard.itemPerPage = $('.top-pager-itemmperpage-control button span.value').text();
@@ -33,30 +35,86 @@
                 $filter.show("slow");
             }
         };
-        
         Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
-            var requestType = 'GET', 
-                    params = {
-                        salesorder: $(event.target).html(),
-                        fromController: 'Dashboard',
-                        fromAction: 'index',
-                        tableSortField: Dashboard.TableSortField,
-                        tableSortFieldOrder: Dashboard.TableSortFieldOrder,
-                        itemPerPage: Dashboard.itemPerPage,
-                        currentFilterId: Dashboard.DynamicFilter.currentFilterId
-                        // TODO Load filter (Saved or not)
-                    };
-            if (Dandelion.navigator.isChrome()) {
-                requestType = 'POST';
-            }            
+//            var requestType = 'GET', 
+//                    params = {
+//                        salesorder: $(event.target).html(),
+//                        fromController: 'Dashboard',
+//                        fromAction: 'index',
+//                        tableSortField: Dashboard.TableSortField,
+//                        tableSortFieldOrder: Dashboard.TableSortFieldOrder,
+//                        itemPerPage: Dashboard.itemPerPage,
+//                        currentFilterId: Dashboard.DynamicFilter.currentFilterId
+//                        // TODO Load filter (Saved or not)
+//                    };
+//            if (Dandelion.navigator.isChrome()) {
+//                requestType = 'POST';
+//            }            
+//            
+//            
+//            Dandelion.mvc.redirect('SalesOrder', 'Index', params, requestType);
+
+            var salesOrder = $(event.target).html(),
+                params = {salesOrder: salesOrder};
             
+            $.post('<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>', params)
+                .done(function (response) {
+                    console.dir(response);
+                    var _response = $.parseJSON(response);
+                    console.log(_response);
+                    
+                    if (_response.success) {
+                        Dashboard.SalesOrder.viewModel.ordnum(_response.salesOrderObject.ordnum);
+                        Dashboard.SalesOrder.viewModel.date(_response.salesOrderObject.date);
+                        Dashboard.SalesOrder.viewModel.custno(_response.salesOrderObject.custno);
+                        Dashboard.SalesOrder.viewModel.projectLocation(_response.salesOrderObject.projectLocation);
+                        Dashboard.SalesOrder.viewModel.notes(_response.salesOrderObject.notes);
+                        Dashboard.SalesOrder.viewModel.items(_response.salesOrderObject.itemsCollection);
+                    }
+                    
+                })
+                .fail(function (response) {
+                    console.log(response);
+                });
             
-            Dandelion.mvc.redirect('SalesOrder', 'Index', params, requestType);
+            $('#salesOrder').css('height', $('.container').css('height')).show();
+        };
+        
+        Dashboard.SalesOrder.view = $('#kb-view-salesorder')[0];
+        Dashboard.SalesOrder.ViewModel = function (model) {
+            this.ordnum = kb.observable(model, 'ordnum');
+            this.date = kb.observable(model, 'date');
+            this.custno = kb.observable(model, 'custno');
+            this.projectLocation = kb.observable(model, 'projectLocation');
+            this.notes = kb.observable(model, 'notes');
+            this.items = kb.collectionObservable(model.items);
+            
+            this.onShowNotesModal = function (view_model, event){
+                $('#notesSaveModal').modal();
+                return view_model;
+            };
+        };
+        
+        Dashboard.SalesOrder.defaultModel = {
+            ordnum: '',
+            date: '',
+            custno: '', 
+            projectLocation: '',
+            notes: '',
+            items: new Backbone.Collection([])
         };
         
         Dashboard.Init = function(){
             
+            Dashboard.SalesOrder.model = new Backbone.Model(Dashboard.SalesOrder.defaultModel);
+            Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
+            ko.applyBindings(Dashboard.SalesOrder.viewModel, Dashboard.SalesOrder.view);
+            
             $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);
+            
+            $('#salesOrderClose').on('click', function () {
+                $('#salesOrder').hide();
+            });
             
             Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);
             
@@ -519,37 +577,6 @@
 </script>
 
 <script>
-    // "filesModalDropzone" is the camelized version of the HTML element's ID
-//    Dropzone.options.filesModalDropzone = {
-//        paramName: "file", // The name that will be used to transfer the file
-//        maxFilesize: 2, // MB
-//        maxThumbnailFilesize: 1, // MB
-//        addRemoveLinks: true,
-//        acceptedFiles: "image/*,application/pdf,.psd",
-//        accept: function(file, done) {
-//            if (file.name === "Alex.jpg") {
-//                done("Hello Creator.");
-//            }
-//            else {
-//                done();
-//            }
-//        },
-//        init: function(){
-//            this.on('removedfile', function (file) {
-//                console.log("Removing:", file);
-//            });
-//            this.on('sending', function (file, xhr, formData) {
-//                if (App.Dashboard.currentSalesOrder) {
-//                    formData.append('salesorder', App.Dashboard.currentSalesOrder);
-//                }                
-//            });
-//        }
-//    };
-</script>
-
-
-
-<script>
     (function (global, dandelion) {
         var app = global.App,
         dashboard = app.Dashboard;
@@ -808,6 +835,18 @@
                 
         $('.btn-files-dialog').on('click', dashboard.projectAttachButton_OnClick);
     }(window, window.dandelion));
+</script>
+
+<script>
+    (function (global) {
+        var app = global.App,
+        dashboard = app.dashboard,
+        $ = global.jQuery;
+        
+        
+        
+        
+    }(window));
 </script>
 
 <script>

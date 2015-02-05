@@ -56,37 +56,6 @@
             location: ''
         };
 
-//        itemlookup.viewModel = {
-//            barcode: kb.observable(itemlookup.model, 'barcode'),
-//            upccode: kb.observable(itemlookup.model, 'upccode'),
-//            description: kb.observable(itemlookup.model, 'description'),
-//            onhand: kb.observable(itemlookup.model, 'onhand'),
-//            onsalesorder: kb.observable(itemlookup.model, 'onsalesorder'),
-//            onpo: kb.observable(itemlookup.model, 'onpo'),
-//            location: kb.observable(itemlookup.model, 'location'),
-//            locationChangedAndVerifed: ko.observable(false),
-//            onEnterBarcode: function (view_model, event){
-//                if (event.keyCode !== ENTER_KEY) {                   
-//                    return true;
-//                }        
-//                itemlookup.verifyItem(view_model);
-//                return view_model;
-//            },
-//            onEnterLocation: function (view_model, event) {
-//                if (event.keyCode !== ENTER_KEY) {                   
-//                    return true;
-//                }        
-//                itemlookup.verifyLocation(view_model);
-//                return view_model;
-//            },
-//            onSaveLocation: function (view_model, event) {
-//                console.log(view_model.barcode());        
-//                itemlookup.clear();
-//                console.log(view_model.barcode());
-//                return view_model;
-//            }
-//        };
-
         itemlookup.init = function () {
             itemlookup.model = new Backbone.Model(itemlookup.defaultModel);
             itemlookup.viewModel = new ItemlookupViewModel(itemlookup.model);

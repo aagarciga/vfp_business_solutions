@@ -196,7 +196,11 @@
              </div>
         </div>
     </div><!-- /.panel -->
+    
+    <?php $View->Control('SalesOrder'); ?>
 </div><!-- /.container -->
+
+ 
 
 
 <div class="modal fade" id="files-modal">
