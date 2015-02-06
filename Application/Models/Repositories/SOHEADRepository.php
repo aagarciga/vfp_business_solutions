@@ -92,6 +92,17 @@ class SOHEADRepository extends VFPRepository implements IRepository {
         return $query->Execute($sqlString);
     }
     
+    public function UpdateNotes($ordnum, $notes) {
+        $tableName = $this->entityName . $this->companySuffix;
+        
+        $sqlString = "UPDATE $tableName SET ".
+        "inHseComm = '$notes' ".      
+        "WHERE ordnum = '$ordnum'";
+        
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+    
     public function UpdateJobStatus($ordnum, $jobstatus) {
         $tableName = $this->entityName . $this->companySuffix;
         

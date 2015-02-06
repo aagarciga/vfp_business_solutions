@@ -93,6 +93,18 @@
                 $('#notesSaveModal').modal();
                 return view_model;
             };
+            
+            this.onSaveNotesModal = function (view_model, event){
+                $.post('<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>', {ordnum: view_model.ordnum(), notes: view_model.notes()})
+                .done(function (response){
+                    console.log(response);
+                    $('#notesSaveModal').modal('hide');
+                })
+                .fail(function (response){
+                    console.log(response);
+                });              
+                return view_model;
+            };
         };
         
         Dashboard.SalesOrder.defaultModel = {
