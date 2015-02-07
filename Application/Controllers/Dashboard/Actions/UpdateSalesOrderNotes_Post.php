@@ -8,8 +8,6 @@
 namespace Dandelion\MVC\Application\Controllers\Dashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
-use Dandelion\MVC\Application\Models\Entities\SYSEXPORT;
-use Dandelion\GUIDGenerator;
 
 /**
  * Ajax Save Sales Order Notes Fields Value

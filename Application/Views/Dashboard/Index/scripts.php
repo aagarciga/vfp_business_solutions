@@ -515,6 +515,7 @@
             
             // Dashboard.DynamicFilter.SaveModalWindow Submit Button OnClick event handler
             Dashboard.DynamicFilter.Controls.SaveModal.submit.on('click', function(){
+                console.log("entro.....:L");
                 
                 var _filterName = Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.val(),
                     _filterFieldsHtml = Dashboard.DynamicFilter.FilterFields.html(),
