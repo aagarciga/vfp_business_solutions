@@ -56,9 +56,9 @@ abstract class Controller implements Interfaces\INameable {
      * @throws Exceptions\ControllerNotFoundException
      */
     public final function Redirect(Request $request) {
-        //e.g. Default
+           //e.g. Default
         $controllerName = ucfirst($request->Controller);
-
+      
         //e.g. Application/Controller/Default/Default.Controller.php
         $classFile = MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $controllerName . DIRECTORY_SEPARATOR . $controllerName . '.php';
 

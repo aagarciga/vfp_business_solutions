@@ -58,6 +58,17 @@ abstract class DatActionsController extends ActionsController {
         else{
             $driver = $this->BuildDatConnection( $_SESSION['usercomp']);
             $this->DatUnitOfWork = new DatUnitOfWork($driver, $_SESSION['usercomp']);
+            
+            $currentCompanyEntity = $this->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($_SESSION['usercomp']);
+            $_SESSION['fullFeatures'] = false;             
+            if ( strtolower($currentCompanyEntity->getDboption()) === "all0000"){
+                $_SESSION['fullFeatures'] = true;
+            }
+            else{
+                if ($request->Controller !== "Dashboard") {
+                    $this->Redirect(new Request('Dashboard', 'Index', $request->Application));
+                }
+            }
         }
     }
     
