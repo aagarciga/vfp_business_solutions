@@ -68,7 +68,19 @@
                         Dashboard.SalesOrder.viewModel.date(_response.salesOrderObject.date);
                         Dashboard.SalesOrder.viewModel.custno(_response.salesOrderObject.custno);
                         Dashboard.SalesOrder.viewModel.projectLocation(_response.salesOrderObject.projectLocation);
-                        Dashboard.SalesOrder.viewModel.notes(_response.salesOrderObject.notes);
+                        Dashboard.SalesOrder.viewModel.notes(_response.salesOrderObject.notes);                        
+                        Dashboard.SalesOrder.viewModel.companyName(_response.salesOrderObject.companyName);
+                        Dashboard.SalesOrder.viewModel.address(_response.salesOrderObject.address);
+                        Dashboard.SalesOrder.viewModel.city(_response.salesOrderObject.city);
+                        Dashboard.SalesOrder.viewModel.state(_response.salesOrderObject.state);
+                        Dashboard.SalesOrder.viewModel.zip(_response.salesOrderObject.zip);
+                        Dashboard.SalesOrder.viewModel.phone(_response.salesOrderObject.phone);
+                        Dashboard.SalesOrder.viewModel.subtotal(_response.salesOrderObject.subtotal);
+                        Dashboard.SalesOrder.viewModel.discount(_response.salesOrderObject.discount);
+                        Dashboard.SalesOrder.viewModel.tax(_response.salesOrderObject.tax);
+                        Dashboard.SalesOrder.viewModel.shipping(_response.salesOrderObject.shipping);
+                        Dashboard.SalesOrder.viewModel.total(_response.salesOrderObject.total);
+                        
                         Dashboard.SalesOrder.viewModel.items(_response.salesOrderObject.itemsCollection);
                     }
                     
@@ -76,8 +88,14 @@
                 .fail(function (response) {
                     console.log(response);
                 });
-            
-            $('#salesOrder').css('height', $('.container').css('height')).show();
+                
+            var containerHeight = parseInt($('.container').css('height')),
+                    salesOrderHaight = parseInt($('#salesOrder').css('height'));
+            console.log(containerHeight, salesOrderHaight);
+            if (containerHeight > salesOrderHaight) {
+                $('#salesOrder').css('height', containerHeight);
+            }
+            $('#salesOrder').show();
         };
         
         Dashboard.SalesOrder.view = $('#kb-view-salesorder')[0];
@@ -87,6 +105,18 @@
             this.custno = kb.observable(model, 'custno');
             this.projectLocation = kb.observable(model, 'projectLocation');
             this.notes = kb.observable(model, 'notes');
+            this.companyName = kb.observable(model, 'companyName');
+            this.address = kb.observable(model, 'address');
+            this.city = kb.observable(model, 'city');
+            this.state = kb.observable(model, 'state');
+            this.zip = kb.observable(model, 'zip');
+            this.phone = kb.observable(model, 'phone');
+            this.subtotal = kb.observable(model, 'subtotal');
+            this.discount = kb.observable(model, 'discount');
+            this.tax = kb.observable(model, 'tax');
+            this.shipping = kb.observable(model, 'shipping');
+            this.total = kb.observable(model, 'total');          
+            
             this.items = kb.collectionObservable(model.items);
             
             this.onShowNotesModal = function (view_model, event){
@@ -113,6 +143,17 @@
             custno: '', 
             projectLocation: '',
             notes: '',
+            companyName: '',
+            address: '', 
+            city:'',
+            state: '',
+            zip: '',
+            phone: '',
+            subtotal: '',
+            discount: '',
+            tax: '',
+            shipping: '',
+            total: '', 
             items: new Backbone.Collection([])
         };
         
@@ -221,7 +262,9 @@
                     $('.loading').show();
                 },
                 success: function(response) {
+                    
                     var _response = $.parseJSON(response);
+                    console.log(_response.expfields);
                     var _values = _response.expfrom.split(",");
                     Dashboard.DynamicFilter.FilterFields.append(_response.expfields);
                     Dashboard.DynamicFilter.FilterFields.find('select, input').each(function(index){
@@ -583,6 +626,7 @@
     (function(window, document, $) {
         $(document).ready(function() {
             $('.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+            $('.daterangepicker-single-fix').daterangepicker({singleDatePicker: true, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});    
             bindUpdateDropdownClick();
             
         });

@@ -32,7 +32,18 @@ class GetSalesOrder_Post extends Action {
                 'date' => $soheadData->getPodate(),
                 'custno' => $soheadData->getCustno(),
                 'projectLocation' => $soheadData->getShipfrom(),
-                'notes' => $soheadData->getInhsecomm()
+                'notes' => $soheadData->getInhsecomm(),
+                'companyName' => $soheadData->getCompany(),
+                'address' => $soheadData->getAddress1(),
+                'city' => $soheadData->getCity(),
+                'state' => $soheadData->getState(),
+                'zip' => $soheadData->getZip(),
+                'phone' => $soheadData->getPhone(),
+                'subtotal' => $soheadData->getSubtotal(),
+                'discount' => $soheadData->getDiscount(),
+                'tax' => $soheadData->getTax(),
+                'shipping' => $soheadData->getShipping(),
+                'total' => $soheadData->getTotal()            
                 );
             $result['success'] = true;
             $result['salesOrderObject']['itemsCollection'] = $this->getSalesOrderItems($salesOrder);

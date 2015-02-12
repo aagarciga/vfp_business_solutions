@@ -165,7 +165,7 @@ col.col-attached-files{
     display: none;    
     top:0px;
     /*width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers*/
-    height: 100%;
+    /*height: 100%;*/
     position: absolute;
     z-index: 1000;
     background-color: white;
