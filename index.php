@@ -112,7 +112,9 @@ final class index extends Core\FrontController {
         \Dandelion\Diana\Diana::Init();
         
         date_default_timezone_set("America/New_York");
-              
+        
+        ini_set('odbc.defaultlrl','40960');
+        
         if (self::$instance == null) {
             self::$instance = new index();
             spl_autoload_register(array(self::$instance, 'loader'));

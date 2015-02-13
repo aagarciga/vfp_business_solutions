@@ -30,7 +30,6 @@ class GetSavedFilter_Post extends Action {
         $result['status'] = $success ? 'success' : 'failure';
         $result['exportid'] = trim($savedFilter->getExportid()); // Filter Name
         $result['descrip'] = trim($savedFilter->getDescrip()); // Legacy
-        error_log($savedFilter->getExpfields());
         $result['expfields'] = $savedFilter->getExpfields() ; // HTML Filter fields
         $result['expfrom'] = trim($savedFilter->getExpfrom()); // Legacy
         $result['expfilter'] = trim($savedFilter->getExpfilter()); // Filter String

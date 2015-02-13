@@ -109,7 +109,7 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $sqlString = "INSERT INTO $this->entityName"
             . " (EXPORTID, DESCRIP, EXPFIELDS, EXPFILTER, EXPFROM, EXPLINK, EXPORDERBY, FUSERID, FILTERID)"
             . " VALUES('$exportid', '$descrip', '$expfields', '$expfilter', '$expfrom', '$explink', '$exporderby', '$fuserid', '$filterid');";
-        
+    error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         
         return $query->Execute($sqlString);

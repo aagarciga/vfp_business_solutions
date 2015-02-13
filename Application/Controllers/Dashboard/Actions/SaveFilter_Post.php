@@ -30,8 +30,6 @@ class SaveFilter_Post extends Action {
 
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         
-        
-        
         if ($filterName === "" && $filterString === "" && $filterHtml === "") {
             return json_encode('failure');
         }
