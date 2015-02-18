@@ -305,6 +305,14 @@ class Application implements INameable {
     public function getDBSettingsCollection(){
         return $this->settings->DB;
     }
+    
+    public function getDefaultPagerItermsPerPage(){
+        return isset($this->settings->Pager['ItemsPerPage'])? $this->settings->Pager['ItemsPerPage'] : 10;
+    }
+    
+    public function setDefaultPagerItemsPerPage($value){
+        $this->settings->Pager['ItemsPerPage'] = $value;
+    }
 
 }
 

@@ -20,9 +20,10 @@ class Index extends Action {
      */
     public function Execute() {
         $this->Title = 'Dashboard | VFP Business Series - Warehouse Management System';
+        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
-        $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? 10 : $_SESSION['itemperpages'];
+        $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? $defaultItemsPerPage : $_SESSION['itemperpages'];
         
         // Reset filter predicate when refresh the navigator.
         $this->FilterPredicate = "";//(!isset($_SESSION['filterPredicate']))? "" : $_SESSION['filterPredicate'];
@@ -49,16 +50,6 @@ class Index extends Action {
         $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($user->getUsername());
         
         $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
-        
-//        // ----
-//        $currentUserEntity = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);        
-//        $currentCompanyEntity = $this->controller->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($user->getFusercomp());
-//        
-//        $this->FullFeatures = false;
-//        error_log("FullFeatures: ".$currentCompanyEntity->getDboption());
-//        if ( strtolower($currentCompanyEntity->getDboption()) === "all0000"){
-//            $this->FullFeatures = true;
-//        }
         
         $this->FullFeatures = (!isset($_SESSION['fullFeatures']))? false : $_SESSION['fullFeatures'];
         

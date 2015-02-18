@@ -261,18 +261,18 @@
                 beforeSend: function() {
                     $('.loading').show();
                 },
-                success: function(response) {
-                    
+                success: function(response) {                    
                     var _response = $.parseJSON(response);
-                    console.log(_response.expfields);
-                    var _values = _response.expfrom.split(",");
-                    Dashboard.DynamicFilter.FilterFields.append(_response.expfields);
-                    Dashboard.DynamicFilter.FilterFields.find('select, input').each(function(index){
-                        $(this).val(_values[index]);
-                    });
-                    Dashboard.DynamicFilter._BindLoadedControlsHandlers();
-                    Dashboard.TogleFilterVisibitilyCallback();
-                    Dashboard.DynamicFilter._FilterCallback();
+                    if(_response.success){
+                        var _values = _response.expfrom.split(",");
+                        Dashboard.DynamicFilter.FilterFields.append(_response.expfields);
+                        Dashboard.DynamicFilter.FilterFields.find('select, input').each(function(index){
+                            $(this).val(_values[index]);
+                        });
+                        Dashboard.DynamicFilter._BindLoadedControlsHandlers();
+                        Dashboard.TogleFilterVisibitilyCallback();
+                        Dashboard.DynamicFilter._FilterCallback();
+                    }
                     
                     $('.loading').hide();
                 }
