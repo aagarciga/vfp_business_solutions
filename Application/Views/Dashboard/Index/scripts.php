@@ -59,9 +59,8 @@
             
             $.post('<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>', params)
                 .done(function (response) {
-                    console.dir(response);
                     var _response = $.parseJSON(response);
-                    console.log(_response);
+//                    console.log(_response);
                     
                     if (_response.success) {
                         Dashboard.SalesOrder.viewModel.ordnum(_response.salesOrderObject.ordnum);
@@ -91,7 +90,6 @@
                 
             var containerHeight = parseInt($('.container').css('height')),
                     salesOrderHaight = parseInt($('#salesOrder').css('height'));
-            console.log(containerHeight, salesOrderHaight);
             if (containerHeight > salesOrderHaight) {
                 $('#salesOrder').css('height', containerHeight);
             }
@@ -127,7 +125,6 @@
             this.onSaveNotesModal = function (view_model, event){
                 $.post('<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>', {ordnum: view_model.ordnum(), notes: view_model.notes()})
                 .done(function (response){
-                    console.log(response);
                     $('#notesSaveModal').modal('hide');
                 })
                 .fail(function (response){
@@ -558,7 +555,6 @@
             
             // Dashboard.DynamicFilter.SaveModalWindow Submit Button OnClick event handler
             Dashboard.DynamicFilter.Controls.SaveModal.submit.on('click', function(){
-                console.log("entro.....:L");
                 
                 var _filterName = Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.val(),
                     _filterFieldsHtml = Dashboard.DynamicFilter.FilterFields.html(),
@@ -781,8 +777,8 @@
 //
 //            })
             .on('changed.jstree', function (e, data) {
-                console.log('event', e);
-                console.log('data', data);
+//                console.log('event', e);
+//                console.log('data', data);
                 
                 //window.Dropzone.instances[0].getAcceptedFiles();
                 
@@ -794,7 +790,7 @@
                 
                 window.Dropzone.instances[0].removeAllFiles();
                 
-                console.log(window.Dropzone.instances[0].getAcceptedFiles());
+//                console.log(window.Dropzone.instances[0].getAcceptedFiles());
                 
 //                if(data && data.selected && data.selected.length) {
 //                    $.get('?operation=get_content&id=' + data.selected.join(':'), function (d) {
@@ -930,8 +926,8 @@
                 this.on('removedfile', function (file, a) {
                     var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = ref.get_selected();
-                    console.log("Removing:", file);
-                    console.log(a);
+//                    console.log("Removing:", file);
+//                    console.log(a);
                     if (file.ready4Remove) {
                         var params = { postSalesOrder: dashboard.currentProject.salesorder, postFilePath : selectedDir[0], postFileName : file.name };
                         $.post('<?php echo $View->Href('Dashboard', 'DeleteFile') ?>', params)
@@ -1076,7 +1072,6 @@
                         var _response = $.parseJSON(response);
                         if (_response === 'success') {
                             console.log(_response);
-                            //console.log($dropdown);
                         } else {
                             console.log(_response);
                         }
