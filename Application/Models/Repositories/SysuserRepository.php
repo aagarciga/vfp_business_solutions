@@ -22,9 +22,9 @@ class SysuserRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX), trim($row->DBFILTER));
+            $result [] = new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX), trim($row->DBFILTER), trim($row->FILTERNA), trim($row->SOFORMDB));
         }
-
+        
         return $result;
     }
 
@@ -41,7 +41,7 @@ class SysuserRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX), trim($row->DBFILTER));
+            $result [] = new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX), trim($row->DBFILTER), trim($row->FILTERNA), trim($row->SOFORMDB));
         }
 
         return $result;
@@ -60,7 +60,7 @@ class SysuserRepository extends BaseRepository implements IRepository {
 
         if (count($queryResult)) {
             $row = $queryResult[0];
-            return new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX), trim($row->DBFILTER));
+            return new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX), trim($row->DBFILTER), trim($row->FILTERNA), trim($row->SOFORMDB));
         }
         return "";
     }
@@ -78,7 +78,7 @@ class SysuserRepository extends BaseRepository implements IRepository {
 
         if (count($queryResult)) {
             $row = $queryResult[0];
-            return new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX), trim($row->DBFILTER));
+            return new Sysuser(trim($row->USERID), trim($row->USERCODE), trim($row->USERNAME), trim($row->USERPASS), trim($row->GROUP), trim($row->USERSTAT0), trim($row->ONDATE), trim($row->OFFDATE), trim($row->ONTIME), trim($row->OFFTIME), trim($row->FSCREEN), trim($row->FSTARTUP), trim($row->FUSERLPDEV), trim($row->FUSERCOMP), trim($row->FLANG_CTRL), trim($row->FORMINI), trim($row->NFLG0), trim($row->WHSDEF), trim($row->POSCTRL), trim($row->PSDRWOPEN), trim($row->PSDRWPORT), trim($row->PSBARCDLP), trim($row->SETCONFIRM), trim($row->DERDIRNAME), trim($row->EMAIL), trim($row->ICPREFIX), trim($row->DBFILTER), trim($row->FILTERNA), trim($row->SOFORMDB));
         }
         return "";
     }
@@ -116,8 +116,10 @@ class SysuserRepository extends BaseRepository implements IRepository {
 //        $custno = $entity->getCustno();
         $icprefix = $entity->getIcprefix();
         $dbfilter = $entity->getDbfilter();
-
-        $sqlString = "UPDATE $this->entityName SET USERCODE = '$usercode', USERNAME = '$username', USERPASS = '$userpass', \"GROUP\" = '$group', USERSTAT0 = '$userstat0', ONDATE = '$ondate', OFFDATE = '$offdate', ONTIME = '$ontime', OFFTIME = '$offtime', FSCREEN = '$fscreen', FSTARTUP = '$fstartup', FUSERLPDEV = '$fuserlpdev', FUSERCOMP = '$fusercomp', FLANG_CTRL = '$flang_ctrl', FORMINI = '$formini', NFLG0 = $nflg0, WHSDEF = '$whsdef', POSCTRL = $posctrl, PSDRWOPEN = '$psdrwopen', PSDRWPORT = '$psdrwport', PSBARCDLP = '$psbarcdlp', SETCONFIRM = $setconfirm, DEFDIRNAME = '$defdirname', EMAIL = '$email', ICPREFIX = '$icprefix', DBFILTER = '$dbfilter'" // , CUSTNO = '$custno'
+        $filterna = $entity->getFilterna();
+        $soformdb = $entity->getSoformdb();
+        
+        $sqlString = "UPDATE $this->entityName SET USERCODE = '$usercode', USERNAME = '$username', USERPASS = '$userpass', \"GROUP\" = '$group', USERSTAT0 = '$userstat0', ONDATE = '$ondate', OFFDATE = '$offdate', ONTIME = '$ontime', OFFTIME = '$offtime', FSCREEN = '$fscreen', FSTARTUP = '$fstartup', FUSERLPDEV = '$fuserlpdev', FUSERCOMP = '$fusercomp', FLANG_CTRL = '$flang_ctrl', FORMINI = '$formini', NFLG0 = $nflg0, WHSDEF = '$whsdef', POSCTRL = $posctrl, PSDRWOPEN = '$psdrwopen', PSDRWPORT = '$psdrwport', PSBARCDLP = '$psbarcdlp', SETCONFIRM = $setconfirm, DEFDIRNAME = '$defdirname', EMAIL = '$email', ICPREFIX = '$icprefix', DBFILTER = '$dbfilter', FILTERNA = '$filterna', SOFORMDB = '$soformdb'" // , CUSTNO = '$custno',
                 . " WHERE USERID = '$userid'";
 
         $query = $this->dbDriver->GetQuery();

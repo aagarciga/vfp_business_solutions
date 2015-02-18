@@ -43,6 +43,8 @@ class BaseSysuser {
 //    protected $_custno;
     protected $_icprefix;
     protected $_dbfilter;
+    protected $_filterna; //FILTERNA
+    protected $_soformdb; //SOFORMDB 
 
     public static function toString() {
         return self::$_name;
@@ -439,38 +441,68 @@ class BaseSysuser {
     public function setDbfilter($dbfilter) {
         $this->_dbfilter = $dbfilter;
     }
+    
+    /**
+     * @return mixed
+     */
+    public function getFilterna() {
+        return trim($this->_filterna);
+    }
 
     /**
-     * Constructor
-     * @param type $userid
-     * @param type $usercode
-     * @param type $username
-     * @param type $userpass
-     * @param type $group
-     * @param type $userstat0
-     * @param type $ondate
-     * @param type $offdate
-     * @param type $ontime
-     * @param type $offtime
-     * @param type $fscreen
-     * @param type $fstartup
-     * @param type $fuserlpdev
-     * @param type $fuercomp
-     * @param type $flang_ctrl
-     * @param type $formini
-     * @param type $nflg0
-     * @param type $whsdef
-     * @param type $posctrl
-     * @param type $psdrwopen
-     * @param type $psdrwport
-     * @param type $psbarcdlp
-     * @param type $setconfirm
-     * @param type $defdirname
-     * @param type $email
-     * @param type $icprefix
-     * @param GUID $dbfilter
+     * @param mixed $icprefix
      */
-    public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $icprefix = '', $dbfilter = '') {
+    public function setFilterna($filterna) {
+        $this->_filterna = $filterna;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getSoformdb() {
+        return trim($this->_soformdb);
+    }
+
+    /**
+     * @param mixed $icprefix
+     */
+    public function setSoformdb($soformdb) {
+        $this->_soformdb = $soformdb;
+    }
+
+   /**
+    * 
+    * @param type $userid
+    * @param type $usercode
+    * @param type $username
+    * @param type $userpass
+    * @param type $group
+    * @param type $userstat0
+    * @param type $ondate
+    * @param type $offdate
+    * @param type $ontime
+    * @param type $offtime
+    * @param type $fscreen
+    * @param type $fstartup
+    * @param type $fuserlpdev
+    * @param type $fuercomp
+    * @param type $flang_ctrl
+    * @param type $formini
+    * @param type $nflg0
+    * @param type $whsdef
+    * @param type $posctrl
+    * @param type $psdrwopen
+    * @param type $psdrwport
+    * @param type $psbarcdlp
+    * @param type $setconfirm
+    * @param type $defdirname
+    * @param type $email
+    * @param type $icprefix
+    * @param GUID $dbfilter
+    * @param type $filterna
+    * @param type $soformdb
+    */
+    public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $icprefix = '', $dbfilter = '', $filterna = '', $soformdb = '') {
         $this->_userid = $userid;
         $this->_usercode = $usercode;
         $this->_username = $username;
@@ -498,6 +530,8 @@ class BaseSysuser {
         $this->_email = $email;
         $this->_icprefix = $icprefix;
         $this->_dbfilter = $dbfilter;
+        $this->_filterna = $filterna;
+        $this->_soformdb = $soformdb;
     }
 
 }
