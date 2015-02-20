@@ -56,7 +56,7 @@
 
             var salesOrder = $(event.target).html(),
                 params = {salesOrder: salesOrder};
-            
+            console.log(params);
             $.post('<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>', params)
                 .done(function (response) {
 //                    console.log(response);
@@ -66,7 +66,6 @@
                     
                     if (_response.success) {
                         
-                        Dashboard.kbInit(modelType);                        
                         Dashboard.SalesOrder.viewModel.modelType(modelType);
                         
                         Dashboard.SalesOrder.viewModel.ordnum(_response.salesOrderObject.ordnum);
@@ -235,8 +234,23 @@
             AModel.prototype.tax = "";
             AModel.prototype.shipping = "";
             AModel.prototype.total = "";
+            
             AModel.prototype.items = new Backbone.Collection([]);
             AModel.prototype.modelType = "";
+            
+            AModel.prototype.ponum = "";
+            AModel.prototype.company = "";
+            AModel.prototype.destino = "";
+            AModel.prototype.prostartdt = "";
+            AModel.prototype.proenddt = "";
+            AModel.prototype.sotypecode = "";
+            AModel.prototype.mtrlstatus = "";
+            AModel.prototype.jobstatus = "";
+            AModel.prototype.technam1 = "";
+            AModel.prototype.technam2 = "";
+            AModel.prototype.qutno = "";
+            AModel.prototype.cstctid = "";
+            AModel.prototype.jobdescrip = "";
 
             return AModel;
 
@@ -244,76 +258,10 @@
 
         }).call(this);
         
-        /// BMODEL 
-        (function() {
-            var _ref,
-              Dashboard = window.App.Dashboard,
-              __hasProp = {}.hasOwnProperty,
-              __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-            
-            Dashboard.SalesOrder.BModel = (function(_super) {
-            __extends(BModel, _super);
-
-            function BModel() {
-              _ref = BModel.__super__.constructor.apply(this, arguments);
-              return _ref;
-            }
-              
-            BModel.prototype.ponum = "";
-            BModel.prototype.company = "";
-            BModel.prototype.destino = "";
-            BModel.prototype.prostartdt = "";
-            BModel.prototype.proenddt = "";
-            BModel.prototype.sotypecode = "";
-            BModel.prototype.mtrlstatus = "";
-            BModel.prototype.jobstatus = "";
-            BModel.prototype.technam1 = "";
-            BModel.prototype.technam2 = "";
-            BModel.prototype.qutno = "";
-            BModel.prototype.cstctid = "";
-            BModel.prototype.jobdescrip = "";
-                    
-            return BModel;
-
-            })(Dashboard.SalesOrder.AModel);
-
-        }).call(this);
-        
-        /// CMODEL 
-        (function() {
-            var _ref,
-              Dashboard = window.App.Dashboard,
-              __hasProp = {}.hasOwnProperty,
-              __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-            
-            Dashboard.SalesOrder.CModel = (function(_super) {
-            __extends(CModel, _super);
-
-            function CModel() {
-              _ref = CModel.__super__.constructor.apply(this, arguments);
-              return _ref;
-            }
-                                
-            return CModel;
-
-            })(Dashboard.SalesOrder.BModel);
-
-        }).call(this);
-        
         /// Knockback Init
         Dashboard.kbInit = function (modelType){
             
-            if (modelType === 'A') {
-                console.log('creating model type A');
-                Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
-            } 
-            else if (modelType === 'B') {
-                console.log('creating model type B');
-                Dashboard.SalesOrder.model = new Dashboard.SalesOrder.BModel();
-            } else if (modelType === 'C') {
-                console.log('creating model type C');
-                Dashboard.SalesOrder.model = new Dashboard.SalesOrder.CModel();
-            }
+            Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
 //            Dashboard.SalesOrder.model = new Backbone.Model(Dashboard.SalesOrder.defaultModel);
             
             Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
@@ -321,7 +269,7 @@
         };
         
         Dashboard.Init = function(){
-            //Dashboard.kbInit();            
+            Dashboard.kbInit();
             
             $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
             $('#salesOrderClose').on('click', function () {
