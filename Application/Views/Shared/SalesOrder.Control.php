@@ -182,26 +182,26 @@
                     <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>
                 </div>
                 
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-bind="visible: showControlIfNotC() ">
                     <div class="panel-body">
-                        <div class="form-group">
+                        <div class="form-group" data-bind="visible: showControlIfNotC() ">
                             <label class="control-label"><span class="glyphicon glyphicon-briefcase"></span> SubTotal</label>
                             <input type="text" class="form-control input" data-bind="value: subtotal"/>
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group" data-bind="visible: showControlIfNotC() ">
                             <label class="control-label"><span class="glyphicon glyphicon-briefcase"></span> Discount</label>
                             <input type="text" class="form-control input" data-bind="value: discount"/>
                             <!--<input type="text" class="form-control input"/>-->
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group" data-bind="visible: showControlIfNotC() ">
                             <label class="control-label"><span class="glyphicon glyphicon-tasks"></span> Tax</label>
             <!--                <select class="form-control input"/>
                             <input type="text" class="form-control input"/>-->
                             <input type="text" class="form-control input" data-bind="value: tax"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" data-bind="visible: showControlIfNotC() ">
                             <label class="control-label"><span class="glyphicon glyphicon-briefcase"></span> Fright/Ins</label>
             <!--                <input type="text" class="form-control input"/>-->
                             <input type="text" class="form-control input" data-bind="value: shipping"/>
@@ -245,7 +245,7 @@
                 <col class="col-6">
                 <col class="col-7">
                 <col class="col-8">
-                <col class="col-9">
+                <col class="col-9" data-bind="visible: showControlIfNotC() ">
                 <col class="col-10" data-bind="visible: showControlIfNotC() ">
             </colgroup>
             <thead>
@@ -258,7 +258,7 @@
                     <th class="th-binloc">Unit</th>
                     <th class="th-binloc">Qty Ordered</th>
                     <th class="th-binloc">Qty to Ship</th>
-                    <th class="th-binloc">Unit Price</th>
+                    <th class="th-binloc" data-bind="visible: showControlIfNotC() ">Unit Price</th>
                     <th class="th-binloc" data-bind="visible: showControlIfNotC() ">Ext Price</th>
                 </tr>
             </thead>
@@ -275,7 +275,7 @@
                     <td class="item-field" data-bind="text: unit"><?php //echo $item->getUnit()   ?></td>
                     <td class="item-field" data-bind="text: qtyord"><?php //echo $item->getQtyord()   ?></td>
                     <td class="item-field" data-bind="text: qtyshp"><?php //echo $item->getQtyshp()   ?></td>
-                    <td class="item-field" data-bind="text: unitprice"><?php //echo $item->getUnitprice()   ?></td>
+                    <td class="item-field" data-bind="text: unitprice, visible: $root.showControlIfNotC"><?php //echo $item->getUnitprice()   ?></td>
                     <td class="item-field" data-bind="text: extprice, visible: $root.showControlIfNotC"><?php //echo $item->getExtprice()   ?></td>
                 </tr>
             </tbody>
