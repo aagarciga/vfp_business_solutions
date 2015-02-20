@@ -25,10 +25,32 @@ class GetSalesOrder_Post extends Action {
         $result = array('success' => false);
         $salesOrder = $this->Request->hasProperty('salesOrder') ? $this->Request->salesOrder : '';
         $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($salesOrder);
+        
+        
 
         if ($soheadData) {
-            $result['salesOrderObject'] = array(
-                'ordnum' => $salesOrder,
+            
+            $username = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
+            $userEntity = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($username);
+            $formType =  strtoupper($userEntity->getSoformdb());
+            if ($formType === 'A') {
+                $result['salesOrderObject'] = $this->prepareResultA($soheadData);
+            } else if ($formType === 'B') {
+                $result['salesOrderObject'] = $this->prepareResultB($soheadData);
+            } else if ($formType === 'C') {
+                $result['salesOrderObject'] = $this->prepareResultC($soheadData);
+            }
+            
+            $result['formType'] = $formType;
+            $result['success'] = true;
+            $result['salesOrderObject']['itemsCollection'] = $this->getSalesOrderItems($salesOrder);
+        }
+        return json_encode($result);
+    }
+    
+    private function prepareResultA($soheadData){
+        return array(
+                'ordnum' => $soheadData->getOrdnum(),
                 'date' => $soheadData->getPodate(),
                 'custno' => $soheadData->getCustno(),
                 'projectLocation' => $soheadData->getShipfrom(),
@@ -44,11 +66,31 @@ class GetSalesOrder_Post extends Action {
                 'tax' => $soheadData->getTax(),
                 'shipping' => $soheadData->getShipping(),
                 'total' => $soheadData->getTotal()            
+            );
+    }
+    
+    private function prepareResultB($soheadData){
+        return array_merge($this->prepareResultA($soheadData),
+                array(
+                    'ponum' => $soheadData->getPonum(),
+                    'company' => $soheadData->getCompany(),
+                    'destino' => $soheadData->getDestino(),
+                    'prostartdt' => $soheadData->getProstartdt(),
+                    'proenddt' => $soheadData->getProenddt(),
+                    'sotypecode' => $soheadData->getSotypecode(),
+                    'mtrlstatus' => $soheadData->getMtrlstatus(),
+                    'jobstatus' => $soheadData->getJobstatus(),
+                    'technam1' => $soheadData->getTechnam1(),
+                    'technam2' => $soheadData->getTechnam2(),
+                    'qutno' => $soheadData->getQutno(),
+                    'cstctid' => $soheadData->getCstctid(),
+                    'jobdescrip' => $soheadData->getJobdescrip(),
+                    )
                 );
-            $result['success'] = true;
-            $result['salesOrderObject']['itemsCollection'] = $this->getSalesOrderItems($salesOrder);
-        }
-        return json_encode($result);
+    }
+    
+    private function prepareResultC($soheadData){
+        return $this->prepareResultB($soheadData);
     }
     
     private function getSalesOrderItems($salesOrder){
