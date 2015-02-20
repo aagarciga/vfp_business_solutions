@@ -28,7 +28,7 @@ class Dashboard extends DatActionsController {
      * 
      * @internal Because in the feature this will be an INNER JOIN
      */
-    public function GetDashboardPager($userid, $predicate, $itemsPerpage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC" ){
+    public function GetDashboardPager($userid, $predicate, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC" ){
         if($predicate !== "") { $predicate = " WHERE ".$predicate; } 
         $orderby = $this->prepareOrderByField($orderby); // Converting String yo Integer for correct representation
         $companySuffix = $this->DatUnitOfWork->CompanySuffix;

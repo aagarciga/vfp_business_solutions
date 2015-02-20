@@ -25,8 +25,6 @@ class GetSalesOrder_Post extends Action {
         $result = array('success' => false);
         $salesOrder = $this->Request->hasProperty('salesOrder') ? $this->Request->salesOrder : '';
         $soheadData = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($salesOrder);
-        
-        
 
         if ($soheadData) {
             
@@ -96,7 +94,7 @@ class GetSalesOrder_Post extends Action {
     private function getSalesOrderItems($salesOrder){
         $result = array();
         
-        $pager = $this->getSalesOrderItemsPager($salesOrder, 100); /// Try to get the first 100
+        $pager = $this->getSalesOrderItemsPager($salesOrder, 1000); /// Try to get the first 1000
         $pager->Paginate();  
         $salesOrderItems = $pager->getCurrentPagedItems();
         

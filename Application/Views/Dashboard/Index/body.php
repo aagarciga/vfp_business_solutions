@@ -172,7 +172,7 @@
                                 </select>
                             </td>
                             <td class="item-field">
-                                <select class="form-control  update-dropdown job-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                <select class="form-control update-dropdown job-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
                                     <option>Empty</option>
                                     <?php foreach ($JobStatusItems as $jobItem): ?>
                                         <option <?php echo ($item->getJobstatus() !== $jobItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $jobItem->getEdistatid() ?>" ><?php echo $jobItem->getDescrip() ?></option>
@@ -194,7 +194,7 @@
         </div>
         <div class="panel-footer">
             <div class="text-center pager-wrapper">
-                <?php echo $Pager->getPagerControl(); ?> 
+                <?php echo $Pager->getPagerControl(); ?>
              </div>
         </div>
     </div><!-- /.panel -->

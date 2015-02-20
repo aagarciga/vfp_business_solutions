@@ -100,7 +100,8 @@ abstract class Pager {
     }
     
     public function paginate($page = 1){
-        if (!is_numeric($this->itemsPerPage) OR $this->itemsPerPage <= 0) {
+        $ipp = intval($this->itemsPerPage);
+        if (!is_numeric($ipp) || $ipp <= 0) {
             $this->itemsPerPage = $this->defaultItemPerPage;
         }
         $this->pagesCount = ceil($this->getItemsCount() / $this->itemsPerPage);
