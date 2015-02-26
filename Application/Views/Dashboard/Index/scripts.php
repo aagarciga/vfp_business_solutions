@@ -887,16 +887,44 @@
             .on('changed.jstree', function (e, data) {
 //                console.log('event', e);
 //                console.log('data', data);
+                var treeInstance = dashboard.filesModal.controls['jstree'].instance.jstree(true),
+                    selectedDir = treeInstance.get_selected()[0],
+                    
+                    dzInstance = window.Dropzone.instances[0],
+                    dzFiles = dzInstance.files,
+                    
+                    salesOrder = currentProject.salesorder, // Equals to Current Project Folder
+                    i = 0;
+                    
+                    // TODO: Explain: this wos writed for what...?
+                    for(i; i < dzFiles.length; i += 1){
+                        dzFiles[i].ready4Remove = false;
+                    }              
+                    dzInstance.removeAllFiles();
+                    
+                    if (selectedDir) {
+//                        console.log('Selecting dir:', selectedDir);
+                        
+                        $.post('<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>', {salesorder: salesOrder, filePath: selectedDir})
+                        .done(function (response){
+                            var currentDir = "public/uploads/"+salesOrder+'/'+(selectedDir === '/' ? '' : selectedDir + '/');
+                            console.log('current dir:', currentDir);
+                            
+                            $.each(response, function(key,value){
+
+                                var mockFile = { name: value.name, size: value.size , ready4Remove: false};
+
+                                dzInstance.options.addedfile.call(dzInstance, mockFile);
+                                dzInstance.options.thumbnail.call(dzInstance, mockFile, currentDir + value.name);
+
+                            });
+
+                        });
+                    }
                 
-                //window.Dropzone.instances[0].getAcceptedFiles();
                 
-                var dropzoneFiles = window.Dropzone.instances[0].files;
-                var i = 0;
-                for(i; i < dropzoneFiles.length; i += 1){
-                    dropzoneFiles[i].ready4Remove = false;
-                }
+//               
                 
-                window.Dropzone.instances[0].removeAllFiles();
                 
 //                console.log(window.Dropzone.instances[0].getAcceptedFiles());
                 

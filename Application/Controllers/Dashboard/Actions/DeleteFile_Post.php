@@ -25,9 +25,9 @@ class DeleteFile_Post extends Action {
         $selectedDir = $this->Request->hasProperty('postFilePath') ? $this->Request->postFilePath : '';
         $fileName = $this->Request->hasProperty('postFileName') ? $this->Request->postFileName : '';
         
-        error_log("Sales Order: " . $salesorder);
-        error_log("File Path: " . $selectedDir);
-        error_log("File Name: " . $fileName);
+//        error_log("Sales Order: " . $salesorder);
+//        error_log("File Path: " . $selectedDir);
+//        error_log("File Name: " . $fileName);
         
         $currentProjectDir = MVC_DIR_ROOT . 
                     DIRECTORY_SEPARATOR . "Public" . 
