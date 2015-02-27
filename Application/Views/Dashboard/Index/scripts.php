@@ -915,20 +915,12 @@
                             $.each(response, function(key,value){
 
                                 var mockFile = { name: value.name, size: value.size , ready4Remove: true};
-
-                                dzInstance.options.addedfile.call(dzInstance, mockFile);
-                                
+                                dzInstance.options.addedfile.call(dzInstance, mockFile);                                
                                 var pattern = /\.(gif|jpg|jpeg|tiff|png)$/i;
                                 if( pattern.test(value.name)){
                                     dzInstance.options.thumbnail.call(dzInstance, mockFile, currentDir + value.name);
                                 }
-
                             });
-//                            
-//                            $('a.dz-remove').on('click', function(){
-//                                console.log('trying to remove file: ', $('a.dz-remove').parent().children('.dz-filename').text());
-//                            });
-
                         });
                     }
                 
@@ -1058,7 +1050,7 @@
             init: function(){
                 
                 this.on('removedfile', function (file, a) {
-                    console.log('deleting file:', file);
+//                    console.log('deleting file:', file);
                     var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = ref.get_selected();
 //                    console.log("Removing:", file);
@@ -1081,7 +1073,7 @@
                     var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = ref.get_selected();
                     
-                    ////// TODO SEEEEEEEEEEEEEEE HERE IDEA. Attashed UploadPath to the FIle when sending to the server.
+                    ////// TODO SEEEEEEEEEEEEEEE HERE IDEA. Attached UploadPath to the FIle when sending to the server.
                     file.ready4Remove = true;
                     file.uploadPath = dashboard.currentProject.salesorder + '/' +selectedDir ;
                     if (dashboard.currentProject.salesorder) {

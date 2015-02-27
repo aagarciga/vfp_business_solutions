@@ -18,11 +18,7 @@ class GetCurrentProjectFiles_Post extends Action {
     public function Execute() {
 
         $salesorder = $this->Request->hasProperty('salesorder') ? $this->Request->salesorder : '';
-        error_log($salesorder);
         $selectedDir = $this->Request->hasProperty('filePath') ? $this->Request->filePath : '';
-
-
-
         $result = array();
 
         if ($salesorder !== '') {
@@ -34,8 +30,6 @@ class GetCurrentProjectFiles_Post extends Action {
             foreach ($path as $value) {
                 $currentProjectDir .= DIRECTORY_SEPARATOR . $value;
             }
-            error_log("Current Project Dir:".$currentProjectDir);
-
 
             /*
              * Scan "uploads" folder using PHP scandir function. 
