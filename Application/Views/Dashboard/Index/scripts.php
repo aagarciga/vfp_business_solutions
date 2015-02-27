@@ -896,7 +896,7 @@
                     salesOrder = currentProject.salesorder, // Equals to Current Project Folder
                     i = 0;
                     
-                    // TODO: Explain: this wos writed for what...?
+                    // TODO: Explain: this was writed for what...?
                     for(i; i < dzFiles.length; i += 1){
                         dzFiles[i].ready4Remove = false;
                     }              
@@ -915,7 +915,11 @@
                                 var mockFile = { name: value.name, size: value.size , ready4Remove: false};
 
                                 dzInstance.options.addedfile.call(dzInstance, mockFile);
-                                dzInstance.options.thumbnail.call(dzInstance, mockFile, currentDir + value.name);
+                                
+                                var pattern = /\.(gif|jpg|jpeg|tiff|png)$/i;
+                                if( pattern.test(value.name)){
+                                    dzInstance.options.thumbnail.call(dzInstance, mockFile, currentDir + value.name);
+                                }
 
                             });
 
