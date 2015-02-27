@@ -902,6 +902,8 @@
                     }              
                     dzInstance.removeAllFiles();
                     
+                    $('#filesModalDropzone').children('.dz-preview').remove();
+                    
                     if (selectedDir) {
 //                        console.log('Selecting dir:', selectedDir);
                         
