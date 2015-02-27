@@ -903,6 +903,7 @@
                     dzInstance.removeAllFiles();
                     
                     $('#filesModalDropzone').children('.dz-preview').remove();
+                    $('#filesModalDropzone').children('.dz-message.custom').css('opacity', '1');
                     
                     if (selectedDir) {
 //                        console.log('Selecting dir:', selectedDir);
@@ -910,11 +911,10 @@
                         $.post('<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>', {salesorder: salesOrder, filePath: selectedDir})
                         .done(function (response){
                             var currentDir = "public/uploads/"+salesOrder+'/'+(selectedDir === '/' ? '' : selectedDir + '/');
-                            console.log('current dir:', currentDir);
                             
                             $.each(response, function(key,value){
 
-                                var mockFile = { name: value.name, size: value.size , ready4Remove: false};
+                                var mockFile = { name: value.name, size: value.size , ready4Remove: true};
 
                                 dzInstance.options.addedfile.call(dzInstance, mockFile);
                                 
@@ -924,6 +924,10 @@
                                 }
 
                             });
+//                            
+//                            $('a.dz-remove').on('click', function(){
+//                                console.log('trying to remove file: ', $('a.dz-remove').parent().children('.dz-filename').text());
+//                            });
 
                         });
                     }
@@ -1033,18 +1037,6 @@
 </script>
 
 <script>
-    (function (global) {
-        var app = global.App,
-        dashboard = app.dashboard,
-        $ = global.jQuery;
-        
-        
-        
-        
-    }(window));
-</script>
-
-<script>
     (function (global, dandelion) {
         var app = global.App,
         dashboard = app.Dashboard;
@@ -1054,7 +1046,7 @@
             maxFilesize: 2, // MB
             maxThumbnailFilesize: 1, // MB
             addRemoveLinks: true,
-            acceptedFiles: "image/*,application/pdf,.psd",
+            acceptedFiles: "image/*,application/pdf,.psd,.doc,.docx,.txt",
             accept: function(file, done) {
                 if (file.name === "Alex.jpg") {
                     done("Hello Creator.");
@@ -1066,6 +1058,7 @@
             init: function(){
                 
                 this.on('removedfile', function (file, a) {
+                    console.log('deleting file:', file);
                     var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = ref.get_selected();
 //                    console.log("Removing:", file);
@@ -1074,10 +1067,10 @@
                         var params = { postSalesOrder: dashboard.currentProject.salesorder, postFilePath : selectedDir[0], postFileName : file.name };
                         $.post('<?php echo $View->Href('Dashboard', 'DeleteFile') ?>', params)
                         .done(function (d) {
-                            console.log('done:', d);
+//                            console.log('done:', d);
                         })
                         .fail(function (d) {
-                            console.log('fail:', d);
+//                            console.log('fail:', d);
                         });
                     }
                     file.ready4Remove = true;
