@@ -742,30 +742,26 @@
         var app = global.App,
         dashboard = app.Dashboard;
         dashboard.currentProject = {'salesorder' : ''};
-        dashboard.filesModal = { id : '#files-modal'};
+        dashboard.filesModal = { 'id' : '#files-modal'};
         dashboard.filesModal.controls = [];
         dashboard.filesModal.controls['jstree'] = {
-            id : '#jstree'
+            'id' : '#jstree'
         };
         dashboard.filesModal.controls['tree-search']= {
-            id: '#tree-search'
+            'id': '#tree-search'
         };
         
         dashboard.$filesModal = $(dashboard.filesModal.id);
         
         dashboard.projectAttachButton_OnClick = function (event) {            
             dashboard.currentProject.salesorder = $(event.currentTarget).parent().parent().find('.item-field a').html();
-//            dashboard.jsTreeInstance.init(dashboard.currentProject);
+            console.log('Selecting Sales Order: ', dashboard.currentProject.salesorder);
             dashboard.filesModal.loadProjectTree(dashboard.currentProject);
-
             dashboard.$filesModal.modal('show');
         };
         
         dashboard.filesModal.loadProjectTree = function (currentProject) {
-            
-            // TODO: Create jsTree Instance
-            $jstree = $(dashboard.filesModal.controls['jstree'].id);            
-            
+            var $jstree = $(dashboard.filesModal.controls['jstree'].id);            
             // Reset jsTree Instance
             if (dashboard.filesModal.controls['jstree'].instance) {
                 dashboard.filesModal.controls['jstree'].instance.jstree('destroy');
@@ -774,7 +770,7 @@
                 plugins : ['state','dnd','sort','types','contextmenu','unique', 'search'],
                 core: {
                     data: {
-                        url: 'index.php?controller=dashboard&action=projectattachementsapi&salesorder='+currentProject.salesorder+'&operation=get_node',
+                        url: '<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>'+'&salesorder='+currentProject.salesorder+'&operation=get_node',
                         data: function (node) {
                             return { id: node.id };
                         }
@@ -786,9 +782,15 @@
                         stripes : false
                     },
                     check_callback: function (operation, node, node_parent, node_position, more) {
-                        if(more && more.dnd && more.pos !== 'i') { return false; } // If error change 'i' for node_position
+                        
+                        // If error, change 'i' for node_position                
+                        if(more && more.dnd && more.pos !== 'i') {
+                            return false; 
+                        } 
                         if(operation === "move_node" || operation === "copy_node") {
-                            if(this.get_node(node).parent === this.get_node(node_parent).id) { return false; }
+                            if(this.get_node(node).parent === this.get_node(node_parent).id) { 
+                                return false; 
+                            }
                         }
                         return true;
                     },
@@ -798,13 +800,15 @@
                     animation: true
                 },
                 sort: function (a, b) {
-                    return this.get_type(a) === this.get_type(b) ? (this.get_text(a) > this.get_text(b) ? 1 : -1) : (this.get_type(a) >= this.get_type(b) ? 1 : -1);
+                    return this.get_type(a) === this.get_type(b) ? 
+                        (this.get_text(a) > this.get_text(b) ? 1 : -1) : 
+                        (this.get_type(a) >= this.get_type(b) ? 1 : -1);
                 },
                 types: {
                     '#': {
-                        'max_children': 1,
+                        max_children: 1,
                         valid_children: ['default'],
-                        icon: 'glyphicon glyphicon-folder-close'
+                        icon: 'glyphicon glyphicon-folder-open'
                     },
                     'default': {
                         valid_children: ['default'],
@@ -829,50 +833,92 @@
                 }
             })
             .on('delete_node.jstree', function (e, data) {
-                $.get('index.php?controller=dashboard&action=projectattachementsapi&salesorder='+currentProject.salesorder+'&operation=delete_node', { 'id' : data.node.id })
+                var params = {
+                    salesorder: currentProject.salesorder, 
+                    operation: 'delete_node', 
+                    'id' : data.node.id 
+                };   
+                $('.loading').show();
+                $.get('<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>', params)
+                .done(function (d) {
+                    $('.loading').hide();
+                })
                 .fail(function () {
                     data.instance.refresh();
                 });
             })
             .on('create_node.jstree', function (e, data) {
-                $.get('index.php?controller=dashboard&action=projectattachementsapi&salesorder='+currentProject.salesorder+'&operation=create_node', { 'type' : data.node.type, 'id' : data.node.parent, 'text' : data.node.text })
+                var params = {
+                    salesorder: currentProject.salesorder, 
+                    operation: 'create_node',  
+                    'type' : data.node.type, 
+                    'id' : data.node.parent, 
+                    'text' : data.node.text 
+                };
+                $('.loading').show();
+                $.get('<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>', params)
                 .done(function (d) {
                     data.instance.set_id(data.node, d.id);
+                    $('.loading').hide();
                 })
                 .fail(function () {
                     data.instance.refresh();
                 });
             })
             .on('rename_node.jstree', function (e, data) {
-                $.get('index.php?controller=dashboard&action=projectattachementsapi&salesorder='+currentProject.salesorder+'&operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
+                var params = {
+                    salesorder: currentProject.salesorder, 
+                    operation: 'rename_node',
+                    'id' : data.node.id, 
+                    'text' : data.text 
+                };
+                $('.loading').show();
+                $.get('<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>', params)
                 .done(function (d) {
                     data.instance.set_id(data.node, d.id);
+                    $('.loading').hide();
                 })
                 .fail(function () {
                     data.instance.refresh();
                 });
             })
             .on('move_node.jstree', function (e, data) {
-                $.get('index.php?controller=dashboard&action=projectattachementsapi&salesorder='+currentProject.salesorder+'&operation=move_node', { 'id' : data.node.id, 'parent' : data.parent })
+                var params = {
+                    salesorder: currentProject.salesorder, 
+                    operation: 'move_node',
+                    'id' : data.node.id, 
+                    'parent' : data.parent 
+                };
+                $('.loading').show();
+                $.get('<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>', params)
                 .done(function (d) {
                     //data.instance.load_node(data.parent);
                     data.instance.refresh();
+                    $('.loading').hide();
                 })
                 .fail(function () {
                     data.instance.refresh();
                 });
             })
             .on('copy_node.jstree', function (e, data) {
-                $.get('index.php?controller=dashboard&action=projectattachementsapi&salesorder='+currentProject.salesorder+'&operation=copy_node', { 'id' : data.original.id, 'parent' : data.parent })
+                var params = {
+                    salesorder: currentProject.salesorder, 
+                    operation: 'copy_node',
+                    'id' : data.original.id, 
+                    'parent' : data.parent 
+                };
+                $('.loading').show();
+                $.get('<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>', params)
                     .done(function (d) {
                         data.instance.load_node(data.parent);
                         data.instance.refresh();
+                        $('.loading').hide();
                     })
                     .fail(function () {
                         data.instance.refresh();
                     });
             })
-            // bind customize icon change function in jsTree open_node event. 
+//             bind customize icon change function in jsTree open_node event. 
 //            .on('open_node.jstree', function (e, data) {
 //                $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
 //                        .removeClass('glyphicon-folder-close').addClass('glyphicon-folder-open');
@@ -896,22 +942,25 @@
                     salesOrder = currentProject.salesorder, // Equals to Current Project Folder
                     i = 0;
                     
-                    // TODO: Explain: this was writed for what...?
-                    for(i; i < dzFiles.length; i += 1){
-                        dzFiles[i].ready4Remove = false;
-                    }              
-                    dzInstance.removeAllFiles();
-                    
-                    $('#filesModalDropzone').children('.dz-preview').remove();
-                    $('#filesModalDropzone').children('.dz-message.custom').css('opacity', '1');
-                    
-                    if (selectedDir) {
-//                        console.log('Selecting dir:', selectedDir);
-                        
-                        $.post('<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>', {salesorder: salesOrder, filePath: selectedDir})
-                        .done(function (response){
+                // TODO: Explain: this was writed for what...?
+                for(i; i < dzFiles.length; i += 1){
+                    dzFiles[i].ready4Remove = false;
+                }              
+                dzInstance.removeAllFiles();
+
+                $('#filesModalDropzone').children('.dz-preview').remove();
+                $('#filesModalDropzone').children('.dz-message.custom').css('opacity', '1');
+
+                if (selectedDir) {
+                    console.log('Selecting dir:', selectedDir);
+
+                    $.post('<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>', {salesorder: salesOrder, filePath: selectedDir})
+                    .done(function (response){
+                        console.log('POST GetCurrentProjectFiles request response: ', response);
+                        console.log('POST GetCurrentProjectFiles request response lenght: ', response.length);
+                        if (response && response.length !== 0) {
                             var currentDir = "public/uploads/"+salesOrder+'/'+(selectedDir === '/' ? '' : selectedDir + '/');
-                            
+
                             $.each(response, function(key,value){
 
                                 var mockFile = { name: value.name, size: value.size , ready4Remove: true};
@@ -921,53 +970,12 @@
                                     dzInstance.options.thumbnail.call(dzInstance, mockFile, currentDir + value.name);
                                 }
                             });
-                        });
-                    }
-                
-                
-//               
-                
-                
-//                console.log(window.Dropzone.instances[0].getAcceptedFiles());
-                
-//                if(data && data.selected && data.selected.length) {
-//                    $.get('?operation=get_content&id=' + data.selected.join(':'), function (d) {
-//                        if(d && typeof d.type !== 'undefined') {
-//                            $('#data .content').hide();
-//                            switch(d.type) {
-//                                case 'text':
-//                                case 'txt':
-//                                case 'md':
-//                                case 'htaccess':
-//                                case 'log':
-//                                case 'sql':
-//                                case 'php':
-//                                case 'js':
-//                                case 'json':
-//                                case 'css':
-//                                case 'html':
-//                                    $('#data .code').show();
-//                                    $('#code').val(d.content);
-//                                    break;
-//                                case 'png':
-//                                case 'jpg':
-//                                case 'jpeg':
-//                                case 'bmp':
-//                                case 'gif':
-//                                    $('#data .image img').one('load', function () { $(this).css({'marginTop':'-' + $(this).height()/2 + 'px','marginLeft':'-' + $(this).width()/2 + 'px'}); }).attr('src',d.content);
-//                                    $('#data .image').show();
-//                                    break;
-//                                default:
-//                                    $('#data .default').html(d.content).show();
-//                                    break;
-//                            }
-//                        }
-//                    });
-//                }
-//                else {
-//                    $('#data .content').hide();
-//                    $('#data .default').html('Select a file from the tree.').show();
-//                }
+                        }
+                        
+                    }).fail(function (response){
+                        console.log(response);
+                    });
+                }
             });
             
             // Binding Searching Behavior
@@ -991,7 +999,6 @@
         dashboard.filesModal.createDir = function () {
             var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
             sel = ref.get_selected();
-
             if (!sel.length) {
                 return false;
             }
@@ -1050,30 +1057,24 @@
             init: function(){
                 
                 this.on('removedfile', function (file, a) {
-//                    console.log('deleting file:', file);
                     var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
-                    selectedDir = ref.get_selected();
-//                    console.log("Removing:", file);
-//                    console.log(a);
+                        selectedDir = ref.get_selected();
                     if (file.ready4Remove) {
                         var params = { postSalesOrder: dashboard.currentProject.salesorder, postFilePath : selectedDir[0], postFileName : file.name };
                         $.post('<?php echo $View->Href('Dashboard', 'DeleteFile') ?>', params)
-                        .done(function (d) {
-//                            console.log('done:', d);
+                        .done(function (response) {
+//                            console.log('done:', response);
                         })
-                        .fail(function (d) {
-//                            console.log('fail:', d);
+                        .fail(function (response) {
+//                            console.log('fail:', response);
                         });
                     }
                     file.ready4Remove = true;
-                    
-                
                 });
                 this.on('sending', function (file, xhr, formData) {
                     var ref = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = ref.get_selected();
                     
-                    ////// TODO SEEEEEEEEEEEEEEE HERE IDEA. Attached UploadPath to the FIle when sending to the server.
                     file.ready4Remove = true;
                     file.uploadPath = dashboard.currentProject.salesorder + '/' +selectedDir ;
                     if (dashboard.currentProject.salesorder) {
@@ -1084,16 +1085,6 @@
         }
     };
     }(window, window.dandelion));
-</script>
-
-<script>
-//    function Files_OnClick(event) {
-//        $('#files-modal').modal('show');
-//        // TODO: Beautify this. Please don't forget...
-//        App.Dashboard.currentSalesOrder = $(event.currentTarget).parent().parent().find('.item-field a').html();
-//    }
-//
-//    $('.btn-files-dialog').on('click', Files_OnClick);
 </script>
 
 <script>
@@ -1130,18 +1121,28 @@
         function PagerControl_OnClick() {
             var $table = $('#dashboardTable');
             var $currentButton = $(this);
-//            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, $currentButton.data('page'), Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 
+                $currentButton.data('page'), 
+                Dashboard.itemPerPage, 
+                $table, 
+                Dashboard.TableSortField, 
+                Dashboard.TableSortFieldOrder
+            );
         }
 
         $('.top-pager-itemmperpage-control a').on('click', function() {
             // Update Control Selected Value
             Dashboard.itemPerPage = $(this).text();
             $('.top-pager-itemmperpage-control button span.value').text(Dashboard.itemPerPage);
-            // Always show page one
+            
             var $table = $('#dashboardTable');
-//            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder); // 
+            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 
+                1, // Always show page one
+                Dashboard.itemPerPage, 
+                $table, 
+                Dashboard.TableSortField, 
+                Dashboard.TableSortFieldOrder
+            );
         });
     })(window, document, jQuery, App.Dashboard);
 </script>

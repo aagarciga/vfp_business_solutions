@@ -24,11 +24,7 @@ class DeleteFile_Post extends Action {
         $salesorder = $this->Request->hasProperty('postSalesOrder') ? $this->Request->postSalesOrder : '';
         $selectedDir = $this->Request->hasProperty('postFilePath') ? $this->Request->postFilePath : '';
         $fileName = $this->Request->hasProperty('postFileName') ? $this->Request->postFileName : '';
-        
-//        error_log("Sales Order: " . $salesorder);
-//        error_log("File Path: " . $selectedDir);
-//        error_log("File Name: " . $fileName);
-        
+       
         $currentProjectDir = MVC_DIR_ROOT . 
                     DIRECTORY_SEPARATOR . "Public" . 
                     DIRECTORY_SEPARATOR . "Uploads" .
@@ -39,8 +35,6 @@ class DeleteFile_Post extends Action {
             $currentProjectDir .= DIRECTORY_SEPARATOR . $value;
         }        
         $currentProjectDir .= DIRECTORY_SEPARATOR . $fileName;
-        
-        error_log($currentProjectDir);
         
         if (is_file($currentProjectDir)) {
             unlink($currentProjectDir);

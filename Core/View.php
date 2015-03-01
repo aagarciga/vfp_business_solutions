@@ -64,11 +64,22 @@ class View {
         return $_;
     }
     
-    public function Href($controller = '', $action = ''){
-        // TODO: Implement
+    /**
+     * Returns the relative url according to the gived parameters
+     * @param string $controller
+     * @param string $action
+     * @param array $params
+     * @return string
+     */
+    public function Href($controller = '', $action = '', $params = null){
         $_ = 'index.php?';
         $_ .= !($controller == '') ? "controller=$controller" : '';
         $_ .= !($action == '') ? "&action=$action" : '';
+        if ($params !== null) {
+            foreach ($params as $key => $value) {
+                $_ .= "&$key=$value";
+            }             
+        }
         return $_;
     }
         

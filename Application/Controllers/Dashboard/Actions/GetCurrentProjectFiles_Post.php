@@ -38,7 +38,7 @@ class GetCurrentProjectFiles_Post extends Action {
              * 
              */
             $files = scandir($currentProjectDir);
-            if ($files) {
+            if ($files !== false) {
                 foreach ($files as $file) {
                     /**
                      * Loop through the returned value from scandir function and 
