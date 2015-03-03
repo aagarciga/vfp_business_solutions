@@ -1045,7 +1045,7 @@
             maxFilesize: 2, // MB
             maxThumbnailFilesize: 1, // MB
             addRemoveLinks: true,
-            acceptedFiles: "image/*,application/pdf,.psd,.doc,.docx,.txt",
+            acceptedFiles: "image/*,application/pdf,.psd,.doc,.docx,.txt,.xls, .xlsx",
             accept: function(file, done) {
                 if (file.name === "Alex.jpg") {
                     done("Hello Creator.");
