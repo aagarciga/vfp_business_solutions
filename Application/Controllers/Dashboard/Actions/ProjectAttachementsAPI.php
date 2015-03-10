@@ -33,55 +33,7 @@ class ProjectAttachementsAPI extends Action {
                 DIRECTORY_SEPARATOR . "Uploads" .
                 DIRECTORY_SEPARATOR . $salesorder;
         
-        if (!is_dir($rootDir)) { // mkdir(path, mode, recursive = bool)
-            mkdir($rootDir);
-        }
-        // Default Sales Order Folder Structure
-            // /[SALESORDER]/Freights
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Freights'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
-            // /[SALESORDER]/Miscellaneous
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Miscellaneous'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
-            // /[SALESORDER]/POs and Invoices from OMG
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'POs and Invoices from OMG'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
-            // /[SALESORDER]/POs and Invoices from WMS
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'POs and Invoices from WMS'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
-            // /[SALESORDER]/Quotation-PO-Invoice
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Quotation-PO-Invoice'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
-            // /[SALESORDER]/Reports and Files
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Reports and Files'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
-            // /[SALESORDER]/Time Sheets
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Time Sheets'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
-            // /[SALESORDER]/Tool Box
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Tool Box'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
-            // /[SALESORDER]/Travel Expenses
-            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Travel Expenses'; 
-            if (!is_dir($currentStructureDir)) {
-                mkdir($currentStructureDir);
-            }
+        $this->createDefaultFolderStructure($rootDir);
 
         $fs = new FileSystem($rootDir);
         try {
@@ -126,6 +78,62 @@ class ProjectAttachementsAPI extends Action {
             header($_SERVER["SERVER_PROTOCOL"] . ' 500 Server Error');
             header('Status:  500 Server Error');
             return $e->getMessage();
+        }
+    }
+    
+    /**
+     * Default Sales Order Folder Structure
+     * @param string $rootDir
+     */
+    private function createDefaultFolderStructure($rootDir) {
+        if (!is_dir($rootDir)) { // mkdir(path, mode, recursive = bool)
+            mkdir($rootDir);
+        }
+
+        // /[SALESORDER]/Freights
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Freights'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
+        }
+        // /[SALESORDER]/Miscellaneous
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Miscellaneous'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
+        }
+        // /[SALESORDER]/POs and Invoices from OMG
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'POs and Invoices from OMG'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
+        }
+        // /[SALESORDER]/POs and Invoices from WMS
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'POs and Invoices from WMS'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
+        }
+        // /[SALESORDER]/Quotation-PO-Invoice
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Quotation-PO-Invoice'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
+        }
+        // /[SALESORDER]/Reports and Files
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Reports and Files'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
+        }
+        // /[SALESORDER]/Time Sheets
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Time Sheets'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
+        }
+        // /[SALESORDER]/Tool Box
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Tool Box'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
+        }
+        // /[SALESORDER]/Travel Expenses
+        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Travel Expenses'; 
+        if (!is_dir($currentStructureDir)) {
+            mkdir($currentStructureDir);
         }
     }
 
