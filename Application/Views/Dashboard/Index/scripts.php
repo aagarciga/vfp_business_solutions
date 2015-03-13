@@ -56,7 +56,7 @@
 
             var salesOrder = $(event.target).html(),
                 params = {salesOrder: salesOrder};
-            console.log(params);
+//            console.log(params);
             $.post('<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>', params)
                 .done(function (response) {
 //                    console.log(response);
@@ -100,12 +100,6 @@
                             Dashboard.SalesOrder.viewModel.cstctid(_response.salesOrderObject.cstctid);
                             Dashboard.SalesOrder.viewModel.jobdescrip(_response.salesOrderObject.jobdescrip);
                         }
-                        
-//                        if (modelType === 'C')
-//                        {
-//                            
-//                        }
-                        
                         Dashboard.SalesOrder.viewModel.items(_response.salesOrderObject.itemsCollection);
                     }
                     
@@ -183,26 +177,6 @@
             });
          };
         
-//        Dashboard.SalesOrder.defaultModel = {
-//            ordnum: '',
-//            date: '',
-//            custno: '', 
-//            projectLocation: '',
-//            notes: '',
-//            companyName: '',
-//            address: '', 
-//            city:'',
-//            state: '',
-//            zip: '',
-//            phone: '',
-//            subtotal: '',
-//            discount: '',
-//            tax: '',
-//            shipping: '',
-//            total: '', 
-//            items: new Backbone.Collection([])
-//        };
-        
         /// AMODEL 
         (function() {
             var _ref,
@@ -259,11 +233,9 @@
         }).call(this);
         
         /// Knockback Init
-        Dashboard.kbInit = function (modelType){
+        Dashboard.kbInit = function (){
             
             Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
-//            Dashboard.SalesOrder.model = new Backbone.Model(Dashboard.SalesOrder.defaultModel);
-            
             Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
             ko.applyBindings(Dashboard.SalesOrder.viewModel, Dashboard.SalesOrder.view);
         };
@@ -350,9 +322,7 @@
             var _filterid = event.currentTarget.dataset['filterid'];
             
             Dashboard.DynamicFilter.Controls.resetButton.click();         
-            
             Dashboard.DynamicFilter._LoadFilter(_filterid);
-            
             Dashboard.DynamicFilter._EnableFilterControls();
         };
         
@@ -409,7 +379,6 @@
             Dashboard.DynamicFilter.FilterString = predicate;
             
             var $table = $('#dashboardTable');
-//            var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
             Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
         };
         Dashboard.DynamicFilter._ResetCallback = function(){
@@ -461,7 +430,6 @@
                         Dashboard.DynamicFilter.SavedFilterList.remove();
                         Dashboard.DynamicFilter.SavedFilterList = null;
                     }
-                                                           
                     $('.loading').hide();
                 }
             });
@@ -956,8 +924,8 @@
 
                     $.post('<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>', {salesorder: salesOrder, filePath: selectedDir})
                     .done(function (response){
-                        console.log('POST GetCurrentProjectFiles request response: ', response);
-                        console.log('POST GetCurrentProjectFiles request response lenght: ', response.length);
+//                        console.log('POST GetCurrentProjectFiles request response: ', response);
+//                        console.log('POST GetCurrentProjectFiles request response lenght: ', response.length);
                         if (response && response.length !== 0) {
                             var currentDir = "public/uploads/"+salesOrder+'/'+(selectedDir === '/' ? '' : selectedDir + '/');
 
@@ -970,11 +938,22 @@
                                     dzInstance.options.thumbnail.call(dzInstance, mockFile, currentDir + value.name);
                                 }
                             });
-                        }
-                        
+//                          
+                            $('.dz-preview').on('click', function(event){
+                                var projectDir = salesOrder + '/' +(selectedDir === '/' ? '' : selectedDir + '/'),
+                                    fileName = $(this).find('.dz-filename span').html(),
+                                    filePath = projectDir + fileName;
+                                    
+                                    var form = $('<form action="<?php echo $View->Href('Dashboard', 'DownloadFile') ?>" method="POST"><input type="hidden" name="filepath" value="'+filePath+'" /><input type="hidden" name="filename" value="'+fileName+'" /></form>');
+                                    form.submit();
+                            });
+                        }                        
                     }).fail(function (response){
                         console.log(response);
                     });
+                    
+                    // TODO: Here Download on Click handler
+                    
                 }
             });
             
