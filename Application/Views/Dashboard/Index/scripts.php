@@ -945,7 +945,8 @@
                                     filePath = projectDir + fileName;
                                     
                                     var form = $('<form action="<?php echo $View->Href('Dashboard', 'DownloadFile') ?>" method="POST"><input type="hidden" name="filepath" value="'+filePath+'" /><input type="hidden" name="filename" value="'+fileName+'" /></form>');
-                                    form.submit();
+                                    form.appendTo('body')                                
+                                    form[0].submit();
                             });
                         }                        
                     }).fail(function (response){
