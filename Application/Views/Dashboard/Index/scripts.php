@@ -920,7 +920,7 @@
                 $('#filesModalDropzone').children('.dz-message.custom').css('opacity', '1');
 
                 if (selectedDir) {
-                    console.log('Selecting dir:', selectedDir);
+//                    console.log('Selecting dir:', selectedDir);
 
                     $.post('<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>', {salesorder: salesOrder, filePath: selectedDir})
                     .done(function (response){
@@ -945,7 +945,7 @@
                                     filePath = projectDir + fileName;
                                     
                                     var form = $('<form action="<?php echo $View->Href('Dashboard', 'DownloadFile') ?>" method="POST"><input type="hidden" name="filepath" value="'+filePath+'" /><input type="hidden" name="filename" value="'+fileName+'" /></form>');
-                                    form.appendTo('body')                                
+                                    form.appendTo('body');                              
                                     form[0].submit();
                             });
                         }                        
@@ -1060,7 +1060,25 @@
                     if (dashboard.currentProject.salesorder) {
                         formData.append('salesorder', dashboard.currentProject.salesorder);
                         formData.append('selectedDir', selectedDir);
-                    }                
+                    }   
+                    console.log('sending.....');
+                    // TODO: Refactoring in this code please.
+                    var treeInstance = dashboard.filesModal.controls['jstree'].instance.jstree(true),
+                    selectedDir = treeInstance.get_selected()[0],                    
+                    dzInstance = window.Dropzone.instances[0],
+//                    dzFiles = dzInstance.files,                    
+                    salesOrder = dashboard.currentProject.salesorder, // Equals to Current Project Folder
+                    i = 0;
+                    $('.dz-preview').on('click', function(event){
+                        var projectDir = salesOrder + '/' +(selectedDir === '/' ? '' : selectedDir + '/'),
+                            fileName = $(this).find('.dz-filename span').html(),
+                            filePath = projectDir + fileName;
+
+                            var form = $('<form action="<?php echo $View->Href('Dashboard', 'DownloadFile') ?>" method="POST"><input type="hidden" name="filepath" value="'+filePath+'" /><input type="hidden" name="filename" value="'+fileName+'" /></form>');
+                            form.appendTo('body');                              
+                            form[0].submit();
+                    });
+                    // END TODO: Refactoring in this code please.
                 });
         }
     };
