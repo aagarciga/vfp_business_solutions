@@ -7,12 +7,65 @@
 
 
 <script>
+    ; // Vessel Form Related Logic
+    (function(global, $, KnockBack, Knockout, Backbone){
+        "use strict";
+        
+        var _ref,
+            Dandelion = global.Dandelion,
+            VesselForm = Dandelion.namespace('App.Dashboard.VesselForm', global),
+            __hasProp = {}.hasOwnProperty,
+            __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+        
+        VesselForm.Model = (function(_super) {
+            __extends(Model, _super);
+
+            function Model() {
+              _ref = Model.__super__.constructor.apply(this, arguments);
+              return _ref;
+            }
+            
+            Model.prototype.vesselid = "";
+            Model.prototype.descrip = "";
+            Model.prototype.shipclass = "";
+            Model.prototype.pentype = "";
+            Model.prototype.cementid = "";
+            Model.prototype.firecaulk = "";
+            Model.prototype.notes = "";
+            
+            return Model;
+            
+        })(Backbone.Model);
+        
+        VesselForm.ViewModel = function (model) {
+            var self = this;
+            self.vesselid   = KnockBack.observable(model, 'vesselid');
+            self.descrip    = KnockBack.observable(model, 'descrip');
+            self.shipclass  = KnockBack.observable(model, 'shipclass');
+            self.pentype    = KnockBack.observable(model, 'pentype');
+            self.cementid   = KnockBack.observable(model, 'cementid');
+            self.firecaulk  = KnockBack.observable(model, 'firecaulk');
+            self.notes      = KnockBack.observable(model, 'notes');
+        };
+        
+        VesselForm.init = function(){
+            VesselForm.view = $('#kb-view-vessel').first();
+            VesselForm.model = new VesselForm.Model();
+            VesselForm.viewModel = new VesselForm.ViewModel(VesselForm.model);
+            Knockout.applyBindings(VesselForm.viewModel, VesselForm.view);
+        };
+        
+    }(window, jQuery, kb, ko, Backbone));
+</script>
+
+<script>
    ;(function(App, Dandelion) {
         "use strict";
 
         // Dashboard Namespace
         var Dashboard = Dandelion.namespace('App.Dashboard', window),
-            SalesOrder = dandelion.namespace('App.Dashboard.SalesOrder', window);
+            SalesOrder = Dandelion.namespace('App.Dashboard.SalesOrder', window),
+            VesselForm = App.Dashboard.VesselForm;
         
         Dashboard.FilterForm = $('#filterForm');
         Dashboard.itemPerPage = $('.top-pager-itemmperpage-control button span.value').text();
@@ -105,7 +158,7 @@
                     
                 })
                 .fail(function (response) {
-                    console.log(response);
+//                    console.log(response);
                 });
                 
             var containerHeight = parseInt($('.container').css('height')),
@@ -242,6 +295,7 @@
         
         Dashboard.Init = function(){
             Dashboard.kbInit();
+            VesselForm.init();
             
             $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
             $('#salesOrderClose').on('click', function () {

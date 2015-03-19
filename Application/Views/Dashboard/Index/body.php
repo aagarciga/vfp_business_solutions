@@ -200,6 +200,7 @@
     </div><!-- /.panel -->
     
     <?php $View->Control('SalesOrder'); ?>
+    <?php $View->Control('VesselForm'); ?>
 </div><!-- /.container -->
 
  
