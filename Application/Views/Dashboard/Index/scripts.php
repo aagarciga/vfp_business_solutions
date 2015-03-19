@@ -723,7 +723,7 @@
         
         dashboard.projectAttachButton_OnClick = function (event) {            
             dashboard.currentProject.salesorder = $(event.currentTarget).parent().parent().find('.item-field a').html();
-            console.log('Selecting Sales Order: ', dashboard.currentProject.salesorder);
+//            console.log('Selecting Sales Order: ', dashboard.currentProject.salesorder);
             dashboard.filesModal.loadProjectTree(dashboard.currentProject);
             dashboard.$filesModal.modal('show');
         };
@@ -1022,10 +1022,10 @@
         
         global.Dropzone.options.filesModalDropzone = {
             paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 2, // MB
+            maxFilesize: 1024, // MB
             maxThumbnailFilesize: 1, // MB
             addRemoveLinks: true,
-            acceptedFiles: "image/*,application/pdf,.psd,.doc,.docx,.txt,.xls, .xlsx",
+//            acceptedFiles: "image/*,application/pdf,.psd,.doc,.docx,.txt,.xls, .xlsx",
             accept: function(file, done) {
                 if (file.name === "Alex.jpg") {
                     done("Hello Creator.");
@@ -1197,9 +1197,9 @@
                     success: function(response) {
                         var _response = $.parseJSON(response);
                         if (_response === 'success') {
-                            console.log(_response);
+//                            console.log(_response);
                         } else {
-                            console.log(_response);
+//                            console.log(_response);
                         }
                         $('.loading').hide();
                     }
@@ -1216,9 +1216,9 @@
                     success: function(response) {
                         var _response = $.parseJSON(response);
                         if (_response === 'success') {
-                            console.log(_response);
+//                            console.log(_response);
                         } else {
-                            console.log(_response);
+//                            console.log(_response);
                         }
                         $('.loading').hide();
                     }

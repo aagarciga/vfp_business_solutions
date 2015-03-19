@@ -34,7 +34,6 @@ class UploadFile_Post extends Action {
             foreach ($path as $value) {
                 $storeFolder .= DIRECTORY_SEPARATOR . $value;
             } 
-//            error_log($storeFolder, 0); Loggin to Server log
 
             if (!is_dir($storeFolder)) { // mkdir(path, mode, recursive = bool)
                 mkdir($storeFolder);
