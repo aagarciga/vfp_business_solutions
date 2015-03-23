@@ -16,7 +16,8 @@ class SWVESSELRepository extends VFPRepository implements IRepository {
      * @return array of all SWVESSEL objects from DB
      */
     public function GetAll() {
-        $sqlString = "SELECT * FROM $this->entityName";
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -33,7 +34,8 @@ class SWVESSELRepository extends VFPRepository implements IRepository {
      * @return \Dandelion\MVC\Application\Models\Entities\SWVESSEL
      */
     public function Get($predicate) {
-        $sqlString = "SELECT * FROM $this->entityName";
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
         $sqlString .= ' ' . $predicate;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);

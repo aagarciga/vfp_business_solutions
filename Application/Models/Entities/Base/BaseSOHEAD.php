@@ -5114,6 +5114,7 @@ class BaseSOHEAD {
         $this->_technam2 = $technam2;
         $this->_mtrlstatus = $mtrlstatus;
         $this->_jobstatus = $jobstatus;
+        
         $this->_vesselid = $vesselid;
     }
 
