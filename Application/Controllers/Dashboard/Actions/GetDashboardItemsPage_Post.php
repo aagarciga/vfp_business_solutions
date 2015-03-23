@@ -43,7 +43,8 @@ class GetDashboardItemsPage_Post extends Action {
                 $current['ordnum'] = trim($row->ordnum);
                 $current['ponum'] = trim($row->ponum);
                 $current['company'] = trim($row->company);
-                $current['destino'] = trim($row->destino);
+                $current['destino'] = trim($row->VESSELID);
+                error_log('>>>>>>>>>>>'.trim($row->VESSELID));
                 $current['ProStartDT'] = trim($row->ProStartDT === "1899-12-30" ? "" : $row->ProStartDT);
                 $current['ProEndDT'] = trim($row->ProEndDT === "1899-12-30" ? "" : $row->ProEndDT);
                 $current['sotypecode'] = trim($row->sotypecode);

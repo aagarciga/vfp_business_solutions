@@ -72,7 +72,7 @@ class GetSalesOrder_Post extends Action {
                 array(
                     'ponum' => $soheadData->getPonum(),
                     'company' => $soheadData->getCompany(),
-                    'destino' => $soheadData->getDestino(),
+                    'destino' => $soheadData->getVesselid(),
                     'prostartdt' => $soheadData->getProstartdt(),
                     'proenddt' => $soheadData->getProenddt(),
                     'sotypecode' => $soheadData->getSotypecode(),

@@ -36,7 +36,7 @@ class Dashboard extends DatActionsController {
                 . "ordnum, "
                 . "ponum, "
                 . "company, "
-                . "destino, "
+                . "VESSELID, "
                 . "ProStartDT, "
                 . "ProEndDT, "
                 . "sotypecode, "
@@ -48,8 +48,8 @@ class Dashboard extends DatActionsController {
                 . "qutno, "
                 . "Cstctid ,"
                 . "JobDescrip "
-                . "FROM SOHEAD$companySuffix $predicate GROUP BY ordnum, ponum, company, destino, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
-                //. "FROM SOHEAD$companySuffix WHERE NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')$predicate GROUP BY ordnum, ponum, company, destino, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
+                . "FROM SOHEAD$companySuffix $predicate GROUP BY ordnum, ponum, company, VESSELID, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
+                //. "FROM SOHEAD$companySuffix WHERE NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')$predicate GROUP BY ordnum, ponum, company, VESSELID, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
     

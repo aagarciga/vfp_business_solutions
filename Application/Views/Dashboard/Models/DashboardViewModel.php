@@ -12,7 +12,7 @@ class DashboardViewModel {
     protected $_ordnum;
     protected $_ponum;
     protected $_company;
-    protected $_destino;
+    protected $_vesselid;
     protected $_ProStartDT;
     protected $_ProEndDT;
     protected $_sotypecode;
@@ -49,8 +49,8 @@ class DashboardViewModel {
     /**
      * @return numeric
      */
-    public function getDestino() {
-        return $this->_destino;
+    public function getVesselid() {
+        return $this->_vesselid;
     }
     
     /**
@@ -156,8 +156,8 @@ class DashboardViewModel {
     /**
      * @param string
      */
-    public function setDestino($value) {
-        $this->_destino = $value;
+    public function setVesselid($value) {
+        $this->_vesselid = $value;
     }
     
     /**
@@ -259,12 +259,12 @@ class DashboardViewModel {
     * @param int $Cstctid Cost Center
     * @param string $jobDescrip Job Description
     */
-    public function __construct($ordnum, $ponum, $company, $destino, $ProStartDT, $ProEndDT, $sotypecode, $mtrlstatus , $jobstatus, $projectManager1, $projectManager2, $podate, $qutno, $Cstctid, $jobDescrip) {
+    public function __construct($ordnum, $ponum, $company, $vesselid, $ProStartDT, $ProEndDT, $sotypecode, $mtrlstatus , $jobstatus, $projectManager1, $projectManager2, $podate, $qutno, $Cstctid, $jobDescrip) {
 
         $this->_ordnum = trim($ordnum);
         $this->_ponum = trim($ponum);
         $this->_company = trim($company);
-        $this->_destino = trim($destino);
+        $this->_vesselid = trim($vesselid);
         $this->_ProStartDT = $ProStartDT === "1899-12-30" ? "" : $ProStartDT;
         $this->_ProEndDT = $ProEndDT === "1899-12-30" ? "" : $ProEndDT;
         $this->_sotypecode = trim($sotypecode);

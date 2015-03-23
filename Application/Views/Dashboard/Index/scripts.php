@@ -1301,7 +1301,7 @@
                     _aOrdnum = document.createElement('a'),
                     _tdPonum = document.createElement('td'),
                     _tdCompany = document.createElement('td'),
-                    _tdDestino = document.createElement('td'),
+                    _tdVesselid = document.createElement('td'),
                     _tdProStartDT = document.createElement('td'),
                     _tdProEndDT = document.createElement('td'),
                     _tdSotypecode = document.createElement('td'),
@@ -1335,9 +1335,9 @@
                 appendChild(document.createTextNode($dataRow.company));
             }
 
-            with (_tdDestino) {
+            with (_tdVesselid) {
                 className = tdClass;
-                appendChild(document.createTextNode($dataRow.destino));
+                appendChild(document.createTextNode($dataRow.vesselid));
             }
 
             with (_tdProStartDT) {
@@ -1417,7 +1417,7 @@
                 appendChild(_tdOrdnum);
                 appendChild(_tdPonum);
                 appendChild(_tdCompany);
-                appendChild(_tdDestino);
+                appendChild(_tdVesselid);
                 appendChild(_tdProStartDT);
                 appendChild(_tdProEndDT);
                 appendChild(_tdSotypecode);

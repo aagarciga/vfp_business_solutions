@@ -158,7 +158,7 @@
                             <td class="item-field"><a href="#"><?php echo $item->getOrdnum() ?></a></td>
                             <td class="item-field"><?php echo $item->getPonum() ?></td>
                             <td class="item-field"><?php echo $item->getCompany() ?></td>
-                            <td class="item-field"><?php echo $item->getDestino() ?></td>
+                            <td class="item-field"><?php echo $item->getVesselid() ?></td>
                             <td class="item-field"><?php echo $item->getProStartDT() ?></td>
                             <td class="item-field"><?php echo $item->getProEndDT() ?></td>
                             <td class="item-field"><?php echo $item->getSotypecode() ?></td>
