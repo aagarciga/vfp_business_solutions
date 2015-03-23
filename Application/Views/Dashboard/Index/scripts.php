@@ -295,7 +295,7 @@
         
         Dashboard.Init = function(){
             Dashboard.kbInit();
-            VesselForm.init();
+//            VesselForm.init();
             
             $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
             $('#salesOrderClose').on('click', function () {

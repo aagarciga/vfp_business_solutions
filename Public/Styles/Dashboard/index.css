@@ -173,7 +173,7 @@ col.col-attached-files{
 }
 
 #vesselForm{
-    /*display: none;*/    
+    display: none;    
     top:0px;
     /*width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers*/
     /*height: 100%;*/
