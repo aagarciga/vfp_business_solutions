@@ -296,11 +296,19 @@
         Dashboard.Init = function(){
             Dashboard.kbInit();
 //            VesselForm.init();
-            
-            $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
+
+
+            // SalesOrder Form entry point
+            $('.item-field a.salesorder-form-link').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
             $('#salesOrderClose').on('click', function () {
                 $('#salesOrder').hide();
-            });            
+            }); 
+            
+            //Vessel Form entry point
+            $('.item-field a.vessel-form-link').on('click', function(){
+                console.log($(this).text());
+            });
+            
             Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);            
             $('.btn-table-sort').on('click', function(){
                 
@@ -1158,9 +1166,14 @@
                     var pagerItems = pager.getCurrentPagedItems();
                     Dashboard.updateDashboardTable($table, pagerItems);
                     // SalesOrder Link on click handler
-                    $('.item-field a').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);
+                    $('.item-field a.salesorder-form-link').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);  
                     $('#panelHeadingItemsCount').html(pager.itemsCount);
                     $('.loading').hide();
+                                          
+                    //Vessel Form on click handler
+                    $('.item-field a.vessel-form-link').on('click', function(){
+                        console.log($(this).text());
+                    });
                 }
             });
         }
@@ -1302,6 +1315,7 @@
                     _tdPonum = document.createElement('td'),
                     _tdCompany = document.createElement('td'),
                     _tdVesselid = document.createElement('td'),
+                    _aVesselid = document.createElement('a'),
                     _tdProStartDT = document.createElement('td'),
                     _tdProEndDT = document.createElement('td'),
                     _tdSotypecode = document.createElement('td'),
@@ -1320,6 +1334,7 @@
 
             with (_tdOrdnum) {
                 _aOrdnum.href = "#";
+                _aOrdnum.className = 'salesorder-form-link';
                 _aOrdnum.appendChild(document.createTextNode($dataRow.ordnum));
                 className = tdClass;
                 appendChild(_aOrdnum);
@@ -1336,8 +1351,15 @@
             }
 
             with (_tdVesselid) {
+//                className = tdClass;
+//                appendChild(document.createTextNode($dataRow.vesselid));
+                
+                _aVesselid.href = "#";
+                _aVesselid.className = 'vessel-form-link';
+                _aVesselid.appendChild(document.createTextNode($dataRow.vesselid));
                 className = tdClass;
-                appendChild(document.createTextNode($dataRow.vesselid));
+                appendChild(_aVesselid);
+                console.log($dataRow.vesselid);
             }
 
             with (_tdProStartDT) {

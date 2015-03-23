@@ -155,10 +155,10 @@
                     <body>
                         <?php foreach ($DashboardItems as $item): ?>
                         <tr>
-                            <td class="item-field"><a href="#"><?php echo $item->getOrdnum() ?></a></td>
+                            <td class="item-field"><a href="#" class="salesorder-form-link"><?php echo $item->getOrdnum() ?></a></td>
                             <td class="item-field"><?php echo $item->getPonum() ?></td>
                             <td class="item-field"><?php echo $item->getCompany() ?></td>
-                            <td class="item-field"><?php echo $item->getVesselid() ?></td>
+                            <td class="item-field"><a href="#" class="vessel-form-link"><?php echo $item->getVesselid() ?></a></td>
                             <td class="item-field"><?php echo $item->getProStartDT() ?></td>
                             <td class="item-field"><?php echo $item->getProEndDT() ?></td>
                             <td class="item-field"><?php echo $item->getSotypecode() ?></td>
