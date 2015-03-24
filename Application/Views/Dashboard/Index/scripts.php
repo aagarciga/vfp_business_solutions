@@ -306,7 +306,16 @@
             
             //Vessel Form entry point
             $('.item-field a.vessel-form-link').on('click', function(){
-                console.log($(this).text());
+                console.log('Showing Vessel Form for vesselid: ',$(this).text());                
+                var containerHeight = parseInt($('.container').css('height')),
+                    salesOrderHaight = parseInt($('#vesselForm').css('height'));
+                if (containerHeight > salesOrderHaight) {
+                    $('#vesselForm').css('height', containerHeight);
+                }
+                $('#vesselForm').show();
+            });
+            $('#vesselForm_btnClose').on('click', function () {
+                $('#vesselForm').hide();
             });
             
             Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);            
@@ -1172,7 +1181,13 @@
                                           
                     //Vessel Form on click handler
                     $('.item-field a.vessel-form-link').on('click', function(){
-                        console.log($(this).text());
+                        console.log('Showing Vessel Form for vesselid: ',$(this).text());                
+                        var containerHeight = parseInt($('.container').css('height')),
+                            salesOrderHaight = parseInt($('#vesselForm').css('height'));
+                        if (containerHeight > salesOrderHaight) {
+                            $('#vesselForm').css('height', containerHeight);
+                        }
+                        $('#vesselForm').show();
                     });
                 }
             });

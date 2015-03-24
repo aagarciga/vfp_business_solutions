@@ -23,10 +23,10 @@
             </div><!-- /.col-xs-8 -->
             <div class="col-xs-4">
                 <div class="form-group">
-                    <a id="salesOrderClose" class="btn btn-default btn-block btn-lg"  title="Close"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a id="vesselForm_btnClose" class="btn btn-default btn-block btn-lg"  title="Close"><span class="glyphicon glyphicon-remove"></span></a>
                 </div>
                 <div class="form-group">
-                    <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a id="vesselForm_btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>
                 </div>
             </div>
             
