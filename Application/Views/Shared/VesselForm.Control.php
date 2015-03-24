@@ -75,12 +75,12 @@
         
     </div><!-- /#salesOrder.container -->
     
-    <div class="modal modal-input fade" id="notesSaveModal">
+    <div class="modal modal-input fade" id="vesselForm_modal_saveNotes">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Notes</h4>
+                    <h4 class="modal-title">Vessel Form Notes</h4>
                 </div>
                 <div class="modal-body row">
                     <div class="form-group col-xs-12">

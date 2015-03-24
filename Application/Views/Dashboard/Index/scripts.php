@@ -11,31 +11,8 @@
     (function(global, $, KnockBack, Knockout, Backbone){
         "use strict";
         
-        var _ref,
-            Dandelion = global.Dandelion,
-            VesselForm = Dandelion.namespace('App.Dashboard.VesselForm', global),
-            __hasProp = {}.hasOwnProperty,
-            __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-        
-        VesselForm.Model = (function(_super) {
-            __extends(Model, _super);
-
-            function Model() {
-              _ref = Model.__super__.constructor.apply(this, arguments);
-              return _ref;
-            }
-            
-            Model.prototype.vesselid = "";
-            Model.prototype.descrip = "";
-            Model.prototype.shipclass = "";
-            Model.prototype.pentype = "";
-            Model.prototype.cementid = "";
-            Model.prototype.firecaulk = "";
-            Model.prototype.notes = "";
-            
-            return Model;
-            
-        })(Backbone.Model);
+        var Dandelion = global.Dandelion,
+            VesselForm = Dandelion.namespace('App.Dashboard.VesselForm', global);
         
         VesselForm.ViewModel = function (model) {
             var self = this;
@@ -46,16 +23,59 @@
             self.cementid   = KnockBack.observable(model, 'cementid');
             self.firecaulk  = KnockBack.observable(model, 'firecaulk');
             self.notes      = KnockBack.observable(model, 'notes');
+            
+            self.onShowNotesModal = function (view_model, event){
+                $('#vesselForm_modal_saveNotes').modal();
+                return view_model;
+            };  
+            
+            self.onSaveNotesModal = function (view_model, event){
+                $.post('<?php echo $View->Href('Dashboard', 'UpdateVesselFormNotes') ?>', {ordnum: view_model.vesselid(), notes: view_model.notes()})
+                .done(function (response){
+                    $('#vesselForm_modal_saveNotes').modal('hide');
+                })
+                .fail(function (response){
+                    console.log(response);
+                });              
+                return view_model;
+            };
         };
         
         VesselForm.init = function(){
-            VesselForm.view = $('#kb-view-vessel').first();
+            VesselForm.view = $('#kb-view-vessel')[0];
             VesselForm.model = new VesselForm.Model();
             VesselForm.viewModel = new VesselForm.ViewModel(VesselForm.model);
             Knockout.applyBindings(VesselForm.viewModel, VesselForm.view);
         };
         
     }(window, jQuery, kb, ko, Backbone));
+    
+    (function() {
+        var  Dashboard = window.App.Dashboard,
+          __hasProp = {}.hasOwnProperty,
+          __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+        Dashboard.VesselForm.Model = (function(_super) {
+        __extends(Model, _super);
+
+        function Model() {
+          var _ref = Model.__super__.constructor.apply(this, arguments);
+          return _ref;
+        }
+
+        Model.prototype.vesselid = "";
+        Model.prototype.descrip = "";
+        Model.prototype.shipclass = "";
+        Model.prototype.pentype = "";
+        Model.prototype.cementid = "";
+        Model.prototype.firecaulk = "";
+        Model.prototype.notes = "";
+
+        return Model;
+
+        })(Backbone.Model);
+
+    }).call(this);
 </script>
 
 <script>
@@ -295,7 +315,7 @@
         
         Dashboard.Init = function(){
             Dashboard.kbInit();
-//            VesselForm.init();
+            VesselForm.init();
 
 
             // SalesOrder Form entry point
