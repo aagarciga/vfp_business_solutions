@@ -47,6 +47,29 @@ class SWVESSELRepository extends VFPRepository implements IRepository {
 
         return $result;
     }
+    
+        /**
+         * 
+         * @param string $vesselid
+         * @return SWVESSEL
+         */
+        public function GetbyId($vesselid) {
+            
+        $lowerVesselid = strtolower($vesselid);
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE lower(VESSELID) = '$lowerVesselid'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = array();
+        
+        if (count($queryResult)) {
+            $row = $queryResult[0];
+            $result = new SWVESSEL(trim($row->VESSELID), trim($row->DESCRIP), trim($row->PENTYPE), trim($row->CEMENTID), trim($row->FIRECAULK), trim($row->SHIPCLASS), trim($row->NOTES), trim($row->NFLG0), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FUSERID), trim($row->FSTATION), trim($row->QBLISTID));
+        }
+        
+        return $result;
+    }
 
     public function Add($entity) {
         // TODO: Implement Add() method.
