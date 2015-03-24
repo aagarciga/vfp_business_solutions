@@ -189,6 +189,38 @@
             $('#salesOrder').show();
         };
         
+        Dashboard._ItemFieldVesselFormOnClickCallback = function(event){
+            var vesselid = $(event.target).text(),
+                //If i must to get from ordnum when vesselid are not given directly (just in case!)
+//                    ordnum = $(this).parent().parent().children('td').first().children('a').html(),
+                params = {vesselid: vesselid};
+
+            $.post('<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>', params)
+            .done(function (response) {
+                var _response = $.parseJSON(response);
+                if (_response.success) {
+                    Dashboard.VesselForm.viewModel.vesselid(_response.vesselFormObject.vesselid);
+                    Dashboard.VesselForm.viewModel.descrip(_response.vesselFormObject.descrip);
+                    Dashboard.VesselForm.viewModel.shipclass(_response.vesselFormObject.shipclass);
+                    Dashboard.VesselForm.viewModel.pentype(_response.vesselFormObject.pentype);
+                    Dashboard.VesselForm.viewModel.cementid(_response.vesselFormObject.cementid);
+                    Dashboard.VesselForm.viewModel.firecaulk(_response.vesselFormObject.firecaulk);
+                    Dashboard.VesselForm.viewModel.notes(_response.vesselFormObject.notes);
+                }
+
+            })
+            .fail(function (response) {
+//                    console.log(response);
+            });
+
+            var containerHeight = parseInt($('.container').css('height')),
+                salesOrderHaight = parseInt($('#vesselForm').css('height'));
+            if (containerHeight > salesOrderHaight) {
+                $('#vesselForm').css('height', containerHeight);
+            }
+            $('#vesselForm').show();
+        };
+        
         Dashboard.SalesOrder.view = $('#kb-view-salesorder')[0];
         Dashboard.SalesOrder.ViewModel = function (model) {
             var self = this;
@@ -311,12 +343,12 @@
             Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
             Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
             ko.applyBindings(Dashboard.SalesOrder.viewModel, Dashboard.SalesOrder.view);
+            
+            VesselForm.init();
         };
         
         Dashboard.Init = function(){
             Dashboard.kbInit();
-            VesselForm.init();
-
 
             // SalesOrder Form entry point
             $('.item-field a.salesorder-form-link').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
@@ -325,39 +357,8 @@
             }); 
             
             //Vessel Form entry point
-            $('.item-field a.vessel-form-link').on('click', function(){
-                var vesselid = $(this).text(),
-                //If i must to get from ordnum when vesselid are not given directly (just in case!)
-//                    ordnum = $(this).parent().parent().children('td').first().children('a').html(),
-                    params = {vesselid: vesselid};
-                    
-                $.post('<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>', params)
-                .done(function (response) {
-                    console.log(response);
-                    var _response = $.parseJSON(response);
-                    if (_response.success) {
-                        
-                        Dashboard.VesselForm.viewModel.vesselid(_response.vesselFormObject.vesselid);
-                        Dashboard.VesselForm.viewModel.descrip(_response.vesselFormObject.descrip);
-                        Dashboard.VesselForm.viewModel.shipclass(_response.vesselFormObject.shipclass);
-                        Dashboard.VesselForm.viewModel.pentype(_response.vesselFormObject.pentype);
-                        Dashboard.VesselForm.viewModel.cementid(_response.vesselFormObject.cementid);
-                        Dashboard.VesselForm.viewModel.firecaulk(_response.vesselFormObject.firecaulk);
-                        Dashboard.VesselForm.viewModel.notes(_response.vesselFormObject.notes);
-                    }
-                    
-                })
-                .fail(function (response) {
-//                    console.log(response);
-                });
-        
-                var containerHeight = parseInt($('.container').css('height')),
-                    salesOrderHaight = parseInt($('#vesselForm').css('height'));
-                if (containerHeight > salesOrderHaight) {
-                    $('#vesselForm').css('height', containerHeight);
-                }
-                $('#vesselForm').show();
-            });
+            $('.item-field a.vessel-form-link').on('click', Dashboard._ItemFieldVesselFormOnClickCallback);
+            
             $('#vesselForm_btnClose').on('click', function () {
                 $('#vesselForm').hide();
             });
@@ -1224,15 +1225,7 @@
                     $('.loading').hide();
                                           
                     //Vessel Form on click handler
-                    $('.item-field a.vessel-form-link').on('click', function(){
-                        console.log('Showing Vessel Form for vesselid: ',$(this).text());                
-                        var containerHeight = parseInt($('.container').css('height')),
-                            salesOrderHaight = parseInt($('#vesselForm').css('height'));
-                        if (containerHeight > salesOrderHaight) {
-                            $('#vesselForm').css('height', containerHeight);
-                        }
-                        $('#vesselForm').show();
-                    });
+                    $('.item-field a.vessel-form-link').on('click', Dashboard._ItemFieldVesselFormOnClickCallback);
                 }
             });
         }
