@@ -10,6 +10,7 @@
  * @author Alex
  * @namespace App.Dashboard.VesselForm
  * @returns {undefined}
+ * @inner JSLint Passed
  */
 (function (global, $, KnockBack, Knockout, Backbone) {
     "use strict";
@@ -105,17 +106,18 @@
  * @author Alex
  * @namespace App.Dashboard.SalesOrderForm
  * @returns {undefined}
+ * @inner JSLint Passed
  */
 (function (global, $, KnockBack, Knockout, Backbone) {
     "use strict";
-    
+
     var dandelion = global.dandelion,
         SalesOrderForm = dandelion.namespace('App.Dashboard.SalesOrderForm', global);
-    
+
     SalesOrderForm.htmlBindings = {};
     SalesOrderForm.htmlBindings.kbViewElement = '#kb-view-salesorder';
     SalesOrderForm.htmlBindings.modalSaveNotes = '#salesOrderForm_modal_saveNotes';
-    
+
     SalesOrderForm.Model = (function (base) {
 
         function Model() {
@@ -161,45 +163,45 @@
         return Model;
 
     }(Backbone.Model));
-    
+
     SalesOrderForm.ViewModel = function (model) {
         var self = this;
-        self.modelType          = kb.observable(model, 'modelType');
-            
-        self.ordnum             = kb.observable(model, 'ordnum');
-        self.date               = kb.observable(model, 'date');
-        self.custno             = kb.observable(model, 'custno');
-        self.projectLocation    = kb.observable(model, 'projectLocation');
-        self.notes              = kb.observable(model, 'notes');
-        self.companyName        = kb.observable(model, 'companyName');
-        self.address            = kb.observable(model, 'address');
-        self.city               = kb.observable(model, 'city');
-        self.state              = kb.observable(model, 'state');
-        self.zip                = kb.observable(model, 'zip');
-        self.phone              = kb.observable(model, 'phone');
-        self.subtotal           = kb.observable(model, 'subtotal');
-        self.discount           = kb.observable(model, 'discount');
-        self.tax                = kb.observable(model, 'tax');
-        self.shipping           = kb.observable(model, 'shipping');
-        self.total              = kb.observable(model, 'total');    
+        self.modelType          = KnockBack.observable(model, 'modelType');
+
+        self.ordnum             = KnockBack.observable(model, 'ordnum');
+        self.date               = KnockBack.observable(model, 'date');
+        self.custno             = KnockBack.observable(model, 'custno');
+        self.projectLocation    = KnockBack.observable(model, 'projectLocation');
+        self.notes              = KnockBack.observable(model, 'notes');
+        self.companyName        = KnockBack.observable(model, 'companyName');
+        self.address            = KnockBack.observable(model, 'address');
+        self.city               = KnockBack.observable(model, 'city');
+        self.state              = KnockBack.observable(model, 'state');
+        self.zip                = KnockBack.observable(model, 'zip');
+        self.phone              = KnockBack.observable(model, 'phone');
+        self.subtotal           = KnockBack.observable(model, 'subtotal');
+        self.discount           = KnockBack.observable(model, 'discount');
+        self.tax                = KnockBack.observable(model, 'tax');
+        self.shipping           = KnockBack.observable(model, 'shipping');
+        self.total              = KnockBack.observable(model, 'total');
 
         // Related to B and C
-        self.ponum              = kb.observable(model, 'ponum');
-        self.company            = kb.observable(model, 'company');            
-        self.destino            = kb.observable(model, 'destino');
-        self.prostartdt         = kb.observable(model, 'prostartdt');
-        self.proenddt           = kb.observable(model, 'proenddt');
-        self.sotypecode         = kb.observable(model, 'sotypecode');
-        self.mtrlstatus         = kb.observable(model, 'mtrlstatus');
-        self.jobstatus          = kb.observable(model, 'jobstatus');
-        self.technam1           = kb.observable(model, 'technam1');
-        self.technam2           = kb.observable(model, 'technam2');
-        self.qutno              = kb.observable(model, 'qutno');
-        self.cstctid            = kb.observable(model, 'cstctid');
-        self.jobdescrip         = kb.observable(model, 'jobdescrip');
+        self.ponum              = KnockBack.observable(model, 'ponum');
+        self.company            = KnockBack.observable(model, 'company');
+        self.destino            = KnockBack.observable(model, 'destino');
+        self.prostartdt         = KnockBack.observable(model, 'prostartdt');
+        self.proenddt           = KnockBack.observable(model, 'proenddt');
+        self.sotypecode         = KnockBack.observable(model, 'sotypecode');
+        self.mtrlstatus         = KnockBack.observable(model, 'mtrlstatus');
+        self.jobstatus          = KnockBack.observable(model, 'jobstatus');
+        self.technam1           = KnockBack.observable(model, 'technam1');
+        self.technam2           = KnockBack.observable(model, 'technam2');
+        self.qutno              = KnockBack.observable(model, 'qutno');
+        self.cstctid            = KnockBack.observable(model, 'cstctid');
+        self.jobdescrip         = KnockBack.observable(model, 'jobdescrip');
 
-        self.items              = kb.collectionObservable(model.items);
-        
+        self.items              = KnockBack.collectionObservable(model.items);
+
         self.showControlIFBOrC = Knockout.computed(function () {
             /**
              * 
@@ -207,7 +209,7 @@
              */
             return self.modelType() === 'B' || self.modelType() === 'C';
         });
-        
+
         self.showControlIfNotC = Knockout.computed(function () {
             /**
              * 
@@ -215,7 +217,7 @@
              */
             return !(self.modelType() === 'C');
         });
-        
+
         self.onShowNotesModal = function (view_model) {
             /**
              * @param {object} view_model Knockback viewmodel
@@ -225,32 +227,32 @@
             $(SalesOrderForm.htmlBindings.modalSaveNotes).modal();
             return view_model;
         };
-        
-        self.onSaveNotesModal = function (view_model){
+
+        self.onSaveNotesModal = function (view_model) {
             /**
              * @param {object} view_model Knockback viewmodel
              * @param {object} event Event related object
              * @return {view_model} Knockback viewmodel
              */
-            $.post("<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>", 
+            $.post("<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>",
                 {ordnum: view_model.ordnum(), notes: view_model.notes()})
-                .done(function (response){
+                .done(function () {
                     /**
                     * @param {object} response Ajax response object
                     */
                     $(SalesOrderForm.htmlBindings.modalSaveNotes).modal('hide');
                 })
-                .fail(function (response){
+                .fail(function (response) {
                     /**
                     * @param {object} response Ajax response object
                     */
                     console.log(response);
-                });              
+                });
             return view_model;
         };
     };
-    
-    SalesOrderForm.init = function(){
+
+    SalesOrderForm.init = function () {
         /**
          * SalesOrderForm MVVM logic initialization
          * @returns {undefined}
@@ -260,10 +262,21 @@
         SalesOrderForm.viewModel = new SalesOrderForm.ViewModel(SalesOrderForm.model);
         Knockout.applyBindings(SalesOrderForm.viewModel, SalesOrderForm.view);
     };
-    
+
 }(window, jQuery, kb, ko, Backbone));
 </script>
 
+<script>
+/**
+ * @author Alex
+ * @namespace App.Dashboard
+ * @returns {undefined}
+ */
+
+</script>
+(function (global, $) {
+    
+}(window, jQuery));
 <script>
    ;(function(App, Dandelion) {
         "use strict";
