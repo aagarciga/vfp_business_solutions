@@ -283,7 +283,7 @@
         
     </div><!-- /#salesOrder.container -->
     
-    <div class="modal modal-input fade" id="notesSaveModal">
+    <div class="modal modal-input fade" id="salesOrderForm_modal_saveNotes">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

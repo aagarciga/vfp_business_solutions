@@ -2,7 +2,6 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
 <script src="<?php echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?>"></script>
-
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
 
 <script>
@@ -17,6 +16,7 @@
 
     var dandelion = global.dandelion,
         VesselForm = dandelion.namespace('App.Dashboard.VesselForm', global);
+    
     VesselForm.htmlBindings = {};
     VesselForm.htmlBindings.kbViewElement = '#kb-view-vessel';
     VesselForm.htmlBindings.modalSaveNotes = '#vesselForm_modal_saveNotes';
@@ -67,7 +67,8 @@
              * @param {object} event Event related object
              * @return {view_model} Knockback viewmodel
              */
-            $.post("<?php echo $View->Href('Dashboard', 'UpdateVesselFormNotes') ?>", {ordnum: view_model.vesselid(), notes: view_model.notes()})
+            $.post("<?php echo $View->Href('Dashboard', 'UpdateVesselFormNotes') ?>", 
+                {ordnum: view_model.vesselid(), notes: view_model.notes()})
                 .done(function () {
                     /**
                     * @param {object} response Ajax response object
@@ -85,7 +86,10 @@
     };
 
     VesselForm.init = function () {
-
+        /**
+         * VesselForm MVVM logic initialization
+         * @returns {undefined}
+         */
         VesselForm.view = $(VesselForm.htmlBindings.kbViewElement)[0];
         VesselForm.model = new VesselForm.Model();
         VesselForm.viewModel = new VesselForm.ViewModel(VesselForm.model);
@@ -96,12 +100,178 @@
 </script>
 
 <script>
+/**
+ * SalesOrder Form Related MVVM Logic
+ * @author Alex
+ * @namespace App.Dashboard.SalesOrderForm
+ * @returns {undefined}
+ */
+(function (global, $, KnockBack, Knockout, Backbone) {
+    "use strict";
+    
+    var dandelion = global.dandelion,
+        SalesOrderForm = dandelion.namespace('App.Dashboard.SalesOrderForm', global);
+    
+    SalesOrderForm.htmlBindings = {};
+    SalesOrderForm.htmlBindings.kbViewElement = '#kb-view-salesorder';
+    SalesOrderForm.htmlBindings.modalSaveNotes = '#salesOrderForm_modal_saveNotes';
+    
+    SalesOrderForm.Model = (function (base) {
+
+        function Model() {
+            return Model.base.constructor.apply(this, arguments);
+        }
+
+        dandelion.js.extends(Model, base);
+
+        Model.prototype.ordnum = "";
+        Model.prototype.date = "";
+        Model.prototype.custno = "";
+        Model.prototype.projectLocation = "";
+        Model.prototype.notes = "";
+        Model.prototype.companyName = "";
+        Model.prototype.address = "";
+        Model.prototype.city = "";
+        Model.prototype.state = "";
+        Model.prototype.zip = "";
+        Model.prototype.phone = "";
+        Model.prototype.subtotal = "";
+        Model.prototype.discount = "";
+        Model.prototype.tax = "";
+        Model.prototype.shipping = "";
+        Model.prototype.total = "";
+
+        Model.prototype.items = new Backbone.Collection([]);
+        Model.prototype.modelType = "";
+
+        Model.prototype.ponum = "";
+        Model.prototype.company = "";
+        Model.prototype.destino = "";
+        Model.prototype.prostartdt = "";
+        Model.prototype.proenddt = "";
+        Model.prototype.sotypecode = "";
+        Model.prototype.mtrlstatus = "";
+        Model.prototype.jobstatus = "";
+        Model.prototype.technam1 = "";
+        Model.prototype.technam2 = "";
+        Model.prototype.qutno = "";
+        Model.prototype.cstctid = "";
+        Model.prototype.jobdescrip = "";
+
+        return Model;
+
+    }(Backbone.Model));
+    
+    SalesOrderForm.ViewModel = function (model) {
+        var self = this;
+        self.modelType          = kb.observable(model, 'modelType');
+            
+        self.ordnum             = kb.observable(model, 'ordnum');
+        self.date               = kb.observable(model, 'date');
+        self.custno             = kb.observable(model, 'custno');
+        self.projectLocation    = kb.observable(model, 'projectLocation');
+        self.notes              = kb.observable(model, 'notes');
+        self.companyName        = kb.observable(model, 'companyName');
+        self.address            = kb.observable(model, 'address');
+        self.city               = kb.observable(model, 'city');
+        self.state              = kb.observable(model, 'state');
+        self.zip                = kb.observable(model, 'zip');
+        self.phone              = kb.observable(model, 'phone');
+        self.subtotal           = kb.observable(model, 'subtotal');
+        self.discount           = kb.observable(model, 'discount');
+        self.tax                = kb.observable(model, 'tax');
+        self.shipping           = kb.observable(model, 'shipping');
+        self.total              = kb.observable(model, 'total');    
+
+        // Related to B and C
+        self.ponum              = kb.observable(model, 'ponum');
+        self.company            = kb.observable(model, 'company');            
+        self.destino            = kb.observable(model, 'destino');
+        self.prostartdt         = kb.observable(model, 'prostartdt');
+        self.proenddt           = kb.observable(model, 'proenddt');
+        self.sotypecode         = kb.observable(model, 'sotypecode');
+        self.mtrlstatus         = kb.observable(model, 'mtrlstatus');
+        self.jobstatus          = kb.observable(model, 'jobstatus');
+        self.technam1           = kb.observable(model, 'technam1');
+        self.technam2           = kb.observable(model, 'technam2');
+        self.qutno              = kb.observable(model, 'qutno');
+        self.cstctid            = kb.observable(model, 'cstctid');
+        self.jobdescrip         = kb.observable(model, 'jobdescrip');
+
+        self.items              = kb.collectionObservable(model.items);
+        
+        self.showControlIFBOrC = Knockout.computed(function () {
+            /**
+             * 
+             * @returns {Boolean}
+             */
+            return self.modelType() === 'B' || self.modelType() === 'C';
+        });
+        
+        self.showControlIfNotC = Knockout.computed(function () {
+            /**
+             * 
+             * @returns {Boolean}
+             */
+            return !(self.modelType() === 'C');
+        });
+        
+        self.onShowNotesModal = function (view_model) {
+            /**
+             * @param {object} view_model Knockback viewmodel
+             * @param {object} event Event related object
+             * @return {view_model} Knockback viewmodel
+             */
+            $(SalesOrderForm.htmlBindings.modalSaveNotes).modal();
+            return view_model;
+        };
+        
+        self.onSaveNotesModal = function (view_model){
+            /**
+             * @param {object} view_model Knockback viewmodel
+             * @param {object} event Event related object
+             * @return {view_model} Knockback viewmodel
+             */
+            $.post("<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>", 
+                {ordnum: view_model.ordnum(), notes: view_model.notes()})
+                .done(function (response){
+                    /**
+                    * @param {object} response Ajax response object
+                    */
+                    $(SalesOrderForm.htmlBindings.modalSaveNotes).modal('hide');
+                })
+                .fail(function (response){
+                    /**
+                    * @param {object} response Ajax response object
+                    */
+                    console.log(response);
+                });              
+            return view_model;
+        };
+    };
+    
+    SalesOrderForm.init = function(){
+        /**
+         * SalesOrderForm MVVM logic initialization
+         * @returns {undefined}
+         */
+        SalesOrderForm.view = $(SalesOrderForm.htmlBindings.kbViewElement)[0];
+        SalesOrderForm.model = new SalesOrderForm.Model();
+        SalesOrderForm.viewModel = new SalesOrderForm.ViewModel(SalesOrderForm.model);
+        Knockout.applyBindings(SalesOrderForm.viewModel, SalesOrderForm.view);
+    };
+    
+}(window, jQuery, kb, ko, Backbone));
+</script>
+
+<script>
    ;(function(App, Dandelion) {
         "use strict";
 
         // Dashboard Namespace
         var Dashboard = Dandelion.namespace('App.Dashboard', window),
-            SalesOrder = Dandelion.namespace('App.Dashboard.SalesOrder', window),
+//            SalesOrder = Dandelion.namespace('App.Dashboard.SalesOrder', window),
+            SalesOrderForm = App.Dashboard.SalesOrderForm,
             VesselForm = App.Dashboard.VesselForm;
         
         Dashboard.FilterForm = $('#filterForm');
@@ -156,41 +326,41 @@
                     
                     if (_response.success) {
                         
-                        Dashboard.SalesOrder.viewModel.modelType(modelType);
+                        Dashboard.SalesOrderForm.viewModel.modelType(modelType);
                         
-                        Dashboard.SalesOrder.viewModel.ordnum(_response.salesOrderObject.ordnum);
-                        Dashboard.SalesOrder.viewModel.date(_response.salesOrderObject.date);
-                        Dashboard.SalesOrder.viewModel.custno(_response.salesOrderObject.custno);
-                        Dashboard.SalesOrder.viewModel.projectLocation(_response.salesOrderObject.projectLocation);
-                        Dashboard.SalesOrder.viewModel.notes(_response.salesOrderObject.notes);                        
-                        Dashboard.SalesOrder.viewModel.companyName(_response.salesOrderObject.companyName);
-                        Dashboard.SalesOrder.viewModel.address(_response.salesOrderObject.address);
-                        Dashboard.SalesOrder.viewModel.city(_response.salesOrderObject.city);
-                        Dashboard.SalesOrder.viewModel.state(_response.salesOrderObject.state);
-                        Dashboard.SalesOrder.viewModel.zip(_response.salesOrderObject.zip);
-                        Dashboard.SalesOrder.viewModel.phone(_response.salesOrderObject.phone);
-                        Dashboard.SalesOrder.viewModel.subtotal(_response.salesOrderObject.subtotal);
-                        Dashboard.SalesOrder.viewModel.discount(_response.salesOrderObject.discount);
-                        Dashboard.SalesOrder.viewModel.tax(_response.salesOrderObject.tax);
-                        Dashboard.SalesOrder.viewModel.shipping(_response.salesOrderObject.shipping);
-                        Dashboard.SalesOrder.viewModel.total(_response.salesOrderObject.total);
+                        Dashboard.SalesOrderForm.viewModel.ordnum(_response.salesOrderObject.ordnum);
+                        Dashboard.SalesOrderForm.viewModel.date(_response.salesOrderObject.date);
+                        Dashboard.SalesOrderForm.viewModel.custno(_response.salesOrderObject.custno);
+                        Dashboard.SalesOrderForm.viewModel.projectLocation(_response.salesOrderObject.projectLocation);
+                        Dashboard.SalesOrderForm.viewModel.notes(_response.salesOrderObject.notes);                        
+                        Dashboard.SalesOrderForm.viewModel.companyName(_response.salesOrderObject.companyName);
+                        Dashboard.SalesOrderForm.viewModel.address(_response.salesOrderObject.address);
+                        Dashboard.SalesOrderForm.viewModel.city(_response.salesOrderObject.city);
+                        Dashboard.SalesOrderForm.viewModel.state(_response.salesOrderObject.state);
+                        Dashboard.SalesOrderForm.viewModel.zip(_response.salesOrderObject.zip);
+                        Dashboard.SalesOrderForm.viewModel.phone(_response.salesOrderObject.phone);
+                        Dashboard.SalesOrderForm.viewModel.subtotal(_response.salesOrderObject.subtotal);
+                        Dashboard.SalesOrderForm.viewModel.discount(_response.salesOrderObject.discount);
+                        Dashboard.SalesOrderForm.viewModel.tax(_response.salesOrderObject.tax);
+                        Dashboard.SalesOrderForm.viewModel.shipping(_response.salesOrderObject.shipping);
+                        Dashboard.SalesOrderForm.viewModel.total(_response.salesOrderObject.total);
                         
                         if (modelType === 'B' || modelType === 'C') {
-                            Dashboard.SalesOrder.viewModel.ponum(_response.salesOrderObject.ponum);
-                            Dashboard.SalesOrder.viewModel.company(_response.salesOrderObject.company);
-                            Dashboard.SalesOrder.viewModel.destino(_response.salesOrderObject.destino);
-                            Dashboard.SalesOrder.viewModel.prostartdt(_response.salesOrderObject.prostartdt);
-                            Dashboard.SalesOrder.viewModel.proenddt(_response.salesOrderObject.proenddt);
-                            Dashboard.SalesOrder.viewModel.sotypecode(_response.salesOrderObject.sotypecode);
-                            Dashboard.SalesOrder.viewModel.mtrlstatus(_response.salesOrderObject.mtrlstatus);
-                            Dashboard.SalesOrder.viewModel.jobstatus(_response.salesOrderObject.jobstatus);
-                            Dashboard.SalesOrder.viewModel.technam1(_response.salesOrderObject.technam1);
-                            Dashboard.SalesOrder.viewModel.technam2(_response.salesOrderObject.technam2);
-                            Dashboard.SalesOrder.viewModel.qutno(_response.salesOrderObject.qutno);
-                            Dashboard.SalesOrder.viewModel.cstctid(_response.salesOrderObject.cstctid);
-                            Dashboard.SalesOrder.viewModel.jobdescrip(_response.salesOrderObject.jobdescrip);
+                            Dashboard.SalesOrderForm.viewModel.ponum(_response.salesOrderObject.ponum);
+                            Dashboard.SalesOrderForm.viewModel.company(_response.salesOrderObject.company);
+                            Dashboard.SalesOrderForm.viewModel.destino(_response.salesOrderObject.destino);
+                            Dashboard.SalesOrderForm.viewModel.prostartdt(_response.salesOrderObject.prostartdt);
+                            Dashboard.SalesOrderForm.viewModel.proenddt(_response.salesOrderObject.proenddt);
+                            Dashboard.SalesOrderForm.viewModel.sotypecode(_response.salesOrderObject.sotypecode);
+                            Dashboard.SalesOrderForm.viewModel.mtrlstatus(_response.salesOrderObject.mtrlstatus);
+                            Dashboard.SalesOrderForm.viewModel.jobstatus(_response.salesOrderObject.jobstatus);
+                            Dashboard.SalesOrderForm.viewModel.technam1(_response.salesOrderObject.technam1);
+                            Dashboard.SalesOrderForm.viewModel.technam2(_response.salesOrderObject.technam2);
+                            Dashboard.SalesOrderForm.viewModel.qutno(_response.salesOrderObject.qutno);
+                            Dashboard.SalesOrderForm.viewModel.cstctid(_response.salesOrderObject.cstctid);
+                            Dashboard.SalesOrderForm.viewModel.jobdescrip(_response.salesOrderObject.jobdescrip);
                         }
-                        Dashboard.SalesOrder.viewModel.items(_response.salesOrderObject.itemsCollection);
+                        Dashboard.SalesOrderForm.viewModel.items(_response.salesOrderObject.itemsCollection);
                     }
                     
                 })
@@ -238,129 +408,129 @@
             $('#vesselForm').show();
         };
         
-        Dashboard.SalesOrder.view = $('#kb-view-salesorder')[0];
-        Dashboard.SalesOrder.ViewModel = function (model) {
-            var self = this;
-            this.modelType = kb.observable(model, 'modelType');
-            
-            this.ordnum = kb.observable(model, 'ordnum');
-            this.date = kb.observable(model, 'date');
-            this.custno = kb.observable(model, 'custno');
-            this.projectLocation = kb.observable(model, 'projectLocation');
-            this.notes = kb.observable(model, 'notes');
-            this.companyName = kb.observable(model, 'companyName');
-            this.address = kb.observable(model, 'address');
-            this.city = kb.observable(model, 'city');
-            this.state = kb.observable(model, 'state');
-            this.zip = kb.observable(model, 'zip');
-            this.phone = kb.observable(model, 'phone');
-            this.subtotal = kb.observable(model, 'subtotal');
-            this.discount = kb.observable(model, 'discount');
-            this.tax = kb.observable(model, 'tax');
-            this.shipping = kb.observable(model, 'shipping');
-            this.total = kb.observable(model, 'total');    
-            
-            // Related to B and C
-            this.ponum = kb.observable(model, 'ponum');
-            this.company = kb.observable(model, 'company');            
-            this.destino = kb.observable(model, 'destino');
-            this.prostartdt = kb.observable(model, 'prostartdt');
-            this.proenddt = kb.observable(model, 'proenddt');
-            this.sotypecode = kb.observable(model, 'sotypecode');
-            this.mtrlstatus = kb.observable(model, 'mtrlstatus');
-            this.jobstatus = kb.observable(model, 'jobstatus');
-            this.technam1 = kb.observable(model, 'technam1');
-            this.technam2 = kb.observable(model, 'technam2');
-            this.qutno = kb.observable(model, 'qutno');
-            this.cstctid = kb.observable(model, 'cstctid');
-            this.jobdescrip = kb.observable(model, 'jobdescrip');
-            
-            this.items = kb.collectionObservable(model.items);
-            
-            this.onShowNotesModal = function (view_model, event){
-                $('#notesSaveModal').modal();
-                return view_model;
-            };            
-            this.onSaveNotesModal = function (view_model, event){
-                $.post('<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>', {ordnum: view_model.ordnum(), notes: view_model.notes()})
-                .done(function (response){
-                    $('#notesSaveModal').modal('hide');
-                })
-                .fail(function (response){
-                    console.log(response);
-                });              
-                return view_model;
-            };
-            this.showControlIFBOrC = ko.computed(function () {
-                return self.modelType() === 'B' || self.modelType() === 'C';
-            });
-            this.showControlIfNotC = ko.computed(function () {
-                return !(self.modelType() === 'C');
-            });
-         };
+//        Dashboard.SalesOrder.view = $('#kb-view-salesorder')[0];
+//        Dashboard.SalesOrder.ViewModel = function (model) {
+//            var self = this;
+//            this.modelType          = kb.observable(model, 'modelType');
+//            
+//            this.ordnum             = kb.observable(model, 'ordnum');
+//            this.date               = kb.observable(model, 'date');
+//            this.custno             = kb.observable(model, 'custno');
+//            this.projectLocation    = kb.observable(model, 'projectLocation');
+//            this.notes              = kb.observable(model, 'notes');
+//            this.companyName        = kb.observable(model, 'companyName');
+//            this.address            = kb.observable(model, 'address');
+//            this.city               = kb.observable(model, 'city');
+//            this.state              = kb.observable(model, 'state');
+//            this.zip                = kb.observable(model, 'zip');
+//            this.phone              = kb.observable(model, 'phone');
+//            this.subtotal           = kb.observable(model, 'subtotal');
+//            this.discount           = kb.observable(model, 'discount');
+//            this.tax                = kb.observable(model, 'tax');
+//            this.shipping           = kb.observable(model, 'shipping');
+//            this.total              = kb.observable(model, 'total');    
+//            
+//            // Related to B and C
+//            this.ponum              = kb.observable(model, 'ponum');
+//            this.company            = kb.observable(model, 'company');            
+//            this.destino            = kb.observable(model, 'destino');
+//            this.prostartdt         = kb.observable(model, 'prostartdt');
+//            this.proenddt           = kb.observable(model, 'proenddt');
+//            this.sotypecode         = kb.observable(model, 'sotypecode');
+//            this.mtrlstatus         = kb.observable(model, 'mtrlstatus');
+//            this.jobstatus          = kb.observable(model, 'jobstatus');
+//            this.technam1           = kb.observable(model, 'technam1');
+//            this.technam2           = kb.observable(model, 'technam2');
+//            this.qutno              = kb.observable(model, 'qutno');
+//            this.cstctid            = kb.observable(model, 'cstctid');
+//            this.jobdescrip         = kb.observable(model, 'jobdescrip');
+//            
+//            this.items              = kb.collectionObservable(model.items);
+//            
+//            this.onShowNotesModal = function (view_model, event){
+//                $('#notesSaveModal').modal();
+//                return view_model;
+//            };            
+//            this.onSaveNotesModal = function (view_model, event){
+//                $.post('<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>', {ordnum: view_model.ordnum(), notes: view_model.notes()})
+//                .done(function (response){
+//                    $('#notesSaveModal').modal('hide');
+//                })
+//                .fail(function (response){
+//                    console.log(response);
+//                });              
+//                return view_model;
+//            };
+//            this.showControlIFBOrC = ko.computed(function () {
+//                return self.modelType() === 'B' || self.modelType() === 'C';
+//            });
+//            this.showControlIfNotC = ko.computed(function () {
+//                return !(self.modelType() === 'C');
+//            });
+//         };
         
         /// AMODEL 
-        (function() {
-            var _ref,
-              Dashboard = window.App.Dashboard,
-              __hasProp = {}.hasOwnProperty,
-              __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-            
-            Dashboard.SalesOrder.AModel = (function(_super) {
-            __extends(AModel, _super);
-
-            function AModel() {
-              _ref = AModel.__super__.constructor.apply(this, arguments);
-              return _ref;
-            }
-              
-            AModel.prototype.ordnum = "";
-            AModel.prototype.date = "";
-            AModel.prototype.custno = "";
-            AModel.prototype.projectLocation = "";
-            AModel.prototype.notes = "";
-            AModel.prototype.companyName = "";
-            AModel.prototype.address = "";
-            AModel.prototype.city = "";
-            AModel.prototype.state = "";
-            AModel.prototype.zip = "";
-            AModel.prototype.phone = "";
-            AModel.prototype.subtotal = "";
-            AModel.prototype.discount = "";
-            AModel.prototype.tax = "";
-            AModel.prototype.shipping = "";
-            AModel.prototype.total = "";
-            
-            AModel.prototype.items = new Backbone.Collection([]);
-            AModel.prototype.modelType = "";
-            
-            AModel.prototype.ponum = "";
-            AModel.prototype.company = "";
-            AModel.prototype.destino = "";
-            AModel.prototype.prostartdt = "";
-            AModel.prototype.proenddt = "";
-            AModel.prototype.sotypecode = "";
-            AModel.prototype.mtrlstatus = "";
-            AModel.prototype.jobstatus = "";
-            AModel.prototype.technam1 = "";
-            AModel.prototype.technam2 = "";
-            AModel.prototype.qutno = "";
-            AModel.prototype.cstctid = "";
-            AModel.prototype.jobdescrip = "";
-
-            return AModel;
-
-            })(Backbone.Model);
-
-        }).call(this);
+//        (function() {
+//            var _ref,
+//              Dashboard = window.App.Dashboard,
+//              __hasProp = {}.hasOwnProperty,
+//              __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+//            
+//            Dashboard.SalesOrder.AModel = (function(_super) {
+//            __extends(AModel, _super);
+//
+//            function AModel() {
+//              _ref = AModel.__super__.constructor.apply(this, arguments);
+//              return _ref;
+//            }
+//              
+//            AModel.prototype.ordnum = "";
+//            AModel.prototype.date = "";
+//            AModel.prototype.custno = "";
+//            AModel.prototype.projectLocation = "";
+//            AModel.prototype.notes = "";
+//            AModel.prototype.companyName = "";
+//            AModel.prototype.address = "";
+//            AModel.prototype.city = "";
+//            AModel.prototype.state = "";
+//            AModel.prototype.zip = "";
+//            AModel.prototype.phone = "";
+//            AModel.prototype.subtotal = "";
+//            AModel.prototype.discount = "";
+//            AModel.prototype.tax = "";
+//            AModel.prototype.shipping = "";
+//            AModel.prototype.total = "";
+//            
+//            AModel.prototype.items = new Backbone.Collection([]);
+//            AModel.prototype.modelType = "";
+//            
+//            AModel.prototype.ponum = "";
+//            AModel.prototype.company = "";
+//            AModel.prototype.destino = "";
+//            AModel.prototype.prostartdt = "";
+//            AModel.prototype.proenddt = "";
+//            AModel.prototype.sotypecode = "";
+//            AModel.prototype.mtrlstatus = "";
+//            AModel.prototype.jobstatus = "";
+//            AModel.prototype.technam1 = "";
+//            AModel.prototype.technam2 = "";
+//            AModel.prototype.qutno = "";
+//            AModel.prototype.cstctid = "";
+//            AModel.prototype.jobdescrip = "";
+//
+//            return AModel;
+//
+//            })(Backbone.Model);
+//
+//        }).call(this);
         
         /// Knockback Init
         Dashboard.kbInit = function (){
             
-            Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
-            Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
-            ko.applyBindings(Dashboard.SalesOrder.viewModel, Dashboard.SalesOrder.view);
-            
+//            Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
+//            Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
+//            ko.applyBindings(Dashboard.SalesOrder.viewModel, Dashboard.SalesOrder.view);
+            SalesOrderForm.init();
             VesselForm.init();
         };
         
