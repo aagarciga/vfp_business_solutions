@@ -21,9 +21,9 @@
 (function (global) {
     "use strict";
 
-    // Dandelion Namespace
+    // dandelion Namespace
     var dandelion = {};
-    global.dandelion = global.Dandelion = dandelion;     
+    global.dandelion = global.Dandelion = dandelion;
     dandelion.namespace = function (nsString, root) {
         var parts = nsString.split('.'),
             parent = root || dandelion,
@@ -43,25 +43,73 @@
     };
 }(window));
 
-(function (global){
+(function (global) {
     "use strict";
-    
+    /**
+     * Dandelion.Navigator namespace
+     * @type @exp;global@pro;dandelion@call;namespace
+     */
     var navigator = global.dandelion.namespace('navigator');
-    
+
+    /**
+     * 
+     * @returns {Boolean}
+     */
     navigator.isChrome = function () {
         return global.navigator.userAgent.indexOf("Chrome") !== -1;
     };
-    
+
+    /**
+     * 
+     * @returns {Boolean}
+     */
     navigator.isFirefox = function () {
         return global.navigator.userAgent.indexOf("Firefox") !== -1;
     };
-    
+
+    /**
+     * 
+     * @returns {Boolean}
+     */
     navigator.isOpera = function () {
         return global.navigator.userAgent.indexOf("Opera") !== -1;
     };
-    
+
+    /**
+     * 
+     * @returns {Boolean}
+     */
     navigator.isIE = function () {
-        return ((global.navigator.userAgent.indexOf("MSIE") !== -1 ) ||
-                (!!global.document.documentMode === true ));
+        return ((global.navigator.userAgent.indexOf("MSIE") !== -1) ||
+                (!!global.document.documentMode === true));
+    };
+}(window));
+
+(function (global) {
+    "use strict";
+
+    // dandelion.js namespace
+    var js = global.dandelion.namespace('js');
+
+    /**
+     * 
+     * @param {type} child
+     * @param {type} parent
+     * @returns {Window|global.dandelion@call;namespace.extends.child|dandelion_L88.js.extends.child}
+     */
+    js.extends = function (child, parent) {
+        var key;
+        for (key in parent) {
+            if (parent.hasOwnProperty(key)) {
+                child[key] = parent[key];
+            }
+        }
+        function Ctor() {
+            this.constructor = child;
+        }
+        Ctor.prototype = parent.prototype;
+        child.prototype = new Ctor();
+        child.base = parent.prototype;
+        return child;
     };
 }(window));

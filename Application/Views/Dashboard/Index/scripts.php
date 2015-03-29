@@ -5,63 +5,29 @@
 
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
 
-
 <script>
-    ; // Vessel Form Related Logic
-    (function(global, $, KnockBack, Knockout, Backbone){
-        "use strict";
-        
-        var Dandelion = global.Dandelion,
-            VesselForm = Dandelion.namespace('App.Dashboard.VesselForm', global);
-        
-        VesselForm.ViewModel = function (model) {
-            var self = this;
-            self.vesselid   = KnockBack.observable(model, 'vesselid');
-            self.descrip    = KnockBack.observable(model, 'descrip');
-            self.shipclass  = KnockBack.observable(model, 'shipclass');
-            self.pentype    = KnockBack.observable(model, 'pentype');
-            self.cementid   = KnockBack.observable(model, 'cementid');
-            self.firecaulk  = KnockBack.observable(model, 'firecaulk');
-            self.notes      = KnockBack.observable(model, 'notes');
-            
-            self.onShowNotesModal = function (view_model, event){
-                $('#vesselForm_modal_saveNotes').modal();
-                return view_model;
-            };  
-            
-            self.onSaveNotesModal = function (view_model, event){
-                $.post('<?php echo $View->Href('Dashboard', 'UpdateVesselFormNotes') ?>', {ordnum: view_model.vesselid(), notes: view_model.notes()})
-                .done(function (response){
-                    $('#vesselForm_modal_saveNotes').modal('hide');
-                })
-                .fail(function (response){
-                    console.log(response);
-                });              
-                return view_model;
-            };
-        };
-        
-        VesselForm.init = function(){
-            VesselForm.view = $('#kb-view-vessel')[0];
-            VesselForm.model = new VesselForm.Model();
-            VesselForm.viewModel = new VesselForm.ViewModel(VesselForm.model);
-            Knockout.applyBindings(VesselForm.viewModel, VesselForm.view);
-        };
-        
-    }(window, jQuery, kb, ko, Backbone));
-    
-    (function() {
-        var  Dashboard = window.App.Dashboard,
-          __hasProp = {}.hasOwnProperty,
-          __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+/**
+ * Vessel Form Related MVVM Logic
+ * @author Alex
+ * @namespace App.Dashboard.VesselForm
+ * @returns {undefined}
+ */
+(function (global, $, KnockBack, Knockout, Backbone) {
+    "use strict";
 
-        Dashboard.VesselForm.Model = (function(_super) {
-        __extends(Model, _super);
+    var dandelion = global.dandelion,
+        VesselForm = dandelion.namespace('App.Dashboard.VesselForm', global);
+    VesselForm.htmlBindings = {};
+    VesselForm.htmlBindings.kbViewElement = '#kb-view-vessel';
+    VesselForm.htmlBindings.modalSaveNotes = '#vesselForm_modal_saveNotes';
+
+    VesselForm.Model = (function (base) {
 
         function Model() {
-          var _ref = Model.__super__.constructor.apply(this, arguments);
-          return _ref;
+            return Model.base.constructor.apply(this, arguments);
         }
+
+        dandelion.js.extends(Model, base);
 
         Model.prototype.vesselid = "";
         Model.prototype.descrip = "";
@@ -73,9 +39,60 @@
 
         return Model;
 
-        })(Backbone.Model);
+    }(Backbone.Model));
 
-    }).call(this);
+    VesselForm.ViewModel = function (model) {
+        var self = this;
+        self.vesselid   = KnockBack.observable(model, 'vesselid');
+        self.descrip    = KnockBack.observable(model, 'descrip');
+        self.shipclass  = KnockBack.observable(model, 'shipclass');
+        self.pentype    = KnockBack.observable(model, 'pentype');
+        self.cementid   = KnockBack.observable(model, 'cementid');
+        self.firecaulk  = KnockBack.observable(model, 'firecaulk');
+        self.notes      = KnockBack.observable(model, 'notes');
+
+        self.onShowNotesModal = function (view_model) {
+            /**
+             * @param {object} view_model Knockback viewmodel
+             * @param {object} event Event related object
+             * @return {view_model} Knockback viewmodel
+             */
+            $(VesselForm.htmlBindings.modalSaveNotes).modal();
+            return view_model;
+        };
+
+        self.onSaveNotesModal = function (view_model) {
+            /**
+             * @param {object} view_model Knockback viewmodel
+             * @param {object} event Event related object
+             * @return {view_model} Knockback viewmodel
+             */
+            $.post("<?php echo $View->Href('Dashboard', 'UpdateVesselFormNotes') ?>", {ordnum: view_model.vesselid(), notes: view_model.notes()})
+                .done(function () {
+                    /**
+                    * @param {object} response Ajax response object
+                    */
+                    $(VesselForm.htmlBindings.modalSaveNotes).modal('hide');
+                })
+                .fail(function (response) {
+                    /**
+                    * @param {object} response Ajax response object
+                    */
+                    console.log(response);
+                });
+            return view_model;
+        };
+    };
+
+    VesselForm.init = function () {
+
+        VesselForm.view = $(VesselForm.htmlBindings.kbViewElement)[0];
+        VesselForm.model = new VesselForm.Model();
+        VesselForm.viewModel = new VesselForm.ViewModel(VesselForm.model);
+        Knockout.applyBindings(VesselForm.viewModel, VesselForm.view);
+    };
+
+}(window, jQuery, kb, ko, Backbone));
 </script>
 
 <script>

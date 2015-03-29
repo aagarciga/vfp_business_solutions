@@ -182,3 +182,11 @@ col.col-attached-files{
     background-color: white;
     margin-left: -15px;
 }
+
+#vesselForm_btnClose{
+    height: 60px;
+}
+
+#vesselForm_btnClose > span{
+    margin-top: 10px;
+}
