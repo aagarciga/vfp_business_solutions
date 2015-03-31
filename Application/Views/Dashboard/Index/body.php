@@ -91,7 +91,7 @@
                             <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Sales Order</a></li>
                             <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Purchase Order</a></li>
                             <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a></li>
-                            <li><a href="#" class="filter-field" data-field="destino" data-field-type="text">Vessel</a></li>
+                            <li><a href="#" class="filter-field" data-field="vesselid" data-field-type="text">Vessel</a></li>
                             <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
                             <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
                             <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
@@ -137,7 +137,7 @@
                             <th>Sales Order <button data-field="ordnum" class="btn-table-sort"></button></th>
                             <th>Purchase Order <button data-field="ponum" class="btn-table-sort"></button></th>
                             <th>Company <button data-field="company" class="btn-table-sort"></button></th>
-                            <th>Vessel <button data-field="destino" class="btn-table-sort"></button></th>
+                            <th>Vessel <button data-field="vesselid" class="btn-table-sort"></button></th>
                             <th>Start<button data-field="ProStartDT" class="btn-table-sort"></button> </th>
                             <th>End <button data-field="ProEndDT" class="btn-table-sort"></button></th>
                             <th>Job Type <button data-field="sotypecode" class="btn-table-sort"></button></th>

@@ -1,5 +1,5 @@
 <div id="kb-view-salesorder">
-    <div id="salesOrder" class="container">
+    <div id="salesOrderForm" class="container">
         <div class="row">
             <div class="feedback alert alert-info">Sales Order</div>
         </div>
@@ -176,7 +176,7 @@
             </div><!-- /.col-xs-8 -->
             <div class="col-xs-4">
                 <div class="form-group">
-                    <a id="salesOrderClose" class="btn btn-default btn-block btn-lg"  title="Close"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a id="salesOrderForm_btnClose" class="btn btn-default btn-block btn-lg"  title="Close"><span class="glyphicon glyphicon-remove"></span></a>
                 </div>
                 <div class="form-group">
                     <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>
@@ -202,7 +202,7 @@
                             <input type="text" class="form-control input" data-bind="value: tax"/>
                         </div>
                         <div class="form-group" data-bind="visible: showControlIfNotC() ">
-                            <label class="control-label"><span class="glyphicon glyphicon-briefcase"></span> Fright/Ins</label>
+                            <label class="control-label"><span class="glyphicon glyphicon-briefcase"></span> Freight/Ins</label>
             <!--                <input type="text" class="form-control input"/>-->
                             <input type="text" class="form-control input" data-bind="value: shipping"/>
                         </div>

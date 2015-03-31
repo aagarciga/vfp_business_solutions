@@ -271,155 +271,364 @@
  * @author Alex
  * @namespace App.Dashboard
  * @returns {undefined}
+ * @inner JSLint Passed
  */
-
-</script>
 (function (global, $) {
-    
+    "use strict";
+
+    var dandelion       = global.dandelion,
+        Dashboard       = dandelion.namespace('App.Dashboard', global),
+        SalesOrderForm  = global.App.Dashboard.SalesOrderForm,
+        VesselForm      = global.App.Dashboard.VesselForm;
+
+    Dashboard.status = {};
+    Dashboard.status.itemsPerPage = 50; // Default items per page value
+    Dashboard.status.table_header_sortLastButton = null;
+    Dashboard.status.table_header_sortField = 'ordnum'; // Default Order By Fields
+    Dashboard.status.table_header_sortFieldOrder = 'ASC'; // Default Order
+
+    Dashboard.htmlBindings = {};
+    Dashboard.htmlBindings.container                        = '.container';
+    Dashboard.htmlBindings.filterForm                       = '#filterForm';
+    Dashboard.htmlBindings.filterForm_btnToggleVisibility   = '#dashboard-panel-togle-visibility-button';
+    Dashboard.htmlBindings.table                            = '#dashboardTable';
+    Dashboard.htmlBindings.table_header_btnSort             = '.btn-table-sort';
+    Dashboard.htmlBindings.table_body_btnSalesOrder         = '.item-field a.salesorder-form-link';
+    Dashboard.htmlBindings.table_body_btnVessel             = '.item-field a.vessel-form-link';
+    Dashboard.htmlBindings.control_salesOrderForm           = '#salesOrderForm';
+    Dashboard.htmlBindings.control_salesOrderForm_btnClose  = '#salesOrderForm_btnClose';
+    Dashboard.htmlBindings.control_vesselForm               = '#vesselForm';
+    Dashboard.htmlBindings.control_vesselForm_btnClose      = '#vesselForm_btnClose';
+
+    Dashboard.eventHandlers = {};
+    Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick = function (event) {
+        /**
+         * @param {event} event
+         * @returns {undefined}
+         */
+        var salesOrderValue = $(event.target).html(),
+            params = { salesOrder : salesOrderValue},
+            dashboardViewHeight,
+            salesOrderViewHeight;
+        $.post("<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>", params)
+            .done(function (response) {
+                response = $.parseJSON(response);
+                var modelType = response.formType,
+                    viewModel = Dashboard.SalesOrderForm.viewModel;
+
+                if (response.success) {
+                    viewModel.modelType(modelType);
+
+                    viewModel.ordnum(response.salesOrderObject.ordnum);
+                    viewModel.date(response.salesOrderObject.date);
+                    viewModel.custno(response.salesOrderObject.custno);
+                    viewModel.projectLocation(response.salesOrderObject.projectLocation);
+                    viewModel.notes(response.salesOrderObject.notes);
+                    viewModel.companyName(response.salesOrderObject.companyName);
+                    viewModel.address(response.salesOrderObject.address);
+                    viewModel.city(response.salesOrderObject.city);
+                    viewModel.state(response.salesOrderObject.state);
+                    viewModel.zip(response.salesOrderObject.zip);
+                    viewModel.phone(response.salesOrderObject.phone);
+                    viewModel.subtotal(response.salesOrderObject.subtotal);
+                    viewModel.discount(response.salesOrderObject.discount);
+                    viewModel.tax(response.salesOrderObject.tax);
+                    viewModel.shipping(response.salesOrderObject.shipping);
+                    viewModel.total(response.salesOrderObject.total);
+
+                    if (modelType === 'B' || modelType === 'C') {
+                        viewModel.ponum(response.salesOrderObject.ponum);
+                        viewModel.company(response.salesOrderObject.company);
+                        viewModel.destino(response.salesOrderObject.destino);
+                        viewModel.prostartdt(response.salesOrderObject.prostartdt);
+                        viewModel.proenddt(response.salesOrderObject.proenddt);
+                        viewModel.sotypecode(response.salesOrderObject.sotypecode);
+                        viewModel.mtrlstatus(response.salesOrderObject.mtrlstatus);
+                        viewModel.jobstatus(response.salesOrderObject.jobstatus);
+                        viewModel.technam1(response.salesOrderObject.technam1);
+                        viewModel.technam2(response.salesOrderObject.technam2);
+                        viewModel.qutno(response.salesOrderObject.qutno);
+                        viewModel.cstctid(response.salesOrderObject.cstctid);
+                        viewModel.jobdescrip(response.salesOrderObject.jobdescrip);
+                    }
+
+                    viewModel.items(response.salesOrderObject.itemsCollection);
+                }
+            })
+            .fail(function (response) {
+                console.log(response);
+            });
+        dashboardViewHeight = parseInt($(Dashboard.htmlBindings.container).css('height'), 10);
+        salesOrderViewHeight = parseInt($(Dashboard.htmlBindings.control_salesOrderForm).css('height'), 10);
+
+        if (dashboardViewHeight > salesOrderViewHeight) {
+            $(Dashboard.htmlBindings.control_salesOrderForm).css('height', dashboardViewHeight);
+        }
+        $(Dashboard.htmlBindings.control_salesOrderForm).show();
+    };
+    Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick = function (event) {
+        /**
+         * @param {event} event
+         * @returns {undefined}
+         */
+        var vesselValue = $(event.target).html(),
+            params = { vesselid : vesselValue},
+            dashboardViewHeight,
+            vesselViewHeight;
+
+        $.post("<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>", params)
+            .done(function (response) {
+                response = $.parseJSON(response);
+                var viewModel = Dashboard.VesselForm.viewModel;
+
+                if (response.success) {
+                    viewModel.vesselid(response.vesselFormObject.vesselid);
+                    viewModel.descrip(response.vesselFormObject.descrip);
+                    viewModel.shipclass(response.vesselFormObject.shipclass);
+                    viewModel.pentype(response.vesselFormObject.pentype);
+                    viewModel.cementid(response.vesselFormObject.cementid);
+                    viewModel.firecaulk(response.vesselFormObject.firecaulk);
+                    viewModel.notes(response.vesselFormObject.notes);
+                }
+            })
+            .fail(function (response) {
+                console.log(response);
+            });
+
+        dashboardViewHeight = parseInt($(Dashboard.htmlBindings.container).css('height'), 10);
+        vesselViewHeight = parseInt($(Dashboard.htmlBindings.control_vesselForm).css('height'), 10);
+
+        if (dashboardViewHeight > vesselViewHeight) {
+            $(Dashboard.htmlBindings.control_vesselForm).css('height', dashboardViewHeight);
+        }
+        $(Dashboard.htmlBindings.control_vesselForm).show();
+    };
+
+    Dashboard.filterForm_toggleVisibility = function () {
+        var $filterForm_btnToggleVisibility = $(Dashboard.htmlBindings.filterForm_btnToggleVisibility),
+            $icon = $filterForm_btnToggleVisibility.children('span'),
+            $filterForm = $(Dashboard.htmlBindings.filterForm);
+        if ($icon.hasClass('glyphicon-eye-open')) {
+            $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
+            $filterForm.hide("slow");
+        } else {
+            $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
+            $filterForm.show("slow");
+        }
+    };
+    Dashboard.kbInit = function () {
+        /**
+         * KnockBack Related Object Initializations
+         * @returns {undefined}
+         */
+        SalesOrderForm.init();
+        VesselForm.init();
+    };
+
+    Dashboard.init = function () {
+        // KnockBack Initializations
+        Dashboard.kbInit();
+
+        Dashboard.status.itemsPerPage = $('.top-pager-itemmperpage-control button span.value').text();
+
+        // Event Handlers
+        $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',
+            Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);
+
+        $(Dashboard.htmlBindings.control_salesOrderForm_btnClose).on('click',
+            function () {
+                $(Dashboard.htmlBindings.control_salesOrderForm).hide();
+            });
+
+        $(Dashboard.htmlBindings.table_body_btnVessel).on('click',
+            Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
+
+        $(Dashboard.htmlBindings.control_vesselForm_btnClose).on('click',
+            function () {
+                $(Dashboard.htmlBindings.control_vesselForm).hide();
+            });
+
+        $(Dashboard.htmlBindings.filterForm_btnToggleVisibility).on('click',
+            Dashboard.filterForm_toggleVisibility);
+
+        $(Dashboard.htmlBindings.table_header_btnSort).on('click',
+            function (event) {
+                var $target = $(event.target),
+                    sortingField = $target.data('field'),
+                    $table = $(Dashboard.htmlBindings.table);
+
+                if (Dashboard.status.table_header_sortLastButton !== null) {
+                    Dashboard.status.table_header_sortLastButton.removeClass('asc desc');
+                }
+                if (Dashboard.status.table_header_sortField !== sortingField) {
+                    Dashboard.status.table_header_sortFieldOrder = '';
+                }
+                Dashboard.status.table_header_sortField = sortingField;
+                if (Dashboard.status.table_header_sortFieldOrder === 'ASC') {
+                    Dashboard.status.table_header_sortFieldOrder = 'DESC';
+                    $target.addClass('asc').removeClass('desc');
+                } else {
+                    Dashboard.status.table_header_sortFieldOrder = 'ASC';
+                    $target.addClass('desc').removeClass('asc');
+                }
+                Dashboard.status.table_header_sortLastButton = $target;
+                Dashboard.Page(Dashboard.DynamicFilter.FilterString,
+                    1,
+                    Dashboard.status.itemsPerPage,
+                    $table,
+                    Dashboard.status.table_header_sortField,
+                    Dashboard.status.table_header_sortFieldOrder);
+            });
+        // End Event handlers
+    };
+
+    Dashboard.init();
 }(window, jQuery));
+</script>
+
 <script>
    ;(function(App, Dandelion) {
         "use strict";
 
         // Dashboard Namespace
-        var Dashboard = Dandelion.namespace('App.Dashboard', window),
-//            SalesOrder = Dandelion.namespace('App.Dashboard.SalesOrder', window),
-            SalesOrderForm = App.Dashboard.SalesOrderForm,
-            VesselForm = App.Dashboard.VesselForm;
+        var Dashboard = Dandelion.namespace('App.Dashboard', window);
+////            SalesOrder = Dandelion.namespace('App.Dashboard.SalesOrder', window),
+//            SalesOrderForm = App.Dashboard.SalesOrderForm,
+//            VesselForm = App.Dashboard.VesselForm;
         
-        Dashboard.FilterForm = $('#filterForm');
+//        Dashboard.FilterForm = $('#filterForm');
         Dashboard.itemPerPage = $('.top-pager-itemmperpage-control button span.value').text();
-        Dashboard.TableSortLastButton = null;
+//        Dashboard.TableSortLastButton = null;
         Dashboard.TableSortField = "ordnum"; // Default Order By Fields
         Dashboard.TableSortFieldOrder = "ASC"; // Default Order
-        Dashboard.TogleFilterVisibitilyButton = $('#dashboard-panel-togle-visibility-button');
+//        Dashboard.TogleFilterVisibitilyButton = $('#dashboard-panel-togle-visibility-button');
         
-        Dashboard.TogleFilterVisibitilyCallback = function(){
-            var $button = Dashboard.TogleFilterVisibitilyButton,
-                $icon = $button.children('span'),
-                $filter = Dashboard.FilterForm;
-        
-            if ($icon.hasClass('glyphicon-eye-open')) {
-                $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
-                $filter.hide("slow");
-            }
-            else {
-                $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
-                $filter.show("slow");
-            }
-        };
-        Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
-//            var requestType = 'GET', 
-//                    params = {
-//                        salesorder: $(event.target).html(),
-//                        fromController: 'Dashboard',
-//                        fromAction: 'index',
-//                        tableSortField: Dashboard.TableSortField,
-//                        tableSortFieldOrder: Dashboard.TableSortFieldOrder,
-//                        itemPerPage: Dashboard.itemPerPage,
-//                        currentFilterId: Dashboard.DynamicFilter.currentFilterId
-//                        // TODO Load filter (Saved or not)
-//                    };
-//            if (Dandelion.navigator.isChrome()) {
-//                requestType = 'POST';
-//            }            
-//            
-//            
-//            Dandelion.mvc.redirect('SalesOrder', 'Index', params, requestType);
-
-            var salesOrder = $(event.target).html(),
-                params = {salesOrder: salesOrder};
-//            console.log(params);
-            $.post('<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>', params)
-                .done(function (response) {
-//                    console.log(response);
-                    var _response = $.parseJSON(response),
-                        modelType = _response.formType;
-//                    console.log('modelType from response: ', modelType);
-                    
-                    if (_response.success) {
-                        
-                        Dashboard.SalesOrderForm.viewModel.modelType(modelType);
-                        
-                        Dashboard.SalesOrderForm.viewModel.ordnum(_response.salesOrderObject.ordnum);
-                        Dashboard.SalesOrderForm.viewModel.date(_response.salesOrderObject.date);
-                        Dashboard.SalesOrderForm.viewModel.custno(_response.salesOrderObject.custno);
-                        Dashboard.SalesOrderForm.viewModel.projectLocation(_response.salesOrderObject.projectLocation);
-                        Dashboard.SalesOrderForm.viewModel.notes(_response.salesOrderObject.notes);                        
-                        Dashboard.SalesOrderForm.viewModel.companyName(_response.salesOrderObject.companyName);
-                        Dashboard.SalesOrderForm.viewModel.address(_response.salesOrderObject.address);
-                        Dashboard.SalesOrderForm.viewModel.city(_response.salesOrderObject.city);
-                        Dashboard.SalesOrderForm.viewModel.state(_response.salesOrderObject.state);
-                        Dashboard.SalesOrderForm.viewModel.zip(_response.salesOrderObject.zip);
-                        Dashboard.SalesOrderForm.viewModel.phone(_response.salesOrderObject.phone);
-                        Dashboard.SalesOrderForm.viewModel.subtotal(_response.salesOrderObject.subtotal);
-                        Dashboard.SalesOrderForm.viewModel.discount(_response.salesOrderObject.discount);
-                        Dashboard.SalesOrderForm.viewModel.tax(_response.salesOrderObject.tax);
-                        Dashboard.SalesOrderForm.viewModel.shipping(_response.salesOrderObject.shipping);
-                        Dashboard.SalesOrderForm.viewModel.total(_response.salesOrderObject.total);
-                        
-                        if (modelType === 'B' || modelType === 'C') {
-                            Dashboard.SalesOrderForm.viewModel.ponum(_response.salesOrderObject.ponum);
-                            Dashboard.SalesOrderForm.viewModel.company(_response.salesOrderObject.company);
-                            Dashboard.SalesOrderForm.viewModel.destino(_response.salesOrderObject.destino);
-                            Dashboard.SalesOrderForm.viewModel.prostartdt(_response.salesOrderObject.prostartdt);
-                            Dashboard.SalesOrderForm.viewModel.proenddt(_response.salesOrderObject.proenddt);
-                            Dashboard.SalesOrderForm.viewModel.sotypecode(_response.salesOrderObject.sotypecode);
-                            Dashboard.SalesOrderForm.viewModel.mtrlstatus(_response.salesOrderObject.mtrlstatus);
-                            Dashboard.SalesOrderForm.viewModel.jobstatus(_response.salesOrderObject.jobstatus);
-                            Dashboard.SalesOrderForm.viewModel.technam1(_response.salesOrderObject.technam1);
-                            Dashboard.SalesOrderForm.viewModel.technam2(_response.salesOrderObject.technam2);
-                            Dashboard.SalesOrderForm.viewModel.qutno(_response.salesOrderObject.qutno);
-                            Dashboard.SalesOrderForm.viewModel.cstctid(_response.salesOrderObject.cstctid);
-                            Dashboard.SalesOrderForm.viewModel.jobdescrip(_response.salesOrderObject.jobdescrip);
-                        }
-                        Dashboard.SalesOrderForm.viewModel.items(_response.salesOrderObject.itemsCollection);
-                    }
-                    
-                })
-                .fail(function (response) {
-//                    console.log(response);
-                });
-                
-            var containerHeight = parseInt($('.container').css('height')),
-                    salesOrderHaight = parseInt($('#salesOrder').css('height'));
-            if (containerHeight > salesOrderHaight) {
-                $('#salesOrder').css('height', containerHeight);
-            }
-            $('#salesOrder').show();
-        };
-        
-        Dashboard._ItemFieldVesselFormOnClickCallback = function(event){
-            var vesselid = $(event.target).text(),
-                //If i must to get from ordnum when vesselid are not given directly (just in case!)
-//                    ordnum = $(this).parent().parent().children('td').first().children('a').html(),
-                params = {vesselid: vesselid};
-
-            $.post('<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>', params)
-            .done(function (response) {
-                var _response = $.parseJSON(response);
-                if (_response.success) {
-                    Dashboard.VesselForm.viewModel.vesselid(_response.vesselFormObject.vesselid);
-                    Dashboard.VesselForm.viewModel.descrip(_response.vesselFormObject.descrip);
-                    Dashboard.VesselForm.viewModel.shipclass(_response.vesselFormObject.shipclass);
-                    Dashboard.VesselForm.viewModel.pentype(_response.vesselFormObject.pentype);
-                    Dashboard.VesselForm.viewModel.cementid(_response.vesselFormObject.cementid);
-                    Dashboard.VesselForm.viewModel.firecaulk(_response.vesselFormObject.firecaulk);
-                    Dashboard.VesselForm.viewModel.notes(_response.vesselFormObject.notes);
-                }
-
-            })
-            .fail(function (response) {
-//                    console.log(response);
-            });
-
-            var containerHeight = parseInt($('.container').css('height')),
-                salesOrderHaight = parseInt($('#vesselForm').css('height'));
-            if (containerHeight > salesOrderHaight) {
-                $('#vesselForm').css('height', containerHeight);
-            }
-            $('#vesselForm').show();
-        };
+//        Dashboard.TogleFilterVisibitilyCallback = function(){
+//            var $button = Dashboard.TogleFilterVisibitilyButton,
+//                $icon = $button.children('span'),
+//                $filter = Dashboard.FilterForm;
+//        
+//            if ($icon.hasClass('glyphicon-eye-open')) {
+//                $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
+//                $filter.hide("slow");
+//            }
+//            else {
+//                $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
+//                $filter.show("slow");
+//            }
+//        };
+//        Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
+////            var requestType = 'GET', 
+////                    params = {
+////                        salesorder: $(event.target).html(),
+////                        fromController: 'Dashboard',
+////                        fromAction: 'index',
+////                        tableSortField: Dashboard.TableSortField,
+////                        tableSortFieldOrder: Dashboard.TableSortFieldOrder,
+////                        itemPerPage: Dashboard.itemPerPage,
+////                        currentFilterId: Dashboard.DynamicFilter.currentFilterId
+////                        // TODO Load filter (Saved or not)
+////                    };
+////            if (Dandelion.navigator.isChrome()) {
+////                requestType = 'POST';
+////            }            
+////            
+////            
+////            Dandelion.mvc.redirect('SalesOrder', 'Index', params, requestType);
+//
+//            var salesOrder = $(event.target).html(),
+//                params = {salesOrder: salesOrder};
+////            console.log(params);
+////            $.post('<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>', params)
+////                .done(function (response) {
+//////                    console.log(response);
+////                    var _response = $.parseJSON(response),
+////                        modelType = _response.formType;
+//////                    console.log('modelType from response: ', modelType);
+////                    
+////                    if (_response.success) {
+////                        
+////                        Dashboard.SalesOrderForm.viewModel.modelType(modelType);
+////                        
+////                        Dashboard.SalesOrderForm.viewModel.ordnum(_response.salesOrderObject.ordnum);
+////                        Dashboard.SalesOrderForm.viewModel.date(_response.salesOrderObject.date);
+////                        Dashboard.SalesOrderForm.viewModel.custno(_response.salesOrderObject.custno);
+////                        Dashboard.SalesOrderForm.viewModel.projectLocation(_response.salesOrderObject.projectLocation);
+////                        Dashboard.SalesOrderForm.viewModel.notes(_response.salesOrderObject.notes);                        
+////                        Dashboard.SalesOrderForm.viewModel.companyName(_response.salesOrderObject.companyName);
+////                        Dashboard.SalesOrderForm.viewModel.address(_response.salesOrderObject.address);
+////                        Dashboard.SalesOrderForm.viewModel.city(_response.salesOrderObject.city);
+////                        Dashboard.SalesOrderForm.viewModel.state(_response.salesOrderObject.state);
+////                        Dashboard.SalesOrderForm.viewModel.zip(_response.salesOrderObject.zip);
+////                        Dashboard.SalesOrderForm.viewModel.phone(_response.salesOrderObject.phone);
+////                        Dashboard.SalesOrderForm.viewModel.subtotal(_response.salesOrderObject.subtotal);
+////                        Dashboard.SalesOrderForm.viewModel.discount(_response.salesOrderObject.discount);
+////                        Dashboard.SalesOrderForm.viewModel.tax(_response.salesOrderObject.tax);
+////                        Dashboard.SalesOrderForm.viewModel.shipping(_response.salesOrderObject.shipping);
+////                        Dashboard.SalesOrderForm.viewModel.total(_response.salesOrderObject.total);
+////                        
+////                        if (modelType === 'B' || modelType === 'C') {
+////                            Dashboard.SalesOrderForm.viewModel.ponum(_response.salesOrderObject.ponum);
+////                            Dashboard.SalesOrderForm.viewModel.company(_response.salesOrderObject.company);
+////                            Dashboard.SalesOrderForm.viewModel.destino(_response.salesOrderObject.destino);
+////                            Dashboard.SalesOrderForm.viewModel.prostartdt(_response.salesOrderObject.prostartdt);
+////                            Dashboard.SalesOrderForm.viewModel.proenddt(_response.salesOrderObject.proenddt);
+////                            Dashboard.SalesOrderForm.viewModel.sotypecode(_response.salesOrderObject.sotypecode);
+////                            Dashboard.SalesOrderForm.viewModel.mtrlstatus(_response.salesOrderObject.mtrlstatus);
+////                            Dashboard.SalesOrderForm.viewModel.jobstatus(_response.salesOrderObject.jobstatus);
+////                            Dashboard.SalesOrderForm.viewModel.technam1(_response.salesOrderObject.technam1);
+////                            Dashboard.SalesOrderForm.viewModel.technam2(_response.salesOrderObject.technam2);
+////                            Dashboard.SalesOrderForm.viewModel.qutno(_response.salesOrderObject.qutno);
+////                            Dashboard.SalesOrderForm.viewModel.cstctid(_response.salesOrderObject.cstctid);
+////                            Dashboard.SalesOrderForm.viewModel.jobdescrip(_response.salesOrderObject.jobdescrip);
+////                        }
+////                        Dashboard.SalesOrderForm.viewModel.items(_response.salesOrderObject.itemsCollection);
+////                    }
+////                    
+////                })
+////                .fail(function (response) {
+//////                    console.log(response);
+////                });
+//                
+//            var containerHeight = parseInt($('.container').css('height')),
+//                    salesOrderHaight = parseInt($('#salesOrder').css('height'));
+//            if (containerHeight > salesOrderHaight) {
+//                $('#salesOrder').css('height', containerHeight);
+//            }
+//            $('#salesOrder').show();
+//        };
+//        
+//        Dashboard._ItemFieldVesselFormOnClickCallback = function(event){
+//            var vesselid = $(event.target).text(),
+//                //If i must to get from ordnum when vesselid are not given directly (just in case!)
+////                    ordnum = $(this).parent().parent().children('td').first().children('a').html(),
+//                params = {vesselid: vesselid};
+//
+//            $.post('<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>', params)
+//            .done(function (response) {
+//                var _response = $.parseJSON(response);
+//                if (_response.success) {
+//                    Dashboard.VesselForm.viewModel.vesselid(_response.vesselFormObject.vesselid);
+//                    Dashboard.VesselForm.viewModel.descrip(_response.vesselFormObject.descrip);
+//                    Dashboard.VesselForm.viewModel.shipclass(_response.vesselFormObject.shipclass);
+//                    Dashboard.VesselForm.viewModel.pentype(_response.vesselFormObject.pentype);
+//                    Dashboard.VesselForm.viewModel.cementid(_response.vesselFormObject.cementid);
+//                    Dashboard.VesselForm.viewModel.firecaulk(_response.vesselFormObject.firecaulk);
+//                    Dashboard.VesselForm.viewModel.notes(_response.vesselFormObject.notes);
+//                }
+//
+//            })
+//            .fail(function (response) {
+////                    console.log(response);
+//            });
+//
+//            var containerHeight = parseInt($('.container').css('height')),
+//                salesOrderHaight = parseInt($('#vesselForm').css('height'));
+//            if (containerHeight > salesOrderHaight) {
+//                $('#vesselForm').css('height', containerHeight);
+//            }
+//            $('#vesselForm').show();
+//        };
         
 //        Dashboard.SalesOrder.view = $('#kb-view-salesorder')[0];
 //        Dashboard.SalesOrder.ViewModel = function (model) {
@@ -538,62 +747,62 @@
 //        }).call(this);
         
         /// Knockback Init
-        Dashboard.kbInit = function (){
-            
-//            Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
-//            Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
-//            ko.applyBindings(Dashboard.SalesOrder.viewModel, Dashboard.SalesOrder.view);
-            SalesOrderForm.init();
-            VesselForm.init();
-        };
+//        Dashboard.kbInit = function (){
+//            
+////            Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
+////            Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
+////            ko.applyBindings(Dashboard.SalesOrder.viewModel, Dashboard.SalesOrder.view);
+////            SalesOrderForm.init();
+////            VesselForm.init();
+//        };
         
-        Dashboard.Init = function(){
-            Dashboard.kbInit();
+//        Dashboard.Init = function(){
+//            Dashboard.kbInit();
 
             // SalesOrder Form entry point
-            $('.item-field a.salesorder-form-link').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
-            $('#salesOrderClose').on('click', function () {
-                $('#salesOrder').hide();
-            }); 
+//            $('.item-field a.salesorder-form-link').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
+//            $('#salesOrderClose').on('click', function () {
+//                $('#salesOrder').hide();
+//            }); 
             
             //Vessel Form entry point
-            $('.item-field a.vessel-form-link').on('click', Dashboard._ItemFieldVesselFormOnClickCallback);
+//            $('.item-field a.vessel-form-link').on('click', Dashboard._ItemFieldVesselFormOnClickCallback);
             
-            $('#vesselForm_btnClose').on('click', function () {
-                $('#vesselForm').hide();
-            });
+//            $('#vesselForm_btnClose').on('click', function () {
+//                $('#vesselForm').hide();
+//            });
             
-            Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);            
-            $('.btn-table-sort').on('click', function(){
-                
-                if (Dashboard.TableSortLastButton !== null) {
-                    Dashboard.TableSortLastButton.removeClass('asc desc');
-                }
-                if (Dashboard.TableSortField !== $(this).data('field')) {
-                    Dashboard.TableSortFieldOrder = '';
-                }
-                Dashboard.TableSortField = $(this).data('field');                
-                if(Dashboard.TableSortFieldOrder === '' ){
-                    Dashboard.TableSortFieldOrder = 'ASC';
-                    $(this).addClass('desc').removeClass('asc');
-                }
-                else if (Dashboard.TableSortFieldOrder === 'ASC'){
-                    Dashboard.TableSortFieldOrder = 'DESC';
-                    $(this).addClass('asc').removeClass('desc');
-                }
-                else{
-                    Dashboard.TableSortFieldOrder = 'ASC';
-                    
-                    $(this).addClass('desc').removeClass('asc');
-                }                
-                Dashboard.TableSortLastButton = $(this);                
-                var $table = $('#dashboardTable');
-//                var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-                Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
-            });
-        };
-        
-        Dashboard.Init();
+//            Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);            
+//            $('.btn-table-sort').on('click', function(){
+//                
+//                if (Dashboard.TableSortLastButton !== null) {
+//                    Dashboard.TableSortLastButton.removeClass('asc desc');
+//                }
+//                if (Dashboard.TableSortField !== $(this).data('field')) {
+//                    Dashboard.TableSortFieldOrder = '';
+//                }
+//                Dashboard.TableSortField = $(this).data('field');                
+//                if(Dashboard.TableSortFieldOrder === '' ){
+//                    Dashboard.TableSortFieldOrder = 'ASC';
+//                    $(this).addClass('desc').removeClass('asc');
+//                }
+//                else if (Dashboard.TableSortFieldOrder === 'ASC'){
+//                    Dashboard.TableSortFieldOrder = 'DESC';
+//                    $(this).addClass('asc').removeClass('desc');
+//                }
+//                else{
+//                    Dashboard.TableSortFieldOrder = 'ASC';
+//                    
+//                    $(this).addClass('desc').removeClass('asc');
+//                }                
+//                Dashboard.TableSortLastButton = $(this);                
+//                var $table = $('#dashboardTable');
+////                var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
+//                Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
+//            });
+//        };
+//        
+//        Dashboard.Init();
     })(window.App, window.dandelion);
 </script>
 
@@ -661,7 +870,8 @@
                             $(this).val(_values[index]);
                         });
                         Dashboard.DynamicFilter._BindLoadedControlsHandlers();
-                        Dashboard.TogleFilterVisibitilyCallback();
+//                        Dashboard.TogleFilterVisibitilyCallback();
+                        Dashboard.filterForm_toggleVisibility();
                         Dashboard.DynamicFilter._FilterCallback();
                     }
                     
@@ -1420,12 +1630,12 @@
                     var pagerItems = pager.getCurrentPagedItems();
                     Dashboard.updateDashboardTable($table, pagerItems);
                     // SalesOrder Link on click handler
-                    $('.item-field a.salesorder-form-link').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);  
+                    $('.item-field a.salesorder-form-link').on('click', Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);  
                     $('#panelHeadingItemsCount').html(pager.itemsCount);
                     $('.loading').hide();
                                           
                     //Vessel Form on click handler
-                    $('.item-field a.vessel-form-link').on('click', Dashboard._ItemFieldVesselFormOnClickCallback);
+                    $('.item-field a.vessel-form-link').on('click', Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
                 }
             });
         }
@@ -1552,12 +1762,14 @@
         var dashboard = Dashboard;
         
         Dashboard.updateDashboardTable = function($table, $data) {
+            console.log('updating table');
             var $tableBody = $table.children('tbody');
             $tableBody.html('');
             for (index in $data) {
                 $tableBody.append(Dashboard.buildDashboardItemTableRow($data[index], '', "item-field"));
             }
             bindUpdateDropdownClick();
+            
         };
 
         Dashboard.buildDashboardItemTableRow = function($dataRow, trClass, tdClass) {

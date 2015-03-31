@@ -161,7 +161,7 @@ col.col-attached-files{
    text-align: right;
 }*/
 
-#salesOrder{
+#salesOrderForm{
     display: none;    
     top:0px;
     /*width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers*/
