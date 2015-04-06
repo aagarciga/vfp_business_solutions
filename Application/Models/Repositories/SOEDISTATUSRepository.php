@@ -66,6 +66,26 @@ class SOEDISTATUSRepository extends VFPRepository implements IRepository {
         return $result;
     }
     
+    /**
+     * 
+     * @param string $id EDISTATID
+     * @return SOEDISTATUS. Null otherwise
+     */
+    public function GetMaterialStatusById($id) {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE EDISTATID = '$id' AND STATUSEDIN = 'M'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = null;
+        
+        if (count($queryResult)) {
+            $row = $queryResult[0];
+            $result = new SOEDISTATUS(trim($row->EDISTATID), trim($row->DESCRIP), trim($row->SOTYPECODE), trim($row->QBLISTID), trim($row->STATUSEDIN), trim($row->NFLG0));
+        }
+        return $result;
+    }
+    
      /**
      * @return array of all Job Status objects from SOEDISTATUS
      */
@@ -79,6 +99,28 @@ class SOEDISTATUSRepository extends VFPRepository implements IRepository {
 
         foreach ($queryResult as $row) {
             $result [] = new SOEDISTATUS(trim($row->EDISTATID), trim($row->DESCRIP), trim($row->SOTYPECODE), trim($row->QBLISTID), trim($row->STATUSEDIN), trim($row->NFLG0));
+        }
+
+        return $result;
+    }
+    
+    /**
+     * 
+     * @param type $id EDISTATID
+     * @return SOEDISTATUS. Null otherwise
+     */
+    public function GetJobStatusById($id) {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE EDISTATID = '$id' AND STATUSEDIN = 'S'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = null;
+        
+        if (count($queryResult)) {
+            $row = $queryResult[0];
+            $result = new SOEDISTATUS(trim($row->EDISTATID), trim($row->DESCRIP), trim($row->SOTYPECODE), trim($row->QBLISTID), trim($row->STATUSEDIN), trim($row->NFLG0));
+        
         }
 
         return $result;

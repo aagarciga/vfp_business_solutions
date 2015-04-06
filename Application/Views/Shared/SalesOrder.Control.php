@@ -235,7 +235,7 @@
             </div>
         </div>
         
-        <table class="table table-striped table-condensed table-hover">
+        <table class="table table-striped table-condensed table-hover" data-bind="visible: showTable()">
             <colgroup>
                 <col class="col-1">
                 <col class="col-2">

@@ -68,6 +68,8 @@ class GetSalesOrder_Post extends Action {
     }
     
     private function prepareResultB($soheadData){
+        $materialStatus = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetMaterialStatusById($soheadData->getMtrlstatus());
+        $jobStatus = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetJobStatusById($soheadData->getJobstatus());
         return array_merge($this->prepareResultA($soheadData),
                 array(
                     'ponum' => $soheadData->getPonum(),
@@ -76,8 +78,8 @@ class GetSalesOrder_Post extends Action {
                     'prostartdt' => $soheadData->getProstartdt(),
                     'proenddt' => $soheadData->getProenddt(),
                     'sotypecode' => $soheadData->getSotypecode(),
-                    'mtrlstatus' => $soheadData->getMtrlstatus(),
-                    'jobstatus' => $soheadData->getJobstatus(),
+                    'mtrlstatus' => $materialStatus->getDescrip(),
+                    'jobstatus' => $jobStatus->getDescrip(),
                     'technam1' => $soheadData->getTechnam1(),
                     'technam2' => $soheadData->getTechnam2(),
                     'qutno' => $soheadData->getQutno(),

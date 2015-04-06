@@ -201,6 +201,10 @@
         self.jobdescrip         = KnockBack.observable(model, 'jobdescrip');
 
         self.items              = KnockBack.collectionObservable(model.items);
+        
+        self.showTable = Knockout.computed(function () {
+            return self.items().length > 0;
+        });
 
         self.showControlIFBOrC = Knockout.computed(function () {
             /**
