@@ -9,6 +9,11 @@
  * Vessel Form Related MVVM Logic
  * @author Alex
  * @namespace App.Dashboard.VesselForm
+ * @param {window} global
+ * @param {jQuery} $
+ * @param {kb} KnockBack
+ * @param {ko} Knockout
+ * @param {Backbone} Backbone
  * @returns {undefined}
  * @inner JSLint Passed
  */
@@ -105,6 +110,11 @@
  * SalesOrder Form Related MVVM Logic
  * @author Alex
  * @namespace App.Dashboard.SalesOrderForm
+ * @param {window} global
+ * @param {jQuery} $
+ * @param {kb} KnockBack
+ * @param {ko} Knockout
+ * @param {Backbone} Backbone
  * @returns {undefined}
  * @inner JSLint Passed
  */
@@ -274,6 +284,8 @@
 /**
  * @author Alex
  * @namespace App.Dashboard
+ * @param {window} global
+ * @param {jQuery} $
  * @returns {undefined}
  * @inner JSLint Passed
  */
