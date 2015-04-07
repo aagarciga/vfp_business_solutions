@@ -283,6 +283,49 @@
 <script>
 /**
  * @author Alex
+ * @namespace App.Dashboard.DynamicFilter
+ * @param {window} global
+ * @param {jQuery} $
+ * @returns {undefined}
+ * @inner JSLint Passed
+ */
+(function (global, $) {
+    "use strict";
+    
+    var dandelion = global.dandelion,
+        DynamicFilter = dandelion.namespace('App.Dashboard.DynamicFilter', global);
+    
+    DynamicFilter.status = {};
+    DynamicFilter.htmlBindings = {};
+    DynamicFilter.htmlBindings.filterFieldsContainer    = '#dynamicFilter_filterFieldsContainer';
+    DynamicFilter.htmlBindings.btnToggleVisibility      = '#dynamicFilter_btnToggleVisibility';
+    DynamicFilter.functions = {};
+    DynamicFilter.eventHandlers = {};
+    DynamicFilter.eventHandlers.btnToggleVisibility_onClick = function (event) {
+        var $button = $(event.target),
+            caption = $button.html();
+        
+        if (caption === "Hide") {
+            $(DynamicFilter.htmlBindings.filterFieldsContainer).hide('slow');
+            $button.html("Show");
+        } else{
+            $(DynamicFilter.htmlBindings.filterFieldsContainer).show('slow');
+            $button.html("Hide");
+        }
+    };
+    
+    DynamicFilter.init = function () {
+        $(DynamicFilter.htmlBindings.btnToggleVisibility).on('click',
+            DynamicFilter.eventHandlers.btnToggleVisibility_onClick);
+    };
+    
+    
+}(window, jQuery))
+</script>
+
+<script>
+/**
+ * @author Alex
  * @namespace App.Dashboard
  * @param {window} global
  * @param {jQuery} $
@@ -295,7 +338,8 @@
     var dandelion       = global.dandelion,
         Dashboard       = dandelion.namespace('App.Dashboard', global),
         SalesOrderForm  = global.App.Dashboard.SalesOrderForm,
-        VesselForm      = global.App.Dashboard.VesselForm;
+        VesselForm      = global.App.Dashboard.VesselForm,
+        DynamicFilter   = global.App.Dashboard.DynamicFilter;
 
     Dashboard.status = {};
     Dashboard.status.itemsPerPage = 50; // Default items per page value
@@ -444,7 +488,7 @@
     Dashboard.init = function () {
         // KnockBack Initializations
         Dashboard.kbInit();
-
+        
         Dashboard.status.itemsPerPage = $('.top-pager-itemmperpage-control button span.value').text();
 
         // Event Handlers
@@ -496,6 +540,9 @@
                     Dashboard.status.table_header_sortFieldOrder);
             });
         // End Event handlers
+        
+        // DynamicFilter Initializations
+        DynamicFilter.init();
     };
 
     Dashboard.init();
@@ -835,7 +882,7 @@
         Dashboard.DynamicFilter.SavedFilterListItems = $('.saved-filter-list-item');
         Dashboard.DynamicFilter.SavedFilterListItemsDelete = $('#savedFilterList li .close');
         Dashboard.DynamicFilter.SaveModalWindow = $('#filterSaveModal');
-        Dashboard.DynamicFilter.FilterFields = $('#filterFormFields');
+        Dashboard.DynamicFilter.FilterFields = $('#dynamicFilter_filterFieldsContainer');
         Dashboard.DynamicFilter.Controls = {
             resetButton: $('#filterResetButton'),
             saveButton: $('#filterSaveButton'),
@@ -1149,23 +1196,23 @@
             $('.filter-field').on('click', function() {
                 var $filterField = $(this); 
                     
-                if ($('#filterFormFields').children().length > 0) {
-                    $('#filterFormFields').append(Dashboard.DynamicFilter._CreateModifier());
+                if ($('#dynamicFilter_filterFieldsContainer').children().length > 0) {
+                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateModifier());
                 }
                 else {
-                    $('#filterFormFields').append(Dashboard.DynamicFilter._CreateFirstModifier());
+                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateFirstModifier());
                 }
                 if ($filterField.data('field-type') === "text") {
-                    $('#filterFormFields').append(Dashboard.DynamicFilter._CreateTextFilter($filterField.data('field'), $filterField.text()));
+                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateTextFilter($filterField.data('field'), $filterField.text()));
                 }
                 if ($filterField.data('field-type') === "date") {
-                    $('#filterFormFields').append(Dashboard.DynamicFilter._CreateDateFilter($filterField.data('field'), $filterField.text()));
+                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDateFilter($filterField.data('field'), $filterField.text()));
                 }
                 if ($filterField.data('field-type') === "job-status") {
-                    $('#filterFormFields').append(Dashboard.DynamicFilter._CreateDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus));
+                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus));
                 }
                 if ($filterField.data('field-type') === "material-status") {
-                    $('#filterFormFields').append(Dashboard.DynamicFilter._CreateDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus));
+                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus));
                 }
                 
                 Dashboard.DynamicFilter._EnableFilterControls();

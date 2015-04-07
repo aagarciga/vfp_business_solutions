@@ -60,10 +60,11 @@
         </div>
         <div class="panel-body">
             <div id="filterForm" class="form-inline" role="form">   
-                <div id="filterFormFields">
+                <div id="dynamicFilter_filterFieldsContainer">
                     
                 </div>
                 <div  class="btn-group filter-button left">
+                    <button id="dynamicFilter_btnToggleVisibility"type="button" class="btn btn-default">Hide</button>
                     <button id="filterResetButton"type="button" class="btn btn-default disabled">Reset</button>
                     
                     <div class="btn-group">
