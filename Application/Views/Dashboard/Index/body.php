@@ -103,7 +103,7 @@
                             <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 2</a></li>
                             <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
                             <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
-                            <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="text">Cost Center</a></li>
+                            <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="dropdown" data-field-collection="costCenterDictionary">Cost Center</a></li>
                             <!--                        <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>-->
                         </ul>
                     </div>

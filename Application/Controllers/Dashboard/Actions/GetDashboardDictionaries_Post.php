@@ -27,6 +27,7 @@ class GetDashboardDictionaries_Post extends Action {
         $result['vesselDictionary'] = $this->getVesselDictionary();
         $result['jobTypeDictionary'] = $this->getJobTypeDictionary();
         $result['projectManagerDictionary'] = $this->getProjectManagerDictionary();
+        $result['costCenterDictionary'] = $this->getCostCenterDictionary();
         return json_encode($result);
     }
     
@@ -87,6 +88,18 @@ class GetDashboardDictionaries_Post extends Action {
             $current = array();
             $current['id'] = trim($row->getInspectno());
             $current['descrip'] = '('.$current['id'].') '.trim($row->getInspectnm());
+            $result[] = $current;
+        }
+        return $result;
+    }
+    
+    private function getCostCenterDictionary() {
+        $result = array();
+        $costCenterCollection = $this->controller->DatUnitOfWork->GLCSTMSTRepository->GetActives();
+        foreach ($costCenterCollection as $row){
+            $current = array();
+            $current['id'] = trim($row->getCstctid());
+            $current['descrip'] = '('.$current['id'].') '.trim($row->getDescrip());
             $result[] = $current;
         }
         return $result;
