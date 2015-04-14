@@ -97,8 +97,8 @@
                             <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
                             <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
                             <li><a href="#" class="filter-field" data-field="JobDescrip" data-field-type="text">Description</a></li>
-                            <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="dropdown" data-field-collection="MaterialStatus">Material Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="dropdown" data-field-collection="JobStatus">Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="dropdown" data-field-collection="materialStatus">Material Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="dropdown" data-field-collection="jobStatus">Status</a></li>
                             <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="text">Project Manager 1</a></li>
                             <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="text">Project Manager 2</a></li>
                             <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>

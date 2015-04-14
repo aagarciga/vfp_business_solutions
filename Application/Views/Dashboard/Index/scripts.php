@@ -640,7 +640,7 @@
         } else if (fieldType === 'date' || fieldType === 'date-single') {
             $formGroup = DynamicFilter.functions.createDateField($button.data('field'), $button.text(), isDateRanged);
         } else if (fieldType === 'dropdown') {
-            dropdownValues = global.App.Dashboard[$button.data('field-collection')];
+            dropdownValues = global.App.Dashboard.dictionaries[$button.data('field-collection')];
             $formGroup = DynamicFilter.functions.createDropdownField($button.data('field'), $button.text(), dropdownValues);
         }
         $filterFieldsContainer.append($formGroup);
@@ -650,7 +650,6 @@
             DynamicFilter.functions.enableControls();
         }
     };
-    
     DynamicFilter.eventHandlers.filterField_btnRemove_onClick = function (event) {
         var $button = $(event.target),
             $formGroup = $button.parent().parent().parent(),
@@ -786,6 +785,10 @@
     Dashboard.status.table_header_sortLastButton = null;
     Dashboard.status.table_header_sortField = 'ordnum'; // Default Order By Fields
     Dashboard.status.table_header_sortFieldOrder = 'ASC'; // Default Order
+    
+    Dashboard.dictionaries = {};
+    Dashboard.dictionaries.materialStatus = [];
+    Dashboard.dictionaries.jobStatus = [];
 
     Dashboard.htmlBindings = {};
     Dashboard.htmlBindings.container                        = '.container';
@@ -909,18 +912,25 @@
         $(Dashboard.htmlBindings.control_vesselForm).show();
     };
 
-    Dashboard.filterForm_toggleVisibility = function () {
-        var $filterForm_btnToggleVisibility = $(Dashboard.htmlBindings.filterForm_btnToggleVisibility),
-            $icon = $filterForm_btnToggleVisibility.children('span'),
-            $filterForm = $(Dashboard.htmlBindings.filterForm);
-        if ($icon.hasClass('glyphicon-eye-open')) {
-            $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
-            $filterForm.hide("slow");
-        } else {
-            $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
-            $filterForm.show("slow");
-        }
-    };
+    /**
+     * Show/Hide Dynamic Filter Form
+     * @deprecated Current user preffer to use a hide/show button like one more
+     * dynamic filter action button.
+     * @returns {undefined}
+     */
+//    Dashboard.filterForm_toggleVisibility = function () {
+//        var $filterForm_btnToggleVisibility = $(Dashboard.htmlBindings.filterForm_btnToggleVisibility),
+//            $icon = $filterForm_btnToggleVisibility.children('span'),
+//            $filterForm = $(Dashboard.htmlBindings.filterForm);
+//        if ($icon.hasClass('glyphicon-eye-open')) {
+//            $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
+//            $filterForm.hide("slow");
+//        } else {
+//            $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
+//            $filterForm.show("slow");
+//        }
+//    };
+    
     Dashboard.kbInit = function () {
         /**
          * KnockBack Related Object Initializations
@@ -935,6 +945,22 @@
         Dashboard.kbInit();
 
         Dashboard.status.itemsPerPage = $('.top-pager-itemmperpage-control button span.value').text();
+        
+        // Dashboard Dictionaries
+        $.ajax({
+            data: {},
+            url: "<?php echo $View->Href('Dashboard', 'GetDashboardDictionaries') ?>",
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function(response) {
+                var data = $.parseJSON(response);
+                console.log("Dictionaries: ", data);
+                Dashboard.dictionaries = data;
+                $('.loading').hide();
+            }    
+        });
 
         // Event Handlers
         $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',
@@ -1731,14 +1757,14 @@
 </script>
 
 <script type="text/javascript">
-    (function(window, document, $) {
-        $(document).ready(function() {
-            $('.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
-            $('.daterangepicker-single-fix').daterangepicker({singleDatePicker: true, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});    
-            bindUpdateDropdownClick();
-            
-        });
-    })(window, document, jQuery);
+//    (function(window, document, $) {
+//        $(document).ready(function() {
+//            $('.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+//            $('.daterangepicker-single-fix').daterangepicker({singleDatePicker: true, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});    
+//            bindUpdateDropdownClick();
+//            
+//        });
+//    })(window, document, jQuery);
 </script>
 
 <script>
@@ -2097,7 +2123,7 @@
                         formData.append('salesorder', dashboard.currentProject.salesorder);
                         formData.append('selectedDir', selectedDir);
                     }   
-                    console.log('sending.....');
+//                    console.log('sending.....');
                     // TODO: Refactoring in this code please.
                     var treeInstance = dashboard.filesModal.controls['jstree'].instance.jstree(true),
                     selectedDir = treeInstance.get_selected()[0],                    
@@ -2195,6 +2221,7 @@
             },
             success: function(response) {
                 var _response = $.parseJSON(response);
+                console.log(_response);
                 Dashboard.MaterialStatus = _response;
                 $('.loading').hide();
             }
