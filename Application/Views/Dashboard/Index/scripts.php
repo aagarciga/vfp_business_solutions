@@ -465,7 +465,7 @@
         for (index in options) {
             if (options.hasOwnProperty(index)) {
                 current = options[index];
-                $select.append($('<option value="' + current.edistatid + '">' + current.descrip + '</option>'));
+                $select.append($('<option value="' + current.id + '">' + current.descrip + '</option>'));
             }
         }
         return $formGroup;
@@ -2221,7 +2221,7 @@
             },
             success: function(response) {
                 var _response = $.parseJSON(response);
-                console.log(_response);
+//                console.log(_response);
                 Dashboard.MaterialStatus = _response;
                 $('.loading').hide();
             }

@@ -92,7 +92,7 @@
                             <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Sales Order</a></li>
                             <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Purchase Order</a></li>
                             <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a></li>
-                            <li><a href="#" class="filter-field" data-field="vesselid" data-field-type="text">Vessel</a></li>
+                            <li><a href="#" class="filter-field" data-field="vesselid" data-field-type="dropdown" data-field-collection="vesselDictionary">Vessel</a></li>
                             <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
                             <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
                             <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>

@@ -24,6 +24,7 @@ class GetDashboardDictionaries_Post extends Action {
         $result = array();
         $result['materialStatus'] = $this->getMaterialStatusDictionary();
         $result['jobStatus'] = $this->getJobStatusDictionary();
+        $result['vesselDictionary'] = $this->getVesselDictionary();
         return json_encode($result);
     }
     
@@ -32,7 +33,7 @@ class GetDashboardDictionaries_Post extends Action {
         $materialStatusCollection = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetMaterialStatus();
         foreach ($materialStatusCollection as $row){
             $current = array();
-            $current['edistatid'] = trim($row->getEdistatid());
+            $current['id'] = trim($row->getEdistatid());
             $current['descrip'] = trim($row->getDescrip());
             $result[] = $current;
         }
@@ -44,7 +45,19 @@ class GetDashboardDictionaries_Post extends Action {
         $jobStatusCollection = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetJobStatus();
         foreach ($jobStatusCollection as $row){
             $current = array();
-            $current['edistatid'] = trim($row->getEdistatid());
+            $current['id'] = trim($row->getEdistatid());
+            $current['descrip'] = trim($row->getDescrip());
+            $result[] = $current;
+        }
+        return $result;
+    }
+    
+    private function getVesselDictionary() {
+        $result = array();
+        $vesselCollection = $this->controller->DatUnitOfWork->SWVESSELRepository->GetAll();
+        foreach ($vesselCollection as $row){
+            $current = array();
+            $current['id'] = trim($row->getVesselid());
             $current['descrip'] = trim($row->getDescrip());
             $result[] = $current;
         }
