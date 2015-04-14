@@ -25,6 +25,7 @@ class GetDashboardDictionaries_Post extends Action {
         $result['materialStatus'] = $this->getMaterialStatusDictionary();
         $result['jobStatus'] = $this->getJobStatusDictionary();
         $result['vesselDictionary'] = $this->getVesselDictionary();
+        $result['jobTypeDictionary'] = $this->getJobTypeDictionary();
         return json_encode($result);
     }
     
@@ -58,7 +59,21 @@ class GetDashboardDictionaries_Post extends Action {
         foreach ($vesselCollection as $row){
             $current = array();
             $current['id'] = trim($row->getVesselid());
-            $current['descrip'] = trim($row->getDescrip());
+            $current['descrip'] = '('.$current['id'].') '.trim($row->getDescrip());
+            $result[] = $current;
+        }
+        return $result;
+    }
+    
+    private function getJobTypeDictionary() {
+        $result = array();
+        $jobTypeCollection = $this->controller->DatUnitOfWork->SOTYPEORDRepository->GetActives();
+        foreach ($jobTypeCollection as $row){
+            $current = array();
+            $current['id'] = trim($row->getSotypecode());
+            $formatedDescription = strtolower(trim($row->getDescrip()));
+            $formatedDescription = ucfirst($formatedDescription);
+            $current['descrip'] = '('.$current['id'].') '.$formatedDescription;
             $result[] = $current;
         }
         return $result;

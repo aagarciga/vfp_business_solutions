@@ -131,6 +131,12 @@ class DatUnitOfWork extends UnitOfWork {
      */
     public $SWVESSELRepository;
     
+    /**
+     * 
+     * @var SOTYPEORDRepository 
+     */
+    public $SOTYPEORDRepository;
+    
 
     /**
      * 
@@ -158,8 +164,7 @@ class DatUnitOfWork extends UnitOfWork {
         $this->SOEDISTATUSRepository = new Repositories\SOEDISTATUSRepository($dbDriver, Entities\SOEDISTATUS::toString(), $companySuffix);
         $this->ARCOMPRepository = new Repositories\ARCOMPRepository($dbDriver, Entities\ARCOMP::toString(), $companySuffix);
         $this->SWVESSELRepository = new Repositories\SWVESSELRepository($dbDriver, Entities\SWVESSEL::toString(), $companySuffix);
-        
-        
+        $this->SOTYPEORDRepository = new Repositories\SOTYPEORDRepository($dbDriver, Entities\SOTYPEORD::toString(), $companySuffix);
     }
 
 }
