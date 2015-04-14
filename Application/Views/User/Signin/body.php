@@ -13,7 +13,7 @@
         </div>
         
         <div class="input-group password">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
             <input name="txtPassword" type="password" class="form-control" placeholder="Password" />
         </div>
         

@@ -112,4 +112,28 @@
         child.base = parent.prototype;
         return child;
     };
+    
+    /**
+     * For each property on object apply the given callback
+     * @param {Object} object
+     * @param {Function} callback
+     * @returns {undefined}
+     */
+    js.foreachPropertyDo = function (object, callback) {
+        var property, control;
+        if (typeof object !== 'object') {
+            throw 'Object param must be an object';
+        }
+        if (typeof callback === 'function') {
+            for(property in object){
+                control = object[property];
+                if (object.hasOwnProperty(property) 
+                        && typeof control !== 'function') {
+                    callback(control);
+                }
+            }
+        } else {
+            throw 'Callback param must be a function';
+        }
+    }; 
 }(window));

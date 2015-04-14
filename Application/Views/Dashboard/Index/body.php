@@ -40,7 +40,7 @@
         <!-- Default panel contents -->
         <div class="panel-heading">Projects <span id="panelHeadingItemsCount" class="badge"><?php echo $Pager->getItemsCount(); ?> </span> 
 
-            <a href="#" id="dashboard-panel-togle-visibility-button" class="panel-togle-visibility-button pull-right" title="Show/Hide Filter"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!--<a href="#" id="dashboard-panel-togle-visibility-button" class="panel-togle-visibility-button pull-right" title="Show/Hide Filter"><span class="glyphicon glyphicon-eye-open"></span></a>-->
             
             <div class="btn-group pull-right top-pager-itemmperpage-control">               
                 <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -64,16 +64,16 @@
                     
                 </div>
                 <div  class="btn-group filter-button left">
-                    <button id="dynamicFilter_btnToggleVisibility"type="button" class="btn btn-default">Hide</button>
-                    <button id="filterResetButton"type="button" class="btn btn-default disabled">Reset</button>
+                    <button id="dynamicFilter_btnToggleVisibility"type="button" class="btn btn-default disabled">Hide</button>
+                    <button id="dynamicFilter_btnReset"type="button" class="btn btn-default disabled">Reset</button>
                     
                     <div class="btn-group">
-                        <button id="filterSaveButton" type="button" class="btn btn-success disabled">Save</button>
+                        <button id="dynamicFilter_btnSave" type="button" class="btn btn-success disabled">Save</button>
                         <?php if(count($SavedUserFilters)):?>
                         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
-                        <ul id="savedFilterList" class="dropdown-menu" role="menu">
+                        <ul id="dynamicFilter_drpSavedFilters" class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">Load Saved Filter</li>
                             <?php foreach ($SavedUserFilters as $filter): ?>
                             <li><a href="#" class="saved-filter-list-item" data-filterid="<?php echo $filter->getFilterid() ?>"><?php echo $filter->getExportid() ?></a><button type="button" class="close" aria-hidden="true">&times;</button></li>
@@ -83,7 +83,7 @@
                     </div> 
                     
                     <div class="btn-group">
-                        <button id="filterButton" type="button" class="btn btn-primary disabled">Filter</button>                    
+                        <button id="dynamicFilter_btnFilter" type="button" class="btn btn-primary disabled">Filter</button>                    
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
@@ -97,8 +97,8 @@
                             <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
                             <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
                             <li><a href="#" class="filter-field" data-field="JobDescrip" data-field-type="text">Description</a></li>
-                            <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="material-status">Material Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="job-status">Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="dropdown" data-field-collection="MaterialStatus">Material Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="dropdown" data-field-collection="JobStatus">Status</a></li>
                             <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="text">Project Manager 1</a></li>
                             <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="text">Project Manager 2</a></li>
                             <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
@@ -242,7 +242,7 @@
 </div><!-- /.modal -->
 
 
-<div class="modal modal-input fade" id="filterSaveModal">
+<div class="modal modal-input fade" id="dynamicFilter_modal_saveFilter">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -251,12 +251,12 @@
             </div>
             <div class="modal-body row">
                 <div class="form-group col-xs-12">
-                    <input type="text" class="form-control" value="" id="filterSaveModalFilterName" maxlength="20" placeholder="Filter Name" data-content="Please enter a valid filter name. Only letters and numbers are permitted and can't be empty." data-placement="top"/>
+                    <input type="text" class="form-control" value="" id="dynamicFilter_modal_txtFilterName" maxlength="20" placeholder="Filter Name" data-content="Please enter a valid filter name. Only letters and numbers are permitted and can't be empty." data-placement="top"/>
                 </div>
             </div><!-- /.modal-body -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="filterSaveModalSubmit">Save Filter</button>
+                <button type="button" class="btn btn-primary" id="dynamicFilter_modal_btnSaveFilter">Save Filter</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

@@ -81,7 +81,7 @@ ul.pagination{
     }
 }
 
-#savedFilterList li button.close{
+#dynamicFilter_drpSavedFilters li button.close{
     display: inline-block;
     position: relative;
     margin-top: -23px;

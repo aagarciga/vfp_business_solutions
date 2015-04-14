@@ -291,36 +291,476 @@
  */
 (function (global, $) {
     "use strict";
-    
+
     var dandelion = global.dandelion,
         DynamicFilter = dandelion.namespace('App.Dashboard.DynamicFilter', global);
-    
+
     DynamicFilter.status = {};
+    DynamicFilter.status.filterId = "";
+    DynamicFilter.status.predicate = "";
+    DynamicFilter.status.areControlsEnabled = false;
+
     DynamicFilter.htmlBindings = {};
-    DynamicFilter.htmlBindings.filterFieldsContainer    = '#dynamicFilter_filterFieldsContainer';
-    DynamicFilter.htmlBindings.btnToggleVisibility      = '#dynamicFilter_btnToggleVisibility';
+    DynamicFilter.htmlBindings.filterFieldsContainer           = '#dynamicFilter_filterFieldsContainer';
+    DynamicFilter.htmlBindings.filterFields_btnAdd             = '.filter-field';
+    DynamicFilter.htmlBindings.filterField_btnRemove           = '.input-group-btn button';
+    DynamicFilter.htmlBindings.controls = {};
+    DynamicFilter.htmlBindings.controls.btnToggleVisibility    = '#dynamicFilter_btnToggleVisibility';
+    DynamicFilter.htmlBindings.controls.btnReset               = '#dynamicFilter_btnReset';
+    DynamicFilter.htmlBindings.controls.btnSave                = '#dynamicFilter_btnSave';
+    DynamicFilter.htmlBindings.controls.btnFilter              = '#dynamicFilter_btnFilter';
+    DynamicFilter.htmlBindings.drpSavedFilters                 = '#dynamicFilter_drpSavedFilters';
+    DynamicFilter.htmlBindings.drpSavedFilterItems             = '.saved-filter-list-item';
+    DynamicFilter.htmlBindings.drpSavedFilterItems_btnDelete   = '#dynamicFilter_drpSavedFilters li .close';
+    DynamicFilter.htmlBindings.modalSaveFilter                 = '#dynamicFilter_modal_saveFilter';
+    DynamicFilter.htmlBindings.modalSaveFilter_txtName         = '#dynamicFilter_modal_txtFilterName';
+    DynamicFilter.htmlBindings.modalSaveFilter_btnSave         = '#dynamicFilter_modal_btnSaveFilter';
+
     DynamicFilter.functions = {};
+
+    /**
+     * Disable all filter action controls
+     * @returns {undefined}
+     */
+    DynamicFilter.functions.disableControls = function () {
+        dandelion.js.foreachPropertyDo(DynamicFilter.htmlBindings.controls,
+            function (control) {
+                $(control).addClass('disabled');
+            });
+        DynamicFilter.status.areControlsEnabled = false;
+    };
+
+    /**
+     * Enable all filter action controls
+     * @returns {undefined}
+     */
+    DynamicFilter.functions.enableControls = function () {
+        dandelion.js.foreachPropertyDo(DynamicFilter.htmlBindings.controls,
+            function (control) {
+                $(control).removeClass('disabled');
+            });
+        DynamicFilter.status.areControlsEnabled = true;
+    };
+
+    DynamicFilter.functions.reset = function (notFilter) {
+        $(DynamicFilter.htmlBindings.filterFieldsContainer).empty();
+        DynamicFilter.functions.disableControls();
+        $(DynamicFilter.htmlBindings.controls.btnFilter).next().focus();
+        if (!notFilter) {
+            DynamicFilter.functions.filter();
+        }
+    };
+
+    DynamicFilter.functions.getPredicate = function () {
+        var $filterComponents = $(DynamicFilter.htmlBindings.filterFieldsContainer).children(),
+            $currentComponent = null,
+            currentComponentValue = '',
+            $currentComponentControl = null,
+            currentComponentControlValue = '',
+            currentComponentControlFieldName = '',
+            dateRange;
+
+        DynamicFilter.status.predicate = "";
+        $filterComponents.each(function () {
+            $currentComponent = $(this);
+            if ($currentComponent.hasClass('btn-group')) {
+                currentComponentValue = $currentComponent.children('button').text();
+                DynamicFilter.status.predicate += currentComponentValue + " ";
+            } else if ($currentComponent.hasClass('form-group')) {
+                $currentComponentControl = $currentComponent.find('input, select');
+                currentComponentControlValue = $currentComponentControl.val();
+                currentComponentControlFieldName = $currentComponentControl.data('fieldname');
+                if (currentComponentControlValue === '') {
+                    DynamicFilter.status.predicate += "EMPTY(" + currentComponentControlFieldName + ") ";
+                } else if ($currentComponentControl.hasClass('daterangepicker')) {
+                    dateRange = currentComponentControlValue.split(' - ');
+                    DynamicFilter.status.predicate += "(" + currentComponentControlFieldName +
+                            " >= '" + dateRange[0] +
+                            "' AND " + currentComponentControlFieldName +
+                            " <= '" + dateRange[1] +
+                            "') ";
+                } else if ($currentComponentControl.hasClass('daterangepicker-single')) {
+                    DynamicFilter.status.predicate += currentComponentControlFieldName + " = '" + currentComponentControlValue + "' ";
+                } else {
+                    DynamicFilter.status.predicate += "LOWER(" + currentComponentControlFieldName +
+                            ") LIKE '%" + currentComponentControlValue.toLowerCase() +
+                            "%' ";
+                }
+            } else {
+                throw "Unexpected filter component. Must be an 'btn-group' or 'form-group'.";
+            }
+        });
+        return DynamicFilter.status.predicate;
+    };
+
+    DynamicFilter.functions.filter = function () {
+        global.App.Dashboard.functions.paginate(DynamicFilter.functions.getPredicate());
+    };
+    
+    DynamicFilter.functions.loadFilter = function (filterId) {
+        $.ajax({
+            data: {
+                filterid: filterId
+            },
+            url: '<?php echo $View->Href('Dashboard', 'GetSavedFilter') ?>',
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function (response) {
+                var data = $.parseJSON(response),
+                    values,
+                    $filterFields;
+                if (data.success) {
+                    values = data.expfrom.split(",");
+                    $filterFields = $(DynamicFilter.htmlBindings.filterFieldsContainer);
+                    $filterFields.append(data.expfields);
+                    $filterFields.find('select, input')
+                            .each(function (index) {
+                                $(this).val(values[index]);
+                            });
+                    DynamicFilter.functions.bindOperatorGroupsEventHandlers();
+                    DynamicFilter.functions.bindFormGroupsEnventhandlers();
+                    
+                    // Client request behavior (on filter load hide dynamic filter fields)
+                    $(DynamicFilter.htmlBindings.controls.btnToggleVisibility).click();
+                    
+                    DynamicFilter.functions.filter();
+                } else {
+                    throw "Filter not loaded";
+                }
+                $('.loading').hide();
+            }
+        });
+    };
+
+    /**
+     * 
+     * @param {Boolean} first
+     * @returns {OperationGroupHTMLTemplate}
+     */
+    DynamicFilter.functions.createOperatorGroup = function (first) {
+        var tmplFirstOperatorGroup = '<div class="btn-group"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
+            tmplOperatorGroup = '<div class="btn-group "><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">And Not</a></li><li class="divider"></li><li><a href="#">Or</a></li><li><a href="#">Or Not</a></li></ul></div>';
+        if (first === true) {
+            return $(tmplFirstOperatorGroup);
+        }
+        return $(tmplOperatorGroup);
+    };
+    DynamicFilter.functions.createTextField = function (field, caption) {
+        return $('<div class="form-group" title="' + caption +
+                '"><label class="sr-only">' + caption +
+                '</label><div class="input-group"><input type="text" class="form-control" data-fieldname="' + field +
+                '" placeholder="' + caption +
+                '"><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
+    };
+    DynamicFilter.functions.createDropdownField = function (field, caption, options) {
+        var $formGroup = $('<div class="form-group" title="' + caption +
+            '"><label class="sr-only">' + caption + '</label><div class="input-group"><select class="form-control" data-fieldname="' + field +
+            '"></select><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>'),
+            $select = $formGroup.find('select'),
+            index, current;
+
+        $select.append($('<option value="">Empty</option>'));
+        for (index in options) {
+            if (options.hasOwnProperty(index)) {
+                current = options[index];
+                $select.append($('<option value="' + current.edistatid + '">' + current.descrip + '</option>'));
+            }
+        }
+        return $formGroup;
+    };
+    DynamicFilter.functions.createDateField = function (field, caption, ranged) {
+        var daterangepickerType = ranged ? 'daterangepicker' : 'daterangepicker-single';
+        return $('<div class="form-group"><label class="sr-only">Start Date</label><div class="input-prepend input-group" title="' + caption +
+                '"><span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" class="form-control ' + daterangepickerType +
+                '" data-fieldname="' + field +
+                '" placeholder="' + caption +
+                '"><span class="input-group-btn"><button type="button" class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field"></button></span></div></div>');
+    };
+    DynamicFilter.functions.createDropdownSavedFilters = function (htmlElementId, caption) {
+        var tmpl = '<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+            tmpl += '<ul id="' + htmlElementId.slice(1) +
+                '" class="dropdown-menu" role="menu"><li role="presentation" class="dropdown-header">'+ caption +
+                '</li></ul>';
+        return $(tmpl);
+    };
+    DynamicFilter.functions.createDropdownSavedFilterItem = function (filterId, caption) {
+        var tmpl = '<li><a href="#" class="saved-filter-list-item" data-filterid="' + filterId +
+                '">' + caption + 
+                '</a><button type="button" class="close" aria-hidden="true">&times;</button></li>',
+            $control = $(tmpl);
+        $control.children('a')
+                .on('click', 
+                    DynamicFilter.eventHandlers.drpSavedFilterItem_onClick);
+                    
+        $control.find('button.close')
+                .on('click',
+                    DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
+        return $control;
+    };
+
+    DynamicFilter.functions.bindOperatorGroupEventHandler = function ($operatorGroup) {
+        $operatorGroup
+            .find('li')
+            .on('click', DynamicFilter.eventHandlers.filterOperator_onClick);
+    };
+    DynamicFilter.functions.bindOperatorGroupsEventHandlers = function () {
+        $(DynamicFilter.htmlBindings.filterFieldsContainer)
+            .find('.btn-group')
+            .each(function () {
+                DynamicFilter.functions.bindOperatorGroupEventHandler($(this));
+            });
+    };
+    DynamicFilter.functions.bindFormGroupEventHandlers = function ($formGroup) {
+        $formGroup.find(DynamicFilter.htmlBindings.filterField_btnRemove)
+            .on('click', DynamicFilter.eventHandlers.filterField_btnRemove_onClick);
+        $formGroup.find('input')
+            .on('keypress', DynamicFilter.eventHandlers.input_keyPress);
+        $formGroup.find('input.daterangepicker')
+            .daterangepicker({
+                singleDatePicker: false,
+                format: 'MM/DD/YYYY',
+                startDate: global.moment(),
+                endDate: global.moment()
+            });
+        $formGroup.find('input.daterangepicker-single')
+            .daterangepicker({
+                singleDatePicker: true,
+                format: 'MM/DD/YYYY',
+                startDate: global.moment(),
+                endDate: global.moment()
+            });
+    };
+    DynamicFilter.functions.bindFormGroupsEnventhandlers = function () {
+        $(DynamicFilter.htmlBindings.filterFieldsContainer)
+            .find('.form-group')
+            .each(function () {
+                DynamicFilter.functions.bindFormGroupEventHandlers($(this));
+            });
+    };
+
     DynamicFilter.eventHandlers = {};
+    DynamicFilter.eventHandlers.input_keyPress = function (event) {
+        if (event.keyCode === 13) {
+            DynamicFilter.functions.filter();
+        }
+    };
+    DynamicFilter.eventHandlers.btnFilter_onClick = function (event) {
+        DynamicFilter.functions.filter();
+    };
     DynamicFilter.eventHandlers.btnToggleVisibility_onClick = function (event) {
         var $button = $(event.target),
             caption = $button.html();
-        
+
         if (caption === "Hide") {
             $(DynamicFilter.htmlBindings.filterFieldsContainer).hide('slow');
             $button.html("Show");
-        } else{
+        } else {
             $(DynamicFilter.htmlBindings.filterFieldsContainer).show('slow');
             $button.html("Hide");
         }
     };
-    
-    DynamicFilter.init = function () {
-        $(DynamicFilter.htmlBindings.btnToggleVisibility).on('click',
-            DynamicFilter.eventHandlers.btnToggleVisibility_onClick);
+    DynamicFilter.eventHandlers.btnReset_onClick = function (event) {
+        DynamicFilter.functions.reset();
+    };
+    DynamicFilter.eventHandlers.btnSave_onClick = function (event) {
+        var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName);
+        $filterName.val('');
+        $filterName.popover('hide')
+                .focus()
+                .parent()
+                .removeClass('has-error');
+        $(DynamicFilter.htmlBindings.modalSaveFilter).modal('show');
+    };
+    DynamicFilter.eventHandlers.drpSavedFilterItem_onClick = function (event) {
+        var filterId = event.currentTarget.dataset['filterid'];
+        DynamicFilter.functions.reset(true);
+        DynamicFilter.functions.loadFilter(filterId);
+        DynamicFilter.functions.enableControls();
+    };
+    DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick = function (event) {
+        var $btnDelete = $(event.currentTarget),
+            $btnSavedFilter = $btnDelete.prev(),
+            filterId = $btnSavedFilter.data('filterid');
+
+        $.ajax({
+            data: {
+                filterId: filterId
+            },
+            url: '<?php echo $View->Href('Dashboard', 'DeleteFilter') ?>',
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function(response) {
+                var data = $.parseJSON(response),
+                    $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
+                
+                if($drpSavedFilters.children().length > 2){
+                    $('[data-filterid="' + data.filterid + '"]').parent().remove();
+                } else {
+                    $drpSavedFilters.prev('button').remove();
+                    $drpSavedFilters.remove();
+                }
+                $('.loading').hide();
+            }
+        });
+    };
+    DynamicFilter.eventHandlers.filterOperator_onClick = function (event) {
+        var $operator = $(event.target),
+            value = $operator.html(),
+            $operatorContainer = $operator.parent().parent(),
+            $buttonGroup = $operatorContainer.parent(),
+            $button = $buttonGroup.children(':first');
+
+        if (value === "Clear Not") {
+            value = "";
+        }
+        $button.html(value);
+        $operatorContainer.find('li.current').removeClass('current');
+        $operator.parent().addClass('current');
+        DynamicFilter.functions.filter();
+    };
+    DynamicFilter.eventHandlers.filterFields_btnAdd_onClick = function (event) {
+        var $button = $(event.target),
+            fieldType = $button.data('field-type'),
+            $filterFieldsContainer = $(DynamicFilter.htmlBindings.filterFieldsContainer),
+            isFirstField = $filterFieldsContainer.children().length === 0,
+            isDateRanged = fieldType === 'date',
+            dropdownValues = [],
+            $operandGroup = DynamicFilter.functions.createOperatorGroup(isFirstField),
+            $formGroup;
+
+        $filterFieldsContainer.append($operandGroup);
+        DynamicFilter.functions.bindOperatorGroupEventHandler($operandGroup);
+
+        if (fieldType === 'text') {
+            $formGroup = DynamicFilter.functions.createTextField($button.data('field'), $button.text());
+        } else if (fieldType === 'date' || fieldType === 'date-single') {
+            $formGroup = DynamicFilter.functions.createDateField($button.data('field'), $button.text(), isDateRanged);
+        } else if (fieldType === 'dropdown') {
+            dropdownValues = global.App.Dashboard[$button.data('field-collection')];
+            $formGroup = DynamicFilter.functions.createDropdownField($button.data('field'), $button.text(), dropdownValues);
+        }
+        $filterFieldsContainer.append($formGroup);
+        DynamicFilter.functions.bindFormGroupEventHandlers($formGroup);
+
+        if (DynamicFilter.status.areControlsEnabled !== true) {
+            DynamicFilter.functions.enableControls();
+        }
     };
     
+    DynamicFilter.eventHandlers.filterField_btnRemove_onClick = function (event) {
+        var $button = $(event.target),
+            $formGroup = $button.parent().parent().parent(),
+            $previousOperator = $formGroup.prev(),
+            $nextOperator = $formGroup.next();
+        if ($previousOperator.prev().length === 0) {
+            if ($nextOperator.length === 0) {
+                $previousOperator.remove();
+                if (DynamicFilter.status.areControlsEnabled) {
+                    DynamicFilter.functions.disableControls();
+                }
+            } else {
+                $nextOperator.remove();
+            }
+        } else {
+            $previousOperator.remove();
+        }
+        $formGroup.remove();
+        DynamicFilter.functions.filter();
+    };
+    DynamicFilter.eventHandlers.modalSaveFilter_btnSave_onClick = function (event) {
+        var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName),
+            filterName = $filterName.val(),
+            $filterContainer = $(DynamicFilter.htmlBindings.filterFieldsContainer),
+            filterHtml = $filterContainer.html(),
+            filterValues = "",
+            $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
     
-}(window, jQuery))
+        $filterContainer.find('select, input[type=text]')
+            .each(function (index) {
+                if (index === 0) {
+                    filterValues += $(this).val();
+                } else {
+                    filterValues += ", " + $(this).val() ;
+                }
+            });
+        
+        if (filterName !== "" && /\w/.test(filterName)){
+            $.ajax({
+                data: {
+                    filterName      : filterName,
+                    filterString    : DynamicFilter.functions.getPredicate(),
+                    filterHtml      : filterHtml,
+                    filterValues    : filterValues
+                },
+                url: '<?php echo $View->Href('Dashboard', 'SaveFilter') ?>',
+                type: 'post',
+                beforeSend: function() {
+                    $('.loading').show();
+                },
+                success: function (response) {
+                    var data = $.parseJSON(response),
+                        $dropdown;
+                    if($drpSavedFilters.length === 0){
+                        $dropdown = DynamicFilter.functions.createDropdownSavedFilters(DynamicFilter.htmlBindings.drpSavedFilters, "Load Saved Filter");
+                        $(DynamicFilter.htmlBindings.controls.btnSave).after($dropdown);
+                        $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
+                    }
+                    $drpSavedFilters.append(DynamicFilter.functions.createDropdownSavedFilterItem(data.filterid, filterName));
+                    $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
+                    $('.loading').hide();
+                }         
+            });
+            
+        } else {
+            $filterName.popover('show')
+                .focus()
+                .parent()
+                .addClass('has-error');
+        }
+        
+        $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
+    };
+    
+    DynamicFilter.init = function (filterId) {
+        if (filterId) {
+            DynamicFilter.status.filterId = filterId;
+            DynamicFilter.functions.reset(true);
+            DynamicFilter.functions.loadFilter(filterId);
+            DynamicFilter.functions.enableControls();
+        } else {
+            DynamicFilter.functions.disableControls();
+        }
+
+        $(DynamicFilter.htmlBindings.controls.btnFilter).on('click',
+            DynamicFilter.eventHandlers.btnFilter_onClick);
+
+        $(DynamicFilter.htmlBindings.controls.btnToggleVisibility).on('click',
+            DynamicFilter.eventHandlers.btnToggleVisibility_onClick);
+
+        $(DynamicFilter.htmlBindings.controls.btnReset).on('click',
+            DynamicFilter.eventHandlers.btnReset_onClick);
+            
+        $(DynamicFilter.htmlBindings.controls.btnSave).on('click',
+            DynamicFilter.eventHandlers.btnSave_onClick);
+            
+        $(DynamicFilter.htmlBindings.filterFields_btnAdd).on('click',
+            DynamicFilter.eventHandlers.filterFields_btnAdd_onClick);
+            
+        $(DynamicFilter.htmlBindings.modalSaveFilter_btnSave).on('click',
+            DynamicFilter.eventHandlers.modalSaveFilter_btnSave_onClick);
+            
+        $(DynamicFilter.htmlBindings.drpSavedFilterItems).on('click',
+            DynamicFilter.eventHandlers.drpSavedFilterItem_onClick);
+            
+        $(DynamicFilter.htmlBindings.drpSavedFilterItems_btnDelete).on('click',
+            DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
+    };
+
+}(window, jQuery));
 </script>
 
 <script>
@@ -359,6 +799,11 @@
     Dashboard.htmlBindings.control_salesOrderForm_btnClose  = '#salesOrderForm_btnClose';
     Dashboard.htmlBindings.control_vesselForm               = '#vesselForm';
     Dashboard.htmlBindings.control_vesselForm_btnClose      = '#vesselForm_btnClose';
+
+    Dashboard.functions = {};
+    Dashboard.functions.paginate = function (predicate) {
+        Dashboard.Page(predicate, 1, Dashboard.itemPerPage, $(Dashboard.htmlBindings.table), Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
+    };
 
     Dashboard.eventHandlers = {};
     Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick = function (event) {
@@ -488,7 +933,7 @@
     Dashboard.init = function () {
         // KnockBack Initializations
         Dashboard.kbInit();
-        
+
         Dashboard.status.itemsPerPage = $('.top-pager-itemmperpage-control button span.value').text();
 
         // Event Handlers
@@ -540,9 +985,9 @@
                     Dashboard.status.table_header_sortFieldOrder);
             });
         // End Event handlers
-        
+
         // DynamicFilter Initializations
-        DynamicFilter.init();
+        DynamicFilter.init('<?php echo $DefaultUserFilterId ?>');
     };
 
     Dashboard.init();
@@ -870,417 +1315,419 @@
 </script>
 
 <script>
-    ;(function(Dashboard) {
-        "use strict";
+//    ;(function(Dashboard) {
+//        "use strict";
+//        
+//        // DynamicFilter Namespace
+//        var DynamicFilter = {};
+//        Dashboard.DynamicFilter = DynamicFilter;
+//        Dashboard.DynamicFilter.currentFilterId = '';
+//        Dashboard.DynamicFilter.FilterString = "";
+//        Dashboard.DynamicFilter.SavedFilterList = $('#savedFilterList');
+//        Dashboard.DynamicFilter.SavedFilterListItems = $('.saved-filter-list-item');
+//        Dashboard.DynamicFilter.SavedFilterListItemsDelete = $('#savedFilterList li .close');
+//        Dashboard.DynamicFilter.SaveModalWindow = $('#filterSaveModal');
+//        Dashboard.DynamicFilter.FilterFields = $('#dynamicFilter_filterFieldsContainer');
+//        Dashboard.DynamicFilter.Controls = {
+//            resetButton: $('#dynamicFilter_btnReset'),
+//            saveButton: $('#dynamicFilter_btnSave'),
+//            filterButton: $('#dynamicFilter_btnFilter')
+//        };
+//        Dashboard.DynamicFilter.Controls.SaveModal = {
+//            filterNameInput: $('#dynamicFilter_modal_filterName___'),
+//            submit: $('#dynamicFilter_modal_saveFilter___')
+//        };
         
-        // DynamicFilter Namespace
-        var DynamicFilter = {};
-        Dashboard.DynamicFilter = DynamicFilter;
-        Dashboard.DynamicFilter.currentFilterId = '';
-        Dashboard.DynamicFilter.FilterString = "";
-        Dashboard.DynamicFilter.SavedFilterList = $('#savedFilterList');
-        Dashboard.DynamicFilter.SavedFilterListItems = $('.saved-filter-list-item');
-        Dashboard.DynamicFilter.SavedFilterListItemsDelete = $('#savedFilterList li .close');
-        Dashboard.DynamicFilter.SaveModalWindow = $('#filterSaveModal');
-        Dashboard.DynamicFilter.FilterFields = $('#dynamicFilter_filterFieldsContainer');
-        Dashboard.DynamicFilter.Controls = {
-            resetButton: $('#filterResetButton'),
-            saveButton: $('#filterSaveButton'),
-            filterButton: $('#filterButton')
-        };
-        Dashboard.DynamicFilter.Controls.SaveModal = {
-            filterNameInput: $('#filterSaveModalFilterName'),
-            submit: $('#filterSaveModalSubmit')
-        };
+//        Dashboard.DynamicFilter._DisableFilterControls = function(){
+//            
+//            Dashboard.DynamicFilter.Controls.resetButton.addClass('disabled');
+//            Dashboard.DynamicFilter.Controls.saveButton.addClass('disabled');            
+//            Dashboard.DynamicFilter.Controls.filterButton.addClass('disabled');
+//        };
+//        Dashboard.DynamicFilter._EnableFilterControls = function(){
+//            
+//            Dashboard.DynamicFilter.Controls.resetButton.removeClass('disabled');
+//            Dashboard.DynamicFilter.Controls.saveButton.removeClass('disabled');            
+//            Dashboard.DynamicFilter.Controls.filterButton.removeClass('disabled');
+//        };
         
-        Dashboard.DynamicFilter._DisableFilterControls = function(){
-            
-            Dashboard.DynamicFilter.Controls.resetButton.addClass('disabled');
-            Dashboard.DynamicFilter.Controls.saveButton.addClass('disabled');            
-            Dashboard.DynamicFilter.Controls.filterButton.addClass('disabled');
-        };
-        Dashboard.DynamicFilter._EnableFilterControls = function(){
-            
-            Dashboard.DynamicFilter.Controls.resetButton.removeClass('disabled');
-            Dashboard.DynamicFilter.Controls.saveButton.removeClass('disabled');            
-            Dashboard.DynamicFilter.Controls.filterButton.removeClass('disabled');
-        };
-        Dashboard.DynamicFilter._LoadFilterCallback = function(event){ 
-            
-            var _filterid = event.currentTarget.dataset['filterid'];
-            
-            Dashboard.DynamicFilter.Controls.resetButton.click();         
-            Dashboard.DynamicFilter._LoadFilter(_filterid);
-            Dashboard.DynamicFilter._EnableFilterControls();
-        };
+//        Dashboard.DynamicFilter._LoadFilterCallback = function(event){ 
+//            
+//            var _filterid = event.currentTarget.dataset['filterid'];
+//            
+//            Dashboard.DynamicFilter.Controls.resetButton.click();         
+//            Dashboard.DynamicFilter._LoadFilter(_filterid);
+//            Dashboard.DynamicFilter._EnableFilterControls();
+//        };
         
-        Dashboard.DynamicFilter._LoadFilter = function(filterId){
-            $.ajax({
-                data: {
-                    filterid: filterId
-                },
-                url: '<?php echo $View->Href('Dashboard', 'GetSavedFilter') ?>',
-                type: 'post',
-                beforeSend: function() {
-                    $('.loading').show();
-                },
-                success: function(response) {                    
-                    var _response = $.parseJSON(response);
-                    if(_response.success){
-                        var _values = _response.expfrom.split(",");
-                        Dashboard.DynamicFilter.FilterFields.append(_response.expfields);
-                        Dashboard.DynamicFilter.FilterFields.find('select, input').each(function(index){
-                            $(this).val(_values[index]);
-                        });
-                        Dashboard.DynamicFilter._BindLoadedControlsHandlers();
-//                        Dashboard.TogleFilterVisibitilyCallback();
-                        Dashboard.filterForm_toggleVisibility();
-                        Dashboard.DynamicFilter._FilterCallback();
-                    }
-                    
-                    $('.loading').hide();
-                }
-            });
-        };
-        Dashboard.DynamicFilter._FilterCallback = function(){
-            var predicate = "";
-            
-            Dashboard.DynamicFilter.FilterFields.children().each(function() {    
-                if ($(this).hasClass('btn-group')) {
-                    var value = $(this).children('button').text();
-                    predicate += value + " ";
-                }
-                else if ($(this).hasClass('form-group')) {
-                    var $control = $(this).find('input, select');                    
-                    if ($control.val() === "") {
-                         predicate += 'EMPTY('+$control.data('fieldname')+') ';
-                    }
-                    else if($control.hasClass('daterangepicker-single')){
-                        var range = $control.val().split(' - ');
-                        predicate += "(" + $control.data('fieldname') + " >= '" + range[0] + "' ";
-                        predicate += "And " + $control.data('fieldname') + " <= '" + range[1] + "') ";
-                    }
-                    else{
-                        predicate += "LOWER(" + $control.data('fieldname') + ") LIKE '%" + $control.val().toLowerCase() + "%' ";                       
-                    }
-                }                
-            });
-            Dashboard.DynamicFilter.FilterString = predicate;
-            
-            var $table = $('#dashboardTable');
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
-        };
-        Dashboard.DynamicFilter._ResetCallback = function(){
-            Dashboard.DynamicFilter.FilterFields.children().remove();
-            Dashboard.DynamicFilter._DisableFilterControls();
-            Dashboard.DynamicFilter._FilterCallback();
-            Dashboard.DynamicFilter.Controls.filterButton.next().focus();
-        };
-        Dashboard.DynamicFilter._DeleteFilterFieldCallback = function(event){
-            var $firstModifier = $('.btn-filter-modifier').first().parent(),
-                $formGroup = $(event.currentTarget).parents('.form-group'),
-                $previousControl = $formGroup.prev(),
-                $nextControl = $formGroup.next();
+//        Dashboard.DynamicFilter._LoadFilter = function(filterId){
+//            $.ajax({
+//                data: {
+//                    filterid: filterId
+//                },
+//                url: '<?php echo $View->Href('Dashboard', 'GetSavedFilter') ?>',
+//                type: 'post',
+//                beforeSend: function() {
+//                    $('.loading').show();
+//                },
+//                success: function(response) {                    
+//                    var _response = $.parseJSON(response);
+//                    if(_response.success){
+//                        var _values = _response.expfrom.split(",");
+//                        Dashboard.DynamicFilter.FilterFields.append(_response.expfields);
+//                        Dashboard.DynamicFilter.FilterFields.find('select, input').each(function(index){
+//                            $(this).val(_values[index]);
+//                        });
+//                        Dashboard.DynamicFilter._BindLoadedControlsHandlers();
+////                        Dashboard.TogleFilterVisibitilyCallback();
+//                        Dashboard.filterForm_toggleVisibility();
+//                        Dashboard.DynamicFilter._FilterCallback();
+//                    }
+//                    
+//                    $('.loading').hide();
+//                }
+//            });
+//        };
+//        Dashboard.DynamicFilter._FilterCallback = function(){
+//            var predicate = "";
+//            
+//            Dashboard.DynamicFilter.FilterFields.children().each(function() {    
+//                if ($(this).hasClass('btn-group')) {
+//                    var value = $(this).children('button').text();
+//                    predicate += value + " ";
+//                }
+//                else if ($(this).hasClass('form-group')) {
+//                    var $control = $(this).find('input, select');                    
+//                    if ($control.val() === "") {
+//                         predicate += 'EMPTY('+$control.data('fieldname')+') ';
+//                    }
+//                    else if($control.hasClass('daterangepicker-single')){
+//                        var range = $control.val().split(' - ');
+//                        predicate += "(" + $control.data('fieldname') + " >= '" + range[0] + "' ";
+//                        predicate += "And " + $control.data('fieldname') + " <= '" + range[1] + "') ";
+//                    }
+//                    else{
+//                        predicate += "LOWER(" + $control.data('fieldname') + ") LIKE '%" + $control.val().toLowerCase() + "%' ";                       
+//                    }
+//                }                
+//            });
+//            Dashboard.DynamicFilter.FilterString = predicate;
+//            
+//            var $table = $('#dashboardTable');
+//            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
+//        };
+//        Dashboard.DynamicFilter._ResetCallback = function(){
+//            Dashboard.DynamicFilter.FilterFields.children().remove();
+//            Dashboard.DynamicFilter._DisableFilterControls();
+//            Dashboard.DynamicFilter._FilterCallback();
+//            Dashboard.DynamicFilter.Controls.filterButton.next().focus();
+//        };
+//        Dashboard.DynamicFilter._DeleteFilterFieldCallback = function(event){
+//            var $firstModifier = $('.btn-filter-modifier').first().parent(),
+//                $formGroup = $(event.currentTarget).parents('.form-group'),
+//                $previousControl = $formGroup.prev(),
+//                $nextControl = $formGroup.next();
+//        
+//            if ($previousControl[0] === $firstModifier[0]) {
+//                if ($nextControl.length === 0) { 
+//                    // Remove Previous Control if any
+//                    $previousControl.remove();
+//                    Dashboard.DynamicFilter._DisableFilterControls();
+//                }   
+//                else{                                
+//                    $nextControl.remove();
+//                }
+//            }
+//            else{
+//                // Remove Previous Control if any
+//                $previousControl.remove();
+//            }
+//            $formGroup.remove();
+//            Dashboard.DynamicFilter._FilterCallback();
+//        };
+//        Dashboard.DynamicFilter._DeleteFilterCallback = function(event){
+//            var _filterId = $(event.currentTarget).parent().find('a').data('filterid');                
+//            $.ajax({
+//                data: {
+//                    filterId: _filterId
+//                },
+//                url: '<?php echo $View->Href('Dashboard', 'DeleteFilter') ?>',
+//                type: 'post',
+//                beforeSend: function() {
+//                    $('.loading').show();
+//                },
+//                success: function(response) {
+//                    var _response = $.parseJSON(response);
+//                    if (Dashboard.DynamicFilter.SavedFilterList.children().length > 2) {
+//                        $('[data-filterid="'+_response.filterid+'"]').parent().remove();
+//                    }else{
+//                        Dashboard.DynamicFilter.SavedFilterList.prev('button').remove();
+//                        Dashboard.DynamicFilter.SavedFilterList.remove();
+//                        Dashboard.DynamicFilter.SavedFilterList = null;
+//                    }
+//                    $('.loading').hide();
+//                }
+//            });
+//        };
+//        Dashboard.DynamicFilter._OnEnterKeyPressCallback = function(event){
+//            if(event.keyCode === 13){
+//                Dashboard.DynamicFilter._FilterCallback();                       
+//            }
+//        };
+//        Dashboard.DynamicFilter._CreateTextFilter = function(fieldName, fieldDisplayName){
+//            var $formGroup = $('<div class="form-group" title="'+fieldDisplayName+'"><label class="sr-only">'+fieldDisplayName+'</label><div class="input-group"><input type="text" class="form-control" data-fieldname="'+fieldName+'" placeholder="'+fieldDisplayName+'"><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
+//        
+//            $formGroup.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);            
+//            $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
+//            
+//            return $formGroup;        
+//        };
+//        Dashboard.DynamicFilter._CreateDropdownFilter = function(fieldName, fieldDisplayName, optionList){
+//            var $formGroup = $('<div class="form-group" title="'+fieldDisplayName+'"><label class="sr-only">'+fieldDisplayName+'</label><div class="input-group"><select class="form-control" data-fieldname="'+fieldName+'"></select><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
+//            var $select = $formGroup.find('select'); 
+//            
+//            $select.append($('<option value="">Empty</option>'));
+//            for (var index in optionList) {
+//                var _current = optionList[index];
+//                $select.append($('<option value="'+_current.edistatid+'">'+_current.descrip+'</option>'));
+//            }
+//            
+//            $select.on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);  
+//            $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
+//            
+//            return $formGroup;
+//        };
+//        Dashboard.DynamicFilter._CreateDateFilter = function(fieldName, fieldDisplayName){
+//            var $formGroup = $('<div class="form-group"><label class="sr-only">Start Date</label><div class="input-prepend input-group" title="'+fieldDisplayName+'"><span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" class="form-control daterangepicker-single" data-fieldname="'+fieldName+'" placeholder="'+fieldDisplayName+'"><span class="input-group-btn"><button type="button" class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field"></button></span></div></div>');
+//            
+//            $formGroup.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback).daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+//            $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
+//            
+//            return $formGroup; 
+//        };
+//        Dashboard.DynamicFilter._CreateFirstModifier = function(){
+//            var $buttonGroup = $('<div class="btn-group"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>');
+//            var $button = $buttonGroup.find('button').first();
+//            
+//            $buttonGroup.find('li').each(function(){
+//                var _current = $(this);
+//                
+//                _current.on('click', function(){                    
+//                    // Change Current Modifier Text
+//                    if (_current.find('a').html() === "Clear Not") {
+//                        $button.html("");
+//                    } else {
+//                        $button.html(_current.find('a').html());                        
+//                    }
+//                    // Update Current Modifier
+//                    $buttonGroup.find('li.current').removeClass('current');
+//                    _current.addClass('current');
+//                    Dashboard.DynamicFilter._FilterCallback(); 
+//                });
+//            });
+//            
+//            return $buttonGroup;
+//        };
+//        Dashboard.DynamicFilter._CreateModifier = function(){
+//            var $buttonGroup = $('<div class="btn-group "><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">And Not</a></li><li class="divider"></li><li><a href="#">Or</a></li><li><a href="#">Or Not</a></li></ul></div>');
+//            var $button = $buttonGroup.find('button').first();
+//            
+//            $buttonGroup.find('li').each(function(){
+//                var _current = $(this);
+//                
+//                _current.on('click', function(){                    
+//                    // Change Current Modifier Text
+//                    $button.html(_current.find('a').html());                        
+//                    // Update Current Modifier
+//                    $buttonGroup.find('li.current').removeClass('current');
+//                    _current.addClass('current');
+//                    Dashboard.DynamicFilter._FilterCallback(); 
+//                });
+//            });
+//            
+//            return $buttonGroup;
+//        };
         
-            if ($previousControl[0] === $firstModifier[0]) {
-                if ($nextControl.length === 0) { 
-                    // Remove Previous Control if any
-                    $previousControl.remove();
-                    Dashboard.DynamicFilter._DisableFilterControls();
-                }   
-                else{                                
-                    $nextControl.remove();
-                }
-            }
-            else{
-                // Remove Previous Control if any
-                $previousControl.remove();
-            }
-            $formGroup.remove();
-            Dashboard.DynamicFilter._FilterCallback();
-        };
-        Dashboard.DynamicFilter._DeleteFilterCallback = function(event){
-            var _filterId = $(event.currentTarget).parent().find('a').data('filterid');                
-            $.ajax({
-                data: {
-                    filterId: _filterId
-                },
-                url: '<?php echo $View->Href('Dashboard', 'DeleteFilter') ?>',
-                type: 'post',
-                beforeSend: function() {
-                    $('.loading').show();
-                },
-                success: function(response) {
-                    var _response = $.parseJSON(response);
-                    if (Dashboard.DynamicFilter.SavedFilterList.children().length > 2) {
-                        $('[data-filterid="'+_response.filterid+'"]').parent().remove();
-                    }else{
-                        Dashboard.DynamicFilter.SavedFilterList.prev('button').remove();
-                        Dashboard.DynamicFilter.SavedFilterList.remove();
-                        Dashboard.DynamicFilter.SavedFilterList = null;
-                    }
-                    $('.loading').hide();
-                }
-            });
-        };
-        Dashboard.DynamicFilter._OnEnterKeyPressCallback = function(event){
-            if(event.keyCode === 13){
-                Dashboard.DynamicFilter._FilterCallback();                       
-            }
-        };
-        Dashboard.DynamicFilter._CreateTextFilter = function(fieldName, fieldDisplayName){
-            var $formGroup = $('<div class="form-group" title="'+fieldDisplayName+'"><label class="sr-only">'+fieldDisplayName+'</label><div class="input-group"><input type="text" class="form-control" data-fieldname="'+fieldName+'" placeholder="'+fieldDisplayName+'"><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
+//        Dashboard.DynamicFilter._BindFirstModifierClick = function($modifier){
+//            var $button = $modifier.find('button').first();
+//            
+//            $modifier.find('li').each(function(){
+//                var _current = $(this);
+//                
+//                _current.on('click', function(){                    
+//                    // Change Current Modifier Text
+//                    if (_current.find('a').html() === "Clear Not") {
+//                        $button.html("");
+//                    } else {
+//                        $button.html(_current.find('a').html());                        
+//                    }                        
+//                    // Update Current Modifier
+//                    $modifier.find('li.current').removeClass('current');
+//                    _current.addClass('current');
+//                    Dashboard.DynamicFilter._FilterCallback(); 
+//                });
+//            });            
+//        };
+//        Dashboard.DynamicFilter._BindModifierClick = function($modifier){
+//            var $button = $modifier.find('button').first();
+//            
+//            $modifier.find('li').each(function(){
+//                var _current = $(this);
+//                
+//                _current.on('click', function(){                    
+//                    // Change Current Modifier Text
+//                    $button.html(_current.find('a').html());                        
+//                    // Update Current Modifier
+//                    $modifier.find('li.current').removeClass('current');
+//                    _current.addClass('current');
+//                    Dashboard.DynamicFilter._FilterCallback(); 
+//                });
+//            });            
+//        };        
+//        Dashboard.DynamicFilter._BindLoadedControlsHandlers = function(){
+//            
+//            // Bind On Enter Key Press Behavior to Inputs
+////            Dashboard.DynamicFilter.FilterFields.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);
+//            
+//            // Bind Daterangepicker control
+////            Dashboard.DynamicFilter.FilterFields.find('input.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
+//            
+//            // Bind Modifier Behavior
+////            Dashboard.DynamicFilter.FilterFields.find('.btn-group').each(function(index){
+////                var _current = $(this);
+////                if (index === 0) {
+////                    Dashboard.DynamicFilter._BindFirstModifierClick(_current);
+////                }
+////                else{
+////                    Dashboard.DynamicFilter._BindModifierClick(_current);
+////                }
+////            });
+//            
+//            //Bind Delete Filter Field On Click Behavior                       
+////            Dashboard.DynamicFilter.FilterFields.find('.input-group-btn button').each(function(){
+////                $(this).on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
+////            });
+//        };
         
-            $formGroup.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);            
-            $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
-            
-            return $formGroup;        
-        };
-        Dashboard.DynamicFilter._CreateDropdownFilter = function(fieldName, fieldDisplayName, optionList){
-            var $formGroup = $('<div class="form-group" title="'+fieldDisplayName+'"><label class="sr-only">'+fieldDisplayName+'</label><div class="input-group"><select class="form-control" data-fieldname="'+fieldName+'"></select><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
-            var $select = $formGroup.find('select'); 
-            
-            $select.append($('<option value="">Empty</option>'));
-            for (var index in optionList) {
-                var _current = optionList[index];
-                $select.append($('<option value="'+_current.edistatid+'">'+_current.descrip+'</option>'));
-            }
-            
-            $select.on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);  
-            $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
-            
-            return $formGroup;
-        };
-        Dashboard.DynamicFilter._CreateDateFilter = function(fieldName, fieldDisplayName){
-            var $formGroup = $('<div class="form-group"><label class="sr-only">Start Date</label><div class="input-prepend input-group" title="'+fieldDisplayName+'"><span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" class="form-control daterangepicker-single" data-fieldname="'+fieldName+'" placeholder="'+fieldDisplayName+'"><span class="input-group-btn"><button type="button" class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field"></button></span></div></div>');
-            
-            $formGroup.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback).daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
-            $formGroup.find('button').on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
-            
-            return $formGroup; 
-        };
-        Dashboard.DynamicFilter._CreateFirstModifier = function(){
-            var $buttonGroup = $('<div class="btn-group"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>');
-            var $button = $buttonGroup.find('button').first();
-            
-            $buttonGroup.find('li').each(function(){
-                var _current = $(this);
-                
-                _current.on('click', function(){                    
-                    // Change Current Modifier Text
-                    if (_current.find('a').html() === "Clear Not") {
-                        $button.html("");
-                    } else {
-                        $button.html(_current.find('a').html());                        
-                    }
-                    // Update Current Modifier
-                    $buttonGroup.find('li.current').removeClass('current');
-                    _current.addClass('current');
-                    Dashboard.DynamicFilter._FilterCallback(); 
-                });
-            });
-            
-            return $buttonGroup;
-        };
-        Dashboard.DynamicFilter._CreateModifier = function(){
-            var $buttonGroup = $('<div class="btn-group "><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">And Not</a></li><li class="divider"></li><li><a href="#">Or</a></li><li><a href="#">Or Not</a></li></ul></div>');
-            var $button = $buttonGroup.find('button').first();
-            
-            $buttonGroup.find('li').each(function(){
-                var _current = $(this);
-                
-                _current.on('click', function(){                    
-                    // Change Current Modifier Text
-                    $button.html(_current.find('a').html());                        
-                    // Update Current Modifier
-                    $buttonGroup.find('li.current').removeClass('current');
-                    _current.addClass('current');
-                    Dashboard.DynamicFilter._FilterCallback(); 
-                });
-            });
-            
-            return $buttonGroup;
-        };
-        
-        Dashboard.DynamicFilter._BindFirstModifierClick = function($modifier){
-            var $button = $modifier.find('button').first();
-            
-            $modifier.find('li').each(function(){
-                var _current = $(this);
-                
-                _current.on('click', function(){                    
-                    // Change Current Modifier Text
-                    if (_current.find('a').html() === "Clear Not") {
-                        $button.html("");
-                    } else {
-                        $button.html(_current.find('a').html());                        
-                    }                        
-                    // Update Current Modifier
-                    $modifier.find('li.current').removeClass('current');
-                    _current.addClass('current');
-                    Dashboard.DynamicFilter._FilterCallback(); 
-                });
-            });            
-        };
-        Dashboard.DynamicFilter._BindModifierClick = function($modifier){
-            var $button = $modifier.find('button').first();
-            
-            $modifier.find('li').each(function(){
-                var _current = $(this);
-                
-                _current.on('click', function(){                    
-                    // Change Current Modifier Text
-                    $button.html(_current.find('a').html());                        
-                    // Update Current Modifier
-                    $modifier.find('li.current').removeClass('current');
-                    _current.addClass('current');
-                    Dashboard.DynamicFilter._FilterCallback(); 
-                });
-            });            
-        };        
-        Dashboard.DynamicFilter._BindLoadedControlsHandlers = function(){
-            
-            // Bind On Enter Key Press Behavior to Inputs
-            Dashboard.DynamicFilter.FilterFields.find('input').on('keypress', Dashboard.DynamicFilter._OnEnterKeyPressCallback);
-            
-            // Bind Daterangepicker control
-            Dashboard.DynamicFilter.FilterFields.find('input.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
-            
-            // Bind Modifier Behavior
-            Dashboard.DynamicFilter.FilterFields.find('.btn-group').each(function(index){
-                var _current = $(this);
-                if (index === 0) {
-                    Dashboard.DynamicFilter._BindFirstModifierClick(_current);
-                }
-                else{
-                    Dashboard.DynamicFilter._BindModifierClick(_current);
-                }
-            });
-            
-            //Bind Delete Filter Field On Click Behavior                       
-            Dashboard.DynamicFilter.FilterFields.find('.input-group-btn button').each(function(){
-                $(this).on('click', Dashboard.DynamicFilter._DeleteFilterFieldCallback);
-            });
-        };
-        
-        Dashboard.DynamicFilter.Init = function(filterId){
-            if (filterId) {
-                Dashboard.DynamicFilter.currentFilterId = filterId;
-                Dashboard.DynamicFilter.Controls.resetButton.click();         
+//        Dashboard.DynamicFilter.Init = function(filterId){
+////            if (filterId) {
+////                Dashboard.DynamicFilter.currentFilterId = filterId;
+////                Dashboard.DynamicFilter.Controls.resetButton.click();         
+////
+////                Dashboard.DynamicFilter._LoadFilter(filterId);
+////
+////                Dashboard.DynamicFilter._EnableFilterControls();
+////            }
+//            //DynamicFilter Initialization
+//            
+//            // Dashboard.DynamicFilter.Controls Filter Button OnClick event handler
+////            Dashboard.DynamicFilter.Controls.filterButton.on('click', Dashboard.DynamicFilter._FilterCallback);
+//            
+//            // Dashboard.DynamicFilter.Controls Reset Filter Button OnClick event handler
+////            Dashboard.DynamicFilter.Controls.resetButton.on('click', Dashboard.DynamicFilter._ResetCallback);
+//            
+//            
+//            // Dashboard.DynamicFilter.Controls Save Filter Button OnClick event handler
+////            Dashboard.DynamicFilter.Controls.saveButton.on('click', function(){
+////                Dashboard.DynamicFilter.SaveModalWindow.modal();
+////            });
+//            
+//            // Saved Filter Item List OnClick event handler
+////            Dashboard.DynamicFilter.SavedFilterListItems.on('click', Dashboard.DynamicFilter._LoadFilterCallback);
+//            
+//            // Saved Filter Delete Item List OnClick Event handler
+////            Dashboard.DynamicFilter.SavedFilterListItemsDelete.on('click', Dashboard.DynamicFilter._DeleteFilterCallback);
+//            
+//            // Filter Fields OnClick event handler
+////            $('.filter-field').on('click', function() {
+////                var $filterField = $(this); 
+////                    
+//////                if ($('#dynamicFilter_filterFieldsContainer').children().length > 0) {
+//////                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateModifier());
+//////                }
+//////                else {
+//////                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateFirstModifier());
+//////                }
+//////                if ($filterField.data('field-type') === "text") {
+//////                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateTextFilter($filterField.data('field'), $filterField.text()));
+//////                }
+//////                if ($filterField.data('field-type') === "date") {
+//////                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDateFilter($filterField.data('field'), $filterField.text()));
+//////                }
+//////                if ($filterField.data('field-type') === "job-status") {
+//////                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus));
+//////                }
+//////                if ($filterField.data('field-type') === "material-status") {
+//////                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus));
+//////                }
+//////                
+//////                Dashboard.DynamicFilter._EnableFilterControls();
+////            });
+//            
+//            // Dashboard.DynamicFilter.SaveModalWindow Submit Button OnClick event handler
+////            Dashboard.DynamicFilter.Controls.SaveModal.submit.on('click', function(){
+////                var _filterName = Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.val(),
+////                    _filterFieldsHtml = Dashboard.DynamicFilter.FilterFields.html(),
+////                    _filterFieldsValues = "";
+////                
+////                // DONE
+////                Dashboard.DynamicFilter.FilterFields.find('select, input[type=text]').each(function(){
+////                    _filterFieldsValues += $(this).val()+",";
+////                });
+////                
+////                // DONE (Refactoring)
+////                // Cleaning the string (last colon removed) ;)
+////                _filterFieldsValues = _filterFieldsValues.substring(0, _filterFieldsValues.length-1);
+////                
+////                if (_filterName !== "") {
+////                    if (/\w/.test(_filterName)) {
+////                        (function($, Dashboard) {
+////                            $.ajax({
+////                                data: {
+////                                    filterName: _filterName ,
+////                                    filterString: Dashboard.DynamicFilter.FilterString,
+////                                    filterHtml: _filterFieldsHtml,
+////                                    filterValues: _filterFieldsValues
+////                                },
+////                                url: '<?php echo $View->Href('Dashboard', 'SaveFilter') ?>',
+//                                type: 'post',
+//                                beforeSend: function() {
+//                                    $('.loading').show();
+//                                },
+//                                success: function(response) {
+//                                    var _response = $.parseJSON(response);
+//                                    var $newItemList = $('<li><a href="#" class="saved-filter-list-item" data-filterid="'+_response.filterid+'">'+_filterName+'</a><button type="button" class="close" aria-hidden="true">&times;</button></li>');
+//                                    if(Dashboard.DynamicFilter.SavedFilterList === null || Dashboard.DynamicFilter.SavedFilterList.length === 0) {
+//                                        // Adding Save Dropdown markup
+//                                        var $dropControl = $('<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>');
+////                                        Dashboard.DynamicFilter.Controls.saveButton.after($dropControl);
+////                                        $dropControl.after('<ul id="savedFilterList" class="dropdown-menu" role="menu"><li role="presentation" class="dropdown-header">Load Saved Filter</li></ul>');
+////                                        Dashboard.DynamicFilter.SavedFilterList = $('#savedFilterList');
+////                                    }
+////                                    Dashboard.DynamicFilter.SavedFilterList.append($newItemList);                                
+////                                    $newItemList.find('a').on('click', Dashboard.DynamicFilter._LoadFilterCallback); 
+////                                    $newItemList.find('button.close').on('click', Dashboard.DynamicFilter._DeleteFilterCallback);
+////                                    Dashboard.DynamicFilter.SaveModalWindow.modal('hide');
+////                                    Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.val('').popover('hide').parent().removeClass('has-error');
+////                                    $('.loading').hide();
+////                                }
+////                            });
+////
+////                        })(jQuery, Dashboard);
+////                    }
+////                    else{
+////                        Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.popover('show').focus().parent().addClass('has-error');
+////                    }
+////                }
+////                else{
+////                    Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.popover('show').focus().parent().addClass('has-error');
+////                }                
+////            });
+//            
+//        };
 
-                Dashboard.DynamicFilter._LoadFilter(filterId);
-
-                Dashboard.DynamicFilter._EnableFilterControls();
-            }
-            //DynamicFilter Initialization
-            
-            // Dashboard.DynamicFilter.Controls Filter Button OnClick event handler
-            Dashboard.DynamicFilter.Controls.filterButton.on('click', Dashboard.DynamicFilter._FilterCallback);
-            
-            // Dashboard.DynamicFilter.Controls Reset Filter Button OnClick event handler
-            Dashboard.DynamicFilter.Controls.resetButton.on('click', Dashboard.DynamicFilter._ResetCallback);
-            
-            
-            // Dashboard.DynamicFilter.Controls Save Filter Button OnClick event handler
-            Dashboard.DynamicFilter.Controls.saveButton.on('click', function(){
-                Dashboard.DynamicFilter.SaveModalWindow.modal();
-            });
-            
-            // Saved Filter Item List OnClick event handler
-            Dashboard.DynamicFilter.SavedFilterListItems.on('click', Dashboard.DynamicFilter._LoadFilterCallback);
-            
-            // Saved Filter Delete Item List OnClick Event handler
-            Dashboard.DynamicFilter.SavedFilterListItemsDelete.on('click', Dashboard.DynamicFilter._DeleteFilterCallback);
-            
-            // Filter Fields OnClick event handler
-            $('.filter-field').on('click', function() {
-                var $filterField = $(this); 
-                    
-                if ($('#dynamicFilter_filterFieldsContainer').children().length > 0) {
-                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateModifier());
-                }
-                else {
-                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateFirstModifier());
-                }
-                if ($filterField.data('field-type') === "text") {
-                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateTextFilter($filterField.data('field'), $filterField.text()));
-                }
-                if ($filterField.data('field-type') === "date") {
-                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDateFilter($filterField.data('field'), $filterField.text()));
-                }
-                if ($filterField.data('field-type') === "job-status") {
-                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.JobStatus));
-                }
-                if ($filterField.data('field-type') === "material-status") {
-                    $('#dynamicFilter_filterFieldsContainer').append(Dashboard.DynamicFilter._CreateDropdownFilter($filterField.data('field'), $filterField.text(), Dashboard.MaterialStatus));
-                }
-                
-                Dashboard.DynamicFilter._EnableFilterControls();
-            });
-            
-            // Dashboard.DynamicFilter.SaveModalWindow Submit Button OnClick event handler
-            Dashboard.DynamicFilter.Controls.SaveModal.submit.on('click', function(){
-                
-                var _filterName = Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.val(),
-                    _filterFieldsHtml = Dashboard.DynamicFilter.FilterFields.html(),
-                    _filterFieldsValues = "";
-                    
-                Dashboard.DynamicFilter.FilterFields.find('select, input[type=text]').each(function(){
-                    _filterFieldsValues += $(this).val()+",";
-                });
-                
-                // Cleaning the string (last colon removed) ;)
-                _filterFieldsValues = _filterFieldsValues.substring(0, _filterFieldsValues.length-1);
-                
-                if (_filterName !== "") {
-                    if (/\w/.test(_filterName)) {
-                        (function($, Dashboard) {
-                            $.ajax({
-                                data: {
-                                    filterName: _filterName ,
-                                    filterString: Dashboard.DynamicFilter.FilterString,
-                                    filterHtml: _filterFieldsHtml,
-                                    filterValues: _filterFieldsValues
-                                },
-                                url: '<?php echo $View->Href('Dashboard', 'SaveFilter') ?>',
-                                type: 'post',
-                                beforeSend: function() {
-                                    $('.loading').show();
-                                },
-                                success: function(response) {
-                                    var _response = $.parseJSON(response);
-                                    var $newItemList = $('<li><a href="#" class="saved-filter-list-item" data-filterid="'+_response.filterid+'">'+_filterName+'</a><button type="button" class="close" aria-hidden="true">&times;</button></li>');
-                                    if(Dashboard.DynamicFilter.SavedFilterList === null || Dashboard.DynamicFilter.SavedFilterList.length === 0) {
-                                        // Adding Save Dropdown markup
-                                        var $dropControl = $('<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>');
-                                        Dashboard.DynamicFilter.Controls.saveButton.after($dropControl);
-                                        $dropControl.after('<ul id="savedFilterList" class="dropdown-menu" role="menu"><li role="presentation" class="dropdown-header">Load Saved Filter</li></ul>');
-                                        Dashboard.DynamicFilter.SavedFilterList = $('#savedFilterList');
-                                    }
-                                    Dashboard.DynamicFilter.SavedFilterList.append($newItemList);                                
-                                    $newItemList.find('a').on('click', Dashboard.DynamicFilter._LoadFilterCallback); 
-                                    $newItemList.find('button.close').on('click', Dashboard.DynamicFilter._DeleteFilterCallback);
-                                    Dashboard.DynamicFilter.SaveModalWindow.modal('hide');
-                                    Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.val('').popover('hide').parent().removeClass('has-error');
-                                    $('.loading').hide();
-                                }
-                            });
-
-                        })(jQuery, Dashboard);
-                    }
-                    else{
-                        Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.popover('show').focus().parent().addClass('has-error');
-                    }
-                }
-                else{
-                    Dashboard.DynamicFilter.Controls.SaveModal.filterNameInput.popover('show').focus().parent().addClass('has-error');
-                }                
-            });
-            
-        };
-
-        Dashboard.DynamicFilter.Init('<?php echo $DefaultUserFilterId ?>');
-    })(App.Dashboard);
+//        Dashboard.DynamicFilter.Init('<?php echo $DefaultUserFilterId ?>');
+//    })(App.Dashboard);
 </script>
 
 <script type="text/javascript">
