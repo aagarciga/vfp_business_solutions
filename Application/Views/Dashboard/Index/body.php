@@ -99,8 +99,8 @@
                             <li><a href="#" class="filter-field" data-field="JobDescrip" data-field-type="text">Description</a></li>
                             <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="dropdown" data-field-collection="materialStatus">Material Status</a></li>
                             <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="dropdown" data-field-collection="jobStatus">Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="text">Project Manager 1</a></li>
-                            <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="text">Project Manager 2</a></li>
+                            <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 1</a></li>
+                            <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 2</a></li>
                             <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
                             <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
                             <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="text">Cost Center</a></li>

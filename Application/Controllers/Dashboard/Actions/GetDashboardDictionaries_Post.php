@@ -26,6 +26,7 @@ class GetDashboardDictionaries_Post extends Action {
         $result['jobStatus'] = $this->getJobStatusDictionary();
         $result['vesselDictionary'] = $this->getVesselDictionary();
         $result['jobTypeDictionary'] = $this->getJobTypeDictionary();
+        $result['projectManagerDictionary'] = $this->getProjectManagerDictionary();
         return json_encode($result);
     }
     
@@ -74,6 +75,18 @@ class GetDashboardDictionaries_Post extends Action {
             $formatedDescription = strtolower(trim($row->getDescrip()));
             $formatedDescription = ucfirst($formatedDescription);
             $current['descrip'] = '('.$current['id'].') '.$formatedDescription;
+            $result[] = $current;
+        }
+        return $result;
+    }
+    
+    private function getProjectManagerDictionary() {
+        $result = array();
+        $projectManagerCollection = $this->controller->DatUnitOfWork->SWINSPRepository->GetActives();
+        foreach ($projectManagerCollection as $row){
+            $current = array();
+            $current['id'] = trim($row->getInspectno());
+            $current['descrip'] = '('.$current['id'].') '.trim($row->getInspectnm());
             $result[] = $current;
         }
         return $result;
