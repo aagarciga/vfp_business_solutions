@@ -97,7 +97,7 @@
      * @param {type} parent
      * @returns {Window|global.dandelion@call;namespace.extends.child|dandelion_L88.js.extends.child}
      */
-    js.extends = function (child, parent) {
+    js.augment = function (child, parent) {
         var key;
         for (key in parent) {
             if (parent.hasOwnProperty(key)) {
