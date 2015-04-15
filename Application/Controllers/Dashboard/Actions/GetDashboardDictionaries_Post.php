@@ -74,8 +74,7 @@ class GetDashboardDictionaries_Post extends Action {
             $current = array();
             $current['id'] = trim($row->getSotypecode());
             $formatedDescription = strtolower(trim($row->getDescrip()));
-            $formatedDescription = ucfirst($formatedDescription);
-            $current['descrip'] = '('.$current['id'].') '.$formatedDescription;
+            $current['descrip'] = '(' . $current['id'] . ') ' . ucfirst($formatedDescription);
             $result[] = $current;
         }
         return $result;
