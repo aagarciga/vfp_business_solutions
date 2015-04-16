@@ -16,8 +16,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-/*global Dandelion */
-
+/**
+ * 
+ * @param {window} global
+ * @returns {undefined}
+ */
 (function (global) {
     "use strict";
 
@@ -41,6 +44,41 @@
         }
         return parent;
     };
+
+    // Javascript Languaje Features Augmenting by (Javascript the good parts)
+
+    /**
+     * By augmenting Function.prototype with a method method,
+     * we no longer have to type the name of the prototype property.
+     * That bit of ugliness can now be hidden.
+     * @param {string} name
+     * @param {Function} func
+     * @returns {undefined}
+     */
+    Function.prototype.method = function (name, func) {
+        if (!this.prototype[name]) {
+            this.prototype[name] = func;
+        }
+    };
+
+    /**
+     * JavaScript lacks a method that removes spaces from the ends of a string.
+     * That is an easy oversight to fix:
+     */
+    String.method('trim', function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    });
+
+    /**
+     * When use prototypal inheritance use for calling base method (parent)
+     */
+//    Object.method('inheritanceBase', function (name) {
+//        var that = this, method = that[name];
+//        return function () {
+//            return method.apply(that, arguments);
+//        };
+//    });
+
 }(window));
 
 (function (global) {
@@ -112,7 +150,7 @@
         child.base = parent.prototype;
         return child;
     };
-    
+
     /**
      * For each property on object apply the given callback
      * @param {Object} object
@@ -125,15 +163,26 @@
             throw 'Object param must be an object';
         }
         if (typeof callback === 'function') {
-            for(property in object){
-                control = object[property];
-                if (object.hasOwnProperty(property) 
-                        && typeof control !== 'function') {
-                    callback(control);
+            for (property in object) {
+                if (object.hasOwnProperty(property)) {
+                    control = object[property];
+                    if (typeof control !== 'function') {
+                        callback(control);
+                    }
                 }
             }
         } else {
             throw 'Callback param must be a function';
         }
-    }; 
+    };
+
+    /**
+     * The safe way for ask if a value is a number. (The good parts Tip)
+     * @param {object} value
+     * @returns {Boolean}
+     */
+    js.isNumber = function (value) {
+        return typeof value === 'number' && isFinite(value);
+    };
+
 }(window));

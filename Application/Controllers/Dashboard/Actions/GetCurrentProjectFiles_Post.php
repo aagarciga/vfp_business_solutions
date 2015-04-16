@@ -37,7 +37,6 @@ class GetCurrentProjectFiles_Post extends Action {
              * And it will return Array of files' names when it is successful.
              * 
              */
-//            error_log("ALEX: HERE: Current Project Dir: ".$currentProjectDir);
             $files = scandir($currentProjectDir);
             if ($files !== false) {
                 foreach ($files as $file) {

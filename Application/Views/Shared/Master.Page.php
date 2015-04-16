@@ -34,10 +34,10 @@
     <script src="<?php echo $View->SharedScriptsContext('jquery-1.10.2.min.js'); ?>"></script>
     <!--    <script src="//code.jquery.com/jquery.js"></script>-->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.js'); ?>"></script>
+    <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.min.js'); ?>"></script>
     <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.MVC.js'); ?>"></script>
     <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/bootstrap.min.js'); ?>"></script>
-    <script src="<?php echo $View->ScriptsContext('main.js'); ?>"></script>
+    <script src="<?php echo $View->ScriptsContext('main.min.js'); ?>"></script>
     <?php $View->Partial('scripts'); ?>
   </body>
 </html>

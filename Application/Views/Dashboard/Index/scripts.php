@@ -1,9 +1,8 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
-<script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.js'); ?>"></script>
-<script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.min.js'); ?>"></script>
 <script src="<?php echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?>"></script>
-<script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.js'); ?>"></script>
-
+<script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('dashboard/dashboard.min.js'); ?>"></script>
 
 <script>
@@ -1198,7 +1197,6 @@
                 _aVesselid.appendChild(document.createTextNode($dataRow.vesselid));
                 className = tdClass;
                 appendChild(_aVesselid);
-                console.log($dataRow.vesselid);
             }
 
             with (_tdProStartDT) {

@@ -52,7 +52,6 @@ class SOTYPEORDRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
         $sqlString .= " WHERE INACTIVE = False";
-        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();

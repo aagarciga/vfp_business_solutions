@@ -25,7 +25,13 @@
     mvc = dandelion.namespace('mvc'); 
     
     mvc.redirect = function(controller, action, data, type){    
-        
+        /**
+         * Alex:
+         * Para que esto funcione para todos los navegadores es necesario que el
+         * formulario que se cree tenga un boton de submit, de lo contrario 
+         * solo trabajara para Chrome y no para Firefox. hay que probar para IE
+         */
+       
         if (!type) {
             type = 'POST';
         }
