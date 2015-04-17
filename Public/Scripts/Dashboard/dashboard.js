@@ -409,7 +409,7 @@
                     values,
                     $filterFields;
                 if (data.success) {
-                    values = data.expfrom.split(",");
+                    values = data.expfrom.split(", "); // Legacy data are saved with format value1, value2, ... valuenN
                     $filterFields = $(DynamicFilter.htmlBindings.filterFieldsContainer);
                     $filterFields.append(data.expfields);
                     $filterFields.find('select, input')
@@ -768,4 +768,36 @@
             DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
     };
 
+}(window, jQuery, App));
+
+/**
+ * @author Alex
+ * @namespace App.Dashboard
+ * @param {window} global
+ * @param {jQuery} $
+ * @param {Object} App
+ * @returns {undefined}
+ * @inner JSLint Passed
+ */
+(function (global, $, App) {
+    "use strict";
+    var dandelion       = global.dandelion,
+        Dashboard       = dandelion.namespace('App.Dashboard', global),
+        SalesOrderForm  = App.Dashboard.SalesOrderForm,
+        VesselForm      = App.Dashboard.VesselForm,
+        DynamicFilter   = App.Dashboard.DynamicFilter;
+        
+    Dashboard.status = {};
+    Dashboard.status.itemsPerPage = 50; // Default items per page value
+    Dashboard.status.table_header_sortLastButton = null;
+    Dashboard.status.table_header_sortField = 'ordnum'; // Default Order By Fields
+    Dashboard.status.table_header_sortFieldOrder = 'ASC'; // Default Order
+    
+    Dashboard.dictionaries = {};
+    Dashboard.dictionaries.materialStatus = [];
+    Dashboard.dictionaries.jobStatus = [];
+    Dashboard.dictionaries.vesselDictionary = [];
+    Dashboard.dictionaries.jobTypeDictionary = [];
+    Dashboard.dictionaries.projectManagerDictionary = [];
+    
 }(window, jQuery, App));

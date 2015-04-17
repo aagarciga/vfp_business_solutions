@@ -24,11 +24,11 @@
         VesselForm      = App.Dashboard.VesselForm,
         DynamicFilter   = App.Dashboard.DynamicFilter;
 
-    Dashboard.status = {};
-    Dashboard.status.itemsPerPage = 50; // Default items per page value
-    Dashboard.status.table_header_sortLastButton = null;
-    Dashboard.status.table_header_sortField = 'ordnum'; // Default Order By Fields
-    Dashboard.status.table_header_sortFieldOrder = 'ASC'; // Default Order
+//    Dashboard.status = {};
+//    Dashboard.status.itemsPerPage = 50; // Default items per page value
+//    Dashboard.status.table_header_sortLastButton = null;
+//    Dashboard.status.table_header_sortField = 'ordnum'; // Default Order By Fields
+//    Dashboard.status.table_header_sortFieldOrder = 'ASC'; // Default Order
     
     Dashboard.urls = {};
     Dashboard.urls.updateVesselFormNotes = "<?php echo $View->Href('Dashboard', 'UpdateVesselFormNotes') ?>";
@@ -37,12 +37,12 @@
     Dashboard.urls.deleteFilter = "<?php echo $View->Href('Dashboard', 'DeleteFilter') ?>";
     Dashboard.urls.saveFilter = "<?php echo $View->Href('Dashboard', 'SaveFilter') ?>";
     
-    Dashboard.dictionaries = {};
-    Dashboard.dictionaries.materialStatus = [];
-    Dashboard.dictionaries.jobStatus = [];
-    Dashboard.dictionaries.vesselDictionary = [];
-    Dashboard.dictionaries.jobTypeDictionary = [];
-    Dashboard.dictionaries.projectManagerDictionary = [];
+//    Dashboard.dictionaries = {};
+//    Dashboard.dictionaries.materialStatus = [];
+//    Dashboard.dictionaries.jobStatus = [];
+//    Dashboard.dictionaries.vesselDictionary = [];
+//    Dashboard.dictionaries.jobTypeDictionary = [];
+//    Dashboard.dictionaries.projectManagerDictionary = [];
 
     Dashboard.htmlBindings = {};
     Dashboard.htmlBindings.container                        = '.container';
@@ -256,12 +256,14 @@
                     $target.addClass('desc').removeClass('asc');
                 }
                 Dashboard.status.table_header_sortLastButton = $target;
-                Dashboard.Page(Dashboard.DynamicFilter.FilterString,
-                    1,
-                    Dashboard.status.itemsPerPage,
-                    $table,
-                    Dashboard.status.table_header_sortField,
-                    Dashboard.status.table_header_sortFieldOrder);
+                Dashboard.functions.paginate(Dashboard.DynamicFilter.functions.getPredicate());
+                
+//                Dashboard.Page(Dashboard.DynamicFilter.FilterString,
+//                    1,
+//                    Dashboard.status.itemsPerPage,
+//                    $table,
+//                    Dashboard.status.table_header_sortField,
+//                    Dashboard.status.table_header_sortFieldOrder);
             });
         // End Event handlers
 
