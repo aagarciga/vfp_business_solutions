@@ -23,12 +23,6 @@
         SalesOrderForm  = App.Dashboard.SalesOrderForm,
         VesselForm      = App.Dashboard.VesselForm,
         DynamicFilter   = App.Dashboard.DynamicFilter;
-
-//    Dashboard.status = {};
-//    Dashboard.status.itemsPerPage = 50; // Default items per page value
-//    Dashboard.status.table_header_sortLastButton = null;
-//    Dashboard.status.table_header_sortField = 'ordnum'; // Default Order By Fields
-//    Dashboard.status.table_header_sortFieldOrder = 'ASC'; // Default Order
     
     Dashboard.urls = {};
     Dashboard.urls.updateVesselFormNotes = "<?php echo $View->Href('Dashboard', 'UpdateVesselFormNotes') ?>";
@@ -36,263 +30,13 @@
     Dashboard.urls.getSavedFilter = "<?php echo $View->Href('Dashboard', 'GetSavedFilter') ?>";
     Dashboard.urls.deleteFilter = "<?php echo $View->Href('Dashboard', 'DeleteFilter') ?>";
     Dashboard.urls.saveFilter = "<?php echo $View->Href('Dashboard', 'SaveFilter') ?>";
-    
-//    Dashboard.dictionaries = {};
-//    Dashboard.dictionaries.materialStatus = [];
-//    Dashboard.dictionaries.jobStatus = [];
-//    Dashboard.dictionaries.vesselDictionary = [];
-//    Dashboard.dictionaries.jobTypeDictionary = [];
-//    Dashboard.dictionaries.projectManagerDictionary = [];
-
-    Dashboard.htmlBindings = {};
-    Dashboard.htmlBindings.container                        = '.container';
-    Dashboard.htmlBindings.filterForm                       = '#filterForm';
-    Dashboard.htmlBindings.filterForm_btnToggleVisibility   = '#dashboard-panel-togle-visibility-button';
-    Dashboard.htmlBindings.table                            = '#dashboardTable';
-    Dashboard.htmlBindings.table_header_btnSort             = '.btn-table-sort';
-    Dashboard.htmlBindings.table_body_btnSalesOrder         = '.item-field a.salesorder-form-link';
-    Dashboard.htmlBindings.table_body_btnVessel             = '.item-field a.vessel-form-link';
-    Dashboard.htmlBindings.control_salesOrderForm           = '#salesOrderForm';
-    Dashboard.htmlBindings.control_salesOrderForm_btnClose  = '#salesOrderForm_btnClose';
-    Dashboard.htmlBindings.control_vesselForm               = '#vesselForm';
-    Dashboard.htmlBindings.control_vesselForm_btnClose      = '#vesselForm_btnClose';
-
-    Dashboard.functions = {};
-    Dashboard.functions.paginate = function (predicate) {
-        Dashboard.Page(predicate, 1, Dashboard.itemPerPage, $(Dashboard.htmlBindings.table), Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
-    };
-
-    Dashboard.eventHandlers = {};
-    Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick = function (event) {
-        /**
-         * @param {event} event
-         * @returns {undefined}
-         */
-        var salesOrderValue = $(event.target).html(),
-            params = { salesOrder : salesOrderValue},
-            dashboardViewHeight,
-            salesOrderViewHeight;
-        $.post("<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>", params)
-            .done(function (response) {
-                response = $.parseJSON(response);
-                var modelType = response.formType,
-                    viewModel = Dashboard.SalesOrderForm.viewModel;
-
-                if (response.success) {
-                    viewModel.modelType(modelType);
-
-                    viewModel.ordnum(response.salesOrderObject.ordnum);
-                    viewModel.date(response.salesOrderObject.date);
-                    viewModel.custno(response.salesOrderObject.custno);
-                    viewModel.projectLocation(response.salesOrderObject.projectLocation);
-                    viewModel.notes(response.salesOrderObject.notes);
-                    viewModel.companyName(response.salesOrderObject.companyName);
-                    viewModel.address(response.salesOrderObject.address);
-                    viewModel.city(response.salesOrderObject.city);
-                    viewModel.state(response.salesOrderObject.state);
-                    viewModel.zip(response.salesOrderObject.zip);
-                    viewModel.phone(response.salesOrderObject.phone);
-                    viewModel.subtotal(response.salesOrderObject.subtotal);
-                    viewModel.discount(response.salesOrderObject.discount);
-                    viewModel.tax(response.salesOrderObject.tax);
-                    viewModel.shipping(response.salesOrderObject.shipping);
-                    viewModel.total(response.salesOrderObject.total);
-
-                    if (modelType === 'B' || modelType === 'C') {
-                        viewModel.ponum(response.salesOrderObject.ponum);
-                        viewModel.company(response.salesOrderObject.company);
-                        viewModel.destino(response.salesOrderObject.destino);
-                        viewModel.prostartdt(response.salesOrderObject.prostartdt);
-                        viewModel.proenddt(response.salesOrderObject.proenddt);
-                        viewModel.sotypecode(response.salesOrderObject.sotypecode);
-                        viewModel.mtrlstatus(response.salesOrderObject.mtrlstatus);
-                        viewModel.jobstatus(response.salesOrderObject.jobstatus);
-                        viewModel.technam1(response.salesOrderObject.technam1);
-                        viewModel.technam2(response.salesOrderObject.technam2);
-                        viewModel.qutno(response.salesOrderObject.qutno);
-                        viewModel.cstctid(response.salesOrderObject.cstctid);
-                        viewModel.jobdescrip(response.salesOrderObject.jobdescrip);
-                    }
-
-                    viewModel.items(response.salesOrderObject.itemsCollection);
-                }
-            })
-            .fail(function (response) {
-                console.log(response);
-            });
-        dashboardViewHeight = parseInt($(Dashboard.htmlBindings.container).css('height'), 10);
-        salesOrderViewHeight = parseInt($(Dashboard.htmlBindings.control_salesOrderForm).css('height'), 10);
-
-        if (dashboardViewHeight > salesOrderViewHeight) {
-            $(Dashboard.htmlBindings.control_salesOrderForm).css('height', dashboardViewHeight);
-        }
-        $(Dashboard.htmlBindings.control_salesOrderForm).show();
-    };
-    Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick = function (event) {
-        /**
-         * @param {event} event
-         * @returns {undefined}
-         */
-        var vesselValue = $(event.target).html(),
-            params = { vesselid : vesselValue},
-            dashboardViewHeight,
-            vesselViewHeight;
-
-        $.post("<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>", params)
-            .done(function (response) {
-                response = $.parseJSON(response);
-                var viewModel = Dashboard.VesselForm.viewModel;
-
-                if (response.success) {
-                    viewModel.vesselid(response.vesselFormObject.vesselid);
-                    viewModel.descrip(response.vesselFormObject.descrip);
-                    viewModel.shipclass(response.vesselFormObject.shipclass);
-                    viewModel.pentype(response.vesselFormObject.pentype);
-                    viewModel.cementid(response.vesselFormObject.cementid);
-                    viewModel.firecaulk(response.vesselFormObject.firecaulk);
-                    viewModel.notes(response.vesselFormObject.notes);
-                }
-            })
-            .fail(function (response) {
-                console.log(response);
-            });
-
-        dashboardViewHeight = parseInt($(Dashboard.htmlBindings.container).css('height'), 10);
-        vesselViewHeight = parseInt($(Dashboard.htmlBindings.control_vesselForm).css('height'), 10);
-
-        if (dashboardViewHeight > vesselViewHeight) {
-            $(Dashboard.htmlBindings.control_vesselForm).css('height', dashboardViewHeight);
-        }
-        $(Dashboard.htmlBindings.control_vesselForm).show();
-    };
-
-    /**
-     * Show/Hide Dynamic Filter Form
-     * @deprecated Current user preffer to use a hide/show button like one more
-     * dynamic filter action button.
-     * @returns {undefined}
-     */
-//    Dashboard.filterForm_toggleVisibility = function () {
-//        var $filterForm_btnToggleVisibility = $(Dashboard.htmlBindings.filterForm_btnToggleVisibility),
-//            $icon = $filterForm_btnToggleVisibility.children('span'),
-//            $filterForm = $(Dashboard.htmlBindings.filterForm);
-//        if ($icon.hasClass('glyphicon-eye-open')) {
-//            $icon.removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
-//            $filterForm.hide("slow");
-//        } else {
-//            $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
-//            $filterForm.show("slow");
-//        }
-//    };
-    
-    Dashboard.kbInit = function () {
-        /**
-         * KnockBack Related Object Initializations
-         * @returns {undefined}
-         */
-        SalesOrderForm.init();
-        VesselForm.init();
-    };
-
-    Dashboard.init = function (defaultUserFilter) {
-        // KnockBack Initializations
-        Dashboard.kbInit();
-
-        Dashboard.status.itemsPerPage = $('.top-pager-itemmperpage-control button span.value').text();
-        
-        // Dashboard Dictionaries
-        $.ajax({
-            data: {},
-            url: "<?php echo $View->Href('Dashboard', 'GetDashboardDictionaries') ?>",
-            type: 'post',
-            beforeSend: function() {
-                $('.loading').show();
-            },
-            success: function(response) {
-                var data = $.parseJSON(response);
-                Dashboard.dictionaries = data;
-                $('.loading').hide();
-            }    
-        });
-
-        // Event Handlers
-        $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',
-            Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);
-
-        $(Dashboard.htmlBindings.control_salesOrderForm_btnClose).on('click',
-            function () {
-                $(Dashboard.htmlBindings.control_salesOrderForm).hide();
-            });
-
-        $(Dashboard.htmlBindings.table_body_btnVessel).on('click',
-            Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
-
-        $(Dashboard.htmlBindings.control_vesselForm_btnClose).on('click',
-            function () {
-                $(Dashboard.htmlBindings.control_vesselForm).hide();
-            });
-
-        $(Dashboard.htmlBindings.filterForm_btnToggleVisibility).on('click',
-            Dashboard.filterForm_toggleVisibility);
-
-        $(Dashboard.htmlBindings.table_header_btnSort).on('click',
-            function (event) {
-                var $target = $(event.target),
-                    sortingField = $target.data('field'),
-                    $table = $(Dashboard.htmlBindings.table);
-
-                if (Dashboard.status.table_header_sortLastButton !== null) {
-                    Dashboard.status.table_header_sortLastButton.removeClass('asc desc');
-                }
-                if (Dashboard.status.table_header_sortField !== sortingField) {
-                    Dashboard.status.table_header_sortFieldOrder = '';
-                }
-                Dashboard.status.table_header_sortField = sortingField;
-                if (Dashboard.status.table_header_sortFieldOrder === 'ASC') {
-                    Dashboard.status.table_header_sortFieldOrder = 'DESC';
-                    $target.addClass('asc').removeClass('desc');
-                } else {
-                    Dashboard.status.table_header_sortFieldOrder = 'ASC';
-                    $target.addClass('desc').removeClass('asc');
-                }
-                Dashboard.status.table_header_sortLastButton = $target;
-                Dashboard.functions.paginate(Dashboard.DynamicFilter.functions.getPredicate());
-                
-//                Dashboard.Page(Dashboard.DynamicFilter.FilterString,
-//                    1,
-//                    Dashboard.status.itemsPerPage,
-//                    $table,
-//                    Dashboard.status.table_header_sortField,
-//                    Dashboard.status.table_header_sortFieldOrder);
-            });
-        // End Event handlers
-
-        // DynamicFilter Initializations
-        DynamicFilter.init(defaultUserFilter);
-    };
-
-    Dashboard.init('<?php echo $DefaultUserFilterId ?>');
-}(window, jQuery, App));
-</script>
-<!--TODO: Refactoring-->
-<script>
-   ;(function(App, Dandelion) {
-        "use strict";
-
-        // Dashboard Namespace
-        var Dashboard = Dandelion.namespace('App.Dashboard', window);
-////            SalesOrder = Dandelion.namespace('App.Dashboard.SalesOrder', window),
-//            SalesOrderForm = App.Dashboard.SalesOrderForm,
-//            VesselForm = App.Dashboard.VesselForm;
-        
-//        Dashboard.FilterForm = $('#filterForm');
-        Dashboard.itemPerPage = $('.top-pager-itemmperpage-control button span.value').text();
-//        Dashboard.TableSortLastButton = null;
-        Dashboard.TableSortField = "ordnum"; // Default Order By Fields
-        Dashboard.TableSortFieldOrder = "ASC"; // Default Order
-//        Dashboard.TogleFilterVisibitilyButton = $('#dashboard-panel-togle-visibility-button');
-        
-//        Dashboard.TogleFilterVisibitilyCallback = function(){
+    Dashboard.urls.getSalesOrder = "<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>";
+    Dashboard.urls.getVesselFormData = "<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>";
+    Dashboard.urls.getDashboardDictionaries = "<?php echo $View->Href('Dashboard', 'GetDashboardDictionaries') ?>";
+    Dashboard.urls.updateSOHEADMaterialStatus = "<?php echo $View->Href('Dashboard', 'UpdateSOHEADMaterialStatus') ?>";
+    Dashboard.urls.updateSOHEADJobStatus = "<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>";
+    Dashboard.urls.getDashboardItemsPage = "<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>";
+//    Dashboard.TogleFilterVisibitilyCallback = function(){
 //            var $button = Dashboard.TogleFilterVisibitilyButton,
 //                $icon = $button.children('span'),
 //                $filter = Dashboard.FilterForm;
@@ -306,305 +50,12 @@
 //                $filter.show("slow");
 //            }
 //        };
-//        Dashboard._ItemFieldSalesOrderOnClickCallback = function(event){
-////            var requestType = 'GET', 
-////                    params = {
-////                        salesorder: $(event.target).html(),
-////                        fromController: 'Dashboard',
-////                        fromAction: 'index',
-////                        tableSortField: Dashboard.TableSortField,
-////                        tableSortFieldOrder: Dashboard.TableSortFieldOrder,
-////                        itemPerPage: Dashboard.itemPerPage,
-////                        currentFilterId: Dashboard.DynamicFilter.currentFilterId
-////                        // TODO Load filter (Saved or not)
-////                    };
-////            if (Dandelion.navigator.isChrome()) {
-////                requestType = 'POST';
-////            }            
-////            
-////            
-////            Dandelion.mvc.redirect('SalesOrder', 'Index', params, requestType);
-//
-//            var salesOrder = $(event.target).html(),
-//                params = {salesOrder: salesOrder};
-////            console.log(params);
-////            $.post('<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>', params)
-////                .done(function (response) {
-//////                    console.log(response);
-////                    var _response = $.parseJSON(response),
-////                        modelType = _response.formType;
-//////                    console.log('modelType from response: ', modelType);
-////                    
-////                    if (_response.success) {
-////                        
-////                        Dashboard.SalesOrderForm.viewModel.modelType(modelType);
-////                        
-////                        Dashboard.SalesOrderForm.viewModel.ordnum(_response.salesOrderObject.ordnum);
-////                        Dashboard.SalesOrderForm.viewModel.date(_response.salesOrderObject.date);
-////                        Dashboard.SalesOrderForm.viewModel.custno(_response.salesOrderObject.custno);
-////                        Dashboard.SalesOrderForm.viewModel.projectLocation(_response.salesOrderObject.projectLocation);
-////                        Dashboard.SalesOrderForm.viewModel.notes(_response.salesOrderObject.notes);                        
-////                        Dashboard.SalesOrderForm.viewModel.companyName(_response.salesOrderObject.companyName);
-////                        Dashboard.SalesOrderForm.viewModel.address(_response.salesOrderObject.address);
-////                        Dashboard.SalesOrderForm.viewModel.city(_response.salesOrderObject.city);
-////                        Dashboard.SalesOrderForm.viewModel.state(_response.salesOrderObject.state);
-////                        Dashboard.SalesOrderForm.viewModel.zip(_response.salesOrderObject.zip);
-////                        Dashboard.SalesOrderForm.viewModel.phone(_response.salesOrderObject.phone);
-////                        Dashboard.SalesOrderForm.viewModel.subtotal(_response.salesOrderObject.subtotal);
-////                        Dashboard.SalesOrderForm.viewModel.discount(_response.salesOrderObject.discount);
-////                        Dashboard.SalesOrderForm.viewModel.tax(_response.salesOrderObject.tax);
-////                        Dashboard.SalesOrderForm.viewModel.shipping(_response.salesOrderObject.shipping);
-////                        Dashboard.SalesOrderForm.viewModel.total(_response.salesOrderObject.total);
-////                        
-////                        if (modelType === 'B' || modelType === 'C') {
-////                            Dashboard.SalesOrderForm.viewModel.ponum(_response.salesOrderObject.ponum);
-////                            Dashboard.SalesOrderForm.viewModel.company(_response.salesOrderObject.company);
-////                            Dashboard.SalesOrderForm.viewModel.destino(_response.salesOrderObject.destino);
-////                            Dashboard.SalesOrderForm.viewModel.prostartdt(_response.salesOrderObject.prostartdt);
-////                            Dashboard.SalesOrderForm.viewModel.proenddt(_response.salesOrderObject.proenddt);
-////                            Dashboard.SalesOrderForm.viewModel.sotypecode(_response.salesOrderObject.sotypecode);
-////                            Dashboard.SalesOrderForm.viewModel.mtrlstatus(_response.salesOrderObject.mtrlstatus);
-////                            Dashboard.SalesOrderForm.viewModel.jobstatus(_response.salesOrderObject.jobstatus);
-////                            Dashboard.SalesOrderForm.viewModel.technam1(_response.salesOrderObject.technam1);
-////                            Dashboard.SalesOrderForm.viewModel.technam2(_response.salesOrderObject.technam2);
-////                            Dashboard.SalesOrderForm.viewModel.qutno(_response.salesOrderObject.qutno);
-////                            Dashboard.SalesOrderForm.viewModel.cstctid(_response.salesOrderObject.cstctid);
-////                            Dashboard.SalesOrderForm.viewModel.jobdescrip(_response.salesOrderObject.jobdescrip);
-////                        }
-////                        Dashboard.SalesOrderForm.viewModel.items(_response.salesOrderObject.itemsCollection);
-////                    }
-////                    
-////                })
-////                .fail(function (response) {
-//////                    console.log(response);
-////                });
-//                
-//            var containerHeight = parseInt($('.container').css('height')),
-//                    salesOrderHaight = parseInt($('#salesOrder').css('height'));
-//            if (containerHeight > salesOrderHaight) {
-//                $('#salesOrder').css('height', containerHeight);
-//            }
-//            $('#salesOrder').show();
-//        };
-//        
-//        Dashboard._ItemFieldVesselFormOnClickCallback = function(event){
-//            var vesselid = $(event.target).text(),
-//                //If i must to get from ordnum when vesselid are not given directly (just in case!)
-////                    ordnum = $(this).parent().parent().children('td').first().children('a').html(),
-//                params = {vesselid: vesselid};
-//
-//            $.post('<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>', params)
-//            .done(function (response) {
-//                var _response = $.parseJSON(response);
-//                if (_response.success) {
-//                    Dashboard.VesselForm.viewModel.vesselid(_response.vesselFormObject.vesselid);
-//                    Dashboard.VesselForm.viewModel.descrip(_response.vesselFormObject.descrip);
-//                    Dashboard.VesselForm.viewModel.shipclass(_response.vesselFormObject.shipclass);
-//                    Dashboard.VesselForm.viewModel.pentype(_response.vesselFormObject.pentype);
-//                    Dashboard.VesselForm.viewModel.cementid(_response.vesselFormObject.cementid);
-//                    Dashboard.VesselForm.viewModel.firecaulk(_response.vesselFormObject.firecaulk);
-//                    Dashboard.VesselForm.viewModel.notes(_response.vesselFormObject.notes);
-//                }
-//
-//            })
-//            .fail(function (response) {
-////                    console.log(response);
-//            });
-//
-//            var containerHeight = parseInt($('.container').css('height')),
-//                salesOrderHaight = parseInt($('#vesselForm').css('height'));
-//            if (containerHeight > salesOrderHaight) {
-//                $('#vesselForm').css('height', containerHeight);
-//            }
-//            $('#vesselForm').show();
-//        };
-        
-//        Dashboard.SalesOrder.view = $('#kb-view-salesorder')[0];
-//        Dashboard.SalesOrder.ViewModel = function (model) {
-//            var self = this;
-//            this.modelType          = kb.observable(model, 'modelType');
-//            
-//            this.ordnum             = kb.observable(model, 'ordnum');
-//            this.date               = kb.observable(model, 'date');
-//            this.custno             = kb.observable(model, 'custno');
-//            this.projectLocation    = kb.observable(model, 'projectLocation');
-//            this.notes              = kb.observable(model, 'notes');
-//            this.companyName        = kb.observable(model, 'companyName');
-//            this.address            = kb.observable(model, 'address');
-//            this.city               = kb.observable(model, 'city');
-//            this.state              = kb.observable(model, 'state');
-//            this.zip                = kb.observable(model, 'zip');
-//            this.phone              = kb.observable(model, 'phone');
-//            this.subtotal           = kb.observable(model, 'subtotal');
-//            this.discount           = kb.observable(model, 'discount');
-//            this.tax                = kb.observable(model, 'tax');
-//            this.shipping           = kb.observable(model, 'shipping');
-//            this.total              = kb.observable(model, 'total');    
-//            
-//            // Related to B and C
-//            this.ponum              = kb.observable(model, 'ponum');
-//            this.company            = kb.observable(model, 'company');            
-//            this.destino            = kb.observable(model, 'destino');
-//            this.prostartdt         = kb.observable(model, 'prostartdt');
-//            this.proenddt           = kb.observable(model, 'proenddt');
-//            this.sotypecode         = kb.observable(model, 'sotypecode');
-//            this.mtrlstatus         = kb.observable(model, 'mtrlstatus');
-//            this.jobstatus          = kb.observable(model, 'jobstatus');
-//            this.technam1           = kb.observable(model, 'technam1');
-//            this.technam2           = kb.observable(model, 'technam2');
-//            this.qutno              = kb.observable(model, 'qutno');
-//            this.cstctid            = kb.observable(model, 'cstctid');
-//            this.jobdescrip         = kb.observable(model, 'jobdescrip');
-//            
-//            this.items              = kb.collectionObservable(model.items);
-//            
-//            this.onShowNotesModal = function (view_model, event){
-//                $('#notesSaveModal').modal();
-//                return view_model;
-//            };            
-//            this.onSaveNotesModal = function (view_model, event){
-//                $.post('<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>', {ordnum: view_model.ordnum(), notes: view_model.notes()})
-//                .done(function (response){
-//                    $('#notesSaveModal').modal('hide');
-//                })
-//                .fail(function (response){
-//                    console.log(response);
-//                });              
-//                return view_model;
-//            };
-//            this.showControlIFBOrC = ko.computed(function () {
-//                return self.modelType() === 'B' || self.modelType() === 'C';
-//            });
-//            this.showControlIfNotC = ko.computed(function () {
-//                return !(self.modelType() === 'C');
-//            });
-//         };
-        
-        /// AMODEL 
-//        (function() {
-//            var _ref,
-//              Dashboard = window.App.Dashboard,
-//              __hasProp = {}.hasOwnProperty,
-//              __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-//            
-//            Dashboard.SalesOrder.AModel = (function(_super) {
-//            __extends(AModel, _super);
-//
-//            function AModel() {
-//              _ref = AModel.__super__.constructor.apply(this, arguments);
-//              return _ref;
-//            }
-//              
-//            AModel.prototype.ordnum = "";
-//            AModel.prototype.date = "";
-//            AModel.prototype.custno = "";
-//            AModel.prototype.projectLocation = "";
-//            AModel.prototype.notes = "";
-//            AModel.prototype.companyName = "";
-//            AModel.prototype.address = "";
-//            AModel.prototype.city = "";
-//            AModel.prototype.state = "";
-//            AModel.prototype.zip = "";
-//            AModel.prototype.phone = "";
-//            AModel.prototype.subtotal = "";
-//            AModel.prototype.discount = "";
-//            AModel.prototype.tax = "";
-//            AModel.prototype.shipping = "";
-//            AModel.prototype.total = "";
-//            
-//            AModel.prototype.items = new Backbone.Collection([]);
-//            AModel.prototype.modelType = "";
-//            
-//            AModel.prototype.ponum = "";
-//            AModel.prototype.company = "";
-//            AModel.prototype.destino = "";
-//            AModel.prototype.prostartdt = "";
-//            AModel.prototype.proenddt = "";
-//            AModel.prototype.sotypecode = "";
-//            AModel.prototype.mtrlstatus = "";
-//            AModel.prototype.jobstatus = "";
-//            AModel.prototype.technam1 = "";
-//            AModel.prototype.technam2 = "";
-//            AModel.prototype.qutno = "";
-//            AModel.prototype.cstctid = "";
-//            AModel.prototype.jobdescrip = "";
-//
-//            return AModel;
-//
-//            })(Backbone.Model);
-//
-//        }).call(this);
-        
-        /// Knockback Init
-//        Dashboard.kbInit = function (){
-//            
-////            Dashboard.SalesOrder.model = new Dashboard.SalesOrder.AModel();
-////            Dashboard.SalesOrder.viewModel = new Dashboard.SalesOrder.ViewModel(Dashboard.SalesOrder.model);
-////            ko.applyBindings(Dashboard.SalesOrder.viewModel, Dashboard.SalesOrder.view);
-////            SalesOrderForm.init();
-////            VesselForm.init();
-//        };
-        
-//        Dashboard.Init = function(){
-//            Dashboard.kbInit();
 
-            // SalesOrder Form entry point
-//            $('.item-field a.salesorder-form-link').on('click', Dashboard._ItemFieldSalesOrderOnClickCallback);            
-//            $('#salesOrderClose').on('click', function () {
-//                $('#salesOrder').hide();
-//            }); 
-            
-            //Vessel Form entry point
-//            $('.item-field a.vessel-form-link').on('click', Dashboard._ItemFieldVesselFormOnClickCallback);
-            
-//            $('#vesselForm_btnClose').on('click', function () {
-//                $('#vesselForm').hide();
-//            });
-            
-//            Dashboard.TogleFilterVisibitilyButton.on('click', Dashboard.TogleFilterVisibitilyCallback);            
-//            $('.btn-table-sort').on('click', function(){
-//                
-//                if (Dashboard.TableSortLastButton !== null) {
-//                    Dashboard.TableSortLastButton.removeClass('asc desc');
-//                }
-//                if (Dashboard.TableSortField !== $(this).data('field')) {
-//                    Dashboard.TableSortFieldOrder = '';
-//                }
-//                Dashboard.TableSortField = $(this).data('field');                
-//                if(Dashboard.TableSortFieldOrder === '' ){
-//                    Dashboard.TableSortFieldOrder = 'ASC';
-//                    $(this).addClass('desc').removeClass('asc');
-//                }
-//                else if (Dashboard.TableSortFieldOrder === 'ASC'){
-//                    Dashboard.TableSortFieldOrder = 'DESC';
-//                    $(this).addClass('asc').removeClass('desc');
-//                }
-//                else{
-//                    Dashboard.TableSortFieldOrder = 'ASC';
-//                    
-//                    $(this).addClass('desc').removeClass('asc');
-//                }                
-//                Dashboard.TableSortLastButton = $(this);                
-//                var $table = $('#dashboardTable');
-////                var $itemsperpage = $('.top-pager-itemmperpage-control button span.value').text();
-//                Dashboard.Page(Dashboard.DynamicFilter.FilterString, 1, Dashboard.itemPerPage, $table, Dashboard.TableSortField, Dashboard.TableSortFieldOrder);
-//            });
-//        };
-//        
-//        Dashboard.Init();
-    })(window.App, window.dandelion);
+    Dashboard.init('<?php echo $DefaultUserFilterId ?>');
+}(window, jQuery, App));
 </script>
+<!--TODO: Refactoring-->
 
-<script type="text/javascript">
-    (function(window, document, $) {
-        $(document).ready(function() {
-//            $('.daterangepicker-single').daterangepicker({singleDatePicker: false, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});
-//            $('.daterangepicker-single-fix').daterangepicker({singleDatePicker: true, format: 'MM/DD/YYYY', startDate: moment(), endDate: moment()});    
-            bindUpdateDropdownClick();
-            
-        });
-    })(window, document, jQuery);
-</script>
 
 <script>
     (function (global, dandelion) {
@@ -988,148 +439,114 @@
 
 <script>
     (function(window, document, $, Dashboard) {
-        function page($filter, $page, $itemsperpage, $table, orderby, order) {
-            var params = {'filterPredicate': $filter, 'page': $page, 'itemsperpage': $itemsperpage, 'orderby': orderby, 'order': order};
-            $.ajax({
-                data: params,
-                url: '<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>',
-                type: 'post',
-                beforeSend: function() {
-                    $('.loading').show();
-                },
-                success: function(response) {
-                    var _response = $.parseJSON(response);
-                    var pager = new BootstrapPager(_response, PagerControl_OnClick);
-                    var pagerControl = pager.getPagerControl();
-                    $('.pager-wrapper').html('').append(pagerControl);
-                    var pagerItems = pager.getCurrentPagedItems();
-                    Dashboard.updateDashboardTable($table, pagerItems);
-                    // SalesOrder Link on click handler
-                    $('.item-field a.salesorder-form-link').on('click', Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);  
-                    $('#panelHeadingItemsCount').html(pager.itemsCount);
-                    $('.loading').hide();
-                                          
-                    //Vessel Form on click handler
-                    $('.item-field a.vessel-form-link').on('click', Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
-                }
-            });
-        }
+//        function page($filter, $page, $itemsperpage, $table, orderby, order) {
+//            var params = {'filterPredicate': $filter, 'page': $page, 'itemsperpage': $itemsperpage, 'orderby': orderby, 'order': order};
+//            $.ajax({
+//                data: params,
+//                url: '<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>',
+//                type: 'post',
+//                beforeSend: function() {
+//                    $('.loading').show();
+//                },
+//                success: function(response) {
+//                    var _response = $.parseJSON(response);
+//                    var pager = new BootstrapPager(_response, PagerControl_OnClick);
+//                    var pagerControl = pager.getPagerControl();
+//                    
+//                    $('.pager-wrapper').html('').append(pagerControl);
+//                    var pagerItems = pager.getCurrentPagedItems();
+//                    // Here... AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+////                    Dashboard.updateDashboardTable($table, pagerItems);
+//                    // SalesOrder Link on click handler
+////                    $('.item-field a.salesorder-form-link').on('click', Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);  
+////                    $('#panelHeadingItemsCount').html(pager.itemsCount);
+////                    $('.loading').hide();
+//                                          
+//                    //Vessel Form on click handler
+////                    $('.item-field a.vessel-form-link').on('click', Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
+//                }
+//            });
+//        }
+//
+//        Dashboard.Page = page;
 
-        Dashboard.Page = page;
-
-        $('.pager-btn').on("click", PagerControl_OnClick);
+//        $('.pager-btn').on("click", PagerControl_OnClick);
 
         // Pager Control Buttons On Click Handler
-        function PagerControl_OnClick() {
-            var $table = $('#dashboardTable');
-            var $currentButton = $(this);
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 
-                $currentButton.data('page'), 
-                Dashboard.itemPerPage, 
-                $table, 
-                Dashboard.TableSortField, 
-                Dashboard.TableSortFieldOrder
-            );
-        }
+//        function PagerControl_OnClick() {
+//            var $table = $('#dashboardTable');
+//            var $currentButton = $(this);
+//            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 
+//                $currentButton.data('page'), 
+//                Dashboard.itemPerPage, 
+//                $table, 
+//                Dashboard.TableSortField, 
+//                Dashboard.TableSortFieldOrder
+//            );
+//        }
 
-        $('.top-pager-itemmperpage-control a').on('click', function() {
-            // Update Control Selected Value
-            Dashboard.itemPerPage = $(this).text();
-            $('.top-pager-itemmperpage-control button span.value').text(Dashboard.itemPerPage);
-            
-            var $table = $('#dashboardTable');
-            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 
-                1, // Always show page one
-                Dashboard.itemPerPage, 
-                $table, 
-                Dashboard.TableSortField, 
-                Dashboard.TableSortFieldOrder
-            );
-        });
-    })(window, document, jQuery, App.Dashboard);
-</script>
-
-<script>
-    (function(window, document, jQuery, Dashboard) {
-        $.ajax({
-            data: {},
-            url: '<?php echo $View->Href('Dashboard', 'GetMaterialStatusItems') ?>',
-            type: 'post',
-            beforeSend: function() {
-                $('.loading').show();
-            },
-            success: function(response) {
-                var _response = $.parseJSON(response);
-//                console.log(_response);
-                Dashboard.MaterialStatus = _response;
-                $('.loading').hide();
-            }
-        });
-    })(window, document, jQuery, App.Dashboard);
-</script>
-
-<script>
-    (function(window, document, jQuery, Dashboard) {
-        $.ajax({
-            data: {},
-            url: '<?php echo $View->Href('Dashboard', 'GetJobStatusItems') ?>',
-            type: 'post',
-            beforeSend: function() {
-                $('.loading').show();
-            },
-            success: function(response) {
-                var _response = $.parseJSON(response);
-                Dashboard.JobStatus = _response;
-                $('.loading').hide();
-            }
-        });
+//        $('.top-pager-itemmperpage-control a').on('click', function() {
+//            // Update Control Selected Value
+//            Dashboard.itemPerPage = $(this).text();
+//            $('.top-pager-itemmperpage-control button span.value').text(Dashboard.itemPerPage);
+//            
+//            var $table = $('#dashboardTable');
+//            Dashboard.Page(Dashboard.DynamicFilter.FilterString, 
+//                1, // Always show page one
+//                Dashboard.itemPerPage, 
+//                $table, 
+//                Dashboard.TableSortField, 
+//                Dashboard.TableSortFieldOrder
+//            );
+//        });
     })(window, document, jQuery, App.Dashboard);
 </script>
 
 <script>
     function bindUpdateDropdownClick() {
-        $('.update-dropdown').on('change', function() {
-            var $dropdown = $(this),
-                    params = {'ordnum': $dropdown.data('ordnum'), 'mtrlstatus': $dropdown.val(), 'jobstatus': $dropdown.val()};
-            if ($dropdown.hasClass('material-status')) {
-                $.ajax({
-                    data: params,
-                    url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADMaterialStatus') ?>',
-                    type: 'post',
-                    beforeSend: function() {
-                        $('.loading').show();
-                    },
-                    success: function(response) {
-                        var _response = $.parseJSON(response);
-                        if (_response === 'success') {
-//                            console.log(_response);
-                        } else {
-//                            console.log(_response);
-                        }
-                        $('.loading').hide();
-                    }
-                });
-            }
-            if ($dropdown.hasClass('job-status')) {
-                $.ajax({
-                    data: params,
-                    url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>',
-                    type: 'post',
-                    beforeSend: function() {
-                        $('.loading').show();
-                    },
-                    success: function(response) {
-                        var _response = $.parseJSON(response);
-                        if (_response === 'success') {
-//                            console.log(_response);
-                        } else {
-//                            console.log(_response);
-                        }
-                        $('.loading').hide();
-                    }
-                });
-            }
-        });
+        throw "Deprecated";
+//        $('.update-dropdown').on('change', function() {
+//            var $dropdown = $(this),
+//                    params = {'ordnum': $dropdown.data('ordnum'), 'mtrlstatus': $dropdown.val(), 'jobstatus': $dropdown.val()};
+////            if ($dropdown.hasClass('material-status')) {
+////                $.ajax({
+////                    data: params,
+////                    url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADMaterialStatus') ?>',
+////                    type: 'post',
+////                    beforeSend: function() {
+////                        $('.loading').show();
+////                    },
+////                    success: function(response) {
+////                        var _response = $.parseJSON(response);
+////                        if (_response === 'success') {
+//////                            console.log(_response);
+////                        } else {
+//////                            console.log(_response);
+////                        }
+////                        $('.loading').hide();
+////                    }
+////                });
+////            }
+//            if ($dropdown.hasClass('job-status')) {
+//                $.ajax({
+//                    data: params,
+//                    url: '<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>',
+//                    type: 'post',
+//                    beforeSend: function() {
+//                        $('.loading').show();
+//                    },
+//                    success: function(response) {
+//                        var _response = $.parseJSON(response);
+//                        if (_response === 'success') {
+////                            console.log(_response);
+//                        } else {
+////                            console.log(_response);
+//                        }
+//                        $('.loading').hide();
+//                    }
+//                });
+//            }
+//        });
     }
 </script>
 
@@ -1137,18 +554,18 @@
     (function(window, document, jQuery, Dashboard) {
         var dashboard = Dashboard;
         
-        Dashboard.updateDashboardTable = function($table, $data) {
-            
-            var $tableBody = $table.children('tbody');
-            $tableBody.html('');
-            for (index in $data) {
-                $tableBody.append(Dashboard.buildDashboardItemTableRow($data[index], '', "item-field"));
-            }
-            bindUpdateDropdownClick();
-            
-        };
+//        Dashboard.updateDashboardTable = function($table, $data) {
+//            var $tableBody = $table.children('tbody');
+//            $tableBody.html('');
+//            for (index in $data) {
+//                $tableBody.append(Dashboard.buildDashboardItemTableRow($data[index], '', "item-field"));
+//            }
+//            bindUpdateDropdownClick();
+//            
+//        };
 
         Dashboard.buildDashboardItemTableRow = function($dataRow, trClass, tdClass) {
+            
             var _result = document.createElement('tr'),
                     _tdOrdnum = document.createElement('td'),
                     _aOrdnum = document.createElement('a'),
@@ -1224,7 +641,7 @@
             with (_tdMaterialStatus) {
                 className = tdClass;
                 //appendChild(document.createTextNode($dataRow.mtrlstatus));
-                var _materialStatusControl = Dashboard.buildStatusControl($dataRow.mtrlstatus, Dashboard.MaterialStatus);
+                var _materialStatusControl = Dashboard.buildStatusControl($dataRow.mtrlstatus, Dashboard.dictionaries.materialStatus);
                 _materialStatusControl.dataset['ordnum'] = $dataRow.ordnum;
                 _materialStatusControl.className += ' material-status';
                 appendChild(_materialStatusControl);
@@ -1232,7 +649,7 @@
 
             with (_tdStatus) {
                 className = tdClass;
-                var _jobStatusControl = Dashboard.buildStatusControl($dataRow.jobstatus, Dashboard.JobStatus);
+                var _jobStatusControl = Dashboard.buildStatusControl($dataRow.jobstatus, Dashboard.dictionaries.jobStatus);
                 _jobStatusControl.dataset['ordnum'] = $dataRow.ordnum;
                 _jobStatusControl.className += ' job-status';
                 appendChild(_jobStatusControl);
@@ -1297,15 +714,16 @@
         ;
 
         Dashboard.buildStatusControl = function(current, values) {
+            console.log(current, values);
             var _select = document.createElement('select');
             var _optionEmpty = document.createElement('option');
                 _optionEmpty.appendChild(document.createTextNode("Empty"));
                 _select.appendChild(_optionEmpty);
             for (index in values) {
                 var _option = document.createElement('option');
-                _option.value = values[index]['edistatid'];
+                _option.value = values[index]['id'];
                 _option.appendChild(document.createTextNode(values[index]['descrip']));
-                if (current === values[index]['edistatid']) {
+                if (current === values[index]['id']) {
                     _option.selected = "selected";
                 }
                 _select.appendChild(_option);

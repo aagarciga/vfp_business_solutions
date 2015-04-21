@@ -792,6 +792,7 @@
     Dashboard.status.table_header_sortLastButton = null;
     Dashboard.status.table_header_sortField = 'ordnum'; // Default Order By Fields
     Dashboard.status.table_header_sortFieldOrder = 'ASC'; // Default Order
+    Dashboard.status.currentPage = 1;
     
     Dashboard.dictionaries = {};
     Dashboard.dictionaries.materialStatus = [];
@@ -799,5 +800,331 @@
     Dashboard.dictionaries.vesselDictionary = [];
     Dashboard.dictionaries.jobTypeDictionary = [];
     Dashboard.dictionaries.projectManagerDictionary = [];
+    
+    Dashboard.htmlBindings = {};
+    Dashboard.htmlBindings.container                        = '.container';
+    Dashboard.htmlBindings.itemCounter                      = '#panelHeadingItemsCount';
+    Dashboard.htmlBindings.drpItemPerPage                   = '.top-pager-itemmperpage-control a';
+    Dashboard.htmlBindings.drpItemPerPageValue              = '.top-pager-itemmperpage-control button span.value';
+    Dashboard.htmlBindings.filterForm                       = '#filterForm';
+    Dashboard.htmlBindings.filterForm_btnToggleVisibility   = '#dashboard-panel-togle-visibility-button';
+    Dashboard.htmlBindings.table                            = '#dashboardTable';
+    Dashboard.htmlBindings.table_header_btnSort             = '.btn-table-sort';
+    Dashboard.htmlBindings.table_body_btnSalesOrder         = '.item-field a.salesorder-form-link';
+    Dashboard.htmlBindings.table_body_btnVessel             = '.item-field a.vessel-form-link';
+//    Dashboard.htmlBindings.table_body_drpUpdatable          = '.update-dropdown';
+    Dashboard.htmlBindings.table_body_drpMaterialStatus     = '.update-dropdown.material-status';
+    Dashboard.htmlBindings.table_body_drpJobStatus          = '.update-dropdown.job-status';
+    Dashboard.htmlBindings.pager_container                  = '.pager-wrapper';
+    Dashboard.htmlBindings.pager_btnPagerPages              = '.pager-btn';
+    Dashboard.htmlBindings.control_salesOrderForm           = '#salesOrderForm';
+    Dashboard.htmlBindings.control_salesOrderForm_btnClose  = '#salesOrderForm_btnClose';
+    Dashboard.htmlBindings.control_vesselForm               = '#vesselForm';
+    Dashboard.htmlBindings.control_vesselForm_btnClose      = '#vesselForm_btnClose';
+    
+    Dashboard.functions = {};
+    Dashboard.functions.paginate = function () {
+
+        $.ajax({
+            data: {
+                predicate: Dashboard.DynamicFilter.functions.getPredicate(),
+                page: Dashboard.status.currentPage,
+                itemsPerPage: Dashboard.status.itemsPerPage,
+                orderby: Dashboard.status.table_header_sortField,
+                order: Dashboard.status.table_header_sortFieldOrder
+            },
+            url: Dashboard.urls.getDashboardItemsPage,
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function (response){
+                var data = $.parseJSON(response),
+                    pager = new BootstrapPager(data, 
+                        Dashboard.eventHandlers.pager_btnPagerPages_onClick),
+                    pagerItems = pager.getCurrentPagedItems(),
+                    pagerControl = pager.getPagerControl();
+            
+                $(Dashboard.htmlBindings.pager_container).empty()
+                    .append(pagerControl);
+                Dashboard.functions.updateTable(pagerItems);
+                
+                $(Dashboard.htmlBindings.itemCounter).html(pager.itemsCount);
+                $('.loading').hide();
+            }
+        });
+            
+    };
+    
+    Dashboard.functions.getDictionaries = function () {
+        $.ajax({
+            data: {},
+            url: Dashboard.urls.getDashboardDictionaries,
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function(response) {
+                var data = $.parseJSON(response);
+                Dashboard.dictionaries = data;
+                $('.loading').hide();
+            }    
+        });
+    };
+    Dashboard.functions.updateTable = function (items) {
+        var $table = $(Dashboard.htmlBindings.table),
+            $tableBody = $table.children('tbody'),
+            index;
+    $tableBody.empty();
+        for (index in items) {
+            // refactoring here
+            
+            $tableBody.append(Dashboard.buildDashboardItemTableRow(items[index], '', "item-field"));
+        };
+        Dashboard.functions.bindTableItemsEventHandlers();
+    };
+    Dashboard.functions.bindTableItemsEventHandlers = function () {
+        $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',
+            Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);
+
+        $(Dashboard.htmlBindings.table_body_btnVessel).on('click',
+            Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
+        
+        $(Dashboard.htmlBindings.table_body_drpMaterialStatus).on('change',
+            Dashboard.eventHandlers.table_body_drpMaterialStatus_onChange);
+            
+        $(Dashboard.htmlBindings.table_body_drpJobStatus).on('change',
+            Dashboard.eventHandlers.table_body_drpJobStatus_onChange);
+    };
+    Dashboard.functions.bindEventHandlers = function () {
+        $(Dashboard.htmlBindings.drpItemPerPage).on('click',
+            Dashboard.eventHandlers.drpItemPerPage_onClick);
+        
+        $(Dashboard.htmlBindings.control_salesOrderForm_btnClose).on('click',
+            function () {
+                $(Dashboard.htmlBindings.control_salesOrderForm).hide();
+            });        
+        $(Dashboard.htmlBindings.control_vesselForm_btnClose).on('click',
+            function () {
+                $(Dashboard.htmlBindings.control_vesselForm).hide();
+            });
+
+        $(Dashboard.htmlBindings.table_header_btnSort).on('click',
+            Dashboard.eventHandlers.table_body_btnSalesOrder_onClick);
+            
+        $(Dashboard.htmlBindings.pager_btnPagerPages).on('click',
+            Dashboard.eventHandlers.pager_btnPagerPages_onClick);
+            
+        Dashboard.functions.bindTableItemsEventHandlers();
+    };
+    
+    
+    
+    Dashboard.eventHandlers = {};
+    Dashboard.eventHandlers.drpItemPerPage_onClick = function (event) {
+        var $target = $(event.target),
+            value = $target.html();
+        Dashboard.status.itemsPerPage = value;
+        $(Dashboard.htmlBindings.drpItemPerPageValue).text(value);
+        
+        // When change items per page, show page one
+        Dashboard.status.currentPage = 1; 
+        
+        Dashboard.functions.paginate();
+    };
+    Dashboard.eventHandlers.pager_btnPagerPages_onClick = function (event) {
+        var $target = $(event.target),
+            value = $target.data('page');
+        Dashboard.status.currentPage = value;
+        Dashboard.functions.paginate();
+    };
+    Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick = function (event) {
+        /**
+         * @param {event} event
+         * @returns {undefined}
+         */
+        var salesOrderValue = $(event.target).html(),
+            params = { salesOrder : salesOrderValue},
+            dashboardViewHeight,
+            salesOrderViewHeight;
+        $.post(Dashboard.urls.getSalesOrder, params)
+            .done(function (response) {
+                response = $.parseJSON(response);
+                var modelType = response.formType,
+                    viewModel = Dashboard.SalesOrderForm.viewModel;
+
+                if (response.success) {
+                    viewModel.modelType(modelType);
+
+                    viewModel.ordnum(response.salesOrderObject.ordnum);
+                    viewModel.date(response.salesOrderObject.date);
+                    viewModel.custno(response.salesOrderObject.custno);
+                    viewModel.projectLocation(response.salesOrderObject.projectLocation);
+                    viewModel.notes(response.salesOrderObject.notes);
+                    viewModel.companyName(response.salesOrderObject.companyName);
+                    viewModel.address(response.salesOrderObject.address);
+                    viewModel.city(response.salesOrderObject.city);
+                    viewModel.state(response.salesOrderObject.state);
+                    viewModel.zip(response.salesOrderObject.zip);
+                    viewModel.phone(response.salesOrderObject.phone);
+                    viewModel.subtotal(response.salesOrderObject.subtotal);
+                    viewModel.discount(response.salesOrderObject.discount);
+                    viewModel.tax(response.salesOrderObject.tax);
+                    viewModel.shipping(response.salesOrderObject.shipping);
+                    viewModel.total(response.salesOrderObject.total);
+
+                    if (modelType === 'B' || modelType === 'C') {
+                        viewModel.ponum(response.salesOrderObject.ponum);
+                        viewModel.company(response.salesOrderObject.company);
+                        viewModel.destino(response.salesOrderObject.destino);
+                        viewModel.prostartdt(response.salesOrderObject.prostartdt);
+                        viewModel.proenddt(response.salesOrderObject.proenddt);
+                        viewModel.sotypecode(response.salesOrderObject.sotypecode);
+                        viewModel.mtrlstatus(response.salesOrderObject.mtrlstatus);
+                        viewModel.jobstatus(response.salesOrderObject.jobstatus);
+                        viewModel.technam1(response.salesOrderObject.technam1);
+                        viewModel.technam2(response.salesOrderObject.technam2);
+                        viewModel.qutno(response.salesOrderObject.qutno);
+                        viewModel.cstctid(response.salesOrderObject.cstctid);
+                        viewModel.jobdescrip(response.salesOrderObject.jobdescrip);
+                    }
+
+                    viewModel.items(response.salesOrderObject.itemsCollection);
+                }
+            })
+            .fail(function (response) {
+                console.log(response);
+            });
+        dashboardViewHeight = parseInt($(Dashboard.htmlBindings.container).css('height'), 10);
+        salesOrderViewHeight = parseInt($(Dashboard.htmlBindings.control_salesOrderForm).css('height'), 10);
+
+        if (dashboardViewHeight > salesOrderViewHeight) {
+            $(Dashboard.htmlBindings.control_salesOrderForm).css('height', dashboardViewHeight);
+        }
+        $(Dashboard.htmlBindings.control_salesOrderForm).show();
+    };
+    Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick = function (event) {
+        /**
+         * @param {event} event
+         * @returns {undefined}
+         */
+        var vesselValue = $(event.target).html(),
+            params = { vesselid : vesselValue},
+            dashboardViewHeight,
+            vesselViewHeight;
+
+        $.post(Dashboard.urls.getVesselFormData, params)
+            .done(function (response) {
+                response = $.parseJSON(response);
+                var viewModel = Dashboard.VesselForm.viewModel;
+
+                if (response.success) {
+                    viewModel.vesselid(response.vesselFormObject.vesselid);
+                    viewModel.descrip(response.vesselFormObject.descrip);
+                    viewModel.shipclass(response.vesselFormObject.shipclass);
+                    viewModel.pentype(response.vesselFormObject.pentype);
+                    viewModel.cementid(response.vesselFormObject.cementid);
+                    viewModel.firecaulk(response.vesselFormObject.firecaulk);
+                    viewModel.notes(response.vesselFormObject.notes);
+                }
+            })
+            .fail(function (response) {
+                console.log(response);
+            });
+
+        dashboardViewHeight = parseInt($(Dashboard.htmlBindings.container).css('height'), 10);
+        vesselViewHeight = parseInt($(Dashboard.htmlBindings.control_vesselForm).css('height'), 10);
+
+        if (dashboardViewHeight > vesselViewHeight) {
+            $(Dashboard.htmlBindings.control_vesselForm).css('height', dashboardViewHeight);
+        }
+        $(Dashboard.htmlBindings.control_vesselForm).show();
+    };
+    Dashboard.eventHandlers.table_body_btnSalesOrder_onClick = function (event) {
+        var $target = $(event.target),
+            sortingField = $target.data('field');
+
+        if (Dashboard.status.table_header_sortLastButton !== null) {
+            Dashboard.status.table_header_sortLastButton.removeClass('asc desc');
+        }
+        if (Dashboard.status.table_header_sortField !== sortingField) {
+            Dashboard.status.table_header_sortFieldOrder = '';
+        }
+        Dashboard.status.table_header_sortField = sortingField;
+        if (Dashboard.status.table_header_sortFieldOrder === 'ASC') {
+            Dashboard.status.table_header_sortFieldOrder = 'DESC';
+            $target.addClass('asc').removeClass('desc');
+        } else {
+            Dashboard.status.table_header_sortFieldOrder = 'ASC';
+            $target.addClass('desc').removeClass('asc');
+        }
+        Dashboard.status.table_header_sortLastButton = $target;
+        Dashboard.functions.paginate();
+    };
+    Dashboard.eventHandlers.table_body_drpMaterialStatus_onChange = function (event) {
+        var $target = $(event.target),
+            ordnum = $target.data('ordnum'),
+            value = $target.val();
+    
+        $.ajax({
+            data: {
+                ordnum: ordnum,
+                mtrlstatus: value
+            },
+            url: Dashboard.urls.updateSOHEADMaterialStatus,
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function(response) {
+                var data = $.parseJSON(response);
+                if (data === 'success') {
+                    $('.loading').hide();
+                } else {
+                    throw data;
+                }
+            }
+        });
+    };
+    Dashboard.eventHandlers.table_body_drpJobStatus_onChange = function (event) {
+        var $target = $(event.target),
+            ordnum = $target.data('ordnum'),
+            value = $target.val();
+    
+        $.ajax({
+            data: {
+                ordnum: ordnum,
+                jobstatus: value
+            },
+            url: Dashboard.urls.updateSOHEADJobStatus,
+            type: 'post',
+            beforeSend: function() {
+                $('.loading').show();
+            },
+            success: function(response) {
+                var data = $.parseJSON(response);
+                if (data === 'success') {
+                    $('.loading').hide();
+                } else {
+                    throw data;
+                }
+            }
+        });
+    };
+    
+    Dashboard.init = function (defaultUserFilter) {
+        console.log("Refactored Dashboard Initialization.");
+        
+        
+        Dashboard.status.itemsPerPage = $(Dashboard.htmlBindings.drpItemPerPageValue).text();
+        Dashboard.functions.getDictionaries();
+        
+        
+        DynamicFilter.init(defaultUserFilter);
+        SalesOrderForm.init();
+        VesselForm.init();
+        
+        Dashboard.functions.bindEventHandlers();
+    };
     
 }(window, jQuery, App));

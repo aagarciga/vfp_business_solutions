@@ -21,13 +21,17 @@ class UpdateSOHEADMaterialStatus_Post extends Action {
      */
     public function Execute() {
                 
-        $ordnum = filter_input(INPUT_POST, 'ordnum');
-        $mtrlstatus = filter_input(INPUT_POST, 'mtrlstatus');
-                
-        $result = array();
-        $success = $this->controller->DatUnitOfWork->SOHEADRepository->UpdateMaterialStatus($ordnum, $mtrlstatus);
-        if ($success) {
-            $result = 'success';
+        $ordnum = $this->Request->hasProperty('ordnum') ? $this->Request->ordnum : '';
+        $mtrlstatus = $this->Request->hasProperty('mtrlstatus') ? $this->Request->mtrlstatus : '';
+        $result = "failure";
+        if ($ordnum && $mtrlstatus) {
+            
+            $success = $this->controller->DatUnitOfWork->SOHEADRepository->UpdateMaterialStatus($ordnum, $mtrlstatus);
+            if ($success) {
+                $result = 'success';
+            } 
+        } else {
+            $result = "Request values are empty";
         }
         
         return json_encode($result);

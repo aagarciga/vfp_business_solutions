@@ -20,13 +20,17 @@ class UpdateSOHEADJobStatus_Post extends Action {
      * @return JSON
      */
     public function Execute() {
-        $ordnum = filter_input(INPUT_POST, 'ordnum');
-        $jobstatus = filter_input(INPUT_POST, 'jobstatus');
-                
-        $result = array();
-        $success = $this->controller->DatUnitOfWork->SOHEADRepository->UpdateJobStatus($ordnum, $jobstatus);
-        if ($success) {
-            $result = 'success';
+        $ordnum = $this->Request->hasProperty('ordnum') ? $this->Request->ordnum : '';
+        $jobstatus = $this->Request->hasProperty('jobstatus') ? $this->Request->jobstatus : '';
+        $result = "failure";
+        if ($ordnum && $jobstatus) {
+            
+            $success = $this->controller->DatUnitOfWork->SOHEADRepository->UpdateJobStatus($ordnum, $jobstatus);
+            if ($success) {
+                $result = 'success';
+            } 
+        } else {
+            $result = "Request values are empty";
         }
         
         return json_encode($result);
