@@ -643,7 +643,7 @@
                 //appendChild(document.createTextNode($dataRow.mtrlstatus));
                 var _materialStatusControl = Dashboard.buildStatusControl($dataRow.mtrlstatus, Dashboard.dictionaries.materialStatus);
                 _materialStatusControl.dataset['ordnum'] = $dataRow.ordnum;
-                _materialStatusControl.className += ' material-status';
+                _materialStatusControl.className += ' material-status select2-nosearch';
                 appendChild(_materialStatusControl);
             }
 
@@ -651,7 +651,7 @@
                 className = tdClass;
                 var _jobStatusControl = Dashboard.buildStatusControl($dataRow.jobstatus, Dashboard.dictionaries.jobStatus);
                 _jobStatusControl.dataset['ordnum'] = $dataRow.ordnum;
-                _jobStatusControl.className += ' job-status';
+                _jobStatusControl.className += ' job-status select2-nosearch';
                 appendChild(_jobStatusControl);
             }
 

@@ -14,6 +14,8 @@
     <!-- Bootstrap -->
     <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap.css'); ?>" rel="stylesheet" media="screen">
     <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap-theme.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('select2/css/select2.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('select2/css/select2-bootstrap.css'); ?>" rel="stylesheet" media="screen">
     
     <link href="<?php echo $View->SharedStylesContext('main.css'); ?>" rel="stylesheet" media="screen">
     <?php $View->Partial('styles'); ?>
@@ -37,6 +39,7 @@
     <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.min.js'); ?>"></script>
     <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.MVC.js'); ?>"></script>
     <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
     <script src="<?php echo $View->ScriptsContext('main.min.js'); ?>"></script>
     <?php $View->Partial('scripts'); ?>
   </body>

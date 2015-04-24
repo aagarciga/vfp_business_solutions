@@ -17,7 +17,7 @@ class SOEDISTATUSRepository extends VFPRepository implements IRepository {
      */
     public function GetAll() {
         $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT * FROM $tableName";
+        $sqlString = "SELECT * FROM $tableName ORDER BY DESCRIP ASC";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -54,7 +54,7 @@ class SOEDISTATUSRepository extends VFPRepository implements IRepository {
     public function GetMaterialStatus() {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
-        $sqlString .= " WHERE STATUSEDIN = 'M'";
+        $sqlString .= " WHERE STATUSEDIN = 'M' ORDER BY DESCRIP ASC";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -92,7 +92,7 @@ class SOEDISTATUSRepository extends VFPRepository implements IRepository {
     public function GetJobStatus() {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
-        $sqlString .= " WHERE STATUSEDIN = 'S'";
+        $sqlString .= " WHERE STATUSEDIN = 'S' ORDER BY DESCRIP ASC";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();

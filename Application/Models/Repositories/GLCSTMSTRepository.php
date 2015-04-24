@@ -36,7 +36,7 @@ class GLCSTMSTRepository extends VFPRepository implements IRepository {
     public function GetActives() {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
-        $sqlString .= ' WHERE ACTIVE = True';
+        $sqlString .= ' WHERE ACTIVE = True ORDER BY CSTCTID';
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();

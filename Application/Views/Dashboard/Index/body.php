@@ -99,8 +99,8 @@
                             <li><a href="#" class="filter-field" data-field="JobDescrip" data-field-type="text">Description</a></li>
                             <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="dropdown" data-field-collection="materialStatus">Material Status</a></li>
                             <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="dropdown" data-field-collection="jobStatus">Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="TECHNAM1" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 1</a></li>
-                            <li><a href="#" class="filter-field" data-field="TECHNAM2" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 2</a></li>
+                            <li><a href="#" class="filter-field" data-field="TECHNPM1" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 1</a></li>
+                            <li><a href="#" class="filter-field" data-field="TECHNPM2" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 2</a></li>
                             <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
                             <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
                             <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="dropdown" data-field-collection="costCenterDictionary">Cost Center</a></li>
@@ -165,7 +165,7 @@
                             <td class="item-field"><?php echo $item->getSotypecode() ?></td>
                             <td class="item-field"><?php echo $item->getJobDescrip() ?></td>
                             <td class="item-field">
-                                <select class="form-control update-dropdown material-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                <select class="form-control update-dropdown material-status select2-nosearch" data-ordnum="<?php echo $item->getOrdnum() ?>">
                                     <option>Empty</option>
                                     <?php foreach ($MaterialStatusItems as $msItem): ?>
                                         <option <?php echo ($item->getMtrlstatus() !== $msItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $msItem->getEdistatid() ?>" ><?php echo $msItem->getDescrip() ?></option>
@@ -173,7 +173,7 @@
                                 </select>
                             </td>
                             <td class="item-field">
-                                <select class="form-control update-dropdown job-status" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                <select class="form-control update-dropdown job-status select2-nosearch" data-ordnum="<?php echo $item->getOrdnum() ?>">
                                     <option>Empty</option>
                                     <?php foreach ($JobStatusItems as $jobItem): ?>
                                         <option <?php echo ($item->getJobstatus() !== $jobItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php echo $jobItem->getEdistatid() ?>" ><?php echo $jobItem->getDescrip() ?></option>

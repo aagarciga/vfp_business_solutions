@@ -454,7 +454,7 @@
     DynamicFilter.functions.createDropdownField = function (field, caption, options) {
         var $formGroup = $('<div class="form-group" title="' + caption +
             '"><label class="control-label">' + caption +
-            '</label><div class="input-group"><select class="form-control" data-fieldname="' + field +
+            '</label><div class="input-group select2-bootstrap-append"><select class="form-control select2-container" data-fieldname="' + field +
             '"></select><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>'),
             $select = $formGroup.find('select'),
             index, current;
@@ -530,6 +530,8 @@
                 startDate: global.moment(),
                 endDate: global.moment()
             });
+        $formGroup.find('select')
+            .select2();
     };
     DynamicFilter.functions.bindFormGroupsEnventhandlers = function () {
         $(DynamicFilter.htmlBindings.filterFieldsContainer)
@@ -885,7 +887,8 @@
         };
         Dashboard.functions.bindTableItemsEventHandlers();
     };
-    Dashboard.functions.bindTableItemsEventHandlers = function () {
+    Dashboard.functions.bindTableItemsEventHandlers = function () {    
+        console.log("Que pasa");
         $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',
             Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);
 
@@ -897,6 +900,8 @@
             
         $(Dashboard.htmlBindings.table_body_drpJobStatus).on('change',
             Dashboard.eventHandlers.table_body_drpJobStatus_onChange);
+            
+        $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity});
     };
     Dashboard.functions.bindEventHandlers = function () {
         $(Dashboard.htmlBindings.drpItemPerPage).on('click',
@@ -1125,6 +1130,8 @@
         DynamicFilter.init(defaultUserFilter);
         SalesOrderForm.init();
         VesselForm.init();
+        
+        
         
         Dashboard.functions.bindEventHandlers();
     };
