@@ -446,14 +446,15 @@
     };
     DynamicFilter.functions.createTextField = function (field, caption) {
         return $('<div class="form-group" title="' + caption +
-                '"><label class="sr-only">' + caption +
+                '"><label class="control-label">' + caption +
                 '</label><div class="input-group"><input type="text" class="form-control" data-fieldname="' + field +
                 '" placeholder="' + caption +
                 '"><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
     };
     DynamicFilter.functions.createDropdownField = function (field, caption, options) {
         var $formGroup = $('<div class="form-group" title="' + caption +
-            '"><label class="sr-only">' + caption + '</label><div class="input-group"><select class="form-control" data-fieldname="' + field +
+            '"><label class="control-label">' + caption +
+            '</label><div class="input-group"><select class="form-control" data-fieldname="' + field +
             '"></select><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>'),
             $select = $formGroup.find('select'),
             index, current;
@@ -469,7 +470,8 @@
     };
     DynamicFilter.functions.createDateField = function (field, caption, ranged) {
         var daterangepickerType = ranged ? 'daterangepicker' : 'daterangepicker-single';
-        return $('<div class="form-group"><label class="sr-only">Start Date</label><div class="input-prepend input-group" title="' + caption +
+        return $('<div class="form-group"><label class="control-label">' + caption +
+                '</label><div class="input-prepend input-group" title="' + caption +
                 '"><span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" class="form-control ' + daterangepickerType +
                 '" data-fieldname="' + field +
                 '" placeholder="' + caption +

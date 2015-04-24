@@ -1,3 +1,8 @@
+
+if (typeof jQuery === 'undefined') { 
+    throw new Error('VFP Business Solutions, LLC\'s JavaScript requires jQuery');
+};
+
 (function (global, $) {
     'use strict';
 

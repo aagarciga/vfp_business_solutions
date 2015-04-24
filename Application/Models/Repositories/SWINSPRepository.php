@@ -36,7 +36,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
     public function GetActives() {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
-        $sqlString .= ' WHERE ACTIVE = True AND TECHIM = True';
+        $sqlString .= ' WHERE ACTIVE = True AND TECHPM = True';
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
