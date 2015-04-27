@@ -1266,8 +1266,8 @@ class BaseSOHEAD {
      */
     protected $_cc_paytype;
     protected $_jobdescrip;
-    protected $_technpm1;
-    protected $_technpm2;
+    protected $_technam1;
+    protected $_technam2;
     protected $_mtrlstatus;
     protected $_jobstatus;
     
@@ -3034,15 +3034,15 @@ class BaseSOHEAD {
     /**
      * @return Char
      */
-    public function getTechnpm1() {
-        return $this->_technpm1;
+    public function getTechnam1() {
+        return $this->_technam1;
     }
 
     /**
      * @return Char
      */
-    public function getTechnpm2() {
-        return $this->_technpm2;
+    public function getTechnam2() {
+        return $this->_technam2;
     }
 
     /**
@@ -4823,15 +4823,15 @@ class BaseSOHEAD {
     /**
      * @param Char
      */
-    public function setTechnpm1($value) {
-        $this->_technpm1 = $value;
+    public function setTechnam1($value) {
+        $this->_technam1 = $value;
     }
 
     /**
      * @param Char
      */
-    public function setTechnpm2($value) {
-        $this->_technpm2 = $value;
+    public function setTechnam2($value) {
+        $this->_technam2 = $value;
     }
 
     /**
@@ -4858,7 +4858,7 @@ class BaseSOHEAD {
     /**
      * Constructor
      */
-    public function __construct($ordnum, $invno, $invtype, $itmstatus, $custno, $ponum, $vendno, $podate, $invdate, $shipdate, $fitemtype, $ftotcost, $fcosttype, $period, $salesmn, $commission, $comslmn, $salesmn2, $comslmn2, $salesmn1na, $salesmn2na, $priceby, $indust, $terr, $fclass, $fobstat, $shipvia, $shipvname, $shipstat, $frghts, $termid, $termdesc, $termdesc1, $subtotal, $subtotal0, $discount, $txrt, $taxable, $tax, $tax0, $taxext, $taxext0, $itemtax, $itemtax0, $ftaxcode, $shipping, $fmisc1, $fmisc2, $fmisc3, $total, $total0, $prepaid, $refno, $ppdref, $company, $address1, $address2, $address3, $city, $state, $zip, $country, $shipid, $shipto1, $shipto2, $shipto3, $shipto4, $shipto5, $dueday, $discday, $disc, $key, $userflg, $fuserid, $fstation, $fblurb_id, $itmcount, $totcost, $closecomm, $inhsecomm, $validity, $shipfrom, $msubtotal, $delivery, $vessel, $relport, $destino, $car, $cigsn, $source, $cartoons, $freight, $picticbano, $nflg0, $nflg1, $custdisc, $subtotalpo, $discountpo, $shippingpo, $txrtpo, $taxpo, $totalpo, $compdate, $holdstatus, $sostatus, $reqdate, $sorevno, $swordnum, $sotype, $msubtotal0, $discount0, $whsno, $taxrate, $taxrate1, $taxrate2, $taxrate3, $taxrate4, $glaracct, $authref, $recvia, $recvianame, $labreq, $rrtype, $frghtpay, $verify, $swlock, $fupddate, $fupdtime, $sourceno, $srctype, $currid, $orgvalue, $exchrate, $baseid, $cstctid, $schdstatus, $inspectno, $swcallinby, $zone, $area, $swrecvby, $swrectime, $traveltime, $chrgmile, $halfmile, $technotes, $billable, $warranty, $emergency, $priority, $charge15, $charge2x, $contract, $quotedjob, $dateschd, $timeschd, $newuserid, $newdtetime, $newstation, $eqmake, $eqmodel, $eqserialno, $locationid, $location, $datecallsh, $timecallsh, $docprefix, $locphone, $swretrips, $swinspothr, $userschd, $gldept, $chgnotes, $phone, $phone1, $fax, $shipcomm, $pickdateok, $notbefordt, $oktopick, $sotypecode, $consdate, $ownretail, $bidorder, $biddate, $quickship, $gltaxacct, $suspend, $wmsstatus, $insurflag, $distchan, $normaflag, $rmadate, $pormoflag, $allocadate, $datehold, $nopayments, $startdays, $totaldays, $specterms, $specteramt, $payfreqday, $startdate, $s_routine, $comptime, $compstat, $arvltime, $driverlic, $totweight0, $totalbal, $printflag, $estshpdate, $budaddaprv, $commset, $commsetdte, $retresvtot, $totamtsave, $qbsyncstat, $ivrefno, $dtrstart, $dtrend, $totbotdep, $prostartdt, $proenddt, $shpcompnam, $shpaddrs1, $shpaddrs2, $shpcity, $shpstate, $shpzip, $shpcountry, $shpbillopt, $shpphone, $shpemail, $shpcontact, $qblistid, $blindship, $ediflag, $edidate, $edibck, $importkey, $qutno, $splitpick, $cc_refno, $cc_amtrec, $cc_paytype, $jobdescrip, $technpm1, $technpm2, $mtrlstatus, $jobstatus, $vesselid) {
+    public function __construct($ordnum, $invno, $invtype, $itmstatus, $custno, $ponum, $vendno, $podate, $invdate, $shipdate, $fitemtype, $ftotcost, $fcosttype, $period, $salesmn, $commission, $comslmn, $salesmn2, $comslmn2, $salesmn1na, $salesmn2na, $priceby, $indust, $terr, $fclass, $fobstat, $shipvia, $shipvname, $shipstat, $frghts, $termid, $termdesc, $termdesc1, $subtotal, $subtotal0, $discount, $txrt, $taxable, $tax, $tax0, $taxext, $taxext0, $itemtax, $itemtax0, $ftaxcode, $shipping, $fmisc1, $fmisc2, $fmisc3, $total, $total0, $prepaid, $refno, $ppdref, $company, $address1, $address2, $address3, $city, $state, $zip, $country, $shipid, $shipto1, $shipto2, $shipto3, $shipto4, $shipto5, $dueday, $discday, $disc, $key, $userflg, $fuserid, $fstation, $fblurb_id, $itmcount, $totcost, $closecomm, $inhsecomm, $validity, $shipfrom, $msubtotal, $delivery, $vessel, $relport, $destino, $car, $cigsn, $source, $cartoons, $freight, $picticbano, $nflg0, $nflg1, $custdisc, $subtotalpo, $discountpo, $shippingpo, $txrtpo, $taxpo, $totalpo, $compdate, $holdstatus, $sostatus, $reqdate, $sorevno, $swordnum, $sotype, $msubtotal0, $discount0, $whsno, $taxrate, $taxrate1, $taxrate2, $taxrate3, $taxrate4, $glaracct, $authref, $recvia, $recvianame, $labreq, $rrtype, $frghtpay, $verify, $swlock, $fupddate, $fupdtime, $sourceno, $srctype, $currid, $orgvalue, $exchrate, $baseid, $cstctid, $schdstatus, $inspectno, $swcallinby, $zone, $area, $swrecvby, $swrectime, $traveltime, $chrgmile, $halfmile, $technotes, $billable, $warranty, $emergency, $priority, $charge15, $charge2x, $contract, $quotedjob, $dateschd, $timeschd, $newuserid, $newdtetime, $newstation, $eqmake, $eqmodel, $eqserialno, $locationid, $location, $datecallsh, $timecallsh, $docprefix, $locphone, $swretrips, $swinspothr, $userschd, $gldept, $chgnotes, $phone, $phone1, $fax, $shipcomm, $pickdateok, $notbefordt, $oktopick, $sotypecode, $consdate, $ownretail, $bidorder, $biddate, $quickship, $gltaxacct, $suspend, $wmsstatus, $insurflag, $distchan, $normaflag, $rmadate, $pormoflag, $allocadate, $datehold, $nopayments, $startdays, $totaldays, $specterms, $specteramt, $payfreqday, $startdate, $s_routine, $comptime, $compstat, $arvltime, $driverlic, $totweight0, $totalbal, $printflag, $estshpdate, $budaddaprv, $commset, $commsetdte, $retresvtot, $totamtsave, $qbsyncstat, $ivrefno, $dtrstart, $dtrend, $totbotdep, $prostartdt, $proenddt, $shpcompnam, $shpaddrs1, $shpaddrs2, $shpcity, $shpstate, $shpzip, $shpcountry, $shpbillopt, $shpphone, $shpemail, $shpcontact, $qblistid, $blindship, $ediflag, $edidate, $edibck, $importkey, $qutno, $splitpick, $cc_refno, $cc_amtrec, $cc_paytype, $jobdescrip, $technam1, $technam2, $mtrlstatus, $jobstatus, $vesselid) {
 
         $this->_ordnum = $ordnum;
         $this->_invno = $invno;
@@ -5110,8 +5110,8 @@ class BaseSOHEAD {
         $this->_cc_amtrec = $cc_amtrec;
         $this->_cc_paytype = $cc_paytype;
         $this->_jobdescrip = $jobdescrip;
-        $this->_technpm1 = $technpm1;
-        $this->_technpm2 = $technpm2;
+        $this->_technam1 = $technam1;
+        $this->_technam2 = $technam2;
         $this->_mtrlstatus = $mtrlstatus;
         $this->_jobstatus = $jobstatus;
         

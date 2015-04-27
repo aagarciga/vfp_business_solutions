@@ -14,8 +14,8 @@
     <!-- Bootstrap -->
     <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap.css'); ?>" rel="stylesheet" media="screen">
     <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap-theme.css'); ?>" rel="stylesheet" media="screen">
-    <link href="<?php echo $View->PublicVendorContext('select2/css/select2.css'); ?>" rel="stylesheet" media="screen">
-    <link href="<?php echo $View->PublicVendorContext('select2/css/select2-bootstrap.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('select2/css/select2.min.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('select2/css/select2-bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
     
     <link href="<?php echo $View->SharedStylesContext('main.css'); ?>" rel="stylesheet" media="screen">
     <?php $View->Partial('styles'); ?>
