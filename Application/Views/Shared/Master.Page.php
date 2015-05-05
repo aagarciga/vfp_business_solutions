@@ -7,17 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="shortcut icon" href="<?php echo $View->SharedImagesContext('favicon.ico'); ?>" type="image/ico" />
     
     <?php $View->Partial('meta'); ?>
-    <!-- Bootstrap -->
-    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap.css'); ?>" rel="stylesheet" media="screen">
-    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap-theme.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->PublicVendorContext('bootstrap-3/css/bootstrap-theme.min.css'); ?>" rel="stylesheet" media="screen">
     <link href="<?php echo $View->PublicVendorContext('select2/css/select2.min.css'); ?>" rel="stylesheet" media="screen">
     <link href="<?php echo $View->PublicVendorContext('select2/css/select2-bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
     
-    <link href="<?php echo $View->SharedStylesContext('main.css'); ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo $View->SharedStylesContext('main.min.css'); ?>" rel="stylesheet" media="screen">
     <?php $View->Partial('styles'); ?>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,14 +30,10 @@
     
     <div class="loading"></div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="<?php echo $View->SharedScriptsContext('jquery-1.10.2.min.js'); ?>"></script>
-    <!--    <script src="//code.jquery.com/jquery.js"></script>-->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.min.js'); ?>"></script>
-    <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.MVC.js'); ?>"></script>
+    <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.MVC.min.js'); ?>"></script>
     <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/bootstrap.min.js'); ?>"></script>
-    <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
     <script src="<?php echo $View->ScriptsContext('main.min.js'); ?>"></script>
     <?php $View->Partial('scripts'); ?>
   </body>

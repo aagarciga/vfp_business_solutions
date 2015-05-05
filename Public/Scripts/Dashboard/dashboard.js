@@ -3,6 +3,22 @@
  *
  */
 
+if (typeof jQuery === 'undefined') { 
+    throw new Error('VFP Business Series\'s Dashboard JavaScript requires jQuery');
+};
+
+if (typeof kb === 'undefined') { 
+    throw new Error('VFP Business Series\'s Dashboard JavaScript requires Knockback.js');
+};
+
+if (typeof ko === 'undefined') { 
+    throw new Error('VFP Business Series\'s Dashboard JavaScript requires Knockout.js');
+};
+
+if (typeof Backbone === 'undefined') { 
+    throw new Error('VFP Business Series\'s Dashboard JavaScript requires Backbone.js');
+};
+
 /**
  * Vessel Form Related MVVM Logic
  * @author Alex
@@ -314,7 +330,6 @@
     DynamicFilter.htmlBindings.modalSaveFilter_btnSave         = '#dynamicFilter_modal_btnSaveFilter';
 
     DynamicFilter.functions = {};
-
     /**
      * Disable all filter action controls
      * @returns {undefined}
@@ -326,7 +341,6 @@
             });
         DynamicFilter.status.areControlsEnabled = false;
     };
-
     /**
      * Enable all filter action controls
      * @returns {undefined}
@@ -338,7 +352,6 @@
             });
         DynamicFilter.status.areControlsEnabled = true;
     };
-
     DynamicFilter.functions.reset = function (notFilter) {
         $(DynamicFilter.htmlBindings.filterFieldsContainer).empty();
         DynamicFilter.functions.disableControls();
@@ -347,7 +360,6 @@
             DynamicFilter.functions.filter();
         }
     };
-
     DynamicFilter.functions.getPredicate = function () {
         var $filterComponents = $(DynamicFilter.htmlBindings.filterFieldsContainer).children(),
             $currentComponent = null,
@@ -389,11 +401,9 @@
         });
         return DynamicFilter.status.predicate;
     };
-
     DynamicFilter.functions.filter = function () {
         App.Dashboard.functions.paginate(DynamicFilter.functions.getPredicate());
     };
-
     DynamicFilter.functions.loadFilter = function (filterId) {
         $.ajax({
             data: {
@@ -430,7 +440,6 @@
             }
         });
     };
-
     /**
      * 
      * @param {Boolean} first
@@ -584,7 +593,11 @@
         $(DynamicFilter.htmlBindings.modalSaveFilter).modal('show');
     };
     DynamicFilter.eventHandlers.drpSavedFilterItem_onClick = function (event) {
-        var filterId = event.currentTarget.dataset['filterid'];
+        /**
+         * var filterId = event.currentTarget.dataset['filterid'];
+         * @type @exp;event@pro;currentTarget@pro;dataset@pro;filterid
+         */
+        var filterId = event.currentTarget.dataset.filterid;
         DynamicFilter.functions.reset(true);
         DynamicFilter.functions.loadFilter(filterId);
         DynamicFilter.functions.enableControls();
@@ -687,9 +700,17 @@
         var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName),
             filterName = $filterName.val(),
             $filterContainer = $(DynamicFilter.htmlBindings.filterFieldsContainer),
-            filterHtml = $filterContainer.html(),
+            filterHtml = "",
             filterValues = "",
             $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
+
+            // Alex: In order to remove the select2 element to save the select clean
+        $filterContainer.find('select.select2-container').
+            each(function () {
+                $(this).select2('destroy');
+            });
+            // Saving html filter before select2 elements are destroyed
+        filterHtml = $filterContainer.html();
 
         $filterContainer.find('select, input[type=text]')
             .each(function (index) {
@@ -699,6 +720,7 @@
                     filterValues += ", " + $(this).val();
                 }
             });
+
 
         if (filterName !== "" && /\w/.test(filterName)) {
             $.ajax({
@@ -723,6 +745,9 @@
                     }
                     $drpSavedFilters.append(DynamicFilter.functions.createDropdownSavedFilterItem(data.filterid, filterName));
                     $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
+
+                    // Restauring select2 elements
+                    $filterContainer.find('select.select2-container').select2();
                     $('.loading').hide();
                 }
             });
@@ -776,6 +801,404 @@
 
 /**
  * @author Alex
+ * @namespace App.Dashboard.DynamicFilter
+ * @param {type} global
+ * @param {type} $
+ * @param {type} App
+ * @returns {undefined}
+ */
+(function (global, $, App) {
+    "use strict";
+
+    var dandelion = global.dandelion,
+        ProjectFiles = dandelion.namespace('App.Dashboard.ProjectFiles', global);
+        
+    ProjectFiles.status = {};
+    ProjectFiles.status.dropzone = null;
+    ProjectFiles.status.jsTree = null;
+    
+    ProjectFiles.htmlBindings = {};
+    ProjectFiles.htmlBindings.modal_ProjectFiles    = '#project-files-modal';
+    ProjectFiles.htmlBindings.dropzone              = '#projectFilesDropzone';
+    ProjectFiles.htmlBindings.dropzone_previews     = '.dz-preview';
+    ProjectFiles.htmlBindings.jsTree                = '#project-files-jstree';
+    ProjectFiles.htmlBindings.jsTree_SearchControl  = '#tree-search';
+    
+    ProjectFiles.functions = {};
+    ProjectFiles.functions.dropzoneReset = function () {
+        var index;
+        for(index in ProjectFiles.status.dropzone.files){
+            ProjectFiles.status.dropzone.files[index].ready4Remove = false;
+        }
+        ProjectFiles.status.dropzone.removeAllFiles();
+        $(ProjectFiles.htmlBindings.dropzone_previews).children('.dz-preview').remove();
+        $(ProjectFiles.htmlBindings.dropzone).children('.dz-message.custom').css('opacity', '1');
+    };
+    ProjectFiles.functions.bindJsTreeSearching = function (to) {
+        $(ProjectFiles.htmlBindings.jsTree_SearchControl).on('keyup', 
+            function (event) {
+                if (to) {
+                    clearTimeout(to);
+                }
+                to = setTimeout(function () {
+                   var value = $(ProjectFiles.htmlBindings.jsTree_SearchControl).val();
+                   ProjectFiles.status.jsTree.jstree(true).search(value);
+                }, 250);
+            });
+    };
+    ProjectFiles.functions.loadFileTree = function (currentSalesOrder) {
+        
+        if (ProjectFiles.status.jsTree !== null) {
+            ProjectFiles.status.jsTree.jstree(true).destroy();
+        }
+        
+        ProjectFiles.status.jsTree = $(ProjectFiles.htmlBindings.jsTree).jstree({
+            id: ProjectFiles.htmlBindings.jsTree,
+            plugins : ['state','dnd','sort','types','contextmenu','unique', 'search'],
+            searchControlId: ProjectFiles.htmlBindings.jsTree_SearchControl,
+            core : {
+                animation: true,
+                themes: {
+                    name: 'default',
+                    responsive : false,
+                    variant : 'medium',
+                    stripes : false
+                },
+                data : {
+                    url : App.Dashboard.urls.projectAttachementsAPI + '&salesorder=' + currentSalesOrder + '&operation=get_node',
+                    data : function (node) {
+                        return { 'id' : node.id };
+                    }
+                },
+                check_callback: function (operation, node, node_parent, node_position, more) {
+
+                    // If error, change 'i' for node_position                
+                    if(more && more.dnd && more.pos !== 'i') {
+                        return false; 
+                    } 
+                    if(operation === "move_node" || operation === "copy_node") {
+                        if(this.get_node(node).parent === this.get_node(node_parent).id) { 
+                            return false; 
+                        }
+                    }
+                    return true;
+                },
+                error: function (instance){
+                    console.log('Error callback:', instance);
+                }
+            },
+            sort: function (a, b) {
+                return this.get_type(a) === this.get_type(b) ? 
+                    (this.get_text(a) > this.get_text(b) ? 1 : -1) : 
+                    (this.get_type(a) >= this.get_type(b) ? 1 : -1);
+            },
+            types: {
+                '#': {
+                    max_children: 1,
+                    valid_children: ['default'],
+                    icon: 'glyphicon glyphicon-folder-open'
+                },
+                'default': {
+                    valid_children: ['default'],
+                    icon: 'glyphicon glyphicon-folder-close'
+                } 
+            },
+            contextmenu: {
+                items: function (node) {
+                    var tmp = $.jstree.defaults.contextmenu.items();
+                    // Removing Edit Options
+                    delete tmp.ccp;
+                    if(this.get_type(node) === "file") {
+                        delete tmp.create;
+                    }
+                    return tmp;
+                }
+            },
+            unique : {
+                duplicate : function (name, counter) {
+                    return name + ' ' + counter;
+                }
+            }
+        })
+        .on('delete_node.jstree', function (event, data) {
+            var params = {
+                    salesorder: currentSalesOrder, 
+                    operation: event.type, 
+                    'id' : data.node.id 
+                };
+
+            $('.loading').show();
+            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                .done(function (response) {
+                    $('.loading').hide();
+                })
+                .fail(function () {
+                    data.instance.refresh();
+                    $('.loading').hide();
+                });
+        })
+        .on('create_node.jstree', function (event, data) {
+            var params = {
+                    salesorder: currentSalesOrder, 
+                    operation: event.type,  
+                    'type' : data.node.type, 
+                    'id' : data.node.parent, 
+                    'text' : data.node.text 
+                };
+            
+            $('.loading').show();
+            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                .done(function (response) {
+                    data.instance.set_id(data.node, response.id);
+                    $('.loading').hide();
+                })
+                .fail(function () {
+                    data.instance.refresh();
+                    $('.loading').hide();
+                });
+        })
+        .on('rename_node.jstree', function (event, data) {
+            var params = {
+                    salesorder: currentSalesOrder, 
+                    operation: event.type,
+                    'id' : data.node.id, 
+                    'text' : data.text 
+                };
+            
+            $('.loading').show();
+            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                .done(function (response) {
+                    data.instance.set_id(data.node, response.id);
+                    $('.loading').hide();
+                })
+                .fail(function () {
+                    data.instance.refresh();
+                    $('.loading').hide();
+                });
+        })
+        .on('move_node.jstree', function (event, data) {
+            var params = {
+                    salesorder: currentSalesOrder, 
+                    operation: event.type,
+                    'id' : data.node.id, 
+                    'parent' : data.parent 
+                };
+                
+            $('.loading').show();
+            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                .done(function (response) {
+                    data.instance.refresh();
+                    $('.loading').hide();
+                })
+                .fail(function () {
+                    data.instance.refresh();
+                    $('.loading').hide();
+                });
+        })
+        .on('copy_node.jstree', function (event, data) {
+            var params = {
+                    salesorder: currentSalesOrder, 
+                    operation: event.type,
+                    'id' : data.original.id, 
+                    'parent' : data.parent 
+                };
+                
+            $('.loading').show();
+            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                .done(function (response) {
+                    data.instance.load_node(data.parent);
+                    data.instance.refresh();
+                    $('.loading').hide();
+                })
+                .fail(function () {
+                    data.instance.refresh();
+                    $('.loading').hide();
+                });
+        })
+        .on('changed.jstree', function (event, data) {
+            var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected()[0],
+                selectedDirPath = (selectedDir === '/' ? '' : selectedDir + '/'),
+                params = {
+                    salesorder: currentSalesOrder,
+                    filePath: selectedDir
+                };
+            
+            if (selectedDir) {
+                ProjectFiles.functions.dropzoneReset();
+                
+                $.post(App.Dashboard.urls.getCurrentProjectFiles, params)
+                    .done(function (response) {
+                        if (response && response.length !== 0) {
+                            selectedDirPath = "public/uploads/" + currentSalesOrder + '/' + selectedDirPath;
+                            
+                            (function (instance) {
+                                
+                            }(ProjectFiles.status.dropzone));
+                            $.each(response, function (key, value) {
+                                var pattern = /\.(gif|jpg|jpeg|tiff|png)$/i,
+                                    mockFile = { 
+                                        name: value.name, 
+                                        size: value.size, 
+                                        ready4Remove: true
+                                    };
+                                    
+                                ProjectFiles.status.dropzone.options.addedfile.call(ProjectFiles.status.dropzone, mockFile);
+                                // Alex: This is wrong (ugly nut work)..... review.... TODO
+                                ProjectFiles.status.dropzone.files.push(mockFile);
+                                if (pattern.test(value.name)) {
+                                    ProjectFiles.status.dropzone.options.thumbnail.call(ProjectFiles.status.dropzone, mockFile, selectedDirPath + value.name);
+                                }
+                            });
+                            
+                            $(ProjectFiles.htmlBindings.dropzone_previews).on('click',
+                                function (event) {
+                                    var projectDir = currentSalesOrder + '/' +(selectedDir === '/' ? '' : selectedDir + '/'),
+                                            fileName = $(this).find('.dz-filename span').html(),
+                                            filePath = projectDir + fileName,
+                                            form = $('<form action="' +
+                                                App.Dashboard.urls.downloadFile +
+                                                '" method="POST"><input type="hidden" name="filepath" value="' + 
+                                                filePath + '" /><input type="hidden" name="filename" value="' +
+                                                fileName + '" /></form>');
+                                    form.appendTo('body');                              
+                                    form[0].submit();
+                                });
+                        }
+                    })
+                    .fail(function (response){
+                        console.log(response);
+                    });
+            }
+        });
+//        .on('open_node.jstree', function (event, data) {
+//            $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
+//                .removeClass('glyphicon-folder-close').addClass('glyphicon-folder-open');
+//
+//        })
+//        .on('close_node.jstree', function (event, data) {
+//            $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
+//                .removeClass('glyphicon-folder-open').addClass('glyphicon-folder-close');
+//        });
+        ProjectFiles.functions.bindJsTreeSearching(false);
+        ProjectFiles.status.jsTree.jstree(true).select_node(currentSalesOrder);
+    };
+    ProjectFiles.functions.createDir = function () {
+        var jsTree = ProjectFiles.status.jsTree.jstree(true),
+            selectedDir = jsTree.get_selected();
+            
+        if (!selectedDir.length) {
+            return false;
+        }
+        selectedDir = selectedDir[0];
+        selectedDir = jsTree.create_node(selectedDir, {type: 'default'}, 'last', function (new_node) {
+            setTimeout(function () {
+                jsTree.edit(new_node);
+            }, 0);
+        });
+    };
+    
+    ProjectFiles.functions.renameDir = function () {
+        var jsTree = ProjectFiles.status.jsTree.jstree(true),
+            selectedDir = jsTree.get_selected();
+ 
+        if (!selectedDir.length) {
+            return false;
+        }
+        selectedDir = selectedDir[0];
+        jsTree.edit(selectedDir);
+    };
+    
+    ProjectFiles.functions.deleteDir = function () {
+        var jsTree = ProjectFiles.status.jsTree.jstree(true),
+            selectedDir = jsTree.get_selected();
+    
+        if (!selectedDir.length) {
+            return false;
+        }
+        if (selectedDir[0] === "\/") {
+            throw "Project folder can't be deleted.";
+            return false;
+        }
+        jsTree.delete_node(selectedDir);
+        ProjectFiles.functions.dropzoneReset();
+    };
+    
+    ProjectFiles.eventHandlers = {};
+    
+    ProjectFiles.init = function () {
+        // Disabling autoDiscover, otherwise Dropzone will try to attach twice.
+        global.Dropzone.options.projectFilesDropzone = false;
+        
+        ProjectFiles.status.dropzone = new global.Dropzone(ProjectFiles.htmlBindings.dropzone, {
+                paramName: "file", // The name that will be used to transfer the file
+                maxFilesize: 1024, // in MB equals to 1GB
+                maxThumbnailFilesize: 1, // MB
+                addRemoveLinks: true,
+                accept: function(file, done) {
+                    if (file.name === "Alex.jpg") {
+                        done("Hello Creator.");
+                    }
+                    else {
+                        done();
+                    }
+                },
+                init: function () {
+                    this.on('removedfile', function (file) {
+                        var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected(),
+                            params = {
+                                postSalesOrder: App.Dashboard.status.currentSalesOrder,
+                                postFilePath: selectedDir[0],
+                                postFileName : file.name
+                            };
+                        
+                        if (file.ready4Remove) {
+                            $('.loading').show();
+                            $.post(App.Dashboard.urls.deleteFile, params)
+                                .done(function (response) {
+                                    $('.loading').hide();
+                                })
+                                .fail(function (response) {
+                                    $('.loading').hide();
+                                });
+                        }
+                        file.ready4Remove = true;
+                    });
+                    this.on('sending', function (file, xhr, formData) {
+                        var jsTreeInstance = ProjectFiles.status.jsTree.jstree(true),
+                            selectedDir = jsTreeInstance.get_selected();
+                        
+                        file.ready4Remove = true;
+                        file.uploadPath = App.Dashboard.status.currentSalesOrder + '/' +selectedDir ;
+
+                        if (App.Dashboard.status.currentSalesOrder) {
+                            formData.append('salesorder', App.Dashboard.status.currentSalesOrder);
+                            formData.append('selectedDir', selectedDir);
+                        }
+                        $(ProjectFiles.htmlBindings.dropzone_previews).on('click',
+                            function () {
+                                var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected()[0],
+                                    projectDir = App.Dashboard.status.currentSalesOrder + '/' +(selectedDir === '/' ? '' : selectedDir + '/'),
+                                    fileName = $(this).find('.dz-filename span').html(),
+                                    filePath = projectDir + fileName,
+                                    form = $('<form action="' +
+                                        App.Dashboard.urls.downloadFile +
+                                        '" method="POST"><input type="hidden" name="filepath" value="' + 
+                                        filePath + '" /><input type="hidden" name="filename" value="' +
+                                        fileName + '" /></form>');
+
+                                form.appendTo('body');                              
+                                form[0].submit();
+                            });
+                    });
+                }
+            });
+        
+    };
+    
+}(window, jQuery, App));
+
+/**
+ * @author Alex
  * @namespace App.Dashboard
  * @param {window} global
  * @param {jQuery} $
@@ -785,26 +1208,29 @@
  */
 (function (global, $, App) {
     "use strict";
+
     var dandelion       = global.dandelion,
         Dashboard       = dandelion.namespace('App.Dashboard', global),
         SalesOrderForm  = App.Dashboard.SalesOrderForm,
         VesselForm      = App.Dashboard.VesselForm,
-        DynamicFilter   = App.Dashboard.DynamicFilter;
-        
+        DynamicFilter   = App.Dashboard.DynamicFilter,
+        ProjectFiles    = App.Dashboard.ProjectFiles;
+
     Dashboard.status = {};
     Dashboard.status.itemsPerPage = 50; // Default items per page value
     Dashboard.status.table_header_sortLastButton = null;
     Dashboard.status.table_header_sortField = 'ordnum'; // Default Order By Fields
     Dashboard.status.table_header_sortFieldOrder = 'ASC'; // Default Order
     Dashboard.status.currentPage = 1;
-    
+    Dashboard.status.currentSalesOrder = '';
+
     Dashboard.dictionaries = {};
     Dashboard.dictionaries.materialStatus = [];
     Dashboard.dictionaries.jobStatus = [];
     Dashboard.dictionaries.vesselDictionary = [];
     Dashboard.dictionaries.jobTypeDictionary = [];
     Dashboard.dictionaries.projectManagerDictionary = [];
-    
+
     Dashboard.htmlBindings = {};
     Dashboard.htmlBindings.container                        = '.container';
     Dashboard.htmlBindings.itemCounter                      = '#panelHeadingItemsCount';
@@ -814,18 +1240,19 @@
     Dashboard.htmlBindings.filterForm_btnToggleVisibility   = '#dashboard-panel-togle-visibility-button';
     Dashboard.htmlBindings.table                            = '#dashboardTable';
     Dashboard.htmlBindings.table_header_btnSort             = '.btn-table-sort';
-    Dashboard.htmlBindings.table_body_btnSalesOrder         = '.item-field a.salesorder-form-link';
-    Dashboard.htmlBindings.table_body_btnVessel             = '.item-field a.vessel-form-link';
+    Dashboard.htmlBindings.table_body_btnSalesOrder         = '.salesorder-form-link';
+    Dashboard.htmlBindings.table_body_btnVessel             = '.vessel-form-link';
 //    Dashboard.htmlBindings.table_body_drpUpdatable          = '.update-dropdown';
     Dashboard.htmlBindings.table_body_drpMaterialStatus     = '.update-dropdown.material-status';
     Dashboard.htmlBindings.table_body_drpJobStatus          = '.update-dropdown.job-status';
+    Dashboard.htmlBindings.table_body_btnAttach             = '.btn-files-dialog';
     Dashboard.htmlBindings.pager_container                  = '.pager-wrapper';
     Dashboard.htmlBindings.pager_btnPagerPages              = '.pager-btn';
     Dashboard.htmlBindings.control_salesOrderForm           = '#salesOrderForm';
     Dashboard.htmlBindings.control_salesOrderForm_btnClose  = '#salesOrderForm_btnClose';
     Dashboard.htmlBindings.control_vesselForm               = '#vesselForm';
     Dashboard.htmlBindings.control_vesselForm_btnClose      = '#vesselForm_btnClose';
-    
+
     Dashboard.functions = {};
     Dashboard.functions.paginate = function () {
 
@@ -839,78 +1266,215 @@
             },
             url: Dashboard.urls.getDashboardItemsPage,
             type: 'post',
-            beforeSend: function() {
+            beforeSend: function () {
                 $('.loading').show();
             },
-            success: function (response){
+            success: function (response) {
                 var data = $.parseJSON(response),
-                    pager = new BootstrapPager(data, 
+                    pager = new BootstrapPager(data,
                         Dashboard.eventHandlers.pager_btnPagerPages_onClick),
                     pagerItems = pager.getCurrentPagedItems(),
                     pagerControl = pager.getPagerControl();
-            
+
                 $(Dashboard.htmlBindings.pager_container).empty()
                     .append(pagerControl);
                 Dashboard.functions.updateTable(pagerItems);
-                
+
                 $(Dashboard.htmlBindings.itemCounter).html(pager.itemsCount);
                 $('.loading').hide();
             }
         });
-            
+
     };
-    
+
     Dashboard.functions.getDictionaries = function () {
         $.ajax({
             data: {},
             url: Dashboard.urls.getDashboardDictionaries,
             type: 'post',
-            beforeSend: function() {
+            beforeSend: function () {
                 $('.loading').show();
             },
-            success: function(response) {
+            success: function (response) {
                 var data = $.parseJSON(response);
                 Dashboard.dictionaries = data;
                 $('.loading').hide();
-            }    
+            }
         });
     };
     Dashboard.functions.updateTable = function (items) {
         var $table = $(Dashboard.htmlBindings.table),
             $tableBody = $table.children('tbody'),
             index;
-    $tableBody.empty();
+        $tableBody.empty();
         for (index in items) {
-            // refactoring here
-            
-            $tableBody.append(Dashboard.buildDashboardItemTableRow(items[index], '', "item-field"));
-        };
+            if (items.hasOwnProperty(index)) {
+                $tableBody.append(Dashboard.functions.buildTableItem(items[index], '', "item-field"));
+            }
+        }
         Dashboard.functions.bindTableItemsEventHandlers();
     };
-    Dashboard.functions.bindTableItemsEventHandlers = function () {    
-        console.log("Que pasa");
+
+    Dashboard.functions.buildTableItem = function (dataRow, trClass, tdClass) {
+        var doc = global.document,
+            result = doc.createElement('tr'),
+            simpleTdBuilder = function (data) {
+                var td = doc.createElement('td');
+
+                td.className = tdClass;
+                td.appendChild(doc.createTextNode(data));
+                return td;
+            },
+            withLinkTdBuilder = function (data, linkClassName, tdLinkClass) {
+                var td = doc.createElement('td'),
+                    a = doc.createElement('a');
+
+                a.href = "#";
+                a.className = linkClassName;
+                a.dataset.ordnum = dataRow.ordnum;
+                if (typeof data === "string") {
+                    a.appendChild(doc.createTextNode(data));
+                } else {
+                    a.appendChild(data);
+                }
+                td.className = tdLinkClass || tdClass;
+                td.appendChild(a);
+                return td;
+            },
+            selectBuilder = function (current, values) {
+                var index, option, currentId, currentValue,
+                    select = doc.createElement('select');
+
+                option = doc.createElement('option');
+                option.appendChild(doc.createTextNode("Empty"));
+                select.appendChild(option);
+
+                for (index in values) {
+                    if (values.hasOwnProperty(index)) {
+                        currentId = values[index].id;
+                        currentValue = values[index].descrip;
+                        option = doc.createElement('option');
+                        if (current === currentId) {
+                            option.selected = "selected";
+                        }
+                        option.value = currentId;
+                        option.appendChild(doc.createTextNode(currentValue));
+                        select.appendChild(option);
+                    }
+                }
+                select.className = 'form-control update-dropdown';
+                return select;
+            },
+            withSelectBuilder = function (data, dictionary, dropdownClassName) {
+                var  td = doc.createElement('td'),
+                    select = selectBuilder(data, dictionary);
+                select.dataset.ordnum = dataRow.ordnum;
+                select.className += ' select2-nosearch ' + dropdownClassName;
+                td.appendChild(select);
+
+                return td;
+            },
+            tdSalesOrderBuilder = function () {
+                return withLinkTdBuilder(dataRow.ordnum, Dashboard.htmlBindings.table_body_btnSalesOrder.slice(1));
+            },
+            tdPurchaseOrderBuilder = function () {
+                return simpleTdBuilder(dataRow.ponum);
+            },
+            tdCompanyBuilder = function () {
+                return simpleTdBuilder(dataRow.company);
+            },
+            tdVesselBuilder = function () {
+                return withLinkTdBuilder(dataRow.vesselid, Dashboard.htmlBindings.table_body_btnVessel.slice(1));
+            },
+            tdStartBuilder = function () {
+                return simpleTdBuilder(dataRow.ProStartDT);
+            },
+            tdEndBuilder = function () {
+                return simpleTdBuilder(dataRow.ProEndDT);
+            },
+            tdJobTypeBuilder = function () {
+                return simpleTdBuilder(dataRow.sotypecode);
+            },
+            tdDescriptionBuilder = function () {
+                return simpleTdBuilder(dataRow.JobDescrip);
+            },
+            tdMaterialStatusBuilder = function () {
+                return withSelectBuilder(dataRow.mtrlstatus, Dashboard.dictionaries.materialStatus, 'material-status');
+            },
+            tdStatusBuilder = function () {
+                return withSelectBuilder(dataRow.jobstatus, Dashboard.dictionaries.jobStatus, 'job-status');
+            },
+            tdProjectManager1Builder = function () {
+                return simpleTdBuilder(dataRow.projectManager1);
+            },
+            tdProjectManager2Builder = function () {
+                return simpleTdBuilder(dataRow.projectManager2);
+            },
+            tdCreateBuilder = function () {
+                return simpleTdBuilder(dataRow.podate);
+            },
+            tdQuoteNoBuilder = function () {
+                return simpleTdBuilder(dataRow.qutno);
+            },
+            tdCostCenterBuilder = function () {
+                return simpleTdBuilder(dataRow.Cstctid);
+            },
+            tdAttachedFilesBuilder = function () {
+                var spanGlyphIcon = doc.createElement('span');
+
+                spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
+                return withLinkTdBuilder(spanGlyphIcon, Dashboard.htmlBindings.table_body_btnAttach.slice(1), 'item-action item-files');
+            };
+
+        result.className = trClass;
+        result.appendChild(tdSalesOrderBuilder());
+        result.appendChild(tdPurchaseOrderBuilder());
+        result.appendChild(tdCompanyBuilder());
+        result.appendChild(tdVesselBuilder());
+        result.appendChild(tdStartBuilder());
+        result.appendChild(tdEndBuilder());
+        result.appendChild(tdJobTypeBuilder());
+        result.appendChild(tdDescriptionBuilder());
+        result.appendChild(tdMaterialStatusBuilder());
+        result.appendChild(tdStatusBuilder());
+        result.appendChild(tdProjectManager1Builder());
+        result.appendChild(tdProjectManager2Builder());
+        result.appendChild(tdCreateBuilder());
+        result.appendChild(tdQuoteNoBuilder());
+        result.appendChild(tdCostCenterBuilder());
+        result.appendChild(tdAttachedFilesBuilder());
+
+        return result;
+    };
+
+    Dashboard.functions.bindTableItemsEventHandlers = function () {
+
         $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',
             Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);
 
         $(Dashboard.htmlBindings.table_body_btnVessel).on('click',
             Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
-        
+
         $(Dashboard.htmlBindings.table_body_drpMaterialStatus).on('change',
             Dashboard.eventHandlers.table_body_drpMaterialStatus_onChange);
-            
+
         $(Dashboard.htmlBindings.table_body_drpJobStatus).on('change',
             Dashboard.eventHandlers.table_body_drpJobStatus_onChange);
-            
+
         $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity});
+
+        $(Dashboard.htmlBindings.table_body_btnAttach).on('click',
+            Dashboard.eventHandlers.table_body_btnAttach_onClick);
+
     };
     Dashboard.functions.bindEventHandlers = function () {
         $(Dashboard.htmlBindings.drpItemPerPage).on('click',
             Dashboard.eventHandlers.drpItemPerPage_onClick);
-        
+
         $(Dashboard.htmlBindings.control_salesOrderForm_btnClose).on('click',
             function () {
                 $(Dashboard.htmlBindings.control_salesOrderForm).hide();
-            });        
+            });
         $(Dashboard.htmlBindings.control_vesselForm_btnClose).on('click',
             function () {
                 $(Dashboard.htmlBindings.control_vesselForm).hide();
@@ -918,25 +1482,23 @@
 
         $(Dashboard.htmlBindings.table_header_btnSort).on('click',
             Dashboard.eventHandlers.table_body_btnSalesOrder_onClick);
-            
+
         $(Dashboard.htmlBindings.pager_btnPagerPages).on('click',
             Dashboard.eventHandlers.pager_btnPagerPages_onClick);
-            
+
         Dashboard.functions.bindTableItemsEventHandlers();
     };
-    
-    
-    
+
     Dashboard.eventHandlers = {};
     Dashboard.eventHandlers.drpItemPerPage_onClick = function (event) {
         var $target = $(event.target),
             value = $target.html();
         Dashboard.status.itemsPerPage = value;
         $(Dashboard.htmlBindings.drpItemPerPageValue).text(value);
-        
+
         // When change items per page, show page one
-        Dashboard.status.currentPage = 1; 
-        
+        Dashboard.status.currentPage = 1;
+
         Dashboard.functions.paginate();
     };
     Dashboard.eventHandlers.pager_btnPagerPages_onClick = function (event) {
@@ -1072,7 +1634,7 @@
         var $target = $(event.target),
             ordnum = $target.data('ordnum'),
             value = $target.val();
-    
+
         $.ajax({
             data: {
                 ordnum: ordnum,
@@ -1080,10 +1642,10 @@
             },
             url: Dashboard.urls.updateSOHEADMaterialStatus,
             type: 'post',
-            beforeSend: function() {
+            beforeSend: function () {
                 $('.loading').show();
             },
-            success: function(response) {
+            success: function (response) {
                 var data = $.parseJSON(response);
                 if (data === 'success') {
                     $('.loading').hide();
@@ -1097,7 +1659,7 @@
         var $target = $(event.target),
             ordnum = $target.data('ordnum'),
             value = $target.val();
-    
+
         $.ajax({
             data: {
                 ordnum: ordnum,
@@ -1105,10 +1667,10 @@
             },
             url: Dashboard.urls.updateSOHEADJobStatus,
             type: 'post',
-            beforeSend: function() {
+            beforeSend: function () {
                 $('.loading').show();
             },
-            success: function(response) {
+            success: function (response) {
                 var data = $.parseJSON(response);
                 if (data === 'success') {
                     $('.loading').hide();
@@ -1118,22 +1680,25 @@
             }
         });
     };
-    
+    Dashboard.eventHandlers.table_body_btnAttach_onClick = function (event) {
+        var $target = $(event.target);
+        Dashboard.status.currentSalesOrder = $target.parent().data('ordnum');
+        ProjectFiles.functions.loadFileTree(Dashboard.status.currentSalesOrder);
+        $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
+    };
+
     Dashboard.init = function (defaultUserFilter) {
-        console.log("Refactored Dashboard Initialization.");
-        
-        
+
         Dashboard.status.itemsPerPage = $(Dashboard.htmlBindings.drpItemPerPageValue).text();
         Dashboard.functions.getDictionaries();
-        
-        
+
         DynamicFilter.init(defaultUserFilter);
         SalesOrderForm.init();
         VesselForm.init();
-        
-        
+        ProjectFiles.init();
         
         Dashboard.functions.bindEventHandlers();
+        
     };
-    
+
 }(window, jQuery, App));

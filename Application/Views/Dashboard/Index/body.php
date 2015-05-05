@@ -185,7 +185,7 @@
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
                             <td class="item-field"><?php echo $item->getQutno() ?></td>
                             <td class="item-field"><?php echo $item->getCstctid() ?></td>
-                            <td class="item-action item-files"><a href="#" class="btn-files-dialog"><span class="glyphicon glyphicon-folder-close"></span></a></td>
+                            <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-ordnum="<?php echo $item->getOrdnum() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
@@ -207,7 +207,7 @@
  
 
 
-<div class="modal fade" id="files-modal">
+<div class="modal fade" id="project-files-modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -220,19 +220,19 @@
                         <input type="text" class="form-control" value="" id="tree-search" placeholder="Search" />
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.filesModal.createDir();"><i class="glyphicon glyphicon-asterisk"></i> Create</button>
-                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.filesModal.renameDir();"><i class="glyphicon glyphicon-pencil"></i> Rename</button>
-                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.filesModal.deleteDir();"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.ProjectFiles.functions.createDir();"><i class="glyphicon glyphicon-asterisk"></i> Create</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.ProjectFiles.functions.renameDir();"><i class="glyphicon glyphicon-pencil"></i> Rename</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.Dashboard.ProjectFiles.functions.deleteDir();"><i class="glyphicon glyphicon-remove"></i> Delete</button>
                     </div>
-                    <div id="jstree">
+                    <div id="project-files-jstree">
                     </div>
                 </div>
-                <form id="filesModalDropzone" action="<?php echo $View->Href('Dashboard', 'UploadFile') ?>" class="dropzone square  col-xs-12 col-md-7 col-lg-8">
+                <form id="projectFilesDropzone" action="<?php echo $View->Href('Dashboard', 'UploadFile') ?>" class="dropzone square  col-xs-12 col-md-7 col-lg-8">
                     <span class="dz-message custom">Drop files to upload (or click)</span>
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                     </div>
-                </form><!-- /.form #filesModalDropzone -->
+                </form><!-- /.form #project-files-dropzone -->
             </div><!-- /.modal-body -->
             <div class="modal-footer">                
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
