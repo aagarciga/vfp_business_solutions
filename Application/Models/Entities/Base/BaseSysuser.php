@@ -502,7 +502,7 @@ class BaseSysuser {
     * @param type $filterna
     * @param type $soformdb
     */
-    public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $icprefix = '', $dbfilter = '', $filterna = '', $soformdb = '') {
+   public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $icprefix = '', $dbfilter = '', $filterna = '', $soformdb = '') {
         $this->_userid = $userid;
         $this->_usercode = $usercode;
         $this->_username = $username;

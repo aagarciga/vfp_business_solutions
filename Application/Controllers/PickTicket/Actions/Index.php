@@ -19,9 +19,14 @@ class Index extends Action {
 
     public function Execute() {
         $this->Title = 'Pick Ticket | VFP Business Series - Warehouse Management System';
+//        $pickticketItemsPerPage = $this->Request->Application->getPickTicketPagerItermsPerPage();
+        $pickticketItemsPerPage = 10;
+        $_SESSION['pickticketsitemperpages'] = $pickticketItemsPerPage;
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];        
-        $this->Pager = $this->controller->GetTicketsPager($this->UserName, 10);       
+        $this->ItemPerPage = $pickticketItemsPerPage;
+        
+        $this->Pager = $this->controller->GetTicketsPager($this->UserName, $this->ItemPerPage);       
         $this->Pager->Paginate();        
         $tickets = $this->Pager->getCurrentPagedItems();
         $ticketsViewModel = array();

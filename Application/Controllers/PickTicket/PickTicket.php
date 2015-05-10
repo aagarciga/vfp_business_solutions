@@ -15,7 +15,7 @@ use Dandelion\Diana\BootstrapPager;
  */
 class PickTicket extends DatActionsController {
     
-    public function GetTicketsPager($userid, $itemsPerpage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+    public function GetTicketsPager($userid, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
         $companySuffix = $this->DatUnitOfWork->CompanySuffix;        
         $sqlString = "SELECT DISTINCT 
                         SOSHPREL$companySuffix.SHPRELNO, 
@@ -32,9 +32,11 @@ class PickTicket extends DatActionsController {
                         AND NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR SOSHPREL$companySuffix.WMSTATUS = 'X') 
                         AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))
                         GROUP BY SOSHPREL$companySuffix.SHPRELNO, SOSHPREL$companySuffix.ORDNUM, SOSHPREL$companySuffix.SHPRELDATE, SOSHPREL$companySuffix.BATCH_NO, SOSHPRELH$companySuffix.SHPCOMPNAM";
+        error_log($sqlString);
         $query = $this->DatUnitOfWork->DBDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);        
         $itemsCount = count($queryResult);
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount); 
     }
+
 }

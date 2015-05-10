@@ -26,7 +26,11 @@ class GetTicketPage_Post extends Action {
         
         if (is_numeric($page)) {
             $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
-            $this->Pager = $this->controller->GetTicketsPager($this->UserName, 10);
+            //$pickticketItemsPerPage = $this->Request->Application->getPickTicketPagerItermsPerPage();
+            $pickticketItemsPerPage = 10;
+            $this->ItemPerPage = (!isset($_SESSION['pickticketsitemperpages']))? $pickticketItemsPerPage : $_SESSION['pickticketsitemperpages'];
+            
+            $this->Pager = $this->controller->GetTicketsPager($this->UserName, $this->ItemPerPage);
             
             $pager = $this->Pager->PaginateForAjax($page);
             $currentPagedItems = $pager['currentPagedItems'];

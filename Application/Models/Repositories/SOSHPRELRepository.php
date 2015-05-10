@@ -72,6 +72,10 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         return $queryResult;
     }
     
+    public function ValidateTicket($ticketId) {
+        
+    }
+    
     public function GetTicketsPager($itemsPerpage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ) {
         $tableName = $this->entityName . $this->companySuffix;        
         $sqlString = "SELECT DISTINCT ".

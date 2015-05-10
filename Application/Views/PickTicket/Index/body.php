@@ -49,6 +49,7 @@
         </div>
     </div>
 
+    
     <table id="related-tickets-items" class="table table-striped table-condensed table-hover">
         <colgroup>
             <col class="col-1">
@@ -76,12 +77,12 @@
 
 </div>
 
-<div class="modal fade" id="tickets-modal">
+<div class="modal fade" id="ticket-list-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Select a Pick Ticket</h4>
+                <h4 class="modal-title">Select a Pick Ticket <span id="itemCounter">(<?php echo $Pager->getItemsCount(); ?>)</span></h4>
             </div>
             <div class="modal-body">
                 <table id="tickets" class="table table-striped table-condensed table-hover">
@@ -105,7 +106,7 @@
                     <tbody>
                         <?php foreach ($Tickets as $ticket):?>
                         <tr>
-                            <td class="item-field"><?php echo $ticket->getShprelno() ?></td>
+                            <td class="item-field"><a href="#" class="ticket-link" data-ticketid="<?php echo $ticket->getShprelno() ?>"><?php echo $ticket->getShprelno() ?></a></td>
                             <td class="item-field"><?php echo $ticket->getQtyshprel() ?></td>
                             <td class="item-field"><?php echo $ticket->getQtypack() ?></td>
                             <td class="item-field"><?php echo $ticket->getCompany() ?></td>

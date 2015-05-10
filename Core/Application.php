@@ -314,6 +314,14 @@ class Application implements INameable {
         $this->settings->Pager['ItemsPerPage'] = $value;
     }
 
+//    public function getPickTicketPagerItermsPerPage(){
+//        return isset($this->settings->PickTicket['ItemsPerPage'])? $this->settings->PickTicket['ItemsPerPage'] : $this->getDefaultPagerItermsPerPage();
+//    }
+//    
+//    public function setPickTicketPagerItemsPerPage($value){
+//        $this->settings->PickTicket['ItemsPerPage'] = $value;
+//    }
+    
 }
 
 ?>
