@@ -48,12 +48,12 @@ class SWVESSELRepository extends VFPRepository implements IRepository {
         return $result;
     }
     
-        /**
-         * 
-         * @param string $vesselid
-         * @return SWVESSEL
-         */
-        public function GetbyId($vesselid) {
+    /**
+     * 
+     * @param string $vesselid
+     * @return SWVESSEL
+     */
+    public function GetbyId($vesselid) {
             
         $lowerVesselid = strtolower($vesselid);
         $tableName = $this->entityName . $this->companySuffix;

@@ -32,7 +32,7 @@ class PickTicket extends DatActionsController {
                         AND NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR SOSHPREL$companySuffix.WMSTATUS = 'X') 
                         AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))
                         GROUP BY SOSHPREL$companySuffix.SHPRELNO, SOSHPREL$companySuffix.ORDNUM, SOSHPREL$companySuffix.SHPRELDATE, SOSHPREL$companySuffix.BATCH_NO, SOSHPRELH$companySuffix.SHPCOMPNAM";
-        error_log($sqlString);
+//        error_log($sqlString);
         $query = $this->DatUnitOfWork->DBDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);        
         $itemsCount = count($queryResult);

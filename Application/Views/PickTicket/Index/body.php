@@ -13,7 +13,7 @@
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="btnTicketNo">Ticket No</button>
                     </span>
-                    <input type="text" id="txShpRelNo" name="txShpRelNo"  class="form-control">
+                    <input type="text" id="txtShpRelNo" name="txtShpRelNo"  class="form-control">
                     <span class="input-group-addon">
                         <input type="checkbox">
                     </span>
@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label class="control-label" for="txLocation"><span class="glyphicon glyphicon-globe"></span> Location</label>
-                <input type="text" class="form-control input" name="txLocation" id="txLocation" title="Fill the location. Then press [Enter]"/>
+                <input type="text" class="form-control input" name="txtLocation" id="txtLocation" title="Fill the location. Then press [Enter]"/>
             </div>
 
             <div class="form-group">
@@ -30,7 +30,7 @@
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button">Barcode &nbsp;</button>
                     </span>
-                    <input type="text" id="txBarcode" name="txBarcode"  class="form-control">
+                    <input type="text" id="txtBarcode" name="txtBarcode"  class="form-control">
                     <span class="input-group-addon">
                         <input type="checkbox">
                     </span>

@@ -9,6 +9,27 @@ if (typeof jQuery === 'undefined') {
     // Application Namespace
     var dandelion = global.dandelion,
         App = dandelion.namespace('App', global);
+        
+        App.htmlBindings = {};
+        App.htmlBindings.feedbackPanel = '.feedback';
+        
+        App.Helpers = {};
+        App.Helpers.showFeedback = function (message) {
+            $(App.htmlBindings.feedbackPanel).fadeOut('slow', function() {
+                $(this).html(message);
+                $(this).fadeIn('slow', function() {
+                    //
+                });
+            });
+        };
+        App.Helpers.setSuccessTo = function (control) {
+            var $parent = $(control).parent();
+            $parent.removeClass('has-error').addClass('has-success');
+        };
+        App.Helpers.setErrorTo = function (control) {
+            var $parent = $(control).parent();
+            $parent.removeClass('has-success').addClass('has-error');
+        };
 
 }(window, jQuery));
 

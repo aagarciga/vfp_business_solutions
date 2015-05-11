@@ -8,18 +8,32 @@
     <!DOCTYPE Application SYSTEM "settings.dtd">
 
     <Application Name="VFP Business Series" Controller="main" Action="index" State="Development">
+        <Pager ItemsPerPage="50" />
+        <PickTicket ItemsPerPage="10" />
         <DB Name="vfpdata" Manager="MySQL" Host="localhost" User="vfpdata" Password="vfpdata" />
         <DB Name="vfpdata.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\" User="" Password="" ServerType="Local" />
     </Application>
 -->
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT Application (DB)*>
+<!ELEMENT Application (DB|PickTicket|Pager)*>
 <!ATTLIST Application
     State CDATA #IMPLIED
     Action CDATA #IMPLIED
     Controller CDATA #IMPLIED
     Name CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Pager EMPTY>
+<!ATTLIST Pager
+    ItemsPerPage CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT PickTicket EMPTY>
+<!ATTLIST PickTicket
+    ItemsPerPage CDATA #IMPLIED
   >
 
 <!--- Put your DTDDoc comment here. -->

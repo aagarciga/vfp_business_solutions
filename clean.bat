@@ -13,6 +13,7 @@ DEL /S /Q .\Public\Scripts\main.js
 DEL /S /Q .\Public\Scripts\Dandelion\dandelion.js
 DEL /S /Q .\Public\Scripts\Dandelion\dandelion.MVC.js
 DEL /S /Q .\Public\Scripts\Dashboard\dashboard.js
+DEL /S /Q .\Public\Scripts\PickTicket\pickticket.js
 DEL /S /Q .\Public\Vendor\bootstrap-3\js\bootstrap.js
 DEL /S /Q .\Public\Vendor\bootstrap-3\js\daterangepicker.js
 DEL /S /Q .\Public\Vendor\select2\js\select2.full.js

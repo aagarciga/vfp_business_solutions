@@ -18,6 +18,8 @@
         
     PickTicket.url = {};
     PickTicket.url.getTicketPage = "<?php echo $View->Href("PickTicket", "GetTicketPage") ?>";
+    PickTicket.url.verifyTicket = "<?php echo $View->Href("PickTicket", "VerifyTicket") ?>";
+    PickTicket.url.verifyLocation = "<?php echo $View->Href("PickTicket", "VerifyLocation") ?>";
     PickTicket.init();
     
 }(window, jQuery, App));

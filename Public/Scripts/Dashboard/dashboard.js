@@ -524,7 +524,7 @@ if (typeof Backbone === 'undefined') {
         $formGroup.find(DynamicFilter.htmlBindings.filterField_btnRemove)
             .on('click', DynamicFilter.eventHandlers.filterField_btnRemove_onClick);
         $formGroup.find('input')
-            .on('keypress', DynamicFilter.eventHandlers.input_keyPress);
+            .on('keypress', DynamicFilter.eventHandlers.input_onKeyPress);
         $formGroup.find('input.daterangepicker')
             .daterangepicker({
                 singleDatePicker: false,
@@ -551,7 +551,7 @@ if (typeof Backbone === 'undefined') {
     };
 
     DynamicFilter.eventHandlers = {};
-    DynamicFilter.eventHandlers.input_keyPress = function (event) {
+    DynamicFilter.eventHandlers.input_onKeyPress = function (event) {
         if (event.keyCode === 13) {
             DynamicFilter.functions.filter();
         }

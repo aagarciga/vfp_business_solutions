@@ -31,12 +31,19 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
     }
 
     /**
+     * 
      * @param string $predicate SQL Query Where clause
+     * @param integer $limit
+     * @param integer $offset
      * @return \Dandelion\MVC\Application\Models\Entities\SOSHPREL
      */
-    public function Get($predicate) {
+    public function Get($predicate, $limit = 0, $offset = 0) {
         $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT * FROM $tableName";
+        
+        $limit = (is_integer($limit) && $limit > 0 ) ? "TOP $limit" : '';
+        $offset = (is_integer($offset) && $offset > 0 ) ? "START AT $offset" : '';
+        
+        $sqlString = "SELECT $limit $offset * FROM $tableName";
         $sqlString .= ' ' . $predicate;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
@@ -70,10 +77,6 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         $queryResult = $query->Execute($sqlString);
 
         return $queryResult;
-    }
-    
-    public function ValidateTicket($ticketId) {
-        
     }
     
     public function GetTicketsPager($itemsPerpage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ) {
