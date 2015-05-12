@@ -54,7 +54,6 @@ class SOHEADRepository extends VFPRepository implements IRepository {
      * @return \Dandelion\MVC\Application\Models\Entities\SOHEAD
      */
     public function GetByOrdnum($ordnum) {
-
         $lowerOrdnum = strtolower($ordnum);
 
         $tableName = $this->entityName . $this->companySuffix;
