@@ -20,7 +20,7 @@ class Index extends Action {
     public function Execute() {
         $this->Title = 'Pick Ticket | VFP Business Series - Warehouse Management System';
 //        $pickticketItemsPerPage = $this->Request->Application->getPickTicketPagerItermsPerPage();
-        $pickticketItemsPerPage = 10;
+        $pickticketItemsPerPage = 50;
         $_SESSION['pickticketsitemperpages'] = $pickticketItemsPerPage;
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];        
@@ -38,7 +38,7 @@ class Index extends Action {
 //                $currentCompany = $sohead->getCompany();
 //            }
             
-            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->SHPRELDATE, $ticket->BATCH_NO, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK, $ticket->WEIGHT, $ticket->COMPANY);
+            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK, $ticket->COMPANY);
             $ticketsViewModel []= $currentTicket;
         }
         

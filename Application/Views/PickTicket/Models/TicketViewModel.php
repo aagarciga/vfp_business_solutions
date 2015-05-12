@@ -10,12 +10,12 @@ class TicketViewModel {
     
     private $_shprelno;
     private $_ordnum;
-    private $_shpreldate;
-    private $_batch_no;
+//    private $_shpreldate;
+//    private $_batch_no;
     private $_qtyshprel;
     private $_qtypick;
     private $_qtypack;
-    private $_weight;
+//    private $_weight;
     private $_company;
     
     /**
@@ -32,19 +32,19 @@ class TicketViewModel {
         return $this->_ordnum;
     }
     
-    /**
-     * @return date
-     */
-    public function getShpreldate() {
-        return $this->_shpreldate;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getBatch_no() {
-        return $this->_batch_no;
-    }
+//    /**
+//     * @return date
+//     */
+//    public function getShpreldate() {
+//        return $this->_shpreldate;
+//    }
+//    
+//    /**
+//     * @return string
+//     */
+//    public function getBatch_no() {
+//        return $this->_batch_no;
+//    }
     
     /**
      * @return numeric
@@ -63,9 +63,9 @@ class TicketViewModel {
     /**
      * @return double
      */
-    public function getWeight() {
-        return $this->_weight;
-    }
+//    public function getWeight() {
+//        return $this->_weight;
+//    }
     
     /**
      * @return string
@@ -98,16 +98,16 @@ class TicketViewModel {
     /**
      * @param Date
      */
-    public function setShpreldate($value) {
-        $this->_shpreldate = $value;
-    }
-    
-    /**
-     * @param string
-     */
-    public function setBatch_no($value) {
-        $this->_batch_no = $value;
-    }
+//    public function setShpreldate($value) {
+//        $this->_shpreldate = $value;
+//    }
+//    
+//    /**
+//     * @param string
+//     */
+//    public function setBatch_no($value) {
+//        $this->_batch_no = $value;
+//    }
     
     /**
      * @param Numeric
@@ -133,9 +133,9 @@ class TicketViewModel {
     /**
      * @param Double
      */
-    public function setWeight($value) {
-        $this->_weight = $value;
-    }
+//    public function setWeight($value) {
+//        $this->_weight = $value;
+//    }
     
     /**
      * @param string
@@ -156,15 +156,15 @@ class TicketViewModel {
      * @param double $weight
      * @param string $company
      */
-    public function __construct($shprelno, $ordnum, $shpreldate, $batch_no, $qtyshprel, $qtypick, $qtypack, $weight, $company) {
+    public function __construct($shprelno, $ordnum, $qtyshprel, $qtypick, $qtypack, $company) {
         $this->_shprelno = trim($shprelno);
         $this->_ordnum = trim($ordnum);
-        $this->_shpreldate = trim($shpreldate);
-        $this->_batch_no = trim($batch_no);
+//        $this->_shpreldate = trim($shpreldate);
+//        $this->_batch_no = trim($batch_no);
         $this->_qtyshprel = intval($qtyshprel);
         $this->_qtypick = intval($qtypick);
         $this->_qtypack = intval($qtypack);
-        $this->_weight = trim($weight);
+//        $this->_weight = trim($weight);
         $this->_company = trim($company);
     }
 }

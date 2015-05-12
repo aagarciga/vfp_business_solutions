@@ -27,7 +27,7 @@ class GetTicketPage_Post extends Action {
         if (is_numeric($page)) {
             $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
             //$pickticketItemsPerPage = $this->Request->Application->getPickTicketPagerItermsPerPage();
-            $pickticketItemsPerPage = 10;
+            $pickticketItemsPerPage = 50;
             $this->ItemPerPage = (!isset($_SESSION['pickticketsitemperpages']))? $pickticketItemsPerPage : $_SESSION['pickticketsitemperpages'];
             
             $this->Pager = $this->controller->GetTicketsPager($this->UserName, $this->ItemPerPage);
@@ -46,12 +46,12 @@ class GetTicketPage_Post extends Action {
                 $current['company'] = trim($row->COMPANY);
                 $current['shprelno'] = trim($row->SHPRELNO);
                 $current['ordnum'] = trim($row->ORDNUM);
-                $current['shpreldate'] = trim($row->SHPRELDATE);
-                $current['bath_no'] = trim($row->BATCH_NO);
+//                $current['shpreldate'] = trim($row->SHPRELDATE);
+//                $current['bath_no'] = trim($row->BATCH_NO);
                 $current['qtyshprel'] = intval($row->QTYSHPREL);
                 $current['qtypick'] = intval($row->QTYPICK);
                 $current['qtypack'] = intval($row->QTYPACK);
-                $current['weight'] = trim($row->WEIGHT);
+//                $current['weight'] = trim($row->WEIGHT);
                 $result[] = $current;
             }
             $pager['currentPagedItems'] = $result;
