@@ -36,14 +36,14 @@ class GetTicketPage_Post extends Action {
             $currentPagedItems = $pager['currentPagedItems'];
             foreach ($currentPagedItems as $row){
                 
-                $sohead = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($row->ORDNUM);
-                $currentCompany = '';
-                if ($sohead !== null) {
-                    $currentCompany = $sohead->getCompany();
-                }
+//                $sohead = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($row->ORDNUM);
+//                $currentCompany = '';
+//                if ($sohead !== null) {
+//                    $currentCompany = $sohead->getCompany();
+//                }
                 
                 $current = array();
-                $current['company'] = $currentCompany;
+                $current['company'] = trim($row->COMPANY);
                 $current['shprelno'] = trim($row->SHPRELNO);
                 $current['ordnum'] = trim($row->ORDNUM);
                 $current['shpreldate'] = trim($row->SHPRELDATE);
