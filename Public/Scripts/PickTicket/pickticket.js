@@ -191,6 +191,8 @@
     
     PickTicket.eventHandlers = {};
     PickTicket.eventHandlers.btnTicketNo_onClick = function () {
+        PickTicket.status.modal_TicketList_CurrentPage = 1;
+        PickTicket.functions.modal_ticketList_paginate();
         $(PickTicket.htmlBindings.modal_TicketList).modal('show');
     };
     PickTicket.eventHandlers.txtTicketId_onKeyPress = function (event) {

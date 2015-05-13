@@ -20,29 +20,29 @@ class Index extends Action {
     public function Execute() {
         $this->Title = 'Pick Ticket | VFP Business Series - Warehouse Management System';
 //        $pickticketItemsPerPage = $this->Request->Application->getPickTicketPagerItermsPerPage();
-        $pickticketItemsPerPage = 50;
+        $pickticketItemsPerPage = 10;
         $_SESSION['pickticketsitemperpages'] = $pickticketItemsPerPage;
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];        
         $this->ItemPerPage = $pickticketItemsPerPage;
         
         $this->Pager = $this->controller->GetTicketsPager($this->UserName, $this->ItemPerPage);       
-        $this->Pager->Paginate();        
-        $tickets = $this->Pager->getCurrentPagedItems();
-        $ticketsViewModel = array();
+//        $this->Pager->Paginate();        
+//        $tickets = $this->Pager->getCurrentPagedItems();
+//        $ticketsViewModel = array();
         
-        foreach ($tickets as $ticket) {
+//        foreach ($tickets as $ticket) {
 //            $sohead = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($ticket->ORDNUM);
 //            $currentCompany = '';
 //            if ($sohead !== null) {
 //                $currentCompany = $sohead->getCompany();
 //            }
             
-            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK, $ticket->COMPANY);
-            $ticketsViewModel []= $currentTicket;
-        }
+//            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK, $ticket->COMPANY);
+//            $ticketsViewModel []= $currentTicket;
+//        }
         
-        $this->Tickets = $ticketsViewModel;
+//        $this->Tickets = $ticketsViewModel;
         
     }
 }

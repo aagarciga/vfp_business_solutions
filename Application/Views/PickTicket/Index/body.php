@@ -104,14 +104,7 @@
 
                     </tfoot>
                     <tbody>
-                        <?php foreach ($Tickets as $ticket):?>
-                        <tr>
-                            <td class="item-field"><a href="#" class="ticket-link" data-ticketid="<?php echo $ticket->getShprelno() ?>"><?php echo $ticket->getShprelno() ?></a></td>
-                            <td class="item-field"><?php echo $ticket->getQtyshprel() ?></td>
-                            <td class="item-field"><?php echo $ticket->getQtypack() ?></td>
-                            <td class="item-field"><?php echo $ticket->getCompany() ?></td>
-                        </tr>
-                        <?php endforeach ?>
+                        
                     </tbody>
                 </table>
                 <div class="text-center pager-wrapper">
