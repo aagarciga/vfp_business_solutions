@@ -27,11 +27,11 @@ class Index extends Action {
         $this->ItemPerPage = $pickticketItemsPerPage;
         
         $this->Pager = $this->controller->GetTicketsPager($this->UserName, $this->ItemPerPage);       
-//        $this->Pager->Paginate();        
-//        $tickets = $this->Pager->getCurrentPagedItems();
-//        $ticketsViewModel = array();
+        $this->Pager->Paginate();        
+        $tickets = $this->Pager->getCurrentPagedItems();
+        $ticketsViewModel = array();
         
-//        foreach ($tickets as $ticket) {
+        foreach ($tickets as $ticket) {
 //            $sohead = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($ticket->ORDNUM);
 //            $currentCompany = '';
 //            if ($sohead !== null) {
@@ -39,10 +39,11 @@ class Index extends Action {
 //            }
             
 //            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK, $ticket->COMPANY);
-//            $ticketsViewModel []= $currentTicket;
-//        }
+            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK);
+            $ticketsViewModel []= $currentTicket;
+        }
         
-//        $this->Tickets = $ticketsViewModel;
+        $this->Tickets = $ticketsViewModel;
         
     }
 }

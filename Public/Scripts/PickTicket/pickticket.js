@@ -171,16 +171,16 @@
             },
             tdQtyPickBuilder = function () {
                 return simpleTdBuilder(dataRow.qtypick);
-            },
-            tdCompany = function () {
-                return simpleTdBuilder(dataRow.company);
             };
+//            tdCompany = function () {
+//                return simpleTdBuilder(dataRow.company);
+//            };
             
         result.className = trClass;
         result.appendChild(tdPickTicketBuilder());
         result.appendChild(tdQtyOrderBuilder());
         result.appendChild(tdQtyPickBuilder());
-        result.appendChild(tdCompany());
+//        result.appendChild(tdCompany());
         
         return result;
     };
@@ -191,6 +191,7 @@
     
     PickTicket.eventHandlers = {};
     PickTicket.eventHandlers.btnTicketNo_onClick = function () {
+        console.log("clickinginging");
         PickTicket.status.modal_TicketList_CurrentPage = 1;
         PickTicket.functions.modal_ticketList_paginate();
         $(PickTicket.htmlBindings.modal_TicketList).modal('show');

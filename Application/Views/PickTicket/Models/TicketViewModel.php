@@ -16,7 +16,7 @@ class TicketViewModel {
     private $_qtypick;
     private $_qtypack;
 //    private $_weight;
-    private $_company;
+//    private $_company;
     
     /**
      * @return string
@@ -67,12 +67,12 @@ class TicketViewModel {
 //        return $this->_weight;
 //    }
     
-    /**
-     * @return string
-     */
-    public function getCompany() {
-        return $this->_company;
-    }
+//    /**
+//     * @return string
+//     */
+//    public function getCompany() {
+//        return $this->_company;
+//    }
     
     /**
      * @return numeric
@@ -137,12 +137,12 @@ class TicketViewModel {
 //        $this->_weight = $value;
 //    }
     
-    /**
-     * @param string
-     */
-    public function setCompany($value) {
-        $this->_company = $value;
-    }
+//    /**
+//     * @param string
+//     */
+//    public function setCompany($value) {
+//        $this->_company = $value;
+//    }
     
     /**
      * 
@@ -156,7 +156,7 @@ class TicketViewModel {
      * @param double $weight
      * @param string $company
      */
-    public function __construct($shprelno, $ordnum, $qtyshprel, $qtypick, $qtypack, $company) {
+    public function __construct($shprelno, $ordnum, $qtyshprel, $qtypick, $qtypack) {
         $this->_shprelno = trim($shprelno);
         $this->_ordnum = trim($ordnum);
 //        $this->_shpreldate = trim($shpreldate);
@@ -165,6 +165,6 @@ class TicketViewModel {
         $this->_qtypick = intval($qtypick);
         $this->_qtypack = intval($qtypack);
 //        $this->_weight = trim($weight);
-        $this->_company = trim($company);
+//        $this->_company = trim($company);
     }
 }

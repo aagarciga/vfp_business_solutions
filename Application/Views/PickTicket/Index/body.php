@@ -90,14 +90,14 @@
                         <col class="col-1">
                         <col class="col-2">
                         <col class="col-3">
-                        <col class="col-4">
+                        <!--<col class="col-4">-->
                     </colgroup>
                     <thead>
                         <tr>
                             <th class="th-itemno">Pick Ticket</th>
                             <th class="th-qty-left">Qty Order</th>
                             <th class="th-qty-recv">Qty Pick</th>
-                            <th class="th-binloc">Company</th>
+                            <!--<th class="th-binloc">Company</th>-->
                         </tr>
                     </thead>
                     <tfoot>

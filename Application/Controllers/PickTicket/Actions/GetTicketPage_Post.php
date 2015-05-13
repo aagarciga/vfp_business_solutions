@@ -43,7 +43,7 @@ class GetTicketPage_Post extends Action {
 //                }
                 
                 $current = array();
-                $current['company'] = trim($row->COMPANY);
+//                $current['company'] = trim($row->COMPANY);
                 $current['shprelno'] = trim($row->SHPRELNO);
                 $current['ordnum'] = trim($row->ORDNUM);
 //                $current['shpreldate'] = trim($row->SHPRELDATE);
