@@ -43,14 +43,14 @@ class GetTicketPage_Post extends Action {
 //                }
                 
                 $current = array();
-//                $current['company'] = trim($row->COMPANY);
+                $current['company'] = trim($row->COMPANY);
                 $current['shprelno'] = trim($row->SHPRELNO);
                 $current['ordnum'] = trim($row->ORDNUM);
 //                $current['shpreldate'] = trim($row->SHPRELDATE);
 //                $current['bath_no'] = trim($row->BATCH_NO);
-                $current['qtyshprel'] = intval($row->QTYSHPREL);
-                $current['qtypick'] = intval($row->QTYPICK);
-                $current['qtypack'] = intval($row->QTYPACK);
+//                $current['qtyshprel'] = intval($row->QTYSHPREL);
+//                $current['qtypick'] = intval($row->QTYPICK);
+//                $current['qtypack'] = intval($row->QTYPACK);
 //                $current['weight'] = trim($row->WEIGHT);
                 $result[] = $current;
             }

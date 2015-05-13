@@ -12,11 +12,11 @@ class TicketViewModel {
     private $_ordnum;
 //    private $_shpreldate;
 //    private $_batch_no;
-    private $_qtyshprel;
-    private $_qtypick;
-    private $_qtypack;
+//    private $_qtyshprel;
+//    private $_qtypick;
+//    private $_qtypack;
 //    private $_weight;
-//    private $_company;
+    private $_company;
     
     /**
      * @return string
@@ -46,19 +46,19 @@ class TicketViewModel {
 //        return $this->_batch_no;
 //    }
     
-    /**
-     * @return numeric
-     */
-    public function getQtyshprel() {
-        return $this->_qtyshprel;
-    }
-    
-    /**
-     * @return numeric
-     */
-    public function getQtypick() {
-        return $this->_qtypick;
-    }
+//    /**
+//     * @return numeric
+//     */
+//    public function getQtyshprel() {
+//        return $this->_qtyshprel;
+//    }
+//    
+//    /**
+//     * @return numeric
+//     */
+//    public function getQtypick() {
+//        return $this->_qtypick;
+//    }
     
     /**
      * @return double
@@ -70,16 +70,16 @@ class TicketViewModel {
 //    /**
 //     * @return string
 //     */
-//    public function getCompany() {
-//        return $this->_company;
-//    }
-    
-    /**
-     * @return numeric
-     */
-    public function getQtypack() {
-        return $this->_qtypack;
+    public function getCompany() {
+        return $this->_company;
     }
+//    
+//    /**
+//     * @return numeric
+//     */
+//    public function getQtypack() {
+//        return $this->_qtypack;
+//    }
     
     /**
      * @param string
@@ -109,26 +109,26 @@ class TicketViewModel {
 //        $this->_batch_no = $value;
 //    }
     
-    /**
-     * @param Numeric
-     */
-    public function setQtyshprel($value) {
-        $this->_qtyshprel = $value;
-    }
-    
-    /**
-     * @param Numeric
-     */
-    public function setQtypick($value) {
-        $this->_qtypick = $value;
-    }
-    
-    /**
-     * @param Numeric
-     */
-    public function setQtypack($value) {
-        $this->_Qtypack = $value;
-    }
+//    /**
+//     * @param Numeric
+//     */
+//    public function setQtyshprel($value) {
+//        $this->_qtyshprel = $value;
+//    }
+//    
+//    /**
+//     * @param Numeric
+//     */
+//    public function setQtypick($value) {
+//        $this->_qtypick = $value;
+//    }
+//    
+//    /**
+//     * @param Numeric
+//     */
+//    public function setQtypack($value) {
+//        $this->_Qtypack = $value;
+//    }
     
     /**
      * @param Double
@@ -137,12 +137,12 @@ class TicketViewModel {
 //        $this->_weight = $value;
 //    }
     
-//    /**
-//     * @param string
-//     */
-//    public function setCompany($value) {
-//        $this->_company = $value;
-//    }
+    /**
+     * @param string
+     */
+    public function setCompany($value) {
+        $this->_company = $value;
+    }
     
     /**
      * 
@@ -156,15 +156,15 @@ class TicketViewModel {
      * @param double $weight
      * @param string $company
      */
-    public function __construct($shprelno, $ordnum, $qtyshprel, $qtypick, $qtypack) {
+    public function __construct($shprelno, $ordnum, $company) {
         $this->_shprelno = trim($shprelno);
         $this->_ordnum = trim($ordnum);
 //        $this->_shpreldate = trim($shpreldate);
 //        $this->_batch_no = trim($batch_no);
-        $this->_qtyshprel = intval($qtyshprel);
-        $this->_qtypick = intval($qtypick);
-        $this->_qtypack = intval($qtypack);
+//        $this->_qtyshprel = intval($qtyshprel);
+//        $this->_qtypick = intval($qtypick);
+//        $this->_qtypack = intval($qtypack);
 //        $this->_weight = trim($weight);
-//        $this->_company = trim($company);
+        $this->_company = trim($company);
     }
 }

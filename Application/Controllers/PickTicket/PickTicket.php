@@ -62,18 +62,43 @@ class PickTicket extends DatActionsController {
 //                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))
 //                        GROUP BY SOSHPREL$companySuffix.SHPRELNO, SOSHPREL$companySuffix.ORDNUM, SOHEAD$companySuffix.COMPANY";
         
-                $sqlString = "SELECT DISTINCT
+//                $sqlString = "SELECT DISTINCT
+//                        SOSHPREL$companySuffix.SHPRELNO,
+//                        SOSHPREL$companySuffix.ORDNUM,
+//                        SUM(SOSHPREL$companySuffix.QTYSHPREL) AS QTYSHPREL,
+//                        SUM(SOSHPREL$companySuffix.QTYPICK) AS QTYPICK,
+//                        SUM(SOSHPREL$companySuffix.QTYPACK) AS QTYPACK
+//                        FROM SOSHPREL$companySuffix
+//                        WHERE
+//                        NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR 
+//                        SOSHPREL$companySuffix.WMSTATUS = 'X') AND NOT(SOSHPREL$companySuffix.VOID)
+//                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))
+//                        GROUP BY SOSHPREL$companySuffix.SHPRELNO, SOSHPREL$companySuffix.ORDNUM";
+        
+//                        $sqlString = "SELECT DISTINCT
+//                        SOSHPREL$companySuffix.SHPRELNO,
+//                        SOSHPREL$companySuffix.ORDNUM,
+//                        SUM(SOSHPREL$companySuffix.QTYSHPREL) AS QTYSHPREL,
+//                        SUM(SOSHPREL$companySuffix.QTYPICK) AS QTYPICK,
+//                        SUM(SOSHPREL$companySuffix.QTYPACK) AS QTYPACK
+//                        FROM SOSHPREL$companySuffix
+//                        WHERE
+//                        NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR 
+//                        SOSHPREL$companySuffix.WMSTATUS = 'X') AND NOT(SOSHPREL$companySuffix.VOID)
+//                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))
+//                        GROUP BY SOSHPREL$companySuffix.SHPRELNO, SOSHPREL$companySuffix.ORDNUM";
+                        
+                        $sqlString = "SELECT DISTINCT
                         SOSHPREL$companySuffix.SHPRELNO,
                         SOSHPREL$companySuffix.ORDNUM,
-                        SUM(SOSHPREL$companySuffix.QTYSHPREL) AS QTYSHPREL,
-                        SUM(SOSHPREL$companySuffix.QTYPICK) AS QTYPICK,
-                        SUM(SOSHPREL$companySuffix.QTYPACK) AS QTYPACK
-                        FROM SOSHPREL$companySuffix
+                        SOHEAD$companySuffix.COMPANY
+                        FROM SOSHPREL$companySuffix INNER JOIN SOHEAD$companySuffix ON SOSHPREL$companySuffix.ORDNUM = 
+                        SOHEAD$companySuffix.ORDNUM
                         WHERE
                         NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR 
                         SOSHPREL$companySuffix.WMSTATUS = 'X') AND NOT(SOSHPREL$companySuffix.VOID)
-                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))
-                        GROUP BY SOSHPREL$companySuffix.SHPRELNO, SOSHPREL$companySuffix.ORDNUM";
+                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))";
+                        
 //        error_log($sqlString);
         $query = $this->DatUnitOfWork->DBDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);    

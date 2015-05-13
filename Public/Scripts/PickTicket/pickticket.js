@@ -166,21 +166,25 @@
             tdPickTicketBuilder = function () {
                 return withLinkTdBuilder(dataRow.shprelno, PickTicket.htmlBindings.modal_TicketList_Table_btnTicket.slice(1));
             },
-            tdQtyOrderBuilder = function () {
-                return simpleTdBuilder(dataRow.qtyshprel);
-            },
-            tdQtyPickBuilder = function () {
-                return simpleTdBuilder(dataRow.qtypick);
-            };
-//            tdCompany = function () {
-//                return simpleTdBuilder(dataRow.company);
+            tdOrdnum = function () {
+                return simpleTdBuilder(dataRow.ordnum);
+            },     
+//            tdQtyOrderBuilder = function () {
+//                return simpleTdBuilder(dataRow.qtyshprel);
+//            },
+//            tdQtyPickBuilder = function () {
+//                return simpleTdBuilder(dataRow.qtypick);
 //            };
+            tdCompany = function () {
+                return simpleTdBuilder(dataRow.company);
+            };
             
         result.className = trClass;
         result.appendChild(tdPickTicketBuilder());
-        result.appendChild(tdQtyOrderBuilder());
-        result.appendChild(tdQtyPickBuilder());
-//        result.appendChild(tdCompany());
+//        result.appendChild(tdQtyOrderBuilder());
+//        result.appendChild(tdQtyPickBuilder());
+        result.appendChild(tdOrdnum());
+        result.appendChild(tdCompany());
         
         return result;
     };
