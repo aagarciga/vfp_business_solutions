@@ -88,13 +88,23 @@ class PickTicket extends DatActionsController {
 //                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))
 //                        GROUP BY SOSHPREL$companySuffix.SHPRELNO, SOSHPREL$companySuffix.ORDNUM";
                         
-                        $sqlString = "SELECT DISTINCT
+//                        $sqlString = "SELECT DISTINCT
+//                        SOSHPREL$companySuffix.SHPRELNO,
+//                        SOSHPREL$companySuffix.ORDNUM,
+//                        SOHEAD$companySuffix.COMPANY
+//                        FROM SOSHPREL$companySuffix INNER JOIN SOHEAD$companySuffix ON SOSHPREL$companySuffix.ORDNUM = 
+//                        SOHEAD$companySuffix.ORDNUM
+//                        WHERE
+//                        NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR 
+//                        SOSHPREL$companySuffix.WMSTATUS = 'X') AND NOT(SOSHPREL$companySuffix.VOID)
+//                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))";
+        
+        $sqlString = "SELECT DISTINCT
                         SOSHPREL$companySuffix.SHPRELNO,
                         SOSHPREL$companySuffix.ORDNUM,
-                        SOHEAD$companySuffix.COMPANY
-                        FROM SOSHPREL$companySuffix INNER JOIN SOHEAD$companySuffix ON SOSHPREL$companySuffix.ORDNUM = 
-                        SOHEAD$companySuffix.ORDNUM
-                        WHERE
+                        '' as COMPANY
+                      FROM SOSHPREL$companySuffix 
+                      WHERE
                         NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR 
                         SOSHPREL$companySuffix.WMSTATUS = 'X') AND NOT(SOSHPREL$companySuffix.VOID)
                         AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))";

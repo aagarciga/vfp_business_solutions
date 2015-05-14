@@ -32,15 +32,15 @@ class Index extends Action {
         $ticketsViewModel = array();
         
         foreach ($tickets as $ticket) {
-//            $sohead = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($ticket->ORDNUM);
-//            $currentCompany = '';
-//            if ($sohead !== null) {
-//                $currentCompany = $sohead->getCompany();
-//            }
+            $sohead = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($ticket->ORDNUM);
+            $currentCompany = '';
+            if ($sohead !== null) {
+                $currentCompany = $sohead->getCompany();
+            }
             
 //            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK, $ticket->COMPANY);
 //            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->QTYSHPREL, $ticket->QTYPICK, $ticket->QTYPACK);
-            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $ticket->COMPANY);
+            $currentTicket = new TicketViewModel($ticket->SHPRELNO, $ticket->ORDNUM, $currentCompany);
             $ticketsViewModel []= $currentTicket;
         }
         
