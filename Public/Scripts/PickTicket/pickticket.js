@@ -119,6 +119,7 @@
                 $(PickTicket.htmlBindings.modal_TicketList_Pager_container).empty()
                     .append(pagerControl);
                 PickTicket.functions.modal_ticketList_updateTable(pagerItems);
+                $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html('(' + pager.getItemsCount() + ')');
 
 //                $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html("(" + pager.itemsCount + ")");
                 $('.loading').hide();

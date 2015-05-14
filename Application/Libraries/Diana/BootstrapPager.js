@@ -25,6 +25,10 @@
         
     }
     
+    BootstrapPager.prototype.getItemsCount = function () {
+        return this.itemsCount;
+    };
+    
     BootstrapPager.prototype.getPagerControl = function (){
         // Don't show pager control if only one page
         if (this.pagesCount <= 1) {

@@ -108,4 +108,8 @@ class BootstrapPager extends Pager {
     public function GetJavascriptPager(){
         return file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'BootstrapPager.js');
     }
+    
+    public static function GetJavascriptBootstrapPager(){
+        return file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'BootstrapPager.js');
+    }
 }

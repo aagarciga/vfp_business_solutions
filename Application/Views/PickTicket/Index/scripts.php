@@ -26,7 +26,7 @@
 </script>
 
 <script>
-<?php echo $Pager->GetJavascriptPager(); ?>
+<?php echo $JavascriptBootstrapPager; ?>
 </script>
 
 <script>

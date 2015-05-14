@@ -15,8 +15,8 @@ use Dandelion\Diana\BootstrapPager;
  */
 class PickTicket extends DatActionsController {
     
-    public function GetTicketsPager($userid, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
-        $companySuffix = $this->DatUnitOfWork->CompanySuffix;        
+//    public function GetTicketsPager($userid, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+//        $companySuffix = $this->DatUnitOfWork->CompanySuffix;        
 //        $sqlString = "SELECT DISTINCT 
 //                        SOSHPREL$companySuffix.SHPRELNO, 
 //                        SOSHPREL$companySuffix.ORDNUM, 
@@ -98,23 +98,23 @@ class PickTicket extends DatActionsController {
 //                        NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR 
 //                        SOSHPREL$companySuffix.WMSTATUS = 'X') AND NOT(SOSHPREL$companySuffix.VOID)
 //                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))";
-        
-        $sqlString = "SELECT DISTINCT
-                        SOSHPREL$companySuffix.SHPRELNO,
-                        SOSHPREL$companySuffix.ORDNUM,
-                        '' as COMPANY
-                      FROM SOSHPREL$companySuffix 
-                      WHERE
-                        NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR 
-                        SOSHPREL$companySuffix.WMSTATUS = 'X') AND NOT(SOSHPREL$companySuffix.VOID)
-                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))";
-                        
+//        
+//        $sqlString = "SELECT DISTINCT
+//                        SOSHPREL$companySuffix.SHPRELNO,
+//                        SOSHPREL$companySuffix.ORDNUM,
+//                        '' as COMPANY
+//                      FROM SOSHPREL$companySuffix 
+//                      WHERE
+//                        NOT(SOSHPREL$companySuffix.WMSTATUS = 'R' OR SOSHPREL$companySuffix.WMSTATUS = 'I' OR 
+//                        SOSHPREL$companySuffix.WMSTATUS = 'X') AND NOT(SOSHPREL$companySuffix.VOID)
+//                        AND ((SOSHPREL$companySuffix.QTYPICK > SOSHPREL$companySuffix.QTYPACK) Or (SOSHPREL$companySuffix.QTYPICK = 0))";
+//                        
 //        error_log($sqlString);
-        $query = $this->DatUnitOfWork->DBDriver->GetQuery();
-        $queryResult = $query->Execute($sqlString);    
-        $itemsCount = count($queryResult);
-        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount); 
+//        $query = $this->DatUnitOfWork->DBDriver->GetQuery();
+//        $queryResult = $query->Execute($sqlString);    
+//        $itemsCount = count($queryResult);
+//        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount); 
 //        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan); 
-    }
+//    }
     
 }
