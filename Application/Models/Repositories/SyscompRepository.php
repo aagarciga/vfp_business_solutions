@@ -22,7 +22,7 @@ class SyscompRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION);
+            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION, $row->USELOCNO);
         }
 
         return $result;
@@ -41,7 +41,7 @@ class SyscompRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION);
+            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION, $row->USELOCNO);
         }
 
         return $result;
@@ -60,7 +60,7 @@ class SyscompRepository extends BaseRepository implements IRepository {
         $result = array();
 
         foreach ($queryResult as $row) {
-            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION);
+            $result [] = new Syscomp($row->ACTCOMP, $row->COMPANY, $row->NFLG0, $row->QBSTATUS, $row->ADSSQLDBA, $row->DBPATH, $row->DBSVRTYPE, $row->DBUSER, $row->DBPASS, $row->DBOPTION, $row->USELOCNO);
         }
 
         return $result[0];

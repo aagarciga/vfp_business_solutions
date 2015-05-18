@@ -17,6 +17,7 @@
     PickTicket.status = {};
     PickTicket.status.ticketVerified = false;
     PickTicket.status.locationVerified = false;
+    PickTicket.status.showfinishedTickets = true;
     PickTicket.status.modal_TicketList_CurrentTicket = '';
     PickTicket.status.modal_TicketList_CurrentPage = 1;
     PickTicket.status.modal_TicketList_ItemsPerPage = 10; // Default items per page value
@@ -28,6 +29,9 @@
     PickTicket.htmlBindings.btnTicketNo                             = '#btnTicketNo';
     PickTicket.htmlBindings.txtLocation                             = '#txtLocation';
     PickTicket.htmlBindings.txtBarcode                              = '#txtBarcode';
+    PickTicket.htmlBindings.chkShowfinishedTickets                  = '#chkShowfinishedTickets';
+    PickTicket.htmlBindings.table_RelatedTicketItems                = '#related-tickets-items';
+    PickTicket.htmlBindings.table_RelatedTicketItems_body           = '#related-tickets-items tbody';
     PickTicket.htmlBindings.modal_TicketList                        = '#ticket-list-modal';
     PickTicket.htmlBindings.modal_TicketList_itemCounter            = '#itemCounter';
     PickTicket.htmlBindings.modal_TicketList_Pager_container        = '.pager-wrapper';
@@ -51,6 +55,9 @@
         $(PickTicket.htmlBindings.modal_TicketList_Pager_btnPagerPages).on('click', 
             PickTicket.eventHandlers.modal_ticketList_pager_btnPagerPages_onClick);
             
+        $(PickTicket.htmlBindings.chkShowfinishedTickets).on('change',
+            PickTicket.eventHandlers.chkShowfinishedTickets_onChange);
+            
         PickTicket.functions.modal_ticketList_bindTableItemsEventHandlers();
     };
     PickTicket.functions.verifyTicket = function (ticket) {
@@ -65,6 +72,7 @@
                 var data = $.parseJSON(response);
                 if (data.verified === true) {
                     PickTicket.status.ticketVerified = true;
+                    PickTicket.functions.getItemsByTicket(ticket);
                     App.Helpers.setSuccessTo(PickTicket.htmlBindings.txtTicketId);
                     ShowFeedback("Ticket verified.");
                 } else {
@@ -97,7 +105,37 @@
             }
         });
     };
-    
+    PickTicket.functions.getItemsByTicket = function (ticket) {
+        PickTicket.status.showfinishedTickets = $(PickTicket.htmlBindings.chkShowfinishedTickets)[0].checked;
+        $.ajax({
+            data: {ticket: ticket, showFinished: PickTicket.status.showfinishedTickets},
+            url: PickTicket.url.getItemsByTicket,
+            type: 'post',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                var data = $.parseJSON(response);
+                PickTicket.functions.showItemsByTicket(data);
+                $('.loading').hide();
+            }
+        });
+    };
+    PickTicket.functions.showItemsByTicket = function (items) {
+        var currentItems, index, itemClass,
+            $tableBody = $(PickTicket.htmlBindings.table_RelatedTicketItems_body);
+        $tableBody.empty();
+        for (index in items){
+            currentItems = items[index];
+            itemClass = (currentItems.qtypick === currentItems.qtyshprel) ? 'finished' : 'unfinished';
+            $tableBody.append('<tr class="' + itemClass + 
+                '"><td class="itemno">' + currentItems.itemno + 
+                '</td><td class="qty-left">' + currentItems.qtypick + 
+                '</td><td class="qty-recv">' + currentItems.qtyshprel + 
+                '</td><td class="binloc">' + currentItems.locno + 
+                '</td></tr>');
+        }
+    };
     PickTicket.functions.modal_ticketList_paginate = function () {
         $.ajax({
             data: {
@@ -119,9 +157,9 @@
                 $(PickTicket.htmlBindings.modal_TicketList_Pager_container).empty()
                     .append(pagerControl);
                 PickTicket.functions.modal_ticketList_updateTable(pagerItems);
-                $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html('(' + pager.getItemsCount() + ')');
+//                $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html('(' + pager.getItemsCount() + ')');
 
-//                $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html("(" + pager.itemsCount + ")");
+                $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html("(" + pager.itemsCount + ")");
                 $('.loading').hide();
             }
         });
@@ -221,6 +259,13 @@
     PickTicket.eventHandlers.txtLocation_onLeave = function (event) {
         if (!PickTicket.status.locationVerified) {
             PickTicket.functions.verifyLocation(event.target.value);
+        }
+    };
+    PickTicket.eventHandlers.chkShowfinishedTickets_onChange = function (event) {
+        var ticket = $(PickTicket.htmlBindings.txtTicketId).val();
+        PickTicket.functions.verifyTicket(ticket);
+        if (PickTicket.status.ticketVerified === true){
+            PickTicket.functions.getItemsByTicket(ticket);
         }
     };
     PickTicket.eventHandlers.modal_ticketList_pager_btnPagerPages_onClick = function (event) {

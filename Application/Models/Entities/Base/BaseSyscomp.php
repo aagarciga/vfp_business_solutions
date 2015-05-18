@@ -25,6 +25,7 @@ class BaseSyscomp {
     protected $_dbuser;
     protected $_dbpass;
     protected $_dboption;
+    protected $_uselocno;
     
     public static function toString() {
         return self::$_name;
@@ -166,6 +167,17 @@ class BaseSyscomp {
     public function getDboption() {
         return trim($this->_dboption);
     }
+    
+    public function setUselocno($uselocno) {
+        $this->_uselocno = $uselocno;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getUselocno() {
+        return trim($this->_uselocno);
+    }
 
     /**
      * Constructor
@@ -179,7 +191,7 @@ class BaseSyscomp {
      * @param type $dbuser
      * @param type $dbpass
      */
-    public function __construct($actcomp, $company, $nflg0, $qbstatus, $adssqldba, $dbpath, $dbsvrtype, $dbuser, $dbpass, $dboption) {
+    public function __construct($actcomp, $company, $nflg0, $qbstatus, $adssqldba, $dbpath, $dbsvrtype, $dbuser, $dbpass, $dboption, $uselocno) {
         
         $this->_actcomp = $actcomp;
         $this->_company = $company;
@@ -191,6 +203,8 @@ class BaseSyscomp {
         $this->_dbuser = $dbuser;
         $this->_dbpass = $dbpass;
         $this->_dboption = $dboption;
+        $this->_uselocno = $uselocno;
+        
     }
 
 }

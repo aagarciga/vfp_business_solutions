@@ -1,3 +1,13 @@
+#related-tickets-items.table-striped > tbody > tr.finished:nth-child(odd)>td,
+#related-tickets-items.table-striped > tbody > tr.finished>td{
+    background-color: #dff0d8;
+}
+
+#related-tickets-items td.qty-left,
+#related-tickets-items td.qty-recv{
+    /*text-align: right;*/
+}
+
 .zero-qty-left{
     color: #b92c28;
 }

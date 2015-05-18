@@ -49,5 +49,7 @@ class Index extends Action {
         
         $this->JavascriptBootstrapPager = BootstrapPager::GetJavascriptBootstrapPager();
         
+        $this->ShowLocationField = $_SESSION['usercomp_uselocno'];
+        
     }
 }

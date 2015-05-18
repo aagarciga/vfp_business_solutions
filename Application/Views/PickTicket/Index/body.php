@@ -15,15 +15,19 @@
                     </span>
                     <input type="text" id="txtShpRelNo" name="txtShpRelNo"  class="form-control">
                     <span class="input-group-addon">
-                        <input type="checkbox">
+                        <input type="checkbox" id="chkShowfinishedTickets">
                     </span>
                 </div><!-- /input-group -->
             </div>
+            
+            <?php if ($ShowLocationField): ?>
 
             <div class="form-group">
                 <label class="control-label" for="txLocation"><span class="glyphicon glyphicon-globe"></span> Location</label>
                 <input type="text" class="form-control input" name="txtLocation" id="txtLocation" title="Fill the location. Then press [Enter]"/>
             </div>
+            
+            <?php endif ?>
 
             <div class="form-group">
                 <div class="input-group">
@@ -115,8 +119,8 @@
                 
             </div>
             <div class="modal-footer">
-                
-                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>                
+<!--                
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>                -->
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

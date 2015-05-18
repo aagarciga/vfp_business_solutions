@@ -39,6 +39,8 @@ class Signin_Post extends Action{
                 
                 $companyEntity = $this->controller->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($userCompany);
                 
+                $_SESSION['usercomp_uselocno'] = $companyEntity->getUselocno();
+                
                 // If Current User Company got DBOPTION Field Value equals to 'ALL0000' (No Case Sensitive)
                 if ( strtolower($companyEntity->getDboption()) === "all0000") {
                     $this->Redirect($this->Request->hdnController, $this->Request->hdnAction);

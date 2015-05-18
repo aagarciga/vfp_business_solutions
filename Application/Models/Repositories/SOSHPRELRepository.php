@@ -79,6 +79,24 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         return $queryResult;
     }
     
+    public function GetItemsByTicket($ticket, $showFinished) {
+        $tableName = $this->entityName . $this->companySuffix;
+        $lowerTicket = strtolower($ticket);
+        
+        $sqlString = "SELECT ".
+                "ITEMNO, QTYPICK, QTYSHPREL, LOCNO ".
+                "FROM $tableName ".
+                "WHERE LOWER(SHPRELNO) = '$lowerTicket'";
+        
+        if ($showFinished === 'false') {
+            $sqlString .= " AND QTYSHPREL <> QTYPICK";
+        }
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
+    }
+    
     public function GetTicketsPager($itemsPerpage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ) {
         $tableName = $this->entityName . $this->companySuffix;        
         $sqlString = "SELECT DISTINCT ".
