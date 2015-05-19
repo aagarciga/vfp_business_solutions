@@ -59,12 +59,22 @@ if (typeof jQuery === 'undefined') {
     }
 }(window));
 
-function ShowFeedback(message){
+function ShowFeedback(message, type){
     $('.feedback').fadeOut('slow', function() {
         $('.feedback').html(message);
         $('.feedback').fadeIn('slow', function() {
             //
         });
     });
+    
+    if (type === 'info') {
+        $('.feedback').addClass('alert-info').removeClass('alert-danger alert-success alert-warning');
+    }else if (type === 'danger'){
+        $('.feedback').addClass('alert-danger').removeClass('alert-info alert-success alert-warning');
+    }else if (type === 'success') {
+        $('.feedback').addClass('alert-success').removeClass('alert-info alert-danger alert-warning');
+    }else if (type === 'warning') {
+        $('.feedback').addClass('alert-warning').removeClass('alert-info alert-danger alert-success');
+    }
 }
 

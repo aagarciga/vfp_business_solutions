@@ -35,9 +35,9 @@
                         <button class="btn btn-default" type="button">Barcode &nbsp;</button>
                     </span>
                     <input type="text" id="txtBarcode" name="txtBarcode"  class="form-control">
-                    <span class="input-group-addon">
+<!--                    <span class="input-group-addon">
                         <input type="checkbox">
-                    </span>
+                    </span>-->
                 </div><!-- /input-group -->
             </div>
 
@@ -48,7 +48,7 @@
                 <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href("Main") ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
             <div class="form-group">
-                <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>
+                <a id="btnNewTicket" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-plus-sign"></span> New Ticket</a>
             </div>
         </div>
     </div>

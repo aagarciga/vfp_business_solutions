@@ -1,6 +1,6 @@
 #related-tickets-items.table-striped > tbody > tr.finished:nth-child(odd)>td,
 #related-tickets-items.table-striped > tbody > tr.finished>td{
-    background-color: #dff0d8;
+    background-color: #fcf8e3;/* #f8efc0;*/
 }
 
 #related-tickets-items td.qty-left,
@@ -43,7 +43,7 @@
     outline-offset: -10px;
 }
 
-#close, #btnOk{
+#close, #btnNewTicket{
     line-height: 2.10;
 }
 

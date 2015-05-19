@@ -15,16 +15,30 @@
         PickTicket      = dandelion.namespace('App.PickTicket', global);
         
     PickTicket.status = {};
+    PickTicket.status.firstLoad = true;
     PickTicket.status.ticketVerified = false;
     PickTicket.status.locationVerified = false;
-    PickTicket.status.showfinishedTickets = true;
+    PickTicket.status.itemVerified = false;
+    PickTicket.status.showfinishedTickets = false;
     PickTicket.status.modal_TicketList_CurrentTicket = '';
     PickTicket.status.modal_TicketList_CurrentPage = 1;
     PickTicket.status.modal_TicketList_ItemsPerPage = 10; // Default items per page value
     
     PickTicket.dictionaries = {};
     
+    PickTicket.messages = {};
+    PickTicket.messages.pickTicket                                  = 'Pick Ticket.';
+    PickTicket.messages.ticketVerified                              = 'Ticket Verified.';
+    PickTicket.messages.ticketNotFound                              = 'Ticket not found.';
+    PickTicket.messages.tikectReady                                 = 'Pick Ticket is Ready, All Items Picked.';
+    PickTicket.messages.locationVerified                            = 'Location verified.';
+    PickTicket.messages.locationNotFound                            = 'Location not found.';
+    PickTicket.messages.itemVerified                                = 'Item verified.';
+    PickTicket.messages.itemNotFound                                = 'Item not found in current ticket.';
+    PickTicket.messages.scanItem                                    = 'Scan Item.';
+    
     PickTicket.htmlBindings = {};
+    PickTicket.htmlBindings.btnNewTicket                            = '#btnNewTicket';
     PickTicket.htmlBindings.txtTicketId                             = '#txtShpRelNo'; 
     PickTicket.htmlBindings.btnTicketNo                             = '#btnTicketNo';
     PickTicket.htmlBindings.txtLocation                             = '#txtLocation';
@@ -32,6 +46,7 @@
     PickTicket.htmlBindings.chkShowfinishedTickets                  = '#chkShowfinishedTickets';
     PickTicket.htmlBindings.table_RelatedTicketItems                = '#related-tickets-items';
     PickTicket.htmlBindings.table_RelatedTicketItems_body           = '#related-tickets-items tbody';
+    PickTicket.htmlBindings.table_RelatedTicketItems_body_btnItem   = '.btnItem';
     PickTicket.htmlBindings.modal_TicketList                        = '#ticket-list-modal';
     PickTicket.htmlBindings.modal_TicketList_itemCounter            = '#itemCounter';
     PickTicket.htmlBindings.modal_TicketList_Pager_container        = '.pager-wrapper';
@@ -41,6 +56,9 @@
     
     PickTicket.functions = {};
     PickTicket.functions.bindEventHandlers = function () {
+        $(PickTicket.htmlBindings.btnNewTicket).on('click', 
+            PickTicket.eventHandlers.btnNewTicket_onClick);
+        
         $(PickTicket.htmlBindings.btnTicketNo).on('click', 
             PickTicket.eventHandlers.btnTicketNo_onClick);
             
@@ -58,7 +76,15 @@
         $(PickTicket.htmlBindings.chkShowfinishedTickets).on('change',
             PickTicket.eventHandlers.chkShowfinishedTickets_onChange);
             
+        $(PickTicket.htmlBindings.txtBarcode)
+                .on('focus', PickTicket.eventHandlers.txtBarcode_onEnter)
+                .on('keypress', PickTicket.eventHandlers.txtBarcode_onKeyPress);
+            
         PickTicket.functions.modal_ticketList_bindTableItemsEventHandlers();
+    };
+    PickTicket.functions.table_RelatedTicketItems_bindEventHandlers = function () {
+        $(PickTicket.htmlBindings.table_RelatedTicketItems_body_btnItem).on('click',
+            PickTicket.eventHandlers.table_RelatedTicketItems_body_btnItem_onClick);
     };
     PickTicket.functions.verifyTicket = function (ticket) {
         $.ajax({
@@ -74,10 +100,9 @@
                     PickTicket.status.ticketVerified = true;
                     PickTicket.functions.getItemsByTicket(ticket);
                     App.Helpers.setSuccessTo(PickTicket.htmlBindings.txtTicketId);
-                    ShowFeedback("Ticket verified.");
                 } else {
                     App.Helpers.setErrorTo(PickTicket.htmlBindings.txtTicketId);
-                    ShowFeedback("Ticket not found.");
+                    ShowFeedback(PickTicket.messages.ticketNotFound, 'danger');
                 }
                 $('.loading').hide();
             }
@@ -93,17 +118,38 @@
             },
             success: function (response) {
                 var data = $.parseJSON(response);
-                if (data.verified === true) {
+                if (data.verified === true) 
+                {
                     PickTicket.status.locationVerified = true;
                     App.Helpers.setSuccessTo(PickTicket.htmlBindings.txtLocation);
-                    ShowFeedback("Location verified.");
+                    ShowFeedback(PickTicket.messages.locationVerified, 'success');
+                    $(PickTicket.htmlBindings.txtBarcode).focus();
                 } else {
                     App.Helpers.setErrorTo(PickTicket.htmlBindings.txtLocation);
-                    ShowFeedback("Location not found.");
+                    ShowFeedback(PickTicket.messages.locationNotFound, 'danger');
                 }
                 $('.loading').hide();
             }
         });
+    };
+    PickTicket.functions.verifyItem = function (barcode) {
+        PickTicket.status.itemVerified = false;
+        var items = $(PickTicket.htmlBindings.table_RelatedTicketItems_body_btnItem),
+            index;
+
+        for (index = 0; index < items.length; index++) {
+            if ((items[index].text).toLowerCase() === barcode.toLowerCase()) {
+                PickTicket.status.itemVerified = true;
+                break;
+            }
+        }
+        if (PickTicket.status.itemVerified) {
+            App.Helpers.setSuccessTo(PickTicket.htmlBindings.txtBarcode);
+            ShowFeedback(PickTicket.messages.itemVerified, 'success');
+        } else {
+            App.Helpers.setErrorTo(PickTicket.htmlBindings.txtBarcode);
+            ShowFeedback(PickTicket.messages.itemNotFound, 'danger');
+        }
     };
     PickTicket.functions.getItemsByTicket = function (ticket) {
         PickTicket.status.showfinishedTickets = $(PickTicket.htmlBindings.chkShowfinishedTickets)[0].checked;
@@ -122,19 +168,34 @@
         });
     };
     PickTicket.functions.showItemsByTicket = function (items) {
-        var currentItems, index, itemClass,
+        var currentItems, index, itemClass, finishedCount = 0, itemsCount = 0,
             $tableBody = $(PickTicket.htmlBindings.table_RelatedTicketItems_body);
         $tableBody.empty();
         for (index in items){
             currentItems = items[index];
-            itemClass = (currentItems.qtypick === currentItems.qtyshprel) ? 'finished' : 'unfinished';
+            itemsCount += 1;
+            if (currentItems.qtypick === currentItems.qtyshprel) {
+                itemClass = 'finished';
+                finishedCount +=1;
+            } else {
+                itemClass = 'unfinished';
+            }
+            
             $tableBody.append('<tr class="' + itemClass + 
-                '"><td class="itemno">' + currentItems.itemno + 
-                '</td><td class="qty-left">' + currentItems.qtypick + 
+                '"><td class="itemno"><a class="btnItem" href="#">' + currentItems.itemno + 
+                '</a></td><td class="qty-left">' + currentItems.qtypick + 
                 '</td><td class="qty-recv">' + currentItems.qtyshprel + 
                 '</td><td class="binloc">' + currentItems.locno + 
                 '</td></tr>');
         }
+        PickTicket.functions.table_RelatedTicketItems_bindEventHandlers();
+        
+        if(finishedCount === itemsCount){
+            ShowFeedback(PickTicket.messages.tikectReady, 'warning');
+        } else {
+            ShowFeedback(PickTicket.messages.ticketVerified, 'success');
+        }
+        
     };
     PickTicket.functions.modal_ticketList_paginate = function () {
         $.ajax({
@@ -163,6 +224,24 @@
                 $('.loading').hide();
             }
         });
+    };
+    PickTicket.functions.reset = function () {
+        PickTicket.status.firstLoad = false;
+        PickTicket.status.ticketVerified = false;
+        PickTicket.status.locationVerified = false;
+        PickTicket.status.itemVerified = false;
+        $(PickTicket.htmlBindings.chkShowfinishedTickets)[0].checked = PickTicket.status.showfinishedTickets = false;
+        
+        $(PickTicket.htmlBindings.txtTicketId).parent().removeClass('has-success has-error');
+        $(PickTicket.htmlBindings.txtLocation).parent().removeClass('has-success has-error');
+        $(PickTicket.htmlBindings.txtBarcode).parent().removeClass('has-success has-error');
+        
+        $(PickTicket.htmlBindings.txtTicketId).val('');
+        $(PickTicket.htmlBindings.txtLocation).val('');
+        $(PickTicket.htmlBindings.txtBarcode).val('');
+        
+        $(PickTicket.htmlBindings.table_RelatedTicketItems_body).empty();
+        ShowFeedback(PickTicket.messages.pickTicket, 'info');
     };
     PickTicket.functions.modal_ticketList_updateTable = function (items) {
         var $table = $(PickTicket.htmlBindings.modal_TicketList_Table),
@@ -233,16 +312,21 @@
     };
     
     PickTicket.eventHandlers = {};
+    PickTicket.eventHandlers.btnNewTicket_onClick = function () {
+        PickTicket.functions.reset();
+    };
     PickTicket.eventHandlers.btnTicketNo_onClick = function () {
-        console.log("clickinginging");
-        PickTicket.status.modal_TicketList_CurrentPage = 1;
-        PickTicket.functions.modal_ticketList_paginate();
+//        PickTicket.status.modal_TicketList_CurrentPage = 1;
+        if (PickTicket.status.firstLoad) {
+            PickTicket.functions.modal_ticketList_paginate();
+        }
         $(PickTicket.htmlBindings.modal_TicketList).modal('show');
     };
     PickTicket.eventHandlers.txtTicketId_onKeyPress = function (event) {
+        var ticket = event.target.value;
         PickTicket.status.ticketVerified = false;
         if (event.keyCode === 13) {
-            PickTicket.functions.verifyTicket(event.target.value);
+            PickTicket.functions.verifyTicket(ticket);
         }
     };
     PickTicket.eventHandlers.txtLocation_onKeyPress = function (event) {
@@ -261,12 +345,36 @@
             PickTicket.functions.verifyLocation(event.target.value);
         }
     };
-    PickTicket.eventHandlers.chkShowfinishedTickets_onChange = function (event) {
-        var ticket = $(PickTicket.htmlBindings.txtTicketId).val();
-        PickTicket.functions.verifyTicket(ticket);
-        if (PickTicket.status.ticketVerified === true){
-            PickTicket.functions.getItemsByTicket(ticket);
+    PickTicket.eventHandlers.txtBarcode_onEnter = function () {
+        var ticket, location;
+        
+        if (PickTicket.status.ticketVerified && PickTicket.status.locationVerified) {
+            ShowFeedback(PickTicket.messages.scanItem, 'info');
+        } else if (!PickTicket.status.ticketVerified) {
+            ticket = $(PickTicket.htmlBindings.txtTicketId).val();
+            PickTicket.functions.verifyTicket(ticket);
+        } else if (!PickTicket.status.locationVerified) {
+            location = $(PickTicket.htmlBindings.txtLocation).focus().val();
+            PickTicket.functions.verifyLocation(location);
         }
+    };
+    PickTicket.eventHandlers.txtBarcode_onKeyPress = function (event) {
+        PickTicket.status.itemVerified = false;
+        if (event.keyCode === 13) {
+            PickTicket.functions.verifyItem(event.target.value);
+        }
+    };
+    PickTicket.eventHandlers.chkShowfinishedTickets_onChange = function () {
+        var ticket = $(PickTicket.htmlBindings.txtTicketId).val();
+        
+        if(!PickTicket.status.ticketVerified){
+            PickTicket.functions.verifyTicket(ticket);
+        }
+        PickTicket.functions.getItemsByTicket(ticket);
+    };
+    PickTicket.eventHandlers.table_RelatedTicketItems_body_btnItem_onClick = function (event) {
+        var $target = $(event.target);
+        $(PickTicket.htmlBindings.txtBarcode).val($target.html()).focus();
     };
     PickTicket.eventHandlers.modal_ticketList_pager_btnPagerPages_onClick = function (event) {
         var $target = $(event.target),
@@ -280,11 +388,16 @@
     
         PickTicket.status.modal_TicketList_CurrentTicket = value;
         $(PickTicket.htmlBindings.txtTicketId).val(PickTicket.status.modal_TicketList_CurrentTicket).focus();
+        PickTicket.functions.verifyTicket(value);
         $(PickTicket.htmlBindings.modal_TicketList).modal('hide');
     };
     
     PickTicket.init = function () {
         console.log("PickTicket Init");
+        
+        if ($(PickTicket.htmlBindings.txtLocation).lenght === 0) {
+            PickTicket.status.locationVerified = true;
+        }
         
         PickTicket.functions.bindEventHandlers();
         
