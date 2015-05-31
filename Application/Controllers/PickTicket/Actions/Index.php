@@ -48,8 +48,13 @@ class Index extends Action {
 //        $this->Tickets = $ticketsViewModel;
         
         $this->JavascriptBootstrapPager = BootstrapPager::GetJavascriptBootstrapPager();
+//        $_SESSION['usercomp_wmslocpick']
+        error_log("usercomp_wmslocpick: ".$_SESSION['usercomp_wmslocpick']);
+        error_log("usercomp_uselocno: ".$_SESSION['usercomp_uselocno']);
         
-        $this->ShowLocationField = $_SESSION['usercomp_uselocno'];
         
+        $this->ShowLocationField = ($_SESSION['usercomp_uselocno'] && !$_SESSION['usercomp_wmslocpick'])? 'true' : 'false';
+        
+        error_log("ShowLocationField: ".$this->ShowLocationField);
     }
 }

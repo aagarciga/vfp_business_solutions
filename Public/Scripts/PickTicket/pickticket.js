@@ -410,9 +410,11 @@
     
     PickTicket.init = function () {
         console.log("PickTicket Init");
-        
-        if ($(PickTicket.htmlBindings.txtLocation).lenght === 0) {
+
+        if ($(PickTicket.htmlBindings.txtLocation).length === 0) {
             PickTicket.status.locationVerified = true;
+            
+            console.log("No location verification need");
         }
         
         PickTicket.functions.bindEventHandlers();

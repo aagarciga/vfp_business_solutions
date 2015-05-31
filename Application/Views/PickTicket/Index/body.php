@@ -20,10 +20,10 @@
                 </div><!-- /input-group -->
             </div>
             
-            <?php if ($ShowLocationField): ?>
+            <?php if ($ShowLocationField === 'true'): ?>
 
             <div class="form-group">
-                <label class="control-label" for="txLocation"><span class="glyphicon glyphicon-globe"></span> Location</label>
+                <label class="control-label" for="txtLocation"><span class="glyphicon glyphicon-globe"></span> Location</label>
                 <input type="text" class="form-control input" name="txtLocation" id="txtLocation" title="Fill the location. Then press [Enter]"/>
             </div>
             
@@ -80,7 +80,7 @@
         </tbody>
     </table>
 
-    <?php $View->Control('QuantityForm'); ?>    
+    <?php $View->Control('QuantityForm'); ?>   
 
 </div>
 
