@@ -1,5 +1,5 @@
 <script src="<?php echo $View->ScriptsContext('pickticket/pickticket.min.js'); ?>"></script>
-
+<script src="<?php echo $View->ScriptsContext('qtyform.min.js'); ?>"></script>
 <script>
 /**
  * @author Alex

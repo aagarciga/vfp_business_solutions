@@ -34,7 +34,7 @@
     PickTicket.messages.locationVerified                            = 'Location verified.';
     PickTicket.messages.locationNotFound                            = 'Location not found.';
     PickTicket.messages.itemVerified                                = 'Item verified.';
-    PickTicket.messages.itemNotFound                                = 'Item not found in current ticket.';
+    PickTicket.messages.itemNotVerified                             = 'Item not verified.';
     PickTicket.messages.scanItem                                    = 'Scan Item.';
     
     PickTicket.htmlBindings = {};
@@ -53,6 +53,7 @@
     PickTicket.htmlBindings.modal_TicketList_Pager_btnPagerPages    = '.pager-btn';
     PickTicket.htmlBindings.modal_TicketList_Table                  = '#tickets';
     PickTicket.htmlBindings.modal_TicketList_Table_btnTicket        = '.ticket-link';
+    PickTicket.htmlBindings.modal_qtyForm_btnItemQty                = '#btnItemQty';
     
     PickTicket.functions = {};
     PickTicket.functions.bindEventHandlers = function () {
@@ -79,6 +80,9 @@
         $(PickTicket.htmlBindings.txtBarcode)
                 .on('focus', PickTicket.eventHandlers.txtBarcode_onEnter)
                 .on('keypress', PickTicket.eventHandlers.txtBarcode_onKeyPress);
+        
+        $(PickTicket.htmlBindings.modal_qtyForm_btnItemQty).on('click',
+            PickTicket.eventHandlers.modal_qtyForm_btnItemQty_onClick);
             
         PickTicket.functions.modal_ticketList_bindTableItemsEventHandlers();
     };
@@ -143,6 +147,7 @@
                 break;
             }
         }
+        
         if (PickTicket.status.itemVerified) {
             App.Helpers.setSuccessTo(PickTicket.htmlBindings.txtBarcode);
             ShowFeedback(PickTicket.messages.itemVerified, 'success');
@@ -391,6 +396,17 @@
         PickTicket.functions.verifyTicket(value);
         $(PickTicket.htmlBindings.modal_TicketList).modal('hide');
     };
+    PickTicket.eventHandlers.modal_qtyForm_btnItemQty_onClick = function (event) {
+        if (!PickTicket.status.itemVerified) {
+            PickTicket.functions.verifyItem($(PickTicket.htmlBindings.txtBarcode).val());
+        } 
+        if (PickTicket.status.itemVerified) {
+            $('#quantityForm').show();
+        } else {
+            ShowFeedback(PickTicket.messages.itemNotFound, 'danger');
+        }
+    };
+    
     
     PickTicket.init = function () {
         console.log("PickTicket Init");
@@ -401,6 +417,7 @@
         
         PickTicket.functions.bindEventHandlers();
         
+        App.QuantityForm.init();
         
     };
     

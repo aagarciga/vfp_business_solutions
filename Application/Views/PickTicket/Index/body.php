@@ -35,6 +35,9 @@
                         <button class="btn btn-default" type="button">Barcode &nbsp;</button>
                     </span>
                     <input type="text" id="txtBarcode" name="txtBarcode"  class="form-control">
+                    <span class="input-group-btn">
+                        <button id="btnItemQty" class="btn btn-default" type="button">Qty &nbsp;</button>
+                    </span>
 <!--                    <span class="input-group-addon">
                         <input type="checkbox">
                     </span>-->
