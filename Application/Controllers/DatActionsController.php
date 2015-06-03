@@ -41,7 +41,7 @@ abstract class DatActionsController extends ActionsController {
             $application->getDefaultDbHost(),
             $application->getDefaultDbUser(),
             $application->getDefaultDbPassword(),
-            $application->getDefaultDbServerType()));
+            $application->getDefaultDbServerType()), $_SESSION['usercomp']);
     }
 
     /**
@@ -69,6 +69,8 @@ abstract class DatActionsController extends ActionsController {
                     $this->Redirect(new Request('Dashboard', 'Index', $request->Application));
                 }
             }
+            
+            
         }
     }
     

@@ -22,6 +22,12 @@ class VfpDataUnitOfWork extends UnitOfWork {
      * @var DBDriver 
      */
     public $DBDriver;
+    
+    /**
+     *
+     * @var CompanySuffix 
+     */
+    public $CompanySuffix;
 
     /**
      *
@@ -49,14 +55,16 @@ class VfpDataUnitOfWork extends UnitOfWork {
     
     
 
-    public function __construct($dbDriver){
+    public function __construct($dbDriver, $companySuffix = "00"){
         parent::__construct();
         
         $this->DBDriver = $dbDriver;
+        $this->CompanySuffix = $companySuffix; 
+        
         $this->SysuserRepository = new SysuserRepository($dbDriver, Entities\Sysuser::toString());
         $this->SyscompRepository = new SyscompRepository($dbDriver, Entities\Syscomp::toString());
         $this->SysexportRepository = new SysexportRepository($dbDriver, Entities\SYSEXPORT::toString());
-        $this->SOCOMPRepository = new SOCOMPRepository($dbDriver, Entities\SOCOMP::toString());
+        $this->SOCOMPRepository = new SOCOMPRepository($dbDriver, Entities\SOCOMP::toString(), $companySuffix);
     }
 
 } 

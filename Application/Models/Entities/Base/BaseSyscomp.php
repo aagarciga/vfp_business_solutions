@@ -203,7 +203,7 @@ class BaseSyscomp {
         $this->_dbuser = $dbuser;
         $this->_dbpass = $dbpass;
         $this->_dboption = $dboption;
-        $this->_uselocno = $uselocno;
+        $this->_uselocno = ($uselocno === null)? false : $uselocno;
         
     }
 
