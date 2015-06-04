@@ -150,6 +150,7 @@
         
         if (PickTicket.status.itemVerified) {
             App.Helpers.setSuccessTo(PickTicket.htmlBindings.txtBarcode);
+            $('#quantityForm').show();
             ShowFeedback(PickTicket.messages.itemVerified, 'success');
         } else {
             App.Helpers.setErrorTo(PickTicket.htmlBindings.txtBarcode);
@@ -233,7 +234,11 @@
     PickTicket.functions.reset = function () {
         PickTicket.status.firstLoad = false;
         PickTicket.status.ticketVerified = false;
-        PickTicket.status.locationVerified = false;
+        if ($(PickTicket.htmlBindings.txtLocation).length === 0) {
+            PickTicket.status.locationVerified = true;
+        } else {
+            PickTicket.status.locationVerified = false;
+        }
         PickTicket.status.itemVerified = false;
         $(PickTicket.htmlBindings.chkShowfinishedTickets)[0].checked = PickTicket.status.showfinishedTickets = false;
         
@@ -352,7 +357,6 @@
     };
     PickTicket.eventHandlers.txtBarcode_onEnter = function () {
         var ticket, location;
-        
         if (PickTicket.status.ticketVerified && PickTicket.status.locationVerified) {
             ShowFeedback(PickTicket.messages.scanItem, 'info');
         } else if (!PickTicket.status.ticketVerified) {
@@ -380,6 +384,7 @@
     PickTicket.eventHandlers.table_RelatedTicketItems_body_btnItem_onClick = function (event) {
         var $target = $(event.target);
         $(PickTicket.htmlBindings.txtBarcode).val($target.html()).focus();
+        PickTicket.functions.verifyItem($target.html());
     };
     PickTicket.eventHandlers.modal_ticketList_pager_btnPagerPages_onClick = function (event) {
         var $target = $(event.target),
@@ -406,7 +411,6 @@
             ShowFeedback(PickTicket.messages.itemNotFound, 'danger');
         }
     };
-    
     
     PickTicket.init = function () {
         console.log("PickTicket Init");
