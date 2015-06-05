@@ -176,7 +176,10 @@
     };
     PickTicket.functions.showItemsByTicket = function (items) {
         var currentItems, index, itemClass, finishedCount = 0, itemsCount = 0,
-            $tableBody = $(PickTicket.htmlBindings.table_RelatedTicketItems_body);
+            $tableBody = $(PickTicket.htmlBindings.table_RelatedTicketItems_body),
+            suggestion = function (qtyshprel, qtypick) {
+                return parseInt(qtyshprel) - parseInt(qtypick);
+            };
         $tableBody.empty();
         for (index in items){
             currentItems = items[index];
@@ -189,7 +192,8 @@
             }
             
             $tableBody.append('<tr class="' + itemClass + 
-                '"><td class="itemno"><a class="btnItem" href="#">' + currentItems.itemno + 
+                '"><td class="itemno"><a class="btnItem" href="#" data-suggest-value="' + suggestion(currentItems.qtyshprel, currentItems.qtypick) + 
+                '" >' + currentItems.itemno + 
                 '</a></td><td class="qty-left">' + currentItems.qtypick + 
                 '</td><td class="qty-recv">' + currentItems.qtyshprel + 
                 '</td><td class="binloc">' + currentItems.locno + 
@@ -386,6 +390,7 @@
         var $target = $(event.target);
         $(PickTicket.htmlBindings.txtBarcode).val($target.html()).focus();
         PickTicket.functions.verifyItem($target.html());
+        App.QuantityForm.setValue($target.data('suggest-value'));
     };
     PickTicket.eventHandlers.modal_ticketList_pager_btnPagerPages_onClick = function (event) {
         var $target = $(event.target),

@@ -132,7 +132,7 @@
         QuantityForm.functions.bindEventHandlers();
     };
     QuantityForm.setValue = function (value) {
-        $(QuantityForm.htmlBindings.quantityField).val(value || 0);
+        $(QuantityForm.htmlBindings.quantityField).html(value || 0);
     };
     
         
