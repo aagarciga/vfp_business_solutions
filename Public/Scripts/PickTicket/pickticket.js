@@ -21,6 +21,8 @@
     PickTicket.status.itemVerified = false;
     PickTicket.status.defaultShowfinishedTickets = false;
     PickTicket.status.showfinishedTickets = false;
+    PickTicket.status.currentItem = null;
+    PickTicket.status.currentItemSuggestValue = 0;
     PickTicket.status.modal_TicketList_CurrentTicket = '';
     PickTicket.status.modal_TicketList_CurrentPage = 1;
     PickTicket.status.modal_TicketList_ItemsPerPage = 10; // Default items per page value
@@ -49,6 +51,7 @@
     PickTicket.htmlBindings.table_RelatedTicketItems                = '#related-tickets-items';
     PickTicket.htmlBindings.table_RelatedTicketItems_body           = '#related-tickets-items tbody';
     PickTicket.htmlBindings.table_RelatedTicketItems_body_btnItem   = '.btnItem';
+    PickTicket.htmlBindings.qtyForm_btnEnter                        = '';
     PickTicket.htmlBindings.modal_TicketList                        = '#ticket-list-modal';
     PickTicket.htmlBindings.modal_TicketList_itemCounter            = '#itemCounter';
     PickTicket.htmlBindings.modal_TicketList_Pager_container        = '.pager-wrapper';
@@ -85,6 +88,9 @@
         
         $(PickTicket.htmlBindings.modal_qtyForm_btnItemQty).on('click',
             PickTicket.eventHandlers.modal_qtyForm_btnItemQty_onClick);
+            
+        $(App.QuantityForm.htmlBindings.enterKey).on('click', 
+            PickTicket.eventHandlers.qtyForm_btnEnter_onClick);
             
         PickTicket.functions.modal_ticketList_bindTableItemsEventHandlers();
     };
@@ -259,6 +265,13 @@
         $(PickTicket.htmlBindings.table_RelatedTicketItems_body).empty();
         ShowFeedback(PickTicket.messages.pickTicket, 'info');
     };
+    PickTicket.functions.update = function (item, value) {
+        console.log(item, value);
+        if (value > PickTicket.status.currentItemSuggestValue) {
+            console.log("current value exceeds suggested value");
+            ShowFeedback(PickTicket.messages.qtyExceeds, 'danger');
+        }
+    };
     PickTicket.functions.modal_ticketList_updateTable = function (items) {
         var $table = $(PickTicket.htmlBindings.modal_TicketList_Table),
             $tableBody = $table.children('tbody'),
@@ -389,13 +402,15 @@
     };
     PickTicket.eventHandlers.table_RelatedTicketItems_body_btnItem_onClick = function (event) {
         var $target = $(event.target),
-            suggestValue = $target.data('suggest-value');
+            suggestValue = parseInt($target.data('suggest-value'));
         $(PickTicket.htmlBindings.txtBarcode).val($target.html()).focus();
         PickTicket.functions.verifyItem($target.html());
-        if ( parseInt(suggestValue) < 0 ) {
+        if ( suggestValue < 0 ) {
             ShowFeedback(PickTicket.messages.qtyExceeds, 'danger');
             
         } else {
+            PickTicket.status.currentItem = $target.html();
+            PickTicket.status.currentItemSuggestValue = suggestValue;
             App.QuantityForm.setValue($target.data('suggest-value'));
         }
     };
@@ -426,6 +441,12 @@
             ShowFeedback(PickTicket.messages.itemNotFound, 'danger');
         }
     };
+    PickTicket.eventHandlers.qtyForm_btnEnter_onClick = function (event) {
+        var $target = $(event.target);
+        console.log("clicked:", $target);
+        PickTicket.functions.update(PickTicket.status.currentItem, 
+            App.QuantityForm.getValue());
+    };
     
     PickTicket.init = function (showFinishedItems) {
         console.log("PickTicket Init");
@@ -441,6 +462,7 @@
         PickTicket.functions.bindEventHandlers();
         
         App.QuantityForm.init();
+        PickTicket.htmlBindings.qtyForm_btnEnter = App.QuantityForm.getEnterKeyId();
         
     };
     

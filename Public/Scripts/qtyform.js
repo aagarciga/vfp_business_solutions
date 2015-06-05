@@ -4,7 +4,7 @@
     // QuantityForm Namespace
     var dandelion = global.dandelion,
         QuantityForm = dandelion.namespace('App.QuantityForm', global);
-        
+    
     QuantityForm.htmlBindings = {};
     QuantityForm.htmlBindings.quantityForm  = '#quantityForm';
     QuantityForm.htmlBindings.quantityField = '#quantityField';
@@ -134,7 +134,12 @@
     QuantityForm.setValue = function (value) {
         $(QuantityForm.htmlBindings.quantityField).html(value || 0);
     };
-    
+    QuantityForm.getValue = function () {
+        return parseInt($(QuantityForm.htmlBindings.quantityField).html());
+    };
+    QuantityForm.getEnterKeyId = function () {
+        return QuantityForm.htmlBindings.enterKey;
+    };
         
 }(window, jQuery));
 
