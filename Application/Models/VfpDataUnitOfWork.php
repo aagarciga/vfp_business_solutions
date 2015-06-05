@@ -61,6 +61,8 @@ class VfpDataUnitOfWork extends UnitOfWork {
         $this->DBDriver = $dbDriver;
         $this->CompanySuffix = $companySuffix; 
         
+        error_log("In VfpDataUnitOfWork companySuffix: ".$companySuffix);
+        
         $this->SysuserRepository = new SysuserRepository($dbDriver, Entities\Sysuser::toString());
         $this->SyscompRepository = new SyscompRepository($dbDriver, Entities\Syscomp::toString());
         $this->SysexportRepository = new SysexportRepository($dbDriver, Entities\SYSEXPORT::toString());

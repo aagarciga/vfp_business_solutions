@@ -37,6 +37,8 @@ abstract class DatActionsController extends ActionsController {
     {
         $application = new Application();
         
+        error_log("Init Of Data Actions Controller: ".$_SESSION['usercomp']);
+        
         $this->VfpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
             $application->getDefaultDbHost(),
             $application->getDefaultDbUser(),
