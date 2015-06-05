@@ -51,10 +51,12 @@ class Index extends Action {
 //        $_SESSION['usercomp_wmslocpick']
         error_log("usercomp_wmslocpick: ".$_SESSION['usercomp_wmslocpick']);
         error_log("usercomp_uselocno: ".$_SESSION['usercomp_uselocno']);
-        
+        error_log("usercomp_hhpickshow: ".$_SESSION['usercomp_hhpickshow']);
         
         $this->ShowLocationField = ($_SESSION['usercomp_uselocno'] && !$_SESSION['usercomp_wmslocpick'])? 'true' : 'false';
-        
+        $this->ShowFinishedTickets = ($_SESSION['usercomp_hhpickshow']) ? 'true' : 'false';
+                
         error_log("ShowLocationField: ".$this->ShowLocationField);
+        error_log("ShowFinishedTickets: ".$this->ShowFinishedTickets);
     }
 }

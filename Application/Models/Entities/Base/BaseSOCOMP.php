@@ -2302,7 +2302,7 @@ class BaseSOCOMP {
         $this->_quemailbdy = $quemailbdy;
         $this->_soemailbdy = $soemailbdy;
         $this->_wmsmanpack = $wmsmanpack;
-        $this->_hhpickshow = $hhpickshow;
+        $this->_hhpickshow = ($hhpickshow === null)? false : $hhpickshow;
         $this->_noprthead = $noprthead;
         $this->_selshpdate = $selshpdate;
         $this->_instoretrx = $instoretrx;

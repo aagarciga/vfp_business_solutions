@@ -15,7 +15,7 @@
                     </span>
                     <input type="text" id="txtShpRelNo" name="txtShpRelNo"  class="form-control">
                     <span class="input-group-addon">
-                        <input type="checkbox" id="chkShowfinishedTickets">
+                        <input type="checkbox" id="chkShowfinishedTickets" <?php echo $ShowFinishedTickets === 'true' ? 'checked="checked"': '' ?> />
                     </span>
                 </div><!-- /input-group -->
             </div>
