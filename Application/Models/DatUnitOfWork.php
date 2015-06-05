@@ -149,7 +149,11 @@ class DatUnitOfWork extends UnitOfWork {
      */
     public $GLCSTMSTRepository;
     
-    
+    /**
+     *
+     * @var SOCOMPRepository 
+     */
+    public $SOCOMPRepository;
     
 
     /**
@@ -181,6 +185,7 @@ class DatUnitOfWork extends UnitOfWork {
         $this->SOTYPEORDRepository = new Repositories\SOTYPEORDRepository($dbDriver, Entities\SOTYPEORD::toString(), $companySuffix);
         $this->SWINSPRepository = new Repositories\SWINSPRepository($dbDriver, Entities\SWINSP::toString(), $companySuffix);
         $this->GLCSTMSTRepository = new Repositories\GLCSTMSTRepository($dbDriver, Entities\GLCSTMST::toString(), $companySuffix);
+        $this->SOCOMPRepository = new Repositories\SOCOMPRepository($dbDriver, Entities\SOCOMP::toString(), $companySuffix);
     }
 
 }

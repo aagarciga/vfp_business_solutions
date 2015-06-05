@@ -37,13 +37,11 @@ abstract class DatActionsController extends ActionsController {
     {
         $application = new Application();
         
-        error_log("Init Of Data Actions Controller: ".$_SESSION['usercomp']);
-        
         $this->VfpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
             $application->getDefaultDbHost(),
             $application->getDefaultDbUser(),
             $application->getDefaultDbPassword(),
-            $application->getDefaultDbServerType()), $_SESSION['usercomp']);
+            $application->getDefaultDbServerType()));
     }
 
     /**
@@ -62,17 +60,18 @@ abstract class DatActionsController extends ActionsController {
             $this->DatUnitOfWork = new DatUnitOfWork($driver, $_SESSION['usercomp']);
             
             $currentCompanyEntity = $this->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($_SESSION['usercomp']);
+            
+            $socompEntity = $this->DatUnitOfWork->SOCOMPRepository->GetFirst();
+            $_SESSION['usercomp_wmslocpick'] = $socompEntity->getWmslocpick();
+            $_SESSION['usercomp_hhpickshow'] = $socompEntity->getHhpickshow();
+            
             $_SESSION['fullFeatures'] = false;             
             if ( strtolower($currentCompanyEntity->getDboption()) === "all0000"){
                 $_SESSION['fullFeatures'] = true;
             }
-            else{
-                if ($request->Controller !== "Dashboard") {
-                    $this->Redirect(new Request('Dashboard', 'Index', $request->Application));
-                }
+            else if ($request->Controller !== "Dashboard") {
+                $this->Redirect(new Request('Dashboard', 'Index', $request->Application));
             }
-            
-            
         }
     }
     

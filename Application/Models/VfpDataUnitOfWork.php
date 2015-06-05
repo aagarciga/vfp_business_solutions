@@ -11,7 +11,6 @@ use Dandelion\MVC\Application\Models\Entities;
 use Dandelion\MVC\Application\Models\Repositories\SysuserRepository;
 use Dandelion\MVC\Application\Models\Repositories\SyscompRepository;
 use Dandelion\MVC\Application\Models\Repositories\SysexportRepository;
-use Dandelion\MVC\Application\Models\Repositories\SOCOMPRepository;
 
 /**
  * VfpData Data Context
@@ -47,26 +46,14 @@ class VfpDataUnitOfWork extends UnitOfWork {
      */
     public $SysexportRepository;
     
-    /**
-     *
-     * @var SOCOMPRepository 
-     */
-    public $SOCOMPRepository;
-    
-    
-
-    public function __construct($dbDriver, $companySuffix = "00"){
+    public function __construct($dbDriver){
         parent::__construct();
         
         $this->DBDriver = $dbDriver;
-        $this->CompanySuffix = $companySuffix; 
-        
-        error_log("In VfpDataUnitOfWork companySuffix: ".$companySuffix);
         
         $this->SysuserRepository = new SysuserRepository($dbDriver, Entities\Sysuser::toString());
         $this->SyscompRepository = new SyscompRepository($dbDriver, Entities\Syscomp::toString());
         $this->SysexportRepository = new SysexportRepository($dbDriver, Entities\SYSEXPORT::toString());
-        $this->SOCOMPRepository = new SOCOMPRepository($dbDriver, Entities\SOCOMP::toString(), $companySuffix);
     }
 
 } 
