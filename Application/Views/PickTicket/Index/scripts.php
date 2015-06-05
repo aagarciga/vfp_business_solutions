@@ -21,7 +21,7 @@
     PickTicket.url.verifyTicket = "<?php echo $View->Href("PickTicket", "VerifyTicket") ?>";
     PickTicket.url.verifyLocation = "<?php echo $View->Href("PickTicket", "VerifyLocation") ?>";
     PickTicket.url.getItemsByTicket = "<?php echo $View->Href("PickTicket", "GetItemsByTicket") ?>";
-    PickTicket.init();
+    PickTicket.init(<?php echo $ShowFinishedTickets ?>);
     
 }(window, jQuery, App));
 </script>

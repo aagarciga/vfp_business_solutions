@@ -19,6 +19,7 @@
     PickTicket.status.ticketVerified = false;
     PickTicket.status.locationVerified = false;
     PickTicket.status.itemVerified = false;
+    PickTicket.status.defaultShowfinishedTickets = false;
     PickTicket.status.showfinishedTickets = false;
     PickTicket.status.modal_TicketList_CurrentTicket = '';
     PickTicket.status.modal_TicketList_CurrentPage = 1;
@@ -240,7 +241,7 @@
             PickTicket.status.locationVerified = false;
         }
         PickTicket.status.itemVerified = false;
-        $(PickTicket.htmlBindings.chkShowfinishedTickets)[0].checked = PickTicket.status.showfinishedTickets = false;
+        $(PickTicket.htmlBindings.chkShowfinishedTickets)[0].checked = PickTicket.status.showfinishedTickets = PickTicket.status.defaultShowfinishedTickets;
         
         $(PickTicket.htmlBindings.txtTicketId).parent().removeClass('has-success has-error');
         $(PickTicket.htmlBindings.txtLocation).parent().removeClass('has-success has-error');
@@ -396,6 +397,8 @@
         var $target = $(event.target),
             value = $target.data('ticketid');
     
+        PickTicket.functions.reset();
+    
         PickTicket.status.modal_TicketList_CurrentTicket = value;
         $(PickTicket.htmlBindings.txtTicketId).val(PickTicket.status.modal_TicketList_CurrentTicket).focus();
         PickTicket.functions.verifyTicket(value);
@@ -412,8 +415,10 @@
         }
     };
     
-    PickTicket.init = function () {
+    PickTicket.init = function (showFinishedItems) {
         console.log("PickTicket Init");
+        
+        PickTicket.status.defaultShowfinishedTickets = showFinishedItems || false;
 
         if ($(PickTicket.htmlBindings.txtLocation).length === 0) {
             PickTicket.status.locationVerified = true;
