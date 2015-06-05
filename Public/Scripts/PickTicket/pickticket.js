@@ -37,6 +37,7 @@
     PickTicket.messages.itemVerified                                = 'Item verified.';
     PickTicket.messages.itemNotVerified                             = 'Item not verified.';
     PickTicket.messages.scanItem                                    = 'Scan Item.';
+    PickTicket.messages.qtyExceeds                                  = 'Quantity Exceeds Required Qty';
     
     PickTicket.htmlBindings = {};
     PickTicket.htmlBindings.btnNewTicket                            = '#btnNewTicket';
@@ -387,10 +388,16 @@
         PickTicket.functions.getItemsByTicket(ticket);
     };
     PickTicket.eventHandlers.table_RelatedTicketItems_body_btnItem_onClick = function (event) {
-        var $target = $(event.target);
+        var $target = $(event.target),
+            suggestValue = $target.data('suggest-value');
         $(PickTicket.htmlBindings.txtBarcode).val($target.html()).focus();
         PickTicket.functions.verifyItem($target.html());
-        App.QuantityForm.setValue($target.data('suggest-value'));
+        if ( parseInt(suggestValue) < 0 ) {
+            ShowFeedback(PickTicket.messages.qtyExceeds, 'danger');
+            
+        } else {
+            App.QuantityForm.setValue($target.data('suggest-value'));
+        }
     };
     PickTicket.eventHandlers.modal_ticketList_pager_btnPagerPages_onClick = function (event) {
         var $target = $(event.target),
