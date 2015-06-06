@@ -201,8 +201,8 @@
             $tableBody.append('<tr class="' + itemClass + 
                 '"><td class="itemno"><a class="btnItem" href="#" data-suggest-value="' + suggestion(currentItems.qtyshprel, currentItems.qtypick) + 
                 '" >' + currentItems.itemno + 
-                '</a></td><td class="qty-left">' + currentItems.qtypick + 
-                '</td><td class="qty-recv">' + currentItems.qtyshprel + 
+                '</a></td><td class="qty-left">' + currentItems.qtyshprel + 
+                '</td><td class="qty-recv">' + currentItems.qtypick + 
                 '</td><td class="binloc">' + currentItems.locno + 
                 '</td></tr>');
         }
