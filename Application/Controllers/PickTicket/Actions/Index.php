@@ -54,7 +54,8 @@ class Index extends Action {
         error_log("usercomp_hhpickshow: ".$_SESSION['usercomp_hhpickshow']);
         
         $this->ShowLocationField = ($_SESSION['usercomp_uselocno'] && !$_SESSION['usercomp_wmslocpick'])? 'true' : 'false';
-        $this->ShowFinishedTickets = ($_SESSION['usercomp_hhpickshow']) ? 'true' : 'false';
+        // if false show finished tickets.
+        $this->ShowFinishedTickets = ($_SESSION['usercomp_hhpickshow']) ? 'false' : 'true';
                 
         error_log("ShowLocationField: ".$this->ShowLocationField);
         error_log("ShowFinishedTickets: ".$this->ShowFinishedTickets);
