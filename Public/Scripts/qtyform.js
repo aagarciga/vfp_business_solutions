@@ -140,6 +140,14 @@
     QuantityForm.getEnterKeyId = function () {
         return QuantityForm.htmlBindings.enterKey;
     };
+    
+    QuantityForm.show = function () {
+        $(QuantityForm.htmlBindings.quantityForm).show();
+    };
+    
+    QuantityForm.hide = function () {
+        $(QuantityForm.htmlBindings.quantityForm).hide();
+    };
         
 }(window, jQuery));
 
