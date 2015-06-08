@@ -148,6 +148,18 @@
     QuantityForm.hide = function () {
         $(QuantityForm.htmlBindings.quantityForm).hide();
     };
+    
+    QuantityForm.setUnknowkeyBehavior = function (eventHandler){
+        $(QuantityForm.htmlBindings.unknowKey).off('click', 
+            QuantityForm.eventHandlers.unknowKey_onClick);
+        
+        $(QuantityForm.htmlBindings.unknowKey).on('click', 
+            eventHandler);
+    };
+    
+    QuantityForm.setUnknowkeyValue = function (value) {
+        $(QuantityForm.htmlBindings.unknowKey).html(value);
+    };
         
 }(window, jQuery));
 

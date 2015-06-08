@@ -298,6 +298,14 @@
             PickTicket.status.currentItemSuggestValue = suggestValue;
 //            App.QuantityForm.setValue(suggestValue);
 //            App.QuantityForm.setValue(0);
+
+            App.QuantityForm.setUnknowkeyValue(suggestValue);
+            App.QuantityForm.setUnknowkeyBehavior(function (event) {
+                console.log('entro en el callback');
+                App.QuantityForm.setValue(suggestValue);
+                PickTicket.eventHandlers.qtyForm_btnEnter_onClick(event);
+                App.QuantityForm.hide();
+            });
             ShowFeedback(PickTicket.messages.suggestPickQty + suggestValue, 'info');
             App.QuantityForm.show();
         }
@@ -507,6 +515,8 @@
 //        }
     };
     PickTicket.eventHandlers.qtyForm_btnEnter_onClick = function () {
+        
+        console.log('entro aqui tambien');
         var value = App.QuantityForm.getValue();
         $(PickTicket.htmlBindings.txtBarcode).focus();
         if (value > PickTicket.status.currentItemSuggestValue) {
