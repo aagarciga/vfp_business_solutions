@@ -26,6 +26,7 @@
     PickTicket.status.currentItemQtyPickValue = 0;
     PickTicket.status.currentItemQblistidValue = '';
     PickTicket.status.currentItemSotxlineidValue = '';
+    PickTicket.status.currentItemQbtxlineidValue = '';
     PickTicket.status.modal_TicketList_CurrentTicket = '';
     PickTicket.status.modal_TicketList_CurrentPage = 1;
     PickTicket.status.modal_TicketList_ItemsPerPage = 10; // Default items per page value
@@ -204,7 +205,8 @@
             }
             
             $tableBody.append('<tr class="' + itemClass + 
-                '"><td class="itemno"><a class="btnItem" href="#" data-sotxlineid="'+ currentItems.sotxlineid +
+                '"><td class="itemno"><a class="btnItem" href="#" data-qbtxlineid="'+ currentItems.qbtxlineid +
+                '" data-sotxlineid="'+ currentItems.sotxlineid +
                 '" data-qblistid="'+currentItems.qblistid+'" data-qtypick="'+ currentItems.qtypick +
                 '" data-suggest-value="' + suggestion(currentItems.qtyshprel, currentItems.qtypick) + 
                 '" >' + currentItems.itemno + 
@@ -304,6 +306,7 @@
             PickTicket.status.currentItemQtyPickValue = parseInt($item.data('qtypick'));
             PickTicket.status.currentItemQblistidValue = $item.data('qblistid');
             PickTicket.status.currentItemSotxlineidValue = $item.data('sotxlineid');
+            PickTicket.status.currentItemQbtxlineidValue = $item.data('qbtxlineid');
 //            App.QuantityForm.setValue(suggestValue);
 //            App.QuantityForm.setValue(0);
 
@@ -327,7 +330,8 @@
                 value: value, 
                 qblistid: PickTicket.status.currentItemQblistidValue, 
                 sotxlineid: PickTicket.status.currentItemSotxlineidValue,
-                location: $(PickTicket.htmlBindings.txtLocation).val()
+                location: $(PickTicket.htmlBindings.txtLocation).val(),
+                qbtxlineid: PickTicket.status.currentItemQbtxlineidValue
             },
             url: PickTicket.url.updateItem,
             type: 'post',

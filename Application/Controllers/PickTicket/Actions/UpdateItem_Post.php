@@ -20,6 +20,8 @@ class UpdateItem_Post extends Action {
         $qblistid = $this->Request->hasProperty('qblistid') ? $this->Request->qblistid : '';
         $sotxlineid = $this->Request->hasProperty('sotxlineid') ? $this->Request->sotxlineid : '';
         $location = $this->Request->hasProperty('location') ? $this->Request->location : '';
+        $qbtxlineid = $this->Request->hasProperty('qbtxlineid') ? $this->Request->qbtxlineid : '';
+        
         
         error_log("to update: ". $value . " for item: ". $item . " qblistid: " . $qblistid. ' sotxlineid: '. $sotxlineid);
         
@@ -30,7 +32,7 @@ class UpdateItem_Post extends Action {
             $qtyPick = intval($queryResult[0]->QTYPICK) ;
         }
         
-        $isSuccess = $this->controller->DatUnitOfWork->SOSHPRELRepository->UpdateItem($item, $qblistid, $value, $location);
+        $isSuccess = $this->controller->DatUnitOfWork->SOSHPRELRepository->UpdateItemByQbtxlineid($qbtxlineid, $value, $location);
         
         $queryResult = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetQtypick($item, $qblistid);
         $updatedQtyPick = 0;

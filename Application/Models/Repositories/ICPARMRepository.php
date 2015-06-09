@@ -63,7 +63,7 @@ class ICPARMRepository extends VFPRepository implements IRepository {
         $tablename = $this->entityName . $this->companySuffix;
                 
         $sqlString = "UPDATE $tablename SET COMTOSHIP = $value"
-                . " WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'";
+                . " WHERE lower(ITEMNO) = '$lowerBarcode'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -74,7 +74,7 @@ class ICPARMRepository extends VFPRepository implements IRepository {
         $tablename = $this->entityName . $this->companySuffix;
                 
         $sqlString = "SELECT COMTOSHIP FROM $tablename"
-                . " WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'";
+                . " WHERE lower(ITEMNO) = '$lowerBarcode'";
         
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);

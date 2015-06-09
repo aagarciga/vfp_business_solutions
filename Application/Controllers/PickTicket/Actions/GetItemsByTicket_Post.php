@@ -38,6 +38,7 @@ class GetItemsByTicket_Post extends Action {
                 $current['locno'] = trim($row->LOCNO);
                 $current['qblistid'] = trim($row->QBLISTID);
                 $current['sotxlineid'] = trim($row->SOTXLINEID);
+                $current['qbtxlineid'] = trim($row->QBTXLINEID);
                 
                 $result[] = $current;
             }

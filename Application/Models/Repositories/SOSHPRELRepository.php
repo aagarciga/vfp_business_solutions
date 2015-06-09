@@ -126,11 +126,30 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
                 "WMSTATUS = 'P', " .
                 "LOCNO = '$location', " .
                 "QTYPICK = (QTYPICK + $value) " .
-                "WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
+                //"WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
+                "WHERE LOWER(QBTXLINEID) = '$itemLower'";
+                
         
         // From Vivian's: UPDATE SOSHPREL00 SET 
         // WMSTATUS = 'P', QTYPICK = QTYPICK + 'valor del qtyform' WHERE ITEMNO = 'item'  
         // ( aqui tienes que agregar la condicion que sea ese ticket number o usar el qblistid para update el record correcto)
+        error_log($sqlString);
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+    
+    public function UpdateItemByQbtxlineid ($qbtxlineid, $value, $location){
+        $tableName = $this->entityName . $this->companySuffix;
+        
+        $sqlString = "UPDATE $tableName SET " .
+                "WMSTATUS = 'P', ";
+        if ($location !== '') {
+            $sqlString .= "LOCNO = '$location', ";
+        }
+        $sqlString .= "QTYPICK = (QTYPICK + $value) " .
+        //"WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
+        "WHERE LOWER(QBTXLINEID) = '$qbtxlineid'";
+
         error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
