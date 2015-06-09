@@ -83,8 +83,9 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $lowerTicket = strtolower($ticket);
         
+        
         $sqlString = "SELECT ".
-                "ITEMNO, QTYPICK, QTYSHPREL, LOCNO ".
+                "ITEMNO, QTYPICK, QTYSHPREL, LOCNO, QBLISTID ".
                 "FROM $tableName ".
                 "WHERE LOWER(SHPRELNO) = '$lowerTicket'";
         
@@ -116,6 +117,42 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         return new BootstrapPager($this->dbDriver, $this->entityName, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount);        
     }
 
+    public function UpdateItem ($item, $qblistid, $value, $location){
+        $itemLower = strtolower($item);
+        $qblistidLower = strtolower($qblistid);
+        $tableName = $this->entityName . $this->companySuffix;
+
+        $sqlString = "UPDATE $tableName SET " .
+                "WMSTATUS = 'P', " .
+                "LOCNO = '$location', " .
+                "QTYPICK = (QTYPICK + $value) " .
+                "WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
+        
+        // From Vivian's: UPDATE SOSHPREL00 SET 
+        // WMSTATUS = 'P', QTYPICK = QTYPICK + 'valor del qtyform' WHERE ITEMNO = 'item'  
+        // ( aqui tienes que agregar la condicion que sea ese ticket number o usar el qblistid para update el record correcto)
+        error_log($sqlString);
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+    
+    public function GetQtypick($item, $qblistid) {
+        $itemLower = strtolower($item);
+        $qblistidLower = strtolower($qblistid);
+        
+        $tableName = $this->entityName . $this->companySuffix;
+
+        $sqlString = "SELECT ".
+                "QTYPICK ".
+                "FROM $tableName ".
+                "WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
+      
+        error_log($sqlString);
+        
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+    
     public function Add($entity) {
         // TODO: Implement Add() method.
     }

@@ -23,6 +23,9 @@
     PickTicket.status.showfinishedTickets = false;
     PickTicket.status.currentItem = null;
     PickTicket.status.currentItemSuggestValue = 0;
+    PickTicket.status.currentItemQtyPickValue = 0;
+    PickTicket.status.currentItemQblistidValue = '';
+    PickTicket.status.currentItemSotxlineidValue = '';
     PickTicket.status.modal_TicketList_CurrentTicket = '';
     PickTicket.status.modal_TicketList_CurrentPage = 1;
     PickTicket.status.modal_TicketList_ItemsPerPage = 10; // Default items per page value
@@ -201,7 +204,9 @@
             }
             
             $tableBody.append('<tr class="' + itemClass + 
-                '"><td class="itemno"><a class="btnItem" href="#" data-suggest-value="' + suggestion(currentItems.qtyshprel, currentItems.qtypick) + 
+                '"><td class="itemno"><a class="btnItem" href="#" data-sotxlineid="'+ currentItems.sotxlineid +
+                '" data-qblistid="'+currentItems.qblistid+'" data-qtypick="'+ currentItems.qtypick +
+                '" data-suggest-value="' + suggestion(currentItems.qtyshprel, currentItems.qtypick) + 
                 '" >' + currentItems.itemno + 
                 '</a></td><td class="qty-left">' + currentItems.qtyshprel + 
                 '</td><td class="qty-recv">' + currentItems.qtypick + 
@@ -296,12 +301,14 @@
         } else {
             PickTicket.status.currentItem = item;
             PickTicket.status.currentItemSuggestValue = suggestValue;
+            PickTicket.status.currentItemQtyPickValue = parseInt($item.data('qtypick'));
+            PickTicket.status.currentItemQblistidValue = $item.data('qblistid');
+            PickTicket.status.currentItemSotxlineidValue = $item.data('sotxlineid');
 //            App.QuantityForm.setValue(suggestValue);
 //            App.QuantityForm.setValue(0);
 
             App.QuantityForm.setUnknowkeyValue(suggestValue);
             App.QuantityForm.setUnknowkeyBehavior(function (event) {
-                console.log('entro en el callback');
                 App.QuantityForm.setValue(suggestValue);
                 PickTicket.eventHandlers.qtyForm_btnEnter_onClick(event);
                 App.QuantityForm.hide();
@@ -312,6 +319,32 @@
     };
     PickTicket.functions.update = function (item, value) {
         console.log(item, value, PickTicket.status.currentItemSuggestValue);
+            PickTicket.status.currentItemQtyPickValue = 0;
+        
+        $.ajax({
+            data: {
+                item: item, 
+                value: value, 
+                qblistid: PickTicket.status.currentItemQblistidValue, 
+                sotxlineid: PickTicket.status.currentItemSotxlineidValue,
+                location: $(PickTicket.htmlBindings.txtLocation).val()
+            },
+            url: PickTicket.url.updateItem,
+            type: 'post',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                var data = $.parseJSON(response);
+                if (data.success === 'true') {
+                    console.log('Item Update Success');
+                } else {
+                    console.log('Item Update Error');
+//                    ShowFeedback(PickTicket.messages.ticketNotFound, 'danger');
+                }
+                $('.loading').hide();
+            }
+        });
         
     };
     PickTicket.functions.modal_ticketList_updateTable = function (items) {
@@ -515,16 +548,13 @@
 //        }
     };
     PickTicket.eventHandlers.qtyForm_btnEnter_onClick = function () {
-        
-        console.log('entro aqui tambien');
         var value = App.QuantityForm.getValue();
         $(PickTicket.htmlBindings.txtBarcode).focus();
         if (value > PickTicket.status.currentItemSuggestValue) {
-            console.log("current value exceeds suggested value");
             ShowFeedback(PickTicket.messages.qtyExceeds + " by " +parseInt(value - PickTicket.status.currentItemSuggestValue), 'danger');
         } else {
-            PickTicket.functions.update(PickTicket.status.currentItem, 
-                value);
+            PickTicket.functions.update(PickTicket.status.currentItem, value);
+
             PickTicket.functions.resetBarcode();
             ShowFeedback(PickTicket.messages.scanItem, 'info');
         }

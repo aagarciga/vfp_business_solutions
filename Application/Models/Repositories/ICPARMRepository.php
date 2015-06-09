@@ -56,6 +56,30 @@ class ICPARMRepository extends VFPRepository implements IRepository {
         // TODO: Implement Update() method.
     }
     
+    public function UpdateCOMTOSHIP($barcode, $value) {
+        
+        $lowerBarcode = strtolower($barcode);
+        
+        $tablename = $this->entityName . $this->companySuffix;
+                
+        $sqlString = "UPDATE $tablename SET COMTOSHIP = $value"
+                . " WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+    
+    public function GetCOMTOSHIP($barcode){
+        $lowerBarcode = strtolower($barcode);
+        
+        $tablename = $this->entityName . $this->companySuffix;
+                
+        $sqlString = "SELECT COMTOSHIP FROM $tablename"
+                . " WHERE lower(ITEMNO) = '$lowerBarcode' OR lower(UPCCODE) = '$lowerBarcode' OR lower(VENSTKNO) = '$lowerBarcode'";
+        
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+    
     public function UpdateBinLocation($barcode, $location) {
         
         $lowerBarcode = strtolower($barcode);

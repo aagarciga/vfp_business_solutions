@@ -155,6 +155,11 @@ class DatUnitOfWork extends UnitOfWork {
      */
     public $SOCOMPRepository;
     
+    /**
+     *
+     * @var SOITEMRepository 
+     */
+    public $SOITEMRepository;
 
     /**
      * 
@@ -186,6 +191,9 @@ class DatUnitOfWork extends UnitOfWork {
         $this->SWINSPRepository = new Repositories\SWINSPRepository($dbDriver, Entities\SWINSP::toString(), $companySuffix);
         $this->GLCSTMSTRepository = new Repositories\GLCSTMSTRepository($dbDriver, Entities\GLCSTMST::toString(), $companySuffix);
         $this->SOCOMPRepository = new Repositories\SOCOMPRepository($dbDriver, Entities\SOCOMP::toString(), $companySuffix);
+    
+        $this->SOITEMRepository = new Repositories\SOITEMRepository($dbDriver, Entities\SOITEM::toString(), $companySuffix);
+    
     }
 
 }
