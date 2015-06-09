@@ -41,7 +41,7 @@ class UpdateItem_Post extends Action {
         }
         
         // From Vivian's: UPDATE SOITEM00 SET qtyshp0 = soshprel00.QTYPICK  WHERE soitem00.qbtxlineid= Soshprel00.sotxlineid
-        $isSuccess &= $this->controller->DatUnitOfWork->SOITEMRepository->UpdateItem($item, $sotxlineid, $updatedQtyPick);
+        $isSuccess &= $this->controller->DatUnitOfWork->SOITEMRepository->UpdateItem($sotxlineid, $updatedQtyPick);
 //        
 //        4- en Icparm tienes que restar la cantidad que venia antes en soshprel00- qtypick
 //          y sumarle la cantidad que tiene ahora qtypick despues del update para ese item

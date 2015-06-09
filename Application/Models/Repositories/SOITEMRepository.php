@@ -48,8 +48,8 @@ class SOITEMRepository extends VFPRepository implements IRepository {
         return $result;
     }
     
-    public function UpdateItem ($item, $sotxlineid, $value){
-        $itemLower = strtolower($item);
+    public function UpdateItem ($sotxlineid, $value){
+//        $itemLower = strtolower($item);
         $sotxlineidLower = strtolower($sotxlineid);
         $tableName = $this->entityName . $this->companySuffix;
 
@@ -60,7 +60,7 @@ class SOITEMRepository extends VFPRepository implements IRepository {
         
         // From Vivian's (v0): UPDATE SOITEM00 SET qtyshp0 = soshprel00.QTYPICK  WHERE soitem00.qblistid= Soshprel00.sotxlineid
         // From Vivian's (v1): UPDATE SOITEM00 SET qtyshp0 = soshprel00.QTYPICK  WHERE soitem00.qbtxlineid= Soshprel00.sotxlineid
-        
+        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

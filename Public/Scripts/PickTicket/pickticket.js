@@ -172,6 +172,7 @@
 //        }
     };
     PickTicket.functions.getItemsByTicket = function (ticket) {
+        console.log('geting items for: ', ticket);
         PickTicket.status.showfinishedTickets = $(PickTicket.htmlBindings.chkShowfinishedTickets)[0].checked;
         $.ajax({
             data: {ticket: ticket, showFinished: PickTicket.status.showfinishedTickets},
@@ -193,7 +194,9 @@
             suggestion = function (qtyshprel, qtypick) {
                 return parseInt(qtyshprel) - parseInt(qtypick);
             };
+            
         $tableBody.empty();
+        console.log("after clearing table body, showing items");
         for (index in items){
             currentItems = items[index];
             itemsCount += 1;
@@ -342,6 +345,7 @@
                 var data = $.parseJSON(response);
                 if (data.success === 'true') {
                     console.log('Item Update Success');
+                    PickTicket.functions.getItemsByTicket($(PickTicket.htmlBindings.txtTicketId).val());
                 } else {
                     console.log('Item Update Error');
 //                    ShowFeedback(PickTicket.messages.ticketNotFound, 'danger');

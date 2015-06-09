@@ -148,7 +148,7 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         }
         $sqlString .= "QTYPICK = (QTYPICK + $value) " .
         //"WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
-        "WHERE LOWER(QBTXLINEID) = '$qbtxlineid'";
+        "WHERE QBTXLINEID = '$qbtxlineid'";
 
         error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
