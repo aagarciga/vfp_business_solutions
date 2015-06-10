@@ -60,7 +60,7 @@ class SOITEMRepository extends VFPRepository implements IRepository {
         
         // From Vivian's (v0): UPDATE SOITEM00 SET qtyshp0 = soshprel00.QTYPICK  WHERE soitem00.qblistid= Soshprel00.sotxlineid
         // From Vivian's (v1): UPDATE SOITEM00 SET qtyshp0 = soshprel00.QTYPICK  WHERE soitem00.qbtxlineid= Soshprel00.sotxlineid
-        error_log($sqlString);
+        error_log("UpdateItem Value from SOITEM SQL: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

@@ -39,7 +39,7 @@ class GetItemsByTicket_Post extends Action {
                 $current['qblistid'] = trim($row->QBLISTID);
                 $current['sotxlineid'] = trim($row->SOTXLINEID);
                 $current['qbtxlineid'] = trim($row->QBTXLINEID);
-                
+                error_log("Retrieving item (".trim($row->ITEMNO).") SOTXLINEID: ".trim($row->SOTXLINEID). " and QBTXLINEID: ". trim($row->QBTXLINEID));
                 $result[] = $current;
             }
         }

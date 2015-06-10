@@ -85,10 +85,10 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         
         
         $sqlString = "SELECT ".
-                "ITEMNO, QTYPICK, QTYSHPREL, LOCNO, QBLISTID ".
+                "ITEMNO, QTYPICK, QTYSHPREL, LOCNO, QBLISTID, SOTXLINEID, QBTXLINEID ".
                 "FROM $tableName ".
                 "WHERE LOWER(SHPRELNO) = '$lowerTicket'";
-        
+
         if ($showFinished === 'false') {
             $sqlString .= " AND QTYSHPREL <> QTYPICK";
         }
@@ -150,7 +150,7 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         //"WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
         "WHERE QBTXLINEID = '$qbtxlineid'";
 
-        error_log($sqlString);
+        error_log("UpdateItemByQbtxlineid Value from SOSHPREL SQL: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -166,7 +166,7 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
                 "FROM $tableName ".
                 "WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
       
-        error_log($sqlString);
+        error_log("GetQtypick Value from SOSHPREL SQL: ".$sqlString);
         
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
