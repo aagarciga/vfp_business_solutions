@@ -155,16 +155,16 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         return $query->Execute($sqlString);
     }
     
-    public function GetQtypick($item, $qblistid) {
+    public function GetQtypick($item, $qbtxlineid) {
         $itemLower = strtolower($item);
-        $qblistidLower = strtolower($qblistid);
+//        $qbtxlineidLower = strtolower($qbtxlineid);
         
         $tableName = $this->entityName . $this->companySuffix;
 
         $sqlString = "SELECT ".
                 "QTYPICK ".
                 "FROM $tableName ".
-                "WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
+                "WHERE LOWER(ITEMNO) = '$itemLower' AND QBTXLINEID = '$qbtxlineid'";
       
         error_log("GetQtypick Value from SOSHPREL SQL: ".$sqlString);
         

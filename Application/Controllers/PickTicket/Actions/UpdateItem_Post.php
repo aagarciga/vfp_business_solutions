@@ -33,7 +33,7 @@ class UpdateItem_Post extends Action {
         error_log("8.Step 1.");
         
         $result = array('success' => 'false');
-        $queryResult = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetQtypick($item, $qblistid);
+        $queryResult = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetQtypick($item, $qbtxlineid);
         $qtyPick = 0;
         if (count($queryResult)) {
             $qtyPick = intval($queryResult[0]->QTYPICK) ;
@@ -43,7 +43,7 @@ class UpdateItem_Post extends Action {
         error_log("10.Updating Item in SOSHPREL by Qtxlineid where: qbtxlineid:". $qbtxlineid. " value: ". $value. "Location: ".$location);
         $isSuccess = $this->controller->DatUnitOfWork->SOSHPRELRepository->UpdateItemByQbtxlineid($qbtxlineid, $value, $location);
         
-        $queryResult = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetQtypick($item, $qblistid);
+        $queryResult = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetQtypick($item, $qbtxlineid);
         $updatedQtyPick = 0;
         if (count($queryResult)) {
             $updatedQtyPick = intval($queryResult[0]->QTYPICK) ;

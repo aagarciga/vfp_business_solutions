@@ -325,7 +325,7 @@
     };
     PickTicket.functions.update = function (item, value) {
         console.log(item, value, PickTicket.status.currentItemSuggestValue);
-            PickTicket.status.currentItemQtyPickValue = 0;
+        PickTicket.status.currentItemQtyPickValue = 0;
         
         $.ajax({
             data: {
