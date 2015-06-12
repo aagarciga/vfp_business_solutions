@@ -59,6 +59,7 @@
     PickTicket.htmlBindings.table_RelatedTicketItems_body           = '#related-tickets-items tbody';
     PickTicket.htmlBindings.table_RelatedTicketItems_body_btnItem   = '.btnItem';
     PickTicket.htmlBindings.qtyForm_btnEnter                        = '';
+    PickTicket.htmlBindings.qtyForm_btnZero                        = '';
     PickTicket.htmlBindings.modal_TicketList                        = '#ticket-list-modal';
     PickTicket.htmlBindings.modal_TicketList_itemCounter            = '#itemCounter';
     PickTicket.htmlBindings.modal_TicketList_Pager_container        = '.pager-wrapper';
@@ -96,6 +97,9 @@
             PickTicket.eventHandlers.btnItemQty_onClick);
             
         $(App.QuantityForm.htmlBindings.enterKey).on('click', 
+            PickTicket.eventHandlers.qtyForm_btnEnter_onClick);
+            
+        $(App.QuantityForm.htmlBindings.zeroKey).on('click', 
             PickTicket.eventHandlers.qtyForm_btnEnter_onClick);
             
         PickTicket.functions.modal_ticketList_bindTableItemsEventHandlers();
@@ -192,7 +196,8 @@
         var currentItems, index, itemClass, finishedCount = 0, itemsCount = 0,
             $tableBody = $(PickTicket.htmlBindings.table_RelatedTicketItems_body),
             suggestion = function (qtyshprel, qtypick) {
-                return parseInt(qtyshprel) - parseInt(qtypick);
+//                return parseInt(qtyshprel) - parseInt(qtypick);
+                return qtyshprel;
             };
             
         $tableBody.empty();
@@ -314,9 +319,10 @@
 //            App.QuantityForm.setValue(0);
 
             App.QuantityForm.setUnknowkeyValue(suggestValue);
-            App.QuantityForm.setUnknowkeyBehavior(function (event) {
+            App.QuantityForm.setUnknowkeyBehavior(function () {
                 App.QuantityForm.setValue(suggestValue);
-                PickTicket.eventHandlers.qtyForm_btnEnter_onClick(event);
+                
+                PickTicket.eventHandlers.qtyForm_btnEnter_onClick();
                 App.QuantityForm.hide();
             });
             ShowFeedback(PickTicket.messages.suggestPickQty + suggestValue, 'info');
@@ -501,21 +507,6 @@
             $(PickTicket.htmlBindings.txtBarcode);
             ShowFeedback(PickTicket.messages.itemNotFound, 'danger');
         }
-        
-        
-//            suggestValue = parseInt($target.data('suggest-value'));
-//    
-//        $(PickTicket.htmlBindings.txtBarcode).val($target.html()).focus();
-//        PickTicket.functions.verifyItem($target.html());
-//        if ( suggestValue < 0 ) {
-//            ShowFeedback(PickTicket.messages.qtyExceeds, 'danger');
-//            
-//        } else {
-//            PickTicket.status.currentItem = $target.html();
-//            PickTicket.status.currentItemSuggestValue = suggestValue;
-//            App.QuantityForm.setValue(suggestValue);
-//            ShowFeedback(PickTicket.messages.suggestPickQty + suggestValue, 'info');
-//        }
     };
     PickTicket.eventHandlers.modal_ticketList_pager_btnPagerPages_onClick = function (event) {
         var $target = $(event.target),
@@ -545,15 +536,6 @@
             $(PickTicket.htmlBindings.txtBarcode);
             ShowFeedback(PickTicket.messages.itemNotFound, 'danger');
         }
-        
-//        if (!PickTicket.status.itemVerified) {
-//            PickTicket.functions.verifyItem($(PickTicket.htmlBindings.txtBarcode).val());
-//        } 
-//        if (PickTicket.status.itemVerified) {
-//            $('#quantityForm').show();
-//        } else {
-//            ShowFeedback(PickTicket.messages.itemNotFound, 'danger');
-//        }
     };
     PickTicket.eventHandlers.qtyForm_btnEnter_onClick = function () {
         var value = App.QuantityForm.getValue();
@@ -562,7 +544,7 @@
             ShowFeedback(PickTicket.messages.qtyExceeds + " by " +parseInt(value - PickTicket.status.currentItemSuggestValue), 'danger');
         } else {
             PickTicket.functions.update(PickTicket.status.currentItem, value);
-
+            App.QuantityForm.setValue('0');
             PickTicket.functions.resetBarcode();
             ShowFeedback(PickTicket.messages.scanItem, 'info');
         }
@@ -584,6 +566,7 @@
         
         App.QuantityForm.init();
         PickTicket.htmlBindings.qtyForm_btnEnter = App.QuantityForm.getEnterKeyId();
+        PickTicket.htmlBindings.qtyForm_btnZero = App.QuantityForm.getZeroKeyId()
         
     };
     

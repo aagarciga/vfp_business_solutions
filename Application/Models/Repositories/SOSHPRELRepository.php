@@ -146,7 +146,8 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         if ($location !== '') {
             $sqlString .= "LOCNO = '$location', ";
         }
-        $sqlString .= "QTYPICK = (QTYPICK + $value) " .
+//        $sqlString .= "QTYPICK = (QTYPICK + $value) " .
+        $sqlString .= "QTYPICK = $value " .
         //"WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
         "WHERE QBTXLINEID = '$qbtxlineid'";
 

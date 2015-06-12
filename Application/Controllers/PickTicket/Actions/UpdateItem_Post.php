@@ -40,7 +40,7 @@ class UpdateItem_Post extends Action {
         }
         error_log("9.Getting QTYPICK without update: ". $qtyPick);
         
-        error_log("10.Updating Item in SOSHPREL by Qtxlineid where: qbtxlineid:". $qbtxlineid. " value: ". $value. "Location: ".$location);
+        error_log("10.Updating Item in SOSHPREL by Qtxlineid where: qbtxlineid:". $qbtxlineid. " value: ". $value. " Location: ".$location);
         $isSuccess = $this->controller->DatUnitOfWork->SOSHPRELRepository->UpdateItemByQbtxlineid($qbtxlineid, $value, $location);
         
         $queryResult = $this->controller->DatUnitOfWork->SOSHPRELRepository->GetQtypick($item, $qbtxlineid);

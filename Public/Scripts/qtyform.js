@@ -140,6 +140,9 @@
     QuantityForm.getEnterKeyId = function () {
         return QuantityForm.htmlBindings.enterKey;
     };
+    QuantityForm.getZeroKeyId = function () {
+        return QuantityForm.htmlBindings.zeroKey;
+    };
     
     QuantityForm.show = function () {
         $(QuantityForm.htmlBindings.quantityForm).show();
@@ -150,8 +153,7 @@
     };
     
     QuantityForm.setUnknowkeyBehavior = function (eventHandler){
-        $(QuantityForm.htmlBindings.unknowKey).off('click', 
-            QuantityForm.eventHandlers.unknowKey_onClick);
+        $(QuantityForm.htmlBindings.unknowKey).off('click');
         
         $(QuantityForm.htmlBindings.unknowKey).on('click', 
             eventHandler);
