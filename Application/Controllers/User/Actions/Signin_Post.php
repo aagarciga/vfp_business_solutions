@@ -38,7 +38,7 @@ class Signin_Post extends Action{
                 $this->controller->VfpDataUnitOfWork->SysuserRepository->Update($user);
                 
                 $companyEntity = $this->controller->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($userCompany);
-                $_SESSION['usercomp_uselocno'] = $companyEntity->getUselocno();
+//                $_SESSION['usercomp_uselocno'] = $companyEntity->getUselocno();
                 
                 // If Current User Company got DBOPTION Field Value equals to 'ALL0000' (No Case Sensitive)
                 if ( strtolower($companyEntity->getDboption()) === "all0000") {

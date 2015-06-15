@@ -64,6 +64,8 @@ abstract class DatActionsController extends ActionsController {
             $socompEntity = $this->DatUnitOfWork->SOCOMPRepository->GetFirst();
             $_SESSION['usercomp_wmslocpick'] = $socompEntity->getWmslocpick();
             $_SESSION['usercomp_hhpickshow'] = $socompEntity->getHhpickshow();
+            $sycompEntity = $this->DatUnitOfWork->SYCOMPRepository->GetFirst();
+            $_SESSION['usercomp_uselocno'] = $sycompEntity->getUselocno();
             
             $_SESSION['fullFeatures'] = false;             
             if ( strtolower($currentCompanyEntity->getDboption()) === "all0000"){
