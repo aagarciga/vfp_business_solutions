@@ -16,31 +16,19 @@
  * @returns {undefined}
  * @inner JSLint Passed
  */
-//(function (global, $, App) {
-//    "use strict";
-//
-//    var dandelion       = global.dandelion,
-//        Dashboard       = dandelion.namespace('App.Dashboard', global);
-//    
-//    Dashboard.urls = {};
-//    Dashboard.urls.updateVesselFormNotes = "<?php echo $View->Href('Dashboard', 'UpdateVesselFormNotes') ?>";
-//    Dashboard.urls.updateSalesOrderNotes = "<?php echo $View->Href('Dashboard', 'UpdateSalesOrderNotes') ?>";
-//    Dashboard.urls.getSavedFilter = "<?php echo $View->Href('Dashboard', 'GetSavedFilter') ?>";
-//    Dashboard.urls.deleteFilter = "<?php echo $View->Href('Dashboard', 'DeleteFilter') ?>";
-//    Dashboard.urls.saveFilter = "<?php echo $View->Href('Dashboard', 'SaveFilter') ?>";
-//    Dashboard.urls.getSalesOrder = "<?php echo $View->Href('Dashboard', 'GetSalesOrder') ?>";
-//    Dashboard.urls.getVesselFormData = "<?php echo $View->Href('Dashboard', 'GetVesselFormData') ?>";
-//    Dashboard.urls.getDashboardDictionaries = "<?php echo $View->Href('Dashboard', 'GetDashboardDictionaries') ?>";
-//    Dashboard.urls.updateSOHEADMaterialStatus = "<?php echo $View->Href('Dashboard', 'UpdateSOHEADMaterialStatus') ?>";
-//    Dashboard.urls.updateSOHEADJobStatus = "<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>";
-//    Dashboard.urls.getDashboardItemsPage = "<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>";
-//    Dashboard.urls.projectAttachementsAPI = "<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>";
-//    Dashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>";
-//    Dashboard.urls.downloadFile = "<?php echo $View->Href('Dashboard', 'DownloadFile') ?>";
-//    Dashboard.urls.deleteFile = "<?php echo $View->Href('Dashboard', 'DeleteFile') ?>";
-//    
-//    Dashboard.init('<?php echo $DefaultUserFilterId ?>');
-//}(window, jQuery, App));
+(function (global, $, App) {
+    "use strict";
+
+    var dandelion       = global.dandelion,
+        QuoteDashboard       = dandelion.namespace('App.QuoteDashboard', global);
+    
+    QuoteDashboard.urls = {};
+    QuoteDashboard.urls.getDictionaries = "<?php echo $View->Href('Dashboard', 'GetDashboardDictionaries') ?>";
+    QuoteDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>";
+    QuoteDashboard.urls.getItemsPage = "<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>";
+    
+    QuoteDashboard.init('<?php //echo $DefaultUserFilterId ?>');
+}(window, jQuery, App));
 </script>
 
 <script>

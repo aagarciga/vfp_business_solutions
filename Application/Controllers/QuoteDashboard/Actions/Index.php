@@ -20,10 +20,10 @@ class Index extends Action {
      */
     public function Execute() {
         $this->Title = 'Quote Dashboard | VFP Business Series - Warehouse Management System';
-//        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
+        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
         
-//        $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
-//        $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? $defaultItemsPerPage : $_SESSION['itemperpages'];
+        $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
+        $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? $defaultItemsPerPage : $_SESSION['itemperpages'];
 //        
 //        // Reset filter predicate when refresh the navigator.
 //        $this->FilterPredicate = "";//(!isset($_SESSION['filterPredicate']))? "" : $_SESSION['filterPredicate'];
@@ -51,7 +51,7 @@ class Index extends Action {
 //        
 //        $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
 //        
-//        $this->FullFeatures = (!isset($_SESSION['fullFeatures']))? false : $_SESSION['fullFeatures'];
+        $this->FullFeatures = (!isset($_SESSION['fullFeatures']))? false : $_SESSION['fullFeatures'];
         
     }
 
