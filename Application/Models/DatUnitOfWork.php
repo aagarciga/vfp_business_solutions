@@ -166,6 +166,12 @@ class DatUnitOfWork extends UnitOfWork {
      * @var SYCOMPRepository 
      */
     public $SYCOMPRepository;
+    
+    /**
+     *
+     * @var QUHSTHRepository
+     */
+    public $QUHSTHRepository;
 
     /**
      * 
@@ -199,8 +205,7 @@ class DatUnitOfWork extends UnitOfWork {
         $this->SOCOMPRepository = new Repositories\SOCOMPRepository($dbDriver, Entities\SOCOMP::toString(), $companySuffix);
         $this->SOITEMRepository = new Repositories\SOITEMRepository($dbDriver, Entities\SOITEM::toString(), $companySuffix);
         $this->SYCOMPRepository = new Repositories\SYCOMPRepository($dbDriver, Entities\SYCOMP::toString(), $companySuffix);
-    
-         
+        $this->QUHSTHRepository = new Repositories\QUHSTHRepository($dbDriver, Entities\QUHSTH::toString(), $companySuffix);
     }
 
 }
