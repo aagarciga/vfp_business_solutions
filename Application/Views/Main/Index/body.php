@@ -12,90 +12,25 @@
             <a class="navbar-brand" href="#">VFP Business Series</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $UserName?> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="<?php echo $View->Href("Main", "Index") ?>" class="main active">
-                                <span class="glyphicon glyphicon-home"></span> Main</a></li>
-                        <li><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
-                                <span class="glyphicon glyphicon-th"></span> Dashboard</a></li>
-                        <li><a href="<?php echo $View->Href("User", "Signout") ?>" class="exit">
-                                <span class="glyphicon glyphicon-off"></span> Exit</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
+        <?php $View->Control('MainMenu'); ?>
     </nav>
 
     <div class="panel panel-default">
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
-<!--                <li>
-                    <a href="#" class="items-to-bin">
-                        <img src="<?php echo $View->ImagesContext("main/items-to-bin.png") ?>"/> Items to Bin</a>
-                </li>-->
-                <li>
-                    <a href="<?php echo $View->Href("BinToBin") ?>" class="bin-to-bin">
-                        <img src="<?php echo $View->ImagesContext("main/bin-to-bin.png") ?>"/> Bin to Bin</a>
-                </li>
-                <li class="-active">
-                    <a href="<?php echo $View->Href("PhysicalCount") ?>" class="physical-count">
-                        <img src="<?php echo $View->ImagesContext("main/physical-count.png") ?>"/> Physical Count</a>
-                </li>
-<!--                <li>
-                    <a href="#" class="change-properties">
-                        <img src="<?php echo $View->ImagesContext("main/change-properties.png") ?>"/> Change Properties</a>
-                </li>-->
-                <li>
-                    <a href="<?php echo $View->Href("ItemLookup") ?>" class="change-properties">
-                        <img src="<?php echo $View->ImagesContext("main/search-good-icon.png") ?>"/> Item Lookup</a>
-                </li>
+                <li><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
+                    <span class="glyphicon glyphicon-th"></span> Sales Order Dashboard</a></li>
+                <li><a href="<?php echo $View->Href("QuoteDashboard", "Index") ?>" class="exit">
+                                <span class="glyphicon glyphicon-th"></span> Quote Dashboard</a></li>
+                <?php if ($FullFeatures === true):?>
+                <li><a href="<?php echo $View->Href("WMS", "Index") ?>">
+                        <span class="glyphicon glyphicon-th"></span> Warehouse Management System</a></li>
+                <?php endif ?>
             </ul>
         </div>
     </div>
 
     <div class="panel panel-default">
-        <div class="panel-body">
-            <ul class="nav nav-pills nav-stacked">
-                <li>
-                    <a href="<?php echo $View->Href("PickTicket") ?>" class="pick-ticket">
-                        <img src="<?php echo $View->ImagesContext("main/pick-ticket.png") ?>"/> Pick Ticket</a>
-                </li>
-<!--                <li>
-                    <a href="#" class="packing">
-                        <img src="<?php echo $View->ImagesContext("main/packing.png") ?>"/> Packing</a>
-                </li>-->
-<!--                <li><a href="#" class="shipping">
-                        <img src="<?php echo $View->ImagesContext("main/shipping.png") ?>"/> Shipping</a>
-                </li>-->
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <ul class="nav nav-pills nav-stacked">
-                <li>
-                    <a href="<?php echo $View->Href("Shipment") ?>" class="shipment">
-                        <img src="<?php echo $View->ImagesContext("main/shipment.png") ?>"/> Shipment</a>
-                </li>
-<!--                <li><a href="#" class="return">
-                        <img src="<?php echo $View->ImagesContext("main/return.png") ?>"/> Return</a>
-                </li> -->
-                
-                <li class="right">
-                    <a href="<?php echo $View->Href("User", "Signout") ?>" class="exit">
-                        <img src="<?php echo $View->ImagesContext("main/exit.png") ?>"/> Exit</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-<!--    <div class="panel panel-default">
         <div class="panel-body">
             <ul class="nav nav-pills ">
                 <li>
@@ -104,7 +39,7 @@
                 </li>
             </ul>
         </div>
-    </div>-->
+    </div>
 
 </div>
 

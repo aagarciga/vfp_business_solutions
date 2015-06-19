@@ -1,0 +1,30 @@
+
+
+/*@media (width: 480px) and (height: 480px) {*/
+    .nav-stacked > li {
+        float: left;
+    }
+    
+    div.panel-body{
+        padding: 10px 15px;
+    }
+
+    ul.nav.nav-pills a{
+        text-align: center;
+        padding: 10px 10px;
+        width: 100px;
+        height: 100px;
+    }
+
+    ul.nav.nav-pills a img{
+        display: block;
+        margin: 0px auto;
+        width: 48px;
+        height: 48px;
+    }
+
+    li.right{
+        float: right;
+        margin-right: 10px;
+    }
+/*}*/
