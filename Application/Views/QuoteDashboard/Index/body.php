@@ -42,7 +42,7 @@
 
             <!--<a href="#" id="dashboard-panel-togle-visibility-button" class="panel-togle-visibility-button pull-right" title="Show/Hide Filter"><span class="glyphicon glyphicon-eye-open"></span></a>-->
             
-            <div id="pagerControlIPP" class="btn-group pull-right top-pager-itemmperpage-control">               
+            <div class="btn-group pull-right top-pager-itemmperpage-control">               
                 <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="value">50<?php //echo $ItemPerPage ?></span>
                     <span class="caret"></span>
@@ -116,40 +116,34 @@
             <div class="panel-table">
                 <table class="table table-striped" id="quoteDashboardTable">
                     <colgroup>
-                        <col class="col-sales-order"/>
-                        <col class="col-purchase-order"/>
+                        <col class="col-qutno"/>
+                        <col class="col-projno"/>
                         <col class="col-company"/>
                         <col class="col-vessel"/>
-                        <col class="col-start"/>
-                        <col class="col-end"/>
-                        <col class="col-job-type"/>
+                        <col class="col-jobtype"/>
                         <col class="col-description"/>
-                        <col class="col-material-status"/>
                         <col class="col-status"/>
+                        <col class="col-qudate"/>
+                        <col class="col-ordnum"/>
+                        <col class="col-cost-center"/>
                         <col class="col-project-manager-1"/>
                         <col class="col-project-manager-2"/>
-                        <col class="col-create"/>
-                        <col class="col-quote-no"/>
-                        <col class="col-cost-center"/>
                         <col class="col-attached-files"/>
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Sales Order <button data-field="ordnum" class="btn-table-sort"></button></th>
-                            <th>Purchase Order <button data-field="ponum" class="btn-table-sort"></button></th>
+                            <th>Quote No. <button data-field="qutno" class="btn-table-sort"></button></th>
+                            <th>Project No. <button data-field="projno" class="btn-table-sort"></button></th>
                             <th>Company <button data-field="company" class="btn-table-sort"></button></th>
                             <th>Vessel <button data-field="vesselid" class="btn-table-sort"></button></th>
-                            <th>Start<button data-field="ProStartDT" class="btn-table-sort"></button> </th>
-                            <th>End <button data-field="ProEndDT" class="btn-table-sort"></button></th>
                             <th>Job Type <button data-field="sotypecode" class="btn-table-sort"></button></th>
-                            <th>Description <button data-field="JobDescrip" class="btn-table-sort"></button></th>
-                            <th>Material Status <button data-field="MTRLSTATUS" class="btn-table-sort"></button></th>
-                            <th>Status <button data-field="JOBSTATUS" class="btn-table-sort"></button></th>
+                            <th>Description <button data-field="jobdescrip" class="btn-table-sort"></button></th>
+                            <th>Status <button data-field="status" class="btn-table-sort"></button></th>
+                            <th>Create <button data-field="qudate" class="btn-table-sort"></button></th>
+                            <th>Warehouse Order No. <button data-field="ordnum" class="btn-table-sort"></button></th>
+                            <th>Cost Center <button data-field="Cstctid" class="btn-table-sort"></button></th>
                             <th>Project Manager 1 <button data-field="TECHNAM1" class="btn-table-sort"></button></th>
                             <th>Project Manager 2 <button data-field="TECHNAM2" class="btn-table-sort"></button></th>
-                            <th>Create <button data-field="podate" class="btn-table-sort"></button></th>
-                            <th>Quote No <button data-field="qutno" class="btn-table-sort"></button></th>
-                            <th>Cost Center <button data-field="Cstctid" class="btn-table-sort"></button></th>
                             <th>Attached Files</th>                               
                         </tr>
                     </thead>
