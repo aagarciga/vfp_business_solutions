@@ -1,0 +1,192 @@
+/*.dz-message.custom{
+    font-size: 1.5em;
+    color: #aaa;
+    text-align: center;
+    display: block;
+     
+}
+
+.vakata-context.jstree-contextmenu.jstree-default-contextmenu{
+    z-index: 10000;
+}
+
+.container{
+    width: 100%;
+}
+
+a.panel-togle-visibility-button{
+    color:#5E5E5E;
+}
+
+a.panel-togle-visibility-button:focus{
+    outline: none;
+}
+
+.glyphicon-action-button{
+    position: relative;
+    display: inline-block;
+    font-family: "Glyphicons Halflings";
+    font-style: normal;
+    font-weight: 400;
+}
+
+.panel-table{
+    overflow-x: auto;
+}
+
+.btn-filter-modifier{
+    display:inline-block; 
+    width:80px;
+    min-height: 34px;
+}
+
+.dropdown-menu li.current{
+    display: none;
+}
+
+.top-pager-itemmperpage-control{
+    margin: -7px 12px 0px 12px;
+}
+
+.form-inline {
+    margin-bottom: 15px;
+}
+.pager-wrapper{
+    line-height: 10px;
+}
+ul.pagination{
+    margin: 0px;
+}
+
+.material-status,.job-status{
+   height: 2em;
+   padding: 4px 12px;
+   text-overflow: ellipsis;
+}
+
+.item-action.item-files{
+    text-align: center;
+}
+
+@media (min-width: 768px){
+    .form-inline .form-group {
+        margin-bottom: 15px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    
+    .btn-group, .btn-group-vertical{
+        display: inline-block; 
+        margin-bottom: 15px;
+    }
+}
+
+#dynamicFilter_drpSavedFilters li button.close{
+    display: inline-block;
+    position: relative;
+    margin-top: -23px;
+    left: -5px;
+}
+
+#dashboardTable{
+    width: 180em;
+    max-width: 180em;
+}
+
+col.col-sales-order{
+   width: 7em; 
+}
+
+col.col-purchase-order{
+   width: 9em; 
+}
+
+col.col-company{
+   width: 14em; 
+}
+
+col.col-vessel{
+   width: 10em; 
+}
+
+col.col-start{
+   width: 7em; 
+   color: red;
+}
+
+col.col-end{
+   width: 7em; 
+}
+
+col.col-job-type{
+   width: 6em; 
+}
+
+col.col-description{
+   width: 18em; 
+}
+
+col.col-material-status{
+   width: 9em; 
+}
+
+col.col-status{
+   width: 9em; 
+   
+}
+
+col.col-project-manager-1{
+   width: 13em; 
+}
+
+col.col-project-manager-2{
+   width: 13em; 
+}
+
+
+col.col-create{
+   width: 7em; 
+}
+
+col.col-quote-no{
+   width: 6em; 
+}
+
+col.col-cost-center{
+   width: 6em; 
+}
+
+col.col-attached-files{
+   width: 7em; 
+   text-align: right;
+}
+
+#salesOrderForm{
+    display: none;    
+    top:0px;
+    width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers
+    height: 100%;
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+    margin-left: -15px;
+}
+
+#vesselForm{
+    display: none;    
+    top:0px;
+    width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers
+    height: 100%;
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+    margin-left: -15px;
+}
+
+#vesselForm_btnClose{
+    height: 60px;
+}
+
+#vesselForm_btnClose > span{
+    margin-top: 10px;
+}*/
