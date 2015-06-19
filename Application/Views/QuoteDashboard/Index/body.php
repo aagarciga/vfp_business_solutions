@@ -123,7 +123,7 @@
                         <col class="col-jobtype"/>
                         <col class="col-description"/>
                         <col class="col-status"/>
-                        <col class="col-qudate"/>
+                        <col class="col-qutdate"/>
                         <col class="col-ordnum"/>
                         <col class="col-cost-center"/>
                         <col class="col-project-manager-1"/>
@@ -139,11 +139,11 @@
                             <th>Job Type <button data-field="sotypecode" class="btn-table-sort"></button></th>
                             <th>Description <button data-field="jobdescrip" class="btn-table-sort"></button></th>
                             <th>Status <button data-field="status" class="btn-table-sort"></button></th>
-                            <th>Create <button data-field="qudate" class="btn-table-sort"></button></th>
+                            <th>Create <button data-field="qutdate" class="btn-table-sort"></button></th>
                             <th>Warehouse Order No. <button data-field="ordnum" class="btn-table-sort"></button></th>
-                            <th>Cost Center <button data-field="Cstctid" class="btn-table-sort"></button></th>
-                            <th>Project Manager 1 <button data-field="TECHNAM1" class="btn-table-sort"></button></th>
-                            <th>Project Manager 2 <button data-field="TECHNAM2" class="btn-table-sort"></button></th>
+                            <th>Cost Center <button data-field="cstctid" class="btn-table-sort"></button></th>
+                            <th>Project Manager 1 <button data-field="technam1" class="btn-table-sort"></button></th>
+                            <th>Project Manager 2 <button data-field="technam2" class="btn-table-sort"></button></th>
                             <th>Attached Files</th>                               
                         </tr>
                     </thead>

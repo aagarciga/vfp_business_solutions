@@ -25,11 +25,11 @@ class Index extends Action {
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? $defaultItemsPerPage : $_SESSION['itemperpages'];
 //        
-//        // Reset filter predicate when refresh the navigator.
-//        $this->FilterPredicate = "";//(!isset($_SESSION['filterPredicate']))? "" : $_SESSION['filterPredicate'];
+        // Reset filter predicate when refresh the navigator.
+        $this->FilterPredicate = "";//(!isset($_SESSION['filterPredicate']))? "" : $_SESSION['filterPredicate'];
 //        
-//        $this->Pager = $this->controller->GetPager($this->UserName, $this->FilterPredicate, $this->ItemPerPage);
-//        $this->Pager->Paginate();        
+        $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
+        $this->Pager->Paginate();        
 //        $dashboardItems = $this->Pager->getCurrentPagedItems();        
 //        $dashboardViewModel = array();
 //        

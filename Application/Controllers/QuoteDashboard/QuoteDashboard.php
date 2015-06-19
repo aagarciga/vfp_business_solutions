@@ -28,28 +28,28 @@ class QuoteDashboard extends DatActionsController {
      * 
      * @internal Because in the feature this will be an INNER JOIN
      */
-    public function GetPager($userid, $predicate, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC" ){
+    public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $orderby = "qutno", $order = "ASC" ){
         if($predicate !== "") { $predicate = " WHERE ".$predicate; } 
         $orderby = $this->prepareOrderByField($orderby); // Converting String yo Integer for correct representation
         $companySuffix = $this->DatUnitOfWork->CompanySuffix;
+        
         $sqlString = "SELECT "
-                . "ordnum, "
-                . "ponum, "
-                . "company, "
-                . "VESSELID, "
-                . "ProStartDT, "
-                . "ProEndDT, "
-                . "sotypecode, "
-                . "MTRLSTATUS, "
-                . "JOBSTATUS, "
-                . "TECHNAM1 as projectManager1, "
-                . "TECHNAM2 as projectManager2, "
-                . "podate, "
                 . "qutno, "
-                . "Cstctid ,"
-                . "JobDescrip "
-                . "FROM SOHEAD$companySuffix $predicate GROUP BY ordnum, ponum, company, VESSELID, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
-                //. "FROM SOHEAD$companySuffix WHERE NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')$predicate GROUP BY ordnum, ponum, company, VESSELID, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
+                . "projno, "
+                . "company, "
+                . "vesselid, "
+                . "sotypecode, "
+                . "jobdescrip, "
+                . "sotypecode, "
+//                . "MTRLSTATUS, "
+                . "qutdate, "
+                . "ordnum, "
+                . "cstctid ,"
+                . "technam1 as projectManager1, "
+                . "technam2 as projectManager2 "
+                . "FROM QUHSTH$companySuffix $predicate GROUP BY qutno, projno, company, vesselid, sotypecode, jobdescrip, sotypecode, qudate, ordnum, cstctid, projectManager1, projectManager2 ORDER BY $orderby $order";
+        
+        error_log($sqlString);
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
     

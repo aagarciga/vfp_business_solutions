@@ -16,7 +16,7 @@ class QuoteDashboardViewModel {
     protected $_sotypecode;
     protected $_jobdescrip;
     protected $_status;
-    protected $_qudate;
+    protected $_qutdate;
     protected $_ordnum;
     protected $_cstctid;
     protected $_projectManager1;
@@ -125,14 +125,14 @@ class QuoteDashboardViewModel {
      * @return string
      */
     public function getQudate() {
-        return $this->_qudate;
+        return $this->_qutdate;
     }
     
     /**
      * @param string
      */
     public function setQudate($value) {
-        $this->_qudate = $value;
+        $this->_qutdate = $value;
     }
     
     /**
@@ -200,13 +200,13 @@ class QuoteDashboardViewModel {
      * @param type $sotypecode Job Type
      * @param type $jobdescrip Description
      * @param type $status Status
-     * @param type $qudate Create Date
+     * @param type $qutdate Create Date
      * @param type $ordnum Sell Order Number
      * @param type $cstctid Cost Center
      * @param type $projectManager1 Project Manager 1
      * @param type $projectManager2 Project Manager 2
      */
-    public function __construct($qutno, $projno, $company, $vesselid, $sotypecode, $jobdescrip, $status, $qudate, $ordnum, $cstctid, $projectManager1, $projectManager2) {
+    public function __construct($qutno, $projno, $company, $vesselid, $sotypecode, $jobdescrip, $status, $qutdate, $ordnum, $cstctid, $projectManager1, $projectManager2) {
 
         $this->_qutno = trim($qutno);
         $this->_projno = trim($projno);
@@ -215,7 +215,7 @@ class QuoteDashboardViewModel {
         $this->_sotypecode = trim($sotypecode);
         $this->_jobdescrip = trim($jobdescrip);
         $this->_status = trim($status);
-        $this->_qudate = $qudate === "1899-12-30" ? "" : $qudate;
+        $this->_qutdate = $qutdate === "1899-12-30" ? "" : $qutdate;
         $this->_ordnum = trim($ordnum);
         $this->_cstctid = trim($cstctid);
         $this->_projectManager1 = trim($projectManager1);
