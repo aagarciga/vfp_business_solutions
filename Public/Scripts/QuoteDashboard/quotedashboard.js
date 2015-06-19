@@ -47,6 +47,7 @@ if (typeof Backbone === 'undefined') {
 
     QuoteDashboard.dictionaries = {};
     QuoteDashboard.dictionaries.status = [
+        'Empty',
         'RFQ Received', 
         'Quote Prepared', 
         'Sent to Customer', 

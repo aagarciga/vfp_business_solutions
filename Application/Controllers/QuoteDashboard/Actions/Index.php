@@ -40,7 +40,9 @@ class Index extends Action {
         
         $this->Items = $viewModels;
         
-        $this->Status = array('1'=>'RFQ Received', 
+        $this->Status = array(
+            '0'=>'Empty',
+            '1'=>'RFQ Received', 
             '2'=>'Quote Prepared', 
             '3'=>'Sent to Customer', 
             '4'=>'CSR follow up',
