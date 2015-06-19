@@ -7,7 +7,7 @@
 namespace Dandelion\MVC\Application\Controllers\QuoteDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
-use Dandelion\MVC\Application\Controllers\Dashboard\Models\QuoteDashboardViewModel;
+use Dandelion\MVC\Application\Controllers\QuoteDashboard\Models\QuoteDashboardViewModel;
 
 /**
  * VFP Business Series Quote Dashboard Controller Action
@@ -30,15 +30,24 @@ class Index extends Action {
 //        
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();        
-//        $dashboardItems = $this->Pager->getCurrentPagedItems();        
-//        $dashboardViewModel = array();
-//        
-//        foreach ($dashboardItems as $dashboardItem) {
-//            $currentDashboardItem = new DashboardViewModel($dashboardItem->ordnum, $dashboardItem->ponum, $dashboardItem->company, $dashboardItem->VESSELID, $dashboardItem->ProStartDT, $dashboardItem->ProEndDT, $dashboardItem->sotypecode, $dashboardItem->MTRLSTATUS, $dashboardItem->JOBSTATUS, $dashboardItem->projectManager1, $dashboardItem->projectManager2, $dashboardItem->podate, $dashboardItem->qutno, $dashboardItem->Cstctid, $dashboardItem->JobDescrip);
-//            $dashboardViewModel []= $currentDashboardItem;
-//        }
-//        
-//        $this->DashboardItems = $dashboardViewModel;
+        $items = $this->Pager->getCurrentPagedItems();        
+        $viewModels = array();
+        
+        foreach ($items as $item) {
+            $currentItemViewModel = new QuoteDashboardViewModel($item->qutno, $item->projno, $item->company, $item->vesselid, $item->sotypecode, $item->jobdescrip, $item->status, $item->qutdate, $item->ordnum, $item->cstctid, $item->projectManager1, $item->projectManager2);
+            $viewModels []= $currentItemViewModel;
+        }
+        
+        $this->Items = $viewModels;
+        
+        $this->Status = array('1'=>'RFQ Received', 
+            '2'=>'Quote Prepared', 
+            '3'=>'Sent to Customer', 
+            '4'=>'CSR follow up',
+            '5'=>'Revisions',
+            '6'=>'Not  approved',
+            '7'=>'Quote approved',
+            '8'=>'Billed');
 //        
 //        $this->MaterialStatusItems = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetMaterialStatus();
 //        $this->JobStatusItems = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetJobStatus();

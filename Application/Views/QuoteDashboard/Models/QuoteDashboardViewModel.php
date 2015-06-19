@@ -124,14 +124,14 @@ class QuoteDashboardViewModel {
     /**
      * @return string
      */
-    public function getQudate() {
+    public function getQutdate() {
         return $this->_qutdate;
     }
     
     /**
      * @param string
      */
-    public function setQudate($value) {
+    public function setQutdate($value) {
         $this->_qutdate = $value;
     }
     

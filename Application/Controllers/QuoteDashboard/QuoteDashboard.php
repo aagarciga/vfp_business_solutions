@@ -41,13 +41,13 @@ class QuoteDashboard extends DatActionsController {
                 . "sotypecode, "
                 . "jobdescrip, "
                 . "sotypecode, "
-//                . "MTRLSTATUS, "
+                . "status, "
                 . "qutdate, "
                 . "ordnum, "
                 . "cstctid ,"
                 . "technam1 as projectManager1, "
                 . "technam2 as projectManager2 "
-                . "FROM QUHSTH$companySuffix $predicate GROUP BY qutno, projno, company, vesselid, sotypecode, jobdescrip, sotypecode, qutdate, ordnum, cstctid, projectManager1, projectManager2 ORDER BY $orderby $order";
+                . "FROM QUHSTH$companySuffix $predicate GROUP BY qutno, projno, company, vesselid, sotypecode, jobdescrip, sotypecode, status, qutdate, ordnum, cstctid, projectManager1, projectManager2 ORDER BY $orderby $order";
         
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }

@@ -38,13 +38,10 @@
 
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Projects <span id="panelHeadingItemsCount" class="badge">0<?php //echo $Pager->getItemsCount(); ?> </span> 
-
-            <!--<a href="#" id="dashboard-panel-togle-visibility-button" class="panel-togle-visibility-button pull-right" title="Show/Hide Filter"><span class="glyphicon glyphicon-eye-open"></span></a>-->
-            
+        <div class="panel-heading">Projects <span id="panelHeadingItemsCount" class="badge"><?php echo $Pager->getItemsCount(); ?> </span> 
             <div class="btn-group pull-right top-pager-itemmperpage-control">               
                 <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="value">50<?php //echo $ItemPerPage ?></span>
+                    <span class="value"><?php echo $ItemPerPage ?></span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -140,7 +137,7 @@
                             <th>Description <button data-field="jobdescrip" class="btn-table-sort"></button></th>
                             <th>Status <button data-field="status" class="btn-table-sort"></button></th>
                             <th>Create <button data-field="qutdate" class="btn-table-sort"></button></th>
-                            <th>Warehouse Order No. <button data-field="ordnum" class="btn-table-sort"></button></th>
+                            <th>WO No. <button data-field="ordnum" class="btn-table-sort"></button></th>
                             <th>Cost Center <button data-field="cstctid" class="btn-table-sort"></button></th>
                             <th>Project Manager 1 <button data-field="technam1" class="btn-table-sort"></button></th>
                             <th>Project Manager 2 <button data-field="technam2" class="btn-table-sort"></button></th>
@@ -148,40 +145,32 @@
                         </tr>
                     </thead>
                     <body>
-                        <?php //foreach ($DashboardItems as $item): ?>
-<!--                        <tr>
-                            <td class="item-field"><a href="#" class="salesorder-form-link"><?php //echo $item->getOrdnum() ?></a></td>
-                            <td class="item-field"><?php //echo $item->getPonum() ?></td>
-                            <td class="item-field"><?php //echo $item->getCompany() ?></td>
-                            <td class="item-field"><a href="#" class="vessel-form-link"><?php //echo $item->getVesselid() ?></a></td>
-                            <td class="item-field"><?php //echo $item->getProStartDT() ?></td>
-                            <td class="item-field"><?php //echo $item->getProEndDT() ?></td>
-                            <td class="item-field"><?php //echo $item->getSotypecode() ?></td>
-                            <td class="item-field"><?php //echo $item->getJobDescrip() ?></td>
+                        <?php foreach ($Items as $item): ?>
+                        <tr>
+                            <td class="item-field"><a href="#" class="qutno-form-link"><?php echo $item->getQutno() ?></a></td>
+                            <td class="item-field"><?php echo $item->getProjno() ?></td>
+                            <td class="item-field"><?php echo $item->getCompany() ?></td>
+                            <td class="item-field"><a href="#" class="vessel-form-link"><?php echo $item->getVesselid() ?></a></td>
+                            <td class="item-field"><?php echo $item->getSotypecode() ?></td>
+                            <td class="item-field"><?php echo $item->getJobdescrip() ?></td>
+                            <!--<td class="item-field"><?php echo $item->getStatus() ?></td>-->
                             <td class="item-field">
-                                <select class="form-control update-dropdown material-status select2-nosearch" data-ordnum="<?php //echo $item->getOrdnum() ?>">
-                                    <option>Empty</option>
-                                    <?php //foreach ($MaterialStatusItems as $msItem): ?>
-                                        <option <?php //echo ($item->getMtrlstatus() !== $msItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php //echo $msItem->getEdistatid() ?>" ><?php //echo $msItem->getDescrip() ?></option>
-                                    <?php //endforeach ?> 
+                                <select class="form-control update-dropdown status select2-nosearch" data-qutno="<?php echo $item->getQutno() ?>">
+                                    <?php foreach ($Status as $index => $value): ?>
+                                        <option <?php echo ($index != $item->getStatus()) ? '' : 'selected="selected"' ?>  value="<?php echo $index ?>" ><?php echo $value ?></option>
+                                    <?php endforeach ?> 
                                 </select>
                             </td>
-                            <td class="item-field">
-                                <select class="form-control update-dropdown job-status select2-nosearch" data-ordnum="<?php //echo $item->getOrdnum() ?>">
-                                    <option>Empty</option>
-                                    <?php //foreach ($JobStatusItems as $jobItem): ?>
-                                        <option <?php //echo ($item->getJobstatus() !== $jobItem->getEdistatid()) ? '' : 'selected="selected"' ?>  value="<?php //echo $jobItem->getEdistatid() ?>" ><?php //echo $jobItem->getDescrip() ?></option>
-                                    <?php //endforeach ?> 
-                                </select>
-                            </td>
-                            <td class="item-field"><?php //echo $item->getProjectManager1() ?></td>
-                            <td class="item-field"><?php //echo $item->getProjectManager2() ?></td>
-                            <td class="item-field"><?php //echo $item->getPodate() ?></td>
-                            <td class="item-field"><?php //echo $item->getQutno() ?></td>
-                            <td class="item-field"><?php //echo $item->getCstctid() ?></td>
-                            <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-ordnum="<?php //echo $item->getOrdnum() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>
-                        </tr>-->
-                    <?php //endforeach ?>
+                            <td class="item-field"><?php echo $item->getQutdate() ?></td>
+                            <td class="item-field"><?php echo $item->getOrdnum() ?></td>
+                            <td class="item-field"><?php echo $item->getCstctid() ?></td>
+                            
+                            <td class="item-field"><?php echo $item->getProjectManager1() ?></td>
+                            <td class="item-field"><?php echo $item->getProjectManager2() ?></td>
+                            
+                            <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-ordnum="<?php echo $item->getQutno() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>
+                        </tr>
+                    <?php endforeach ?>
                     </body>
                 </table>
 
@@ -189,7 +178,7 @@
         </div>
         <div class="panel-footer">
             <div class="text-center pager-wrapper">
-                <?php //echo $Pager->getPagerControl(); ?>
+                <?php echo $Pager->getPagerControl(); ?>
              </div>
         </div>
     </div><!-- /.panel -->
