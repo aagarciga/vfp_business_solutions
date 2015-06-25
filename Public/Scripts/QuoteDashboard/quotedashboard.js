@@ -43,15 +43,15 @@ if (typeof Backbone === 'undefined') {
 
     QuoteDashboard.dictionaries = {};
     QuoteDashboard.dictionaries.status = [
-        'Empty',
-        'RFQ Received', 
-        'Quote Prepared', 
-        'Sent to Customer', 
-        'CSR follow up',
-        'Revisions',
-        'Not  approved',
-        'Quote approved',
-        'Billed'
+        {id:'0', descrip: 'Empty'},
+        {id:'1', descrip: 'RFQ Received'}, 
+        {id:'2', descrip: 'Quote Prepared'}, 
+        {id:'3', descrip: 'Sent to Customer'}, 
+        {id:'4', descrip: 'CSR follow up'},
+        {id:'5', descrip: 'Revisions'},
+        {id:'6', descrip: 'Not  approved'},
+        {id:'7', descrip: 'Quote approved'},
+        {id:'8', descrip: 'Billed'}
     ];
 
     QuoteDashboard.htmlBindings = {};
@@ -215,7 +215,8 @@ if (typeof Backbone === 'undefined') {
                 return simpleTdBuilder(dataRow.jobdescrip);
             },
             tdStatusBuilder = function () {
-                return withSelectBuilder(dataRow.status, QuoteDashboard.dictionaries.status, 'status');
+                return withSelectBuilder(dataRow.status, 
+                    QuoteDashboard.dictionaries.status, 'status');
             },
             tdCreateBuilder = function () {
                 return simpleTdBuilder(dataRow.qutdate);
