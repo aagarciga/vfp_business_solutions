@@ -291,9 +291,9 @@ if (typeof Backbone === 'undefined') {
 //                $(Dashboard.htmlBindings.control_vesselForm).hide();
 //            });
 //
-//        $(Dashboard.htmlBindings.table_header_btnSort).on('click',
-//            Dashboard.eventHandlers.table_body_btnSalesOrder_onClick);
-//
+        $(QuoteDashboard.htmlBindings.table_header_btnSort).on('click',
+            QuoteDashboard.eventHandlers.table_body_btnSalesOrder_onClick);
+
         $(QuoteDashboard.htmlBindings.pager_btnPagerPages).on('click',
             QuoteDashboard.eventHandlers.pager_btnPagerPages_onClick);
 //
@@ -320,25 +320,25 @@ if (typeof Backbone === 'undefined') {
     };
 
     QuoteDashboard.eventHandlers.table_body_btnSalesOrder_onClick = function (event) {
-//        var $target = $(event.target),
-//            sortingField = $target.data('field');
-//
-//        if (Dashboard.status.table_header_sortLastButton !== null) {
-//            Dashboard.status.table_header_sortLastButton.removeClass('asc desc');
-//        }
-//        if (Dashboard.status.table_header_sortField !== sortingField) {
-//            Dashboard.status.table_header_sortFieldOrder = '';
-//        }
-//        Dashboard.status.table_header_sortField = sortingField;
-//        if (Dashboard.status.table_header_sortFieldOrder === 'ASC') {
-//            Dashboard.status.table_header_sortFieldOrder = 'DESC';
-//            $target.addClass('asc').removeClass('desc');
-//        } else {
-//            Dashboard.status.table_header_sortFieldOrder = 'ASC';
-//            $target.addClass('desc').removeClass('asc');
-//        }
-//        Dashboard.status.table_header_sortLastButton = $target;
-//        Dashboard.functions.paginate();
+        var $target = $(event.target),
+            sortingField = $target.data('field');
+
+        if (QuoteDashboard.status.table_header_sortLastButton !== null) {
+            QuoteDashboard.status.table_header_sortLastButton.removeClass('asc desc');
+        }
+        if (QuoteDashboard.status.table_header_sortField !== sortingField) {
+            QuoteDashboard.status.table_header_sortFieldOrder = '';
+        }
+        QuoteDashboard.status.table_header_sortField = sortingField;
+        if (QuoteDashboard.status.table_header_sortFieldOrder === 'ASC') {
+            QuoteDashboard.status.table_header_sortFieldOrder = 'DESC';
+            $target.addClass('asc').removeClass('desc');
+        } else {
+            QuoteDashboard.status.table_header_sortFieldOrder = 'ASC';
+            $target.addClass('desc').removeClass('asc');
+        }
+        QuoteDashboard.status.table_header_sortLastButton = $target;
+        QuoteDashboard.functions.paginate();
     };
     QuoteDashboard.eventHandlers.table_body_drpstatus_onChange = function (event) {
 //        var $target = $(event.target),
