@@ -10,15 +10,11 @@ namespace Dandelion\MVC\Application\Controllers\Dashboard\Actions;
 use Dandelion\MVC\Core\Action;
 
 /**
- * Ajax Barcode verification
- * @name ShipmentUpdate_Post
+ * VFP Business Series Quote Dashboard Controller Action
+ * @name GetDashboardItemsPage_Post
  */
 class GetDashboardItemsPage_Post extends Action {
 
-    /**
-     * Commit Shipment Changes
-     * @return JSON
-     */
     public function Execute() {
         
         $filterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
@@ -29,34 +25,6 @@ class GetDashboardItemsPage_Post extends Action {
 
         $this->FilterPredicate = $_SESSION['filterPredicate'] = $filterPredicate;
         $this->ItemPerPage = $_SESSION['itemperpages'] = $itemsPerPage;
-        
-//        error_log("_BEGIN_______________________________");
-//        error_log('$filterPredicate: '.$filterPredicate);
-//        error_log('$page: '.$page);
-//        error_log('$itemsPerPage: '.$itemsPerPage);
-//        error_log('$orderby: '.$orderby);
-//        error_log('$order: '.$order);
-////        
-//        error_log('$this->FilterPredicate: '.$this->FilterPredicate);
-//        error_log('$this->ItemPerPage: '.$this->ItemPerPage);
-//        error_log("_END_________________________________");
-
-//        $filterPredicate = filter_input(INPUT_POST, 'predicate');
-//        $page = filter_input(INPUT_POST, 'page');
-//        $itemsperpage = filter_input(INPUT_POST, 'itemsPerPage');        
-//        $orderby = filter_input(INPUT_POST, 'orderby');
-//        $order = filter_input(INPUT_POST, 'order');
-//        $this->ItemPerPage = $_SESSION['itemperpages'] = (!isset($itemsperpage))? 10 : $itemsperpage;
-//        $this->FilterPredicate = $_SESSION['filterPredicate'] = (!isset($filterPredicate))? "" : $filterPredicate;
-//        
-//        error_log('$filterPredicate: '.$filterPredicate);
-//        error_log('$page: '.$page);
-//        error_log('$itemsPerPage: '.$itemsPerPage);
-//        error_log('$orderby: '.$orderby);
-//        error_log('$order: '.$order);
-//        
-//        error_log('$this->FilterPredicate: '.$this->FilterPredicate);
-//        error_log('$this->ItemPerPage: '.$this->ItemPerPage);
         
         $result = array();
         
