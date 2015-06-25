@@ -23,14 +23,14 @@
         QuoteDashboard       = dandelion.namespace('App.QuoteDashboard', global);
     
     QuoteDashboard.urls = {};
-    QuoteDashboard.urls.getDictionaries = "<?php echo $View->Href('Dashboard', 'GetDashboardDictionaries') ?>";
-    QuoteDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>";
-    QuoteDashboard.urls.getItemsPage = "<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>";
+    QuoteDashboard.urls.getDictionaries = "<?php echo $View->Href('Dashboard', '') ?>";
+    QuoteDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', '') ?>";
+    QuoteDashboard.urls.getPage = "<?php echo $View->Href('QuoteDashboard', 'GetPage') ?>";
     
     QuoteDashboard.init('<?php //echo $DefaultUserFilterId ?>');
 }(window, jQuery, App));
 </script>
 
 <script>
-<?php // echo $Pager->GetJavascriptPager(); ?>
+<?php echo $Pager->GetJavascriptPager(); ?>
 </script>

@@ -38,16 +38,16 @@ class GetPage_Post extends Action {
         foreach ($currentPagedItems as $row){
             
             $current = array();
-            $current['qutno'] = trim($row->QUTNO);
-            $current['projno'] = trim($row->PROJNO);
-            $current['company'] = trim($row->COMPANY);
-            $current['vesselid'] = trim($row->VESSELID);
-            $current['sotypecode'] = trim($row->SOTYPECODE);
-            $current['jobdescrip'] = trim($row->JOBDESCRIP);
-            $current['status'] = trim($row->STATUS);            
-            $current['qutdate'] = trim($row->QUTDATE === "1899-12-30" ? "" : $row->QUTDATE);
-            $current['ordnum'] = trim($row->ORDNUM);
-            $current['cstctid'] = trim($row->CSTCTID);
+            $current['qutno'] = trim($row->qutno);
+            $current['projno'] = trim($row->projno);
+            $current['company'] = trim($row->company);
+            $current['vesselid'] = trim($row->vesselid);
+            $current['sotypecode'] = trim($row->sotypecode);
+            $current['jobdescrip'] = trim($row->jobdescrip);
+            $current['status'] = trim($row->status);            
+            $current['qutdate'] = trim($row->qutdate === "1899-12-30" ? "" : $row->qutdate);
+            $current['ordnum'] = trim($row->ordnum);
+            $current['cstctid'] = trim($row->cstctid);
             $current['projectManager1'] = trim($row->projectManager1);
             $current['projectManager2'] = trim($row->projectManager2);
             
