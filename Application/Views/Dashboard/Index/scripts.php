@@ -33,7 +33,7 @@
     Dashboard.urls.getDashboardDictionaries = "<?php echo $View->Href('Dashboard', 'GetDashboardDictionaries') ?>";
     Dashboard.urls.updateSOHEADMaterialStatus = "<?php echo $View->Href('Dashboard', 'UpdateSOHEADMaterialStatus') ?>";
     Dashboard.urls.updateSOHEADJobStatus = "<?php echo $View->Href('Dashboard', 'UpdateSOHEADJobStatus') ?>";
-    Dashboard.urls.getDashboardItemsPage = "<?php echo $View->Href('Dashboard', 'GetDashboardItemsPage') ?>";
+    Dashboard.urls.getPage = "<?php echo $View->Href('Dashboard', 'GetPage') ?>";
     Dashboard.urls.projectAttachementsAPI = "<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>";
     Dashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>";
     Dashboard.urls.downloadFile = "<?php echo $View->Href('Dashboard', 'DownloadFile') ?>";

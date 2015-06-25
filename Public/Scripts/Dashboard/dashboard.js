@@ -1264,7 +1264,7 @@ if (typeof Backbone === 'undefined') {
                 orderby: Dashboard.status.table_header_sortField,
                 order: Dashboard.status.table_header_sortFieldOrder
             },
-            url: Dashboard.urls.getDashboardItemsPage,
+            url: Dashboard.urls.getPage,
             type: 'post',
             beforeSend: function () {
                 $('.loading').show();
