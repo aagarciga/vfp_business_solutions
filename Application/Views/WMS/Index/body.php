@@ -15,62 +15,33 @@
         <?php $View->Control('MainMenu'); ?>
     </nav>
 
-    <div class="panel panel-default">
+    <div id="wms-features-container" class="panel panel-default">
         <div class="panel-body">
-            <ul class="nav nav-pills nav-stacked">
-<!--                <li>
-                    <a href="#" class="items-to-bin">
-                        <img src="<?php echo $View->ImagesContext("main/items-to-bin.png") ?>"/> Items to Bin</a>
-                </li>-->
-                <li>
-                    <a href="<?php echo $View->Href("BinToBin") ?>" class="bin-to-bin">
-                        <img src="<?php echo $View->ImagesContext("main/bin-to-bin.png") ?>"/> Bin to Bin</a>
+            <ul id="wms-features">
+                <li id="bin-to-bin">
+                    <a href="<?php echo $View->Href("BinToBin") ?>"><span>Bin to Bin</span></a>
                 </li>
-                <li class="-active">
-                    <a href="<?php echo $View->Href("PhysicalCount") ?>" class="physical-count">
-                        <img src="<?php echo $View->ImagesContext("main/physical-count.png") ?>"/> Physical Count</a>
+                <li id="physical-count">
+                    <a href="<?php echo $View->Href("PhysicalCount") ?>"><span>Physical Count</span></a>
                 </li>
-<!--                <li>
-                    <a href="#" class="change-properties">
-                        <img src="<?php echo $View->ImagesContext("main/change-properties.png") ?>"/> Change Properties</a>
-                </li>-->
-                <li>
-                    <a href="<?php echo $View->Href("ItemLookup") ?>" class="change-properties">
-                        <img src="<?php echo $View->ImagesContext("main/search-good-icon.png") ?>"/> Item Lookup</a>
+                <li id="item-lookup">
+                    <a href="<?php echo $View->Href("ItemLookup") ?>"><span>Item Lookup</span></a>
                 </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <ul class="nav nav-pills nav-stacked">
-                <li>
-                    <a href="<?php echo $View->Href("PickTicket") ?>" class="pick-ticket">
-                        <img src="<?php echo $View->ImagesContext("main/pick-ticket.png") ?>"/> Pick Ticket</a>
+                <li id="pick-ticket">
+                    <a href="<?php echo $View->Href("PickTicket") ?>"><span>Pick Ticket</span></a>
                 </li>
-<!--                <li>
-                    <a href="#" class="packing">
-                        <img src="<?php echo $View->ImagesContext("main/packing.png") ?>"/> Packing</a>
-                </li>-->
-<!--                <li><a href="#" class="shipping">
-                        <img src="<?php echo $View->ImagesContext("main/shipping.png") ?>"/> Shipping</a>
-                </li>-->
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <ul class="nav nav-pills nav-stacked">
-                <li>
-                    <a href="<?php echo $View->Href("Shipment") ?>" class="shipment">
-                        <img src="<?php echo $View->ImagesContext("main/shipment.png") ?>"/> Shipment</a>
+                <li id="shipment">
+                    <a href="<?php echo $View->Href("Shipment") ?>"><span>Shipment</span></a>
                 </li>
-<!--                <li><a href="#" class="return">
-                        <img src="<?php echo $View->ImagesContext("main/return.png") ?>"/> Return</a>
-                </li> -->
                 
+            </ul>
+        </div>
+    </div>
+
+    <div  class="panel panel-default">
+        <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+                                
                 <li class="right">
                     <a href="<?php echo $View->Href("User", "Signout") ?>" class="exit">
                         <img src="<?php echo $View->ImagesContext("main/exit.png") ?>"/> Exit</a>
