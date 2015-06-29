@@ -11,7 +11,7 @@
                                 <span class="glyphicon glyphicon-th"></span> Warehouse Management System</a></li>
                         <?php endif ?>
                         <li><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
-                                <span class="glyphicon glyphicon-th"></span> Dashboard</a></li>
+                                <span class="glyphicon glyphicon-th"></span> Sales Order Dashboard</a></li>
                         <li><a href="<?php echo $View->Href("QuoteDashboard", "Index") ?>" class="exit">
                                 <span class="glyphicon glyphicon-th"></span> Quote Dashboard</a></li>
                         <li><a href="<?php echo $View->Href("User", "Signout") ?>" class="exit">

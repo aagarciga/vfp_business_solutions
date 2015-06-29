@@ -48,7 +48,7 @@
 
         <div class="col-xs-4">
             <div class="form-group">
-                <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href("Main") ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
+                <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href("WMS") ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
             <div class="form-group">
                 <a id="btnNewTicket" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-plus-sign"></span> New Ticket</a>

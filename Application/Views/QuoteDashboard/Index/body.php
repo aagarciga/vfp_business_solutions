@@ -11,7 +11,7 @@
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                 Quote Dashboard
+                 Quotes
             </a>
         </div>
 

@@ -1,3 +1,7 @@
+.navbar.navbar-default{
+    margin-top: 10px;
+}
+
 .loading{
     display: none;
     position: absolute;

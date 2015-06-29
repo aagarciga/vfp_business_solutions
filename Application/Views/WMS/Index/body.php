@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Warehouse Management System</a>
+            <a class="navbar-brand" href="#" style="margin: -2px;">Warehouse Management</a>
         </div>
 
         <?php $View->Control('MainMenu'); ?>
