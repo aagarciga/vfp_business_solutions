@@ -6,14 +6,14 @@
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo $View->Href("Main", "Index") ?>" class="main active">
                                 <span class="glyphicon glyphicon-home"></span> Home</a></li>
-                        <?php if ($FullFeatures === true):?>
-                        <li><a href="<?php echo $View->Href("WMS", "Index") ?>" class="exit">
-                                <span class="glyphicon glyphicon-th"></span> Warehouse Management System</a></li>
-                        <?php endif ?>
-                        <li><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
-                                <span class="glyphicon glyphicon-th"></span> Sales Order Dashboard</a></li>
                         <li><a href="<?php echo $View->Href("QuoteDashboard", "Index") ?>" class="exit">
                                 <span class="glyphicon glyphicon-th"></span> Quote Dashboard</a></li>
+                        <li><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
+                                <span class="glyphicon glyphicon-th"></span> Sales Order Dashboard</a></li>
+                        <?php if ($FullFeatures === true):?>
+                        <li><a href="<?php echo $View->Href("WMS", "Index") ?>" class="exit">
+                                <span class="glyphicon glyphicon-th"></span> Warehouse Management</a></li>
+                        <?php endif ?>
                         <li><a href="<?php echo $View->Href("User", "Signout") ?>" class="exit">
                                 <span class="glyphicon glyphicon-off"></span> Exit</a></li>
 

@@ -1,5 +1,6 @@
 .navbar.navbar-default{
-    margin-top: 10px;
+    border-radius: 0px 0px 4px 4px;
+    border-top: none;
 }
 
 .loading{
