@@ -18,13 +18,13 @@
     <div class="panel panel-default">
         <div id="main-panel" class="panel-body">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="<?php echo $View->Href("QuoteDashboard", "Index") ?>" class="exit">
-                        <span class="glyphicon glyphicon-th-list"></span>&nbsp; Quote Dashboard</a></li>
-                <li><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
-                    <span class="glyphicon glyphicon-th-list"></span>&nbsp; Sales Order Dashboard</a></li>
+                <li id="quote-dashboard"><a href="<?php echo $View->Href("QuoteDashboard", "Index") ?>" class="exit">
+                        <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Quote Dashboard</span></a></li>
+                <li id="sales-order-dashboard"><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
+                        <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Sales Order Dashboard</span></a></li>
                 <?php if ($FullFeatures === true):?>
-                <li><a href="<?php echo $View->Href("WMS", "Index") ?>">
-                        <span class="glyphicon glyphicon-th"></span>&nbsp; Warehouse Management</a></li>
+                <li id="warehouse-management"><a href="<?php echo $View->Href("WMS", "Index") ?>">
+                        <span class="glyphicon glyphicon-th"></span><span class="main-panel-caption">Warehouse Management<span></a></li>
                 <?php endif ?>
             </ul>
         </div>
