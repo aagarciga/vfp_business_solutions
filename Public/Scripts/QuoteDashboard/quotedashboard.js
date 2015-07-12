@@ -3,21 +3,21 @@
  *
  */
 
-if (typeof jQuery === 'undefined') { 
+if (jQuery === 'undefined') {
     throw new Error('VFP Business Series\'s Quote Dashboard JavaScript requires jQuery');
-};
+}
 
-if (typeof kb === 'undefined') { 
+if (kb === 'undefined') {
     throw new Error('VFP Business Series\'s Quote Dashboard JavaScript requires Knockback.js');
-};
+}
 
-if (typeof ko === 'undefined') { 
+if (ko === 'undefined') {
     throw new Error('VFP Business Series\'s Quote Dashboard JavaScript requires Knockout.js');
-};
+}
 
-if (typeof Backbone === 'undefined') { 
+if (Backbone === 'undefined') {
     throw new Error('VFP Business Series\'s Quote Dashboard JavaScript requires Backbone.js');
-};
+}
 
 /**
  * @author Alex
@@ -43,16 +43,19 @@ if (typeof Backbone === 'undefined') {
 
     QuoteDashboard.dictionaries = {};
     QuoteDashboard.dictionaries.status = [
-        {id:'0', descrip: 'Empty'},
-        {id:'1', descrip: 'RFQ Received'}, 
-        {id:'2', descrip: 'Quote Prepared'}, 
-        {id:'3', descrip: 'Sent to Customer'}, 
-        {id:'4', descrip: 'CSR follow up'},
-        {id:'5', descrip: 'Revisions'},
-        {id:'6', descrip: 'Not  approved'},
-        {id:'7', descrip: 'Quote approved'},
-        {id:'8', descrip: 'Billed'}
+//        {id:'0', descrip: 'Empty'},
+//        {id:'1', descrip: 'RFQ Received'}, 
+//        {id:'2', descrip: 'Quote Prepared'}, 
+//        {id:'3', descrip: 'Sent to Customer'}, 
+//        {id:'4', descrip: 'CSR follow up'},
+//        {id:'5', descrip: 'Revisions'},
+//        {id:'6', descrip: 'Not  approved'},
+//        {id:'7', descrip: 'Quote approved'},
+//        {id:'8', descrip: 'Billed'}
     ];
+    QuoteDashboard.dictionaries.vessel = [];
+    QuoteDashboard.dictionaries.costCenter = [];
+    QuoteDashboard.dictionaries.projectManager = [];
 
     QuoteDashboard.htmlBindings = {};
     QuoteDashboard.htmlBindings.container                        = '.container';
@@ -110,19 +113,19 @@ if (typeof Backbone === 'undefined') {
     };
 
     QuoteDashboard.functions.getDictionaries = function () {
-//        $.ajax({
-//            data: {},
-//            url: Dashboard.urls.getDashboardDictionaries,
-//            type: 'post',
-//            beforeSend: function () {
-//                $('.loading').show();
-//            },
-//            success: function (response) {
-//                var data = $.parseJSON(response);
-//                Dashboard.dictionaries = data;
-//                $('.loading').hide();
-//            }
-//        });
+        $.ajax({
+            data: {},
+            url: QuoteDashboard.urls.getDictionaries,
+            type: 'post',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                var data = $.parseJSON(response);
+                QuoteDashboard.dictionaries = data;
+                $('.loading').hide();
+            }
+        });
     };
     QuoteDashboard.functions.updateTable = function (items) {
         var $table = $(QuoteDashboard.htmlBindings.table),

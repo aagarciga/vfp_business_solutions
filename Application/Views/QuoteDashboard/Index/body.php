@@ -38,7 +38,7 @@
             <span class="pull-right">paged by </span>
         </div>
         <div class="panel-body">
-<!--            <div id="filterForm" class="form-inline" role="form">   
+            <div id="filterForm" class="form-inline" role="form">   
                 <div id="dynamicFilter_filterFieldsContainer">
                     
                 </div>
@@ -68,28 +68,26 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
-                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Sales Order</a></li>
-                            <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Purchase Order</a></li>
+
+                            <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Sales Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="projno" data-field-type="text">Purchase Order</a></li>
                             <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a></li>
-                            <li><a href="#" class="filter-field" data-field="vesselid" data-field-type="dropdown" data-field-collection="vesselDictionary">Vessel</a></li>
-                            <li><a href="#" class="filter-field" data-field="ProStartDT" data-field-type="date">Start Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="ProEndDT" data-field-type="date">End Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="dropdown" data-field-collection="jobTypeDictionary">Job Type</a></li>
-                            <li><a href="#" class="filter-field" data-field="JobDescrip" data-field-type="text">Description</a></li>
-                            <li><a href="#" class="filter-field" data-field="MTRLSTATUS" data-field-type="dropdown" data-field-collection="materialStatus">Material Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="JOBSTATUS" data-field-type="dropdown" data-field-collection="jobStatus">Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="TECHPM1" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 1</a></li>
-                            <li><a href="#" class="filter-field" data-field="TECHPM2" data-field-type="dropdown" data-field-collection="projectManagerDictionary">Project Manager 2</a></li>
-                            <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Create Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No</a></li>
-                            <li><a href="#" class="filter-field" data-field="Cstctid" data-field-type="dropdown" data-field-collection="costCenterDictionary">Cost Center</a></li>
-                                                    <li><a href="#" class="filter-field" data-field="" >Has Attached Files</a></li>
+                            <li><a href="#" class="filter-field" data-field="vesselid" data-field-type="dropdown" data-field-collection="vessel">Vessel</a></li>
+                            <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="jobdescrip" data-field-type="text">Description</a></li>
+                            <li><a href="#" class="filter-field" data-field="status" data-field-type="dropdown" data-field-collection="status">Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="qutdate" data-field-type="date">Create</a></li>
+                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">WO No.</a></li>
+                            <li><a href="#" class="filter-field" data-field="cstctid" data-field-type="dropdown" data-field-collection="costCenter">Cost Center</a></li>
+                            <li><a href="#" class="filter-field" data-field="technam1" data-field-type="dropdown" data-field-collection="projectManager">Project Manager 1</a></li>
+                            <li><a href="#" class="filter-field" data-field="technam2" data-field-type="dropdown" data-field-collection="projectManager">Project Manager 2</a></li>
+
                         </ul>
                     </div>
                 </div>
                     
                 
-            </div>-->
+            </div>
             
             
             <div class="panel-table">

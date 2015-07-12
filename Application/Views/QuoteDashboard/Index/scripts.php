@@ -26,6 +26,8 @@
     QuoteDashboard.urls.getDictionaries = "<?php echo $View->Href('Dashboard', '') ?>";
     QuoteDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', '') ?>";
     QuoteDashboard.urls.getPage = "<?php echo $View->Href('QuoteDashboard', 'GetPage') ?>";
+    QuoteDashboard.urls.getDictionaries = "<?php echo $View->Href('QuoteDashboard', 'GetDictionaries') ?>";
+    
     
     QuoteDashboard.init('<?php //echo $DefaultUserFilterId ?>');
 }(window, jQuery, App));

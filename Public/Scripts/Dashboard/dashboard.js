@@ -3,21 +3,20 @@
  *
  */
 
-if (typeof jQuery === 'undefined') { 
+if (jQuery === 'undefined') {
     throw new Error('VFP Business Series\'s Dashboard JavaScript requires jQuery');
-};
-
-if (typeof kb === 'undefined') { 
+}
+if (kb === 'undefined') {
     throw new Error('VFP Business Series\'s Dashboard JavaScript requires Knockback.js');
-};
+}
 
-if (typeof ko === 'undefined') { 
+if (ko === 'undefined') {
     throw new Error('VFP Business Series\'s Dashboard JavaScript requires Knockout.js');
-};
+}
 
-if (typeof Backbone === 'undefined') { 
+if (Backbone === 'undefined') {
     throw new Error('VFP Business Series\'s Dashboard JavaScript requires Backbone.js');
-};
+}
 
 /**
  * Vessel Form Related MVVM Logic
