@@ -51,7 +51,7 @@
                 <a id="close" class="btn btn-default btn-block btn-lg" href="<?php echo $View->Href("WMS") ?>" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
             <div class="form-group">
-                <a id="btnNewTicket" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-plus-sign"></span> New Ticket</a>
+                <a id="btnNewTicket" class="btn btn-default btn-block btn-lg" href="#" title="New Ticket"><span class="glyphicon glyphicon-plus-sign"></span></a>
             </div>
         </div>
     </div>
