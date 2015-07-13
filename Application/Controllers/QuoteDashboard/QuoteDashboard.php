@@ -48,7 +48,7 @@ class QuoteDashboard extends DatActionsController {
                 . "technam1 as projectManager1, "
                 . "technam2 as projectManager2 "
                 . "FROM QUHSTH$companySuffix $predicate GROUP BY qutno, projno, company, vesselid, sotypecode, jobdescrip, sotypecode, status, qutdate, ordnum, cstctid, projectManager1, projectManager2 ORDER BY $orderby $order";
-        
+
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
     

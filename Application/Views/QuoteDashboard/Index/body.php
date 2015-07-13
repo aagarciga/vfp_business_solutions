@@ -46,7 +46,7 @@
                     <button id="dynamicFilter_btnToggleVisibility"type="button" class="btn btn-default disabled">Hide</button>
                     <button id="dynamicFilter_btnReset"type="button" class="btn btn-default disabled">Reset</button>
                     
-                    <div class="btn-group">
+                    <!-- <div class="btn-group">
                         <button id="dynamicFilter_btnSave" type="button" class="btn btn-success disabled">Save</button>
                         <?php //if(count($SavedUserFilters)):?>
                         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
@@ -59,7 +59,7 @@
                             <?php //endforeach ?>                                
                         </ul>
                         <?php //endif ?>
-                    </div> 
+                    </div> -->
                     
                     <div class="btn-group">
                         <button id="dynamicFilter_btnFilter" type="button" class="btn btn-primary disabled">Filter</button>                    
@@ -69,18 +69,18 @@
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
 
-                            <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Sales Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="qutno" data-field-type="text">Quote No.</a></li>
                             <li><a href="#" class="filter-field" data-field="projno" data-field-type="text">Purchase Order</a></li>
                             <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a></li>
                             <li><a href="#" class="filter-field" data-field="vesselid" data-field-type="dropdown" data-field-collection="vessel">Vessel</a></li>
                             <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
                             <li><a href="#" class="filter-field" data-field="jobdescrip" data-field-type="text">Description</a></li>
-                            <li><a href="#" class="filter-field" data-field="status" data-field-type="dropdown" data-field-collection="status">Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="status" data-field-value-type="numeric" data-field-type="dropdown" data-field-collection="status">Status</a></li>
                             <li><a href="#" class="filter-field" data-field="qutdate" data-field-type="date">Create</a></li>
                             <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">WO No.</a></li>
                             <li><a href="#" class="filter-field" data-field="cstctid" data-field-type="dropdown" data-field-collection="costCenter">Cost Center</a></li>
-                            <li><a href="#" class="filter-field" data-field="technam1" data-field-type="dropdown" data-field-collection="projectManager">Project Manager 1</a></li>
-                            <li><a href="#" class="filter-field" data-field="technam2" data-field-type="dropdown" data-field-collection="projectManager">Project Manager 2</a></li>
+                            <li><a href="#" class="filter-field" data-field="techpm1" data-field-type="dropdown" data-field-collection="projectManager">Project Manager 1</a></li>
+                            <li><a href="#" class="filter-field" data-field="techpm2" data-field-type="dropdown" data-field-collection="projectManager">Project Manager 2</a></li>
 
                         </ul>
                     </div>
