@@ -93,8 +93,7 @@ if (Backbone === 'undefined') {
             $currentComponentControl = null,
             currentComponentControlValue = '',
             currentComponentControlFieldName = '',
-            dateRange,
-            value;
+            dateRange;
 
         DynamicFilter.status.predicate = "";
         $filterComponents.each(function () {
@@ -118,12 +117,9 @@ if (Backbone === 'undefined') {
                 } else if ($currentComponentControl.hasClass('daterangepicker-single')) {
                     DynamicFilter.status.predicate += currentComponentControlFieldName + " = '" + currentComponentControlValue + "' ";
                 } else {
-                    
-                    value = parseInt(currentComponentControlValue);
-                    
                     if ($currentComponentControl.data('valueType') === 'numeric') {
                         // Logic for numbers
-                        DynamicFilter.status.predicate += "" + currentComponentControlFieldName +
+                        DynamicFilter.status.predicate += currentComponentControlFieldName +
                             " = " + currentComponentControlValue +
                             " ";
                     } else {
@@ -194,14 +190,14 @@ if (Backbone === 'undefined') {
     DynamicFilter.functions.createTextField = function (field, caption, valueType) {
         return $('<div class="form-group" title="' + caption +
                 '"><label class="control-label">' + caption +
-                '</label><div class="input-group"><input type="text" class="form-control" data-value-type="'+ valueType +'" data-fieldname="' + field +
+                '</label><div class="input-group"><input type="text" class="form-control" data-value-type="' + valueType + '" data-fieldname="' + field +
                 '" placeholder="' + caption +
                 '"><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
     };
     DynamicFilter.functions.createDropdownField = function (field, caption, options, valueType) {
         var $formGroup = $('<div class="form-group" title="' + caption +
             '"><label class="control-label">' + caption +
-            '</label><div class="input-group select2-bootstrap-append"><select class="form-control select2-container" data-value-type="'+ valueType +'" data-fieldname="' + field +
+            '</label><div class="input-group select2-bootstrap-append"><select class="form-control select2-container" data-value-type="' + valueType + '" data-fieldname="' + field +
             '"></select><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>'),
             $select = $formGroup.find('select'),
             index, current;
@@ -725,7 +721,7 @@ if (Backbone === 'undefined') {
                 return simpleTdBuilder(dataRow.jobdescrip);
             },
             tdStatusBuilder = function () {
-                return withSelectBuilder(dataRow.status, 
+                return withSelectBuilder(dataRow.status,
                     QuoteDashboard.dictionaries.status, 'status');
             },
             tdCreateBuilder = function () {
@@ -749,7 +745,6 @@ if (Backbone === 'undefined') {
                 spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
                 return withLinkTdBuilder(spanGlyphIcon, QuoteDashboard.htmlBindings.table_body_btnAttach.slice(1), 'item-action item-files');
             };
-            
         result.className = trClass;
         result.appendChild(tdQuoteNoBuilder());
         result.appendChild(tdProjectNoBuilder());
@@ -769,7 +764,6 @@ if (Backbone === 'undefined') {
     };
 
     QuoteDashboard.functions.bindTableItemsEventHandlers = function () {
-        console.log('todo: bindTableItemsEventHandlers');
 //
 //        $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',
 //            Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);
@@ -876,16 +870,13 @@ if (Backbone === 'undefined') {
 //            }
 //        });
     };
-    
     QuoteDashboard.init = function (defaultUserFilter) {
 
         QuoteDashboard.status.itemsPerPage = $(QuoteDashboard.htmlBindings.drpItemPerPageValue).text();
         QuoteDashboard.functions.getDictionaries();
 
         DynamicFilter.init(defaultUserFilter);
-        
         QuoteDashboard.functions.bindEventHandlers();
-        
     };
 
 }(window, jQuery, App));
