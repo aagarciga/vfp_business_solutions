@@ -19,6 +19,7 @@ class Index extends Action {
      * Default Dashboard page.
      */
     public function Execute() {
+        $exportedBy = 'SO';
         $this->Title = 'Dashboard | VFP Business Series - Warehouse Management System';
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
         
@@ -47,7 +48,7 @@ class Index extends Action {
         
         $this->DefaultUserFilterId = $user->getDbfilter();
         
-        $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($user->getUsername());
+        $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($user->getUsername(),$exportedBy);
         
         $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
         

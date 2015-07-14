@@ -80,12 +80,12 @@ ul.pagination{
     }
 }/*
 
-#dynamicFilter_drpSavedFilters li button.close{
+*/#dynamicFilter_drpSavedFilters li button.close{
     display: inline-block;
     position: relative;
     margin-top: -23px;
     left: -5px;
-}
+}/*
 
 #quoteDashboardTable{
     width: 180em;

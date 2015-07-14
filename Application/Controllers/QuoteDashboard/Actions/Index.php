@@ -19,6 +19,7 @@ class Index extends Action {
      * Default Quote Dashboard page.
      */
     public function Execute() {
+        $exportedBy = 'QU';
         $this->Title = 'Quote Dashboard | VFP Business Series - Warehouse Management System';
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
         
@@ -50,15 +51,12 @@ class Index extends Action {
             '6'=>'Not  approved',
             '7'=>'Quote approved',
             '8'=>'Billed');
-//        
-//        $this->MaterialStatusItems = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetMaterialStatus();
-//        $this->JobStatusItems = $this->controller->DatUnitOfWork->SOEDISTATUSRepository->GetJobStatus();
-//        
-//        $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
+      
+        $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
 //        
 //        $this->DefaultUserFilterId = $user->getDbfilter();
 //        
-//        $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($user->getUsername());
+        $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($user->getUsername(), $exportedBy);
 //        
         $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
 //        

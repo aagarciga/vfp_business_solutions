@@ -138,42 +138,42 @@ if (Backbone === 'undefined') {
     DynamicFilter.functions.filter = function () {
         App.QuoteDashboard.functions.paginate();
     };
-//    DynamicFilter.functions.loadFilter = function (filterId) {
-//        $.ajax({
-//            data: {
-//                filterid: filterId
-//            },
-//            url: App.Dashboard.urls.getSavedFilter,
-//            type: 'post',
-//            beforeSend: function () {
-//                $('.loading').show();
-//            },
-//            success: function (response) {
-//                var data = $.parseJSON(response),
-//                    values,
-//                    $filterFields;
-//                if (data.success) {
-//                    values = data.expfrom.split(", "); // Legacy data are saved with format value1, value2, ... valuenN
-//                    $filterFields = $(DynamicFilter.htmlBindings.filterFieldsContainer);
-//                    $filterFields.append(data.expfields);
-//                    $filterFields.find('select, input')
-//                        .each(function (index) {
-//                            $(this).val(values[index]);
-//                        });
-//                    DynamicFilter.functions.bindOperatorGroupsEventHandlers();
-//                    DynamicFilter.functions.bindFormGroupsEnventhandlers();
-//
-//                    // Client request behavior (on filter load hide dynamic filter fields)
-//                    $(DynamicFilter.htmlBindings.controls.btnToggleVisibility).click();
-//
-//                    DynamicFilter.functions.filter();
-//                } else {
-//                    throw "Filter not loaded";
-//                }
-//                $('.loading').hide();
-//            }
-//        });
-//    };
+    DynamicFilter.functions.loadFilter = function (filterId) {
+        $.ajax({
+            data: {
+                filterid: filterId
+            },
+            url: App.QuoteDashboard.urls.getSavedFilter,
+            type: 'post',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                var data = $.parseJSON(response),
+                    values,
+                    $filterFields;
+                if (data.success) {
+                    values = data.expfrom.split(", "); // Legacy data are saved with format value1, value2, ... valuenN
+                    $filterFields = $(DynamicFilter.htmlBindings.filterFieldsContainer);
+                    $filterFields.append(data.expfields);
+                    $filterFields.find('select, input')
+                        .each(function (index) {
+                            $(this).val(values[index]);
+                        });
+                    DynamicFilter.functions.bindOperatorGroupsEventHandlers();
+                    DynamicFilter.functions.bindFormGroupsEnventhandlers();
+
+                    // Client request behavior (on filter load hide dynamic filter fields)
+                    $(DynamicFilter.htmlBindings.controls.btnToggleVisibility).click();
+
+                    DynamicFilter.functions.filter();
+                } else {
+                    throw "Filter not loaded";
+                }
+                $('.loading').hide();
+            }
+        });
+    };
     /**
      * 
      * @param {Boolean} first
@@ -313,56 +313,56 @@ if (Backbone === 'undefined') {
          */
         DynamicFilter.functions.reset();
     };
-//    DynamicFilter.eventHandlers.btnSave_onClick = function () {
-//        /**
-//         * @param {object} event Event related object
-//         */
-//        var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName);
-//        $filterName.val('');
-//        $filterName.popover('hide')
-//                .focus()
-//                .parent()
-//                .removeClass('has-error');
-//        $(DynamicFilter.htmlBindings.modalSaveFilter).modal('show');
-//    };
-//    DynamicFilter.eventHandlers.drpSavedFilterItem_onClick = function (event) {
-//        /**
-//         * var filterId = event.currentTarget.dataset['filterid'];
-//         * @type @exp;event@pro;currentTarget@pro;dataset@pro;filterid
-//         */
-//        var filterId = event.currentTarget.dataset.filterid;
-//        DynamicFilter.functions.reset(true);
-//        DynamicFilter.functions.loadFilter(filterId);
-//        DynamicFilter.functions.enableControls();
-//    };
-//    DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick = function (event) {
-//        var $btnDelete = $(event.currentTarget),
-//            $btnSavedFilter = $btnDelete.prev(),
-//            filterId = $btnSavedFilter.data('filterid');
-//
-//        $.ajax({
-//            data: {
-//                filterId: filterId
-//            },
-//            url: App.Dashboard.urls.deleteFilter,
-//            type: 'post',
-//            beforeSend: function () {
-//                $('.loading').show();
-//            },
-//            success: function (response) {
-//                var data = $.parseJSON(response),
-//                    $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
-//
-//                if ($drpSavedFilters.children().length > 2) {
-//                    $('[data-filterid="' + data.filterid + '"]').parent().remove();
-//                } else {
-//                    $drpSavedFilters.prev('button').remove();
-//                    $drpSavedFilters.remove();
-//                }
-//                $('.loading').hide();
-//            }
-//        });
-//    };
+    DynamicFilter.eventHandlers.btnSave_onClick = function () {
+        /**
+         * @param {object} event Event related object
+         */
+        var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName);
+        $filterName.val('');
+        $filterName.popover('hide')
+                .focus()
+                .parent()
+                .removeClass('has-error');
+        $(DynamicFilter.htmlBindings.modalSaveFilter).modal('show');
+    };
+    DynamicFilter.eventHandlers.drpSavedFilterItem_onClick = function (event) {
+        /**
+         * var filterId = event.currentTarget.dataset['filterid'];
+         * @type @exp;event@pro;currentTarget@pro;dataset@pro;filterid
+         */
+        var filterId = event.currentTarget.dataset.filterid;
+        DynamicFilter.functions.reset(true);
+        DynamicFilter.functions.loadFilter(filterId);
+        DynamicFilter.functions.enableControls();
+    };
+    DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick = function (event) {
+        var $btnDelete = $(event.currentTarget),
+            $btnSavedFilter = $btnDelete.prev(),
+            filterId = $btnSavedFilter.data('filterid');
+
+        $.ajax({
+            data: {
+                filterId: filterId
+            },
+            url: App.QuoteDashboard.urls.deleteFilter,
+            type: 'post',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                var data = $.parseJSON(response),
+                    $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
+
+                if ($drpSavedFilters.children().length > 2) {
+                    $('[data-filterid="' + data.filterid + '"]').parent().remove();
+                } else {
+                    $drpSavedFilters.prev('button').remove();
+                    $drpSavedFilters.remove();
+                }
+                $('.loading').hide();
+            }
+        });
+    };
     DynamicFilter.eventHandlers.filterOperator_onClick = function (event) {
         var $operator = $(event.target),
             value = $operator.html(),
@@ -426,74 +426,73 @@ if (Backbone === 'undefined') {
         $formGroup.remove();
         DynamicFilter.functions.filter();
     };
-//    DynamicFilter.eventHandlers.modalSaveFilter_btnSave_onClick = function () {
-//        /**
-//         * @param {object} event Event related object
-//         */
-//        var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName),
-//            filterName = $filterName.val(),
-//            $filterContainer = $(DynamicFilter.htmlBindings.filterFieldsContainer),
-//            filterHtml = "",
-//            filterValues = "",
-//            $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
-//
-//            // Alex: In order to remove the select2 element to save the select clean
-//        $filterContainer.find('select.select2-container').
-//            each(function () {
-//                $(this).select2('destroy');
-//            });
-//            // Saving html filter before select2 elements are destroyed
-//        filterHtml = $filterContainer.html();
-//
-//        $filterContainer.find('select, input[type=text]')
-//            .each(function (index) {
-//                if (index === 0) {
-//                    filterValues += $(this).val();
-//                } else {
-//                    filterValues += ", " + $(this).val();
-//                }
-//            });
-//
-//
-//        if (filterName !== "" && /\w/.test(filterName)) {
-//            $.ajax({
-//                data: {
-//                    filterName      : filterName,
-//                    filterString    : DynamicFilter.functions.getPredicate(),
-//                    filterHtml      : filterHtml,
-//                    filterValues    : filterValues
-//                },
-//                url: App.Dashboard.urls.saveFilter,
-//                type: 'post',
-//                beforeSend: function () {
-//                    $('.loading').show();
-//                },
-//                success: function (response) {
-//                    var data = $.parseJSON(response),
-//                        $dropdown;
-//                    if ($drpSavedFilters.length === 0) {
-//                        $dropdown = DynamicFilter.functions.createDropdownSavedFilters(DynamicFilter.htmlBindings.drpSavedFilters, "Load Saved Filter");
-//                        $(DynamicFilter.htmlBindings.controls.btnSave).after($dropdown);
-//                        $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
-//                    }
-//                    $drpSavedFilters.append(DynamicFilter.functions.createDropdownSavedFilterItem(data.filterid, filterName));
-//                    $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
-//
-//                    // Restauring select2 elements
-//                    $filterContainer.find('select.select2-container').select2();
-//                    $('.loading').hide();
-//                }
-//            });
-//
-//        } else {
-//            $filterName.popover('show')
-//                .focus()
-//                .parent()
-//                .addClass('has-error');
-//        }
-//
-//        $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
-//    };
+    DynamicFilter.eventHandlers.modalSaveFilter_btnSave_onClick = function () {
+        /**
+         * @param {object} event Event related object
+         */
+        var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName),
+            filterName = $filterName.val(),
+            $filterContainer = $(DynamicFilter.htmlBindings.filterFieldsContainer),
+            filterHtml = "",
+            filterValues = "",
+            $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
+
+            // Alex: In order to remove the select2 element to save the select clean
+        $filterContainer.find('select.select2-container').
+            each(function () {
+                $(this).select2('destroy');
+            });
+            // Saving html filter before select2 elements are destroyed
+        filterHtml = $filterContainer.html();
+
+        $filterContainer.find('select, input[type=text]')
+            .each(function (index) {
+                if (index === 0) {
+                    filterValues += $(this).val();
+                } else {
+                    filterValues += ", " + $(this).val();
+                }
+            });
+
+        if (filterName !== "" && /\w/.test(filterName)) {
+            $.ajax({
+                data: {
+                    filterName      : filterName,
+                    filterString    : DynamicFilter.functions.getPredicate(),
+                    filterHtml      : filterHtml,
+                    filterValues    : filterValues
+                },
+                url: App.QuoteDashboard.urls.saveFilter,
+                type: 'post',
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (response) {
+                    var data = $.parseJSON(response),
+                        $dropdown;
+                    if ($drpSavedFilters.length === 0) {
+                        $dropdown = DynamicFilter.functions.createDropdownSavedFilters(DynamicFilter.htmlBindings.drpSavedFilters, "Load Saved Filter");
+                        $(DynamicFilter.htmlBindings.controls.btnSave).after($dropdown);
+                        $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
+                    }
+                    $drpSavedFilters.append(DynamicFilter.functions.createDropdownSavedFilterItem(data.filterid, filterName));
+                    $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
+
+                    // Restauring select2 elements
+                    $filterContainer.find('select.select2-container').select2();
+                    $('.loading').hide();
+                }
+            });
+
+        } else {
+            $filterName.popover('show')
+                .focus()
+                .parent()
+                .addClass('has-error');
+        }
+
+        $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
+    };
 
     DynamicFilter.init = function (filterId) {
         if (filterId) {
@@ -514,20 +513,20 @@ if (Backbone === 'undefined') {
         $(DynamicFilter.htmlBindings.controls.btnReset).on('click',
             DynamicFilter.eventHandlers.btnReset_onClick);
 
-//        $(DynamicFilter.htmlBindings.controls.btnSave).on('click',
-//            DynamicFilter.eventHandlers.btnSave_onClick);
+        $(DynamicFilter.htmlBindings.controls.btnSave).on('click',
+            DynamicFilter.eventHandlers.btnSave_onClick);
 
         $(DynamicFilter.htmlBindings.filterFields_btnAdd).on('click',
             DynamicFilter.eventHandlers.filterFields_btnAdd_onClick);
 
-//        $(DynamicFilter.htmlBindings.modalSaveFilter_btnSave).on('click',
-//            DynamicFilter.eventHandlers.modalSaveFilter_btnSave_onClick);
+        $(DynamicFilter.htmlBindings.modalSaveFilter_btnSave).on('click',
+            DynamicFilter.eventHandlers.modalSaveFilter_btnSave_onClick);
 
-//        $(DynamicFilter.htmlBindings.drpSavedFilterItems).on('click',
-//            DynamicFilter.eventHandlers.drpSavedFilterItem_onClick);
+        $(DynamicFilter.htmlBindings.drpSavedFilterItems).on('click',
+            DynamicFilter.eventHandlers.drpSavedFilterItem_onClick);
 
-//        $(DynamicFilter.htmlBindings.drpSavedFilterItems_btnDelete).on('click',
-//            DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
+        $(DynamicFilter.htmlBindings.drpSavedFilterItems_btnDelete).on('click',
+            DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
     };
 
 }(window, jQuery, App));

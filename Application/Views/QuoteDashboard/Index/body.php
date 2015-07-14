@@ -46,20 +46,20 @@
                     <button id="dynamicFilter_btnToggleVisibility"type="button" class="btn btn-default disabled">Hide</button>
                     <button id="dynamicFilter_btnReset"type="button" class="btn btn-default disabled">Reset</button>
                     
-                    <!-- <div class="btn-group">
+                     <div class="btn-group">
                         <button id="dynamicFilter_btnSave" type="button" class="btn btn-success disabled">Save</button>
-                        <?php //if(count($SavedUserFilters)):?>
+                        <?php if(count($SavedUserFilters)):?>
                         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
                         <ul id="dynamicFilter_drpSavedFilters" class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">Load Saved Filter</li>
-                            <?php //foreach ($SavedUserFilters as $filter): ?>
-                            <li><a href="#" class="saved-filter-list-item" data-filterid="<?php //echo $filter->getFilterid() ?>"><?php //echo $filter->getExportid() ?></a><button type="button" class="close" aria-hidden="true">&times;</button></li>
-                            <?php //endforeach ?>                                
+                            <?php foreach ($SavedUserFilters as $filter): ?>
+                            <li><a href="#" class="saved-filter-list-item" data-filterid="<?php echo $filter->getFilterid() ?>"><?php echo $filter->getExportid() ?></a><button type="button" class="close" aria-hidden="true">&times;</button></li>
+                            <?php endforeach ?>                                
                         </ul>
-                        <?php //endif ?>
-                    </div> -->
+                        <?php endif ?>
+                    </div>
                     
                     <div class="btn-group">
                         <button id="dynamicFilter_btnFilter" type="button" class="btn btn-primary disabled">Filter</button>                    
@@ -165,3 +165,23 @@
     
     <?php //$View->Control('SalesOrder'); ?>
 </div><!-- /.container -->
+
+<div class="modal modal-input fade" id="dynamicFilter_modal_saveFilter">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Filter Name</h4>
+            </div>
+            <div class="modal-body row">
+                <div class="form-group col-xs-12">
+                    <input type="text" class="form-control" value="" id="dynamicFilter_modal_txtFilterName" maxlength="20" placeholder="Filter Name" data-content="Please enter a valid filter name. Only letters and numbers are permitted and can't be empty." data-placement="top"/>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="dynamicFilter_modal_btnSaveFilter">Save Filter</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

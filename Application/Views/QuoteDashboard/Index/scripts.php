@@ -27,6 +27,9 @@
     QuoteDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', '') ?>";
     QuoteDashboard.urls.getPage = "<?php echo $View->Href('QuoteDashboard', 'GetPage') ?>";
     QuoteDashboard.urls.getDictionaries = "<?php echo $View->Href('QuoteDashboard', 'GetDictionaries') ?>";
+    QuoteDashboard.urls.getSavedFilter = "<?php echo $View->Href('QuoteDashboard', 'GetSavedFilter') ?>";
+    QuoteDashboard.urls.deleteFilter = "<?php echo $View->Href('QuoteDashboard', 'DeleteFilter') ?>";
+    QuoteDashboard.urls.saveFilter = "<?php echo $View->Href('QuoteDashboard', 'SaveFilter') ?>";
     
     
     QuoteDashboard.init('<?php //echo $DefaultUserFilterId ?>');
