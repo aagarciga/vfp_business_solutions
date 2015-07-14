@@ -5,18 +5,18 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\Dashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\QuoteDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
 
 /**
- * Load and populate the DynamicFilter instance with a saved filter
+ * Ajax Job Status Items
  * @name GetSavedFilter_Post
  */
 class GetSavedFilter_Post extends Action {
 
     /**
-     * Returns saved filter JSON data
+     * Returns Load and populate the DynamicFilter instance with a saved filter
      * @return JSON
      */
     public function Execute() {

@@ -5,7 +5,7 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\Dashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\QuoteDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Application\Models\Entities\SYSEXPORT;
@@ -23,7 +23,7 @@ class SaveFilter_Post extends Action {
      */
     public function Execute() {
         
-        $exportedBy = 'SO';        
+        $exportedBy = 'QU';        
         $filterName = filter_input(INPUT_POST, 'filterName');
         $filterString = filter_input(INPUT_POST, 'filterString');
         $filterHtml = filter_input(INPUT_POST, 'filterHtml');
