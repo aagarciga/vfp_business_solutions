@@ -163,7 +163,7 @@
         </div>
     </div><!-- /.panel -->
     
-    <?php //$View->Control('SalesOrder'); ?>
+    <?php $View->Control('QuoteDetails'); ?>
 </div><!-- /.container -->
 
 <div class="modal modal-input fade" id="dynamicFilter_modal_saveFilter">

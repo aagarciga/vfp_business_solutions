@@ -20,6 +20,164 @@ if (window.Backbone === 'undefined') {
 }
 
 /**
+ * QuoteDetails Form Related MVVM Logic
+ * @author Alex
+ * @namespace App.Dashboard.QuoteDetails
+ * @param {window} global
+ * @param {jQuery} $
+ * @param {kb} KnockBack
+ * @param {ko} Knockout
+ * @param {Backbone} Backbone
+ * @param {Object} App
+ * @returns {undefined}
+ * @inner JSLint Passed
+ */
+(function (global, $, KnockBack, Knockout, Backbone, App) {
+    'use strict';
+
+    var dandelion = global.dandelion,
+        QuoteDetails = dandelion.namespace('App.Dashboard.QuoteDetails', global);
+
+    QuoteDetails.htmlBindings = {};
+    QuoteDetails.htmlBindings.kbViewElement = '#kb-view-quote-details';
+    QuoteDetails.htmlBindings.modalSaveNotes = '#quoteDetails_modal_saveNotes';
+
+    QuoteDetails.Model = (function (base) {
+
+        function Model() {
+            return Model.base.constructor.apply(this, arguments);
+        }
+
+        dandelion.js.augment(Model, base);
+
+        Model.prototype.ordnum = "";
+        Model.prototype.date = "";
+        Model.prototype.custno = "";
+        Model.prototype.projectLocation = "";
+        Model.prototype.notes = "";
+        Model.prototype.companyName = "";
+        Model.prototype.address = "";
+        Model.prototype.city = "";
+        Model.prototype.state = "";
+        Model.prototype.zip = "";
+        Model.prototype.phone = "";
+        Model.prototype.subtotal = "";
+        Model.prototype.discount = "";
+        Model.prototype.tax = "";
+        Model.prototype.shipping = "";
+        Model.prototype.total = "";
+
+        Model.prototype.items = new Backbone.Collection([]);
+        Model.prototype.modelType = "";
+
+        Model.prototype.ponum = "";
+        Model.prototype.company = "";
+        Model.prototype.destino = "";
+        Model.prototype.prostartdt = "";
+        Model.prototype.proenddt = "";
+        Model.prototype.sotypecode = "";
+        Model.prototype.mtrlstatus = "";
+        Model.prototype.jobstatus = "";
+        Model.prototype.technam1 = "";
+        Model.prototype.technam2 = "";
+        Model.prototype.qutno = "";
+        Model.prototype.cstctid = "";
+        Model.prototype.jobdescrip = "";
+
+        return Model;
+
+    }(Backbone.Model));
+
+    QuoteDetails.ViewModel = function (model) {
+        var self = this;
+        self.modelType          = KnockBack.observable(model, 'modelType');
+
+        self.ordnum             = KnockBack.observable(model, 'ordnum');
+        self.date               = KnockBack.observable(model, 'date');
+        self.custno             = KnockBack.observable(model, 'custno');
+        self.projectLocation    = KnockBack.observable(model, 'projectLocation');
+        self.notes              = KnockBack.observable(model, 'notes');
+        self.companyName        = KnockBack.observable(model, 'companyName');
+        self.address            = KnockBack.observable(model, 'address');
+        self.city               = KnockBack.observable(model, 'city');
+        self.state              = KnockBack.observable(model, 'state');
+        self.zip                = KnockBack.observable(model, 'zip');
+        self.phone              = KnockBack.observable(model, 'phone');
+        self.subtotal           = KnockBack.observable(model, 'subtotal');
+        self.discount           = KnockBack.observable(model, 'discount');
+        self.tax                = KnockBack.observable(model, 'tax');
+        self.shipping           = KnockBack.observable(model, 'shipping');
+        self.total              = KnockBack.observable(model, 'total');
+
+        // Related to B and C
+        self.ponum              = KnockBack.observable(model, 'ponum');
+        self.company            = KnockBack.observable(model, 'company');
+        self.destino            = KnockBack.observable(model, 'destino');
+        self.prostartdt         = KnockBack.observable(model, 'prostartdt');
+        self.proenddt           = KnockBack.observable(model, 'proenddt');
+        self.sotypecode         = KnockBack.observable(model, 'sotypecode');
+        self.mtrlstatus         = KnockBack.observable(model, 'mtrlstatus');
+        self.jobstatus          = KnockBack.observable(model, 'jobstatus');
+        self.technam1           = KnockBack.observable(model, 'technam1');
+        self.technam2           = KnockBack.observable(model, 'technam2');
+        self.qutno              = KnockBack.observable(model, 'qutno');
+        self.cstctid            = KnockBack.observable(model, 'cstctid');
+        self.jobdescrip         = KnockBack.observable(model, 'jobdescrip');
+
+        self.items              = KnockBack.collectionObservable(model.items);
+
+        self.showTable = Knockout.computed(function () {
+            return self.items().length > 0;
+        });
+
+        self.onShowNotesModal = function (view_model) {
+            /**
+             * @param {object} view_model Knockback viewmodel
+             * @param {object} event Event related object
+             * @return {view_model} Knockback viewmodel
+             */
+            $(QuoteDetails.htmlBindings.modalSaveNotes).modal();
+            return view_model;
+        };
+
+        self.onSaveNotesModal = function (view_model) {
+            /**
+             * @param {object} view_model Knockback viewmodel
+             * @param {object} event Event related object
+             * @return {view_model} Knockback viewmodel
+             */
+            $.post(App.Dashboard.urls.updateSalesOrderNotes,
+                {ordnum: view_model.ordnum(), notes: view_model.notes()})
+                .done(function () {
+                    /**
+                     * @param {object} response Ajax response object
+                     */
+                    $(QuoteDetails.htmlBindings.modalSaveNotes).modal('hide');
+                })
+                .fail(function (response) {
+                    /**
+                     * @param {object} response Ajax response object
+                     */
+                    throw response;
+                });
+            return view_model;
+        };
+    };
+
+    QuoteDetails.init = function () {
+        /**
+         * QuoteDetails MVVM logic initialization
+         * @returns {undefined}
+         */
+        QuoteDetails.view = $(QuoteDetails.htmlBindings.kbViewElement)[0];
+        QuoteDetails.model = new QuoteDetails.Model();
+        QuoteDetails.viewModel = new QuoteDetails.ViewModel(QuoteDetails.model);
+        Knockout.applyBindings(QuoteDetails.viewModel, QuoteDetails.view);
+    };
+
+}(window, window.jQuery, window.kb, window.ko, window.Backbone, window.App));
+
+/**
  * @author Alex
  * @namespace App.QuoteDashboard.DynamicFilter
  * @param {window} global
