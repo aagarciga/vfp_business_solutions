@@ -3,19 +3,19 @@
  *
  */
 
-if (jQuery === 'undefined') {
+if (window.jQuery === 'undefined') {
     throw new Error('VFP Business Series\'s Quote Dashboard JavaScript requires jQuery');
 }
 
-if (kb === 'undefined') {
+if (window.kb === 'undefined') {
     throw new Error('VFP Business Series\'s Quote Dashboard JavaScript requires Knockback.js');
 }
 
-if (ko === 'undefined') {
+if (window.ko === 'undefined') {
     throw new Error('VFP Business Series\'s Quote Dashboard JavaScript requires Knockout.js');
 }
 
-if (Backbone === 'undefined') {
+if (window.Backbone === 'undefined') {
     throw new Error('VFP Business Series\'s Quote Dashboard JavaScript requires Backbone.js');
 }
 
@@ -174,11 +174,7 @@ if (Backbone === 'undefined') {
             }
         });
     };
-    /**
-     * 
-     * @param {Boolean} first
-     * @returns {OperationGroupHTMLTemplate}
-     */
+
     DynamicFilter.functions.createOperatorGroup = function (first) {
         var tmplFirstOperatorGroup = '<div class="btn-group"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
             tmplOperatorGroup = '<div class="btn-group "><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">And Not</a></li><li class="divider"></li><li><a href="#">Or</a></li><li><a href="#">Or Not</a></li></ul></div>';
@@ -529,7 +525,7 @@ if (Backbone === 'undefined') {
             DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
     };
 
-}(window, jQuery, App));
+}(window, window.jQuery, window.App));
 
 /**
  * @author Alex
@@ -845,6 +841,7 @@ if (Backbone === 'undefined') {
         QuoteDashboard.functions.paginate();
     };
     QuoteDashboard.eventHandlers.table_body_drpstatus_onChange = function (event) {
+
 //        var $target = $(event.target),
 //            ordnum = $target.data('ordnum'),
 //            value = $target.val();
@@ -878,4 +875,4 @@ if (Backbone === 'undefined') {
         QuoteDashboard.functions.bindEventHandlers();
     };
 
-}(window, jQuery, App));
+}(window, window.jQuery, window.App));

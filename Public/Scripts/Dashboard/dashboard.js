@@ -3,18 +3,18 @@
  *
  */
 
-if (jQuery === 'undefined') {
+if (window.jQuery === 'undefined') {
     throw new Error('VFP Business Series\'s Dashboard JavaScript requires jQuery');
 }
-if (kb === 'undefined') {
+if (window.kb === 'undefined') {
     throw new Error('VFP Business Series\'s Dashboard JavaScript requires Knockback.js');
 }
 
-if (ko === 'undefined') {
+if (window.ko === 'undefined') {
     throw new Error('VFP Business Series\'s Dashboard JavaScript requires Knockout.js');
 }
 
-if (Backbone === 'undefined') {
+if (window.Backbone === 'undefined') {
     throw new Error('VFP Business Series\'s Dashboard JavaScript requires Backbone.js');
 }
 
@@ -116,7 +116,7 @@ if (Backbone === 'undefined') {
         Knockout.applyBindings(VesselForm.viewModel, VesselForm.view);
     };
 
-}(window, jQuery, kb, ko, Backbone, App));
+}(window, window.jQuery, window.kb, window.ko, window.Backbone, window.App));
 
 /**
  * SalesOrder Form Related MVVM Logic
@@ -290,7 +290,7 @@ if (Backbone === 'undefined') {
         Knockout.applyBindings(SalesOrderForm.viewModel, SalesOrderForm.view);
     };
 
-}(window, jQuery, kb, ko, Backbone, App));
+}(window, window.jQuery, window.kb, window.ko, window.Backbone, window.App));
 
 /**
  * @author Alex
@@ -811,18 +811,18 @@ if (Backbone === 'undefined') {
 
     var dandelion = global.dandelion,
         ProjectFiles = dandelion.namespace('App.Dashboard.ProjectFiles', global);
-        
+
     ProjectFiles.status = {};
     ProjectFiles.status.dropzone = null;
     ProjectFiles.status.jsTree = null;
-    
+
     ProjectFiles.htmlBindings = {};
     ProjectFiles.htmlBindings.modal_ProjectFiles    = '#project-files-modal';
     ProjectFiles.htmlBindings.dropzone              = '#projectFilesDropzone';
     ProjectFiles.htmlBindings.dropzone_previews     = '.dz-preview';
     ProjectFiles.htmlBindings.jsTree                = '#project-files-jstree';
     ProjectFiles.htmlBindings.jsTree_SearchControl  = '#tree-search';
-    
+
     ProjectFiles.functions = {};
     ProjectFiles.functions.dropzoneReset = function () {
         var index;

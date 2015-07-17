@@ -37,7 +37,7 @@
         }
         for (i = 0; i < parts.length; i += 1) {
             // create a property if it doesn't exist
-            if (typeof parent[parts[i]] === "undefined") {
+            if (parent[parts[i]] === "undefined") {
                 parent[parts[i]] = {};
             }
             parent = parent[parts[i]];
@@ -83,10 +83,6 @@
 
 (function (global) {
     "use strict";
-    /**
-     * Dandelion.Navigator namespace
-     * @type @exp;global@pro;dandelion@call;namespace
-     */
     var navigator = global.dandelion.namespace('navigator');
 
     /**
@@ -129,12 +125,6 @@
     // dandelion.js namespace
     var js = global.dandelion.namespace('js');
 
-    /**
-     * 
-     * @param {type} child
-     * @param {type} parent
-     * @returns {Window|global.dandelion@call;namespace.extends.child|dandelion_L88.js.extends.child}
-     */
     js.augment = function (child, parent) {
         var key;
         for (key in parent) {

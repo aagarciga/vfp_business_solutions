@@ -16,48 +16,48 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-;(function(global){
+(function (global) {
     "use strict";
-    
+
     // Dandelion MVC Namespace
     var dandelion = global.dandelion,
-    document = global.document,
-    mvc = dandelion.namespace('mvc'); 
-    
-    mvc.redirect = function(controller, action, data, type){    
+        document = global.document,
+        mvc = dandelion.namespace('mvc');
+
+    mvc.redirect = function (controller, action, data, type) {
         /**
          * Alex:
          * Para que esto funcione para todos los navegadores es necesario que el
          * formulario que se cree tenga un boton de submit, de lo contrario 
          * solo trabajara para Chrome y no para Firefox. hay que probar para IE
          */
-       
+
         if (!type) {
             type = 'POST';
         }
-        
+
         if (type === 'POST') {
-            
+
             var _form = document.createElement('form'),
-            _formAction = 'index.php?';
+                _formAction = 'index.php?',
+                key;
 
             if (controller === undefined) {
                 throw new Error("Controller is required");
-            }  
+            }
             _formAction += 'controller=' + controller;
 
             if (action === undefined) {
                 action = 'index';
-            }        
+            }
 
             _formAction += '&action=' + action;
 
             _form.action = _formAction;
-            _form.method = type;        
-        
+            _form.method = type;
+
             if (typeof data === "object" && data) {
-                var key;
-                for(key in data){
+                for (key in data) {
                     var _inputHidden = document.createElement('input');
                     _inputHidden.type = 'hidden';
                     _inputHidden.name = key.toString();
@@ -66,23 +66,17 @@
                 }
             }
             _form.submit();
-        }
-        else{
-            var location = 'index.php?';
-            
+        } else {
+            var location = 'index.php?', key;
             location += 'controller=' + controller;
             location += '&action=' + action;
-            
             if (typeof data === "object" && data) {
-                var key;
                 for(key in data){
                     location += '&' + key + '=' + data[key];
                 }
             }
             global.location = location;
         }
-        
-        
     };
 //    
 //    MVC.Model = function(){};
