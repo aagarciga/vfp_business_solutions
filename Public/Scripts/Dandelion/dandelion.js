@@ -27,23 +27,22 @@
     // dandelion Namespace
     var dandelion = {};
     global.dandelion = global.Dandelion = dandelion;
-    dandelion.namespace = function (nsString, root) {
-        var parts = nsString.split('.'),
-            parent = root || dandelion,
-            i;
-        // strip redundant leading global
+    dandelion.namespace = function(nsString, root) {
+        var i, len, parent, part, parts;
+        parts = nsString.split('.');
+        parent = root != null ? root : dandelion;
         if (parts[0] === "dandelion") {
             parts = parts.slice(1);
         }
-        for (i = 0; i < parts.length; i += 1) {
-            // create a property if it doesn't exist
-            if (parent[parts[i]] === "undefined") {
-                parent[parts[i]] = {};
+        for (i = 0, len = parts.length; i < len; i++) {
+            part = parts[i];
+            if (typeof parent[part] === "undefined") {
+                parent[part] = {};
             }
-            parent = parent[parts[i]];
+            parent = parent[part];
         }
         return parent;
-    };
+    }
 
     // Javascript Languaje Features Augmenting by (Javascript the good parts)
 
@@ -86,7 +85,7 @@
     var navigator = global.dandelion.namespace('navigator');
 
     /**
-     * 
+     *
      * @returns {Boolean}
      */
     navigator.isChrome = function () {
@@ -94,7 +93,7 @@
     };
 
     /**
-     * 
+     *
      * @returns {Boolean}
      */
     navigator.isFirefox = function () {
@@ -102,7 +101,7 @@
     };
 
     /**
-     * 
+     *
      * @returns {Boolean}
      */
     navigator.isOpera = function () {
@@ -110,7 +109,7 @@
     };
 
     /**
-     * 
+     *
      * @returns {Boolean}
      */
     navigator.isIE = function () {

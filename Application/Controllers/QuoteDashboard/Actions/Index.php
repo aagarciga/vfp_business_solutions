@@ -41,16 +41,7 @@ class Index extends Action {
         
         $this->Items = $viewModels;
         
-        $this->Status = array(
-            '0'=>'Empty',
-            '1'=>'RFQ Received', 
-            '2'=>'Quote Prepared', 
-            '3'=>'Sent to Customer', 
-            '4'=>'CSR follow up',
-            '5'=>'Revisions',
-            '6'=>'Not  approved',
-            '7'=>'Quote approved',
-            '8'=>'Billed');
+        $this->Statuses = $this->controller->getStatuses();
       
         $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
 //        

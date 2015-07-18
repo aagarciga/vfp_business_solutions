@@ -32,7 +32,7 @@
 
     <script src="<?php echo $View->SharedScriptsContext('jquery-1.10.2.min.js'); ?>"></script>
     <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.min.js'); ?>"></script>
-    <script src="<?php echo $View->PublicContext('scripts/Dandelion/dandelion.MVC.min.js'); ?>"></script>
+    <script src="<?php // echo $View->PublicContext('scripts/Dandelion/dandelion.MVC.min.js'); ?>"></script>
     <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo $View->ScriptsContext('main.min.js'); ?>"></script>
     <?php $View->Partial('scripts'); ?>

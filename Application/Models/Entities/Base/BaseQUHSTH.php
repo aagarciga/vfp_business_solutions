@@ -831,6 +831,111 @@ class BaseQUHSTH {
      */
     protected $_projno;
 
+    protected $_jobdescrip;
+
+    /**
+     * @return mixed
+     */
+    public function getJobdescrip()
+    {
+        return $this->_jobdescrip;
+    }
+
+    /**
+     * @param mixed $jobdescrip
+     */
+    public function setJobdescrip($jobdescrip)
+    {
+        $this->_jobdescrip = $jobdescrip;
+    }
+
+
+    protected $_technam1;
+
+    /**
+     * @return mixed
+     */
+    public function getTechnam1()
+    {
+        return $this->_technam1;
+    }
+
+    /**
+     * @param mixed $technam1
+     */
+    public function setTechnam1($technam1)
+    {
+        $this->_technam1 = $technam1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTechnam2()
+    {
+        return $this->_technam2;
+    }
+
+    /**
+     * @param mixed $technam2
+     */
+    public function setTechnam2($technam2)
+    {
+        $this->_technam2 = $technam2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTechpm1()
+    {
+        return $this->_techpm1;
+    }
+
+    /**
+     * @param mixed $techpm1
+     */
+    public function setTechpm1($techpm1)
+    {
+        $this->_techpm1 = $techpm1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTechpm2()
+    {
+        return $this->_techpm2;
+    }
+
+    /**
+     * @param mixed $techpm2
+     */
+    public function setTechpm2($techpm2)
+    {
+        $this->_techpm2 = $techpm2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVesselid()
+    {
+        return $this->_vesselid;
+    }
+
+    /**
+     * @param mixed $vesselid
+     */
+    public function setVesselid($vesselid)
+    {
+        $this->_vesselid = $vesselid;
+    }
+    protected $_technam2;
+    protected $_techpm1;
+    protected $_techpm2;
+    protected $_vesselid;
+
     /**
      * Getters
      */
@@ -3110,7 +3215,7 @@ class BaseQUHSTH {
     /**
      * Constructor
      */
-    public function __construct($qutno, $qutdate, $qutreqno, $qutstat, $qutspcl, $ordnum, $invno, $source, $closecomm, $inhsecomm, $ponum, $custno, $commission, $comslmn, $comslmn2, $salesmn, $salesmn2, $indust, $terr, $class, $fobstat, $shipvia, $shipstat, $shipfrom, $termdesc, $termdesc1, $subtotal, $disc, $discount, $msubtotal, $txrt, $tax, $shipping, $total, $totcost, $subtotal0, $subtotpo, $totcost0, $tax0, $taxext, $taxext0, $taxpo, $taxextpo, $shippo, $total0, $totalpo, $shipdate, $delivery, $validity, $frghts, $totwght, $prepaid, $refno, $ppdref, $company, $address1, $address2, $address3, $city, $state, $zip, $country, $shipid, $shipto1, $shipto2, $shipto3, $shipto4, $shipto5, $termid, $userflg, $invtype, $key, $blurb_id, $fuserid, $fstation, $nflg1, $invdate, $podate, $pono, $status, $dtereview, $dtesigned, $dteclose, $cartoons, $freight, $custdisc, $shipvname, $salesmn1na, $salesmn2na, $nflg0, $priceby, $swordnum, $sysstatus, $websyncflg, $taxrate, $taxrate1, $taxrate2, $taxrate3, $taxrate4, $ftaxcode, $glaracct, $frghtpay, $whsno, $dueday, $destino, $trackno, $fupddate, $fupdtime, $sourceno, $srctype, $delete, $newuserid, $newstation, $newdtetime, $aprvaldate, $ntaprvdate, $revdate, $csrdate, $sentdate, $prparedate, $rfqdate, $closeprob, $anclsedate, $nextfllwup, $loststatus, $quotecomm, $phone, $phone1, $fax, $noteflag, $totbotdep, $shpcompnam, $shpaddrs1, $shpaddrs2, $shpcity, $shpstate, $shpzip, $shpcountry, $shpbillopt, $shpphone, $shpemail, $shpcontact, $locphone, $locationid, $sotypecode, $sotype, $qblistid, $cstctid, $gldept, $delflag, $deldate, $deluserid, $tosoflag, $tosodate, $tosouserid, $toivflag, $toivdate, $toivuserid, $topoflag, $topodate, $topouserid, $projno) {
+    public function __construct($qutno, $qutdate, $qutreqno, $qutstat, $qutspcl, $ordnum, $invno, $source, $closecomm, $inhsecomm, $ponum, $custno, $commission, $comslmn, $comslmn2, $salesmn, $salesmn2, $indust, $terr, $class, $fobstat, $shipvia, $shipstat, $shipfrom, $termdesc, $termdesc1, $subtotal, $disc, $discount, $msubtotal, $txrt, $tax, $shipping, $total, $totcost, $subtotal0, $subtotpo, $totcost0, $tax0, $taxext, $taxext0, $taxpo, $taxextpo, $shippo, $total0, $totalpo, $shipdate, $delivery, $validity, $frghts, $totwght, $prepaid, $refno, $ppdref, $company, $address1, $address2, $address3, $city, $state, $zip, $country, $shipid, $shipto1, $shipto2, $shipto3, $shipto4, $shipto5, $termid, $userflg, $invtype, $key, $blurb_id, $fuserid, $fstation, $nflg1, $invdate, $podate, $pono, $status, $dtereview, $dtesigned, $dteclose, $cartoons, $freight, $custdisc, $shipvname, $salesmn1na, $salesmn2na, $nflg0, $priceby, $swordnum, $sysstatus, $websyncflg, $taxrate, $taxrate1, $taxrate2, $taxrate3, $taxrate4, $ftaxcode, $glaracct, $frghtpay, $whsno, $dueday, $destino, $trackno, $fupddate, $fupdtime, $sourceno, $srctype, $delete, $newuserid, $newstation, $newdtetime, $aprvaldate, $ntaprvdate, $revdate, $csrdate, $sentdate, $prparedate, $rfqdate, $closeprob, $anclsedate, $nextfllwup, $loststatus, $quotecomm, $phone, $phone1, $fax, $noteflag, $totbotdep, $shpcompnam, $shpaddrs1, $shpaddrs2, $shpcity, $shpstate, $shpzip, $shpcountry, $shpbillopt, $shpphone, $shpemail, $shpcontact, $locphone, $locationid, $sotypecode, $sotype, $qblistid, $cstctid, $gldept, $delflag, $deldate, $deluserid, $tosoflag, $tosodate, $tosouserid, $toivflag, $toivdate, $toivuserid, $topoflag, $topodate, $topouserid, $projno, $technam1, $technam2, $techpm1, $techpm2, $vesselid, $jobdescrip) {
         $this->_qutno = $qutno;
         $this->_qutdate = $qutdate;
         $this->_qutreqno = $qutreqno;
@@ -3273,6 +3378,12 @@ class BaseQUHSTH {
         $this->_topodate = $topodate;
         $this->_topouserid = $topouserid;
         $this->_projno = $projno;
+        $this->_technam1 = $technam1;
+        $this->_technam2 = $technam2;
+        $this->_techpm1 = $techpm1;
+        $this->_techpm2 = $techpm2;
+        $this->_vesselid = $vesselid;
+        $this->_jobdescrip = $jobdescrip;
     }
 
     public static function toString() {

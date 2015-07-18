@@ -22,7 +22,7 @@ if (window.Backbone === 'undefined') {
 /**
  * QuoteDetails Form Related MVVM Logic
  * @author Alex
- * @namespace App.Dashboard.QuoteDetails
+ * @namespace App.QuoteDashboard.QuoteDetails
  * @param {window} global
  * @param {jQuery} $
  * @param {kb} KnockBack
@@ -36,7 +36,7 @@ if (window.Backbone === 'undefined') {
     'use strict';
 
     var dandelion = global.dandelion,
-        QuoteDetails = dandelion.namespace('App.Dashboard.QuoteDetails', global);
+        QuoteDetails = dandelion.namespace('App.QuoteDashboard.QuoteDetails', global);
 
     QuoteDetails.htmlBindings = {};
     QuoteDetails.htmlBindings.kbViewElement = '#kb-view-quote-details';
@@ -50,6 +50,10 @@ if (window.Backbone === 'undefined') {
 
         dandelion.js.augment(Model, base);
 
+        //{"success":true,"quoteDetails":{"qutno":"10001","status":"RFQ Received","ordnum":"","date":"1899-12-30","custno":"MENCON","projectLocation":"","notes":"","companyName":"Menendez Consulting Group","address":"549 Falcon Drive","city":"Miami Springs","state":"FL","zip":"33166","phone":"","subtotal":"895.00","discount":"0.00","tax":"0.00","shipping":"0.00","total":"895.00","ponum":"","company":"Menendez Consulting Group","destino":"","sotypecode":"","cstctid":""},"salesOrderObject":{"itemsCollection":[{"ordnum":"","itmcount":"001-","itemno":"1000","itmwhs":"000","descrip":"VFP2000 Software","unit":"","qtyord":"1.00","qtyshp":"0.00","unitprice":"895.00000","extprice":"895.00"}]}}
+
+        Model.prototype.qutno = "";
+        Model.prototype.status = "";
         Model.prototype.ordnum = "";
         Model.prototype.date = "";
         Model.prototype.custno = "";
@@ -68,21 +72,15 @@ if (window.Backbone === 'undefined') {
         Model.prototype.total = "";
 
         Model.prototype.items = new Backbone.Collection([]);
-        Model.prototype.modelType = "";
 
         Model.prototype.ponum = "";
         Model.prototype.company = "";
         Model.prototype.destino = "";
-        Model.prototype.prostartdt = "";
-        Model.prototype.proenddt = "";
         Model.prototype.sotypecode = "";
-        Model.prototype.mtrlstatus = "";
-        Model.prototype.jobstatus = "";
-        Model.prototype.technam1 = "";
-        Model.prototype.technam2 = "";
-        Model.prototype.qutno = "";
         Model.prototype.cstctid = "";
         Model.prototype.jobdescrip = "";
+        Model.prototype.technam1 = "";
+        Model.prototype.technam2 = "";
 
         return Model;
 
@@ -90,8 +88,8 @@ if (window.Backbone === 'undefined') {
 
     QuoteDetails.ViewModel = function (model) {
         var self = this;
-        self.modelType          = KnockBack.observable(model, 'modelType');
-
+        self.qutno              = KnockBack.observable(model, 'qutno');
+        self.status             = KnockBack.observable(model, 'status');
         self.ordnum             = KnockBack.observable(model, 'ordnum');
         self.date               = KnockBack.observable(model, 'date');
         self.custno             = KnockBack.observable(model, 'custno');
@@ -108,24 +106,17 @@ if (window.Backbone === 'undefined') {
         self.tax                = KnockBack.observable(model, 'tax');
         self.shipping           = KnockBack.observable(model, 'shipping');
         self.total              = KnockBack.observable(model, 'total');
-
-        // Related to B and C
         self.ponum              = KnockBack.observable(model, 'ponum');
         self.company            = KnockBack.observable(model, 'company');
         self.destino            = KnockBack.observable(model, 'destino');
-        self.prostartdt         = KnockBack.observable(model, 'prostartdt');
-        self.proenddt           = KnockBack.observable(model, 'proenddt');
         self.sotypecode         = KnockBack.observable(model, 'sotypecode');
-        self.mtrlstatus         = KnockBack.observable(model, 'mtrlstatus');
-        self.jobstatus          = KnockBack.observable(model, 'jobstatus');
-        self.technam1           = KnockBack.observable(model, 'technam1');
-        self.technam2           = KnockBack.observable(model, 'technam2');
-        self.qutno              = KnockBack.observable(model, 'qutno');
         self.cstctid            = KnockBack.observable(model, 'cstctid');
         self.jobdescrip         = KnockBack.observable(model, 'jobdescrip');
+        self.technam1         = KnockBack.observable(model, 'technam1');
+        self.technam2         = KnockBack.observable(model, 'technam2');
+
 
         self.items              = KnockBack.collectionObservable(model.items);
-
         self.showTable = Knockout.computed(function () {
             return self.items().length > 0;
         });
@@ -212,6 +203,7 @@ if (window.Backbone === 'undefined') {
     DynamicFilter.htmlBindings.modalSaveFilter                 = '#dynamicFilter_modal_saveFilter';
     DynamicFilter.htmlBindings.modalSaveFilter_txtName         = '#dynamicFilter_modal_txtFilterName';
     DynamicFilter.htmlBindings.modalSaveFilter_btnSave         = '#dynamicFilter_modal_btnSaveFilter';
+
 
     DynamicFilter.functions = {};
     /**
@@ -699,7 +691,8 @@ if (window.Backbone === 'undefined') {
 
     var dandelion       = global.dandelion,
         QuoteDashboard  = dandelion.namespace('App.QuoteDashboard', global),
-        DynamicFilter   = App.QuoteDashboard.DynamicFilter;
+        DynamicFilter   = App.QuoteDashboard.DynamicFilter,
+        QuoteDetails    = App.QuoteDashboard.QuoteDetails;
 
     QuoteDashboard.status = {};
     QuoteDashboard.status.itemsPerPage = 50; // Default items per page value
@@ -724,17 +717,12 @@ if (window.Backbone === 'undefined') {
     QuoteDashboard.htmlBindings.table                            = '#quoteDashboardTable';
     QuoteDashboard.htmlBindings.table_header_btnSort             = '.btn-table-sort';
     QuoteDashboard.htmlBindings.table_body_btnQuoteNo            = '.qutno-form-link';
-//    Dashboard.htmlBindings.table_body_btnVessel             = '.vessel-form-link';
 ////    Dashboard.htmlBindings.table_body_drpUpdatable          = '.update-dropdown';
-//    Dashboard.htmlBindings.table_body_drpMaterialStatus     = '.update-dropdown.material-status';
-//    Dashboard.htmlBindings.table_body_drpJobStatus          = '.update-dropdown.job-status';
     QuoteDashboard.htmlBindings.table_body_btnAttach             = '.btn-files-dialog';
     QuoteDashboard.htmlBindings.pager_container                  = '.pager-wrapper';
     QuoteDashboard.htmlBindings.pager_btnPagerPages              = '.pager-btn';
-//    Dashboard.htmlBindings.control_salesOrderForm           = '#salesOrderForm';
-//    Dashboard.htmlBindings.control_salesOrderForm_btnClose  = '#salesOrderForm_btnClose';
-//    Dashboard.htmlBindings.control_vesselForm               = '#vesselForm';
-//    Dashboard.htmlBindings.control_vesselForm_btnClose      = '#vesselForm_btnClose';
+    QuoteDashboard.htmlBindings.control_quoteDetails           = '#quoteDetails';
+    QuoteDashboard.htmlBindings.control_quoteDetails_btnClose  = '#quoteDetails_btnClose';
 
     QuoteDashboard.functions = {};
     QuoteDashboard.functions.paginate = function () {
@@ -917,9 +905,9 @@ if (window.Backbone === 'undefined') {
     };
 
     QuoteDashboard.functions.bindTableItemsEventHandlers = function () {
-//
-//        $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',
-//            Dashboard.eventHandlers.control_salesOrderForm_itemsLink_onClick);
+
+        $(QuoteDashboard.htmlBindings.table_body_btnQuoteNo).on('click',
+            QuoteDashboard.eventHandlers.control_quoteDetails_itemsLink_onClick);
 //
 //        $(Dashboard.htmlBindings.table_body_btnVessel).on('click',
 //            Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
@@ -930,7 +918,7 @@ if (window.Backbone === 'undefined') {
 //        $(Dashboard.htmlBindings.table_body_drpJobStatus).on('change',
 //            Dashboard.eventHandlers.table_body_drpJobStatus_onChange);
 //
-//        $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity});
+        $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity});
 //
 //        $(Dashboard.htmlBindings.table_body_btnAttach).on('click',
 //            Dashboard.eventHandlers.table_body_btnAttach_onClick);
@@ -939,16 +927,12 @@ if (window.Backbone === 'undefined') {
     QuoteDashboard.functions.bindEventHandlers = function () {
         $(QuoteDashboard.htmlBindings.drpItemPerPage).on('click',
             QuoteDashboard.eventHandlers.drpItemPerPage_onClick);
-//
-//        $(Dashboard.htmlBindings.control_salesOrderForm_btnClose).on('click',
-//            function () {
-//                $(Dashboard.htmlBindings.control_salesOrderForm).hide();
-//            });
-//        $(Dashboard.htmlBindings.control_vesselForm_btnClose).on('click',
-//            function () {
-//                $(Dashboard.htmlBindings.control_vesselForm).hide();
-//            });
-//
+
+        $(QuoteDashboard.htmlBindings.control_quoteDetails_btnClose).on('click',
+            function () {
+                $(QuoteDashboard.htmlBindings.control_quoteDetails).hide();
+            });
+
         $(QuoteDashboard.htmlBindings.table_header_btnSort).on('click',
             QuoteDashboard.eventHandlers.table_body_btnSalesOrder_onClick);
 
@@ -998,7 +982,7 @@ if (window.Backbone === 'undefined') {
         QuoteDashboard.status.table_header_sortLastButton = $target;
         QuoteDashboard.functions.paginate();
     };
-    QuoteDashboard.eventHandlers.table_body_drpstatus_onChange = function (event) {
+    QuoteDashboard.eventHandlers.table_body_drpstatus_onChange = function () {
 
 //        var $target = $(event.target),
 //            ordnum = $target.data('ordnum'),
@@ -1024,12 +1008,67 @@ if (window.Backbone === 'undefined') {
 //            }
 //        });
     };
+    QuoteDashboard.eventHandlers.control_quoteDetails_itemsLink_onClick = function (event) {
+        var quoteNoValue = $(event.target).html(),
+            params = { quoteNo : quoteNoValue},
+            dashboardViewHeight,
+            salesOrderViewHeight;
+
+        $.post(QuoteDashboard.urls.getQuoteDetails, params)
+            .done(function (response) {
+                response = $.parseJSON(response);
+                var viewModel = QuoteDashboard.QuoteDetails.viewModel;
+
+                if (response.success) {
+                    viewModel.qutno(response.quoteDetails.qutno);
+                    viewModel.status(response.quoteDetails.status);
+                    viewModel.ordnum(response.quoteDetails.ordnum);
+                    viewModel.date(response.quoteDetails.date);
+                    viewModel.custno(response.quoteDetails.custno);
+                    viewModel.projectLocation(response.quoteDetails.projectLocation);
+                    viewModel.notes(response.quoteDetails.notes);
+                    viewModel.companyName(response.quoteDetails.companyName);
+                    viewModel.address(response.quoteDetails.address);
+                    viewModel.city(response.quoteDetails.city);
+                    viewModel.state(response.quoteDetails.state);
+                    viewModel.zip(response.quoteDetails.zip);
+                    viewModel.phone(response.quoteDetails.phone);
+                    viewModel.subtotal(response.quoteDetails.subtotal);
+                    viewModel.discount(response.quoteDetails.discount);
+                    viewModel.tax(response.quoteDetails.tax);
+                    viewModel.shipping(response.quoteDetails.shipping);
+                    viewModel.total(response.quoteDetails.total);
+                    viewModel.ponum(response.quoteDetails.ponum);
+                    viewModel.company(response.quoteDetails.company);
+                    viewModel.destino(response.quoteDetails.destino);
+                    viewModel.sotypecode(response.quoteDetails.sotypecode);
+                    viewModel.jobdescrip(response.quoteDetails.jobdescrip);
+                    viewModel.technam1(response.quoteDetails.technam1);
+                    viewModel.technam2(response.quoteDetails.technam2);
+
+                    viewModel.cstctid(response.quoteDetails.cstctid);
+
+                    viewModel.items(response.quoteDetails.itemsCollection);
+                }
+            })
+            .fail(function (response) {
+                console.log(response);
+            });
+        dashboardViewHeight = parseInt($(QuoteDashboard.htmlBindings.container).css('height'), 10);
+        salesOrderViewHeight = parseInt($(QuoteDashboard.htmlBindings.control_quoteDetails).css('height'), 10);
+
+        if (dashboardViewHeight > salesOrderViewHeight) {
+            $(QuoteDashboard.htmlBindings.control_quoteDetails).css('height', dashboardViewHeight);
+        }
+        $(QuoteDashboard.htmlBindings.control_quoteDetails).show();
+    };
     QuoteDashboard.init = function (defaultUserFilter) {
 
         QuoteDashboard.status.itemsPerPage = $(QuoteDashboard.htmlBindings.drpItemPerPageValue).text();
         QuoteDashboard.functions.getDictionaries();
 
         DynamicFilter.init(defaultUserFilter);
+        QuoteDetails.init();
         QuoteDashboard.functions.bindEventHandlers();
     };
 

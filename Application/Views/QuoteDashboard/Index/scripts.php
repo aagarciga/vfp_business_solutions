@@ -4,7 +4,7 @@
 <script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('QuoteDashboard/quotedashboard.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('QuoteDashboard/quotedashboard.js'); ?>"></script>
 
 <script>
 /**
@@ -30,6 +30,7 @@
     QuoteDashboard.urls.getSavedFilter = "<?php echo $View->Href('QuoteDashboard', 'GetSavedFilter') ?>";
     QuoteDashboard.urls.deleteFilter = "<?php echo $View->Href('QuoteDashboard', 'DeleteFilter') ?>";
     QuoteDashboard.urls.saveFilter = "<?php echo $View->Href('QuoteDashboard', 'SaveFilter') ?>";
+    QuoteDashboard.urls.getQuoteDetails = "<?php echo $View->Href('QuoteDashboard', 'GetQuoteDetails') ?>";
     
     
     QuoteDashboard.init('<?php //echo $DefaultUserFilterId ?>');

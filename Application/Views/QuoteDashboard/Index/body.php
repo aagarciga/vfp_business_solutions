@@ -136,7 +136,7 @@
                             <!--<td class="item-field"><?php echo $item->getStatus() ?></td>-->
                             <td class="item-field">
                                 <select class="form-control update-dropdown status select2-nosearch" data-qutno="<?php echo $item->getQutno() ?>">
-                                    <?php foreach ($Status as $index => $value): ?>
+                                    <?php foreach ($Statuses as $index => $value): ?>
                                         <option <?php echo ($index != $item->getStatus()) ? '' : 'selected="selected"' ?>  value="<?php echo $index ?>" ><?php echo $value ?></option>
                                     <?php endforeach ?> 
                                 </select>

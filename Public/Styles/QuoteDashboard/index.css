@@ -158,10 +158,10 @@ col.col-cost-center{
 col.col-attached-files{
    width: 7em; 
    text-align: right;
-}
+}*/
 
-#salesOrderForm{
-    display: none;    
+#quoteDetails{
+    display: none;
     top:0px;
     width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers
     height: 100%;
@@ -170,6 +170,7 @@ col.col-attached-files{
     background-color: white;
     margin-left: -15px;
 }
+/*
 
 #vesselForm{
     display: none;    

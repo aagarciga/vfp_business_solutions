@@ -8,10 +8,10 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-6">           
+                            <div class="col-xs-6">
                                 <div class="form-group">
-                                    <label class="control-label"><span class="glyphicon glyphicon-log-list"></span> SO No.</label>
-                                    <input type="text" class="form-control input" title="Sales Order" data-bind="value: ordnum" disabled="disabled"/>
+                                    <label class="control-label" for="qutno"><span class="glyphicon glyphicon-list"></span> Quote No</label>
+                                    <input id="qutno" type="text" class="form-control input" title="Quote No" data-bind="value: qutno" disabled="disabled"/>
                                 </div>
                             </div>
                             <div class="col-xs-6">
@@ -45,40 +45,14 @@
                                     <input id="sotypecode" type="text" class="form-control input" title="Job Type" data-bind="value: sotypecode" disabled="disabled"/>
                                 </div>
                             </div>
-                            
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="prostartdt"><span class="glyphicon glyphicon-calendar"></span> Start Date</label>
-                                    <input id="prostartdt" type="text" class="form-control input" title="Start Date" data-bind="value: prostartdt" disabled="disabled"/>
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="proenddt"><span class="glyphicon glyphicon-calendar"></span> End Date</label>
-                                    <input id="proenddt" type="text" class="form-control input" title="End Date" data-bind="value: proenddt" disabled="disabled"/>
-                                </div>
-                            </div>
-                            
+
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <label class="control-label" for="jobdescrip"><span class="glyphicon glyphicon-list"></span> Description</label>
                                     <input id="jobdescrip" type="text" class="form-control input" title="Description" data-bind="value: jobdescrip" disabled="disabled"/>
                                 </div>
                             </div>
-                            
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="mtrlstatus"><span class="glyphicon glyphicon-list"></span> Material Status</label>
-                                    <input id="mtrlstatus" type="text" class="form-control input" title="Material Status" data-bind="value: mtrlstatus" disabled="disabled"/>
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="jobstatus"><span class="glyphicon glyphicon-list"></span> Status</label>
-                                    <input id="jobstatus" type="text" class="form-control input" title="Status" data-bind="value: jobstatus" disabled="disabled"/>
-                                </div>
-                            </div>
-                            
+
                             <div class="col-xs-6">
                                 <div class="form-group">
                                     <label class="control-label" for="technam1"><span class="glyphicon glyphicon-user"></span> Project Manager 1</label>
@@ -91,11 +65,11 @@
                                     <input id="technam2" type="text" class="form-control input" title="Project Manager 2" data-bind="value: technam2" disabled="disabled"/>
                                 </div>
                             </div>
-                            
+
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="qutno"><span class="glyphicon glyphicon-list"></span> Quote No</label>
-                                    <input id="qutno" type="text" class="form-control input" title="Quote No" data-bind="value: qutno" disabled="disabled"/>
+                                    <label class="control-label"><span class="glyphicon glyphicon-log-list"></span> SO No.</label>
+                                    <input type="text" class="form-control input" title="Sales Order" data-bind="value: ordnum" disabled="disabled"/>
                                 </div>
                             </div>
                             <div class="col-xs-6">
@@ -104,11 +78,21 @@
                                     <input id="cstctid" type="text" class="form-control input" title="Cost Center" data-bind="value: cstctid" disabled="disabled"/>
                                 </div>
                             </div>
-                            
-                            <div class="form-group col-xs-12">
-                                <label class="control-label" for="projectLocation"><span class="glyphicon glyphicon-map-marker"></span> Project Location</label>
-                                <input id="projectLocation" type="text" class="form-control input" data-bind="value: projectLocation" disabled="disabled"/>
+
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="status"><span class="glyphicon glyphicon-list"></span> Status</label>
+                                    <input id="status" type="text" class="form-control input" title="Status" data-bind="value: status" disabled="disabled"/>
+                                </div>
                             </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="projectLocation"><span class="glyphicon glyphicon-map-marker"></span> Project Location</label>
+                                    <input id="projectLocation" type="text" class="form-control input" data-bind="value: projectLocation" disabled="disabled"/>
+                                </div>
+                            </div>
+                            
+
                         </div>
                     </div>
                 </div><!-- /.panel [SO Data] -->
@@ -176,7 +160,7 @@
             </div><!-- /.col-xs-8 -->
             <div class="col-xs-4">
                 <div class="form-group">
-                    <a id="salesOrderForm_btnClose" class="btn btn-default btn-block btn-lg"  title="Close"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a id="quoteDetails_btnClose" class="btn btn-default btn-block btn-lg"  title="Close"><span class="glyphicon glyphicon-remove"></span></a>
                 </div>
 <!--                <div class="form-group">
                     <a id="btnOk" class="btn btn-default btn-block btn-lg" href="#" title="Ok"><span class="glyphicon glyphicon-ok"></span></a>
@@ -237,29 +221,30 @@
         
         <table class="table table-striped table-condensed table-hover" data-bind="visible: showTable()">
             <colgroup>
-                <col class="col-1">
-                <col class="col-2">
-                <col class="col-3">
-                <col class="col-4">
-                <col class="col-5">
-                <col class="col-6">
-                <col class="col-7">
-                <col class="col-8">
-                <col class="col-9">
-                <col class="col-10">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
             </colgroup>
             <thead>
                 <tr>
-                    <th class="th-itemno">No.</th>
-                    <th class="th-qty-left">Cm</th>
-                    <th class="th-qty-recv">Item No.</th>
-                    <th class="th-binloc">Whs</th>
-                    <th class="th-binloc">Description</th>
-                    <th class="th-binloc">Unit</th>
-                    <th class="th-binloc">Qty Ordered</th>
-                    <th class="th-binloc">Qty to Ship</th>
-                    <th class="th-binloc">Unit Price</th>
-                    <th class="th-binloc">Ext Price</th>
+                    <th>Item Count</th>
+<!--                    <th>Quote No</th>-->
+                    <th>So No.</th>
+
+                    <th>Item No.</th>
+                    <th>Whs</th>
+                    <th>Description</th>
+                    <th>Qty Ordered</th>
+                    <th>Qty to Ship</th>
+                    <th>Unit Price</th>
+                    <th>Ext Price</th>
                 </tr>
             </thead>
             <tfoot>
@@ -267,12 +252,13 @@
             </tfoot>
             <tbody data-bind="foreach: items">
                 <tr>
-                    <td class="item-field"><a href="#" data-bind="text: itmcount"></a></td>
-                    <td class="item-field"></td>
+                    <td class="item-field" data-bind="text: itmcount"></td>
+<!--                    <td class="item-field" data-bind="text: qutno"></td>-->
+                    <td class="item-field" data-bind="text: ordnum"></td>
+
                     <td class="item-field" data-bind="text: itemno"></td>
                     <td class="item-field" data-bind="text: itmwhs"></td>
                     <td class="item-field" data-bind="text: descrip"></td>
-                    <td class="item-field" data-bind="text: unit"></td>
                     <td class="item-field" data-bind="text: qtyord"></td>
                     <td class="item-field" data-bind="text: qtyshp"></td>
                     <td class="item-field" data-bind="text: unitprice"></td>

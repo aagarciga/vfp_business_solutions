@@ -14,6 +14,25 @@ use Dandelion\Diana\BootstrapPager;
  * @name Dashboard
  */
 class QuoteDashboard extends DatActionsController {
+
+    private $statuses = array(
+        '0'=>'Empty',
+        '1'=>'RFQ Received',
+        '2'=>'Quote Prepared',
+        '3'=>'Sent to Customer',
+        '4'=>'CSR follow up',
+        '5'=>'Revisions',
+        '6'=>'Not  approved',
+        '7'=>'Quote approved',
+        '8'=>'Billed');
+
+    /**
+     * @return array
+     */
+    public function getStatuses()
+    {
+        return $this->statuses;
+    }
     
     /**
      * 
