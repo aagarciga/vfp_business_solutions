@@ -139,8 +139,8 @@ if (window.Backbone === 'undefined') {
              * @param {object} event Event related object
              * @return {view_model} Knockback viewmodel
              */
-            $.post(App.Dashboard.urls.updateSalesOrderNotes,
-                {ordnum: view_model.ordnum(), notes: view_model.notes()})
+            $.post(App.QuoteDashboard.urls.updateNotes,
+                {qutno: view_model.qutno(), notes: view_model.notes()})
                 .done(function () {
                     /**
                      * @param {object} response Ajax response object

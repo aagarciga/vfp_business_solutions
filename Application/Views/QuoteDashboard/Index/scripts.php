@@ -31,7 +31,7 @@
     QuoteDashboard.urls.deleteFilter = "<?php echo $View->Href('QuoteDashboard', 'DeleteFilter') ?>";
     QuoteDashboard.urls.saveFilter = "<?php echo $View->Href('QuoteDashboard', 'SaveFilter') ?>";
     QuoteDashboard.urls.getQuoteDetails = "<?php echo $View->Href('QuoteDashboard', 'GetQuoteDetails') ?>";
-    
+    QuoteDashboard.urls.updateNotes = "<?php echo $View->Href('QuoteDashboard', 'UpdateQuoteNotes') ?>";
     
     QuoteDashboard.init('<?php //echo $DefaultUserFilterId ?>');
 }(window, jQuery, App));
