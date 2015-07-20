@@ -22,16 +22,19 @@
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="ponum"><span class="glyphicon glyphicon-list"></span> Purchase Order</label>
-                                    <input id="ponum" type="text" class="form-control input" title="Purchase Order" data-bind="value: ponum" disabled="disabled"/>
+                                    <label class="control-label" for="ponum"><span class="glyphicon glyphicon-list"></span> Customer Po</label>
+                                    <input id="ponum" type="text" class="form-control input" title="Customer Po" data-bind="value: ponum" disabled="disabled"/>
                                 </div>
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="company"><span class="glyphicon glyphicon-globe"></span> Company</label>
-                                    <input id="company" type="text" class="form-control input" title="Company" data-bind="value: company" disabled="disabled"/>
+                                    <label class="control-label" for="projno"><span class="glyphicon glyphicon-list"></span> Project No</label>
+                                    <input id="projno" type="text" class="form-control input" title="Project No" data-bind="value: projno" disabled="disabled"/>
                                 </div>
                             </div>
+
+
+
                             
                             <div class="col-xs-6">
                                 <div class="form-group">
@@ -46,10 +49,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-12">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <label class="control-label" for="jobdescrip"><span class="glyphicon glyphicon-list"></span> Description</label>
                                     <input id="jobdescrip" type="text" class="form-control input" title="Description" data-bind="value: jobdescrip" disabled="disabled"/>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="company"><span class="glyphicon glyphicon-globe"></span> Company</label>
+                                    <input id="company" type="text" class="form-control input" title="Company" data-bind="value: company" disabled="disabled"/>
                                 </div>
                             </div>
 

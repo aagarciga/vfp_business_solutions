@@ -43,10 +43,10 @@ class GetQuoteDetails_Post extends Action {
                 'qutno' => $quoteDetails->getQutno(),
                 'status' => $statuses[$quoteDetails->getStatus()],
                 'ordnum' => $quoteDetails->getOrdnum(),
-                'date' => $quoteDetails->getPodate(),
+                'date' => $quoteDetails->getQutdate(),
                 'custno' => $quoteDetails->getCustno(),
                 'projectLocation' => $quoteDetails->getShipfrom(),
-                'notes' => $quoteDetails->getInhsecomm(),
+                'notes' => $quoteDetails->getQuotecomm(),
                 'companyName' => $quoteDetails->getCompany(),
                 'address' => $quoteDetails->getAddress1(),
                 'city' => $quoteDetails->getCity(),
@@ -66,6 +66,7 @@ class GetQuoteDetails_Post extends Action {
                 'jobdescrip' => $quoteDetails->getJobdescrip(),
                 'technam1' => $quoteDetails->getTechnam1(),
                 'technam2' => $quoteDetails->getTechnam2(),
+                'projno' => $quoteDetails->getProjno()
 //                'vesselid' => $quoteDetails->getVesselid(),
             );
     }

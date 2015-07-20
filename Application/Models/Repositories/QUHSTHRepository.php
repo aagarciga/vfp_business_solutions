@@ -64,7 +64,7 @@ class QUHSTHRepository extends VFPRepository implements IRepository {
         $lowerValue = strtolower($value);
 
         $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT * FROM $tableName";
+        $sqlString = "SELECT * FROM $tableName WHERE LOWER(QUTNO) = '$lowerValue'";
 
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);

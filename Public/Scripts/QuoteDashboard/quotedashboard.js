@@ -81,6 +81,7 @@ if (window.Backbone === 'undefined') {
         Model.prototype.jobdescrip = "";
         Model.prototype.technam1 = "";
         Model.prototype.technam2 = "";
+        Model.prototype.projno = "";
 
         return Model;
 
@@ -114,6 +115,7 @@ if (window.Backbone === 'undefined') {
         self.jobdescrip         = KnockBack.observable(model, 'jobdescrip');
         self.technam1         = KnockBack.observable(model, 'technam1');
         self.technam2         = KnockBack.observable(model, 'technam2');
+        self.projno         = KnockBack.observable(model, 'projno');
 
 
         self.items              = KnockBack.collectionObservable(model.items);
@@ -1009,6 +1011,7 @@ if (window.Backbone === 'undefined') {
 //        });
     };
     QuoteDashboard.eventHandlers.control_quoteDetails_itemsLink_onClick = function (event) {
+        console.log($(event.target).html());
         var quoteNoValue = $(event.target).html(),
             params = { quoteNo : quoteNoValue},
             dashboardViewHeight,
@@ -1017,6 +1020,7 @@ if (window.Backbone === 'undefined') {
         $.post(QuoteDashboard.urls.getQuoteDetails, params)
             .done(function (response) {
                 response = $.parseJSON(response);
+                console.log(response);
                 var viewModel = QuoteDashboard.QuoteDetails.viewModel;
 
                 if (response.success) {
@@ -1047,6 +1051,7 @@ if (window.Backbone === 'undefined') {
                     viewModel.technam2(response.quoteDetails.technam2);
 
                     viewModel.cstctid(response.quoteDetails.cstctid);
+                    viewModel.projno(response.quoteDetails.projno);
 
                     viewModel.items(response.quoteDetails.itemsCollection);
                 }
