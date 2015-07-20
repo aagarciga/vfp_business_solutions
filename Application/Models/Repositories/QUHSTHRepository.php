@@ -78,4 +78,16 @@ class QUHSTHRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
+    public function UpdateNotes($qutno, $notes) {
+        $lowerQutno = strtolower($qutno);
+        $tableName = $this->entityName . $this->companySuffix;
+
+        $sqlString = "UPDATE $tableName SET " .
+            "QUOTECOMM = '$notes' " .
+            "WHERE LOWER(QUTNO) = '$lowerQutno'";
+
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
 }
