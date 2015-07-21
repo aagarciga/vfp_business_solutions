@@ -796,11 +796,11 @@ if (window.Backbone === 'undefined') {
             DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
     };
 
-}(window, jQuery, App));
+}(window, window.jQuery, window.App));
 
 /**
  * @author Alex
- * @namespace App.Dashboard.DynamicFilter
+ * @namespace App.Dashboard.ProjectFiles
  * @param {type} global
  * @param {type} $
  * @param {type} App
@@ -826,34 +826,36 @@ if (window.Backbone === 'undefined') {
     ProjectFiles.functions = {};
     ProjectFiles.functions.dropzoneReset = function () {
         var index;
-        for(index in ProjectFiles.status.dropzone.files){
-            ProjectFiles.status.dropzone.files[index].ready4Remove = false;
+        for (index in ProjectFiles.status.dropzone.files) {
+            if (ProjectFiles.status.dropzone.files.hasOwnProperty(index)) {
+                ProjectFiles.status.dropzone.files[index].ready4Remove = false;
+            }
         }
         ProjectFiles.status.dropzone.removeAllFiles();
         $(ProjectFiles.htmlBindings.dropzone_previews).children('.dz-preview').remove();
         $(ProjectFiles.htmlBindings.dropzone).children('.dz-message.custom').css('opacity', '1');
     };
     ProjectFiles.functions.bindJsTreeSearching = function (to) {
-        $(ProjectFiles.htmlBindings.jsTree_SearchControl).on('keyup', 
+        $(ProjectFiles.htmlBindings.jsTree_SearchControl).on('keyup',
             function (event) {
                 if (to) {
                     clearTimeout(to);
                 }
                 to = setTimeout(function () {
-                   var value = $(ProjectFiles.htmlBindings.jsTree_SearchControl).val();
-                   ProjectFiles.status.jsTree.jstree(true).search(value);
+                    var value = $(ProjectFiles.htmlBindings.jsTree_SearchControl).val();
+                    ProjectFiles.status.jsTree.jstree(true).search(value);
                 }, 250);
             });
     };
     ProjectFiles.functions.loadFileTree = function (currentSalesOrder) {
-        
+
         if (ProjectFiles.status.jsTree !== null) {
             ProjectFiles.status.jsTree.jstree(true).destroy();
         }
-        
+
         ProjectFiles.status.jsTree = $(ProjectFiles.htmlBindings.jsTree).jstree({
             id: ProjectFiles.htmlBindings.jsTree,
-            plugins : ['state','dnd','sort','types','contextmenu','unique', 'search'],
+            plugins : ['state', 'dnd', 'sort', 'types', 'contextmenu', 'unique', 'search'],
             searchControlId: ProjectFiles.htmlBindings.jsTree_SearchControl,
             core : {
                 animation: true,
@@ -919,156 +921,156 @@ if (window.Backbone === 'undefined') {
                 }
             }
         })
-        .on('delete_node.jstree', function (event, data) {
-            var params = {
-                    salesorder: currentSalesOrder, 
-                    operation: event.type, 
-                    'id' : data.node.id 
-                };
+            .on('delete_node.jstree', function (event, data) {
+                var params = {
+                        salesorder: currentSalesOrder,
+                        operation: event.type,
+                        'id' : data.node.id
+                    };
 
-            $('.loading').show();
-            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
-                .done(function (response) {
-                    $('.loading').hide();
-                })
-                .fail(function () {
-                    data.instance.refresh();
-                    $('.loading').hide();
-                });
-        })
-        .on('create_node.jstree', function (event, data) {
-            var params = {
-                    salesorder: currentSalesOrder, 
-                    operation: event.type,  
-                    'type' : data.node.type, 
-                    'id' : data.node.parent, 
-                    'text' : data.node.text 
-                };
-            
-            $('.loading').show();
-            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
-                .done(function (response) {
-                    data.instance.set_id(data.node, response.id);
-                    $('.loading').hide();
-                })
-                .fail(function () {
-                    data.instance.refresh();
-                    $('.loading').hide();
-                });
-        })
-        .on('rename_node.jstree', function (event, data) {
-            var params = {
-                    salesorder: currentSalesOrder, 
-                    operation: event.type,
-                    'id' : data.node.id, 
-                    'text' : data.text 
-                };
-            
-            $('.loading').show();
-            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
-                .done(function (response) {
-                    data.instance.set_id(data.node, response.id);
-                    $('.loading').hide();
-                })
-                .fail(function () {
-                    data.instance.refresh();
-                    $('.loading').hide();
-                });
-        })
-        .on('move_node.jstree', function (event, data) {
-            var params = {
-                    salesorder: currentSalesOrder, 
-                    operation: event.type,
-                    'id' : data.node.id, 
-                    'parent' : data.parent 
-                };
-                
-            $('.loading').show();
-            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
-                .done(function (response) {
-                    data.instance.refresh();
-                    $('.loading').hide();
-                })
-                .fail(function () {
-                    data.instance.refresh();
-                    $('.loading').hide();
-                });
-        })
-        .on('copy_node.jstree', function (event, data) {
-            var params = {
-                    salesorder: currentSalesOrder, 
-                    operation: event.type,
-                    'id' : data.original.id, 
-                    'parent' : data.parent 
-                };
-                
-            $('.loading').show();
-            $.get(App.Dashboard.urls.projectAttachementsAPI, params)
-                .done(function (response) {
-                    data.instance.load_node(data.parent);
-                    data.instance.refresh();
-                    $('.loading').hide();
-                })
-                .fail(function () {
-                    data.instance.refresh();
-                    $('.loading').hide();
-                });
-        })
-        .on('changed.jstree', function (event, data) {
-            var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected()[0],
-                selectedDirPath = (selectedDir === '/' ? '' : selectedDir + '/'),
-                params = {
-                    salesorder: currentSalesOrder,
-                    filePath: selectedDir
-                };
-            
-            if (selectedDir) {
-                ProjectFiles.functions.dropzoneReset();
-                
-                $.post(App.Dashboard.urls.getCurrentProjectFiles, params)
+                $('.loading').show();
+                $.get(App.Dashboard.urls.projectAttachementsAPI, params)
                     .done(function (response) {
-                        if (response && response.length !== 0) {
-                            selectedDirPath = "public/uploads/" + currentSalesOrder + '/' + selectedDirPath;
-                            
-                            (function (instance) {
-                                
-                            }(ProjectFiles.status.dropzone));
-                            $.each(response, function (key, value) {
-                                var pattern = /\.(gif|jpg|jpeg|tiff|png)$/i,
-                                    mockFile = { 
-                                        name: value.name, 
-                                        size: value.size, 
-                                        ready4Remove: true
-                                    };
-                                    
-                                ProjectFiles.status.dropzone.options.addedfile.call(ProjectFiles.status.dropzone, mockFile);
-                                // Alex: This is wrong (ugly nut work)..... review.... TODO
-                                ProjectFiles.status.dropzone.files.push(mockFile);
-                                if (pattern.test(value.name)) {
-                                    ProjectFiles.status.dropzone.options.thumbnail.call(ProjectFiles.status.dropzone, mockFile, selectedDirPath + value.name);
-                                }
-                            });
-                            
-                            $(ProjectFiles.htmlBindings.dropzone_previews).on('click',
-                                function (event) {
-                                    var projectDir = currentSalesOrder + '/' +(selectedDir === '/' ? '' : selectedDir + '/'),
-                                            fileName = $(this).find('.dz-filename span').html(),
-                                            filePath = projectDir + fileName,
-                                            form = $('<form action="' +
-                                                App.Dashboard.urls.downloadFile +
-                                                '" method="POST"><input type="hidden" name="filepath" value="' + 
-                                                filePath + '" /><input type="hidden" name="filename" value="' +
-                                                fileName + '" /></form>');
-                                    form.appendTo('body');                              
-                                    form[0].submit();
-                                });
-                        }
+                        $('.loading').hide();
                     })
-                    .fail(function (response){
-                        console.log(response);
+                    .fail(function () {
+                        data.instance.refresh();
+                        $('.loading').hide();
                     });
-            }
-        });
+            })
+            .on('create_node.jstree', function (event, data) {
+                var params = {
+                        salesorder: currentSalesOrder,
+                        operation: event.type,
+                        'type' : data.node.type,
+                        'id' : data.node.parent,
+                        'text' : data.node.text
+                    };
+
+                $('.loading').show();
+                $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                    .done(function (response) {
+                        data.instance.set_id(data.node, response.id);
+                        $('.loading').hide();
+                    })
+                    .fail(function () {
+                        data.instance.refresh();
+                        $('.loading').hide();
+                    });
+            })
+            .on('rename_node.jstree', function (event, data) {
+                var params = {
+                        salesorder: currentSalesOrder,
+                        operation: event.type,
+                        'id' : data.node.id,
+                        'text' : data.text
+                    };
+
+                $('.loading').show();
+                $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                    .done(function (response) {
+                        data.instance.set_id(data.node, response.id);
+                        $('.loading').hide();
+                    })
+                    .fail(function () {
+                        data.instance.refresh();
+                        $('.loading').hide();
+                    });
+            })
+            .on('move_node.jstree', function (event, data) {
+                var params = {
+                        salesorder: currentSalesOrder,
+                        operation: event.type,
+                        'id' : data.node.id,
+                        'parent' : data.parent
+                    };
+
+                $('.loading').show();
+                $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                    .done(function (response) {
+                        data.instance.refresh();
+                        $('.loading').hide();
+                    })
+                    .fail(function () {
+                        data.instance.refresh();
+                        $('.loading').hide();
+                    });
+            })
+            .on('copy_node.jstree', function (event, data) {
+                var params = {
+                        salesorder: currentSalesOrder,
+                        operation: event.type,
+                        'id' : data.original.id,
+                        'parent' : data.parent
+                    };
+
+                $('.loading').show();
+                $.get(App.Dashboard.urls.projectAttachementsAPI, params)
+                    .done(function (response) {
+                        data.instance.load_node(data.parent);
+                        data.instance.refresh();
+                        $('.loading').hide();
+                    })
+                    .fail(function () {
+                        data.instance.refresh();
+                        $('.loading').hide();
+                    });
+            })
+            .on('changed.jstree', function (event, data) {
+                var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected()[0],
+                    selectedDirPath = (selectedDir === '/' ? '' : selectedDir + '/'),
+                    params = {
+                        salesorder: currentSalesOrder,
+                        filePath: selectedDir
+                    };
+
+                if (selectedDir) {
+                    ProjectFiles.functions.dropzoneReset();
+
+                    $.post(App.Dashboard.urls.getCurrentProjectFiles, params)
+                        .done(function (response) {
+                            if (response && response.length !== 0) {
+                                selectedDirPath = "public/uploads/" + currentSalesOrder + '/' + selectedDirPath;
+
+                                (function (instance) {
+
+                                }(ProjectFiles.status.dropzone));
+                                $.each(response, function (key, value) {
+                                    var pattern = /\.(gif|jpg|jpeg|tiff|png)$/i,
+                                        mockFile = {
+                                            name: value.name,
+                                            size: value.size,
+                                            ready4Remove: true
+                                        };
+
+                                    ProjectFiles.status.dropzone.options.addedfile.call(ProjectFiles.status.dropzone, mockFile);
+                                    // Alex: This is wrong (ugly nut work)..... review.... TODO
+                                    ProjectFiles.status.dropzone.files.push(mockFile);
+                                    if (pattern.test(value.name)) {
+                                        ProjectFiles.status.dropzone.options.thumbnail.call(ProjectFiles.status.dropzone, mockFile, selectedDirPath + value.name);
+                                    }
+                                });
+
+                                $(ProjectFiles.htmlBindings.dropzone_previews).on('click',
+                                    function (event) {
+                                        var projectDir = currentSalesOrder + '/' +(selectedDir === '/' ? '' : selectedDir + '/'),
+                                                fileName = $(this).find('.dz-filename span').html(),
+                                                filePath = projectDir + fileName,
+                                                form = $('<form action="' +
+                                                    App.Dashboard.urls.downloadFile +
+                                                    '" method="POST"><input type="hidden" name="filepath" value="' +
+                                                    filePath + '" /><input type="hidden" name="filename" value="' +
+                                                    fileName + '" /></form>');
+                                        form.appendTo('body');
+                                        form[0].submit();
+                                    });
+                            }
+                        })
+                        .fail(function (response){
+                            console.log(response);
+                        });
+                }
+            });
 //        .on('open_node.jstree', function (event, data) {
 //            $('#' + data.node.id).find('i.jstree-icon.jstree-themeicon').first()
 //                .removeClass('glyphicon-folder-close').addClass('glyphicon-folder-open');
@@ -1084,7 +1086,7 @@ if (window.Backbone === 'undefined') {
     ProjectFiles.functions.createDir = function () {
         var jsTree = ProjectFiles.status.jsTree.jstree(true),
             selectedDir = jsTree.get_selected();
-            
+
         if (!selectedDir.length) {
             return false;
         }
@@ -1095,7 +1097,6 @@ if (window.Backbone === 'undefined') {
             }, 0);
         });
     };
-    
     ProjectFiles.functions.renameDir = function () {
         var jsTree = ProjectFiles.status.jsTree.jstree(true),
             selectedDir = jsTree.get_selected();
@@ -1106,7 +1107,6 @@ if (window.Backbone === 'undefined') {
         selectedDir = selectedDir[0];
         jsTree.edit(selectedDir);
     };
-    
     ProjectFiles.functions.deleteDir = function () {
         var jsTree = ProjectFiles.status.jsTree.jstree(true),
             selectedDir = jsTree.get_selected();
@@ -1121,80 +1121,80 @@ if (window.Backbone === 'undefined') {
         jsTree.delete_node(selectedDir);
         ProjectFiles.functions.dropzoneReset();
     };
-    
+
     ProjectFiles.eventHandlers = {};
-    
+
     ProjectFiles.init = function () {
         // Disabling autoDiscover, otherwise Dropzone will try to attach twice.
         global.Dropzone.options.projectFilesDropzone = false;
-        
+
         ProjectFiles.status.dropzone = new global.Dropzone(ProjectFiles.htmlBindings.dropzone, {
-                paramName: "file", // The name that will be used to transfer the file
-                maxFilesize: 1024, // in MB equals to 1GB
-                maxThumbnailFilesize: 1, // MB
-                addRemoveLinks: true,
-                accept: function(file, done) {
-                    if (file.name === "Alex.jpg") {
-                        done("Hello Creator.");
-                    }
-                    else {
-                        done();
-                    }
-                },
-                init: function () {
-                    this.on('removedfile', function (file) {
-                        var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected(),
-                            params = {
-                                postSalesOrder: App.Dashboard.status.currentSalesOrder,
-                                postFilePath: selectedDir[0],
-                                postFileName : file.name
-                            };
-                        
-                        if (file.ready4Remove) {
-                            $('.loading').show();
-                            $.post(App.Dashboard.urls.deleteFile, params)
-                                .done(function (response) {
-                                    $('.loading').hide();
-                                })
-                                .fail(function (response) {
-                                    $('.loading').hide();
-                                });
-                        }
-                        file.ready4Remove = true;
-                    });
-                    this.on('sending', function (file, xhr, formData) {
-                        var jsTreeInstance = ProjectFiles.status.jsTree.jstree(true),
-                            selectedDir = jsTreeInstance.get_selected();
-                        
-                        file.ready4Remove = true;
-                        file.uploadPath = App.Dashboard.status.currentSalesOrder + '/' +selectedDir ;
-
-                        if (App.Dashboard.status.currentSalesOrder) {
-                            formData.append('salesorder', App.Dashboard.status.currentSalesOrder);
-                            formData.append('selectedDir', selectedDir);
-                        }
-                        $(ProjectFiles.htmlBindings.dropzone_previews).on('click',
-                            function () {
-                                var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected()[0],
-                                    projectDir = App.Dashboard.status.currentSalesOrder + '/' +(selectedDir === '/' ? '' : selectedDir + '/'),
-                                    fileName = $(this).find('.dz-filename span').html(),
-                                    filePath = projectDir + fileName,
-                                    form = $('<form action="' +
-                                        App.Dashboard.urls.downloadFile +
-                                        '" method="POST"><input type="hidden" name="filepath" value="' + 
-                                        filePath + '" /><input type="hidden" name="filename" value="' +
-                                        fileName + '" /></form>');
-
-                                form.appendTo('body');                              
-                                form[0].submit();
-                            });
-                    });
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 1024, // in MB equals to 1GB
+            maxThumbnailFilesize: 1, // MB
+            addRemoveLinks: true,
+            accept: function (file, done) {
+                if (file.name === "Alex.jpg") {
+                    done("Hello Creator.");
                 }
-            });
+                else {
+                    done();
+                }
+            },
+            init: function () {
+                this.on('removedfile', function (file) {
+                    var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected(),
+                        params = {
+                            postSalesOrder: App.Dashboard.status.currentSalesOrder,
+                            postFilePath: selectedDir[0],
+                            postFileName : file.name
+                        };
+
+                    if (file.ready4Remove) {
+                        $('.loading').show();
+                        $.post(App.Dashboard.urls.deleteFile, params)
+                            .done(function (response) {
+                                $('.loading').hide();
+                            })
+                            .fail(function (response) {
+                                $('.loading').hide();
+                            });
+                    }
+                    file.ready4Remove = true;
+                });
+                this.on('sending', function (file, xhr, formData) {
+                    var jsTreeInstance = ProjectFiles.status.jsTree.jstree(true),
+                        selectedDir = jsTreeInstance.get_selected();
+
+                    file.ready4Remove = true;
+                    file.uploadPath = App.Dashboard.status.currentSalesOrder + '/' +selectedDir ;
+
+                    if (App.Dashboard.status.currentSalesOrder) {
+                        formData.append('salesorder', App.Dashboard.status.currentSalesOrder);
+                        formData.append('selectedDir', selectedDir);
+                    }
+                    $(ProjectFiles.htmlBindings.dropzone_previews).on('click',
+                        function () {
+                            var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected()[0],
+                                projectDir = App.Dashboard.status.currentSalesOrder + '/' +(selectedDir === '/' ? '' : selectedDir + '/'),
+                                fileName = $(this).find('.dz-filename span').html(),
+                                filePath = projectDir + fileName,
+                                form = $('<form action="' +
+                                    App.Dashboard.urls.downloadFile +
+                                    '" method="POST"><input type="hidden" name="filepath" value="' +
+                                    filePath + '" /><input type="hidden" name="filename" value="' +
+                                    fileName + '" /></form>');
+
+                            form.appendTo('body');
+                            form[0].submit();
+                        });
+                });
+            }
+        });
         
     };
     
-}(window, jQuery, App));
+}(window, window.jQuery, window.App));
 
 /**
  * @author Alex
@@ -1700,4 +1700,4 @@ if (window.Backbone === 'undefined') {
         
     };
 
-}(window, jQuery, App));
+}(window, window.jQuery, window.App));

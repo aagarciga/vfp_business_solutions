@@ -67,7 +67,6 @@ class GetQuoteDetails_Post extends Action {
                 'technam1' => $quoteDetails->getTechnam1(),
                 'technam2' => $quoteDetails->getTechnam2(),
                 'projno' => $quoteDetails->getProjno()
-//                'vesselid' => $quoteDetails->getVesselid(),
             );
     }
 
