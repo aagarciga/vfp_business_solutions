@@ -1681,7 +1681,7 @@ if (window.Backbone === 'undefined') {
     };
     Dashboard.eventHandlers.table_body_btnAttach_onClick = function (event) {
         var $target = $(event.target);
-        Dashboard.status.currentSalesOrder = $target.parent().data('ordnum') + '_so';
+        Dashboard.status.currentSalesOrder = $target.parent().data('ordnum');
         ProjectFiles.functions.loadFileTree(Dashboard.status.currentSalesOrder);
         $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
     };
@@ -1695,9 +1695,9 @@ if (window.Backbone === 'undefined') {
         SalesOrderForm.init();
         VesselForm.init();
         ProjectFiles.init();
-        
+
         Dashboard.functions.bindEventHandlers();
-        
+
     };
 
 }(window, window.jQuery, window.App));

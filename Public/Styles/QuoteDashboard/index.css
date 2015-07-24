@@ -1,10 +1,10 @@
-/*.dz-message.custom{
+.dz-message.custom{
     font-size: 1.5em;
     color: #aaa;
     text-align: center;
     display: block;
      
-}*/
+}
 
 .vakata-context.jstree-contextmenu.jstree-default-contextmenu{
     z-index: 10000;
