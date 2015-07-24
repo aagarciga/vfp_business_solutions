@@ -20,8 +20,6 @@ class UploadFile_Post extends Action {
      * @return JSON
      */
     public function Execute() {
-        
-
 
         if (!empty($_FILES)) {
             

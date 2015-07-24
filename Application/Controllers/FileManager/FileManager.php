@@ -22,7 +22,7 @@ class FileManager extends ActionsController {
      * @param $fileName
      * @return string
      */
-    protected function BuildPath ($rootDir, $selectedDir, $fileName = ''){
+    public function BuildPath ($rootDir, $selectedDir, $fileName = ''){
 
         $path = MVC_DIR_ROOT .
             DIRECTORY_SEPARATOR . "Public" .

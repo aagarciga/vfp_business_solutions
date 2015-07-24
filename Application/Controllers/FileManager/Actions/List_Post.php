@@ -21,11 +21,12 @@ class List_Post extends Action {
      * @return JSON File List
      */
     public function Execute() {
-
         $rootDir = $this->Request->hasProperty('rootDir') ? $this->Request->rootDir : '';
         $selectedDir  = $this->Request->hasProperty('selectedDir') ? $this->Request->selectedDir : '';
 
         $path = $this->controller->BuildPath($rootDir, $selectedDir);
+
+        error_log("Populate files from: " . $path);
         $result = array();
 
         /*
@@ -57,6 +58,7 @@ class List_Post extends Action {
          */
         header('Content-Type: application/json; charset=utf-8');
         return json_encode($result);
+
     }
 
 }

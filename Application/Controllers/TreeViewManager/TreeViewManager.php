@@ -22,7 +22,7 @@ class TreeViewManager extends ActionsController {
      * @param $fileName
      * @return string
      */
-    protected function BuildPath ($rootDir, $selectedDir = '', $fileName = ''){
+    public function BuildPath ($rootDir, $selectedDir = '', $fileName = ''){
 
         $path = MVC_DIR_ROOT .
             DIRECTORY_SEPARATOR . "Public" .
@@ -41,7 +41,7 @@ class TreeViewManager extends ActionsController {
      * Default Folder Structure
      * @param string $rootDir
      */
-    protected function CreateDefaultFolderStructure($rootDir) {
+    public function CreateDefaultFolderStructure($rootDir) {
         if (!is_dir($rootDir)) {
             mkdir($rootDir);
         }
