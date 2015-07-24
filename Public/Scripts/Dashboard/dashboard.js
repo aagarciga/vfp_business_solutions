@@ -1681,7 +1681,7 @@ if (window.Backbone === 'undefined') {
     };
     Dashboard.eventHandlers.table_body_btnAttach_onClick = function (event) {
         var $target = $(event.target);
-        Dashboard.status.currentSalesOrder = $target.parent().data('ordnum');
+        Dashboard.status.currentSalesOrder = $target.parent().data('ordnum') + '_so';
         ProjectFiles.functions.loadFileTree(Dashboard.status.currentSalesOrder);
         $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
     };
