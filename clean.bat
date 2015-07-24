@@ -10,9 +10,11 @@ DEL /S /Q .gitignore
 
 echo Cleaning Javascript Development Files
 DEL /S /Q .\Public\Scripts\main.js
+DEL /S /Q .\Public\Scripts\qtyform.js
 DEL /S /Q .\Public\Scripts\Dandelion\dandelion.js
 DEL /S /Q .\Public\Scripts\Dandelion\dandelion.MVC.js
 DEL /S /Q .\Public\Scripts\Dashboard\dashboard.js
+DEL /S /Q .\Public\Scripts\QuoteDashboard\quotedashboard.js
 DEL /S /Q .\Public\Scripts\PickTicket\pickticket.js
 DEL /S /Q .\Public\Vendor\bootstrap-3\js\bootstrap.js
 DEL /S /Q .\Public\Vendor\bootstrap-3\js\daterangepicker.js
@@ -38,11 +40,13 @@ DEL /S /Q .\Public\Shared\Styles\main.css
 
 DEL /S /Q .\Public\Styles\BinToBin\index.css
 DEL /S /Q .\Public\Styles\Dashboard\index.css
+DEL /S /Q .\Public\Styles\QuoteDashboard\index.css
 
 
 echo Cleaning Creator
 RMDIR /S /Q .\Application\Controllers\Creator
 RMDIR /S /Q .\Application\Views\Creator
 RMDIR /S /Q .\Public\Scripts\Creator
+RMDIR /S /Q .\Public\Styles\Creator
 DEL /S /Q .\Application\Views\Shared\Creator.Page.php
 pause
