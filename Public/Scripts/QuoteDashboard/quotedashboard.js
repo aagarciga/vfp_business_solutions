@@ -1464,7 +1464,8 @@ if (window.Backbone === 'undefined') {
     QuoteDashboard.eventHandlers.table_body_btnAttach_onClick = function (event) {
 
         var $target = $(event.target),
-            currentQutno = 'Quote ' + $target.parent().data('qutno');
+            //currentQutno = 'Quote ' + $target.parent().data('qutno');
+        currentQutno = $target.parent().data('qutno') + '_QU';
         QuoteDashboard.status.currentQuote = currentQutno;
         ProjectFiles.functions.loadFileTree(currentQutno);
         $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
