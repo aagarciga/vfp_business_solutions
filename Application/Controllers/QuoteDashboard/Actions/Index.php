@@ -20,7 +20,7 @@ class Index extends Action {
      */
     public function Execute() {
         $exportedBy = 'QU';
-        $this->Title = 'Quote Dashboard | VFP Business Series - Warehouse Management System';
+        $this->Title = 'Quote Dashboard | VFP Business Series';
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];

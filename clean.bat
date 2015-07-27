@@ -38,9 +38,11 @@ DEL /S /Q .\Public\Vendor\jstree\themes\default\style.css
 
 DEL /S /Q .\Public\Shared\Styles\main.css
 
+DEL /S /Q .\Public\Styles\Main\index.css
 DEL /S /Q .\Public\Styles\BinToBin\index.css
 DEL /S /Q .\Public\Styles\Dashboard\index.css
 DEL /S /Q .\Public\Styles\QuoteDashboard\index.css
+DEL /S /Q .\Public\Styles\FinancialDashboard\index.css
 
 
 echo Cleaning Creator
