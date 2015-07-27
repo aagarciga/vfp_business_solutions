@@ -20,14 +20,12 @@ class Download_Post extends Action {
      * @return File
      */
     public function Execute() {
-        error_log("entro al download");
 
         $rootDir = $this->Request->hasProperty('rootDir') ? $this->Request->rootDir : '';
         $selectedDir  = $this->Request->hasProperty('selectedDir') ? $this->Request->selectedDir : '';
         $fileName = $this->Request->hasProperty('fileName') ? $this->Request->fileName : '';
 
         $filePath = $this->controller->BuildPath($rootDir, $selectedDir, $fileName);
-        error_log($filePath);
         // Required for some browsers
         if (ini_get('zlib.output_compression')){
             ini_set('zlib.output_compression', 'Off');

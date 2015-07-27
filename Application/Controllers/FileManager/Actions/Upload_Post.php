@@ -20,11 +20,9 @@ class Upload_Post extends Action {
      * @return JSON {success: BOOL_VALUE}
      */
     public function Execute() {
-        error_log("Entro al Upload");
 
         $rootDir = $this->Request->hasProperty('rootDir') ? $this->Request->rootDir : '';
         $selectedDir  = $this->Request->hasProperty('selectedDir') ? $this->Request->selectedDir : '';
-        error_log($rootDir);
 
         $filePath = $this->controller->BuildPath($rootDir, $selectedDir);
         $result = json_encode('{success: false}');

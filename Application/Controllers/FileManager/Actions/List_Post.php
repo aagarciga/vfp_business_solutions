@@ -26,7 +26,6 @@ class List_Post extends Action {
 
         $path = $this->controller->BuildPath($rootDir, $selectedDir);
 
-        error_log("Populate files from: " . $path);
         $result = array();
 
         /*
