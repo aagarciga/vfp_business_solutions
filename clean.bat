@@ -22,6 +22,20 @@ DEL /S /Q .\Public\Vendor\select2\js\select2.full.js
 DEL /S /Q .\Public\Vendor\jstree\jstree.js
 DEL /S /Q .\Public\Vendor\dropzone\dropzone.js
 
+DEL /S /Q .\Public\Vendor\amcharts\amcharts.min.js
+DEL /S /Q .\Public\Vendor\amcharts\funnel.min.js
+DEL /S /Q .\Public\Vendor\amcharts\gantt.min.js
+DEL /S /Q .\Public\Vendor\amcharts\gauge.min.js
+DEL /S /Q .\Public\Vendor\amcharts\pie.min.js
+DEL /S /Q .\Public\Vendor\amcharts\radar.min.js
+DEL /S /Q .\Public\Vendor\amcharts\serial.min.js
+DEL /S /Q .\Public\Vendor\amcharts\xy.min.js
+DEL /S /Q .\Public\Vendor\amcharts\themes\light.min.js
+
+DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.coffee
+DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.js
+DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.js.map
+
 
 echo Cleaning Stylesheet Development Files
 DEL /S /Q .\Public\Vendor\bootstrap-3\css\bootstrap.css
