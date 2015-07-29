@@ -1,0 +1,86 @@
+@color-green: #99cc99;
+@color-blue: #3399cc;
+@color-lime: #99cc66;
+@color-red: cc3333;
+
+.mixin-chart-wrapper(@width, @height){
+    position: relative;
+    width: @width;
+    height: @height;
+}
+
+.mixin-chart-container(@width, @height, @offset: 30px){
+    position: absolute;
+    top: -@offset ;
+    left: -@offset ;
+    width: @width + @offset;
+    height: @height + @offset;
+}
+
+/*
+    Usables
+*/
+
+.caption{
+    text-align: right;
+    display: inline-block;
+    width: 45%;
+}
+
+.value{
+    text-align: left;
+    display: inline-block;
+    width: 45%;
+}
+
+
+.chart-wrapper{
+    .mixin-chart-wrapper(250px, 400px);
+    display: inline-block;
+}
+
+.chart-container{
+    .mixin-chart-container(250px, 400px, 30px);
+}
+
+.financial-link-widget{
+
+}
+
+.financial-link-widget > nav{
+
+}
+
+.financial-link-widget > footer{
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+
+.financial-link-widget > footer > .financial-caption{
+    .caption;
+    font-weight: bold;
+}
+
+.financial-link-widget > footer > .financial-value{
+    .value
+}
+
+.financial-link{
+    text-align: center;
+    display: block;
+    margin: 5px 0px;
+    cursor: pointer;
+}
+.financial-link:hover{
+    text-decoration: none;
+}
+
+.financial-link-caption{
+    .caption
+}
+.financial-link-value{
+    color: #222;
+    .value
+}
+
+

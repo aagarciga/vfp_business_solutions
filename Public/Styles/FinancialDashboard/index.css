@@ -1,136 +1,61 @@
-
-
-/*@media (width: 480px) and (height: 480px) {*/
-/*    .nav-stacked > li {
-        float: left;
-    }*/
-    
-    div.panel-body{
-        padding: 10px 15px;
-    }
-    
-    
-    #main-panel{
-        background: #efefef url('../../images/background.png') no-repeat;
-    }
-    
-    #main-panel .nav-pills>li>a{
-        
-        background-color: #fff;
-        margin: 10px 0px;
-        box-shadow: 2px 1px 2px rgba(200, 200, 200, 0.9);
-    }
-    
-    #main-panel .nav-pills>li span.glyphicon{
-        font-size: 25px;
-        vertical-align: -4px;
-        color: #4e4e4e;
-    }
-    
-    #main-panel .nav-pills>li span.main-panel-caption{
-        margin-left: 10px;
-    }
-
-/*    ul.nav.nav-pills a{
-        text-align: center;
-        padding: 10px 10px;
-        width: 100px;
-        height: 100px;
-    }*/
-
-/*    ul.nav.nav-pills a img{
-        display: block;
-        margin: 0px auto;
-        width: 48px;
-        height: 48px;
-    }*/
-
-/*    li.right{
-        float: right;
-        margin-right: 10px;
-    }*/
-/*}*/
-@media (min-width: 480px){
-    #main-panel .nav-pills>li{
-        list-style: none;
-        display: inline-block;
-        width: 120px;
-        /*width: 140px;*/
-        width: 160px;
-        height: 140px;
-        /*height: 150px;*/
-        box-sizing: border-box;
-        border-radius: 4px;
-        background-color: #fff;
-        margin: 8px 4px;
-        box-shadow: 1px 3px 3px rgba(200, 200, 200, 0.8);
-        transition: all ease 0.3s;
-        float: none;
-        vertical-align: top;
-        padding: 0px;
-    }
-    
-    #main-panel .nav-pills>li:hover{
-        transform: scale(1.05);
-        box-shadow: 2px 1px 2px rgba(100, 100, 100, 1);
-    }
-    
-    #main-panel .nav-pills > li > a {
-        display: block;
-        height: 140px;
-        border-radius: 4px;
-        padding: 0px;
-        padding-top: 105px;
-        color: #4e4e4e;
-        font-size: 12px;
-        margin: 0px;
-        box-shadow: none;
-    }
-    
-    #main-panel .nav-pills > li > a:link{
-        text-decoration: none;
-    }
-
-    #main-panel .nav-pills > li > a:hover{
-        text-decoration: none;
-    }
-
-    #main-panel .nav-pills > li > a:hover > span.main-panel-caption{
-        background-color: #4e4e4e;
-        color: #fff;
-    }
-    
-    #main-panel .nav-pills > li > a > span.main-panel-caption{
-        margin: 0px;
-        transition: all ease-in 0.3s 0.1s;
-        background-color: #fff;
-        display: block;
-        padding: 10px 10px 10px 10px;
-        border-radius: 0px 0px 4px 4px;
-        border-top: 1px solid #e4e4e4;
-        font-size: 12px;
-        line-height: 14px;
-        /*height: 50px;*/
-    }
-    
-    #main-panel .nav-pills > li > a > span.glyphicon{
-        display: none;
-    }
-    
-    #main-panel .nav-pills > li#quote-dashboard> a{
-        background: transparent url('../../Images/Main/quote-dashboard.jpg') no-repeat 50% 0px;
-    }
-    
-    #main-panel .nav-pills > li#sales-order-dashboard> a{
-        background: transparent url('../../Images/Main/sales-order-dashboard.jpg') no-repeat 50% 0px;
-    }
-
-    #main-panel .nav-pills > li#financial-dashboard> a{
-        background: transparent url('../../Images/Main/financial-dashboard.jpg') no-repeat 50% 0px;
-    }
-    
-    #main-panel .nav-pills > li#warehouse-management> a{
-        background: transparent url('../../Images/Main/warehouse-management.jpg') no-repeat 50% 0px;
-    }
-    
+/*
+    Usables
+*/
+.caption {
+  text-align: right;
+  display: inline-block;
+  width: 45%;
+}
+.value {
+  text-align: left;
+  display: inline-block;
+  width: 45%;
+}
+.chart-wrapper {
+  position: relative;
+  width: 250px;
+  height: 400px;
+  display: inline-block;
+}
+.chart-container {
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 280px;
+  height: 430px;
+}
+.financial-link-widget > footer {
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+.financial-link-widget > footer > .financial-caption {
+  text-align: right;
+  display: inline-block;
+  width: 45%;
+  font-weight: bold;
+}
+.financial-link-widget > footer > .financial-value {
+  text-align: left;
+  display: inline-block;
+  width: 45%;
+}
+.financial-link {
+  text-align: center;
+  display: block;
+  margin: 5px 0px;
+  cursor: pointer;
+}
+.financial-link:hover {
+  text-decoration: none;
+}
+.financial-link-caption {
+  text-align: right;
+  display: inline-block;
+  width: 45%;
+}
+.financial-link-value {
+  color: #222;
+  text-align: left;
+  display: inline-block;
+  width: 45%;
 }

@@ -9,18 +9,50 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Financial</a>
+            <a class="navbar-brand" href="#">Financial Dashboard</a>
         </div>
 
         <?php $View->Control('MainMenu'); ?>
     </nav>
 
-    <div class="panel panel-default">
-        <div id="main-panel" class="panel-body">
-            <ul class="nav nav-pills nav-stacked">
+    <div class="panel panel-body">
+        <div class="col-xs-12 col-sm-4">
+            <section class="chart-wrapper">
+                <div id="financial-chart" class="chart-container">
 
-            </ul>
+                </div>
+            </section>
         </div>
+        <div class="col-sm-offset-1 col-xs-12 col-sm-7">
+           <section class="financial-link-widget">
+                <nav>
+                    <a class="financial-link">
+                        <span class="financial-link-caption">Account Receivable</span>
+                        <span class="financial-link-value"> $ 300,000</span>
+                    </a>
+                    <a class="financial-link">
+                        <span class="financial-link-caption">Cash</span>
+                        <span class="financial-link-value"> $ 50,000</span>
+                    </a>
+                    <a class="financial-link">
+                        <span class="financial-link-caption">WIP</span>
+                        <span class="financial-link-value"> $ 125,000</span>
+                    </a>
+                    <a class="financial-link">
+                        <span class="financial-link-caption">- (Account Payable)</span>
+                        <span class="financial-link-value">$ 120,000</span>
+                    </a>
+                </nav>
+                <footer>
+                    <span class="financial-caption">NET</span>
+                    <span class="financial-value">$ 335,000</span>
+                </footer>
+            </section>
+
+
+        </div>
+
+
     </div>
 
     <div class="panel panel-default">
