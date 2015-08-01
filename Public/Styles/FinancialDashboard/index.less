@@ -1,7 +1,8 @@
-@color-green: #99cc99;
-@color-blue: #3399cc;
+@color-green: #006633;
 @color-lime: #99cc66;
-@color-red: cc3333;
+@color-blue: #3399cc;
+@color-yellow: #cccc33;
+@color-red: #cc3333;
 
 .mixin-chart-wrapper(@width, @height){
     position: relative;
@@ -35,52 +36,39 @@
 
 
 .chart-wrapper{
-    .mixin-chart-wrapper(250px, 400px);
+    .mixin-chart-wrapper(400px, 400px);
     display: inline-block;
+    vertical-align: middle;
+
 }
 
 .chart-container{
-    .mixin-chart-container(250px, 400px, 30px);
+    .mixin-chart-container(400px, 400px, 30px);
 }
 
 .financial-link-widget{
-
+    display: inline-block;
+    vertical-align: -42px;
+    width: 40px;
 }
 
 .financial-link-widget > nav{
 
 }
 
-.financial-link-widget > footer{
-    text-align: center;
-    border-top: 1px solid #ccc;
-}
-
-.financial-link-widget > footer > .financial-caption{
-    .caption;
-    font-weight: bold;
-}
-
-.financial-link-widget > footer > .financial-value{
-    .value
-}
-
 .financial-link{
-    text-align: center;
-    display: block;
-    margin: 5px 0px;
-    cursor: pointer;
+    margin: 3px 0;
+
 }
 .financial-link:hover{
     text-decoration: none;
 }
 
 .financial-link-caption{
-    .caption
+
 }
 .financial-link-value{
-    color: #222;
-    .value
+
 }
 
 

@@ -8,6 +8,15 @@ FinancialDashboard.status = {}
 FinancialDashboard.dictionaries = {}
 FinancialDashboard.htmlBindings = {}
 FinancialDashboard.functions = {}
+FinancialDashboard.functions.formatToCurrency = (value)->
+  strValue = value.toString()
+  offset = 3
+  if strValue.includes('.')
+    offset += strValue.slice(strValue.indexOf('.')).length
+  if strValue.length > 3
+    strValue.slice(0, -offset) + ',' + strValue.slice(-offset)
+  else
+    strValue
 FinancialDashboard.eventHandlers = {}
 FinancialDashboard.init = (chartData) ->
   # TODO: Initialize code here...
@@ -17,7 +26,9 @@ FinancialDashboard.init = (chartData) ->
     chart.creditsPosition = 'bottom-right'
     chart.dataProvider = chartData
     chart.categoryField = "NET"
-    chart.plotAreaBorderAlpha = 0.2
+    chart.plotAreaBorderAlpha = 0
+    chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>"
+
 #    chart.depth3D = 20;
 #    chart.angle = 30;
 
@@ -28,7 +39,9 @@ FinancialDashboard.init = (chartData) ->
     categoryAxis.axisAlpha = 0;
     categoryAxis.axisColor = '#444'
     categoryAxis.gridPosition = "start";
-    categoryAxis.title = 'NET'
+    categoryAxis.titleBold = true
+    categoryAxis.title = 'NET Valuation: $ ' + FinancialDashboard.functions.formatToCurrency(chartData[0].NET)
+    categoryAxis.labelsEnabled = false
 
 
     # value
@@ -36,22 +49,43 @@ FinancialDashboard.init = (chartData) ->
     valueAxis.stackType = "regular";
     valueAxis.gridAlpha = 0.1
     valueAxis.axisAlpha = 0
+    valueAxis.labelsEnabled = false
+
 
     chart.addValueAxis(valueAxis)
 
     # GRAPHS
 
     # secondgraph
+
+
+
+
+    # fifth graph
     graph = new AmCharts.AmGraph()
-    graph.title = "Account Receivable"
+    graph.title = "WIP"
     graph.color = '#FFFFFF'
     graph.labelText = "$ [[value]]"
-    graph.valueField = "Account Receivable"
+    graph.valueField = "WIP"
     graph.type = "column"
     graph.lineAlpha = 0
     graph.fillAlphas = 1
-    graph.lineColor = "#99cc66"
-    graph.balloonText = "<b><span style='color:#99cc66'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]: <b> [[percents]]%</b></span>"
+    graph.lineColor = "#cccc33"
+    graph.balloonText = "<b><span style='color:#cccc33'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]: <b> [[percents]]%</b></span>"
+    graph.labelPosition = "middle"
+    chart.addGraph(graph)
+
+    # fifth graph
+    graph = new AmCharts.AmGraph()
+    graph.title = "Income"
+    graph.color = '#FFFFFF'
+    graph.labelText = "$ [[value]]"
+    graph.valueField = "Income"
+    graph.type = "column"
+    graph.lineAlpha = 0
+    graph.fillAlphas = 1
+    graph.lineColor = "#3399cc"
+    graph.balloonText = "<b><span style='color:#3399cc'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]: <b> [[percents]]%</b></span>"
     graph.labelPosition = "middle"
     chart.addGraph(graph)
 
@@ -64,22 +98,22 @@ FinancialDashboard.init = (chartData) ->
     graph.type = "column"
     graph.lineAlpha = 0
     graph.fillAlphas = 1
-    graph.lineColor = "#cccc66"
-    graph.balloonText = "<b><span style='color:#cccc66'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]: <b> [[percents]]%</b></span>"
+    graph.lineColor = "#006633"
+    graph.balloonText = "<b><span style='color:#006633'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]: <b> [[percents]]%</b></span>"
     graph.labelPosition = "middle"
     chart.addGraph(graph)
 
-    # fifth graph
+    #first graph
     graph = new AmCharts.AmGraph()
-    graph.title = "WIP"
+    graph.title = "Account Receivable"
     graph.color = '#FFFFFF'
     graph.labelText = "$ [[value]]"
-    graph.valueField = "WIP"
+    graph.valueField = "Account Receivable"
     graph.type = "column"
     graph.lineAlpha = 0
     graph.fillAlphas = 1
-    graph.lineColor = "#3399cc"
-    graph.balloonText = "<b><span style='color:#3399cc'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]: <b> [[percents]]%</b></span>"
+    graph.lineColor = "#99cc66"
+    graph.balloonText = "<b><span style='color:#99cc66'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]: <b> [[percents]]%</b></span>"
     graph.labelPosition = "middle"
     chart.addGraph(graph)
 
@@ -103,9 +137,12 @@ FinancialDashboard.init = (chartData) ->
     legend = new AmCharts.AmLegend()
     legend.align = "center"
     legend.markerType = "square"
-    chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>"
     legend.horizontalGap = 10
+    legend.labelWidth = 150
+    legend.position = 'right'
+    legend.reversedOrder = true
     chart.addLegend(legend)
+
 
     chart.write("financial-chart")
   )

@@ -16,41 +16,68 @@
     </nav>
 
     <div class="panel panel-body">
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-xs-12 col-sm-12">
             <section class="chart-wrapper">
                 <div id="financial-chart" class="chart-container">
 
                 </div>
             </section>
-        </div>
-        <div class="col-sm-offset-1 col-xs-12 col-sm-7">
-           <section class="financial-link-widget">
+            <section class="financial-link-widget">
                 <nav>
-                    <a class="financial-link">
-                        <span class="financial-link-caption">Account Receivable</span>
-                        <span class="financial-link-value"> $ 300,000</span>
+                    <a class="financial-link btn btn-xs btn-default">
+<!--                        <span class="financial-link-caption">Account Receivable</span>-->
+<!--                        <span class="financial-link-value"> $ 300,000</span>-->
+                        <span class="glyphicon glyphicon-arrow-right"></span>
                     </a>
-                    <a class="financial-link">
-                        <span class="financial-link-caption">Cash</span>
-                        <span class="financial-link-value"> $ 50,000</span>
+                    <a class="financial-link btn btn-xs btn-default">
+<!--                        <span class="financial-link-caption">Cash</span>-->
+<!--                        <span class="financial-link-value"> $ 50,000</span>-->
+                        <span class="glyphicon glyphicon-arrow-right"></span>
                     </a>
-                    <a class="financial-link">
-                        <span class="financial-link-caption">WIP</span>
-                        <span class="financial-link-value"> $ 125,000</span>
+                    <a class="financial-link btn btn-xs btn-default">
+<!--                        <span class="financial-link-caption">WIP</span>-->
+<!--                        <span class="financial-link-value"> $ 125,000</span>-->
+                        <span class="glyphicon glyphicon-arrow-right"></span>
                     </a>
-                    <a class="financial-link">
-                        <span class="financial-link-caption">- (Account Payable)</span>
-                        <span class="financial-link-value">$ 120,000</span>
+                    <a class="financial-link btn btn-xs btn-default">
+<!--                        <span class="financial-link-caption">- (Account Payable)</span>-->
+<!--                        <span class="financial-link-value">$ 120,000</span>-->
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                    </a>
+                    <a class="financial-link btn btn-xs btn-default">
+                        <span class="glyphicon glyphicon-arrow-right"></span>
                     </a>
                 </nav>
-                <footer>
-                    <span class="financial-caption">NET</span>
-                    <span class="financial-value">$ 335,000</span>
-                </footer>
             </section>
-
-
         </div>
+<!--        <div class="col-sm-offset-1 col-xs-12 col-sm-7">-->
+<!--           <section class="financial-link-widget">-->
+<!--                <nav>-->
+<!--                    <a class="financial-link">-->
+<!--                        <span class="financial-link-caption">Account Receivable</span>-->
+<!--                        <span class="financial-link-value"> $ 300,000</span>-->
+<!--                    </a>-->
+<!--                    <a class="financial-link">-->
+<!--                        <span class="financial-link-caption">Cash</span>-->
+<!--                        <span class="financial-link-value"> $ 50,000</span>-->
+<!--                    </a>-->
+<!--                    <a class="financial-link">-->
+<!--                        <span class="financial-link-caption">WIP</span>-->
+<!--                        <span class="financial-link-value"> $ 125,000</span>-->
+<!--                    </a>-->
+<!--                    <a class="financial-link">-->
+<!--                        <span class="financial-link-caption">- (Account Payable)</span>-->
+<!--                        <span class="financial-link-value">$ 120,000</span>-->
+<!--                    </a>-->
+<!--                </nav>-->
+<!--                <footer>-->
+<!--                    <span class="financial-caption">NET</span>-->
+<!--                    <span class="financial-value">$ 335,000</span>-->
+<!--                </footer>-->
+<!--            </section>-->
+<!---->
+<!---->
+<!--        </div>-->
 
 
     </div>

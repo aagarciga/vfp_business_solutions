@@ -13,49 +13,26 @@
 }
 .chart-wrapper {
   position: relative;
-  width: 250px;
+  width: 400px;
   height: 400px;
   display: inline-block;
+  vertical-align: middle;
 }
 .chart-container {
   position: absolute;
   top: -30px;
   left: -30px;
-  width: 280px;
+  width: 430px;
   height: 430px;
 }
-.financial-link-widget > footer {
-  text-align: center;
-  border-top: 1px solid #ccc;
-}
-.financial-link-widget > footer > .financial-caption {
-  text-align: right;
+.financial-link-widget {
   display: inline-block;
-  width: 45%;
-  font-weight: bold;
-}
-.financial-link-widget > footer > .financial-value {
-  text-align: left;
-  display: inline-block;
-  width: 45%;
+  vertical-align: -42px;
+  width: 40px;
 }
 .financial-link {
-  text-align: center;
-  display: block;
-  margin: 5px 0px;
-  cursor: pointer;
+  margin: 3px 0;
 }
 .financial-link:hover {
   text-decoration: none;
-}
-.financial-link-caption {
-  text-align: right;
-  display: inline-block;
-  width: 45%;
-}
-.financial-link-value {
-  color: #222;
-  text-align: left;
-  display: inline-block;
-  width: 45%;
 }

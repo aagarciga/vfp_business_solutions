@@ -48,7 +48,8 @@
 
     ],
         chartData = [{
-            'NET': 355000.00,
+            'NET': 355000.1,
+            'Income': 100000,
             "Account Receivable": 300000.00,
             "Cash":  50000.00,
             "WIP": 125000.00,
