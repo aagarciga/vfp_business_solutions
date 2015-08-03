@@ -26,7 +26,8 @@ class Signin_Post extends Action{
             if(trim($user->getUserpass()) === $this->Request->txtPassword){
                 $_SESSION['username'] = $this->Request->txtUsername;
                 
-                $userCompany = $user->getFusercomp();                
+                $userCompany = $user->getFusercomp();
+
                 $_SESSION['usercomp'] = $userCompany;
                 
                 $_SESSION['userwhsdef'] = $user->getWhsdef();
@@ -36,16 +37,22 @@ class Signin_Post extends Action{
                 
                 // Updating Ondate and Ontime fields
                 $this->controller->VfpDataUnitOfWork->SysuserRepository->Update($user);
-                
+
                 $companyEntity = $this->controller->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($userCompany);
+                if (!empty($companyEntity)) {
+
 //                $_SESSION['usercomp_uselocno'] = $companyEntity->getUselocno();
-                
-                // If Current User Company got DBOPTION Field Value equals to 'ALL0000' (No Case Sensitive)
-                if ( strtolower($companyEntity->getDboption()) === "all0000") {
-                    $this->Redirect($this->Request->hdnController, $this->Request->hdnAction);
+
+                    // If Current User Company got DBOPTION Field Value equals to 'ALL0000' (No Case Sensitive)
+                    if ( strtolower($companyEntity->getDboption()) === "all0000") {
+                        $this->Redirect($this->Request->hdnController, $this->Request->hdnAction);
+                    }
+                    // Redirect to Dashboard Screen
+                    $this->Redirect('Dashboard', 'Index');
+                } else {
+                    error_log("Company Entity can't be loaded. Verify existence of $userCompany in Syscomp Table");
                 }
-                // Redirect to Dashboard Screen
-                $this->Redirect('Dashboard', 'Index');
+
             }
         }        
         $this->Request->previousController = $this->Request->hdnController;

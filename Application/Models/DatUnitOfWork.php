@@ -180,6 +180,12 @@ class DatUnitOfWork extends UnitOfWork {
     public $QUHSTIRepository;
 
     /**
+     *
+     * @var AROPENRepository
+     */
+    public $AROPENRepository;
+
+    /**
      * 
      * @param Interfaces\IDBDriver $dbDriver
      */
@@ -213,6 +219,7 @@ class DatUnitOfWork extends UnitOfWork {
         $this->SYCOMPRepository = new Repositories\SYCOMPRepository($dbDriver, Entities\SYCOMP::toString(), $companySuffix);
         $this->QUHSTHRepository = new Repositories\QUHSTHRepository($dbDriver, Entities\QUHSTH::toString(), $companySuffix);
         $this->QUHSTIRepository = new Repositories\QUHSTIRepository($dbDriver, Entities\QUHSTI::toString(), $companySuffix);
+        $this->AROPENRepository = new Repositories\AROPENRepository($dbDriver, Entities\AROPEN::toString(), $companySuffix);
     }
 
 }
