@@ -51,7 +51,7 @@ class AROPENRepository extends VFPRepository implements IRepository {
     public function GetAccountReceivableValue(){
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT SUM(OPENBAL) AS VALUE FROM $tableName";
-        $sqlString .= ' WHERE OPENBAL > 0' ;
+//        $sqlString .= ' WHERE OPENBAL > 0' ;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         return $queryResult[0];

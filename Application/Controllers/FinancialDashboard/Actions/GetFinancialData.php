@@ -31,7 +31,7 @@ class GetFinancialData extends Action {
                     'cash' => 1000000.00,
                     'inventory' => 1000000.00,
                     'wip' => 1000000.00,
-                    'ap' => -1000000.00
+                    'ap' => $this->getAP()
                 )
             );
             $result = $this->addNet($result);
@@ -51,6 +51,11 @@ class GetFinancialData extends Action {
     private function getAR(){
         $result = $this->controller->DatUnitOfWork->AROPENRepository->GetAccountReceivableValue();
         return floatval($result->VALUE);
+    }
+
+    private function getAP(){
+        $result = $this->controller->DatUnitOfWork->APOPENRepository->GetAccountPayableValue();
+        return -1 * (floatval($result->VALUE));
     }
 
 }
