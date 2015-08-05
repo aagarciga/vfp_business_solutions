@@ -39,5 +39,15 @@
             $('.loading').hide();
         });
 
+//    var data = [{
+//        net: 1000000,
+//        ar: 1000000,
+//        cash: 1000000,
+//        inventory: 1000000,
+//        wip: 1000000,
+//        ap:-1000000
+//    }];
+//    FinancialDashboard.init(data);
+
 }(window, jQuery, App));
 </script>

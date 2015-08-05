@@ -27,7 +27,7 @@
     }
     strValue = value.toString();
     offset = 3;
-    if (strValue.includes('.')) {
+    if (!(strValue.indexOf('.') === -1)) {
       offset += strValue.slice(strValue.indexOf('.')).length;
     }
     if (strValue.length > 3) {

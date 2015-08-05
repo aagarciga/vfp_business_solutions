@@ -11,7 +11,7 @@ FinancialDashboard.functions = {}
 FinancialDashboard.functions.formatToCurrency = (value, separator = ',')->
   strValue = value.toString()
   offset = 3
-  if strValue.includes('.')
+  if not (strValue.indexOf('.') == -1)
     offset += strValue.slice(strValue.indexOf('.')).length
   if strValue.length > 3
     result = strValue.slice(0, -1*offset) + separator + strValue.slice(-1*offset)
