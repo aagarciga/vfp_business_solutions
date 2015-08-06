@@ -29,7 +29,7 @@ class GetFinancialData extends Action {
                     'net' => 0,
                     'ar' => $this->getAR() ,
                     'cash' => $this->getCash(),
-                    'inventory' => 1000000.00,
+                    'inventory' => $this->getInventory(),
                     'wip' => 1000000.00,
                     'ap' => $this->getAP()
                 )
@@ -68,6 +68,11 @@ class GetFinancialData extends Action {
         $year = $this->controller->DatUnitOfWork->SYCOMPRepository->GetYearOfFirst();
         $result = $this->controller->DatUnitOfWork->GLHSTRepository->GetCashValueWhere($year, $currentYear, $currentPeriod);
         return floatval($result->VALUE);
+    }
+
+    private function getInventory(){
+        $result = $this->controller->DatUnitOfWork->ICPARMRepository->GetInventoryValue();
+        return round(floatval($result->VALUE), 2);
     }
 
 }

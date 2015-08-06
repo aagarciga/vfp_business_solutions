@@ -75,7 +75,7 @@ class GLHSTRepository extends VFPRepository implements IRepository {
         $sqlString = "SELECT SUM($tableName.AMOUNT) AS VALUE FROM $tableName INNER JOIN $glmastTableName ON $tableName.ACCOUNT = $glmastTableName.ACCOUNT";
         $sqlString .= ' WHERE ' . $predicate;
         $query = $this->dbDriver->GetQuery();
-        error_log($sqlString);
+//        error_log($sqlString);
         $queryResult = $query->Execute($sqlString);
         return $queryResult[0];
     }
