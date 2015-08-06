@@ -28,6 +28,14 @@ class Signin_Post extends Action{
                 
                 $userCompany = $user->getFusercomp();
 
+                $userGroup = $user->getGroup();
+                $userFdview = $user->getFdview();
+
+                error_log("user group: ". $userGroup);
+                error_log("user FDVIEW: ". $userFdview);
+
+                $_SESSION['showFiancialDashboard'] = ($userGroup === 'ADMIN' && $userFdview);
+
                 $_SESSION['usercomp'] = $userCompany;
                 
                 $_SESSION['userwhsdef'] = $user->getWhsdef();

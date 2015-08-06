@@ -44,7 +44,25 @@ class BaseSysuser {
     protected $_icprefix;
     protected $_dbfilter;
     protected $_filterna; //FILTERNA
-    protected $_soformdb; //SOFORMDB 
+    protected $_soformdb; //SOFORMDB
+    protected $_fdview;
+
+    /**
+     * @return mixed
+     */
+    public function getFdview()
+    {
+        return $this->_fdview;
+    }
+
+    /**
+     * @param mixed $fdview
+     */
+    public function setFdview($fdview)
+    {
+        $this->_fdview = $fdview;
+    }
+
 
     public static function toString() {
         return self::$_name;
@@ -470,39 +488,40 @@ class BaseSysuser {
         $this->_soformdb = $soformdb;
     }
 
-   /**
-    * 
-    * @param type $userid
-    * @param type $usercode
-    * @param type $username
-    * @param type $userpass
-    * @param type $group
-    * @param type $userstat0
-    * @param type $ondate
-    * @param type $offdate
-    * @param type $ontime
-    * @param type $offtime
-    * @param type $fscreen
-    * @param type $fstartup
-    * @param type $fuserlpdev
-    * @param type $fuercomp
-    * @param type $flang_ctrl
-    * @param type $formini
-    * @param type $nflg0
-    * @param type $whsdef
-    * @param type $posctrl
-    * @param type $psdrwopen
-    * @param type $psdrwport
-    * @param type $psbarcdlp
-    * @param type $setconfirm
-    * @param type $defdirname
-    * @param type $email
-    * @param type $icprefix
-    * @param GUID $dbfilter
-    * @param type $filterna
-    * @param type $soformdb
-    */
-   public function __construct($userid, $usercode, $username, $userpass, $group, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $icprefix = '', $dbfilter = '', $filterna = '', $soformdb = '') {
+    /**
+     *
+     * @param type $userid
+     * @param type $usercode
+     * @param type $username
+     * @param type $userpass
+     * @param type $group
+     * @param bool $fdview
+     * @param type|string $userstat0
+     * @param type|string $ondate
+     * @param type|string $offdate
+     * @param type|string $ontime
+     * @param type|string $offtime
+     * @param type|string $fscreen
+     * @param type|string $fstartup
+     * @param type|string $fuserlpdev
+     * @param type|string $fuercomp
+     * @param type|string $flang_ctrl
+     * @param type|string $formini
+     * @param bool|type $nflg0
+     * @param type|string $whsdef
+     * @param bool|type $posctrl
+     * @param type|string $psdrwopen
+     * @param type|string $psdrwport
+     * @param type|string $psbarcdlp
+     * @param bool|type $setconfirm
+     * @param type|string $defdirname
+     * @param type|string $email
+     * @param type|string $icprefix
+     * @param GUID|string $dbfilter
+     * @param type|string $filterna
+     * @param type|string $soformdb
+     */
+   public function __construct($userid, $usercode, $username, $userpass, $group, $fdview = false, $userstat0 = '', $ondate = '', $offdate = '', $ontime = '', $offtime = '', $fscreen = '', $fstartup = '', $fuserlpdev = '', $fuercomp = '', $flang_ctrl = '', $formini = '', $nflg0 = false, $whsdef = '', $posctrl = false, $psdrwopen = '', $psdrwport = '', $psbarcdlp = '', $setconfirm = false, $defdirname = '', $email = '', $icprefix = '', $dbfilter = '', $filterna = '', $soformdb = '') {
         $this->_userid = $userid;
         $this->_usercode = $usercode;
         $this->_username = $username;
@@ -532,6 +551,8 @@ class BaseSysuser {
         $this->_dbfilter = $dbfilter;
         $this->_filterna = $filterna;
         $this->_soformdb = $soformdb;
+        $this->_fdview = ($fdview === null)? false : $fdview;
+
     }
 
 }

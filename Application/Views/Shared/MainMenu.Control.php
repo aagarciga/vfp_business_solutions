@@ -10,8 +10,10 @@
                                 <span class="glyphicon glyphicon-th"></span> Quote Dashboard</a></li>
                         <li><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
                                 <span class="glyphicon glyphicon-th"></span> Sales Order Dashboard</a></li>
+                        <?php if ($ShowFiancialDashboard === true):?>
                         <li><a href="<?php echo $View->Href("FinancialDashboard", "Index") ?>" class="exit">
                                 <span class="glyphicon glyphicon-th"></span> Financial Dashboard</a></li>
+                        <?php endif ?>
                         <?php if ($FullFeatures === true):?>
                         <li><a href="<?php echo $View->Href("WMS", "Index") ?>" class="exit">
                                 <span class="glyphicon glyphicon-th"></span> Warehouse Management</a></li>

@@ -63,6 +63,20 @@ class SYCOMPRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
+    public function GetYearOfFirst() {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT YEAR FROM $tableName";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = 0;
+
+        if (count($queryResult)) {
+            $result = $queryResult[0]->YEAR;
+        }
+
+        return $result;
+    }
+
     public function Add($entity) {
         // TODO: Implement Add() method.
     }

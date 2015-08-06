@@ -28,7 +28,7 @@ class GetFinancialData extends Action {
                 array(
                     'net' => 0,
                     'ar' => $this->getAR() ,
-                    'cash' => 1000000.00,
+                    'cash' => $this->getCash(),
                     'inventory' => 1000000.00,
                     'wip' => 1000000.00,
                     'ap' => $this->getAP()
@@ -56,6 +56,18 @@ class GetFinancialData extends Action {
     private function getAP(){
         $result = $this->controller->DatUnitOfWork->APOPENRepository->GetAccountPayableValue();
         return -1 * (floatval($result->VALUE));
+    }
+
+    Private function getCash(){
+        $today = getdate();
+
+        // period equals to current month
+        $currentPeriod = $today['mon'];
+        $currentYear = $today['year'];
+
+        $year = $this->controller->DatUnitOfWork->SYCOMPRepository->GetYearOfFirst();
+        $result = $this->controller->DatUnitOfWork->GLHSTRepository->GetCashValueWhere($year, $currentYear, $currentPeriod);
+        return floatval($result->VALUE);
     }
 
 }

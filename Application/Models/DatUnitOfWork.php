@@ -192,6 +192,12 @@ class DatUnitOfWork extends UnitOfWork {
     public $APOPENRepository;
     
     /**
+     *
+     * @var GLHSTRepository
+     */
+    public $GLHSTRepository;
+    
+    /**
      * 
      * @param Interfaces\IDBDriver $dbDriver
      */
@@ -227,6 +233,8 @@ class DatUnitOfWork extends UnitOfWork {
         $this->QUHSTIRepository = new Repositories\QUHSTIRepository($dbDriver, Entities\QUHSTI::toString(), $companySuffix);
         $this->AROPENRepository = new Repositories\AROPENRepository($dbDriver, Entities\AROPEN::toString(), $companySuffix);
         $this->APOPENRepository = new Repositories\APOPENRepository($dbDriver, Entities\APOPEN::toString(), $companySuffix);
+        $this->GLHSTRepository = new Repositories\GLHSTRepository($dbDriver, Entities\GLHST::toString(), $companySuffix);
+        
     }
 
 }
