@@ -64,6 +64,16 @@ class SOITEMRepository extends VFPRepository implements IRepository {
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
+
+    public function GetWIPValue(){
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT SUM(UNITPRICE * ( QTYORD - QTYSHP )) AS VALUE FROM $tableName";
+        $sqlString .= ' WHERE (QTYORD - QTYSHP) > 0 AND NOT ORDCOMP' ;
+        error_log($sqlString);
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        return $queryResult[0];
+    }
     
     public function Add($entity) {
         // TODO: Implement Add() method.

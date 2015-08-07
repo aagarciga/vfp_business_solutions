@@ -30,7 +30,7 @@ class GetFinancialData extends Action {
                     'ar' => $this->getAR() ,
                     'cash' => $this->getCash(),
                     'inventory' => $this->getInventory(),
-                    'wip' => 1000000.00,
+                    'wip' => $this->getWIP(),
                     'ap' => $this->getAP()
                 )
             );
@@ -72,6 +72,11 @@ class GetFinancialData extends Action {
 
     private function getInventory(){
         $result = $this->controller->DatUnitOfWork->ICPARMRepository->GetInventoryValue();
+        return round(floatval($result->VALUE), 2);
+    }
+
+    private function getWIP(){
+        $result = $this->controller->DatUnitOfWork->SOITEMRepository->GetWIPValue();
         return round(floatval($result->VALUE), 2);
     }
 
