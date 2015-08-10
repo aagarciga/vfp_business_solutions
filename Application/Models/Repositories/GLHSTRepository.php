@@ -62,15 +62,15 @@ class GLHSTRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $glmastTableName = 'GLMAST' . $this->companySuffix;
 
-        if ($currentYear > $year) {
+//        if ($currentYear > $year) {
             $predicate = "(CONVERT($tableName.YEAR, SQL_INTEGER) >= $year AND CONVERT($tableName.YEAR, SQL_INTEGER) <= $currentYear) AND $glmastTableName.TYPEACCT = '10'";
-            $predicate .= " AND ($tableName.PERIOD <= $currentPeriod AND CONVERT($tableName.YEAR, SQL_INTEGER) = $currentYear)";
-            $predicate .= " OR ($tableName.PERIOD = $currentPeriod AND CONVERT($tableName.YEAR, SQL_INTEGER) = $year)";
-        }
-        else {
-            $predicate = "CONVERT($tableName.YEAR, SQL_INTEGER) <= $currentYear AND $glmastTableName.TYPEACCT = '10'";
-            $predicate .= " AND $tableName.PERIOD <= $currentPeriod";
-        }
+//            $predicate .= " AND ($tableName.PERIOD <= $currentPeriod AND CONVERT($tableName.YEAR, SQL_INTEGER) = $currentYear)";
+//            $predicate .= " OR ($tableName.PERIOD = $currentPeriod AND CONVERT($tableName.YEAR, SQL_INTEGER) = $year)";
+//        }
+//        else {
+//            $predicate = "CONVERT($tableName.YEAR, SQL_INTEGER) <= $currentYear AND $glmastTableName.TYPEACCT = '10'";
+//            $predicate .= " AND $tableName.PERIOD <= $currentPeriod";
+//        }
 
         $sqlString = "SELECT SUM($tableName.AMOUNT) AS VALUE FROM $tableName INNER JOIN $glmastTableName ON $tableName.ACCOUNT = $glmastTableName.ACCOUNT";
         $sqlString .= ' WHERE ' . $predicate;

@@ -27,17 +27,31 @@
     FinancialDashboard.urls = {};
     FinancialDashboard.urls.getFinancialData = "<?php echo $View->Href('FinancialDashboard', 'GetFinancialData') ?>";
 
-    $.get(FinancialDashboard.urls.getFinancialData)
-        .done(function (response){
-           console.log(response);
-            $('.loading').hide();
+    $.ajax({
+        data: {},
+        url: FinancialDashboard.urls.getFinancialData,
+        type: 'get',
+        beforeSend: function () {
+            $('.loading').show();
+        },
+        success: function (response) {
             var data = $.parseJSON(response);
             FinancialDashboard.init(data);
-        })
-        .fail(function () {
-            data.instance.refresh();
             $('.loading').hide();
-        });
+        }
+    });
+
+//    $.get(FinancialDashboard.urls.getFinancialData)
+//        .done(function (response){
+//           console.log(response);
+//            $('.loading').show();
+//            var data = $.parseJSON(response);
+//            FinancialDashboard.init(data);
+//        })
+//        .fail(function () {
+//            data.instance.refresh();
+//            $('.loading').hide();
+//        });
 
 //    var data = [{
 //        net: 1000000,
