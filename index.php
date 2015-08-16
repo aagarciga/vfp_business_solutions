@@ -97,6 +97,10 @@ final class index extends Core\FrontController {
      * @return \Dandelion\MVC\index
      */
     public static function Main() {
+        header('X-Powered-By: Dandelion MVC');
+        header('HTTP User Agent: Dandelion MVC');
+        header('Author: Alex Alvarez Garciga');
+
         session_start();
         
         // For Development Application Mode
