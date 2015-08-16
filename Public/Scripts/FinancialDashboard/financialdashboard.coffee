@@ -22,6 +22,8 @@ FinancialDashboard.functions.formatToCurrency = (value, separator = ',')->
   else
     strValue
 FinancialDashboard.eventHandlers = {}
+FinancialDashboard.eventHandlers.onLegendClick = (event) ->
+  console.log(event)
 FinancialDashboard.init = (chartData) ->
 #  chart = new AmCharts.AmSerialChart()
 #  chart.creditsPosition = 'bottom-right'
@@ -233,7 +235,13 @@ FinancialDashboard.init = (chartData) ->
       'labelWidth': 150,
       'position': 'right',
       'reversedOrder': true
+      'listeners':[
+        {
+          'event': 'clickLabel',
+          'method': FinancialDashboard.eventHandlers.onLegendClick
+        }
+      ]
     'export':
       'enabled': true
   })
-
+  chart.addListener("clickGraphItem", FinancialDashboard.eventHandlers.onLegendClick)

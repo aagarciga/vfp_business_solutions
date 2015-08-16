@@ -44,9 +44,13 @@
 
   FinancialDashboard.eventHandlers = {};
 
+  FinancialDashboard.eventHandlers.onLegendClick = function(event) {
+    return console.log(event);
+  };
+
   FinancialDashboard.init = function(chartData) {
     var chart;
-    return chart = AmCharts.makeChart("financial-chart", {
+    chart = AmCharts.makeChart("financial-chart", {
       'type': "serial",
       'dataProvider': chartData,
       'creditsPosition': "bottom-right",
@@ -134,12 +138,19 @@
         'horizontalGap': 10,
         'labelWidth': 150,
         'position': 'right',
-        'reversedOrder': true
+        'reversedOrder': true,
+        'listeners': [
+          {
+            'event': 'clickLabel',
+            'method': FinancialDashboard.eventHandlers.onLegendClick
+          }
+        ]
       },
       'export': {
         'enabled': true
       }
     });
+    return chart.addListener("clickGraphItem", FinancialDashboard.eventHandlers.onLegendClick);
   };
 
 }).call(this);
