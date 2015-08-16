@@ -18,12 +18,13 @@ class VerifyLocation_Post extends Action {
      * Ajax Location Verification
      */
     public function Execute() {
-        $locno = filter_input(INPUT_POST, 'location');    
+        $locno = filter_input(INPUT_POST, 'location');
+        $lowerLocno = strtolower($locno);
         $queryResult = null;
         $result = array();
         $result['verified'] = 'false';
         if($locno != ''){
-            $queryResult = $this->controller->DatUnitOfWork->ICLOCRepository->Get("WHERE lower(LOCNO) = '$locno'");
+            $queryResult = $this->controller->DatUnitOfWork->ICLOCRepository->Get("WHERE lower(LOCNO) = '$lowerLocno'");
             if(count($queryResult)){
                 $result['verified'] = 'true';
             }
