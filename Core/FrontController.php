@@ -46,8 +46,9 @@ class FrontController extends Controller {
 
         /**
          * HTTP GET Request Handler
+         * Adds to Request Object all GET values
          */
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        if ($_SERVER['REQUEST_METHOD'] === "GET") {
             if (!empty($_GET['controller'])) {
                 $controller = $_GET['controller'];
             } else {
@@ -66,8 +67,7 @@ class FrontController extends Controller {
                 if ($key == "controller" or $key == "action") {
                     continue;
                 }
-//                $request->$key =  $value;
-                $request->$key = filter_input(INPUT_GET, $key);                
+                $request->$key = filter_input(INPUT_GET, $key);
             }
 
             $request->Application = $application;
@@ -76,8 +76,9 @@ class FrontController extends Controller {
 
         /**
          * HTTP POST Request Handler
+         * Adds to Request Object all GET and POST values
          */
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if (!empty($_GET['controller'])) {
                 $controller = $_GET['controller'];
             } else {
@@ -97,17 +98,103 @@ class FrontController extends Controller {
                 }
                 $request->$key = filter_input(INPUT_POST, $key);
             }
-            
+
             foreach ($_GET as $key => $value) {
                 if ($key == "controller" or $key == "action") {
                     continue;
                 }
-//                $request->$key =  $value;
-                $request->$key = filter_input(INPUT_GET, $key);                
+                $request->$key = filter_input(INPUT_GET, $key);
             }
 
             $request->Application = $application;
             $request->RequestMethod = Nomenclatures\RequestMethod::POST();
+        }
+
+        /**
+         * HTTP PUT Request Handler
+         * Adds to Request Object all GET Values
+         */
+        if ($_SERVER['REQUEST_METHOD'] === "PUT") {
+            if (!empty($_GET['controller'])) {
+                $controller = $_GET['controller'];
+            } else {
+                $controller = $application->getDefaultController();
+            }
+            if (!empty($_GET['action'])) {
+                $action = $_GET['action'];
+            } else {
+                $action = $application->getDefaultAction();
+            }
+
+            $request = new Request($controller, $action);
+
+            foreach ($_GET as $key => $value) {
+                if ($key == "controller" or $key == "action") {
+                    continue;
+                }
+                $request->$key = filter_input(INPUT_GET, $key);
+            }
+
+            $request->Application = $application;
+            $request->RequestMethod = Nomenclatures\RequestMethod::PUT();
+        }
+
+        /**
+         * HTTP PATCH Request Handler
+         * Adds to Request Object all GET Values
+         */
+        if ($_SERVER['REQUEST_METHOD'] === "PATCH") {
+            if (!empty($_GET['controller'])) {
+                $controller = $_GET['controller'];
+            } else {
+                $controller = $application->getDefaultController();
+            }
+            if (!empty($_GET['action'])) {
+                $action = $_GET['action'];
+            } else {
+                $action = $application->getDefaultAction();
+            }
+
+            $request = new Request($controller, $action);
+
+            foreach ($_GET as $key => $value) {
+                if ($key == "controller" or $key == "action") {
+                    continue;
+                }
+                $request->$key = filter_input(INPUT_GET, $key);
+            }
+
+            $request->Application = $application;
+            $request->RequestMethod = Nomenclatures\RequestMethod::PATCH();
+        }
+
+        /**
+         * HTTP DELETE Request Handler
+         * Adds to Request Object all POST Values
+         */
+        if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
+            if (!empty($_GET['controller'])) {
+                $controller = $_GET['controller'];
+            } else {
+                $controller = $application->getDefaultController();
+            }
+            if (!empty($_GET['action'])) {
+                $action = $_GET['action'];
+            } else {
+                $action = $application->getDefaultAction();
+            }
+
+            $request = new Request($controller, $action);
+
+            foreach ($_GET as $key => $value) {
+                if ($key == "controller" or $key == "action") {
+                    continue;
+                }
+                $request->$key = filter_input(INPUT_GET, $key);
+            }
+
+            $request->Application = $application;
+            $request->RequestMethod = Nomenclatures\RequestMethod::DELETE();
         }
 
         $this->Redirect($request);

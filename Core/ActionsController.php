@@ -44,6 +44,21 @@ abstract class ActionsController extends Controller {
             $actionName .= '_Post'; 
         }
 
+        if ($request->RequestMethod == Nomenclatures\RequestMethod::PUT()) {
+            //e.g. Index_Put
+            $actionName .= '_Put';
+        }
+
+        if ($request->RequestMethod == Nomenclatures\RequestMethod::PATCH()) {
+            //e.g. Index_Patch
+            $actionName .= '_Patch';
+        }
+
+        if ($request->RequestMethod == Nomenclatures\RequestMethod::DELETE()) {
+            //e.g. Index_Delete
+            $actionName .= '_Delete';
+        }
+
         //e.g. App/Controllers/Default/Actions/Index.php
         $classFile = MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . 'Actions' . DIRECTORY_SEPARATOR . $actionName . '.php';
 
