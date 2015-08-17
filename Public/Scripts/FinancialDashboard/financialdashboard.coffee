@@ -24,6 +24,7 @@ FinancialDashboard.functions.formatToCurrency = (value, separator = ',')->
 FinancialDashboard.eventHandlers = {}
 FinancialDashboard.eventHandlers.onClickGraph = (event) ->
   console.log(event)
+  global.location = FinancialDashboard.urls.ARDashboard
 FinancialDashboard.eventHandlers.onHoverGraph = (event) ->
   console.log(event)
 FinancialDashboard.init = (chartData) ->

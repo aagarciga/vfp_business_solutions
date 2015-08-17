@@ -98,7 +98,6 @@ class ICPARMRepository extends VFPRepository implements IRepository {
     public function GetInventoryValue(){
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT SUM(ONHAND * COSTAVG) AS VALUE FROM $tableName";
-        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         return $queryResult[0];

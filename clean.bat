@@ -36,6 +36,9 @@ DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.coffee
 DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.js
 DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.js.map
 
+DEL /S /Q .\Public\Scripts\ARDashboard\ardashboard.coffee
+DEL /S /Q .\Public\Scripts\ARDashboard\ardashboard.js
+DEL /S /Q .\Public\Scripts\ARDashboard\ardashboard.js.map
 
 echo Cleaning Stylesheet Development Files
 DEL /S /Q .\Public\Vendor\bootstrap-3\css\bootstrap.css

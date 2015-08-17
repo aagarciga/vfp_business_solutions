@@ -69,7 +69,6 @@ class SOITEMRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT SUM(UNITPRICE * ( QTYORD - QTYSHP )) * 0.3 AS VALUE FROM $tableName";
         $sqlString .= ' WHERE (QTYORD - QTYSHP) > 0 AND NOT ORDCOMP' ;
-        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         return $queryResult[0];

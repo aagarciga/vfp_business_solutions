@@ -11,12 +11,12 @@
 <script src="<?php echo $View->PublicVendorContext('amcharts/plugins/responsive/responsive.js'); ?>"></script>
 
 
-<script src="<?php echo $View->ScriptsContext('FinancialDashboard/financialdashboard.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('ARDashboard/ardashboard.min.js'); ?>"></script>
 
 <script>
 /**
  * @author Alex
- * @namespace App.FinancialDashboard
+ * @namespace App.ARDashboard
  * @param {window} global
  * @param {jQuery} $
  * @param {Object} App
@@ -27,22 +27,21 @@
     "use strict";
 
     var dandelion       = global.dandelion,
-        FinancialDashboard = dandelion.namespace('App.FinancialDashboard', global);
+        ARDashboard = dandelion.namespace('App.ARDashboard', global);
 
-    FinancialDashboard.urls = {};
-    FinancialDashboard.urls.getFinancialData = "<?php echo $View->Href('FinancialDashboard', 'GetFinancialData') ?>";
-    FinancialDashboard.urls.ARDashboard = "<?php echo $View->Href('ARDashboard', 'Index') ?>";
+    ARDashboard.urls = {};
+    ARDashboard.urls.getARData = "<?php echo $View->Href('ARDashboard', 'GetARData') ?>";
 
     $.ajax({
         data: {},
-        url: FinancialDashboard.urls.getFinancialData,
+        url: ARDashboard.urls.getARData,
         type: 'get',
         beforeSend: function () {
             $('.loading').show();
         },
         success: function (response) {
             var data = $.parseJSON(response);
-            FinancialDashboard.init(data);
+            ARDashboard.init(data);
             $('.loading').hide();
         }
     });

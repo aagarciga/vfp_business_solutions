@@ -48,6 +48,29 @@ class AROPENRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
+    public function GetCustnoCompanyPair() {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT CUSTNO, COMPANY FROM $tableName";
+        $sqlString .= ' GROUP BY CUSTNO, COMPANY';
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+
+        return $queryResult;
+    }
+
+    public function GetCustnoData($custno) {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT curdate() - invdate as DAYS, OPENBAL FROM $tableName";
+        $sqlString .= " WHERE CUSTNO = '$custno'";
+//        $sqlString .= ' GROUP BY CUSTNO, invdate, OPENBAL';
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+
+        return $queryResult;
+    }
+
     public function GetAccountReceivableValue(){
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT SUM(OPENBAL) AS VALUE FROM $tableName";
