@@ -22,7 +22,9 @@ FinancialDashboard.functions.formatToCurrency = (value, separator = ',')->
   else
     strValue
 FinancialDashboard.eventHandlers = {}
-FinancialDashboard.eventHandlers.onLegendClick = (event) ->
+FinancialDashboard.eventHandlers.onClickGraph = (event) ->
+  console.log(event)
+FinancialDashboard.eventHandlers.onHoverGraph = (event) ->
   console.log(event)
 FinancialDashboard.init = (chartData) ->
 #  chart = new AmCharts.AmSerialChart()
@@ -155,11 +157,6 @@ FinancialDashboard.init = (chartData) ->
       'titleBold': true,
       'labelsEnabled': false,
       'title': "NET: $ " + FinancialDashboard.functions.formatToCurrency(chartData[0].net)
-#    'valueAxis':
-#      'stackType': "regular",
-#      'gridAlpha': 0.1,
-#      'axisAlpha': 0,
-#      'labelsEnabled': false
     'valueAxes': [ {
       'stackType': "regular",
       'gridAlpha': 0.1,
@@ -232,16 +229,32 @@ FinancialDashboard.init = (chartData) ->
       'align': "center",
       'markerType': "square",
       'horizontalGap': 10,
-      'labelWidth': 150,
+#      'labelWidth': 150,
       'position': 'right',
       'reversedOrder': true
-      'listeners':[
-        {
-          'event': 'clickLabel',
-          'method': FinancialDashboard.eventHandlers.onLegendClick
-        }
-      ]
     'export':
       'enabled': true
+    'responsive': {
+      "enabled": true
+      'rules': [
+
+      ]
+    }
   })
-  chart.addListener("clickGraphItem", FinancialDashboard.eventHandlers.onLegendClick)
+#  chart.responsive = {
+#    "enabled": true
+#    "addDefaultRules": false
+##    "rules": [
+##      {
+##        "maxWidth": 500
+##        "overrides": {
+##          "legend": {
+##            "position": "buttom"
+##          }
+##        }
+##      }
+##    ]
+#
+#  }
+  chart.addListener("clickGraph", FinancialDashboard.eventHandlers.onClickGraph)
+  chart.addListener("rollOverGraph", FinancialDashboard.eventHandlers.onHoverGraph)

@@ -44,7 +44,11 @@
 
   FinancialDashboard.eventHandlers = {};
 
-  FinancialDashboard.eventHandlers.onLegendClick = function(event) {
+  FinancialDashboard.eventHandlers.onClickGraph = function(event) {
+    return console.log(event);
+  };
+
+  FinancialDashboard.eventHandlers.onHoverGraph = function(event) {
     return console.log(event);
   };
 
@@ -136,21 +140,19 @@
         'align': "center",
         'markerType': "square",
         'horizontalGap': 10,
-        'labelWidth': 150,
         'position': 'right',
-        'reversedOrder': true,
-        'listeners': [
-          {
-            'event': 'clickLabel',
-            'method': FinancialDashboard.eventHandlers.onLegendClick
-          }
-        ]
+        'reversedOrder': true
       },
       'export': {
         'enabled': true
+      },
+      'responsive': {
+        "enabled": true,
+        'rules': []
       }
     });
-    return chart.addListener("clickGraphItem", FinancialDashboard.eventHandlers.onLegendClick);
+    chart.addListener("clickGraph", FinancialDashboard.eventHandlers.onClickGraph);
+    return chart.addListener("rollOverGraph", FinancialDashboard.eventHandlers.onHoverGraph);
   };
 
 }).call(this);

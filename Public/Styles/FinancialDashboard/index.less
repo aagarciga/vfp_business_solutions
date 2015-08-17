@@ -3,53 +3,61 @@
 @color-blue: #3399cc;
 @color-yellow: #cccc33;
 @color-red: #cc3333;
-
-.mixin-chart-wrapper(@width, @height){
-    position: relative;
-    width: @width;
-    height: @height;
-}
-
-.mixin-chart-container(@width, @height, @offset: 30px){
-    position: absolute;
-    top: -@offset ;
-    left: -@offset ;
-    width: @width + @offset + 50px;
-    height: @height + @offset;
-}
+//
+//.mixin-chart-wrapper(@width, @height){
+//    position: relative;
+//    width: @width;
+//    height: @height;
+//}
+//
+//.mixin-chart-container(@width, @height, @offset: 30px){
+//    position: absolute;
+//    top: -@offset ;
+//    left: -@offset ;
+//    width: @width + @offset + 50px;
+//    height: @height + @offset;
+//}
 
 /*
     Usables
 */
 
-.caption{
-    text-align: right;
-    display: inline-block;
-    width: 45%;
+.container {
+    width: 100%;
 }
 
-.value{
-    text-align: left;
-    display: inline-block;
-    width: 45%;
-}
+//.caption{
+//    text-align: right;
+//    display: inline-block;
+//    width: 45%;
+//}
+//
+//.value{
+//    text-align: left;
+//    display: inline-block;
+//    width: 45%;
+//}
 
 
 .chart-wrapper{
-    .mixin-chart-wrapper(400px, 400px);
-    display: inline-block;
-    vertical-align: middle;
-
+    //.mixin-chart-wrapper(400px, 400px);
+    //display: inline-block;
+    //vertical-align: middle;
+    //width: 79%;
+    height: 100%;
 }
 
 .chart-container{
-    .mixin-chart-container(400px, 400px, 30px);
+    //.mixin-chart-container(400px, 400px, 30px);
+    width: 100%;
+    height: 100%;
 }
 
 .financial-link-widget{
-    display: inline-block;
-    vertical-align: -42px;
-    width: 40px;
+    //display: inline-block;
+    //vertical-align: -42px;
+    //width: 20px;
+    display: none;
 }
 
 .financial-link-widget > nav{
@@ -69,6 +77,37 @@
 }
 .financial-link-value{
 
+}
+
+#financial-wrapper{
+    //min-width: 490px;
+    width: 100%;
+    height: 350px;
+}
+//@media (max-width:550px) {
+//    #financial-wrapper{
+//        //min-width: 490px;
+//        width: 100%;
+//        height: 400px;
+//    }
+//}
+
+
+.amcharts-graph-column{
+    cursor: pointer;
+    transition: all linear .5s;
+
+}
+
+.amcharts-graph-column > path{
+    transition: all ease .5s;
+
+}
+
+.amcharts-graph-column > path:hover{
+    stroke: #222;
+    stroke-opacity: 1;
+    stroke-width: 2px;
 }
 
 

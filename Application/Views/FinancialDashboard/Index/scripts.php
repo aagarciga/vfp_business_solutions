@@ -2,9 +2,14 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.min.js'); ?>"></script>
 <script src="<?php echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?>"></script>
 
+
+
 <script src="<?php echo $View->PublicVendorContext('amcharts/amcharts.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('amcharts/serial.js'); ?>"></script>
-<script src="<?php echo $View->PublicVendorContext('amcharts/plugins/export/export.js'); ?>"></script>
+
+<script src="<?php echo $View->PublicVendorContext('amcharts/plugins/export/export.min.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('amcharts/plugins/responsive/responsive.js'); ?>"></script>
+
 
 <script src="<?php echo $View->ScriptsContext('FinancialDashboard/financialdashboard.min.js'); ?>"></script>
 

@@ -15,8 +15,8 @@
         <?php $View->Control('MainMenu'); ?>
     </nav>
 
-    <div class="panel panel-body">
-        <div class="col-xs-12 col-sm-12" style="min-width: 490px;">
+    <div class="panel">
+        <div id="financial-wrapper">
             <section class="chart-wrapper">
                 <div id="financial-chart" class="chart-container">
 
