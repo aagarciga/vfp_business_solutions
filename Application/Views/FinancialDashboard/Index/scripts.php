@@ -6,7 +6,10 @@
 
 <script src="<?php echo $View->PublicVendorContext('amcharts/amcharts.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('amcharts/serial.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('amcharts/pie.js'); ?>"></script>
 
+
+<!--<script src="--><?php //echo $View->PublicVendorContext('amcharts/plugins/dataloader/dataloader.min.js'); ?><!--"></script>-->
 <script src="<?php echo $View->PublicVendorContext('amcharts/plugins/export/export.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('amcharts/plugins/responsive/responsive.js'); ?>"></script>
 
@@ -31,6 +34,7 @@
 
     FinancialDashboard.urls = {};
     FinancialDashboard.urls.getFinancialData = "<?php echo $View->Href('FinancialDashboard', 'GetFinancialData') ?>";
+    FinancialDashboard.urls.getARData = "<?php echo $View->Href('FinancialDashboard', 'GetARData') ?>";
     FinancialDashboard.urls.ARDashboard = "<?php echo $View->Href('ARDashboard', 'Index') ?>";
 
     $.ajax({

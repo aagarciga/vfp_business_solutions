@@ -20,15 +20,8 @@ class GetARData extends Action {
     public function Execute() {
 
         $result = array('success' => false,
-            'data' =>
-            array(
-                'current' => 0,
-                '11-30' => 0,
-                '31-45' => 0,
-                '46-60' => 0,
-                '61-90' => 0,
-                '>91' => 0,
-                ));
+            'data' => array()
+            );
 
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
 //        $this->FullFeatures = (!isset($_SESSION['fullFeatures']))? false : $_SESSION['fullFeatures'];
@@ -39,6 +32,19 @@ class GetARData extends Action {
             foreach ($queryResult as $row) {
                 $currentCustno = trim($row->CUSTNO);
                 $currentCompany = trim($row->COMPANY);
+
+                $currentData = array(
+                    'custno' => $currentCustno,
+                    'company' => $currentCompany,
+                    'current' => 0,
+                    '11-30' => 0,
+                    '31-45' => 0,
+                    '46-60' => 0,
+                    '61-90' => 0,
+                    '>91' => 0,
+                    'balance' => 0
+                );
+
                 $queryResultData = $this->controller->DatUnitOfWork->AROPENRepository->GetCustnoData($currentCustno);
                 foreach ($queryResultData as $data){
                     $days = intval($data->DAYS, 10);
@@ -46,24 +52,31 @@ class GetARData extends Action {
 
                     // Current
                     if ($days < 11){
-                        $result['data']['current'] += $value;
+                        $currentData['current'] += $value;
                     } elseif ($days < 31){
-                        $result['data']['11-30'] += $value;
+                        $currentData['11-30'] += $value;
                     } elseif ($days < 46){
-                        $result['data']['31-45'] += $value;
+                        $currentData['31-45'] += $value;
                     } elseif ($days < 61) {
-                        $result['data']['46-60'] += $value;
+                        $currentData['46-60'] += $value;
                     } elseif ($days < 91) {
-                        $result['data']['61-90'] += $value;
+                        $currentData['61-90'] += $value;
                     } else{
-                        $result['data']['>91'] += $value;
+                        $currentData['>91'] += $value;
                     }
+
+                    $currentData['balance'] = $this->calculateBalance($currentData);
                 }
+                $result['data'] []= $currentData;
             }
             $result['success'] = true;
         }
         error_log(print_r($result, true));
         return json_encode($result);
+    }
+
+    private function calculateBalance($data){
+        return $data['current'] + $data['11-30'] + $data['31-45'] + $data['46-60'] + $data['61-90'] + $data['>91'];
     }
 
 //    private function addNet($result){

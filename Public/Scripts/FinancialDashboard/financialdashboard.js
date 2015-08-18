@@ -44,19 +44,19 @@
 
   FinancialDashboard.eventHandlers = {};
 
-  FinancialDashboard.eventHandlers.onClickGraph = function(event) {
-    console.log(event);
-    return global.location = FinancialDashboard.urls.ARDashboard;
-  };
-
-  FinancialDashboard.eventHandlers.onHoverGraph = function(event) {
-    return console.log(event);
-  };
-
   FinancialDashboard.init = function(chartData) {
-    var chart;
-    chart = AmCharts.makeChart("financial-chart", {
+    var financialChart;
+    console.log(chartData);
+    chartData[0].urlARDashboard = FinancialDashboard.urls.ARDashboard;
+    financialChart = AmCharts.makeChart("financial-chart", {
       'type': "serial",
+      'titles': [
+        {
+          'text': "Financial Summary",
+          'size': 12,
+          'color': '#444'
+        }
+      ],
       'dataProvider': chartData,
       'creditsPosition': "bottom-right",
       'categoryField': "net",
@@ -134,13 +134,17 @@
           'fillAlphas': 1,
           'lineColor': "#99cc66",
           'balloonText': "<b><span style='color:#99cc66'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]: <b> [[percents]]%</b></span>",
-          'labelPosition': "middle"
+          'labelPosition': "middle",
+          'urlField': 'urlARDashboard'
         }
       ],
       'legend': {
         'align': "center",
+        'valueText': "[[value]]",
+        'forceWidth': true,
         'markerType': "square",
         'horizontalGap': 10,
+        'labelWidth': 120,
         'position': 'right',
         'reversedOrder': true
       },
@@ -149,11 +153,122 @@
       },
       'responsive': {
         "enabled": true,
-        'rules': []
+        'rules': [
+          {
+            "minWidth": 500,
+            "legendPosition": "right",
+            "overrides": {
+              "legend": {
+                "enabled": true
+              }
+            }
+          }, {
+            "maxWidth": 499,
+            "legendPosition": "right",
+            "overrides": {
+              "legend": {
+                "enabled": false
+              }
+            }
+          }
+        ]
       }
     });
-    chart.addListener("clickGraph", FinancialDashboard.eventHandlers.onClickGraph);
-    return chart.addListener("rollOverGraph", FinancialDashboard.eventHandlers.onHoverGraph);
+    return $.ajax({
+      data: {},
+      url: FinancialDashboard.urls.getARData,
+      type: 'get',
+      beforeSend: function() {
+        return $('.loading').show();
+      },
+      success: function(response) {
+        var arSummaryChart, data;
+        data = $.parseJSON(response);
+        data.chartData.urlARDashboard = FinancialDashboard.urls.ARDashboard;
+        console.log(data.chartData);
+        arSummaryChart = AmCharts.makeChart("ar-summary-chart", {
+          'type': "pie",
+          'titleField': "interval",
+          'valueField': "value",
+          'dataProvider': data.chartData,
+          'urlField': 'urlARDashboard',
+          'labelText': "[[title]]",
+          'allLabels': [
+            {
+              "y": '47%',
+              "text": 'Account Receivable',
+              "align": "center",
+              "size": 12,
+              "color": "#222",
+              "alpha": 1,
+              "rotation": 0,
+              "bold": true,
+              "url": FinancialDashboard.urls.ARDashboard
+            }, {
+              "y": '52%',
+              "text": '$ ' + FinancialDashboard.functions.formatToCurrency(chartData[0].ar),
+              "align": "center",
+              "size": 12,
+              "color": "#444",
+              "alpha": 1,
+              "rotation": 0,
+              "bold": true,
+              "url": FinancialDashboard.urls.ARDashboard
+            }
+          ],
+          'startEffect': 'easeInSine',
+          'outlineColor': "#FFFFFF",
+          'outlineAlpha': 0.8,
+          'outlineThickness': 2,
+          'innerRadius': '75%',
+          'balloonText': "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+          'colors': ["#B0DE09", "#F8FF01", "#FCD202", "#FF9E01", "#FF6600", "#cc3333"],
+          'legend': {
+            'align': "center",
+            'forceWidth': true,
+            'valueText': "$ [[value]]",
+            'markerType': "square",
+            'horizontalGap': 10,
+            'labelWidth': 120,
+            'position': 'right'
+          },
+          'export': {
+            'enabled': true
+          },
+          'responsive': {
+            "enabled": true,
+            'rules': [
+              {
+                "minWidth": 500,
+                "legendPosition": "right",
+                "overrides": {
+                  "legend": {
+                    "enabled": true
+                  }
+                }
+              }, {
+                "maxWidth": 499,
+                "legendPosition": "right",
+                "overrides": {
+                  'allLabels': [
+                    {
+                      "y": '47%',
+                      "text": 'Account Receivable'
+                    }, {
+                      "y": '52%'
+                    }
+                  ],
+                  "legend": {
+                    "enabled": false
+                  }
+                }
+              }
+            ]
+          }
+        });
+        return $('.loading').hide();
+      }
+    });
   };
 
 }).call(this);
