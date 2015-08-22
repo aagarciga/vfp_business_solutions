@@ -39,9 +39,12 @@
         beforeSend: function () {
             $('.loading').show();
         },
-        success: function (response) {
+        success: function (response, textStatus, jqXHR) {
             var data = $.parseJSON(response);
-            ARDashboard.init(data);
+            console.dir(data);
+            console.log(textStatus);
+            console.dir(jqXHR);
+            ARDashboard.init();
             $('.loading').hide();
         }
     });
