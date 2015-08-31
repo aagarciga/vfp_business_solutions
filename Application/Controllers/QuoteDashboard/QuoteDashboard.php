@@ -36,7 +36,6 @@ class QuoteDashboard extends DatActionsController {
     
     /**
      * 
-     * @param string $userid
      * @param string $predicate
      * @param int $itemsPerpage
      * @param int $middleRange

@@ -10,23 +10,27 @@ FinancialDashboard.htmlBindings = {}
 FinancialDashboard.functions = {}
 FinancialDashboard.functions.formatToCurrency = (value, separator = ',')->
   strValue = value.toString()
-  offset = 3
-  if not (strValue.indexOf('.') == -1)
-    offset += strValue.slice(strValue.indexOf('.')).length
-  if strValue.length > 3
-    result = strValue.slice(0, -1*offset) + separator + strValue.slice(-1*offset)
-    if strValue.length > 6
-      result.slice(0, -1*(offset+4)) + separator + result.slice(-1*(offset+4))
-    else
-      result
-  else
-    strValue
+  commaCount = parseInt((strValue.length / 3) - 1, 10)
+  offset = 0
+  included = !!~ strValue.indexOf('.') # Using bitwise operator instead (!== -1)
+
+  if included # strValue.indexOf('.') isnt -1
+    offset = strValue.slice(strValue.indexOf('.')).length
+
+  strValue = strValue.split('').reverse().join('') # reversing string
+
+  while commaCount isnt 0
+    strValue = strValue.slice(0, (commaCount * 3) + offset) + separator + strValue.slice((commaCount * 3) + offset)
+    commaCount -= 1
+
+  strValue = strValue.split('').reverse().join('') # reversing string back
+
+  if strValue.charAt(0) == separator
+    strValue = strValue.slice(1)
+  strValue
+
 FinancialDashboard.eventHandlers = {}
-#FinancialDashboard.eventHandlers.onClickGraph = (event) ->
-#  console.log(event)
-#  global.location = FinancialDashboard.urls.ARDashboard
-#FinancialDashboard.eventHandlers.onHoverGraph = (event) ->
-#  console.log(event)
+
 FinancialDashboard.init = (chartData) ->
   console.log(chartData)
   chartData[0].urlARDashboard = FinancialDashboard.urls.ARDashboard

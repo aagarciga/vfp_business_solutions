@@ -21,25 +21,27 @@
   FinancialDashboard.functions = {};
 
   FinancialDashboard.functions.formatToCurrency = function(value, separator) {
-    var offset, result, strValue;
+    var commaCount, included, offset, strValue;
     if (separator == null) {
       separator = ',';
     }
     strValue = value.toString();
-    offset = 3;
-    if (!(strValue.indexOf('.') === -1)) {
-      offset += strValue.slice(strValue.indexOf('.')).length;
+    commaCount = parseInt((strValue.length / 3) - 1, 10);
+    offset = 0;
+    included = !!~strValue.indexOf('.');
+    if (included) {
+      offset = strValue.slice(strValue.indexOf('.')).length;
     }
-    if (strValue.length > 3) {
-      result = strValue.slice(0, -1 * offset) + separator + strValue.slice(-1 * offset);
-      if (strValue.length > 6) {
-        return result.slice(0, -1 * (offset + 4)) + separator + result.slice(-1 * (offset + 4));
-      } else {
-        return result;
-      }
-    } else {
-      return strValue;
+    strValue = strValue.split('').reverse().join('');
+    while (commaCount !== 0) {
+      strValue = strValue.slice(0, (commaCount * 3) + offset) + separator + strValue.slice((commaCount * 3) + offset);
+      commaCount -= 1;
     }
+    strValue = strValue.split('').reverse().join('');
+    if (strValue.charAt(0) === separator) {
+      strValue = strValue.slice(1);
+    }
+    return strValue;
   };
 
   FinancialDashboard.eventHandlers = {};
@@ -272,5 +274,3 @@
   };
 
 }).call(this);
-
-//# sourceMappingURL=financialdashboard.js.map

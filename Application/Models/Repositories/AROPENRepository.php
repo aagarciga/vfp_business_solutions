@@ -10,12 +10,14 @@ namespace Dandelion\MVC\Application\Models\Repositories;
 use Dandelion\Diana\Interfaces\IRepository;
 use Dandelion\MVC\Application\Models\Entities\AROPEN;
 
-class AROPENRepository extends VFPRepository implements IRepository {
+class AROPENRepository extends VFPRepository implements IRepository
+{
 
     /**
      * @return array of all AROPEN objects from DB
      */
-    public function GetAll() {
+    public function GetAll()
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
         $query = $this->dbDriver->GetQuery();
@@ -33,7 +35,8 @@ class AROPENRepository extends VFPRepository implements IRepository {
      * @param string $predicate SQL Query Where clause
      * @return \Dandelion\MVC\Application\Models\Entities\AROPEN
      */
-    public function Get($predicate) {
+    public function Get($predicate)
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
         $sqlString .= ' ' . $predicate;
@@ -48,47 +51,50 @@ class AROPENRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
-    public function GetCustnoCompanyPair() {
+    public function GetCustnoCompanyPair()
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT CUSTNO, COMPANY FROM $tableName";
         $sqlString .= ' GROUP BY CUSTNO, COMPANY';
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
 
-
         return $queryResult;
     }
 
-    public function GetCustnoData($custno) {
+    public function GetCustnoData($custno)
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT curdate() - invdate as DAYS, OPENBAL FROM $tableName";
         $sqlString .= " WHERE CUSTNO = '$custno'";
-//        $sqlString .= ' GROUP BY CUSTNO, invdate, OPENBAL';
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
-
 
         return $queryResult;
     }
 
-    public function GetAccountReceivableValue(){
+    public function GetAccountReceivableValue()
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT SUM(OPENBAL) AS VALUE FROM $tableName";
-//        $sqlString .= ' WHERE OPENBAL > 0' ;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
+
         return $queryResult[0];
     }
 
-    public function Add($entity) {
+    public function Add($entity)
+    {
         // TODO: Implement Add() method.
     }
 
-    public function Update($entity) {
+    public function Update($entity)
+    {
         // TODO: Implement Update() method.
     }
 
-    public function Delete($entity) {
+    public function Delete($entity)
+    {
         // TODO: Implement Delete() method.
     }
 
