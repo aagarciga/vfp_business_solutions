@@ -191,19 +191,19 @@
       return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current));
     };
     tdInterval1130Builder = function() {
-      return simpleTdBuilder(dataRow['11-30']);
+      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']));
     };
     tdInterval3145Builder = function() {
-      return simpleTdBuilder(dataRow['31-45']);
+      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']));
     };
     tdInterval4660Builder = function() {
-      return simpleTdBuilder(dataRow['46-60']);
+      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']));
     };
     tdInterval6190Builder = function() {
-      return simpleTdBuilder(dataRow['61-90']);
+      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']));
     };
     tdIntervalMoreThan90Builder = function() {
-      return simpleTdBuilder(dataRow['>91']);
+      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']));
     };
     tdBalanceBuilder = function() {
       return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.balance));

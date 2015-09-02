@@ -109,13 +109,13 @@
                         <tr>
                             <td class="item-field"><a href="#" class="custno-form-link"><?php echo $item->getCustno() ?></a></td>
                             <td class="item-field"><?php echo $item->getCompany() ?></td>
-                            <td class="item-field"><?php echo $item->getCurrent() ?></td>
-                            <td class="item-field"><?php echo $item->getInterval1130() ?></td>
-                            <td class="item-field"><?php echo $item->getInterval3145() ?></td>
-                            <td class="item-field"><?php echo $item->getInterval4660() ?></td>
-                            <td class="item-field"><?php echo $item->getInterval6190() ?></td>
-                            <td class="item-field"><?php echo $item->getMorethan91() ?></td>
-                            <td class="item-field"><?php echo $item->getBalance() ?></td>
+                            <td class="item-field"><?php echo $item->getCurrent(true) ?></td>
+                            <td class="item-field"><?php echo $item->getInterval1130(true) ?></td>
+                            <td class="item-field"><?php echo $item->getInterval3145(true) ?></td>
+                            <td class="item-field"><?php echo $item->getInterval4660(true) ?></td>
+                            <td class="item-field"><?php echo $item->getInterval6190(true) ?></td>
+                            <td class="item-field"><?php echo $item->getMorethan91(true) ?></td>
+                            <td class="item-field"><?php echo $item->getBalance(true) ?></td>
                         </tr>
                     <?php endforeach ?>
                     </body>

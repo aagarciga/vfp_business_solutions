@@ -164,19 +164,19 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current))
 
   tdInterval1130Builder = ->
-    simpleTdBuilder(dataRow['11-30'])
+    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']))
 
   tdInterval3145Builder = ->
-    simpleTdBuilder(dataRow['31-45'])
+    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']))
 
   tdInterval4660Builder = ->
-    simpleTdBuilder(dataRow['46-60'])
+    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']))
 
   tdInterval6190Builder = ->
-    simpleTdBuilder(dataRow['61-90'])
+    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']))
 
   tdIntervalMoreThan90Builder = ->
-    simpleTdBuilder(dataRow['>91'])
+    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']))
 
   tdBalanceBuilder = ->
     simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.balance))

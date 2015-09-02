@@ -79,9 +79,9 @@ class ARDashboardViewModel {
     /**
      * @return mixed
      */
-    public function getCurrent()
+    public function getCurrent($formated = false)
     {
-        return $this->_current;
+        return ($formated) ? $this->formatToCurrency($this->_current) : $this->_current;
     }
 
     /**
@@ -95,9 +95,9 @@ class ARDashboardViewModel {
     /**
      * @return mixed
      */
-    public function getInterval1130()
+    public function getInterval1130($formated = false)
     {
-        return $this->_interval11_30;
+        return ($formated) ? $this->formatToCurrency($this->_interval11_30) : $this->_interval11_30;
     }
 
     /**
@@ -111,9 +111,9 @@ class ARDashboardViewModel {
     /**
      * @return mixed
      */
-    public function getInterval3145()
+    public function getInterval3145($formated = false)
     {
-        return $this->_interval31_45;
+        return ($formated) ? $this->formatToCurrency($this->_interval31_45) : $this->_interval31_45;
     }
 
     /**
@@ -127,9 +127,9 @@ class ARDashboardViewModel {
     /**
      * @return mixed
      */
-    public function getInterval4660()
+    public function getInterval4660($formated = false)
     {
-        return $this->_interval46_60;
+        return ($formated) ? $this->formatToCurrency($this->_interval46_60) : $this->_interval46_60;
     }
 
     /**
@@ -143,9 +143,9 @@ class ARDashboardViewModel {
     /**
      * @return mixed
      */
-    public function getInterval6190()
+    public function getInterval6190($formated = false)
     {
-        return $this->_interval61_90;
+        return ($formated) ? $this->formatToCurrency($this->_interval61_90) : $this->_interval61_90;
     }
 
     /**
@@ -159,9 +159,9 @@ class ARDashboardViewModel {
     /**
      * @return mixed
      */
-    public function getMorethan91()
+    public function getMorethan91($formated = false)
     {
-        return $this->_morethan91;
+        return ($formated) ? $this->formatToCurrency($this->_morethan91) : $this->_morethan91;
     }
 
     /**
@@ -175,9 +175,9 @@ class ARDashboardViewModel {
     /**
      * @return mixed
      */
-    public function getBalance()
+    public function getBalance($formated = false)
     {
-        return $this->_balance;
+        return ($formated) ? $this->formatToCurrency($this->_balance) : $this->_balance;
     }
 
     /**
@@ -189,7 +189,7 @@ class ARDashboardViewModel {
     }
 
 
-
-    
-
+    private function formatToCurrency($number){
+        return number_format($number, 2, '.', ',');
+    }
 }
