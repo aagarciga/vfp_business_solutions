@@ -23,8 +23,8 @@ class ARDashboard extends DatActionsController
         }
 
         $tableName = 'AROPEN' . $this->DatUnitOfWork->CompanySuffix;
-        $sqlString = "SELECT CUSTNO, COMPANY FROM $tableName $predicate";
-        $sqlString .= ' GROUP BY CUSTNO, COMPANY';
+        $sqlString = "SELECT CUSTNO FROM $tableName $predicate";
+        $sqlString .= ' GROUP BY CUSTNO';
         $sqlString .= " ORDER BY $orderby $order";
 
         $query = $this->DatUnitOfWork->DBDriver->GetQuery();
@@ -40,11 +40,11 @@ class ARDashboard extends DatActionsController
         $previousCustno = "";
         foreach ($queryResult as $row) {
             $currentCustno = trim($row->CUSTNO);
-            $currentCompany = trim($row->COMPANY);
+            $currentCompany = "";
 
             /*
-             * Alex: In order to fix issue when to a same custno value correspond diferent companies.
-             * This do not fix the issue, only put away the errors with difrent companies for a same custno, and not show its.
+             * Alex: In order to fix issue when to a same custno value correspond different companies.
+             * This do not fix the issue, only put away the errors with different companies for a same custno, and not show its.
              * */
             if ($previousCustno !== $currentCustno) {
 
@@ -79,6 +79,11 @@ class ARDashboard extends DatActionsController
                     } else {
                         $currentData['>91'] += $value;
                     }
+
+                    if($currentCompany === ""){
+                        $currentCompany = trim($data->COMPANY);
+                    }
+                    $currentData['company'] = $currentCompany;
 
                     $currentData['balance'] = $this->calculateBalance($currentData);
 

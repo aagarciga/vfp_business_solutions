@@ -65,7 +65,7 @@ class AROPENRepository extends VFPRepository implements IRepository
     public function GetCustnoData($custno)
     {
         $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT curdate() - invdate as DAYS, OPENBAL FROM $tableName";
+        $sqlString = "SELECT curdate() - invdate as DAYS, OPENBAL, COMPANY FROM $tableName";
         $sqlString .= " WHERE CUSTNO = '$custno'";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
