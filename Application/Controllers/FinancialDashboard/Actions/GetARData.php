@@ -35,30 +35,38 @@ class GetARData extends Action {
         if($this->UserName !== 'Anonimous'){
 
             $queryResult = $this->controller->DatUnitOfWork->AROPENRepository->GetCustnoCompanyPair();
-
+            $previousCustno = "";
             foreach ($queryResult as $row) {
                 $currentCustno = trim($row->CUSTNO);
                 $currentCompany = trim($row->COMPANY);
-                $queryResultData = $this->controller->DatUnitOfWork->AROPENRepository->GetCustnoData($currentCustno);
-                foreach ($queryResultData as $data){
-                    $days = intval($data->DAYS, 10);
-                    $value = floatval($data->OPENBAL);
 
-                    // Current
-                    if ($days < 11){
-                        $result['data']['current'] += $value;
-                    } elseif ($days < 31){
-                        $result['data']['11-30'] += $value;
-                    } elseif ($days < 46){
-                        $result['data']['31-45'] += $value;
-                    } elseif ($days < 61) {
-                        $result['data']['46-60'] += $value;
-                    } elseif ($days < 91) {
-                        $result['data']['61-90'] += $value;
-                    } else{
-                        $result['data']['>91'] += $value;
+                /*
+                 * Alex: In order to fix issue when to a same custno value correspond diferent companies.
+                 * */
+                if ($previousCustno !== $currentCustno){
+
+                    $queryResultData = $this->controller->DatUnitOfWork->AROPENRepository->GetCustnoData($currentCustno);
+                    foreach ($queryResultData as $data) {
+                        $days = intval($data->DAYS, 10);
+                        $value = floatval($data->OPENBAL);
+
+                        // Current
+                        if ($days < 11) {
+                            $result['data']['current'] += $value;
+                        } elseif ($days < 31) {
+                            $result['data']['11-30'] += $value;
+                        } elseif ($days < 46) {
+                            $result['data']['31-45'] += $value;
+                        } elseif ($days < 61) {
+                            $result['data']['46-60'] += $value;
+                        } elseif ($days < 91) {
+                            $result['data']['61-90'] += $value;
+                        } else {
+                            $result['data']['>91'] += $value;
+                        }
                     }
                 }
+                $previousCustno = $currentCustno;
             }
             $result['success'] = true;
         }

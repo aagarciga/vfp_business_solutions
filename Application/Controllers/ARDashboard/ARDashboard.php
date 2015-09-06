@@ -37,45 +37,56 @@ class ARDashboard extends DatActionsController
     public function calculate($queryResult)
     {
         $result = array();
+        $previousCustno = "";
         foreach ($queryResult as $row) {
             $currentCustno = trim($row->CUSTNO);
             $currentCompany = trim($row->COMPANY);
 
-            $currentData = array(
-                'custno' => $currentCustno,
-                'company' => $currentCompany,
-                'current' => 0,
-                '11-30' => 0,
-                '31-45' => 0,
-                '46-60' => 0,
-                '61-90' => 0,
-                '>91' => 0,
-                'balance' => 0
-            );
+            /*
+             * Alex: In order to fix issue when to a same custno value correspond diferent companies.
+             * This do not fix the issue, only put away the errors with difrent companies for a same custno, and not show its.
+             * */
+            if ($previousCustno !== $currentCustno) {
 
-            $queryResultData = $this->DatUnitOfWork->AROPENRepository->GetCustnoData($currentCustno);
-            foreach ($queryResultData as $data) {
-                $days = intval($data->DAYS, 10);
-                $value = floatval($data->OPENBAL);
+                $currentData = array(
+                    'custno' => $currentCustno,
+                    'company' => $currentCompany,
+                    'current' => 0,
+                    '11-30' => 0,
+                    '31-45' => 0,
+                    '46-60' => 0,
+                    '61-90' => 0,
+                    '>91' => 0,
+                    'balance' => 0
+                );
 
-                // Current
-                if ($days < 11) {
-                    $currentData['current'] += $value;
-                } elseif ($days < 31) {
-                    $currentData['11-30'] += $value;
-                } elseif ($days < 46) {
-                    $currentData['31-45'] += $value;
-                } elseif ($days < 61) {
-                    $currentData['46-60'] += $value;
-                } elseif ($days < 91) {
-                    $currentData['61-90'] += $value;
-                } else {
-                    $currentData['>91'] += $value;
+                $queryResultData = $this->DatUnitOfWork->AROPENRepository->GetCustnoData($currentCustno);
+                foreach ($queryResultData as $data) {
+                    $days = intval($data->DAYS, 10);
+                    $value = floatval($data->OPENBAL);
+
+                    // Current
+                    if ($days < 11) {
+                        $currentData['current'] += $value;
+                    } elseif ($days < 31) {
+                        $currentData['11-30'] += $value;
+                    } elseif ($days < 46) {
+                        $currentData['31-45'] += $value;
+                    } elseif ($days < 61) {
+                        $currentData['46-60'] += $value;
+                    } elseif ($days < 91) {
+                        $currentData['61-90'] += $value;
+                    } else {
+                        $currentData['>91'] += $value;
+                    }
+
+                    $currentData['balance'] = $this->calculateBalance($currentData);
+
                 }
 
-                $currentData['balance'] = $this->calculateBalance($currentData);
+                $result [] = $currentData;
             }
-            $result [] = $currentData;
+            $previousCustno = $currentCustno;
         }
         return $result;
     }
