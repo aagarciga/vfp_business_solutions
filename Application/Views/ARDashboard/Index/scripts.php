@@ -10,8 +10,8 @@
 <script src="<?php echo $View->PublicVendorContext('amcharts/plugins/export/export.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('amcharts/plugins/responsive/responsive.js'); ?>"></script>
 
-<script src="<?php echo $View->ScriptsContext('ARDashboard/ardashboardDynamicFilter.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('ARDashboard/ardashboard.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('ARDashboard/ardashboardDynamicFilter.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('ARDashboard/ardashboard.min.js'); ?>"></script>
 
 
 <script>
