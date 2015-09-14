@@ -37,23 +37,7 @@
     ARDashboard.urls.deleteFilter = "<?php echo $View->Href('ARDashboard', 'DeleteFilter') ?>";
     ARDashboard.urls.saveFilter = "<?php echo $View->Href('ARDashboard', 'SaveFilter') ?>";
 
-
-    $.ajax({
-        data: {},
-        url: ARDashboard.urls.getARData,
-        type: 'get',
-        beforeSend: function () {
-            $('.loading').show();
-        },
-        success: function (response, textStatus, jqXHR) {
-            var data = $.parseJSON(response);
-            console.dir(data);
-            console.log(textStatus);
-            console.dir(jqXHR);
-            ARDashboard.init();
-            $('.loading').hide();
-        }
-    });
+    ARDashboard.init();
 
 }(window, jQuery, App));
 </script>
