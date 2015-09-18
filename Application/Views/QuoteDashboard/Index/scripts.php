@@ -33,9 +33,12 @@
     QuoteDashboard.urls.saveFilter = "<?php echo $View->Href('QuoteDashboard', 'SaveFilter') ?>";
     QuoteDashboard.urls.getQuoteDetails = "<?php echo $View->Href('QuoteDashboard', 'GetQuoteDetails') ?>";
     QuoteDashboard.urls.updateNotes = "<?php echo $View->Href('QuoteDashboard', 'UpdateQuoteNotes') ?>";
+    QuoteDashboard.urls.updateStatus = "<?php echo $View->Href('QuoteDashboard', 'UpdateStatus') ?>";
     // TODO: Refactor this
     QuoteDashboard.urls.projectAttachementsAPI = "<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>";
     QuoteDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('QuoteDashboard', 'GetCurrentProjectFiles') ?>";
+    QuoteDashboard.urls.updateStatus = "<?php echo $View->Href('QuoteDashboard', 'UpdateStatus') ?>";
+
 
     // TODO: Convert FileManager in a Controll and put this on it
     App.urls = {};

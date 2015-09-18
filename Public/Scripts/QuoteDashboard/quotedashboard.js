@@ -1113,12 +1113,13 @@ if (window.Backbone === 'undefined') {
     QuoteDashboard.htmlBindings.table                            = '#quoteDashboardTable';
     QuoteDashboard.htmlBindings.table_header_btnSort             = '.btn-table-sort';
     QuoteDashboard.htmlBindings.table_body_btnQuoteNo            = '.qutno-form-link';
-////    Dashboard.htmlBindings.table_body_drpUpdatable          = '.update-dropdown';
+    QuoteDashboard.htmlBindings.table_body_drpStatus            = '.status.update-dropdown ';
     QuoteDashboard.htmlBindings.table_body_btnAttach             = '.btn-files-dialog';
     QuoteDashboard.htmlBindings.pager_container                  = '.pager-wrapper';
     QuoteDashboard.htmlBindings.pager_btnPagerPages              = '.pager-btn';
     QuoteDashboard.htmlBindings.control_quoteDetails           = '#quoteDetails';
     QuoteDashboard.htmlBindings.control_quoteDetails_btnClose  = '#quoteDetails_btnClose';
+
 
     QuoteDashboard.functions = {};
     QuoteDashboard.functions.paginate = function () {
@@ -1304,16 +1305,10 @@ if (window.Backbone === 'undefined') {
 
         $(QuoteDashboard.htmlBindings.table_body_btnQuoteNo).on('click',
             QuoteDashboard.eventHandlers.control_quoteDetails_itemsLink_onClick);
-//
-//        $(Dashboard.htmlBindings.table_body_btnVessel).on('click',
-//            Dashboard.eventHandlers.control_vesselForm_itemsLink_onClick);
-//
-//        $(Dashboard.htmlBindings.table_body_drpMaterialStatus).on('change',
-//            Dashboard.eventHandlers.table_body_drpMaterialStatus_onChange);
-//
-//        $(Dashboard.htmlBindings.table_body_drpJobStatus).on('change',
-//            Dashboard.eventHandlers.table_body_drpJobStatus_onChange);
-//
+
+        $(QuoteDashboard.htmlBindings.table_body_drpStatus).on('change',
+            QuoteDashboard.eventHandlers.table_body_drpStatus_onChange);
+
         $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity});
 
         $(QuoteDashboard.htmlBindings.table_body_btnAttach).on('click',
@@ -1378,31 +1373,31 @@ if (window.Backbone === 'undefined') {
         QuoteDashboard.status.table_header_sortLastButton = $target;
         QuoteDashboard.functions.paginate();
     };
-    QuoteDashboard.eventHandlers.table_body_drpstatus_onChange = function () {
+    QuoteDashboard.eventHandlers.table_body_drpStatus_onChange = function (event) {
 
-//        var $target = $(event.target),
-//            ordnum = $target.data('ordnum'),
-//            value = $target.val();
-//
-//        $.ajax({
-//            data: {
-//                ordnum: ordnum,
-//                jobstatus: value
-//            },
-//            url: Dashboard.urls.updateSOHEADJobStatus,
-//            type: 'post',
-//            beforeSend: function () {
-//                $('.loading').show();
-//            },
-//            success: function (response) {
-//                var data = $.parseJSON(response);
-//                if (data === 'success') {
-//                    $('.loading').hide();
-//                } else {
-//                    throw data;
-//                }
-//            }
-//        });
+        var $target = $(event.target),
+            qutno = $target.data('qutno'),
+            value = $target.val();
+
+        $.ajax({
+            data: {
+                qutno: qutno,
+                status: value
+            },
+            url: QuoteDashboard.urls.updateStatus,
+            type: 'post',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                var data = $.parseJSON(response);
+                if (data === 'success') {
+                    $('.loading').hide();
+                } else {
+                    throw data;
+                }
+            }
+        });
     };
     QuoteDashboard.eventHandlers.control_quoteDetails_itemsLink_onClick = function (event) {
         console.log($(event.target).html());
