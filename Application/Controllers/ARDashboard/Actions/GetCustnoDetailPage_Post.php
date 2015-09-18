@@ -67,7 +67,7 @@ class GetCustnoDetailPage_Post extends Action
         $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL
                       FROM $tableName
-                      WHERE CUSTNO = '$custno'";
+                      WHERE CUSTNO = '$custno' AND OPENBAL > 0";
 
 //        error_log($sqlString);
 

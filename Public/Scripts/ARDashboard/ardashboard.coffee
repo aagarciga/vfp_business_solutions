@@ -34,7 +34,7 @@ ARDashboard.htmlBindings.pager_container                  = '.pager-wrapper';
 ARDashboard.htmlBindings.pager_btnPagerPages              = '.pager-btn';
 ARDashboard.htmlBindings.modal_Details                        = '#details_modal';
 ARDashboard.htmlBindings.modal_Details_balance            = '#balance';
-ARDashboard.htmlBindings.modal_Details_Pager_container        = '.pager-wrapper';
+ARDashboard.htmlBindings.modal_Details_Pager_container        = '.pager-wrapper-details';
 ARDashboard.htmlBindings.modal_Details_Pager_btnPagerPages    = '.pager-btn';
 ARDashboard.htmlBindings.modal_Details_Table                  = '#details';
 
@@ -251,7 +251,6 @@ ARDashboard.functions.modal_details_updateTable = (items) ->
   this
 
 ARDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass) ->
-  console.log dataRow
   doc = global.document
   result = doc.createElement('tr')
 

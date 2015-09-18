@@ -64,7 +64,7 @@
 
   ARDashboard.htmlBindings.modal_Details_balance = '#balance';
 
-  ARDashboard.htmlBindings.modal_Details_Pager_container = '.pager-wrapper';
+  ARDashboard.htmlBindings.modal_Details_Pager_container = '.pager-wrapper-details';
 
   ARDashboard.htmlBindings.modal_Details_Pager_btnPagerPages = '.pager-btn';
 
@@ -293,7 +293,6 @@
 
   ARDashboard.functions.modal_details_buildTableItem = function(dataRow, trClass, tdClass) {
     var doc, result, simpleTdBuilder, tdAmtpaidBuilder, tdDatepaidBuilder, tdInvdateBuilder, tdInvnoBuilder, tdOpenbalBuilder, tdRefnoBuilder;
-    console.log(dataRow);
     doc = global.document;
     result = doc.createElement('tr');
     simpleTdBuilder = function(data, tdClass) {

@@ -198,7 +198,7 @@
 
                     </tbody>
                 </table>
-                <div class="text-center pager-wrapper">
+                <div class="text-center pager-wrapper-details">
                     <?php // echo $Pager->getPagerControl(); ?>
                 </div>
 
