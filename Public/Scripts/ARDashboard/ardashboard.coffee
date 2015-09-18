@@ -255,31 +255,14 @@ ARDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
   doc = global.document
   result = doc.createElement('tr')
 
-  simpleTdBuilder = (data) ->
+  simpleTdBuilder = (data, tdClass) ->
     td = doc.createElement('td')
     td.className = tdClass
     td.appendChild(doc.createTextNode(data))
-    td;
-
-  withLinkTdBuilder = (data, linkClassName, tdLinkClass) ->
-    td = doc.createElement('td')
-    a = doc.createElement('a')
-
-    a.href = "#"
-    a.className = linkClassName
-    a.dataset.qutno = dataRow.qutno
-
-    if typeof data == "string"
-      a.appendChild(doc.createTextNode(data))
-    else
-      a.appendChild(data)
-
-    td.className = tdLinkClass || tdClass
-    td.appendChild(a)
-    td;
+    td
 
   tdAmtpaidBuilder = ->
-    simpleTdBuilder(dataRow.amtpaid)
+    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.amtpaid), 'currency')
 
   tdDatepaidBuilder = ->
     simpleTdBuilder(dataRow.datepaid)
@@ -291,7 +274,7 @@ ARDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
     simpleTdBuilder(dataRow.invno)
 
   tdOpenbalBuilder = ->
-    simpleTdBuilder(dataRow.openbal)
+    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.openbal), 'currency')
 
   tdRefnoBuilder = ->
     simpleTdBuilder(dataRow.refno)

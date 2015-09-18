@@ -292,35 +292,19 @@
   };
 
   ARDashboard.functions.modal_details_buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, simpleTdBuilder, tdAmtpaidBuilder, tdDatepaidBuilder, tdInvdateBuilder, tdInvnoBuilder, tdOpenbalBuilder, tdRefnoBuilder, withLinkTdBuilder;
+    var doc, result, simpleTdBuilder, tdAmtpaidBuilder, tdDatepaidBuilder, tdInvdateBuilder, tdInvnoBuilder, tdOpenbalBuilder, tdRefnoBuilder;
     console.log(dataRow);
     doc = global.document;
     result = doc.createElement('tr');
-    simpleTdBuilder = function(data) {
+    simpleTdBuilder = function(data, tdClass) {
       var td;
       td = doc.createElement('td');
       td.className = tdClass;
       td.appendChild(doc.createTextNode(data));
       return td;
     };
-    withLinkTdBuilder = function(data, linkClassName, tdLinkClass) {
-      var a, td;
-      td = doc.createElement('td');
-      a = doc.createElement('a');
-      a.href = "#";
-      a.className = linkClassName;
-      a.dataset.qutno = dataRow.qutno;
-      if (typeof data === "string") {
-        a.appendChild(doc.createTextNode(data));
-      } else {
-        a.appendChild(data);
-      }
-      td.className = tdLinkClass || tdClass;
-      td.appendChild(a);
-      return td;
-    };
     tdAmtpaidBuilder = function() {
-      return simpleTdBuilder(dataRow.amtpaid);
+      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.amtpaid), 'currency');
     };
     tdDatepaidBuilder = function() {
       return simpleTdBuilder(dataRow.datepaid);
@@ -332,7 +316,7 @@
       return simpleTdBuilder(dataRow.invno);
     };
     tdOpenbalBuilder = function() {
-      return simpleTdBuilder(dataRow.openbal);
+      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.openbal), 'currency');
     };
     tdRefnoBuilder = function() {
       return simpleTdBuilder(dataRow.refno);

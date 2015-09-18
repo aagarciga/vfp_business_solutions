@@ -49,3 +49,6 @@ ul.pagination {
     margin-bottom: 15px;
   }
 }
+.currency:before {
+  content: '$ ';
+}
