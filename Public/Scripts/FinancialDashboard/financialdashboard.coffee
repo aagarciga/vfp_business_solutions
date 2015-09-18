@@ -32,7 +32,6 @@ FinancialDashboard.functions.formatToCurrency = (value, separator = ',')->
 FinancialDashboard.eventHandlers = {}
 
 FinancialDashboard.init = (chartData) ->
-  console.log(chartData)
   chartData[0].urlARDashboard = FinancialDashboard.urls.ARDashboard
   financialChart = AmCharts.makeChart( "financial-chart",{
     'type': "serial",

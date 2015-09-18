@@ -163,3 +163,52 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="details_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Balance: <span id="balance">(0)</span></h4>
+            </div>
+            <div class="modal-body">
+                <table id="details" class="table table-striped table-condensed table-hover">
+                    <colgroup>
+                        <col class="col-1">
+                        <col class="col-2">
+                        <col class="col-3">
+                        <col class="col-4">
+                        <col class="col-5">
+                        <col class="col-6">
+                        <!--<col class="col-4">-->
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th class="th-invno">Invoice No.</th>
+                        <th class="th-invdate">Invoice Date</th>
+                        <th class="th-amtpaid">Amount Paid</th>
+                        <th class="th-datepaid">Date Paid</th>
+                        <th class="th-refno">Ref No.</th>
+                        <th class="th-openbal">Open Balance</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+
+                    </tfoot>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <div class="text-center pager-wrapper">
+                    <?php // echo $Pager->getPagerControl(); ?>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <!--
+                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>                -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

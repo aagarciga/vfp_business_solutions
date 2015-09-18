@@ -72,7 +72,6 @@ class GetARData extends Action {
         }
 
         $result['chartData'] = $this->makeChartData($result['data']);
-        error_log(print_r($result, true));
         return json_encode($result);
     }
 

@@ -13,7 +13,10 @@ ARDashboard.status.table_header_sortLastButton = null;
 ARDashboard.status.table_header_sortField = 'custno';   # Default Order By Fields
 ARDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
 ARDashboard.status.currentPage = 1;
-ARDashboard.status.currentQuote = '';
+ARDashboard.status.currentCustno = '';
+ARDashboard.status.modal_detail_CurrentTicket = '';
+ARDashboard.status.modal_detail_CurrentPage = 1;
+ARDashboard.status.modal_detail_ItemsPerPage = 10; # Default items per page value
 
 ARDashboard.dictionaries = {}
 
@@ -29,6 +32,11 @@ ARDashboard.htmlBindings.table_body_btnCustNo            = '.custno-form-link';
 ARDashboard.htmlBindings.table_body_btnAttach             = '.btn-files-dialog';
 ARDashboard.htmlBindings.pager_container                  = '.pager-wrapper';
 ARDashboard.htmlBindings.pager_btnPagerPages              = '.pager-btn';
+ARDashboard.htmlBindings.modal_Details                        = '#details_modal';
+ARDashboard.htmlBindings.modal_Details_balance            = '#balance';
+ARDashboard.htmlBindings.modal_Details_Pager_container        = '.pager-wrapper';
+ARDashboard.htmlBindings.modal_Details_Pager_btnPagerPages    = '.pager-btn';
+ARDashboard.htmlBindings.modal_Details_Table                  = '#details';
 
 
 ARDashboard.functions = {}
@@ -194,7 +202,7 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result
 
 ARDashboard.functions.bindTableItemsEventHandlers = ->
-#    $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.control_quoteDetails_itemsLink_onClick)
+    $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #    $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
     this
 
@@ -203,6 +211,101 @@ ARDashboard.functions.bindEventHandlers = ->
   $(ARDashboard.htmlBindings.table_header_btnSort).on('click', ARDashboard.eventHandlers.table_body_btnSort_onClick);
   $(ARDashboard.htmlBindings.pager_btnPagerPages).on('click', ARDashboard.eventHandlers.pager_btnPagerPages_onClick)
   ARDashboard.functions.bindTableItemsEventHandlers();
+  this
+
+ARDashboard.functions.modal_details_paginate = ->
+  $.ajax(
+    data:
+      page: ARDashboard.status.modal_detail_CurrentPage
+      itemsPerPage: ARDashboard.status.modal_detail_ItemsPerPage
+      custno: ARDashboard.status.currentCustno
+    url: ARDashboard.urls.getCustnoDetailPage
+    type: 'post'
+    beforeSend: ->
+      $('.loading').show()
+    success: (response) ->
+      data = $.parseJSON(response)
+      pager = new BootstrapPager(data,
+        ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick)
+      pagerItems = pager.getCurrentPagedItems()
+      pagerControl = pager.getPagerControl()
+
+      $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl)
+      ARDashboard.functions.modal_details_updateTable(pagerItems);
+
+#      $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html("(" + pager.itemsCount + ")");
+      $('.loading').hide();
+  )
+  this
+
+ARDashboard.functions.modal_details_updateTable = (items) ->
+  $table = $(ARDashboard.htmlBindings.modal_Details_Table)
+  $tableBody = $table.children('tbody')
+  $tableBody.empty()
+
+  for index of items
+    console.log index
+    if items.hasOwnProperty(index)
+      $tableBody.append(ARDashboard.functions.modal_details_buildTableItem(items[index], '', "item-field"))
+  ARDashboard.functions.modal_details_bindTableItemsEventHandlers();
+  this
+
+ARDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass) ->
+  console.log dataRow
+  doc = global.document
+  result = doc.createElement('tr')
+
+  simpleTdBuilder = (data) ->
+    td = doc.createElement('td')
+    td.className = tdClass
+    td.appendChild(doc.createTextNode(data))
+    td;
+
+  withLinkTdBuilder = (data, linkClassName, tdLinkClass) ->
+    td = doc.createElement('td')
+    a = doc.createElement('a')
+
+    a.href = "#"
+    a.className = linkClassName
+    a.dataset.qutno = dataRow.qutno
+
+    if typeof data == "string"
+      a.appendChild(doc.createTextNode(data))
+    else
+      a.appendChild(data)
+
+    td.className = tdLinkClass || tdClass
+    td.appendChild(a)
+    td;
+
+  tdAmtpaidBuilder = ->
+    simpleTdBuilder(dataRow.amtpaid)
+
+  tdDatepaidBuilder = ->
+    simpleTdBuilder(dataRow.datepaid)
+
+  tdInvdateBuilder = ->
+    simpleTdBuilder(dataRow.invdate)
+
+  tdInvnoBuilder = ->
+    simpleTdBuilder(dataRow.invno)
+
+  tdOpenbalBuilder = ->
+    simpleTdBuilder(dataRow.openbal)
+
+  tdRefnoBuilder = ->
+    simpleTdBuilder(dataRow.refno)
+
+  result.className = trClass
+  result.appendChild(tdInvnoBuilder())
+  result.appendChild(tdInvdateBuilder())
+  result.appendChild(tdAmtpaidBuilder())
+  result.appendChild(tdDatepaidBuilder())
+  result.appendChild(tdRefnoBuilder())
+  result.appendChild(tdOpenbalBuilder())
+  result
+
+ARDashboard.functions.modal_details_bindTableItemsEventHandlers = ->
   this
 
 ARDashboard.eventHandlers = {}
@@ -246,6 +349,42 @@ ARDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
 
   ARDashboard.status.table_header_sortLastButton = $target
   ARDashboard.functions.paginate()
+  this
+
+ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
+  $target = $(event.target)
+  ARDashboard.status.currentCustno = $target.text()
+  balance = $target.parent().parent().children(':last').text()
+  $.ajax({
+    data:
+      custno: ARDashboard.status.currentCustno
+      balance: balance
+    url: ARDashboard.urls.getCustnoDetailPage
+    type: 'post'
+    beforeSend: ->
+      $('.loading').show()
+    success: (response, textStatus, jqXHR) ->
+      data = $.parseJSON(response)
+      pager = new BootstrapPager(data,
+        ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick)
+      pagerItems = pager.getCurrentPagedItems()
+      pagerControl = pager.getPagerControl()
+
+      $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl)
+      ARDashboard.functions.modal_details_updateTable(pagerItems);
+
+      $(ARDashboard.htmlBindings.modal_Details_balance).text("$ #{balance}")
+      $(ARDashboard.htmlBindings.modal_Details).modal();
+
+      $('.loading').hide()
+  })
+  this
+
+ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick = (event) ->
+  $target = $(event.target)
+  value = $target.data('page')
+  ARDashboard.status.modal_detail_CurrentPage = value
+  ARDashboard.functions.modal_details_paginate()
   this
 
 ARDashboard.init = (defaultUserFilter) ->

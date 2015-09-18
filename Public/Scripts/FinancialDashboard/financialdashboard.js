@@ -48,7 +48,6 @@
 
   FinancialDashboard.init = function(chartData) {
     var financialChart;
-    console.log(chartData);
     chartData[0].urlARDashboard = FinancialDashboard.urls.ARDashboard;
     financialChart = AmCharts.makeChart("financial-chart", {
       'type': "serial",

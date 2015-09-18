@@ -36,6 +36,7 @@
     ARDashboard.urls.getSavedFilter = "<?php echo $View->Href('ARDashboard', 'GetSavedFilter') ?>";
     ARDashboard.urls.deleteFilter = "<?php echo $View->Href('ARDashboard', 'DeleteFilter') ?>";
     ARDashboard.urls.saveFilter = "<?php echo $View->Href('ARDashboard', 'SaveFilter') ?>";
+    ARDashboard.urls.getCustnoDetailPage = "<?php echo $View->Href('ARDashboard', 'GetCustnoDetailPage') ?>";
 
     ARDashboard.init();
 
