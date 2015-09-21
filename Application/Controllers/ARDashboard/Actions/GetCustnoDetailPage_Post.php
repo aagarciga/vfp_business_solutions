@@ -24,12 +24,6 @@ class GetCustnoDetailPage_Post extends Action
 
         $custno = $this->Request->hasProperty('custno') ? $this->Request->custno : "";
         $balance = $this->Request->hasProperty('balance') ? $this->Request->balance : "0";
-
-//        $itemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : 50;
-
-
-//        $this->ItemPerPage = $_SESSION['arDashboard_itemperpages'] = $itemsPerPage;
-
         $result = array();
 
         if (is_numeric($page)) {
@@ -58,7 +52,6 @@ class GetCustnoDetailPage_Post extends Action
             $pager['balance'] = $balance;
         }
 
-//        error_log(print_r($pager, true));
         return json_encode($pager);
     }
 
@@ -67,7 +60,7 @@ class GetCustnoDetailPage_Post extends Action
         $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL
                       FROM $tableName
-                      WHERE CUSTNO = '$custno' AND OPENBAL > 0";
+                      WHERE CUSTNO = '$custno' AND OPENBAL <> 0";
 
 //        error_log($sqlString);
 

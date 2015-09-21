@@ -26,7 +26,6 @@ class ARDashboard extends DatActionsController
         $sqlString = "SELECT CUSTNO FROM $tableName $predicate";
         $sqlString .= ' GROUP BY CUSTNO';
         $sqlString .= " ORDER BY $orderby $order";
-
         $query = $this->DatUnitOfWork->DBDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $itemsCount = count($queryResult);

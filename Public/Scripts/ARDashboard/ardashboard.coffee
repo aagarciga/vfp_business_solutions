@@ -8,9 +8,9 @@ ARDashboard = dandelion.namespace('App.ARDashboard', global)
 DynamicFilter = App.ARDashboard.DynamicFilter
 
 ARDashboard.status = {}
-ARDashboard.status.itemsPerPage = 50;                   # Default items per page value
+ARDashboard.status.itemsPerPage = 50; # Default items per page value
 ARDashboard.status.table_header_sortLastButton = null;
-ARDashboard.status.table_header_sortField = 'custno';   # Default Order By Fields
+ARDashboard.status.table_header_sortField = 'custno'; # Default Order By Fields
 ARDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
 ARDashboard.status.currentPage = 1;
 ARDashboard.status.currentCustno = '';
@@ -21,32 +21,43 @@ ARDashboard.status.modal_detail_ItemsPerPage = 10; # Default items per page valu
 ARDashboard.dictionaries = {}
 
 ARDashboard.htmlBindings = {}
-ARDashboard.htmlBindings.container                        = '.container';
-ARDashboard.htmlBindings.itemCounter                      = '#panelHeadingItemsCount';
-ARDashboard.htmlBindings.drpItemPerPage                   = '.top-pager-itemmperpage-control a';
-ARDashboard.htmlBindings.drpItemPerPageValue              = '.top-pager-itemmperpage-control button span.value';
-ARDashboard.htmlBindings.filterForm                       = '#filterForm';
-ARDashboard.htmlBindings.table                            = '#arDashboardTable';
-ARDashboard.htmlBindings.table_header_btnSort             = '.btn-table-sort';
-ARDashboard.htmlBindings.table_body_btnCustNo            = '.custno-form-link';
-ARDashboard.htmlBindings.table_body_btnAttach             = '.btn-files-dialog';
-ARDashboard.htmlBindings.pager_container                  = '.pager-wrapper';
-ARDashboard.htmlBindings.pager_btnPagerPages              = '.pager-btn';
-ARDashboard.htmlBindings.modal_Details                        = '#details_modal';
-ARDashboard.htmlBindings.modal_Details_balance            = '#balance';
-ARDashboard.htmlBindings.modal_Details_Pager_container        = '.pager-wrapper-details';
-ARDashboard.htmlBindings.modal_Details_Pager_btnPagerPages    = '.pager-btn';
-ARDashboard.htmlBindings.modal_Details_Table                  = '#details';
-
+ARDashboard.htmlBindings.container = '.container';
+ARDashboard.htmlBindings.itemCounter = '#panelHeadingItemsCount';
+ARDashboard.htmlBindings.drpItemPerPage = '.top-pager-itemmperpage-control a';
+ARDashboard.htmlBindings.drpItemPerPageValue = '.top-pager-itemmperpage-control button span.value';
+ARDashboard.htmlBindings.filterForm = '#filterForm';
+ARDashboard.htmlBindings.table = '#arDashboardTable';
+ARDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
+ARDashboard.htmlBindings.table_body_btnCustNo = '.btn-custno-form-link';
+ARDashboard.htmlBindings.table_body_btnCurrent = '.btn-current-form-link';
+ARDashboard.htmlBindings.table_body_btn11_30 = '.btn-11-30-form-link';
+ARDashboard.htmlBindings.table_body_btn31_45 = '.btn-31-45-form-link';
+ARDashboard.htmlBindings.table_body_btn46_60 = '.btn-46-60-form-link';
+ARDashboard.htmlBindings.table_body_btn61_90 = '.btn-61-90-form-link';
+ARDashboard.htmlBindings.table_body_btnMoreThan90 = '.btn-more-than-90-form-link';
+ARDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog';
+ARDashboard.htmlBindings.pager_container = '.pager-wrapper';
+ARDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
+ARDashboard.htmlBindings.modal_Details = '#details_modal';
+ARDashboard.htmlBindings.modal_Details_balance = '#balance';
+ARDashboard.htmlBindings.modal_Details_Pager_container = '.pager-wrapper-details';
+ARDashboard.htmlBindings.modal_Details_Pager_btnPagerPages = '.pager-btn';
+ARDashboard.htmlBindings.modal_Details_Table = '#details';
 
 ARDashboard.functions = {}
 
 # Cloned from financial dashboard (todo: need refactor here...
 ARDashboard.functions.formatToCurrency = (value, separator = ',') ->
+  console.log value
+  isNegative = value < 0
+
+  if isNegative
+    value *= -1
+
   strValue = value.toString()
   commaCount = parseInt((strValue.length / 3) - 1, 10)
   offset = 0
-  included = !!~ strValue.indexOf('.') # Using bitwise operator instead (!== -1)
+  included = !!~strValue.indexOf('.') # Using bitwise operator instead (!== -1)
 
   if included # strValue.indexOf('.') isnt -1
     offset = strValue.slice(strValue.indexOf('.')).length
@@ -61,34 +72,37 @@ ARDashboard.functions.formatToCurrency = (value, separator = ',') ->
 
   if strValue.charAt(0) == separator
     strValue = strValue.slice(1)
+
+  if isNegative
+    strValue = '-' + strValue
   strValue
 
 ARDashboard.functions.paginate = ->
   $.ajax({
-      data:
-        predicate: ARDashboard.DynamicFilter.functions.getPredicate(),
-        page: ARDashboard.status.currentPage,
-        itemsPerPage: ARDashboard.status.itemsPerPage,
-        orderby: ARDashboard.status.table_header_sortField,
-        order: ARDashboard.status.table_header_sortFieldOrder
-      url: ARDashboard.urls.getPage
-      type: 'post'
-      beforeSend: ->
-        $('.loading').show()
-      success: (response, textStatus, jqXHR) ->
-        data = $.parseJSON(response)
-        pager = new BootstrapPager(data, ARDashboard.eventHandlers.pager_btnPagerPages_onClick)
-        pagerItems = pager.getCurrentPagedItems()
-        pagerControl = pager.getPagerControl()
+    data:
+      predicate: ARDashboard.DynamicFilter.functions.getPredicate(),
+      page: ARDashboard.status.currentPage,
+      itemsPerPage: ARDashboard.status.itemsPerPage,
+      orderby: ARDashboard.status.table_header_sortField,
+      order: ARDashboard.status.table_header_sortFieldOrder
+    url: ARDashboard.urls.getPage
+    type: 'post'
+    beforeSend: ->
+      $('.loading').show()
+    success: (response, textStatus, jqXHR) ->
+      data = $.parseJSON(response)
+      pager = new BootstrapPager(data, ARDashboard.eventHandlers.pager_btnPagerPages_onClick)
+      pagerItems = pager.getCurrentPagedItems()
+      pagerControl = pager.getPagerControl()
 
-        $(ARDashboard.htmlBindings.pager_container)
-        .empty()
-        .append(pagerControl)
+      $(ARDashboard.htmlBindings.pager_container)
+      .empty()
+      .append(pagerControl)
 
-        ARDashboard.functions.updateTable(pagerItems)
+      ARDashboard.functions.updateTable(pagerItems)
 
-        $(ARDashboard.htmlBindings.itemCounter).html(pager.itemsCount)
-        $('.loading').hide()
+      $(ARDashboard.htmlBindings.itemCounter).html(pager.itemsCount)
+      $('.loading').hide()
   })
   this
 
@@ -121,7 +135,7 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
 
     a.href = "#"
     a.className = linkClassName
-    a.dataset.qutno = dataRow.qutno
+    a.dataset.custno = dataRow.custno
 
     if typeof data == "string"
       a.appendChild(doc.createTextNode(data))
@@ -169,22 +183,22 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     simpleTdBuilder(dataRow.company)
 
   tdCurrentBuilder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current))
+    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1))
 
   tdInterval1130Builder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']))
+    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']), ARDashboard.htmlBindings.table_body_btn11_30.slice(1))
 
   tdInterval3145Builder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']))
+    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']), ARDashboard.htmlBindings.table_body_btn31_45.slice(1))
 
   tdInterval4660Builder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']))
+    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']), ARDashboard.htmlBindings.table_body_btn46_60.slice(1))
 
   tdInterval6190Builder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']))
+    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']), ARDashboard.htmlBindings.table_body_btn61_90.slice(1))
 
   tdIntervalMoreThan90Builder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']))
+    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1))
 
   tdBalanceBuilder = ->
     simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.balance))
@@ -202,9 +216,9 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result
 
 ARDashboard.functions.bindTableItemsEventHandlers = ->
-    $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
-#    $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
-    this
+  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
+  #    $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
+  this
 
 ARDashboard.functions.bindEventHandlers = ->
   $(ARDashboard.htmlBindings.drpItemPerPage).on('click', ARDashboard.eventHandlers.drpItemPerPage_onClick)
@@ -233,7 +247,7 @@ ARDashboard.functions.modal_details_paginate = ->
       $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl)
       ARDashboard.functions.modal_details_updateTable(pagerItems);
 
-#      $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html("(" + pager.itemsCount + ")");
+      #      $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html("(" + pager.itemsCount + ")");
       $('.loading').hide();
   )
   this
@@ -244,7 +258,6 @@ ARDashboard.functions.modal_details_updateTable = (items) ->
   $tableBody.empty()
 
   for index of items
-    console.log index
     if items.hasOwnProperty(index)
       $tableBody.append(ARDashboard.functions.modal_details_buildTableItem(items[index], '', "item-field"))
   ARDashboard.functions.modal_details_bindTableItemsEventHandlers();
@@ -335,7 +348,7 @@ ARDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
 
 ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
   $target = $(event.target)
-  ARDashboard.status.currentCustno = $target.text()
+  ARDashboard.status.currentCustno = $target.data('custno')
   balance = $target.parent().parent().children(':last').text()
   $.ajax({
     data:

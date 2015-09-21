@@ -52,7 +52,19 @@
 
   ARDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
 
-  ARDashboard.htmlBindings.table_body_btnCustNo = '.custno-form-link';
+  ARDashboard.htmlBindings.table_body_btnCustNo = '.btn-custno-form-link';
+
+  ARDashboard.htmlBindings.table_body_btnCurrent = '.btn-current-form-link';
+
+  ARDashboard.htmlBindings.table_body_btn11_30 = '.btn-11-30-form-link';
+
+  ARDashboard.htmlBindings.table_body_btn31_45 = '.btn-31-45-form-link';
+
+  ARDashboard.htmlBindings.table_body_btn46_60 = '.btn-46-60-form-link';
+
+  ARDashboard.htmlBindings.table_body_btn61_90 = '.btn-61-90-form-link';
+
+  ARDashboard.htmlBindings.table_body_btnMoreThan90 = '.btn-more-than-90-form-link';
 
   ARDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog';
 
@@ -73,9 +85,14 @@
   ARDashboard.functions = {};
 
   ARDashboard.functions.formatToCurrency = function(value, separator) {
-    var commaCount, included, offset, strValue;
+    var commaCount, included, isNegative, offset, strValue;
     if (separator == null) {
       separator = ',';
+    }
+    console.log(value);
+    isNegative = value < 0;
+    if (isNegative) {
+      value *= -1;
     }
     strValue = value.toString();
     commaCount = parseInt((strValue.length / 3) - 1, 10);
@@ -92,6 +109,9 @@
     strValue = strValue.split('').reverse().join('');
     if (strValue.charAt(0) === separator) {
       strValue = strValue.slice(1);
+    }
+    if (isNegative) {
+      strValue = '-' + strValue;
     }
     return strValue;
   };
@@ -156,7 +176,7 @@
       a = doc.createElement('a');
       a.href = "#";
       a.className = linkClassName;
-      a.dataset.qutno = dataRow.qutno;
+      a.dataset.custno = dataRow.custno;
       if (typeof data === "string") {
         a.appendChild(doc.createTextNode(data));
       } else {
@@ -204,22 +224,22 @@
       return simpleTdBuilder(dataRow.company);
     };
     tdCurrentBuilder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current));
+      return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1));
     };
     tdInterval1130Builder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']));
+      return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']), ARDashboard.htmlBindings.table_body_btn11_30.slice(1));
     };
     tdInterval3145Builder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']));
+      return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']), ARDashboard.htmlBindings.table_body_btn31_45.slice(1));
     };
     tdInterval4660Builder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']));
+      return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']), ARDashboard.htmlBindings.table_body_btn46_60.slice(1));
     };
     tdInterval6190Builder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']));
+      return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']), ARDashboard.htmlBindings.table_body_btn61_90.slice(1));
     };
     tdIntervalMoreThan90Builder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']));
+      return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1));
     };
     tdBalanceBuilder = function() {
       return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.balance));
@@ -282,7 +302,6 @@
     $tableBody = $table.children('tbody');
     $tableBody.empty();
     for (index in items) {
-      console.log(index);
       if (items.hasOwnProperty(index)) {
         $tableBody.append(ARDashboard.functions.modal_details_buildTableItem(items[index], '', "item-field"));
       }
@@ -382,7 +401,7 @@
   ARDashboard.eventHandlers.table_body_btnCustNo_onClick = function(event) {
     var $target, balance;
     $target = $(event.target);
-    ARDashboard.status.currentCustno = $target.text();
+    ARDashboard.status.currentCustno = $target.data('custno');
     balance = $target.parent().parent().children(':last').text();
     $.ajax({
       data: {

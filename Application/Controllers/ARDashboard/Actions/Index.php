@@ -40,7 +40,7 @@ class Index extends Action
         $viewModels = array();
 
         foreach ($items as $item) {
-            $currentItemViewModel = new ARDashboardViewModel($item['custno'], $item['company'], $item['current'], $item['11-30'], $item['31-45'], $item['46-60'], $item['61-90'], $item['>91'], $item['balance']);
+            $currentItemViewModel = new ARDashboardViewModel(trim($item['custno']), trim($item['company']), $item['current'], $item['11-30'], $item['31-45'], $item['46-60'], $item['61-90'], $item['>91'], $item['balance']);
             $viewModels [] = $currentItemViewModel;
         }
 
