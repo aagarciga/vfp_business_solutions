@@ -24,6 +24,7 @@ class GetCustnoDetailPage_Post extends Action
 
         $custno = $this->Request->hasProperty('custno') ? $this->Request->custno : "";
         $balance = $this->Request->hasProperty('balance') ? $this->Request->balance : "0";
+        $setname = $this->Request->hasProperty('setname') ? $this->Request->setname : "";
         $result = array();
 
         if (is_numeric($page)) {
@@ -31,7 +32,21 @@ class GetCustnoDetailPage_Post extends Action
             $arDashboardItemPerPages = 10;
             $this->ItemPerPage = (!isset($_SESSION['arDashboardItemPerPages']))? $arDashboardItemPerPages : $_SESSION['arDashboardItemPerPages'];
 
-            $this->Pager = $this->GetCustnoDetailPager($custno, $this->UserName, $this->ItemPerPage);
+            if ($setname === 'details')
+                $this->Pager = $this->GetCustnoDetailPager($custno, $this->UserName, $this->ItemPerPage);
+            if ($setname === 'setCurrent')
+                $this->Pager = $this->GetCurrentSetPager($custno, $this->UserName, $this->ItemPerPage);
+            if ($setname === 'set11_30')
+                $this->Pager = $this->Get11_30SetPager($custno, $this->UserName, $this->ItemPerPage);
+            if ($setname === 'set31_45')
+                $this->Pager = $this->Get31_45SetPager($custno, $this->UserName, $this->ItemPerPage);
+            if ($setname === 'set45_60')
+                $this->Pager = $this->Get45_60SetPager($custno, $this->UserName, $this->ItemPerPage);
+            if ($setname === 'set61_90')
+                $this->Pager = $this->Get61_90SetPager($custno, $this->UserName, $this->ItemPerPage);
+            if ($setname === 'setGreatherThan90')
+                $this->Pager = $this->GetGreatherThan90SetPager($custno, $this->UserName, $this->ItemPerPage);
+
 
             $pager = $this->Pager->PaginateForAjax($page);
             $currentPagedItems = $pager['currentPagedItems'];
@@ -62,12 +77,101 @@ class GetCustnoDetailPage_Post extends Action
                       FROM $tableName
                       WHERE CUSTNO = '$custno' AND OPENBAL <> 0";
 
-//        error_log($sqlString);
+        $query = $this->controller->DatUnitOfWork->DBDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $itemsCount = count($queryResult);
+        return new BootstrapPager($this->controller->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount);
+    }
+
+    public function GetCurrentSetPager($custno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+
+        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) < 11 AND OPENBAL <> 0";
 
         $query = $this->controller->DatUnitOfWork->DBDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $itemsCount = count($queryResult);
         return new BootstrapPager($this->controller->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount);
     }
+
+    public function Get11_30SetPager($custno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+
+        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 11 AND (CURDATE() - INVDATE) < 31 AND OPENBAL <> 0";
+
+        $query = $this->controller->DatUnitOfWork->DBDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $itemsCount = count($queryResult);
+        return new BootstrapPager($this->controller->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount);
+    }
+
+    public function Get31_45SetPager($custno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+
+        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 31 AND (CURDATE() - INVDATE) < 45 AND OPENBAL <> 0";
+
+        $query = $this->controller->DatUnitOfWork->DBDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $itemsCount = count($queryResult);
+        return new BootstrapPager($this->controller->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount);
+    }
+
+    public function Get45_60SetPager($custno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+
+        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 46 AND (CURDATE() - INVDATE) < 60 AND OPENBAL <> 0";
+
+        $query = $this->controller->DatUnitOfWork->DBDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $itemsCount = count($queryResult);
+        return new BootstrapPager($this->controller->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount);
+    }
+
+    public function Get61_90SetPager($custno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+
+        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 46 AND (CURDATE() - INVDATE) < 60 AND OPENBAL <> 0";
+
+        $query = $this->controller->DatUnitOfWork->DBDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $itemsCount = count($queryResult);
+        return new BootstrapPager($this->controller->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount);
+    }
+
+    public function GetGreatherThan90SetPager($custno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10 ){
+
+        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 91 AND OPENBAL <> 0";
+
+        $query = $this->controller->DatUnitOfWork->DBDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $itemsCount = count($queryResult);
+        return new BootstrapPager($this->controller->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, $itemsCount);
+    }
+
 
 }

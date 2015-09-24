@@ -59,7 +59,7 @@ class ARDashboard extends DatActionsController
                     'balance' => 0
                 );
 
-                $queryResultData = $this->DatUnitOfWork->AROPENRepository->GetCustnoData($currentCustno);
+                $queryResultData = $this->DatUnitOfWork->AROPENRepository->GetCusnoData($currentCustno);
                 foreach ($queryResultData as $data) {
                     $days = intval($data->DAYS, 10);
                     $value = floatval($data->OPENBAL);

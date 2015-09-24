@@ -14,6 +14,7 @@ ARDashboard.status.table_header_sortField = 'custno'; # Default Order By Fields
 ARDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
 ARDashboard.status.currentPage = 1;
 ARDashboard.status.currentCustno = '';
+ARDashboard.status.currentSet = 'details';
 ARDashboard.status.modal_detail_CurrentTicket = '';
 ARDashboard.status.modal_detail_CurrentPage = 1;
 ARDashboard.status.modal_detail_ItemsPerPage = 10; # Default items per page value
@@ -217,6 +218,12 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
 
 ARDashboard.functions.bindTableItemsEventHandlers = ->
   $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
+  $(ARDashboard.htmlBindings.table_body_btnCurrent).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
+  $(ARDashboard.htmlBindings.table_body_btn11_30).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
+  $(ARDashboard.htmlBindings.table_body_btn31_45).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
+  $(ARDashboard.htmlBindings.table_body_btn46_60).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
+  $(ARDashboard.htmlBindings.table_body_btn61_90).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
+  $(ARDashboard.htmlBindings.table_body_btnMoreThan90).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
   #    $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
   this
 
@@ -230,6 +237,7 @@ ARDashboard.functions.bindEventHandlers = ->
 ARDashboard.functions.modal_details_paginate = ->
   $.ajax(
     data:
+      setname: ARDashboard.status.currentSet
       page: ARDashboard.status.modal_detail_CurrentPage
       itemsPerPage: ARDashboard.status.modal_detail_ItemsPerPage
       custno: ARDashboard.status.currentCustno
@@ -347,11 +355,27 @@ ARDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   this
 
 ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
+
   $target = $(event.target)
+
+  if $target.attr('class') == ARDashboard.htmlBindings.table_body_btnCurrent.slice(1)
+    ARDashboard.status.currentSet  = 'setCurrent'
+  else if $target.attr('class') == ARDashboard.htmlBindings.table_body_btn11_30.slice(1)
+    ARDashboard.status.currentSet  = 'set11_30'
+  else if $target.attr('class') == ARDashboard.htmlBindings.table_body_btn31_45.slice(1)
+    ARDashboard.status.currentSet  = 'set31_45'
+  else if $target.attr('class') == ARDashboard.htmlBindings.table_body_btn46_60.slice(1)
+    ARDashboard.status.currentSet  = 'set45_60'
+  else if $target.attr('class') == ARDashboard.htmlBindings.table_body_btn61_90.slice(1)
+    ARDashboard.status.currentSet  = 'set61_90'
+  else if $target.attr('class') == ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1)
+    ARDashboard.status.currentSet  = 'setGreatherThan90'
+
   ARDashboard.status.currentCustno = $target.data('custno')
   balance = $target.parent().parent().children(':last').text()
   $.ajax({
     data:
+      setname: ARDashboard.status.currentSet
       custno: ARDashboard.status.currentCustno
       balance: balance
     url: ARDashboard.urls.getCustnoDetailPage
@@ -379,6 +403,7 @@ ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick = (event) ->
   $target = $(event.target)
   value = $target.data('page')
   ARDashboard.status.modal_detail_CurrentPage = value
+  ARDashboard.status.currentSet
   ARDashboard.functions.modal_details_paginate()
   this
 

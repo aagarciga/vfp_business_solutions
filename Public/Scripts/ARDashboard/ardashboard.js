@@ -28,6 +28,8 @@
 
   ARDashboard.status.currentCustno = '';
 
+  ARDashboard.status.currentSet = 'details';
+
   ARDashboard.status.modal_detail_CurrentTicket = '';
 
   ARDashboard.status.modal_detail_CurrentPage = 1;
@@ -259,6 +261,12 @@
 
   ARDashboard.functions.bindTableItemsEventHandlers = function() {
     $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick);
+    $(ARDashboard.htmlBindings.table_body_btnCurrent).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick);
+    $(ARDashboard.htmlBindings.table_body_btn11_30).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick);
+    $(ARDashboard.htmlBindings.table_body_btn31_45).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick);
+    $(ARDashboard.htmlBindings.table_body_btn46_60).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick);
+    $(ARDashboard.htmlBindings.table_body_btn61_90).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick);
+    $(ARDashboard.htmlBindings.table_body_btnMoreThan90).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick);
     return this;
   };
 
@@ -273,6 +281,7 @@
   ARDashboard.functions.modal_details_paginate = function() {
     $.ajax({
       data: {
+        setname: ARDashboard.status.currentSet,
         page: ARDashboard.status.modal_detail_CurrentPage,
         itemsPerPage: ARDashboard.status.modal_detail_ItemsPerPage,
         custno: ARDashboard.status.currentCustno
@@ -401,10 +410,24 @@
   ARDashboard.eventHandlers.table_body_btnCustNo_onClick = function(event) {
     var $target, balance;
     $target = $(event.target);
+    if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btnCurrent.slice(1)) {
+      ARDashboard.status.currentSet = 'setCurrent';
+    } else if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btn11_30.slice(1)) {
+      ARDashboard.status.currentSet = 'set11_30';
+    } else if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btn31_45.slice(1)) {
+      ARDashboard.status.currentSet = 'set31_45';
+    } else if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btn46_60.slice(1)) {
+      ARDashboard.status.currentSet = 'set45_60';
+    } else if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btn61_90.slice(1)) {
+      ARDashboard.status.currentSet = 'set61_90';
+    } else if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1)) {
+      ARDashboard.status.currentSet = 'setGreatherThan90';
+    }
     ARDashboard.status.currentCustno = $target.data('custno');
     balance = $target.parent().parent().children(':last').text();
     $.ajax({
       data: {
+        setname: ARDashboard.status.currentSet,
         custno: ARDashboard.status.currentCustno,
         balance: balance
       },
@@ -434,6 +457,7 @@
     $target = $(event.target);
     value = $target.data('page');
     ARDashboard.status.modal_detail_CurrentPage = value;
+    ARDashboard.status.currentSet;
     ARDashboard.functions.modal_details_paginate();
     return this;
   };

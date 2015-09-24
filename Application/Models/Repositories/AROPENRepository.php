@@ -62,7 +62,12 @@ class AROPENRepository extends VFPRepository implements IRepository
         return $queryResult;
     }
 
-    public function GetCustnoData($custno)
+    /**
+     * Details
+     * @param $custno
+     * @return mixed
+     */
+    public function GetCusnoData($custno)
     {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT curdate() - invdate as DAYS, OPENBAL, COMPANY FROM $tableName";
@@ -81,6 +86,114 @@ class AROPENRepository extends VFPRepository implements IRepository
         $queryResult = $query->Execute($sqlString);
 
         return $queryResult[0];
+    }
+
+    /**
+     * Unused
+     * @param $custno
+     * @return mixed
+     */
+    public function GetCurrentSet($custno){
+        $tableName = $this->entityName . $this->companySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) < 11";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
+    }
+
+    /**
+     * Unused
+     * @param $custno
+     * @return mixed
+     */
+    public function Get11_31Set($custno){
+        $tableName = $this->entityName . $this->companySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 11 AND (CURDATE() - INVDATE) < 31";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
+    }
+
+    /**
+     * Unused
+     * @param $custno
+     * @return mixed
+     */
+    public function Get31_45Set($custno){
+        $tableName = $this->entityName . $this->companySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 31 AND (CURDATE() - INVDATE) < 45";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
+    }
+
+    /**
+     * Unused
+     * @param $custno
+     * @return mixed
+     */
+    public function Get46_60Set($custno){
+        $tableName = $this->entityName . $this->companySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 46 AND (CURDATE() - INVDATE) < 60";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
+    }
+
+    /**
+     * Unused
+     * @param $custno
+     * @return mixed
+     */
+    public function Get61_90Set($custno){
+        $tableName = $this->entityName . $this->companySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 61 AND (CURDATE() - INVDATE) < 90";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
+    }
+
+    /**
+     * Unused
+     * @param $custno
+     * @return mixed
+     */
+    public function GetGreatherThan91Set($custno){
+        $tableName = $this->entityName . $this->companySuffix;
+        $lowerCustno = strtolower($custno);
+        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
+        $sqlString .= " FROM $tableName";
+        $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 91";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
     }
 
     public function Add($entity)
