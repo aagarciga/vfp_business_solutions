@@ -38,10 +38,6 @@ class GetPage_Post extends Action
         $queryResult = $this->Pager->getCurrentPagedItems();
         $items = $this->controller->calculate($queryResult);
 
-//        error_log(print_r($items, true));
-
-//        $currentPagedItems = $pager['currentPagedItems'];
-
         foreach ($items as $item) {
             $current = array();
             $current['custno'] = trim($item['custno']);

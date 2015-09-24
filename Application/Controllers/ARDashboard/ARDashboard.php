@@ -79,9 +79,14 @@ class ARDashboard extends DatActionsController
                         $currentData['>91'] += $value;
                     }
 
-                    if($currentCompany === ""){
-                        $currentCompany = trim($data->COMPANY);
+//                    if($currentCompany === ""){
+//                        $currentCompany = trim($data->COMPANY);
+//                    }
+
+                    if($currentCompany === "") {
+                        $currentCompany = $this->DatUnitOfWork->ARCUSTRepository->GetCompany($currentCustno);
                     }
+
                     $currentData['company'] = $currentCompany;
 
                     $currentData['balance'] = $this->calculateBalance($currentData);

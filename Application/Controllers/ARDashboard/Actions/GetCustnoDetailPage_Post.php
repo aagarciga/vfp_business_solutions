@@ -150,7 +150,7 @@ class GetCustnoDetailPage_Post extends Action
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
         $sqlString .= " FROM $tableName";
         $sqlString .= " WHERE LOWER(CUSTNO) = '$lowerCustno'";
-        $sqlString .= " AND (CURDATE() - INVDATE) >= 46 AND (CURDATE() - INVDATE) < 60 AND OPENBAL <> 0";
+        $sqlString .= " AND (CURDATE() - INVDATE) >= 61 AND (CURDATE() - INVDATE) < 90 AND OPENBAL <> 0";
 
         $query = $this->controller->DatUnitOfWork->DBDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
