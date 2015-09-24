@@ -91,7 +91,6 @@
     if (separator == null) {
       separator = ',';
     }
-    console.log(value);
     isNegative = value < 0;
     if (isNegative) {
       value *= -1;

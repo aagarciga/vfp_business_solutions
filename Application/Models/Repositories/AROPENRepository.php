@@ -67,7 +67,7 @@ class AROPENRepository extends VFPRepository implements IRepository
      * @param $custno
      * @return mixed
      */
-    public function GetCusnoData($custno)
+    public function GetCustnoData($custno)
     {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT curdate() - invdate as DAYS, OPENBAL, COMPANY FROM $tableName";

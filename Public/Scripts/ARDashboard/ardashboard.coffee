@@ -49,7 +49,6 @@ ARDashboard.functions = {}
 
 # Cloned from financial dashboard (todo: need refactor here...
 ARDashboard.functions.formatToCurrency = (value, separator = ',') ->
-  console.log value
   isNegative = value < 0
 
   if isNegative
