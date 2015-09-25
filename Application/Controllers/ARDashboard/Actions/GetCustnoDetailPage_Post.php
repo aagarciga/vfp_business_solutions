@@ -50,6 +50,7 @@ class GetCustnoDetailPage_Post extends Action
 
             $pager = $this->Pager->PaginateForAjax($page);
             $currentPagedItems = $pager['currentPagedItems'];
+            $portion = 0.00;
             foreach ($currentPagedItems as $row){
 
                 $current = array();
@@ -61,10 +62,11 @@ class GetCustnoDetailPage_Post extends Action
                 $current['refno'] = trim($row->REFNO);
                 $current['openbal'] = $currentOpenBal;
                 $result[] = $current;
-
+                $portion += $currentOpenBal;
             }
             $pager['currentPagedItems'] = $result;
             $pager['balance'] = $balance;
+            $pager['balancePortion'] = $portion;
         }
 
         return json_encode($pager);

@@ -30,6 +30,8 @@
 
   ARDashboard.status.currentSet = 'details';
 
+  ARDashboard.status.currentBalance = "0.0";
+
   ARDashboard.status.modal_detail_CurrentTicket = '';
 
   ARDashboard.status.modal_detail_CurrentPage = 1;
@@ -115,6 +117,12 @@
       strValue = '-' + strValue;
     }
     return strValue;
+  };
+
+  ARDashboard.functions.updateDetailSumary = function(part, total) {
+    part = ARDashboard.functions.formatToCurrency(part);
+    $(ARDashboard.htmlBindings.modal_Details_balance).text("$" + part + " of $ " + total);
+    return this;
   };
 
   ARDashboard.functions.paginate = function() {
@@ -283,7 +291,8 @@
         setname: ARDashboard.status.currentSet,
         page: ARDashboard.status.modal_detail_CurrentPage,
         itemsPerPage: ARDashboard.status.modal_detail_ItemsPerPage,
-        custno: ARDashboard.status.currentCustno
+        custno: ARDashboard.status.currentCustno,
+        balance: ARDashboard.status.currentBalance
       },
       url: ARDashboard.urls.getCustnoDetailPage,
       type: 'post',
@@ -298,6 +307,7 @@
         pagerControl = pager.getPagerControl();
         $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl);
         ARDashboard.functions.modal_details_updateTable(pagerItems);
+        ARDashboard.functions.updateDetailSumary(data.balancePortion, data.balance);
         return $('.loading').hide();
       }
     });
@@ -407,7 +417,7 @@
   };
 
   ARDashboard.eventHandlers.table_body_btnCustNo_onClick = function(event) {
-    var $target, balance;
+    var $target;
     $target = $(event.target);
     if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btnCurrent.slice(1)) {
       ARDashboard.status.currentSet = 'setCurrent';
@@ -423,12 +433,12 @@
       ARDashboard.status.currentSet = 'setGreatherThan90';
     }
     ARDashboard.status.currentCustno = $target.data('custno');
-    balance = $target.parent().parent().children(':last').text();
+    ARDashboard.status.currentBalance = $target.parent().parent().children(':last').text();
     $.ajax({
       data: {
         setname: ARDashboard.status.currentSet,
         custno: ARDashboard.status.currentCustno,
-        balance: balance
+        balance: ARDashboard.status.currentBalance
       },
       url: ARDashboard.urls.getCustnoDetailPage,
       type: 'post',
@@ -438,12 +448,13 @@
       success: function(response, textStatus, jqXHR) {
         var data, pager, pagerControl, pagerItems;
         data = $.parseJSON(response);
+        console.log(data);
         pager = new BootstrapPager(data, ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick);
         pagerItems = pager.getCurrentPagedItems();
         pagerControl = pager.getPagerControl();
         $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl);
         ARDashboard.functions.modal_details_updateTable(pagerItems);
-        $(ARDashboard.htmlBindings.modal_Details_balance).text("$ " + balance);
+        ARDashboard.functions.updateDetailSumary(data.balancePortion, data.balance);
         $(ARDashboard.htmlBindings.modal_Details).modal();
         return $('.loading').hide();
       }

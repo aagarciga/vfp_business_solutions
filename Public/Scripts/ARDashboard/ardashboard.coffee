@@ -15,6 +15,7 @@ ARDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
 ARDashboard.status.currentPage = 1;
 ARDashboard.status.currentCustno = '';
 ARDashboard.status.currentSet = 'details';
+ARDashboard.status.currentBalance = "0.0";
 ARDashboard.status.modal_detail_CurrentTicket = '';
 ARDashboard.status.modal_detail_CurrentPage = 1;
 ARDashboard.status.modal_detail_ItemsPerPage = 10; # Default items per page value
@@ -76,6 +77,11 @@ ARDashboard.functions.formatToCurrency = (value, separator = ',') ->
   if isNegative
     strValue = '-' + strValue
   strValue
+
+ARDashboard.functions.updateDetailSumary = (part, total)->
+  part = ARDashboard.functions.formatToCurrency(part)
+  $(ARDashboard.htmlBindings.modal_Details_balance).text("$#{part} of $ #{total}")
+  this
 
 ARDashboard.functions.paginate = ->
   $.ajax({
@@ -240,6 +246,7 @@ ARDashboard.functions.modal_details_paginate = ->
       page: ARDashboard.status.modal_detail_CurrentPage
       itemsPerPage: ARDashboard.status.modal_detail_ItemsPerPage
       custno: ARDashboard.status.currentCustno
+      balance: ARDashboard.status.currentBalance
     url: ARDashboard.urls.getCustnoDetailPage
     type: 'post'
     beforeSend: ->
@@ -250,11 +257,10 @@ ARDashboard.functions.modal_details_paginate = ->
         ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick)
       pagerItems = pager.getCurrentPagedItems()
       pagerControl = pager.getPagerControl()
-
       $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl)
       ARDashboard.functions.modal_details_updateTable(pagerItems);
+      ARDashboard.functions.updateDetailSumary(data.balancePortion, data.balance)
 
-      #      $(PickTicket.htmlBindings.modal_TicketList_itemCounter).html("(" + pager.itemsCount + ")");
       $('.loading').hide();
   )
   this
@@ -371,18 +377,19 @@ ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
     ARDashboard.status.currentSet  = 'setGreatherThan90'
 
   ARDashboard.status.currentCustno = $target.data('custno')
-  balance = $target.parent().parent().children(':last').text()
+  ARDashboard.status.currentBalance = $target.parent().parent().children(':last').text()
   $.ajax({
     data:
       setname: ARDashboard.status.currentSet
       custno: ARDashboard.status.currentCustno
-      balance: balance
+      balance: ARDashboard.status.currentBalance
     url: ARDashboard.urls.getCustnoDetailPage
     type: 'post'
     beforeSend: ->
       $('.loading').show()
     success: (response, textStatus, jqXHR) ->
       data = $.parseJSON(response)
+      console.log data
       pager = new BootstrapPager(data,
         ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick)
       pagerItems = pager.getCurrentPagedItems()
@@ -391,7 +398,8 @@ ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
       $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl)
       ARDashboard.functions.modal_details_updateTable(pagerItems);
 
-      $(ARDashboard.htmlBindings.modal_Details_balance).text("$ #{balance}")
+      ARDashboard.functions.updateDetailSumary(data.balancePortion, data.balance)
+
       $(ARDashboard.htmlBindings.modal_Details).modal();
 
       $('.loading').hide()
@@ -404,6 +412,7 @@ ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick = (event) ->
   ARDashboard.status.modal_detail_CurrentPage = value
   ARDashboard.status.currentSet
   ARDashboard.functions.modal_details_paginate()
+
   this
 
 ARDashboard.init = (defaultUserFilter) ->
