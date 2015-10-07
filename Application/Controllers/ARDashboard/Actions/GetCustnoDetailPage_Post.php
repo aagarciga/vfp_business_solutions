@@ -18,13 +18,10 @@ class GetCustnoDetailPage_Post extends Action
 
     public function Execute()
     {
-
-
         $page = $this->Request->hasProperty('page') ? $this->Request->page : 1;
-
         $custno = $this->Request->hasProperty('custno') ? $this->Request->custno : "";
         $balance = $this->Request->hasProperty('balance') ? $this->Request->balance : "0";
-        $setname = $this->Request->hasProperty('setname') ? $this->Request->setname : "";
+        $setname = $this->Request->hasProperty('setname') ? $this->Request->setname : "details";
         $result = array();
 
         if (is_numeric($page)) {
@@ -51,6 +48,9 @@ class GetCustnoDetailPage_Post extends Action
             $pager = $this->Pager->PaginateForAjax($page);
             $currentPagedItems = $pager['currentPagedItems'];
             $portion = 0.00;
+
+            $pager['balance'] = $balance;
+            $pager['custno'] = $custno;
             foreach ($currentPagedItems as $row){
 
                 $current = array();
@@ -64,9 +64,22 @@ class GetCustnoDetailPage_Post extends Action
                 $result[] = $current;
                 $portion += $currentOpenBal;
             }
-            $pager['currentPagedItems'] = $result;
-            $pager['balance'] = $balance;
             $pager['balancePortion'] = $portion;
+            $pager['currentPagedItems'] = $result;
+
+            if ($setname === 'setCurrent')
+                $pager['setname'] = "Current";
+            if ($setname === 'set11_30')
+                $pager['setname'] = "11-30";
+            if ($setname === 'set31_45')
+                $pager['setname'] = "31-45";
+            if ($setname === 'set45_60')
+                $pager['setname'] = "45-60";
+            if ($setname === 'set61_90')
+                $pager['setname'] = "61-90";
+            if ($setname === 'setGreatherThan90')
+                $pager['setname'] = ">90";
+
         }
 
         return json_encode($pager);

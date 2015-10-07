@@ -119,9 +119,16 @@
     return strValue;
   };
 
-  ARDashboard.functions.updateDetailSumary = function(part, total) {
-    part = ARDashboard.functions.formatToCurrency(part);
-    $(ARDashboard.htmlBindings.modal_Details_balance).text("$" + part + " of $ " + total);
+  ARDashboard.functions.updateDetailSumary = function(data) {
+    var message, part, total;
+    total = data.balance;
+    part = ARDashboard.functions.formatToCurrency(data.balancePortion);
+    if (data.setname === "") {
+      message = data.custno + " balance: $ " + part + " of $ " + total;
+    } else {
+      message = "[ " + data.setname + " ] " + data.custno + " balance: $ " + part + " of $ " + total;
+    }
+    $(ARDashboard.htmlBindings.modal_Details_balance).text(message);
     return this;
   };
 
@@ -302,12 +309,13 @@
       success: function(response) {
         var data, pager, pagerControl, pagerItems;
         data = $.parseJSON(response);
+        console.log(data);
         pager = new BootstrapPager(data, ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick);
         pagerItems = pager.getCurrentPagedItems();
         pagerControl = pager.getPagerControl();
         $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl);
         ARDashboard.functions.modal_details_updateTable(pagerItems);
-        ARDashboard.functions.updateDetailSumary(data.balancePortion, data.balance);
+        ARDashboard.functions.updateDetailSumary(data);
         return $('.loading').hide();
       }
     });
@@ -419,6 +427,12 @@
   ARDashboard.eventHandlers.table_body_btnCustNo_onClick = function(event) {
     var $target;
     $target = $(event.target);
+    ARDashboard.status.currentCustno = $target.data('custno');
+    ARDashboard.status.currentBalance = $target.text().trim();
+    if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btnCustNo.slice(1)) {
+      ARDashboard.status.currentBalance = $target.parent().parent().children(':last').text();
+      ARDashboard.status.currentSet = "details";
+    }
     if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btnCurrent.slice(1)) {
       ARDashboard.status.currentSet = 'setCurrent';
     } else if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btn11_30.slice(1)) {
@@ -432,8 +446,6 @@
     } else if ($target.attr('class') === ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1)) {
       ARDashboard.status.currentSet = 'setGreatherThan90';
     }
-    ARDashboard.status.currentCustno = $target.data('custno');
-    ARDashboard.status.currentBalance = $target.parent().parent().children(':last').text();
     $.ajax({
       data: {
         setname: ARDashboard.status.currentSet,
@@ -448,13 +460,12 @@
       success: function(response, textStatus, jqXHR) {
         var data, pager, pagerControl, pagerItems;
         data = $.parseJSON(response);
-        console.log(data);
         pager = new BootstrapPager(data, ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick);
         pagerItems = pager.getCurrentPagedItems();
         pagerControl = pager.getPagerControl();
         $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl);
         ARDashboard.functions.modal_details_updateTable(pagerItems);
-        ARDashboard.functions.updateDetailSumary(data.balancePortion, data.balance);
+        ARDashboard.functions.updateDetailSumary(data);
         $(ARDashboard.htmlBindings.modal_Details).modal();
         return $('.loading').hide();
       }

@@ -78,9 +78,15 @@ ARDashboard.functions.formatToCurrency = (value, separator = ',') ->
     strValue = '-' + strValue
   strValue
 
-ARDashboard.functions.updateDetailSumary = (part, total)->
-  part = ARDashboard.functions.formatToCurrency(part)
-  $(ARDashboard.htmlBindings.modal_Details_balance).text("$#{part} of $ #{total}")
+ARDashboard.functions.updateDetailSumary = (data)->
+  total = data.balance
+  part = ARDashboard.functions.formatToCurrency(data.balancePortion)
+  if data.setname == ""
+    message = "#{data.custno} balance: $ #{part} of $ #{total}"
+  else
+    message = "[ #{data.setname} ] #{data.custno} balance: $ #{part} of $ #{total}"
+
+  $(ARDashboard.htmlBindings.modal_Details_balance).text(message)
   this
 
 ARDashboard.functions.paginate = ->
@@ -253,13 +259,14 @@ ARDashboard.functions.modal_details_paginate = ->
       $('.loading').show()
     success: (response) ->
       data = $.parseJSON(response)
+      console.log data
       pager = new BootstrapPager(data,
         ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick)
       pagerItems = pager.getCurrentPagedItems()
       pagerControl = pager.getPagerControl()
       $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl)
       ARDashboard.functions.modal_details_updateTable(pagerItems);
-      ARDashboard.functions.updateDetailSumary(data.balancePortion, data.balance)
+      ARDashboard.functions.updateDetailSumary(data)
 
       $('.loading').hide();
   )
@@ -362,7 +369,11 @@ ARDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
 ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
 
   $target = $(event.target)
-
+  ARDashboard.status.currentCustno = $target.data('custno')
+  ARDashboard.status.currentBalance = $target.text().trim()
+  if $target.attr('class') == ARDashboard.htmlBindings.table_body_btnCustNo.slice(1)
+    ARDashboard.status.currentBalance = $target.parent().parent().children(':last').text()
+    ARDashboard.status.currentSet = "details";
   if $target.attr('class') == ARDashboard.htmlBindings.table_body_btnCurrent.slice(1)
     ARDashboard.status.currentSet  = 'setCurrent'
   else if $target.attr('class') == ARDashboard.htmlBindings.table_body_btn11_30.slice(1)
@@ -376,8 +387,6 @@ ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
   else if $target.attr('class') == ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1)
     ARDashboard.status.currentSet  = 'setGreatherThan90'
 
-  ARDashboard.status.currentCustno = $target.data('custno')
-  ARDashboard.status.currentBalance = $target.parent().parent().children(':last').text()
   $.ajax({
     data:
       setname: ARDashboard.status.currentSet
@@ -389,7 +398,6 @@ ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
       $('.loading').show()
     success: (response, textStatus, jqXHR) ->
       data = $.parseJSON(response)
-      console.log data
       pager = new BootstrapPager(data,
         ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick)
       pagerItems = pager.getCurrentPagedItems()
@@ -398,7 +406,7 @@ ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
       $(ARDashboard.htmlBindings.modal_Details_Pager_container).empty().append(pagerControl)
       ARDashboard.functions.modal_details_updateTable(pagerItems);
 
-      ARDashboard.functions.updateDetailSumary(data.balancePortion, data.balance)
+      ARDashboard.functions.updateDetailSumary(data)
 
       $(ARDashboard.htmlBindings.modal_Details).modal();
 

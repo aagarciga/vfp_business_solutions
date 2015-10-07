@@ -114,7 +114,7 @@
                         <th>31-45</th>
                         <th>46-60</th>
                         <th>61-90</th>
-                        <th>>91</th>
+                        <th>>90</th>
                         <th>Balance</th>
                     </tr>
                     </thead>
@@ -220,7 +220,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Balance: <span id="balance">(0)</span></h4>
+                <h4 class="modal-title"><span id="balance">(0)</span></h4>
             </div>
             <div class="modal-body">
                 <table id="details" class="table table-striped table-condensed table-hover">
