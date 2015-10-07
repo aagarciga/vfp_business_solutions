@@ -195,22 +195,40 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     simpleTdBuilder(dataRow.company)
 
   tdCurrentBuilder = ->
-    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1))
+    if dataRow.current == '0'
+      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current))
+    else
+      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1))
 
   tdInterval1130Builder = ->
-    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']), ARDashboard.htmlBindings.table_body_btn11_30.slice(1))
+    if dataRow['11-30'] == '0'
+      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']))
+    else
+      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']), ARDashboard.htmlBindings.table_body_btn11_30.slice(1))
 
   tdInterval3145Builder = ->
-    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']), ARDashboard.htmlBindings.table_body_btn31_45.slice(1))
+    if dataRow['31-45'] == '0'
+      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']))
+    else
+      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']), ARDashboard.htmlBindings.table_body_btn31_45.slice(1))
 
   tdInterval4660Builder = ->
-    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']), ARDashboard.htmlBindings.table_body_btn46_60.slice(1))
+    if dataRow['46-60'] == '0'
+      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']))
+    else
+      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']), ARDashboard.htmlBindings.table_body_btn46_60.slice(1))
 
   tdInterval6190Builder = ->
-    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']), ARDashboard.htmlBindings.table_body_btn61_90.slice(1))
+    if dataRow['61-90'] == '0'
+      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']))
+    else
+      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']), ARDashboard.htmlBindings.table_body_btn61_90.slice(1))
 
   tdIntervalMoreThan90Builder = ->
-    withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1))
+    if dataRow['>91'] == '0'
+      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']))
+    else
+      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1))
 
   tdBalanceBuilder = ->
     simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.balance))
@@ -259,7 +277,6 @@ ARDashboard.functions.modal_details_paginate = ->
       $('.loading').show()
     success: (response) ->
       data = $.parseJSON(response)
-      console.log data
       pager = new BootstrapPager(data,
         ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick)
       pagerItems = pager.getCurrentPagedItems()

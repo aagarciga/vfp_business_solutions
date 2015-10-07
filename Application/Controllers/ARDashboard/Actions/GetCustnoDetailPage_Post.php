@@ -67,6 +67,7 @@ class GetCustnoDetailPage_Post extends Action
             $pager['balancePortion'] = $portion;
             $pager['currentPagedItems'] = $result;
 
+            $pager['setname'] = "";
             if ($setname === 'setCurrent')
                 $pager['setname'] = "Current";
             if ($setname === 'set11_30')

@@ -120,42 +120,74 @@
                     </thead>
                     <body>
                     <?php foreach ($Items as $item): ?>
+                        <?php $currentCustno = trim($item->getCustno()) ?>
                         <tr>
                             <td class="item-field">
-                                <a href="#" class="btn-custno-form-link" data-custno="<?php echo trim($item->getCustno()) ?>">
+                                <a href="#" class="btn-custno-form-link" data-custno="<?php echo $currentCustno ?>">
                                     <?php echo $item->getCustno() ?>
                                 </a>
                             </td>
                             <td class="item-field"><?php echo $item->getCompany() ?></td>
                             <td class="item-field">
-                                <a href="#" class="btn-current-form-link" data-custno="<?php echo $item->getCustno() ?>">
-                                    <?php echo $item->getCurrent(true) ?>
-                                </a>
+                                <?php $interval = $item->getCurrent(true) ?>
+                                <?php if ($interval === "0.00"): ?>
+                                    <?php echo $interval ?>
+                                <?php else: ?>
+                                    <a href="#" class="btn-current-form-link" data-custno="<?php echo $currentCustno ?>">
+                                        <?php echo $interval ?>
+                                    </a>
+                                <?php endif?>
                             </td>
                             <td class="item-field">
-                                <a href="#" class="btn-11-30-form-link" data-custno="<?php echo $item->getCustno() ?>">
-                                    <?php echo $item->getInterval1130(true) ?>
+                                <?php $interval = $item->getInterval1130(true) ?>
+                                <?php if ($interval === "0.00"): ?>
+                                    <?php echo $interval ?>
+                                <?php else: ?>
+                                <a href="#" class="btn-11-30-form-link" data-custno="<?php echo $currentCustno ?>">
+                                    <?php echo $interval ?>
                                 </a>
+                                <?php endif?>
                             </td>
                             <td class="item-field">
-                                <a href="#" class="btn-31-45-form-link" data-custno="<?php echo $item->getCustno() ?>">
-                                    <?php echo $item->getInterval3145(true) ?>
-                                </a>
+                                <?php $interval = $item->getInterval3145(true) ?>
+                                <?php if ($interval === "0.00"): ?>
+                                    <?php echo $interval ?>
+                                <?php else: ?>
+                                    <a href="#" class="btn-31-45-form-link" data-custno="<?php echo $currentCustno ?>">
+                                        <?php echo $interval ?>
+                                    </a>
+                                <?php endif?>
                             </td>
                             <td class="item-field">
-                                <a href="#" class="btn-46-60-form-link" data-custno="<?php echo $item->getCustno() ?>">
-                                    <?php echo $item->getInterval4660(true) ?>
-                                </a>
+                                <?php $interval = $item->getInterval4660(true) ?>
+                                <?php if ($interval === "0.00"): ?>
+                                    <?php echo $interval ?>
+                                <?php else: ?>
+                                    <a href="#" class="btn-46-60-form-link" data-custno="<?php echo $currentCustno ?>">
+                                        <?php echo $interval ?>
+                                    </a>
+                                <?php endif?>
                             </td>
                             <td class="item-field">
-                                <a href="#" class="btn-61-90-form-link" data-custno="<?php echo $item->getCustno() ?>">
-                                    <?php echo $item->getInterval6190(true) ?>
-                                </a>
+                                <?php $interval = $item->getInterval6190(true) ?>
+                                <?php if ($interval === "0.00"): ?>
+                                    <?php echo $interval ?>
+                                <?php else: ?>
+                                    <a href="#" class="btn-61-90-form-link" data-custno="<?php echo $currentCustno ?>">
+                                        <?php echo $interval ?>
+                                    </a>
+                                <?php endif?>
                             </td>
                             <td class="item-field">
-                                <a href="#" class="btn-more-than-90-form-link" data-custno="<?php echo $item->getCustno() ?>">
-                                    <?php echo $item->getMorethan91(true) ?>
-                                </a>
+                                <?php $interval = $item->getMorethan91(true) ?>
+                                <?php if ($interval === "0.00"): ?>
+                                    <?php echo $interval ?>
+                                <?php else: ?>
+                                    <a href="#" class="btn-more-than-90-form-link" data-custno="<?php echo $currentCustno ?>">
+                                        <?php echo $interval ?>
+                                    </a>
+                                <?php endif?>
+
                             </td>
                             <td class="item-field"><?php echo $item->getBalance(true) ?></td>
                         </tr>
