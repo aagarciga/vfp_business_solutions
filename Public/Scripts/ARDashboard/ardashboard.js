@@ -88,45 +88,14 @@
 
   ARDashboard.functions = {};
 
-  ARDashboard.functions.formatToCurrency = function(value, separator) {
-    var commaCount, included, isNegative, offset, strValue;
-    if (separator == null) {
-      separator = ',';
-    }
-    isNegative = value < 0;
-    if (isNegative) {
-      value *= -1;
-    }
-    strValue = value.toString();
-    commaCount = parseInt((strValue.length / 3) - 1, 10);
-    offset = 0;
-    included = !!~strValue.indexOf('.');
-    if (included) {
-      offset = strValue.slice(strValue.indexOf('.')).length;
-    }
-    strValue = strValue.split('').reverse().join('');
-    while (commaCount !== 0) {
-      strValue = strValue.slice(0, (commaCount * 3) + offset) + separator + strValue.slice((commaCount * 3) + offset);
-      commaCount -= 1;
-    }
-    strValue = strValue.split('').reverse().join('');
-    if (strValue.charAt(0) === separator) {
-      strValue = strValue.slice(1);
-    }
-    if (isNegative) {
-      strValue = '-' + strValue;
-    }
-    return strValue;
-  };
-
   ARDashboard.functions.updateDetailSumary = function(data) {
     var message, part, total;
-    total = data.balance;
-    part = ARDashboard.functions.formatToCurrency(data.balancePortion);
+    total = accounting.formatMoney(data.balance, '$ ');
+    part = accounting.formatMoney(data.balancePortion, '');
     if (data.setname === "") {
-      message = data.custno + " balance: $ " + part + " of $ " + total;
+      message = data.custno + " balance: " + total;
     } else {
-      message = "[ " + data.setname + " ] " + data.custno + " balance: $ " + part + " of $ " + total;
+      message = " " + data.custno + " [ " + data.setname + " ] balance: " + total;
     }
     $(ARDashboard.htmlBindings.modal_Details_balance).text(message);
     return this;
@@ -241,48 +210,48 @@
     };
     tdCurrentBuilder = function() {
       if (dataRow.current === '0') {
-        return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current));
+        return simpleTdBuilder(accounting.formatMoney(dataRow.current, ''));
       } else {
-        return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1));
+        return withLinkTdBuilder(accounting.formatMoney(dataRow.current, ''), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1));
       }
     };
     tdInterval1130Builder = function() {
       if (dataRow['11-30'] === '0') {
-        return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']));
+        return simpleTdBuilder(accounting.formatMoney(dataRow['11-30'], ''));
       } else {
-        return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']), ARDashboard.htmlBindings.table_body_btn11_30.slice(1));
+        return withLinkTdBuilder(accounting.formatMoneyformatMoney(dataRow['11-30'], ''), ARDashboard.htmlBindings.table_body_btn11_30.slice(1));
       }
     };
     tdInterval3145Builder = function() {
       if (dataRow['31-45'] === '0') {
-        return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']));
+        return simpleTdBuilder(accounting.formatMoney(dataRow['31-45'], ''));
       } else {
-        return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']), ARDashboard.htmlBindings.table_body_btn31_45.slice(1));
+        return withLinkTdBuilder(accounting.formatMoney(dataRow['31-45'], ''), ARDashboard.htmlBindings.table_body_btn31_45.slice(1));
       }
     };
     tdInterval4660Builder = function() {
       if (dataRow['46-60'] === '0') {
-        return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']));
+        return simpleTdBuilder(accounting.formatMoney(dataRow['46-60'], ''));
       } else {
-        return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']), ARDashboard.htmlBindings.table_body_btn46_60.slice(1));
+        return withLinkTdBuilder(accounting.formatMoney(dataRow['46-60'], ''), ARDashboard.htmlBindings.table_body_btn46_60.slice(1));
       }
     };
     tdInterval6190Builder = function() {
       if (dataRow['61-90'] === '0') {
-        return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']));
+        return simpleTdBuilder(accounting.formatMoney(dataRow['61-90'], ''));
       } else {
-        return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']), ARDashboard.htmlBindings.table_body_btn61_90.slice(1));
+        return withLinkTdBuilder(accounting.formatMoney(dataRow['61-90'], ''), ARDashboard.htmlBindings.table_body_btn61_90.slice(1));
       }
     };
     tdIntervalMoreThan90Builder = function() {
       if (dataRow['>91'] === '0') {
-        return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']));
+        return simpleTdBuilder(accounting.formatMoney(dataRow['>91'], ''));
       } else {
-        return withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1));
+        return withLinkTdBuilder(accounting.formatMoney(dataRow['>91'], ''), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1));
       }
     };
     tdBalanceBuilder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.balance));
+      return simpleTdBuilder(accounting.formatMoney(dataRow.balance, ''));
     };
     result.className = trClass;
     result.appendChild(tdCustNoBuilder());
@@ -371,7 +340,7 @@
       return td;
     };
     tdAmtpaidBuilder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.amtpaid), 'currency');
+      return simpleTdBuilder(accounting.formatMoney(dataRow.amtpaid), 'currency');
     };
     tdDatepaidBuilder = function() {
       return simpleTdBuilder(dataRow.datepaid);
@@ -383,7 +352,7 @@
       return simpleTdBuilder(dataRow.invno);
     };
     tdOpenbalBuilder = function() {
-      return simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.openbal), 'currency');
+      return simpleTdBuilder(accounting.formatMoney(dataRow.openbal, ''), 'currency');
     };
     tdRefnoBuilder = function() {
       return simpleTdBuilder(dataRow.refno);

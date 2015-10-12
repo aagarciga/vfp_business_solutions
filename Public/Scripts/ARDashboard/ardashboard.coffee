@@ -49,42 +49,48 @@ ARDashboard.htmlBindings.modal_Details_Table = '#details';
 ARDashboard.functions = {}
 
 # Cloned from financial dashboard (todo: need refactor here...
-ARDashboard.functions.formatToCurrency = (value, separator = ',') ->
-  isNegative = value < 0
-
-  if isNegative
-    value *= -1
-
-  strValue = value.toString()
-  commaCount = parseInt((strValue.length / 3) - 1, 10)
-  offset = 0
-  included = !!~strValue.indexOf('.') # Using bitwise operator instead (!== -1)
-
-  if included # strValue.indexOf('.') isnt -1
-    offset = strValue.slice(strValue.indexOf('.')).length
-
-  strValue = strValue.split('').reverse().join('') # reversing string
-
-  while commaCount isnt 0
-    strValue = strValue.slice(0, (commaCount * 3) + offset) + separator + strValue.slice((commaCount * 3) + offset)
-    commaCount -= 1
-
-  strValue = strValue.split('').reverse().join('') # reversing string back
-
-  if strValue.charAt(0) == separator
-    strValue = strValue.slice(1)
-
-  if isNegative
-    strValue = '-' + strValue
-  strValue
+#ARDashboard.functions.formatToCurrency = (value, separator = ',') ->
+#  isNegative = value < 0
+#  console.log  "Value", value
+#  if isNegative
+#    value *= -1
+#    console.log "is negative"
+#    console.log value
+#
+#  strValue = value.toString()
+#  if isNegative
+#    console.log strValue
+#  commaCount = parseInt((strValue.length / 3) - 1, 10)
+#  offset = 0
+#  included = !!~strValue.indexOf('.') # Using bitwise operator instead (!== -1)
+#
+#  if included # strValue.indexOf('.') isnt -1
+#    offset = strValue.slice(strValue.indexOf('.')).length
+#
+#  strValue = strValue.split('').reverse().join('') # reversing string
+#
+#  while commaCount isnt 0
+#    strValue = strValue.slice(0, (commaCount * 3) + offset) + separator + strValue.slice((commaCount * 3) + offset)
+#    commaCount -= 1
+#
+#  strValue = strValue.split('').reverse().join('') # reversing string back
+#
+#  if strValue.charAt(0) == separator
+#    strValue = strValue.slice(1)
+#
+#  if isNegative
+#    strValue = '-' + strValue
+#    console.log strValue
+#
+#  strValue
 
 ARDashboard.functions.updateDetailSumary = (data)->
-  total = data.balance
-  part = ARDashboard.functions.formatToCurrency(data.balancePortion)
+  total = accounting.formatMoney(data.balance, '$ ')
+  part = accounting.formatMoney(data.balancePortion, '')
   if data.setname == ""
-    message = "#{data.custno} balance: $ #{part} of $ #{total}"
+    message = "#{data.custno} balance: #{total}"
   else
-    message = "[ #{data.setname} ] #{data.custno} balance: $ #{part} of $ #{total}"
+    message = " #{data.custno} [ #{data.setname} ] balance: #{total}"
 
   $(ARDashboard.htmlBindings.modal_Details_balance).text(message)
   this
@@ -196,42 +202,42 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
 
   tdCurrentBuilder = ->
     if dataRow.current == '0'
-      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current))
+      simpleTdBuilder(accounting.formatMoney(dataRow.current, ''))
     else
-      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.current), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow.current, ''), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1))
 
   tdInterval1130Builder = ->
     if dataRow['11-30'] == '0'
-      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']))
+      simpleTdBuilder(accounting.formatMoney(dataRow['11-30'], ''))
     else
-      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['11-30']), ARDashboard.htmlBindings.table_body_btn11_30.slice(1))
+      withLinkTdBuilder(accounting.formatMoneyformatMoney(dataRow['11-30'], ''), ARDashboard.htmlBindings.table_body_btn11_30.slice(1))
 
   tdInterval3145Builder = ->
     if dataRow['31-45'] == '0'
-      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']))
+      simpleTdBuilder(accounting.formatMoney(dataRow['31-45'], ''))
     else
-      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['31-45']), ARDashboard.htmlBindings.table_body_btn31_45.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow['31-45'], ''), ARDashboard.htmlBindings.table_body_btn31_45.slice(1))
 
   tdInterval4660Builder = ->
     if dataRow['46-60'] == '0'
-      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']))
+      simpleTdBuilder(accounting.formatMoney(dataRow['46-60'], ''))
     else
-      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['46-60']), ARDashboard.htmlBindings.table_body_btn46_60.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow['46-60'], ''), ARDashboard.htmlBindings.table_body_btn46_60.slice(1))
 
   tdInterval6190Builder = ->
     if dataRow['61-90'] == '0'
-      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']))
+      simpleTdBuilder(accounting.formatMoney(dataRow['61-90'], ''))
     else
-      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['61-90']), ARDashboard.htmlBindings.table_body_btn61_90.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow['61-90'], ''), ARDashboard.htmlBindings.table_body_btn61_90.slice(1))
 
   tdIntervalMoreThan90Builder = ->
     if dataRow['>91'] == '0'
-      simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']))
+      simpleTdBuilder(accounting.formatMoney(dataRow['>91'], ''))
     else
-      withLinkTdBuilder(ARDashboard.functions.formatToCurrency(dataRow['>91']), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow['>91'], ''), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1))
 
   tdBalanceBuilder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.balance))
+    simpleTdBuilder(accounting.formatMoney(dataRow.balance, ''))
 
   result.className = trClass;
   result.appendChild(tdCustNoBuilder());
@@ -311,7 +317,7 @@ ARDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
     td
 
   tdAmtpaidBuilder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.amtpaid), 'currency')
+    simpleTdBuilder(accounting.formatMoney(dataRow.amtpaid), 'currency')
 
   tdDatepaidBuilder = ->
     simpleTdBuilder(dataRow.datepaid)
@@ -323,7 +329,7 @@ ARDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
     simpleTdBuilder(dataRow.invno)
 
   tdOpenbalBuilder = ->
-    simpleTdBuilder(ARDashboard.functions.formatToCurrency(dataRow.openbal), 'currency')
+    simpleTdBuilder(accounting.formatMoney(dataRow.openbal, ''), 'currency')
 
   tdRefnoBuilder = ->
     simpleTdBuilder(dataRow.refno)
