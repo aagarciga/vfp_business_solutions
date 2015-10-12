@@ -141,7 +141,7 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   doc = global.document
   result = doc.createElement('tr')
 
-  simpleTdBuilder = (data) ->
+  simpleTdBuilder = (data, tdClass) ->
     td = doc.createElement('td')
     td.className = tdClass
     td.appendChild(doc.createTextNode(data))
@@ -202,42 +202,42 @@ ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
 
   tdCurrentBuilder = ->
     if dataRow.current == '0'
-      simpleTdBuilder(accounting.formatMoney(dataRow.current, ''))
+      simpleTdBuilder(accounting.formatMoney(dataRow.current, ''), 'currency')
     else
-      withLinkTdBuilder(accounting.formatMoney(dataRow.current, ''), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow.current, ''), ARDashboard.htmlBindings.table_body_btnCurrent.slice(1), 'currency')
 
   tdInterval1130Builder = ->
     if dataRow['11-30'] == '0'
-      simpleTdBuilder(accounting.formatMoney(dataRow['11-30'], ''))
+      simpleTdBuilder(accounting.formatMoney(dataRow['11-30'], ''), 'currency')
     else
-      withLinkTdBuilder(accounting.formatMoneyformatMoney(dataRow['11-30'], ''), ARDashboard.htmlBindings.table_body_btn11_30.slice(1))
+      withLinkTdBuilder(accounting.formatMoneyformatMoney(dataRow['11-30'], ''), ARDashboard.htmlBindings.table_body_btn11_30.slice(1), 'currency')
 
   tdInterval3145Builder = ->
     if dataRow['31-45'] == '0'
-      simpleTdBuilder(accounting.formatMoney(dataRow['31-45'], ''))
+      simpleTdBuilder(accounting.formatMoney(dataRow['31-45'], ''), 'currency')
     else
-      withLinkTdBuilder(accounting.formatMoney(dataRow['31-45'], ''), ARDashboard.htmlBindings.table_body_btn31_45.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow['31-45'], ''), ARDashboard.htmlBindings.table_body_btn31_45.slice(1), 'currency')
 
   tdInterval4660Builder = ->
     if dataRow['46-60'] == '0'
-      simpleTdBuilder(accounting.formatMoney(dataRow['46-60'], ''))
+      simpleTdBuilder(accounting.formatMoney(dataRow['46-60'], ''), 'currency')
     else
-      withLinkTdBuilder(accounting.formatMoney(dataRow['46-60'], ''), ARDashboard.htmlBindings.table_body_btn46_60.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow['46-60'], ''), ARDashboard.htmlBindings.table_body_btn46_60.slice(1), 'currency')
 
   tdInterval6190Builder = ->
     if dataRow['61-90'] == '0'
-      simpleTdBuilder(accounting.formatMoney(dataRow['61-90'], ''))
+      simpleTdBuilder(accounting.formatMoney(dataRow['61-90'], ''), 'currency')
     else
-      withLinkTdBuilder(accounting.formatMoney(dataRow['61-90'], ''), ARDashboard.htmlBindings.table_body_btn61_90.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow['61-90'], ''), ARDashboard.htmlBindings.table_body_btn61_90.slice(1), 'currency')
 
   tdIntervalMoreThan90Builder = ->
     if dataRow['>91'] == '0'
-      simpleTdBuilder(accounting.formatMoney(dataRow['>91'], ''))
+      simpleTdBuilder(accounting.formatMoney(dataRow['>91'], ''), 'currency')
     else
-      withLinkTdBuilder(accounting.formatMoney(dataRow['>91'], ''), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1))
+      withLinkTdBuilder(accounting.formatMoney(dataRow['>91'], ''), ARDashboard.htmlBindings.table_body_btnMoreThan90.slice(1), 'currency')
 
   tdBalanceBuilder = ->
-    simpleTdBuilder(accounting.formatMoney(dataRow.balance, ''))
+    simpleTdBuilder(accounting.formatMoney(dataRow.balance, ''), 'currency')
 
   result.className = trClass;
   result.appendChild(tdCustNoBuilder());
@@ -317,7 +317,7 @@ ARDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
     td
 
   tdAmtpaidBuilder = ->
-    simpleTdBuilder(accounting.formatMoney(dataRow.amtpaid), 'currency')
+    simpleTdBuilder(accounting.formatMoney(dataRow.amtpaid, ''), 'currency')
 
   tdDatepaidBuilder = ->
     simpleTdBuilder(dataRow.datepaid)

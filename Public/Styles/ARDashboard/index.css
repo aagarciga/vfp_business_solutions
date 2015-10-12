@@ -49,3 +49,7 @@ ul.pagination {
     margin-bottom: 15px;
   }
 }
+.currency {
+  text-align: right;
+  padding-right: 10px !important;
+}

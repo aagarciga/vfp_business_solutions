@@ -109,13 +109,13 @@
                         <th>Company
 <!--                            <button data-field="company" class="btn-table-sort"></button>-->
                         </th>
-                        <th>Current</th>
-                        <th>11-30</th>
-                        <th>31-45</th>
-                        <th>46-60</th>
-                        <th>61-90</th>
-                        <th>>90</th>
-                        <th>Balance</th>
+                        <th class="currency">Current</th>
+                        <th class="currency">11-30</th>
+                        <th class="currency">31-45</th>
+                        <th class="currency">46-60</th>
+                        <th class="currency">61-90</th>
+                        <th class="currency">>90</th>
+                        <th class="currency">Balance</th>
                     </tr>
                     </thead>
                     <body>
@@ -128,7 +128,7 @@
                                 </a>
                             </td>
                             <td class="item-field"><?php echo $item->getCompany() ?></td>
-                            <td class="item-field">
+                            <td class="item-field currency">
                                 <?php $interval = $item->getCurrent(true) ?>
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
@@ -138,7 +138,7 @@
                                     </a>
                                 <?php endif?>
                             </td>
-                            <td class="item-field">
+                            <td class="item-field currency">
                                 <?php $interval = $item->getInterval1130(true) ?>
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
@@ -148,7 +148,7 @@
                                 </a>
                                 <?php endif?>
                             </td>
-                            <td class="item-field">
+                            <td class="item-field currency">
                                 <?php $interval = $item->getInterval3145(true) ?>
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
@@ -158,7 +158,7 @@
                                     </a>
                                 <?php endif?>
                             </td>
-                            <td class="item-field">
+                            <td class="item-field currency">
                                 <?php $interval = $item->getInterval4660(true) ?>
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
@@ -168,7 +168,7 @@
                                     </a>
                                 <?php endif?>
                             </td>
-                            <td class="item-field">
+                            <td class="item-field currency">
                                 <?php $interval = $item->getInterval6190(true) ?>
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
@@ -178,7 +178,7 @@
                                     </a>
                                 <?php endif?>
                             </td>
-                            <td class="item-field">
+                            <td class="item-field currency">
                                 <?php $interval = $item->getMorethan91(true) ?>
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
@@ -189,7 +189,7 @@
                                 <?php endif?>
 
                             </td>
-                            <td class="item-field"><?php echo $item->getBalance(true) ?></td>
+                            <td class="item-field currency"><?php echo $item->getBalance(true) ?></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
@@ -269,10 +269,10 @@
                     <tr>
                         <th class="th-invno">Invoice No.</th>
                         <th class="th-invdate">Invoice Date</th>
-                        <th class="th-amtpaid">Amount Paid</th>
+                        <th class="th-amtpaid currency">Amount Paid</th>
                         <th class="th-datepaid">Date Paid</th>
                         <th class="th-refno">Ref No.</th>
-                        <th class="th-openbal">Open Balance</th>
+                        <th class="th-openbal currency">Open Balance</th>
                     </tr>
                     </thead>
                     <tfoot>
