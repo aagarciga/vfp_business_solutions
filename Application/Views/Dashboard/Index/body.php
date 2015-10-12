@@ -11,7 +11,7 @@
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                 Sales Order
+                Work Order
             </a>
         </div>
 
@@ -71,7 +71,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
-                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Sales Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Work Order</a></li>
                             <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Purchase Order</a></li>
                             <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a></li>
                             <li><a href="#" class="filter-field" data-field="vesselid" data-field-type="dropdown" data-field-collection="vesselDictionary">Vessel</a></li>
@@ -117,7 +117,7 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Sales Order <button data-field="ordnum" class="btn-table-sort"></button></th>
+                            <th>Work Order <button data-field="ordnum" class="btn-table-sort"></button></th>
                             <th>Purchase Order <button data-field="ponum" class="btn-table-sort"></button></th>
                             <th>Company <button data-field="company" class="btn-table-sort"></button></th>
                             <th>Vessel <button data-field="vesselid" class="btn-table-sort"></button></th>

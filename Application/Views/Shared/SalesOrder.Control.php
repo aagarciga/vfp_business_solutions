@@ -1,7 +1,7 @@
 <div id="kb-view-salesorder">
     <div id="salesOrderForm" class="container">
         <div class="row">
-            <div class="feedback alert alert-info">Sales Order</div>
+            <div class="feedback alert alert-info">Work Order</div>
         </div>
         <div class="row">
             <div class="col-xs-8">
@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-xs-6">           
                                 <div class="form-group">
-                                    <label class="control-label"><span class="glyphicon glyphicon-log-list"></span> SO No.</label>
+                                    <label class="control-label"><span class="glyphicon glyphicon-log-list"></span> Work Order No.</label>
                                     <input type="text" class="form-control input" title="Sales Order" data-bind="value: ordnum" disabled="disabled"/>
                                 </div>
                             </div>
