@@ -8,27 +8,6 @@ FinancialDashboard.status = {}
 FinancialDashboard.dictionaries = {}
 FinancialDashboard.htmlBindings = {}
 FinancialDashboard.functions = {}
-FinancialDashboard.functions.formatToCurrency = (value, separator = ',')->
-  strValue = value.toString()
-  commaCount = parseInt((strValue.length / 3) - 1, 10)
-  offset = 0
-  included = !!~ strValue.indexOf('.') # Using bitwise operator instead (!== -1)
-
-  if included # strValue.indexOf('.') isnt -1
-    offset = strValue.slice(strValue.indexOf('.')).length
-
-  strValue = strValue.split('').reverse().join('') # reversing string
-
-  while commaCount isnt 0
-    strValue = strValue.slice(0, (commaCount * 3) + offset) + separator + strValue.slice((commaCount * 3) + offset)
-    commaCount -= 1
-
-  strValue = strValue.split('').reverse().join('') # reversing string back
-
-  if strValue.charAt(0) == separator
-    strValue = strValue.slice(1)
-  strValue
-
 FinancialDashboard.eventHandlers = {}
 
 FinancialDashboard.init = (chartData) ->
@@ -52,7 +31,7 @@ FinancialDashboard.init = (chartData) ->
       'gridPosition': "start",
       'titleBold': true,
       'labelsEnabled': false,
-      'title': "NET: $ " + FinancialDashboard.functions.formatToCurrency(chartData[0].net)
+      'title': "NET: $ " + accounting.formatMoney(chartData[0].net, '')
     'valueAxes': [ {
       'stackType': "regular",
       'gridAlpha': 0.1,
@@ -158,8 +137,6 @@ FinancialDashboard.init = (chartData) ->
       ]
     }
   })
-#  financialChart.addListener("clickGraph", FinancialDashboard.eventHandlers.onClickGraph)
-#  financialChart.addListener("rollOverGraph", FinancialDashboard.eventHandlers.onHoverGraph)
 
   $.ajax(
     data: {}
@@ -174,11 +151,6 @@ FinancialDashboard.init = (chartData) ->
       console.log data.chartData
       arSummaryChart = AmCharts.makeChart("ar-summary-chart",
         'type': "pie"
-#        'titles': [{
-#          'text': "Account Receivable"
-#          'size': 12
-#          'color': '#444'
-#        }]
         'titleField': "interval"
         'valueField': "value"
         'dataProvider': data.chartData
@@ -186,7 +158,6 @@ FinancialDashboard.init = (chartData) ->
         'labelText': "[[title]]"
         'allLabels': [{
             "y": '47%'
-  #            "y": 20
             "text": 'Account Receivable'
             "align": "center"
             "size": 12
@@ -198,8 +169,7 @@ FinancialDashboard.init = (chartData) ->
           },
           {
             "y": '52%'
-#            "y": 20
-            "text": '$ ' + FinancialDashboard.functions.formatToCurrency(chartData[0].ar)
+            "text": '$ ' + accounting.formatMoney(chartData[0].ar, '')
             "align": "center"
             "size": 12
             "color": "#444"
@@ -209,15 +179,11 @@ FinancialDashboard.init = (chartData) ->
             "url": FinancialDashboard.urls.ARDashboard
           }
         ]
-#        'startDuration': 0
         'startEffect': 'easeInSine'
         'outlineColor': "#FFFFFF"
         'outlineAlpha': 0.8
         'outlineThickness': 2
         'innerRadius': '75%'
-#        'radius': '15%'
-#        'showZeroSlices': true
-#        'labelRadius': -20
         'balloonText': "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>"
         'colors': ["#B0DE09", "#F8FF01", "#FCD202", "#FF9E01", "#FF6600", "#cc3333"]
         'legend':

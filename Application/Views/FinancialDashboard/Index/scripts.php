@@ -1,7 +1,7 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.min.js'); ?>"></script>
 <script src="<?php echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?>"></script>
-
+<script src="<?php echo $View->SharedScriptsContext('accounting.min.js'); ?>"></script>
 
 
 <script src="<?php echo $View->PublicVendorContext('amcharts/amcharts.js'); ?>"></script>

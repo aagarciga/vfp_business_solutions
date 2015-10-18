@@ -20,30 +20,6 @@
 
   FinancialDashboard.functions = {};
 
-  FinancialDashboard.functions.formatToCurrency = function(value, separator) {
-    var commaCount, included, offset, strValue;
-    if (separator == null) {
-      separator = ',';
-    }
-    strValue = value.toString();
-    commaCount = parseInt((strValue.length / 3) - 1, 10);
-    offset = 0;
-    included = !!~strValue.indexOf('.');
-    if (included) {
-      offset = strValue.slice(strValue.indexOf('.')).length;
-    }
-    strValue = strValue.split('').reverse().join('');
-    while (commaCount !== 0) {
-      strValue = strValue.slice(0, (commaCount * 3) + offset) + separator + strValue.slice((commaCount * 3) + offset);
-      commaCount -= 1;
-    }
-    strValue = strValue.split('').reverse().join('');
-    if (strValue.charAt(0) === separator) {
-      strValue = strValue.slice(1);
-    }
-    return strValue;
-  };
-
   FinancialDashboard.eventHandlers = {};
 
   FinancialDashboard.init = function(chartData) {
@@ -70,7 +46,7 @@
         'gridPosition': "start",
         'titleBold': true,
         'labelsEnabled': false,
-        'title': "NET: $ " + FinancialDashboard.functions.formatToCurrency(chartData[0].net)
+        'title': "NET: $ " + accounting.formatMoney(chartData[0].net, '')
       },
       'valueAxes': [
         {
@@ -207,7 +183,7 @@
               "url": FinancialDashboard.urls.ARDashboard
             }, {
               "y": '52%',
-              "text": '$ ' + FinancialDashboard.functions.formatToCurrency(chartData[0].ar),
+              "text": '$ ' + accounting.formatMoney(chartData[0].ar, ''),
               "align": "center",
               "size": 12,
               "color": "#444",
