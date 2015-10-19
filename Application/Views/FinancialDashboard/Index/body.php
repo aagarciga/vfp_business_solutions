@@ -60,6 +60,14 @@
                 </section>
             </div>
         </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <div id="ap-chart-summary-wrapper" >
+                <section class="chart-wrapper">
+                    <div id="ap-summary-chart" class="chart-container">
+                    </div>
+                </section>
+            </div>
+        </div>
 
     </div>
 

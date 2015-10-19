@@ -148,7 +148,6 @@ FinancialDashboard.init = (chartData) ->
       data = $.parseJSON(response);
 
       data.chartData.urlARDashboard = FinancialDashboard.urls.ARDashboard
-      console.log data.chartData
       arSummaryChart = AmCharts.makeChart("ar-summary-chart",
         'type': "pie"
         'titleField': "interval"
@@ -228,6 +227,100 @@ FinancialDashboard.init = (chartData) ->
               }
             ]
           }
+      )
+      $('.loading').hide();
+  )
+
+  $.ajax(
+    data: {}
+    url: FinancialDashboard.urls.getAPData
+    type: 'get'
+    beforeSend: ->
+      $('.loading').show()
+    success: (response) ->
+      console.log ">>>>", response
+      data = $.parseJSON(response);
+
+      data.chartData.urlAPDashboard = FinancialDashboard.urls.APDashboard
+      apSummaryChart = AmCharts.makeChart("ap-summary-chart",
+        'type': "pie"
+        'titleField': "interval"
+        'valueField': "value"
+        'dataProvider': data.chartData
+        'urlField': 'urlAPDashboard'
+        'labelText': "[[title]]"
+        'allLabels': [{
+          "y": '47%'
+          "text": 'Account Payable'
+          "align": "center"
+          "size": 12
+          "color": "#222"
+          "alpha": 1,
+          "rotation": 0,
+          "bold": true,
+          "url": FinancialDashboard.urls.APDashboard
+        },
+          {
+            "y": '52%'
+            "text": '$ ' + accounting.formatMoney(chartData[0].ap, '')
+            "align": "center"
+            "size": 12
+            "color": "#444"
+            "alpha": 1,
+            "rotation": 0,
+            "bold": true,
+            "url": FinancialDashboard.urls.APDashboard
+          }
+        ]
+        'startEffect': 'easeInSine'
+        'outlineColor': "#FFFFFF"
+        'outlineAlpha': 0.8
+        'outlineThickness': 2
+        'innerRadius': '75%'
+        'balloonText': "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>"
+        'colors': ["#B0DE09", "#F8FF01", "#FCD202", "#FF9E01", "#FF6600", "#cc3333"]
+        'legend':
+          'align': "center",
+          'forceWidth': true
+          'valueText': "$ [[value]]"
+          'markerType': "square",
+          'horizontalGap': 10,
+          'labelWidth': 120,
+          'position': 'right',
+        'export':
+          'enabled': true
+        'responsive': {
+          "enabled": true
+          'rules': [
+            {
+              "minWidth": 500,
+              "legendPosition": "right",
+              "overrides": {
+                "legend": {
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "maxWidth": 499,
+              "legendPosition": "right",
+              "overrides": {
+                'allLabels': [
+                  {
+                    "y": '47%'
+                    "text": 'Account Payable'
+                  },
+                  {
+                    "y": '52%'
+                  }
+                ]
+                "legend": {
+                  "enabled": false
+                }
+              }
+            }
+          ]
+        }
       )
       $('.loading').hide();
   )

@@ -47,14 +47,44 @@ class APOPENRepository extends VFPRepository implements IRepository {
 
         return $result;
     }
-    
+
     public function GetAccountPayableValue(){
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT SUM(BALANCE) AS VALUE FROM $tableName";
 //        $sqlString .= ' WHERE BALANCE > 0' ;
+//        Alex: Issue with ap value calculation. All ap rows don't have a custno value
+//        $sqlString .= " WHERE CUSTNO <> ''" ;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         return $queryResult[0];
+    }
+
+    public function GetAllCustno()
+    {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT VENDNO FROM $tableName";
+        $sqlString .= ' GROUP BY VENDNO';
+
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
+    }
+
+    /**
+     * Details
+     * @param $custno
+     * @return mixed
+     */
+    public function GetVendnoData($vendno)
+    {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT curdate() - invdate as DAYS, BALANCE FROM $tableName";
+        $sqlString .= " WHERE VENDNO = '$vendno'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult;
     }
 
     public function Add($entity) {

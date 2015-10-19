@@ -35,7 +35,9 @@
     FinancialDashboard.urls = {};
     FinancialDashboard.urls.getFinancialData = "<?php echo $View->Href('FinancialDashboard', 'GetFinancialData') ?>";
     FinancialDashboard.urls.getARData = "<?php echo $View->Href('FinancialDashboard', 'GetARData') ?>";
+    FinancialDashboard.urls.getAPData = "<?php echo $View->Href('FinancialDashboard', 'GetAPData') ?>";
     FinancialDashboard.urls.ARDashboard = "<?php echo $View->Href('ARDashboard', 'Index') ?>";
+    FinancialDashboard.urls.APDashboard = "<?php echo $View->Href('APDashboard', 'Index') ?>";
 
     $.ajax({
         data: {},
