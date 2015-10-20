@@ -22,8 +22,8 @@
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="ponum"><span class="glyphicon glyphicon-list"></span> Customer Po</label>
-                                    <input id="ponum" type="text" class="form-control input" title="Customer Po" data-bind="value: ponum" disabled="disabled"/>
+                                    <label class="control-label" for="ponum"><span class="glyphicon glyphicon-list"></span> Reference</label>
+                                    <input id="ponum" type="text" class="form-control input" title="Reference" data-bind="value: ponum" disabled="disabled"/>
                                 </div>
                             </div>
                             <div class="col-xs-6">
