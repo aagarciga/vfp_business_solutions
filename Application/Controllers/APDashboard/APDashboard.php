@@ -22,7 +22,7 @@ class APDashboard extends DatActionsController
             $predicate = " WHERE " . $predicate;
         }
 
-        $tableName = 'AROPEN' . $this->DatUnitOfWork->CompanySuffix;
+        $tableName = 'APOPEN' . $this->DatUnitOfWork->CompanySuffix;
         $sqlString = "SELECT VENDNO FROM $tableName $predicate";
         $sqlString .= ' GROUP BY VENDNO';
         $sqlString .= " ORDER BY $orderby $order";
@@ -59,7 +59,7 @@ class APDashboard extends DatActionsController
                     'balance' => 0
                 );
 
-                $queryResultData = $this->DatUnitOfWork->AROPENRepository->GetVendnoData($currentVendno);
+                $queryResultData = $this->DatUnitOfWork->APOPENRepository->GetVendnoData($currentVendno);
                 foreach ($queryResultData as $data) {
                     $days = intval($data->DAYS, 10);
                     $value = floatval($data->OPENBAL);

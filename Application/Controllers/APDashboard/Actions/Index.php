@@ -8,7 +8,7 @@ namespace Dandelion\MVC\Application\Controllers\APDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
-use Dandelion\MVC\Application\Controllers\ARDashboard\Models\APDashboardViewModel;
+use Dandelion\MVC\Application\Controllers\APDashboard\Models\APDashboardViewModel;
 
 /**
  * VFP Business Series Financial Dashboard Controller Default Action
