@@ -204,6 +204,12 @@ class DatUnitOfWork extends UnitOfWork {
     public $ARCUSTRepository;
 
     /**
+     *
+     * @var APVENDRepository
+     */
+    public $APVENDTRepository;
+
+    /**
      * 
      * @param Interfaces\IDBDriver $dbDriver
      */
@@ -241,6 +247,7 @@ class DatUnitOfWork extends UnitOfWork {
         $this->APOPENRepository = new Repositories\APOPENRepository($dbDriver, Entities\APOPEN::toString(), $companySuffix);
         $this->GLHSTRepository = new Repositories\GLHSTRepository($dbDriver, Entities\GLHST::toString(), $companySuffix);
         $this->ARCUSTRepository = new Repositories\ARCUSTRepository($dbDriver, Entities\ARCUST::toString(), $companySuffix);
+        $this->APVENDRepository = new Repositories\APVENDRepository($dbDriver, Entities\APVEND::toString(), $companySuffix);
 
     }
 
