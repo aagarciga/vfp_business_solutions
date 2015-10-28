@@ -40,13 +40,12 @@ class APDashboard extends DatActionsController
         foreach ($queryResult as $row) {
             $currentVendno = trim($row->VENDNO);
             $currentCompany = "";
-
             /*
              * Alex: In order to fix issue when to a same vendno value correspond different companies.
              * This do not fix the issue, only put away the errors with different companies for a same vendno, and not show its.
              * */
             if ($previousVendno !== $currentVendno) {
-
+                $currentCompany = $this->DatUnitOfWork->APVENDRepository->GetCompanyBy($currentVendno);
                 $currentData = array(
                     'vendno' => $currentVendno,
                     'company' => $currentCompany,

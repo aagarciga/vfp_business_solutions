@@ -51,6 +51,20 @@ class APVENDRepository extends VFPRepository implements IRepository
         return $result;
     }
 
+    public function GetCompanyBy($vendno)
+    {
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT VENDOR FROM $tableName";
+        $sqlString .= " WHERE VENDNO = '$vendno'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        if (count($queryResult)) {
+            return $queryResult[0]->VENDOR;
+        }
+        return "";
+    }
+
     public function Add($entity)
     {
         // TODO: Implement Add() method.
