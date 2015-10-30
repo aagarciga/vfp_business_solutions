@@ -61,7 +61,7 @@ class APDashboard extends DatActionsController
                 $queryResultData = $this->DatUnitOfWork->APOPENRepository->GetVendnoData($currentVendno);
                 foreach ($queryResultData as $data) {
                     $days = intval($data->DAYS, 10);
-                    $value = floatval($data->OPENBAL);
+                    $value = floatval($data->BALANCE);
 
                     // Current
                     if ($days < 11) {

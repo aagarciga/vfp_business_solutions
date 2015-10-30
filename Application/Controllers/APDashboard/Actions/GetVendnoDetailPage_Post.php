@@ -89,7 +89,7 @@ class GetVendnoDetailPage_Post extends Action
     public function GetVendnoDetailPager($vendno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
 
-        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL
                       FROM $tableName
                       WHERE VENDNO = '$vendno' AND OPENBAL <> 0";
@@ -103,7 +103,7 @@ class GetVendnoDetailPage_Post extends Action
     public function GetCurrentSetPager($vendno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
 
-        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
         $sqlString .= " FROM $tableName";
@@ -119,7 +119,7 @@ class GetVendnoDetailPage_Post extends Action
     public function Get11_30SetPager($vendno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
 
-        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
         $sqlString .= " FROM $tableName";
@@ -135,7 +135,7 @@ class GetVendnoDetailPage_Post extends Action
     public function Get31_45SetPager($vendno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
 
-        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
         $sqlString .= " FROM $tableName";
@@ -151,7 +151,7 @@ class GetVendnoDetailPage_Post extends Action
     public function Get45_60SetPager($vendno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
 
-        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
         $sqlString .= " FROM $tableName";
@@ -167,7 +167,7 @@ class GetVendnoDetailPage_Post extends Action
     public function Get61_90SetPager($vendno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
 
-        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
         $sqlString .= " FROM $tableName";
@@ -183,7 +183,7 @@ class GetVendnoDetailPage_Post extends Action
     public function GetGreatherThan90SetPager($vendno, $username, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
 
-        $tableName = 'AROPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
+        $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
         $sqlString .= " FROM $tableName";

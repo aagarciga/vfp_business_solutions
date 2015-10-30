@@ -30,25 +30,16 @@ class Signin_Post extends Action{
 
                 $userGroup = $user->getGroup();
                 $userFdview = $user->getFdview();
-
-                error_log("user group: ". $userGroup);
-                error_log("user FDVIEW: ". $userFdview);
-
                 $_SESSION['showFiancialDashboard'] = ($userGroup === 'ADMIN' && $userFdview);
-
                 $_SESSION['usercomp'] = $userCompany;
-                
                 $_SESSION['userwhsdef'] = $user->getWhsdef();
-                
                 $user->setOndate(date("Y-m-d"));
                 $user->setOntime(date("H:i:s"));
                 
                 // Updating Ondate and Ontime fields
                 $this->controller->VfpDataUnitOfWork->SysuserRepository->Update($user);
-
                 $companyEntity = $this->controller->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($userCompany);
                 if (!empty($companyEntity)) {
-
 //                $_SESSION['usercomp_uselocno'] = $companyEntity->getUselocno();
 
                     // If Current User Company got DBOPTION Field Value equals to 'ALL0000' (No Case Sensitive)
