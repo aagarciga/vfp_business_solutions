@@ -57,10 +57,13 @@ class GetVendnoDetailPage_Post extends Action
                 $currentOpenBal = trim($row->BALANCE);
                 $current['invno'] = trim($row->INVNO);
                 $current['invdate'] = trim($row->INVDATE);
+                $current['duedate'] = trim($row->DUEDATE);
+                $current['itotal'] = trim($row->ITOTAL);
+                $current['disctotal'] = trim($row->DISCTOTAL);
                 $current['amtpaid'] = trim($row->AMTPAID);
-                $current['datepaid'] = trim($row->DATEPAID);
+                $current['balance'] = $currentOpenBal;
                 $current['refno'] = trim($row->REFNO);
-                $current['openbal'] = $currentOpenBal;
+
                 $result[] = $current;
                 $portion += $currentOpenBal;
             }
@@ -90,7 +93,7 @@ class GetVendnoDetailPage_Post extends Action
     {
 
         $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
-        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, BALANCE
+        $sqlString = "SELECT INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO
                       FROM $tableName
                       WHERE VENDNO = '$vendno' AND BALANCE <> 0";
 
@@ -105,7 +108,7 @@ class GetVendnoDetailPage_Post extends Action
 
         $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
-        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, BALANCE";
+        $sqlString = "SELECT INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO";
         $sqlString .= " FROM $tableName";
         $sqlString .= " WHERE LOWER(VENDNO) = '$lowerVendno'";
         $sqlString .= " AND (CURDATE() - INVDATE) < 11 AND BALANCE <> 0";
@@ -121,7 +124,7 @@ class GetVendnoDetailPage_Post extends Action
 
         $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
-        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, BALANCE";
+        $sqlString = "SELECT INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO";
         $sqlString .= " FROM $tableName";
         $sqlString .= " WHERE LOWER(VENDNO) = '$lowerVendno'";
         $sqlString .= " AND (CURDATE() - INVDATE) >= 11 AND (CURDATE() - INVDATE) < 31 AND BALANCE <> 0";
@@ -137,7 +140,7 @@ class GetVendnoDetailPage_Post extends Action
 
         $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
-        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, BALANCE";
+        $sqlString = "SELECT INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO";
         $sqlString .= " FROM $tableName";
         $sqlString .= " WHERE LOWER(VENDNO) = '$lowerVendno'";
         $sqlString .= " AND (CURDATE() - INVDATE) >= 31 AND (CURDATE() - INVDATE) < 45 AND BALANCE <> 0";
@@ -153,7 +156,7 @@ class GetVendnoDetailPage_Post extends Action
 
         $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
-        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, BALANCE";
+        $sqlString = "SELECT INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO";
         $sqlString .= " FROM $tableName";
         $sqlString .= " WHERE LOWER(VENDNO) = '$lowerVendno'";
         $sqlString .= " AND (CURDATE() - INVDATE) >= 46 AND (CURDATE() - INVDATE) < 60 AND BALANCE <> 0";
@@ -169,7 +172,7 @@ class GetVendnoDetailPage_Post extends Action
 
         $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
-        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, BALANCE";
+        $sqlString = "SELECT INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO";
         $sqlString .= " FROM $tableName";
         $sqlString .= " WHERE LOWER(VENDNO) = '$lowerVendno'";
         $sqlString .= " AND (CURDATE() - INVDATE) >= 61 AND (CURDATE() - INVDATE) < 90 AND BALANCE <> 0";
@@ -185,7 +188,7 @@ class GetVendnoDetailPage_Post extends Action
 
         $tableName = 'APOPEN' . $this->controller->DatUnitOfWork->CompanySuffix;
         $lowerVendno = strtolower($vendno);
-        $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, BALANCE";
+        $sqlString = "SELECT INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO";
         $sqlString .= " FROM $tableName";
         $sqlString .= " WHERE LOWER(VENDNO) = '$lowerVendno'";
         $sqlString .= " AND (CURDATE() - INVDATE) >= 91 AND BALANCE <> 0";

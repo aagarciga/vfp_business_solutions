@@ -307,6 +307,7 @@ APDashboard.functions.modal_details_updateTable = (items) ->
   $tableBody = $table.children('tbody')
   $tableBody.empty()
 
+
   for index of items
     if items.hasOwnProperty(index)
       $tableBody.append(APDashboard.functions.modal_details_buildTableItem(items[index], '', "item-field"))
@@ -323,20 +324,28 @@ APDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
     td.appendChild(doc.createTextNode(data))
     td
 
-  tdAmtpaidBuilder = ->
-    simpleTdBuilder(accounting.formatMoney(dataRow.amtpaid, ''), 'currency')
-
-  tdDatepaidBuilder = ->
-    simpleTdBuilder(dataRow.datepaid)
-
-  tdInvdateBuilder = ->
-    simpleTdBuilder(dataRow.invdate)
+  # INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO
 
   tdInvnoBuilder = ->
     simpleTdBuilder(dataRow.invno)
 
-  tdOpenbalBuilder = ->
-    simpleTdBuilder(accounting.formatMoney(dataRow.openbal, ''), 'currency')
+  tdInvdateBuilder = ->
+    simpleTdBuilder(dataRow.invdate)
+
+  tdDuedateBuilder = ->
+    simpleTdBuilder(dataRow.duedate)
+
+  tdItotalBuilder = ->
+    simpleTdBuilder(accounting.formatMoney(dataRow.itotal, ''), 'currency')
+
+  tdDisctotalBuilder = ->
+    simpleTdBuilder(accounting.formatMoney(dataRow.disctotal, ''), 'currency')
+
+  tdAmtpaidBuilder = ->
+    simpleTdBuilder(accounting.formatMoney(dataRow.amtpaid, ''), 'currency')
+
+  tdBalanceBuilder = ->
+    simpleTdBuilder(accounting.formatMoney(dataRow.balance, ''), 'currency')
 
   tdRefnoBuilder = ->
     simpleTdBuilder(dataRow.refno)
@@ -344,10 +353,13 @@ APDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
   result.className = trClass
   result.appendChild(tdInvnoBuilder())
   result.appendChild(tdInvdateBuilder())
+  result.appendChild(tdDuedateBuilder())
+  result.appendChild(tdItotalBuilder())
+  result.appendChild(tdDisctotalBuilder())
   result.appendChild(tdAmtpaidBuilder())
-  result.appendChild(tdDatepaidBuilder())
+  result.appendChild(tdBalanceBuilder())
   result.appendChild(tdRefnoBuilder())
-  result.appendChild(tdOpenbalBuilder())
+
   result
 
 APDashboard.functions.modal_details_bindTableItemsEventHandlers = ->

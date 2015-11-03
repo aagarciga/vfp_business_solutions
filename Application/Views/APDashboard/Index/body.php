@@ -123,7 +123,7 @@
                         <?php $currentVendno = trim($item->getVendno()) ?>
                         <tr>
                             <td class="item-field">
-                                <a href="#" class="btn-vendno-form-link" data-custno="<?php echo $currentVendno ?>">
+                                <a href="#" class="btn-vendno-form-link" data-vendno="<?php echo $currentVendno ?>">
                                     <?php echo $currentVendno ?>
                                 </a>
                             </td>
@@ -134,7 +134,7 @@
                                     <?php echo $interval ?>
                                 <?php else: ?>
                                     <a href="#" class="btn-current-form-link"
-                                       data-custno="<?php echo $currentVendno ?>">
+                                       data-vendno="<?php echo $currentVendno ?>">
                                         <?php echo $interval ?>
                                     </a>
                                 <?php endif ?>
@@ -144,7 +144,7 @@
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
                                 <?php else: ?>
-                                    <a href="#" class="btn-11-30-form-link" data-custno="<?php echo $currentVendno ?>">
+                                    <a href="#" class="btn-11-30-form-link" data-vendno="<?php echo $currentVendno ?>">
                                         <?php echo $interval ?>
                                     </a>
                                 <?php endif ?>
@@ -154,7 +154,7 @@
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
                                 <?php else: ?>
-                                    <a href="#" class="btn-31-45-form-link" data-custno="<?php echo $currentVendno ?>">
+                                    <a href="#" class="btn-31-45-form-link" data-vendno="<?php echo $currentVendno ?>">
                                         <?php echo $interval ?>
                                     </a>
                                 <?php endif ?>
@@ -164,7 +164,7 @@
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
                                 <?php else: ?>
-                                    <a href="#" class="btn-46-60-form-link" data-custno="<?php echo $currentVendno ?>">
+                                    <a href="#" class="btn-46-60-form-link" data-vendno="<?php echo $currentVendno ?>">
                                         <?php echo $interval ?>
                                     </a>
                                 <?php endif ?>
@@ -174,7 +174,7 @@
                                 <?php if ($interval === "0.00"): ?>
                                     <?php echo $interval ?>
                                 <?php else: ?>
-                                    <a href="#" class="btn-61-90-form-link" data-custno="<?php echo $currentVendno ?>">
+                                    <a href="#" class="btn-61-90-form-link" data-vendno="<?php echo $currentVendno ?>">
                                         <?php echo $interval ?>
                                     </a>
                                 <?php endif ?>
@@ -185,7 +185,7 @@
                                     <?php echo $interval ?>
                                 <?php else: ?>
                                     <a href="#" class="btn-more-than-90-form-link"
-                                       data-custno="<?php echo $currentVendno ?>">
+                                       data-vendno="<?php echo $currentVendno ?>">
                                         <?php echo $interval ?>
                                     </a>
                                 <?php endif ?>
@@ -265,16 +265,21 @@
                         <col class="col-4">
                         <col class="col-5">
                         <col class="col-6">
+                        <col class="col-7">
+                        <col class="col-8">
                         <!--<col class="col-4">-->
                     </colgroup>
                     <thead>
                     <tr>
                         <th class="th-invno">Invoice No.</th>
                         <th class="th-invdate">Invoice Date</th>
+                        <th class="th-duedate">Due Date</th>
+                        <th class="th-amtpaid currency">Invoice Total</th>
+                        <th class="th-amtpaid currency">Discount Total</th>
                         <th class="th-amtpaid currency">Amount Paid</th>
-                        <th class="th-datepaid">Date Paid</th>
+                        <th class="th-openbal currency">Balance</th>
                         <th class="th-refno">Ref No.</th>
-                        <th class="th-openbal currency">Open Balance</th>
+
                     </tr>
                     </thead>
                     <tfoot>
