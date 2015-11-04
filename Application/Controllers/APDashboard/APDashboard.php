@@ -19,11 +19,11 @@ class APDashboard extends DatActionsController
     public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $orderby = "VENDNO", $order = "ASC")
     {
         if ($predicate !== "") {
-            $predicate = " WHERE " . $predicate;
+            $predicate = " AND " . $predicate;
         }
 
         $tableName = 'APOPEN' . $this->DatUnitOfWork->CompanySuffix;
-        $sqlString = "SELECT VENDNO FROM $tableName $predicate";
+        $sqlString = "SELECT VENDNO FROM $tableName WHERE BALANCE <> 0 $predicate";
         $sqlString .= ' GROUP BY VENDNO';
         $sqlString .= " ORDER BY $orderby $order";
         $query = $this->DatUnitOfWork->DBDriver->GetQuery();

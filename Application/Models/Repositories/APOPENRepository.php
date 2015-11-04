@@ -63,7 +63,8 @@ class APOPENRepository extends VFPRepository implements IRepository {
     {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT VENDNO FROM $tableName";
-        $sqlString .= ' GROUP BY VENDNO';
+        $sqlString .= ' WHERE BALANCE > 0 GROUP BY VENDNO';
+        error_log($sqlString);
 
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
@@ -73,14 +74,14 @@ class APOPENRepository extends VFPRepository implements IRepository {
 
     /**
      * Details
-     * @param $custno
+     * @param $vendno
      * @return mixed
      */
     public function GetVendnoData($vendno)
     {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT curdate() - invdate as DAYS, BALANCE FROM $tableName";
-        $sqlString .= " WHERE VENDNO = '$vendno'";
+        $sqlString .= " WHERE VENDNO = '$vendno' AND BALANCE > 0";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
 

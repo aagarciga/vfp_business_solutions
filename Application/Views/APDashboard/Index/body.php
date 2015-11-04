@@ -11,7 +11,7 @@
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                Receivables
+                Payables
             </a>
         </div>
 
@@ -77,9 +77,9 @@
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
 
-                            <li><a href="#" class="filter-field" data-field="vendno" data-field-type="text">Customer
+                            <li><a href="#" class="filter-field" data-field="vendno" data-field-type="text">Vendor
                                     No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a>
+                            <!--                            <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Company</a>-->
                             </li>
 
                         </ul>
@@ -103,7 +103,7 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>Customer No.
+                        <th>Vendor No.
                             <button data-field="vendno" class="btn-table-sort"></button>
                         </th>
                         <th>Company

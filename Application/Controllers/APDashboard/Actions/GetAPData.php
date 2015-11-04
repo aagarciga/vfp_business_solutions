@@ -79,7 +79,6 @@ class GetAPData extends Action
             $result['success'] = true;
 
         }
-//        error_log(print_r($result, true));
         return json_encode($result);
     }
 

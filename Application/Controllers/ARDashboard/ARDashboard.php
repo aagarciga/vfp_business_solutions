@@ -19,11 +19,10 @@ class ARDashboard extends DatActionsController
     public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $orderby = "CUSTNO", $order = "ASC")
     {
         if ($predicate !== "") {
-            $predicate = " WHERE " . $predicate;
+            $predicate = "AND " . $predicate;
         }
-
         $tableName = 'AROPEN' . $this->DatUnitOfWork->CompanySuffix;
-        $sqlString = "SELECT CUSTNO FROM $tableName $predicate";
+        $sqlString = "SELECT CUSTNO FROM $tableName WHERE OPENBAL <> 0 $predicate";
         $sqlString .= ' GROUP BY CUSTNO';
         $sqlString .= " ORDER BY $orderby $order";
         $query = $this->DatUnitOfWork->DBDriver->GetQuery();

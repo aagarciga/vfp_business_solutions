@@ -300,7 +300,7 @@ APDashboard.functions.modal_details_paginate = ->
 
       $('.loading').hide();
   )
-  this
+  @
 
 APDashboard.functions.modal_details_updateTable = (items) ->
   $table = $(APDashboard.htmlBindings.modal_Details_Table)
@@ -312,7 +312,7 @@ APDashboard.functions.modal_details_updateTable = (items) ->
     if items.hasOwnProperty(index)
       $tableBody.append(APDashboard.functions.modal_details_buildTableItem(items[index], '', "item-field"))
   APDashboard.functions.modal_details_bindTableItemsEventHandlers();
-  this
+  @
 
 APDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass) ->
   doc = global.document
@@ -323,8 +323,6 @@ APDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
     td.className = tdClass
     td.appendChild(doc.createTextNode(data))
     td
-
-  # INVNO,INVDATE,DUEDATE,ITOTAL,DISCTOTAL,AMTPAID,BALANCE,REFNO
 
   tdInvnoBuilder = ->
     simpleTdBuilder(dataRow.invno)
@@ -359,7 +357,6 @@ APDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
   result.appendChild(tdAmtpaidBuilder())
   result.appendChild(tdBalanceBuilder())
   result.appendChild(tdRefnoBuilder())
-
   result
 
 APDashboard.functions.modal_details_bindTableItemsEventHandlers = ->
@@ -376,14 +373,14 @@ APDashboard.eventHandlers.drpItemPerPage_onClick = (event) ->
   # When change items per page, show page one
   APDashboard.status.currentPage = 1
   APDashboard.functions.paginate()
-  this
+  @
 
 APDashboard.eventHandlers.pager_btnPagerPages_onClick = (event) ->
   $target = $(event.target)
   value = $target.data('page')
   APDashboard.status.currentPage = value
   APDashboard.functions.paginate()
-  this
+  @
 
 APDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   $target = $(event.target)
@@ -406,7 +403,7 @@ APDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
 
   APDashboard.status.table_header_sortLastButton = $target
   APDashboard.functions.paginate()
-  this
+  @
 
 APDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
   $target = $(event.target)
@@ -453,7 +450,7 @@ APDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
 
       $('.loading').hide()
   })
-  this
+  @
 
 APDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick = (event) ->
   $target = $(event.target)
@@ -461,8 +458,7 @@ APDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick = (event) ->
   APDashboard.status.modal_detail_CurrentPage = value
   APDashboard.status.currentSet
   APDashboard.functions.modal_details_paginate()
-
-  this
+  @
 
 APDashboard.init = (defaultUserFilter) ->
   APDashboard.status.itemsPerPage = $(APDashboard.htmlBindings.drpItemPerPageValue).text()
