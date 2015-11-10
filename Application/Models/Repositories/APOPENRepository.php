@@ -64,12 +64,29 @@ class APOPENRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT VENDNO FROM $tableName";
         $sqlString .= ' WHERE BALANCE > 0 GROUP BY VENDNO';
-        error_log($sqlString);
+//        error_log($sqlString);
 
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
 
         return $queryResult;
+    }
+
+    /**
+     * @param int $month
+     * @param int $yearOffset
+     * @return mixed
+     */
+    public function GetAPByMonth($month = 1, $yearOffset = 0)
+    {
+        //SELECT SUM(BALANCE) FROM APOPEN05 WHERE MONTH(invdate) = 4 AND YEAR(invdate) =  (YEAR(CURDATE())) - 1
+
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT SUM(BALANCE) AS VALUE FROM $tableName WHERE MONTH(invdate) = $month AND YEAR(invdate) = (YEAR(CURDATE())) - $yearOffset";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult[0];
     }
 
     /**

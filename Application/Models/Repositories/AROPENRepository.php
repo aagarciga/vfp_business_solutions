@@ -78,6 +78,23 @@ class AROPENRepository extends VFPRepository implements IRepository
         return $queryResult;
     }
 
+    /**
+     * @param int $month
+     * @param int $yearOffset
+     * @return mixed
+     */
+    public function GetARByMonth($month = 1, $yearOffset = 0)
+    {
+        //SELECT SUM(OPENBAL) FROM AROPEN05 WHERE MONTH(invdate) = 4 AND YEAR(invdate) =  (YEAR(CURDATE())) - 1
+
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT SUM(OPENBAL) AS VALUE FROM $tableName WHERE MONTH(invdate) = $month AND YEAR(invdate) = (YEAR(CURDATE())) - $yearOffset";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+
+        return $queryResult[0];
+    }
+
     public function GetAccountReceivableValue()
     {
         $tableName = $this->entityName . $this->companySuffix;
@@ -93,7 +110,8 @@ class AROPENRepository extends VFPRepository implements IRepository
      * @param $custno
      * @return mixed
      */
-    public function GetCurrentSet($custno){
+    public function GetCurrentSet($custno)
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $lowerCustno = strtolower($custno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
@@ -111,7 +129,8 @@ class AROPENRepository extends VFPRepository implements IRepository
      * @param $custno
      * @return mixed
      */
-    public function Get11_31Set($custno){
+    public function Get11_31Set($custno)
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $lowerCustno = strtolower($custno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
@@ -129,7 +148,8 @@ class AROPENRepository extends VFPRepository implements IRepository
      * @param $custno
      * @return mixed
      */
-    public function Get31_45Set($custno){
+    public function Get31_45Set($custno)
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $lowerCustno = strtolower($custno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
@@ -147,7 +167,8 @@ class AROPENRepository extends VFPRepository implements IRepository
      * @param $custno
      * @return mixed
      */
-    public function Get46_60Set($custno){
+    public function Get46_60Set($custno)
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $lowerCustno = strtolower($custno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
@@ -165,7 +186,8 @@ class AROPENRepository extends VFPRepository implements IRepository
      * @param $custno
      * @return mixed
      */
-    public function Get61_90Set($custno){
+    public function Get61_90Set($custno)
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $lowerCustno = strtolower($custno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";
@@ -183,7 +205,8 @@ class AROPENRepository extends VFPRepository implements IRepository
      * @param $custno
      * @return mixed
      */
-    public function GetGreatherThan91Set($custno){
+    public function GetGreatherThan91Set($custno)
+    {
         $tableName = $this->entityName . $this->companySuffix;
         $lowerCustno = strtolower($custno);
         $sqlString = "SELECT INVNO, INVDATE, AMTPAID, DATEPAID, REFNO, OPENBAL";

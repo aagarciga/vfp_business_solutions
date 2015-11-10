@@ -238,7 +238,7 @@ FinancialDashboard.init = (chartData) ->
     beforeSend: ->
       $('.loading').show()
     success: (response) ->
-      console.log ">>>>", response
+
       data = $.parseJSON(response);
 
       data.chartData.urlAPDashboard = FinancialDashboard.urls.APDashboard
@@ -323,5 +323,64 @@ FinancialDashboard.init = (chartData) ->
         }
       )
       $('.loading').hide();
+  )
+
+  $.ajax(
+    data: {}
+    url: FinancialDashboard.urls.getMonthlyData
+    type: 'get'
+    beforeSend: ->
+      $('.loading').show()
+    success: (response) ->
+      data = $.parseJSON(response);
+      monthlyChart = AmCharts.makeChart("monthly-chart",
+        'type': "serial"
+        'titles': [{
+          'text': "Monthly Behavior"
+          'size': 12
+          'color': '#444'
+        }]
+        'dataProvider': data.chartData
+        'categoryField': "month"
+        'categoryAxis':
+          'fillAlpha': 1
+          'fillColor': "#FAFAFA"
+          'gridAlpha': 0
+          'axisAlpha': 0
+          'gridPosition': "start"
+          'position': "bottom"
+        'graphs': [
+          {
+            'title': "Account Payable",
+            'valueField': "ap",
+            'type': "line",
+            'lineAlpha': 1,
+            'fillAlphas': 0,
+            'lineColor': "#cc3333",
+            'balloonText': "<b><span style='color:#cc3333'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]</span>",
+            'labelPosition': "middle"
+            'bullet': "round"
+          },
+          {
+            'title': "Account Receivable",
+            'valueField': "ar",
+            'type': "line",
+            'lineAlpha': 1,
+            'fillAlphas': 0,
+            'lineColor': "#99cc66",
+            'balloonText': "<b><span style='color:#99cc66'>[[title]]</b></span><br><span style='font-size:14px'>$ [[value]]</span>",
+            'labelPosition': "middle"
+            'bullet': "round"
+          }]
+        'cursor':
+          cursorPosition: 'mouse'
+          zoomable: false
+          cursorAlpha: 0
+        'legend':
+          useGraphSettings: true
+        'export':
+          'enabled': true
+      )
+      $('.loading').hide()
   )
 
