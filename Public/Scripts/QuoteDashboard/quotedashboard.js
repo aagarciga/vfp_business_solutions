@@ -756,11 +756,11 @@ if (window.Backbone === 'undefined') {
                 check_callback: function (operation, node, node_parent, node_position, more) {
 
                     // If error, change 'i' for node_position
-                    if(more && more.dnd && more.pos !== 'i') {
+                    if (more && more.dnd && more.pos !== 'i') {
                         return false;
                     }
-                    if(operation === "move_node" || operation === "copy_node") {
-                        if(this.get_node(node).parent === this.get_node(node_parent).id) {
+                    if (operation === "move_node" || operation === "copy_node") {
+                        if (this.get_node(node).parent === this.get_node(node_parent).id) {
                             return false;
                         }
                     }
@@ -1229,6 +1229,7 @@ if (window.Backbone === 'undefined') {
                     }
                 }
                 select.className = 'form-control update-dropdown';
+                select.dataset.qutno = dataRow.qutno;
                 return select;
             },
             withSelectBuilder = function (data, dictionary, dropdownClassName) {
@@ -1374,11 +1375,9 @@ if (window.Backbone === 'undefined') {
         QuoteDashboard.functions.paginate();
     };
     QuoteDashboard.eventHandlers.table_body_drpStatus_onChange = function (event) {
-
         var $target = $(event.target),
             qutno = $target.data('qutno'),
             value = $target.val();
-
         $.ajax({
             data: {
                 qutno: qutno,
@@ -1460,7 +1459,7 @@ if (window.Backbone === 'undefined') {
 
         var $target = $(event.target),
             //currentQutno = 'Quote ' + $target.parent().data('qutno');
-        currentQutno = $target.parent().data('qutno') + '_QU';
+            currentQutno = $target.parent().data('qutno') + '_QU';
         QuoteDashboard.status.currentQuote = currentQutno;
         ProjectFiles.functions.loadFileTree(currentQutno);
         $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
