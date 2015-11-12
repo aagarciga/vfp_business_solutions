@@ -44,7 +44,8 @@ class GetPage_Post extends Action {
             $current['vesselid'] = trim($row->vesselid);
             $current['sotypecode'] = trim($row->sotypecode);
             $current['jobdescrip'] = trim($row->jobdescrip);
-            $current['status'] = trim($row->status);            
+            $current['status'] = trim($row->status);
+            $current['RFQReqDate'] = trim($row->RFQReqDate === "1899-12-30" ? "" : $row->RFQReqDate);
             $current['qutdate'] = trim($row->qutdate === "1899-12-30" ? "" : $row->qutdate);
             $current['ordnum'] = trim($row->ordnum);
             $current['cstctid'] = trim($row->cstctid);

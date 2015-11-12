@@ -114,6 +114,9 @@
                             <th>Job Type <button data-field="sotypecode" class="btn-table-sort"></button></th>
                             <th>Description <button data-field="jobdescrip" class="btn-table-sort"></button></th>
                             <th>Status <button data-field="status" class="btn-table-sort"></button></th>
+                            <th>RFQReqDate
+                                <button data-field="RFQReqDate" class="btn-table-sort"></button>
+                            </th>
                             <th>Create <button data-field="qutdate" class="btn-table-sort"></button></th>
                             <th>WO No. <button data-field="ordnum" class="btn-table-sort"></button></th>
                             <th>Cost Center <button data-field="cstctid" class="btn-table-sort"></button></th>
@@ -139,6 +142,7 @@
                                     <?php endforeach ?> 
                                 </select>
                             </td>
+                            <td class="item-field"><?php echo $item->getRFQReqDate() ?></td>
                             <td class="item-field"><?php echo $item->getQutdate() ?></td>
                             <td class="item-field"><?php echo $item->getOrdnum() ?></td>
                             <td class="item-field"><?php echo $item->getCstctid() ?></td>

@@ -35,7 +35,7 @@ class Index extends Action {
         $viewModels = array();
         
         foreach ($items as $item) {
-            $currentItemViewModel = new QuoteDashboardViewModel($item->qutno, $item->projno, $item->company, $item->vesselid, $item->sotypecode, $item->jobdescrip, $item->status, $item->qutdate, $item->ordnum, $item->cstctid, $item->projectManager1, $item->projectManager2);
+            $currentItemViewModel = new QuoteDashboardViewModel($item->qutno, $item->projno, $item->company, $item->vesselid, $item->sotypecode, $item->jobdescrip, $item->status, $item->RFQReqDate, $item->qutdate, $item->ordnum, $item->cstctid, $item->projectManager1, $item->projectManager2);
             $viewModels []= $currentItemViewModel;
         }
         

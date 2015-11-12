@@ -424,6 +424,11 @@ class BaseQUHSTH {
     /**
      * @var Date
      */
+    protected $_RFQReqDate;
+
+    /**
+     * @var Date
+     */
     protected $_dtereview;
 
     /**
@@ -1498,6 +1503,14 @@ class BaseQUHSTH {
      */
     public function getStatus() {
         return $this->_status;
+    }
+
+    /**
+     * @return Date
+     */
+    public function getRFQReqDate()
+    {
+        return $this->_RFQReqDate;
     }
 
     /**
@@ -2641,6 +2654,14 @@ class BaseQUHSTH {
     /**
      * @param Date
      */
+    public function setRFQReqDate($value)
+    {
+        $this->_RFQReqDate = $value;
+    }
+
+    /**
+     * @param Date
+     */
     public function setDtereview($value) {
         $this->_dtereview = $value;
     }
@@ -3215,7 +3236,8 @@ class BaseQUHSTH {
     /**
      * Constructor
      */
-    public function __construct($qutno, $qutdate, $qutreqno, $qutstat, $qutspcl, $ordnum, $invno, $source, $closecomm, $inhsecomm, $ponum, $custno, $commission, $comslmn, $comslmn2, $salesmn, $salesmn2, $indust, $terr, $class, $fobstat, $shipvia, $shipstat, $shipfrom, $termdesc, $termdesc1, $subtotal, $disc, $discount, $msubtotal, $txrt, $tax, $shipping, $total, $totcost, $subtotal0, $subtotpo, $totcost0, $tax0, $taxext, $taxext0, $taxpo, $taxextpo, $shippo, $total0, $totalpo, $shipdate, $delivery, $validity, $frghts, $totwght, $prepaid, $refno, $ppdref, $company, $address1, $address2, $address3, $city, $state, $zip, $country, $shipid, $shipto1, $shipto2, $shipto3, $shipto4, $shipto5, $termid, $userflg, $invtype, $key, $blurb_id, $fuserid, $fstation, $nflg1, $invdate, $podate, $pono, $status, $dtereview, $dtesigned, $dteclose, $cartoons, $freight, $custdisc, $shipvname, $salesmn1na, $salesmn2na, $nflg0, $priceby, $swordnum, $sysstatus, $websyncflg, $taxrate, $taxrate1, $taxrate2, $taxrate3, $taxrate4, $ftaxcode, $glaracct, $frghtpay, $whsno, $dueday, $destino, $trackno, $fupddate, $fupdtime, $sourceno, $srctype, $delete, $newuserid, $newstation, $newdtetime, $aprvaldate, $ntaprvdate, $revdate, $csrdate, $sentdate, $prparedate, $rfqdate, $closeprob, $anclsedate, $nextfllwup, $loststatus, $quotecomm, $phone, $phone1, $fax, $noteflag, $totbotdep, $shpcompnam, $shpaddrs1, $shpaddrs2, $shpcity, $shpstate, $shpzip, $shpcountry, $shpbillopt, $shpphone, $shpemail, $shpcontact, $locphone, $locationid, $sotypecode, $sotype, $qblistid, $cstctid, $gldept, $delflag, $deldate, $deluserid, $tosoflag, $tosodate, $tosouserid, $toivflag, $toivdate, $toivuserid, $topoflag, $topodate, $topouserid, $projno, $technam1, $technam2, $techpm1, $techpm2, $vesselid, $jobdescrip) {
+    public function __construct($qutno, $qutdate, $qutreqno, $qutstat, $qutspcl, $ordnum, $invno, $source, $closecomm, $inhsecomm, $ponum, $custno, $commission, $comslmn, $comslmn2, $salesmn, $salesmn2, $indust, $terr, $class, $fobstat, $shipvia, $shipstat, $shipfrom, $termdesc, $termdesc1, $subtotal, $disc, $discount, $msubtotal, $txrt, $tax, $shipping, $total, $totcost, $subtotal0, $subtotpo, $totcost0, $tax0, $taxext, $taxext0, $taxpo, $taxextpo, $shippo, $total0, $totalpo, $shipdate, $delivery, $validity, $frghts, $totwght, $prepaid, $refno, $ppdref, $company, $address1, $address2, $address3, $city, $state, $zip, $country, $shipid, $shipto1, $shipto2, $shipto3, $shipto4, $shipto5, $termid, $userflg, $invtype, $key, $blurb_id, $fuserid, $fstation, $nflg1, $invdate, $podate, $pono, $status, $RFQReqDate, $dtereview, $dtesigned, $dteclose, $cartoons, $freight, $custdisc, $shipvname, $salesmn1na, $salesmn2na, $nflg0, $priceby, $swordnum, $sysstatus, $websyncflg, $taxrate, $taxrate1, $taxrate2, $taxrate3, $taxrate4, $ftaxcode, $glaracct, $frghtpay, $whsno, $dueday, $destino, $trackno, $fupddate, $fupdtime, $sourceno, $srctype, $delete, $newuserid, $newstation, $newdtetime, $aprvaldate, $ntaprvdate, $revdate, $csrdate, $sentdate, $prparedate, $rfqdate, $closeprob, $anclsedate, $nextfllwup, $loststatus, $quotecomm, $phone, $phone1, $fax, $noteflag, $totbotdep, $shpcompnam, $shpaddrs1, $shpaddrs2, $shpcity, $shpstate, $shpzip, $shpcountry, $shpbillopt, $shpphone, $shpemail, $shpcontact, $locphone, $locationid, $sotypecode, $sotype, $qblistid, $cstctid, $gldept, $delflag, $deldate, $deluserid, $tosoflag, $tosodate, $tosouserid, $toivflag, $toivdate, $toivuserid, $topoflag, $topodate, $topouserid, $projno, $technam1, $technam2, $techpm1, $techpm2, $vesselid, $jobdescrip)
+    {
         $this->_qutno = $qutno;
         $this->_qutdate = $qutdate;
         $this->_qutreqno = $qutreqno;
@@ -3296,6 +3318,7 @@ class BaseQUHSTH {
         $this->_podate = $podate;
         $this->_pono = $pono;
         $this->_status = $status;
+        $this->_RFQReqDate = $RFQReqDate;
         $this->_dtereview = $dtereview;
         $this->_dtesigned = $dtesigned;
         $this->_dteclose = $dteclose;

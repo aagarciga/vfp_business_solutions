@@ -16,6 +16,7 @@ class QuoteDashboardViewModel {
     protected $_sotypecode;
     protected $_jobdescrip;
     protected $_status;
+    protected $_RFQReqDate;
     protected $_qutdate;
     protected $_ordnum;
     protected $_cstctid;
@@ -113,12 +114,28 @@ class QuoteDashboardViewModel {
     public function getStatus() {
         return $this->_status;
     }
-    
+
     /**
      * @param string
      */
     public function setStatus($value) {
         $this->_status = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRFQReqDate()
+    {
+        return $this->_RFQReqDate;
+    }
+
+    /**
+     * @param string
+     */
+    public function setRFQReqDate($value)
+    {
+        $this->_RFQReqDate = $value;
     }
     
     /**
@@ -206,7 +223,8 @@ class QuoteDashboardViewModel {
      * @param type $projectManager1 Project Manager 1
      * @param type $projectManager2 Project Manager 2
      */
-    public function __construct($qutno, $projno, $company, $vesselid, $sotypecode, $jobdescrip, $status, $qutdate, $ordnum, $cstctid, $projectManager1, $projectManager2) {
+    public function __construct($qutno, $projno, $company, $vesselid, $sotypecode, $jobdescrip, $status, $RFQReqDate, $qutdate, $ordnum, $cstctid, $projectManager1, $projectManager2)
+    {
 
         $this->_qutno = trim($qutno);
         $this->_projno = trim($projno);
@@ -215,6 +233,7 @@ class QuoteDashboardViewModel {
         $this->_sotypecode = trim($sotypecode);
         $this->_jobdescrip = trim($jobdescrip);
         $this->_status = trim($status);
+        $this->_RFQReqDate = $RFQReqDate === "1899-12-30" ? "" : $RFQReqDate;
         $this->_qutdate = $qutdate === "1899-12-30" ? "" : $qutdate;
         $this->_ordnum = trim($ordnum);
         $this->_cstctid = trim($cstctid);

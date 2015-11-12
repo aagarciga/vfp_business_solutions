@@ -1263,6 +1263,9 @@ if (window.Backbone === 'undefined') {
                 return withSelectBuilder(dataRow.status,
                     QuoteDashboard.dictionaries.status, 'status');
             },
+            tdRFQReqDateBuilder = function () {
+                return simpleTdBuilder(dataRow.RFQReqDate);
+            },
             tdCreateBuilder = function () {
                 return simpleTdBuilder(dataRow.qutdate);
             },
@@ -1292,6 +1295,7 @@ if (window.Backbone === 'undefined') {
         result.appendChild(tdJobTypeBuilder());
         result.appendChild(tdDescriptionBuilder());
         result.appendChild(tdStatusBuilder());
+        result.appendChild(tdRFQReqDateBuilder());
         result.appendChild(tdCreateBuilder());
         result.appendChild(tdWONoBuilder());
         result.appendChild(tdCostCenterBuilder());
