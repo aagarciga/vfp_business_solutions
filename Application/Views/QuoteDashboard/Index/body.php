@@ -76,7 +76,10 @@
                             <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
                             <li><a href="#" class="filter-field" data-field="jobdescrip" data-field-type="text">Description</a></li>
                             <li><a href="#" class="filter-field" data-field="status" data-field-value-type="numeric" data-field-type="dropdown" data-field-collection="status">Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="qutdate" data-field-type="date">Create</a></li>
+                            <li><a href="#" class="filter-field" data-field="RFQReqDate" data-field-type="date">Request
+                                    Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="qutdate" data-field-type="date">Create
+                                    Date</a></li>
                             <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">WO No.</a></li>
                             <li><a href="#" class="filter-field" data-field="cstctid" data-field-type="dropdown" data-field-collection="costCenter">Cost Center</a></li>
                             <li><a href="#" class="filter-field" data-field="techpm1" data-field-type="dropdown" data-field-collection="projectManager">Project Manager 1</a></li>
@@ -99,6 +102,7 @@
                         <col class="col-description"/>
                         <col class="col-status"/>
                         <col class="col-qutdate"/>
+                        <col class="col-RFQReqDate"/>
                         <col class="col-ordnum"/>
                         <col class="col-cost-center"/>
                         <col class="col-project-manager-1"/>
@@ -114,10 +118,12 @@
                             <th>Job Type <button data-field="sotypecode" class="btn-table-sort"></button></th>
                             <th>Description <button data-field="jobdescrip" class="btn-table-sort"></button></th>
                             <th>Status <button data-field="status" class="btn-table-sort"></button></th>
-                            <th>RFQReqDate
+                            <th>Request Date
                                 <button data-field="RFQReqDate" class="btn-table-sort"></button>
                             </th>
-                            <th>Create <button data-field="qutdate" class="btn-table-sort"></button></th>
+                            <th>Create Date
+                                <button data-field="qutdate" class="btn-table-sort"></button>
+                            </th>
                             <th>WO No. <button data-field="ordnum" class="btn-table-sort"></button></th>
                             <th>Cost Center <button data-field="cstctid" class="btn-table-sort"></button></th>
                             <th>Project Manager 1 <button data-field="technam1" class="btn-table-sort"></button></th>
