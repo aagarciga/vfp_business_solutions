@@ -76,8 +76,8 @@
                             <li><a href="#" class="filter-field" data-field="sotypecode" data-field-type="text">Job Type</a></li>
                             <li><a href="#" class="filter-field" data-field="jobdescrip" data-field-type="text">Description</a></li>
                             <li><a href="#" class="filter-field" data-field="status" data-field-value-type="numeric" data-field-type="dropdown" data-field-collection="status">Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="RFQReqDate" data-field-type="date">Request
-                                    Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="RFQReqDate" data-field-type="date">RFQ
+                                    Deadline</a></li>
                             <li><a href="#" class="filter-field" data-field="qutdate" data-field-type="date">Create
                                     Date</a></li>
                             <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">WO No.</a></li>
@@ -118,7 +118,7 @@
                             <th>Job Type <button data-field="sotypecode" class="btn-table-sort"></button></th>
                             <th>Description <button data-field="jobdescrip" class="btn-table-sort"></button></th>
                             <th>Status <button data-field="status" class="btn-table-sort"></button></th>
-                            <th>Request Date
+                            <th>RFQ Deadline
                                 <button data-field="RFQReqDate" class="btn-table-sort"></button>
                             </th>
                             <th>Create Date
@@ -140,7 +140,7 @@
                             <td class="item-field"><a href="#" class="vessel-form-link"><?php echo $item->getVesselid() ?></a></td>
                             <td class="item-field"><?php echo $item->getSotypecode() ?></td>
                             <td class="item-field"><?php echo $item->getJobdescrip() ?></td>
-                            <!--<td class="item-field"><?php echo $item->getStatus() ?></td>-->
+                            <!--<td class="item-field"><?php //echo $item->getStatus() ?></td>-->
                             <td class="item-field">
                                 <select class="form-control update-dropdown status select2-nosearch" data-qutno="<?php echo $item->getQutno() ?>">
                                     <?php foreach ($Statuses as $index => $value): ?>

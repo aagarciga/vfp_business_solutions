@@ -24,6 +24,8 @@ class UpdateStatus_Post extends Action {
         $qutno = $this->Request->hasProperty('qutno') ? $this->Request->qutno : '';
         $status = $this->Request->hasProperty('status') ? $this->Request->status : '';
 
+        if ($status === "Empty")
+            $status = 0;
         $result = "failure";
         if ($qutno && $status !== '') {
             $success = $this->controller->DatUnitOfWork->QUHSTHRepository->UpdateStatus($qutno, $status);
