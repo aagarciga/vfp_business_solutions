@@ -5,7 +5,7 @@
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
-<script src="<?php echo $View->ScriptsContext('QuoteDashboard/quotedashboard.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('QuoteDashboard/quotedashboard.min.js'); ?>"></script>
 
 <script>
 /**
