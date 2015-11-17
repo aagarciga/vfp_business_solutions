@@ -88,7 +88,8 @@ class AROPENRepository extends VFPRepository implements IRepository
         //SELECT SUM(OPENBAL) FROM AROPEN05 WHERE MONTH(invdate) = 4 AND YEAR(invdate) =  (YEAR(CURDATE())) - 1
 
         $tableName = $this->entityName . $this->companySuffix;
-        $sqlString = "SELECT SUM(OPENBAL) AS VALUE FROM $tableName WHERE MONTH(invdate) = $month AND YEAR(invdate) = (YEAR(CURDATE())) - $yearOffset";
+        $sqlString = "SELECT SUM(invtotal) AS VALUE FROM $tableName WHERE MONTH(invdate) = $month AND YEAR(invdate) = (YEAR(CURDATE())) - $yearOffset";
+//        error_log("AROPEN QUERY:".$sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
 

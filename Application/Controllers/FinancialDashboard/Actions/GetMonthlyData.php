@@ -50,7 +50,6 @@ class GetMonthlyData extends Action
             $current = array();
             $current['month'] = $month;
             $queryResult = $this->controller->DatUnitOfWork->AROPENRepository->GetARByMonth($month, $yearOffset);
-//            error_log(print_r(round(floatval($queryResult->VALUE),2), true));
             $current['value'] = round(floatval($queryResult->VALUE), 2);
             $result [] = $current;
         }
