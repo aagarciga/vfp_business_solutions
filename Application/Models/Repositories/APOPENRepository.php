@@ -83,7 +83,7 @@ class APOPENRepository extends VFPRepository implements IRepository {
 
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT SUM(itotal) AS VALUE FROM $tableName WHERE MONTH(invdate) = $month AND YEAR(invdate) = (YEAR(CURDATE())) - $yearOffset";
-//        error_log("APOPEN QUERY:".$sqlString);
+        error_log("APOPEN QUERY:".$sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
 

@@ -56,6 +56,7 @@ class Index extends Action
         $this->JavascriptBootstrapPager = BootstrapPager::GetJavascriptBootstrapPager();
     }
 
+
 }
 
 ?>

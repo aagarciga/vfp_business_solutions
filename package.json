@@ -1,0 +1,21 @@
+{
+  "name": "dandelionmvc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {
+    "grunt-contrib-concat": "^0.5.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "//FIVY/Repositories/VFP Business Solutions"
+  },
+  "author": "Alex",
+  "license": "ISC"
+}

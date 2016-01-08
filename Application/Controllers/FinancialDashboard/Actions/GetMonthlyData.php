@@ -43,7 +43,7 @@ class GetMonthlyData extends Action
         return json_encode($result);
     }
 
-    private function FetchARMonthlyData($yearOffset = 1)
+    private function FetchARMonthlyData($yearOffset = 0)
     {
         $result = array();
         foreach (range(1, 12) as $month) {
@@ -56,7 +56,7 @@ class GetMonthlyData extends Action
         return $result;
     }
 
-    private function FetchAPMonthlyData($yearOffset = 1)
+    private function FetchAPMonthlyData($yearOffset = 0)
     {
         $result = array();
         foreach (range(1, 12) as $month) {
