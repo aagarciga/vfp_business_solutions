@@ -7,7 +7,7 @@
 namespace Dandelion\MVC\Application\Controllers\InventoryDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
-use Dandelion\MVC\Application\Controllers\QuoteDashboard\Models\InventoryDashboardViewModel;
+use Dandelion\MVC\Application\Controllers\InventoryDashboard\Models\InventoryDashboardViewModel;
 
 /**
  * VFP Business Series Quote Dashboard Controller Action
@@ -40,9 +40,7 @@ class Index extends Action {
         }
         
         $this->Items = $viewModels;
-        
-        $this->Statuses = $this->controller->getStatuses();
-      
+
         $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
 //        
 //        $this->DefaultUserFilterId = $user->getDbfilter();
