@@ -358,5 +358,3 @@
   })();
 
 }).call(this);
-
-//# sourceMappingURL=fileManagerWidget.js.map
