@@ -36,6 +36,18 @@ ul.pagination {
   margin-top: -23px;
   left: -5px;
 }
+@media (min-width: 768px) {
+  .form-inline .form-group {
+    margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .btn-group,
+  .btn-group-vertical {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+}
 .currency,
 .number {
   text-align: right;

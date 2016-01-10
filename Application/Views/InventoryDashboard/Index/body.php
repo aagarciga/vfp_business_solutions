@@ -71,9 +71,9 @@
                             <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Item No.</a></li>
                             <li><a href="#" class="filter-field" data-field="itmwhs" data-field-type="text">Item Warehouse</a></li>
                             <li><a href="#" class="filter-field" data-field="descrip" data-field-type="text">Description</a></li>
-                            <li><a href="#" class="filter-field" data-field="onhand" data-field-type="text">On Hand</a></li>
-                            <li><a href="#" class="filter-field" data-field="onorder" data-field-type="text">On Purchase Order</a></li>
-                            <li><a href="#" class="filter-field" data-field="committed" data-field-value-type="numeric">On Sales Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="onhand" data-field-type="text" data-field-value-type="numeric">On Hand</a></li>
+                            <li><a href="#" class="filter-field" data-field="onorder" data-field-type="text" data-field-value-type="numeric">On Purchase Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="committed" data-field-type="text" data-field-value-type="numeric">On Sales Order</a></li>
                         </ul>
                     </div>
                 </div>

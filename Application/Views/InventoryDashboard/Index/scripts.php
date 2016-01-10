@@ -6,7 +6,7 @@
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
-<script src="<?php echo $View->ScriptsContext('InventoryDashboard/InventoryDashboardDynamicFilter.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('InventoryDashboard/InventoryDashboardDynamicFilter.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('InventoryDashboard/main.min.js'); ?>"></script>
 
 <script>

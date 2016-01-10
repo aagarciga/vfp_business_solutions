@@ -97,7 +97,7 @@
                 } else if ($currentComponentControl.hasClass('daterangepicker-single')) {
                     DynamicFilter.status.predicate += currentComponentControlFieldName + " = '" + currentComponentControlValue + "' ";
                 } else {
-                    if ($currentComponentControl.data('valueType') === 'numeric') {
+                    if ($currentComponentControl.data('value-type') === 'numeric') {
                         // Logic for numbers
                         DynamicFilter.status.predicate += currentComponentControlFieldName +
                             " = " + currentComponentControlValue +
@@ -365,7 +365,7 @@
         DynamicFilter.functions.bindOperatorGroupEventHandler($operandGroup);
 
         if (fieldType === 'text') {
-            $formGroup = DynamicFilter.functions.createTextField($button.data('field'), $button.text());
+            $formGroup = DynamicFilter.functions.createTextField($button.data('field'), $button.text(), $button.data('field-value-type'));
         } else if (fieldType === 'date' || fieldType === 'date-single') {
             $formGroup = DynamicFilter.functions.createDateField($button.data('field'), $button.text(), isDateRanged);
         } else if (fieldType === 'dropdown') {
