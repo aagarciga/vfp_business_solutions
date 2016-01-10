@@ -40,9 +40,9 @@ class InventoryDashboardViewModel
         $this->_itemno = trim($itemno);
         $this->_itmwhs = trim($itmwhs);
         $this->_descrip = trim($descrip);
-        $this->_onhand = trim($onhand);
-        $this->_onorder = trim($onorder);
-        $this->_committed = trim($committed);
+        $this->_onhand = number_format(trim($onhand));
+        $this->_onorder = number_format(trim($onorder));
+        $this->_committed = number_format(trim($committed));
     }
 
     /*

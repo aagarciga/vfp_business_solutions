@@ -31,6 +31,8 @@ InventoryDashboard.htmlBindings.drpItemPerPageValue = '.top-pager-itemmperpage-c
 InventoryDashboard.htmlBindings.filterForm = '#filterForm';
 InventoryDashboard.htmlBindings.table = '#inventoryDashboardTable';
 InventoryDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
+InventoryDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link'
+InventoryDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
 InventoryDashboard.htmlBindings.pager_container = '.pager-wrapper';
 InventoryDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
 
@@ -148,13 +150,13 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     simpleTdBuilder(dataRow.descrip)
 
   tdOnhandBuilder = ->
-    simpleTdBuilder(dataRow.onhand)
+    simpleTdBuilder(dataRow.onhand, 'number')
 
   tdOnorderBuilder = ->
-    simpleTdBuilder(dataRow.onorder)
+    withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number')
 
   tdCommittedBuilder = ->
-    simpleTdBuilder(dataRow.committed)
+    withLinkTdBuilder(dataRow.committed,InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number')
 
   result.className = trClass;
   result.appendChild(tdItemNoBuilder());

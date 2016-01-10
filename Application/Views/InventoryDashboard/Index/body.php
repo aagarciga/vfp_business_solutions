@@ -103,13 +103,12 @@
                     <body>
                         <?php foreach ($Items as $item): ?>
                         <tr>
-<!--                            <td class="item-field"><a href="#" class="itemno-form-link">--><?php //echo $item->getItemno() ?><!--</a></td>-->
                             <td class="item-field"><?php echo $item->getItemno() ?></td>
                             <td class="item-field"><?php echo $item->getItmwhs() ?></td>
                             <td class="item-field"><?php echo $item->getDescrip() ?></td>
-                            <td class="item-field"><?php echo $item->getOnhand() ?></td>
-                            <td class="item-field"><?php echo $item->getOnorder() ?></td>
-                            <td class="item-field"><?php echo $item->getCommitted() ?></td>
+                            <td class="item-field number"><?php echo $item->getOnhand() ?></td>
+                            <td class="item-field number"><a href="#" class="btn-onorder-form-link"><?php echo $item->getOnorder() ?></a></td>
+                            <td class="item-field number"><a href="#" class="btn-committed-form-link"><?php echo $item->getCommitted() ?></a></td>
                         </tr>
                     <?php endforeach ?>
                     </body>

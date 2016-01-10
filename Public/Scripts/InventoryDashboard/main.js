@@ -50,6 +50,10 @@
 
   InventoryDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
 
+  InventoryDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link';
+
+  InventoryDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link';
+
   InventoryDashboard.htmlBindings.pager_container = '.pager-wrapper';
 
   InventoryDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
@@ -167,13 +171,13 @@
       return simpleTdBuilder(dataRow.descrip);
     };
     tdOnhandBuilder = function() {
-      return simpleTdBuilder(dataRow.onhand);
+      return simpleTdBuilder(dataRow.onhand, 'number');
     };
     tdOnorderBuilder = function() {
-      return simpleTdBuilder(dataRow.onorder);
+      return withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number');
     };
     tdCommittedBuilder = function() {
-      return simpleTdBuilder(dataRow.committed);
+      return withLinkTdBuilder(dataRow.committed, InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number');
     };
     result.className = trClass;
     result.appendChild(tdItemNoBuilder());
