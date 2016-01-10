@@ -60,7 +60,7 @@ class InventoryDashboard extends DatActionsController
         if ($predicate !== "") {
             $predicate = " WHERE " . $predicate;
         }
-        $orderby = $this->prepareOrderByField($orderby); // Converting String yo Integer for correct representation
+//        $orderby = $this->prepareOrderByField($orderby); // Converting String yo Integer for correct representation
         $companySuffix = $this->DatUnitOfWork->CompanySuffix;
 
 //        itemno
@@ -89,6 +89,7 @@ class InventoryDashboard extends DatActionsController
         $result = $orderByFiled;
         if ($orderByFiled === "onhand" || $orderByFiled === "onorder" || $orderByFiled === "committed") {
             $result = $this->DatUnitOfWork->DBDriver->Convert2Integer($orderByFiled);
+//            $result = $this->DatUnitOfWork->DBDriver->Convert2Integer(number_format(doubleval($orderByFiled), 2, '.', ''));
         }
         return $result;
     }
