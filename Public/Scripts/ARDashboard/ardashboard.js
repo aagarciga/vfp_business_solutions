@@ -89,9 +89,8 @@
   ARDashboard.functions = {};
 
   ARDashboard.functions.updateDetailSumary = function(data) {
-    var message, part, total;
+    var message, total;
     total = accounting.formatMoney(data.balance, '$ ');
-    part = accounting.formatMoney(data.balancePortion, '');
     if (data.setname === "") {
       message = data.custno + " balance: " + total;
     } else {
@@ -478,7 +477,8 @@
   ARDashboard.init = function(defaultUserFilter) {
     ARDashboard.status.itemsPerPage = $(ARDashboard.htmlBindings.drpItemPerPageValue).text();
     DynamicFilter.init(defaultUserFilter);
-    return ARDashboard.functions.bindEventHandlers();
+    ARDashboard.functions.bindEventHandlers();
+    return this;
   };
 
 }).call(this);

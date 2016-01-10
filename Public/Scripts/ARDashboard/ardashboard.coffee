@@ -48,52 +48,15 @@ ARDashboard.htmlBindings.modal_Details_Table = '#details';
 
 ARDashboard.functions = {}
 
-# Cloned from financial dashboard (todo: need refactor here...
-#ARDashboard.functions.formatToCurrency = (value, separator = ',') ->
-#  isNegative = value < 0
-#  console.log  "Value", value
-#  if isNegative
-#    value *= -1
-#    console.log "is negative"
-#    console.log value
-#
-#  strValue = value.toString()
-#  if isNegative
-#    console.log strValue
-#  commaCount = parseInt((strValue.length / 3) - 1, 10)
-#  offset = 0
-#  included = !!~strValue.indexOf('.') # Using bitwise operator instead (!== -1)
-#
-#  if included # strValue.indexOf('.') isnt -1
-#    offset = strValue.slice(strValue.indexOf('.')).length
-#
-#  strValue = strValue.split('').reverse().join('') # reversing string
-#
-#  while commaCount isnt 0
-#    strValue = strValue.slice(0, (commaCount * 3) + offset) + separator + strValue.slice((commaCount * 3) + offset)
-#    commaCount -= 1
-#
-#  strValue = strValue.split('').reverse().join('') # reversing string back
-#
-#  if strValue.charAt(0) == separator
-#    strValue = strValue.slice(1)
-#
-#  if isNegative
-#    strValue = '-' + strValue
-#    console.log strValue
-#
-#  strValue
-
 ARDashboard.functions.updateDetailSumary = (data)->
   total = accounting.formatMoney(data.balance, '$ ')
-  part = accounting.formatMoney(data.balancePortion, '')
+#  part = accounting.formatMoney(data.balancePortion, '') Not used
   if data.setname == ""
     message = "#{data.custno} balance: #{total}"
   else
     message = " #{data.custno} [ #{data.setname} ] balance: #{total}"
-
   $(ARDashboard.htmlBindings.modal_Details_balance).text(message)
-  this
+  @
 
 ARDashboard.functions.paginate = ->
   $.ajax({
@@ -122,7 +85,7 @@ ARDashboard.functions.paginate = ->
       $(ARDashboard.htmlBindings.itemCounter).html(pager.itemsCount)
       $('.loading').hide()
   })
-  this
+  @
 
 ARDashboard.functions.updateTable = (items) ->
   $table = $(ARDashboard.htmlBindings.table)
@@ -135,7 +98,7 @@ ARDashboard.functions.updateTable = (items) ->
       $tableBody.append(ARDashboard.functions.buildTableItem(items[index], '', "item-field"));
 
   ARDashboard.functions.bindTableItemsEventHandlers();
-  this
+  @
 
 ARDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   doc = global.document
@@ -260,14 +223,14 @@ ARDashboard.functions.bindTableItemsEventHandlers = ->
   $(ARDashboard.htmlBindings.table_body_btn61_90).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
   $(ARDashboard.htmlBindings.table_body_btnMoreThan90).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
   #    $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
-  this
+  @
 
 ARDashboard.functions.bindEventHandlers = ->
   $(ARDashboard.htmlBindings.drpItemPerPage).on('click', ARDashboard.eventHandlers.drpItemPerPage_onClick)
   $(ARDashboard.htmlBindings.table_header_btnSort).on('click', ARDashboard.eventHandlers.table_body_btnSort_onClick);
   $(ARDashboard.htmlBindings.pager_btnPagerPages).on('click', ARDashboard.eventHandlers.pager_btnPagerPages_onClick)
   ARDashboard.functions.bindTableItemsEventHandlers();
-  this
+  @
 
 ARDashboard.functions.modal_details_paginate = ->
   $.ajax(
@@ -344,7 +307,7 @@ ARDashboard.functions.modal_details_buildTableItem = (dataRow, trClass, tdClass)
   result
 
 ARDashboard.functions.modal_details_bindTableItemsEventHandlers = ->
-  this
+  @
 
 ARDashboard.eventHandlers = {}
 
@@ -357,14 +320,14 @@ ARDashboard.eventHandlers.drpItemPerPage_onClick = (event) ->
   # When change items per page, show page one
   ARDashboard.status.currentPage = 1
   ARDashboard.functions.paginate()
-  this
+  @
 
 ARDashboard.eventHandlers.pager_btnPagerPages_onClick = (event) ->
   $target = $(event.target)
   value = $target.data('page')
   ARDashboard.status.currentPage = value
   ARDashboard.functions.paginate()
-  this
+  @
 
 ARDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   $target = $(event.target)
@@ -387,10 +350,9 @@ ARDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
 
   ARDashboard.status.table_header_sortLastButton = $target
   ARDashboard.functions.paginate()
-  this
+  @
 
 ARDashboard.eventHandlers.table_body_btnCustNo_onClick = (event) ->
-
   $target = $(event.target)
   ARDashboard.status.currentCustno = $target.data('custno')
   ARDashboard.status.currentBalance = $target.text().trim()
@@ -443,10 +405,10 @@ ARDashboard.eventHandlers.modal_details_pager_btnPagerPages_onClick = (event) ->
   ARDashboard.status.modal_detail_CurrentPage = value
   ARDashboard.status.currentSet
   ARDashboard.functions.modal_details_paginate()
-
-  this
+  @
 
 ARDashboard.init = (defaultUserFilter) ->
   ARDashboard.status.itemsPerPage = $(ARDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter)
   ARDashboard.functions.bindEventHandlers()
+  @

@@ -93,7 +93,7 @@ APDashboard.functions.updateDetailSumary = (data)->
     message = " #{data.vendno} [ #{data.setname} ] balance: #{total}"
 
   $(APDashboard.htmlBindings.modal_Details_balance).text(message)
-  this
+  @
 
 APDashboard.functions.paginate = ->
   $.ajax({

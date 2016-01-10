@@ -81,7 +81,7 @@
             
             
             <div class="panel-table">
-                <table class="table table-striped" id="quoteDashboardTable">
+                <table class="table table-striped" id="inventoryDashboardTable">
                     <colgroup>
                         <col class="col-itemno"/>
                         <col class="col-itmwhs"/>
@@ -103,7 +103,8 @@
                     <body>
                         <?php foreach ($Items as $item): ?>
                         <tr>
-                            <td class="item-field"><a href="#" class="itemno-form-link"><?php echo $item->getItemno() ?></a></td>
+<!--                            <td class="item-field"><a href="#" class="itemno-form-link">--><?php //echo $item->getItemno() ?><!--</a></td>-->
+                            <td class="item-field"><?php echo $item->getItemno() ?></td>
                             <td class="item-field"><?php echo $item->getItmwhs() ?></td>
                             <td class="item-field"><?php echo $item->getDescrip() ?></td>
                             <td class="item-field"><?php echo $item->getOnhand() ?></td>
