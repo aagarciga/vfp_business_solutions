@@ -132,5 +132,9 @@
     #main-panel .nav-pills > li#warehouse-management> a{
         background: transparent url('../../Images/Main/warehouse-management.jpg') no-repeat 50% 0px;
     }
+
+    #main-panel .nav-pills > li#inventory-dashboard> a{
+        background: transparent url('../../Images/Main/inventory-dashboard.jpg') no-repeat 50% 0px;
+    }
     
 }

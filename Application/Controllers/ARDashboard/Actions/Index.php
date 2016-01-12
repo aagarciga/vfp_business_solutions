@@ -33,6 +33,7 @@ class Index extends Action
         $this->FilterPredicate = ""; // Reset filter predicate when refresh the navigator.
 
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
+
         $this->Pager->Paginate();
         $queryResult = $this->Pager->getCurrentPagedItems();
         $items = $this->controller->calculate($queryResult);

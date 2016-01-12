@@ -19,6 +19,8 @@ class Index extends Action {
      * Default Dashboard page.
      */
     public function Execute() {
+        $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : '';
+
         $exportedBy = 'SO';
         $this->Title = 'Work Order Dashboard | VFP Business Series';
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();

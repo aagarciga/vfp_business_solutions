@@ -22,6 +22,8 @@
                         <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Quote Dashboard</span></a></li>
                 <li id="sales-order-dashboard"><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
                         <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Work Order Dashboard</span></a></li>
+                <li id="inventory-dashboard"><a href="<?php echo $View->Href("InventoryDashboard", "Index") ?>" class="exit">
+                        <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Inventory Dashboard</span></a></li>
                 <?php if ($ShowFiancialDashboard === true):?>
                 <li id="financial-dashboard"><a href="<?php echo $View->Href("FinancialDashboard", "Index") ?>" class="exit">
                         <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Financial Dashboard</span></a></li>

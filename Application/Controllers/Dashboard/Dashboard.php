@@ -52,6 +52,8 @@ class Dashboard extends DatActionsController {
                 //. "FROM SOHEAD$companySuffix WHERE NOT(SOHEAD$companySuffix.sostatus = 'C' OR SOHEAD$companySuffix.sostatus = 'A')$predicate GROUP BY ordnum, ponum, company, VESSELID, ProStartDT, ProEndDT, sotypecode, MTRLSTATUS, JOBSTATUS, projectManager1, projectManager2, podate, qutno, Cstctid ,JobDescrip ORDER BY $orderby $order";
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
+
+
     
     private function prepareOrderByField($orderByFiled){
         $result = $orderByFiled;
