@@ -22,8 +22,6 @@ class Index extends Action
     {
         $itemno = $this->Request->hasProperty('itemno') ? $this->Request->itemno : '';
 
-        $itemno = "OMG-2010-ELK-02026";
-
         $this->Title = 'On Sales Order Dashboard | VFP Business Series';
 
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();

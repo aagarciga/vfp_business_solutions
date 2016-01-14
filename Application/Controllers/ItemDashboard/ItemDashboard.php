@@ -49,7 +49,8 @@ class ItemDashboard extends DatActionsController
             .'qtyshp0, '
             .'qtyshprel, '
             .'shipdate '
-            ."FROM SOITEM$companysuffix $predicate ORDER BY $orderby $order";
+            ."FROM SOITEM$companysuffix $predicate GROUP BY ordnum, ponum, custno, podate, qtyord, qtyshp, bckord, "
+            ."qtyshp0, qtyshprel, shipdate ORDER BY $orderby $order";
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
