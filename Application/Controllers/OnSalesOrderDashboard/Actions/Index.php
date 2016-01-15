@@ -10,7 +10,7 @@
 
 namespace Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Actions;
 
-use Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Models\ItemDashboardViewModel;
+use Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Models\OnSalesOrderDashboardViewModel;
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 
@@ -42,7 +42,7 @@ class Index extends Action
 
         foreach($items as $item)
         {
-            $currentItemViewModel = new ItemDashboardViewModel($item->ordnum, $item->ponum, $item->custno, $item->company, $item->podate, $item->qtyord, $item->qtyshp, $item->bckord, $item->qtyshp0, $item->qtyshprel, $item->shipdate);
+            $currentItemViewModel = new OnSalesOrderDashboardViewModel($item->ordnum, $item->ponum, $item->custno, $item->company, $item->podate, $item->qtyord, $item->qtyshp, $item->bckord, $item->qtyshp0, $item->qtyshprel, $item->shipdate);
             $viewModels[] = $currentItemViewModel;
         }
 
