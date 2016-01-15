@@ -122,7 +122,7 @@
                         <th>Orden No. <button data-field="ordenno" class="btn-table-sort"></button></th>
                         <th>Cust Po No. <button data-field="ponum" class="btn-table-sort"></button></th>
                         <th>Cust No. <button data-field="custno" class="btn-table-sort"></button></th>
-                        <!--<th>Customer Name <button data-field="company" class="btn-table-sort"></button></th>!-->
+                        <th>Customer Name <button data-field="company" class="btn-table-sort"></button></th>
                         <th>Date <button data-field="podate" class="btn-table-sort"></button></th>
                         <th>qty ord <button data-field="qtyord" class="btn-table-sort"></button></th>
                         <th>qty shp <button data-field="qtyshp" class="btn-table-sort"></button></th>
@@ -138,6 +138,7 @@
                             <td class="item-field"><?php echo $item->getOrdnum() ?></td>
                             <td class="item-field"><?php echo $item->getPonum() ?></td>
                             <td class="item-field"><?php echo $item->getCustno() ?></td>
+                            <td class="item-field"><?php echo $item->getCompany() ?></td>
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
                             <td class="item-field"><?php echo $item->getQtyord() ?></td>
                             <td class="item-field"><?php echo $item->getQtyshp() ?></td>

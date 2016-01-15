@@ -52,6 +52,7 @@ class GetPage_Post extends Action
             $current['ordnum'] = trim($item->ordnum);
             $current['ponum'] = trim($item->ponum);
             $current['custno'] = trim($item->custno);
+            $current['company'] = $item->company;
             $current['podate'] = trim($item->podate);
             $current['qtyord'] = trim($item->qtyord);
             $current['qtyshp'] = trim($item->qtyshp);

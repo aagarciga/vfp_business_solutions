@@ -22,6 +22,7 @@ class ItemDashboardViewModel
     protected $_ordnum;
     protected $_ponum;
     protected $_custno;
+    protected $_company;
     protected $_podate;
     protected $_qtyord;
     protected $_qtyshp;
@@ -30,13 +31,14 @@ class ItemDashboardViewModel
     protected $_qtyshprel;
     protected $_shipdate;
 
-    public function __construct($ordnum, $ponum, $custno, $podate, $qtyord,
+    public function __construct($ordnum, $ponum, $custno, $company, $podate, $qtyord,
                                 $qtyshp, $bckord, $qtyshp0, $qtyshprel, $shipdate)
 
     {
         $this->_ordnum = trim($ordnum);
         $this->_ponum = trim($ponum);
         $this->_custno = trim($custno);
+        $this->_company = $company;
         $this->_podate = $podate;
         $this->_qtyord = $qtyord;
         $this->_qtyshp = $qtyshp;
@@ -59,6 +61,11 @@ class ItemDashboardViewModel
     public function getCustno()
     {
         return $this->_custno;
+    }
+
+    public function getCompany()
+    {
+        return $this->_company;
     }
 
     public function getPodate()

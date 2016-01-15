@@ -38,10 +38,13 @@ class ItemDashboard extends DatActionsController
         }
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
+        $soitemTable = "SOITEM$companysuffix";
+        $arcustTable = "ARCUST$companysuffix";
         $sqlString = "SELECT "
             .'ordnum, '
             .'ponum, '
-            .'custno, '
+            ."$soitemTable.custno as custno, "
+            .'company, '
             .'podate, '
             .'qtyord, '
             .'qtyshp, '
@@ -49,8 +52,9 @@ class ItemDashboard extends DatActionsController
             .'qtyshp0, '
             .'qtyshprel, '
             .'shipdate '
-            ."FROM SOITEM$companysuffix $predicate GROUP BY ordnum, ponum, custno, podate, qtyord, qtyshp, bckord, "
+            ."FROM ($soitemTable INNER JOIN $arcustTable  ON $soitemTable.custno = $arcustTable.custno) $predicate GROUP BY ordnum, ponum, custno, podate, qtyord, qtyshp, bckord, "
             ."qtyshp0, qtyshprel, shipdate ORDER BY $orderby $order";
+
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }

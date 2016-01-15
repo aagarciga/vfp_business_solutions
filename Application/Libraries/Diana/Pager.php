@@ -178,6 +178,7 @@ abstract class Pager {
     public function getCurrentPagedItems(){
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->ExecutePaged($this->sql, $this->itemsPerPage, $this->getOffset());
+
         return $queryResult;
     }
     

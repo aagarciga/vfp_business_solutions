@@ -40,7 +40,7 @@ class Index extends Action
 
         foreach($items as $item)
         {
-            $currentItemViewModel = new ItemDashboardViewModel($item->ordnum, $item->ponum, $item->custno, $item->podate, $item->qtyord, $item->qtyshp, $item->bckord, $item->qtyshp0, $item->qtyshprel, $item->shipdate);
+            $currentItemViewModel = new ItemDashboardViewModel($item->ordnum, $item->ponum, $item->custno, $item->company, $item->podate, $item->qtyord, $item->qtyshp, $item->bckord, $item->qtyshp0, $item->qtyshprel, $item->shipdate);
             $viewModels[] = $currentItemViewModel;
         }
 
