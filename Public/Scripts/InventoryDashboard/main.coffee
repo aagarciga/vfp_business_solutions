@@ -92,11 +92,11 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     td.appendChild(doc.createTextNode(data))
     td;
 
-  withLinkTdBuilder = (data, linkClassName, tdLinkClass) ->
+  withLinkTdBuilder = (data, linkClassName, tdLinkClass, href = '#') ->
     td = doc.createElement('td')
     a = doc.createElement('a')
 
-    a.href = "#"
+    a.href = href
     a.className = linkClassName
     a.dataset.custno = dataRow.custno
 
@@ -156,7 +156,7 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number')
 
   tdCommittedBuilder = ->
-    withLinkTdBuilder(dataRow.committed,InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number')
+    withLinkTdBuilder(dataRow.committed,InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number', dataRow.committedHref)
 
   result.className = trClass;
   result.appendChild(tdItemNoBuilder());

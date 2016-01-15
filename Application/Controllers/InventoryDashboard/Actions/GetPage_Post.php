@@ -17,7 +17,6 @@ class GetPage_Post extends Action
 
     public function Execute()
     {
-
         $filterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
         $page = $this->Request->hasProperty('page') ? $this->Request->page : 1;
         $itemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : 50;
@@ -45,6 +44,7 @@ class GetPage_Post extends Action
             $current['onhand'] = number_format(trim($item->onhand));
             $current['onorder'] = number_format(trim($item->onorder));
             $current['committed'] = number_format(trim($item->committed));
+            $current['committedHref'] = $this->view->Href('OnSalesOrderDashboard', 'Index', array('itemno' => base64_encode($current['itemno'])));
             $result[] = $current;
         }
 

@@ -114,11 +114,14 @@
       td.appendChild(doc.createTextNode(data));
       return td;
     };
-    withLinkTdBuilder = function(data, linkClassName, tdLinkClass) {
+    withLinkTdBuilder = function(data, linkClassName, tdLinkClass, href) {
       var a, td;
+      if (href == null) {
+        href = '#';
+      }
       td = doc.createElement('td');
       a = doc.createElement('a');
-      a.href = "#";
+      a.href = href;
       a.className = linkClassName;
       a.dataset.custno = dataRow.custno;
       if (typeof data === "string") {
@@ -177,7 +180,7 @@
       return withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number');
     };
     tdCommittedBuilder = function() {
-      return withLinkTdBuilder(dataRow.committed, InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number');
+      return withLinkTdBuilder(dataRow.committed, InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number', dataRow.committedHref);
     };
     result.className = trClass;
     result.appendChild(tdItemNoBuilder());
