@@ -8,19 +8,21 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\ItemDashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Actions;
 
-use Dandelion\MVC\Application\Controllers\ItemDashboard\Models\ItemDashboardViewModel;
+use Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Models\ItemDashboardViewModel;
 use Dandelion\MVC\Core\Action;
 
 /**
- * Create By Victor.
-*/
+ * Created by: Victor
+ * Class Index
+ * @package Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Actions
+ */
 class Index extends Action
 {
     public function Execute()
     {
-        $itemno = $this->Request->hasProperty('itemno') ? $this->Request->itemno : '';
+        $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
 
         $this->Title = 'On Sales Order Dashboard | VFP Business Series';
 

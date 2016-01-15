@@ -14,8 +14,12 @@ use Dandelion\MVC\Application\Controllers\DatActionsController;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Core\Request;
 
-
-class ItemDashboard extends DatActionsController
+/**
+ * Created by: Victor
+ * Class OnSalesOrderDashboard
+ * @package Dandelion\MVC\Application\Controllers
+ */
+class OnSalesOrderDashboard extends DatActionsController
 {
     /**
      *

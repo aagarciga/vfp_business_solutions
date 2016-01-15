@@ -9,10 +9,12 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\ItemDashboard\Models;
+namespace Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Models;
 
 /**
- * Create by Victor
+ * Created by: Victor
+ * Class ItemDashboardViewModel
+ * @package Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Models
  */
 class ItemDashboardViewModel
 {

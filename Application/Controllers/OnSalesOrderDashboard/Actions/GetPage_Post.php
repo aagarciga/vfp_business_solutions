@@ -8,16 +8,21 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\ItemDashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Actions;
 
 
 use Dandelion\MVC\Core\Action;
 
+/**
+ * Created by: Victor
+ * Class GetPage_Post
+ * @package Dandelion\MVC\Application\Controllers\ItemDashboard\Actions
+ */
 class GetPage_Post extends Action
 {
     public function Execute()
     {
-        $itemno = $this->Request->hasProperty('itemno') ? $this->Request->itemno : "";
+        $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : "";
         $filterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
 
         //todo: Set default value as global default value
