@@ -104,7 +104,7 @@
 
 
             <div class="panel-table">
-                <table class="table table-striped" id="itemDashboardTable">
+                <table class="table table-striped" id="OnSalesOrderDashboardTable">
                     <colgroup>
                         <col class="col-ordenno"/>
                         <col class="col-ponum"/>
@@ -119,7 +119,7 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>Orden No. <button data-field="ordenno" class="btn-table-sort"></button></th>
+                        <th>Orden No. <button data-field="ordnum" class="btn-table-sort"></button></th>
                         <th>Cust Po No. <button data-field="ponum" class="btn-table-sort"></button></th>
                         <th>Cust No. <button data-field="custno" class="btn-table-sort"></button></th>
                         <th>Customer Name <button data-field="company" class="btn-table-sort"></button></th>
@@ -129,7 +129,7 @@
                         <th>Bck ord <button data-field="bckord" class="btn-table-sort"></button></th>
                         <th>Allocatted <button data-field="qtyshp0" class="btn-table-sort"></button></th>
                         <th>qty rel <button data-field="qtyshprel" class="btn-table-sort"></button></th>
-                        <th>Chip Date <button data-field="chipdate" class="btn-table-sort"></button></th>
+                        <th>Chip Date <button data-field="shipdate" class="btn-table-sort"></button></th>
                     </tr>
                     </thead>
                     <body>
@@ -140,11 +140,11 @@
                             <td class="item-field"><?php echo $item->getCustno() ?></td>
                             <td class="item-field"><?php echo $item->getCompany() ?></td>
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
-                            <td class="item-field"><?php echo $item->getQtyord() ?></td>
-                            <td class="item-field"><?php echo $item->getQtyshp() ?></td>
-                            <td class="item-field"><?php echo $item->getBckord() ?></td>
-                            <td class="item-field"><?php echo $item->getQtyshp0() ?></td>
-                            <td class="item-field"><?php echo $item->getQtyshprel() ?></td>
+                            <td class="item-field number"><?php echo $item->getQtyord() ?></td>
+                            <td class="item-field number"><?php echo $item->getQtyshp() ?></td>
+                            <td class="item-field number"><?php echo $item->getBckord() ?></td>
+                            <td class="item-field number"><?php echo $item->getQtyshp0() ?></td>
+                            <td class="item-field number"><?php echo $item->getQtyshprel() ?></td>
                             <td class="item-field"><?php echo $item->getShipdate() ?></td>
                         </tr>
                     <?php endforeach ?>
