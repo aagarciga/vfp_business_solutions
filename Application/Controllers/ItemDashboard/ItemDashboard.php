@@ -52,9 +52,8 @@ class ItemDashboard extends DatActionsController
             .'qtyshp0, '
             .'qtyshprel, '
             .'shipdate '
-            ."FROM ($soitemTable INNER JOIN $arcustTable  ON $soitemTable.custno = $arcustTable.custno) $predicate GROUP BY ordnum, ponum, custno, podate, qtyord, qtyshp, bckord, "
+            ."FROM ($soitemTable INNER JOIN $arcustTable  ON $soitemTable.custno = $arcustTable.custno) $predicate GROUP BY ordnum, ponum, custno, company, podate, qtyord, qtyshp, bckord, "
             ."qtyshp0, qtyshprel, shipdate ORDER BY $orderby $order";
-
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
