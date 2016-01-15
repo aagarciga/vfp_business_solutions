@@ -8,3 +8,4 @@ node_modules/
 artworks/
 dist/
 nbproject/
+*.min.min.*

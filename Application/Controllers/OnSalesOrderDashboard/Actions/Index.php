@@ -12,6 +12,7 @@ namespace Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Actions;
 
 use Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Models\ItemDashboardViewModel;
 use Dandelion\MVC\Core\Action;
+use Dandelion\Diana\BootstrapPager;
 
 /**
  * Created by: Victor
@@ -22,7 +23,8 @@ class Index extends Action
 {
     public function Execute()
     {
-        $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
+        $exportedBy = 'OSO';
+        $this->Itemno = $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
 
         $this->Title = 'On Sales Order Dashboard | VFP Business Series';
 
@@ -30,8 +32,6 @@ class Index extends Action
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = isset($_SESSION['itemperpages']) ? $_SESSION['itemperpages'] : $defaultItemsPerPage;
-
-        $this->Itemno = $itemno;
 
         $this->FilterPredicate = (is_string($itemno) && $itemno != "") ? "itemno = '$itemno'" : "";
 
@@ -47,9 +47,14 @@ class Index extends Action
         }
 
         $this->Items = $viewModels;
+        $user = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
+        $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($user->getUsername(), $exportedBy);
 
         $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
 
         $this->FullFeatures = isset($_SESSION['fullFeatures']) ? $_SESSION['fullFeatures'] : false;
+        $this->ShowFiancialDashboard = (!isset($_SESSION['showFiancialDashboard'])) ? false : $_SESSION['showFiancialDashboard'];
+
+        $this->JavascriptBootstrapPager = BootstrapPager::GetJavascriptBootstrapPager();
     }
 }
