@@ -34,18 +34,17 @@ class OnSalesOrderDashboardViewModel
     protected $_shipdate;
 
     /**
-     * OnSalesOrderDashboardViewModel constructor.
-     * @param $_ordnum
-     * @param $_ponum
-     * @param $_custno
-     * @param $_company
-     * @param $_podate
-     * @param $_qtyord
-     * @param $_qtyshp
-     * @param $_bckord
-     * @param $_qtyshp0
-     * @param $_qtyshprel
-     * @param $_shipdate
+     * @param $ordnum
+     * @param $ponum
+     * @param $custno
+     * @param $company
+     * @param $podate
+     * @param $qtyord
+     * @param $qtyshp
+     * @param $bckord
+     * @param $qtyshp0
+     * @param $qtyshprel
+     * @param $shipdate
      */
     public function __construct($ordnum, $ponum, $custno, $company, $podate, $qtyord, $qtyshp, $bckord, $qtyshp0, $qtyshprel, $shipdate)
     {

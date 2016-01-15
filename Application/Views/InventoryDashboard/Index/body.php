@@ -103,12 +103,12 @@
                     <body>
                         <?php foreach ($Items as $item): ?>
                         <tr>
-                            <td class="item-field"><a href="index.php?controller=OnSalesOrderDashboard&action=Index&itemno=<?php echo base64_encode($item->getItemno())?>"><?php echo $item->getItemno()?></a></td>
+                            <td class="item-field"><?php echo $item->getItemno()?></a></td>
                             <td class="item-field"><?php echo $item->getItmwhs() ?></td>
                             <td class="item-field"><?php echo $item->getDescrip() ?></td>
                             <td class="item-field number"><?php echo $item->getOnhand() ?></td>
                             <td class="item-field number"><a href="#" class="btn-onorder-form-link"><?php echo $item->getOnorder() ?></a></td>
-                            <td class="item-field number"><a href="#" class="btn-committed-form-link"><?php echo $item->getCommitted() ?></a></td>
+                            <td class="item-field number"><a href="<?php echo $View->Href('OnSalesOrderDashboard', 'Index', array('itemno' => base64_encode($item->getItemno())))?>" class="btn-committed-form-link"><?php echo $item->getCommitted() ?></a></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
