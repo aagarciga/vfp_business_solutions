@@ -81,7 +81,7 @@
             
             
             <div class="panel-table">
-                <table class="table table-striped" id="inventoryDashboardTable">
+                <table class="table responsive table-striped" id="inventoryDashboardTable">
                     <colgroup>
                         <col class="col-itemno"/>
                         <col class="col-itmwhs"/>

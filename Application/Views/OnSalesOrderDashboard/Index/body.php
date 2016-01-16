@@ -92,7 +92,7 @@
                                 <a href="#" class="filter-field" data-field="company" data-field-type="text">Customer Name</a>
                             </li>
                             <li>
-                                <a href="#" class="filter-field" data-field="podate" data-field-type="text">Date</a>
+                                <a href="#" class="filter-field" data-field="podate" data-field-type="date">Date</a>
                             </li>
                             <li>
                                 <a href="#" class="filter-field" data-field="qtyord" data-field-type="text">Quantity Order</a>
@@ -108,7 +108,7 @@
                                 <a href="#" class="filter-field" data-field="qtyshprel" data-field-type="text">Quantity Rel</a>
                             </li>
                             <li>
-                                <a href="#" class="filter-field" data-field="shipdate" data-field-type="text">Ship Date</a>
+                                <a href="#" class="filter-field" data-field="shipdate" data-field-type="date">Ship Date</a>
                             </li>
                         </ul>
                     </div>

@@ -52,13 +52,13 @@ class OnSalesOrderDashboardViewModel
         $this->_ponum = trim($ponum);
         $this->_custno = trim($custno);
         $this->_company = trim($company);
-        $this->_podate = trim($podate);
+        $this->_podate = $podate === "1899-12-30" ? "" : $podate;
         $this->_qtyord = trim($qtyord);
         $this->_qtyshp = trim($qtyshp);
         $this->_bckord = trim($bckord);
         $this->_qtyshp0 = trim($qtyshp0);
         $this->_qtyshprel = trim($qtyshprel);
-        $this->_shipdate = trim($shipdate);
+        $this->$shipdate = $shipdate === "1899-12-30" ? "" : $shipdate;
     }
 
 

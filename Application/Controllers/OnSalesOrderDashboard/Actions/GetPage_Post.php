@@ -58,13 +58,13 @@ class GetPage_Post extends Action
             $current['ponum'] = trim($item->ponum);
             $current['custno'] = trim($item->custno);
             $current['company'] = $item->company;
-            $current['podate'] = trim($item->podate);
+            $current['podate'] = trim($item->podate === "1899-12-30" ? "" : $item->podate);
             $current['qtyord'] = trim($item->qtyord);
             $current['qtyshp'] = trim($item->qtyshp);
             $current['bckord'] = trim($item->bckord);
             $current['qtyshp0'] = trim($item->qtyshp0);
             $current['qtyshprel'] = trim($item->qtyshprel);
-            $current['shipdate'] = trim($item->shipdate);
+            $current['shipdate'] = trim($item->shipdate === "1899-12-30" ? "" : $item->shipdate);
             $result[] = $current;
         }
 
