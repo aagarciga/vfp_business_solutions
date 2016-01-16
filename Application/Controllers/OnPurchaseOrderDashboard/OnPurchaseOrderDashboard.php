@@ -16,10 +16,10 @@ use Dandelion\MVC\Core\Request;
 
 /**
  * Created by: Victor
- * Class OnSalesOrderDashboard
+ * Class OnPurchaseOrderDashboard
  * @package Dandelion\MVC\Application\Controllers
  */
-class OnSalesOrderDashboard extends DatActionsController
+class OnPurchaseOrderDashboard extends DatActionsController
 {
     /**
      *
@@ -34,7 +34,7 @@ class OnSalesOrderDashboard extends DatActionsController
      * @internal Because in the feature this will be an INNER JOIN
      */
     public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5,
-                             $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC")
+                             $showPagerControlsIfMoreThan = 10, $orderby = "pono", $order = "ASC")
     {
         if ($predicate !== "")
         {
@@ -42,22 +42,13 @@ class OnSalesOrderDashboard extends DatActionsController
         }
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
-        $soitemTable = "SOITEM$companysuffix";
-        $arcustTable = "ARCUST$companysuffix";
+        $poitemTable = "POITEM$companysuffix";
+        $fields = 'pono, vendo, podate, qtyord, qtyrec, qtyleft, shipped, potype, ';
+
         $sqlString = "SELECT "
-            .'ordnum, '
-            .'ponum, '
-            ."$soitemTable.custno as custno, "
-            .'company, '
-            .'podate, '
-            .'qtyord, '
-            .'qtyshp, '
-            .'bckord, '
-            .'qtyshp0, '
-            .'qtyshprel, '
-            .'shipdate '
-            ."FROM ($soitemTable INNER JOIN $arcustTable  ON $soitemTable.custno = $arcustTable.custno) $predicate GROUP BY ordnum, ponum, custno, company, podate, qtyord, qtyshp, bckord, "
-            ."qtyshp0, qtyshprel, shipdate ORDER BY $orderby $order";
+            .$fields
+            ."FROM $poitemTable $predicate GROUP BY $fields"
+            ."ORDER BY $orderby $order";
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
