@@ -9,3 +9,7 @@ artworks/
 dist/
 nbproject/
 *.min.min.*
+Public/Scripts/OnPurchaseOrderDashboard/main.min.js
+Public/Scripts/OnPurchaseOrderDashboard/OnSalesOrderDashboardDynamicFilter.min.js
+Public/Styles/OnPurchaseOrderDashboard/index.min.css
+.gitignore

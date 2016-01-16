@@ -8,7 +8,7 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\ItemDashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Actions;
 
 
 use Dandelion\MVC\Core\Action;
