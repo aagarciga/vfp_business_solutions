@@ -39,7 +39,7 @@ class InventoryDashboardViewModel
 
         $this->_itemno = trim($itemno);
         $this->_itmwhs = trim($itmwhs);
-        $this->_descrip = trim($descrip);
+        $this->_descrip = utf8_encode(trim($descrip));
         $this->_onhand = number_format(trim($onhand));
         $this->_onorder = number_format(trim($onorder));
         $this->_committed = number_format(trim($committed));

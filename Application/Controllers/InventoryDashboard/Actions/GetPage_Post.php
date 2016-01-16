@@ -40,7 +40,7 @@ class GetPage_Post extends Action
             $current = array();
             $current['itemno'] = trim($item->itemno);
             $current['itmwhs'] = trim($item->itmwhs);
-            $current['descrip'] = trim($item->descrip);
+            $current['descrip'] = utf8_encode(trim($item->descrip));
             $current['onhand'] = number_format(trim($item->onhand));
             $current['onorder'] = number_format(trim($item->onorder));
             $current['committed'] = number_format(trim($item->committed));
