@@ -1,34 +1,30 @@
-#close, #clear{
-    line-height: 2.10;
+#close,
+#clear {
+  line-height: 2.10;
 }
-
-#quantityForm{
-    top:53px;
-    /*width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers*/
-    height: 100%;
-    display: none;
-    position: absolute;
-    z-index: 1000;
-    background-color: white;
-    margin-left: -15px;
+#quantityForm {
+  top: 53px;
+  /*width: 100%; // Firefox in Movile Mode fails TODO: Remove this in order to work fine in all browsers*/
+  height: 100%;
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  margin-left: -15px;
 }
-
-#quantityField{
-    text-align: right;
+#quantityField {
+  text-align: right;
 }
-
-  .nav-justified.nav-justified-xs > li {
-    display: table-cell !important;
-    width: 1% !important;
-  }
-  .nav-justified.nav-justified-xs > li > a {
-    margin-bottom: 0 !important;
-  }
-  
-  #quantityForm .btn{
-      border: 1px solid #ccc;
-  }
-  
-  #quantityForm .bottom-actions{
-      margin-top: 10px;
-  }
+.nav-justified.nav-justified-xs > li {
+  display: table-cell !important;
+  width: 1% !important;
+}
+.nav-justified.nav-justified-xs > li > a {
+  margin-bottom: 0 !important;
+}
+#quantityForm .btn {
+  border: 1px solid #ccc;
+}
+#quantityForm .bottom-actions {
+  margin-top: 10px;
+}
