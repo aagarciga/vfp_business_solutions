@@ -31,16 +31,18 @@
         <!-- Default panel contents -->
         <div class="panel-heading">
 
-                Projects
+            Projects
                 <span id="panelHeadingItemsCount" class="badge">
                     <?php echo $Pager->getItemsCount(); ?>
                 </span>
 
             <span>
-                <?php echo $Itemno?>
+                <?php echo $Itemno ?>
             </span>
+
             <div class="btn-group pull-right top-pager-itemmperpage-control">
-                <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown">
                     <span class="value"><?php echo $ItemPerPage ?></span>
                     <span class="caret"></span>
                 </button>
@@ -60,43 +62,68 @@
                 <div id="dynamicFilter_filterFieldsContainer">
 
                 </div>
-                <div  class="btn-group filter-button left">
-                    <button id="dynamicFilter_btnToggleVisibility"type="button" class="btn btn-default disabled">Hide</button>
-                    <button id="dynamicFilter_btnReset"type="button" class="btn btn-default disabled">Reset</button>
+                <div class="btn-group filter-button left">
+                    <button id="dynamicFilter_btnToggleVisibility" type="button" class="btn btn-default disabled">Hide
+                    </button>
+                    <button id="dynamicFilter_btnReset" type="button" class="btn btn-default disabled">Reset</button>
 
                     <div class="btn-group">
                         <button id="dynamicFilter_btnSave" type="button" class="btn btn-success disabled">Save</button>
-                        <?php if(count($SavedUserFilters)):?>
+                        <?php if (count($SavedUserFilters)): ?>
                             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                                 <span class="caret"></span>
                             </button>
                             <ul id="dynamicFilter_drpSavedFilters" class="dropdown-menu" role="menu">
                                 <li role="presentation" class="dropdown-header">Load Saved Filter</li>
                                 <?php foreach ($SavedUserFilters as $filter): ?>
-                                    <li><a href="#" class="saved-filter-list-item" data-filterid="<?php echo $filter->getFilterid() ?>"><?php echo $filter->getExportid() ?></a><button type="button" class="close" aria-hidden="true">&times;</button></li>
+                                    <li><a href="#" class="saved-filter-list-item"
+                                           data-filterid="<?php echo $filter->getFilterid() ?>"><?php echo $filter->getExportid() ?></a>
+                                        <button type="button" class="close" aria-hidden="true">&times;</button>
+                                    </li>
                                 <?php endforeach ?>
                             </ul>
                         <?php endif ?>
                     </div>
 
                     <div class="btn-group">
-                        <button id="dynamicFilter_btnFilter" type="button" class="btn btn-primary disabled">Filter</button>
+                        <button id="dynamicFilter_btnFilter" type="button" class="btn btn-primary disabled">Filter
+                        </button>
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
-                            <li><a href="#" class="filter-field" data-field="ordenno" data-field-type="text">Orden No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Cust Po No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="custno" data-field-type="text">Cust No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Customer Name</a></li>
-                            <li><a href="#" class="filter-field" data-field="podate" data-field-type="text">Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyord" data-field-type="text">qty ord</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyshp" data-field-type="text">qty shp</a></li>
-                            <li><a href="#" class="filter-field" data-field="bckord" data-field-type="text">Bck ord</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyshp0" data-field-type="text">Allocatted</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyshprel" data-field-type="text">qty rel</a></li>
-                            <li><a href="#" class="filter-field" data-field="chipdate" data-field-type="text">Chip Date</a></li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Order No.</a>
+                            </li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="ponum" data-field-type="text">Customer Purchase No.</a>
+                            </li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="custno" data-field-type="text">Customer No.</a>
+                            </li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="company" data-field-type="text">Customer Name</a>
+                            </li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="podate" data-field-type="text">Date</a>
+                            </li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="qtyord" data-field-type="text">Quantity Order</a>
+                            </li>
+                            <li><a href="#" class="filter-field" data-field="qtyshp" data-field-type="text">Quantity Shipped</a>
+                            </li>
+                            <li><a href="#" class="filter-field" data-field="bckord" data-field-type="text">Back Order</a>
+                            </li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="qtyshp0" data-field-type="text">Allocated</a>
+                            </li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="qtyshprel" data-field-type="text">Quantity Rel</a>
+                            </li>
+                            <li>
+                                <a href="#" class="filter-field" data-field="shipdate" data-field-type="text">Ship Date</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -115,21 +142,43 @@
                         <col class="col-bckord"/>
                         <col class="col-qtyshp0"/>
                         <col class="col-qtyshprel"/>
-                        <col class="col-chipdate"/>
+                        <col class="col-shipdate"/>
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>Orden No. <button data-field="ordnum" class="btn-table-sort"></button></th>
-                        <th>Cust Po No. <button data-field="ponum" class="btn-table-sort"></button></th>
-                        <th>Cust No. <button data-field="custno" class="btn-table-sort"></button></th>
-                        <th>Customer Name <button data-field="company" class="btn-table-sort"></button></th>
-                        <th>Date <button data-field="podate" class="btn-table-sort"></button></th>
-                        <th>qty ord <button data-field="qtyord" class="btn-table-sort"></button></th>
-                        <th>qty shp <button data-field="qtyshp" class="btn-table-sort"></button></th>
-                        <th>Bck ord <button data-field="bckord" class="btn-table-sort"></button></th>
-                        <th>Allocatted <button data-field="qtyshp0" class="btn-table-sort"></button></th>
-                        <th>qty rel <button data-field="qtyshprel" class="btn-table-sort"></button></th>
-                        <th>Chip Date <button data-field="shipdate" class="btn-table-sort"></button></th>
+                        <th>Order No.
+                            <button data-field="ordnum" class="btn-table-sort"></button>
+                        </th>
+                        <th>Customer PO No.
+                            <button data-field="ponum" class="btn-table-sort"></button>
+                        </th>
+                        <th>Customer No.
+                            <button data-field="custno" class="btn-table-sort"></button>
+                        </th>
+                        <th>Customer Name
+                            <button data-field="company" class="btn-table-sort"></button>
+                        </th>
+                        <th>Date
+                            <button data-field="podate" class="btn-table-sort"></button>
+                        </th>
+                        <th>Quantity Order
+                            <button data-field="qtyord" class="btn-table-sort"></button>
+                        </th>
+                        <th>Quantity Shipped
+                            <button data-field="qtyshp" class="btn-table-sort"></button>
+                        </th>
+                        <th>Back Order
+                            <button data-field="bckord" class="btn-table-sort"></button>
+                        </th>
+                        <th>Allocated
+                            <button data-field="qtyshp0" class="btn-table-sort"></button>
+                        </th>
+                        <th>Quantity Rel
+                            <button data-field="qtyshprel" class="btn-table-sort"></button>
+                        </th>
+                        <th>Ship Date
+                            <button data-field="shipdate" class="btn-table-sort"></button>
+                        </th>
                     </tr>
                     </thead>
                     <body>
@@ -151,14 +200,16 @@
                     </body>
                 </table>
 
-            </div><!-- /.panel-table -->
+            </div>
+            <!-- /.panel-table -->
         </div>
         <div class="panel-footer">
             <div class="text-center pager-wrapper">
                 <?php echo $Pager->getPagerControl(); ?>
             </div>
         </div>
-    </div><!-- /.panel -->
+    </div>
+    <!-- /.panel -->
 
     <!--    Controls Here ...-->
 
@@ -175,13 +226,20 @@
             </div>
             <div class="modal-body row">
                 <div class="form-group col-xs-12">
-                    <input type="text" class="form-control" value="" id="dynamicFilter_modal_txtFilterName" maxlength="20" placeholder="Filter Name" data-content="Please enter a valid filter name. Only letters and numbers are permitted and can't be empty." data-placement="top"/>
+                    <input type="text" class="form-control" value="" id="dynamicFilter_modal_txtFilterName"
+                           maxlength="20" placeholder="Filter Name"
+                           data-content="Please enter a valid filter name. Only letters and numbers are permitted and can't be empty."
+                           data-placement="top"/>
                 </div>
-            </div><!-- /.modal-body -->
+            </div>
+            <!-- /.modal-body -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="dynamicFilter_modal_btnSaveFilter">Save Filter</button>
+                <button type="button" class="btn btn-primary" id="dynamicFilter_modal_btnSaveFilter">Save Filter
+                </button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div><!-- /.modal -->
