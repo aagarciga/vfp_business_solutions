@@ -1,0 +1,69 @@
+@import "bootstrap-mixins";
+@import "mixins";
+
+body *{
+    .transition(all .5s ease);
+}
+
+.navbar.navbar-default{
+    border-radius: 0px 0px 4px 4px;
+    border-top: none;
+}
+
+.loading{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 50px;
+    height: 50px;
+
+    margin-top: -25px;
+    margin-left: -25px;
+
+    background: white url('../images/spindicate.gif') no-repeat 50% 50%;
+
+    box-shadow: 1px 1px 5px #222;
+    border-radius: 8px;
+    z-index: 10000;
+}
+
+.no-boxshadow .loading{
+    background-color: transparent;
+}
+
+/* Bootstrap Overrides */
+
+/* Imput modal definitions */
+
+.modal.modal-input .modal-dialog.modal-sm .modal-content .modal-header{
+    padding-bottom: 0px;
+    border-bottom: none;
+}
+
+.modal.modal-input .modal-dialog.modal-sm .modal-content .modal-footer{
+    margin-top: 0px;
+    padding-top: 0px;
+    border-top: none;
+}
+
+.btn-table-sort{
+    border: none;
+    display: inline-block;
+    width: 21px;
+    height: 9px;
+    background: transparent url('../images/table-sort.gif') no-repeat 50% 50%;
+}
+
+.btn-table-sort.asc{
+    background: transparent url('../images/table-sort-asc.gif') no-repeat 50% 60%;
+}
+
+.btn-table-sort.desc{
+    background: transparent url('../images/table-sort-desc.gif') no-repeat 50% 40%;
+}
+
+.filter-button button{
+    padding: 4px 9px;
+}
