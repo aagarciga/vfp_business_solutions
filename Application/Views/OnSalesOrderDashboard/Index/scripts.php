@@ -4,6 +4,7 @@
 <!--<script src="--><?php //echo $View->PublicVendorContext('jstree/jstree.min.js'); ?><!--"></script>-->
 <!--<script src="--><?php //echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?><!--"></script>-->
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('responsive-tables/responsive-tables.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
 <script src="<?php echo $View->ScriptsContext('OnSalesOrderDashboard/OnSalesOrderDashboardDynamicFilter.js'); ?>"></script>

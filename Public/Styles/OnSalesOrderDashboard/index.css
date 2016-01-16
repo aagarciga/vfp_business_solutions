@@ -53,3 +53,6 @@ ul.pagination {
   text-align: right;
   padding-right: 10px !important;
 }
+.table > colgroup + thead > tr:first-child > th {
+  height: 41px;
+}

@@ -1,12 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Victor
- * Date: 12/01/2016
- * Time: 15:01
- */
-?>
-
 <div class="container">
 
     <nav class="navbar navbar-default" role="navigation">
@@ -20,7 +11,7 @@
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                On Sales Order Dashboard
+                On Sales Order
             </a>
         </div>
 
@@ -30,14 +21,9 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">
-
-            Projects
-                <span id="panelHeadingItemsCount" class="badge">
-                    <?php echo $Pager->getItemsCount(); ?>
-                </span>
-
-            <span>
-                <?php echo $Itemno ?>
+            Projects for <strong><?php echo $Itemno ?></strong>
+            <span id="panelHeadingItemsCount" class="badge">
+                <?php echo $Pager->getItemsCount(); ?>
             </span>
 
             <div class="btn-group pull-right top-pager-itemmperpage-control">
@@ -131,7 +117,7 @@
 
 
             <div class="panel-table">
-                <table class="table table-striped" id="OnSalesOrderDashboardTable">
+                <table class="table responsive table-striped" id="OnSalesOrderDashboardTable">
                     <colgroup>
                         <col class="col-ordenno"/>
                         <col class="col-ponum"/>
