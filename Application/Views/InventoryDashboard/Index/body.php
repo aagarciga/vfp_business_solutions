@@ -20,7 +20,7 @@
 
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Projects <span id="panelHeadingItemsCount" class="badge"><?php echo $Pager->getItemsCount(); ?> </span> 
+        <div class="panel-heading">Items <span id="panelHeadingItemsCount" class="badge"><?php echo $Pager->getItemsCount(); ?> </span>
             <div class="btn-group pull-right top-pager-itemmperpage-control">               
                 <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="value"><?php echo $ItemPerPage ?></span>
