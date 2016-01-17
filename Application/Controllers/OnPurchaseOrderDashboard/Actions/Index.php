@@ -14,6 +14,8 @@ use Dandelion\MVC\Application\Controllers\OnPurchaseOrderDashboard\Models\OnPurc
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 
+define("ONORDER", 'onorder');
+
 /**
  * Created by: Victor
  * Class Index
@@ -23,27 +25,32 @@ class Index extends Action
 {
     public function Execute()
     {
-        $exportedBy = 'OSO';
-        $this->Itemno = $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
+        $exportedBy = 'OPO';
+        $this->Onorder = $onorder = $this->Request->hasProperty(ONORDER) ? base64_decode($this->Request->onorder) : '';
 
-        $this->Title = 'On Sales Order Dashboard | VFP Business Series';
+        $this->Title = 'On Purchase Order Dashboard | VFP Business Series';
 
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = isset($_SESSION['itemperpages']) ? $_SESSION['itemperpages'] : $defaultItemsPerPage;
 
-        $this->FilterPredicate = (is_string($itemno) && $itemno != "") ? "itemno = '$itemno'" : "";
+        $this->FilterPredicate = "((ABS(qtyord) - ABS(qtyord)) > 0 AND not ordcomp) AND (itemno + itmwhs) = $onorder";
 
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();
+        $itemCount = $this->Pager->getItemsCount();
         $items = $this->Pager->getCurrentPagedItems();
         $viewModels = array();
 
-        foreach($items as $item)
+        if ($itemCount > 0)
         {
-            $currentItemViewModel = new OnPurchaseOrderDashboardViewModel($item->ordnum, $item->ponum, $item->custno, $item->company, $item->podate, $item->qtyord, $item->qtyshp, $item->bckord, $item->qtyshp0, $item->qtyshprel, $item->shipdate);
-            $viewModels[] = $currentItemViewModel;
+            foreach($items as $item)
+            {
+                $currentItemViewModel = new OnPurchaseOrderDashboardViewModel($item->pono, $item->vendo, $item->podate,
+                    $item->qtyord, $item->qtyrec, $item->qtyleft, $item->shipped, $item->potype);
+                $viewModels[] = $currentItemViewModel;
+            }
         }
 
         $this->Items = $viewModels;
