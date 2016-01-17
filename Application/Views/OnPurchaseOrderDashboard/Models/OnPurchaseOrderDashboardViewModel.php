@@ -22,7 +22,7 @@ class OnPurchaseOrderDashboardViewModel
      * Retrieved from POITOP
      */
     protected $_pono;
-    protected $_vendo;
+    protected $_vendno;
     protected $_podate;
     protected $_qtyord;
     protected $_qtyrec;
@@ -41,10 +41,10 @@ class OnPurchaseOrderDashboardViewModel
      * @param $_shipped
      * @param $_potype
      */
-    public function __construct($pono, $vendo, $podate, $qtyord, $qtyrec, $qtyleft, $shipped, $potype)
+    public function __construct($pono, $vendno, $podate, $qtyord, $qtyrec, $qtyleft, $shipped, $potype)
     {
         $this->_pono = trim($pono);
-        $this->_vendo = trim($vendo);
+        $this->_vendno = trim($vendno);
         $this->_podate = trim($podate);
         $this->_qtyord = trim($qtyord);
         $this->_qtyrec = trim($qtyrec);
@@ -74,18 +74,18 @@ class OnPurchaseOrderDashboardViewModel
     /**
      * @return mixed
      */
-    public function getVendo()
+    public function getVendno()
     {
-        return $this->_vendo;
+        return $this->_vendno;
     }
 
     /**
      * @param mixed $vendo
      * @return OnPurchaseOrderDashboardViewModel
      */
-    public function setVendo($vendo)
+    public function setVendno($vendno)
     {
-        $this->_vendo = $vendo;
+        $this->_vendno = $vendno;
         return $this;
     }
 

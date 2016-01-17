@@ -47,7 +47,7 @@ class Index extends Action
         {
             foreach($items as $item)
             {
-                $currentItemViewModel = new OnPurchaseOrderDashboardViewModel($item->pono, $item->vendo, $item->podate,
+                $currentItemViewModel = new OnPurchaseOrderDashboardViewModel($item->pono, $item->vendno, $item->podate,
                     $item->qtyord, $item->qtyrec, $item->qtyleft, $item->shipped, $item->potype);
                 $viewModels[] = $currentItemViewModel;
             }

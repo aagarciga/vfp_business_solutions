@@ -57,7 +57,7 @@ class GetPage_Post extends Action
             foreach ($queryResult as $item) {
                 $current = array();
                 $current['pono'] = trim($item->pono);
-                $current['vendo'] = trim($item->vendo);
+                $current['vendno'] = trim($item->vendno);
                 $current['podate'] = trim($item->podate);
                 $current['qtyord'] = trim($item->qtyord);
                 $current['qtyrec'] = trim($item->qtyrec);

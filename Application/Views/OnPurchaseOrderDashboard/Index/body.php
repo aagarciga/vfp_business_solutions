@@ -20,7 +20,7 @@
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                On Sales Order Dashboard
+                On Purchase Order Dashboard
             </a>
         </div>
 
@@ -35,10 +35,6 @@
                 <span id="panelHeadingItemsCount" class="badge">
                     <?php echo $Pager->getItemsCount(); ?>
                 </span>
-
-            <span>
-                <?php echo $Itemno?>
-            </span>
             <div class="btn-group pull-right top-pager-itemmperpage-control">
                 <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="value"><?php echo $ItemPerPage ?></span>
@@ -86,17 +82,14 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
-                            <li><a href="#" class="filter-field" data-field="ordenno" data-field-type="text">Orden No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="ponum" data-field-type="text">Cust Po No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="custno" data-field-type="text">Cust No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="company" data-field-type="text">Customer Name</a></li>
-                            <li><a href="#" class="filter-field" data-field="podate" data-field-type="text">Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyord" data-field-type="text">qty ord</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyshp" data-field-type="text">qty shp</a></li>
-                            <li><a href="#" class="filter-field" data-field="bckord" data-field-type="text">Bck ord</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyshp0" data-field-type="text">Allocatted</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyshprel" data-field-type="text">qty rel</a></li>
-                            <li><a href="#" class="filter-field" data-field="chipdate" data-field-type="text">Chip Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="pono" data-field-type="text">P.O No.</a></li>
+                            <li><a href="#" class="filter-field" data-field="vendno" data-field-type="text">Vendor</a></li>
+                            <li><a href="#" class="filter-field" data-field="podate" data-field-type="text">Po Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="qtyord" data-field-type="text">Qty Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="qtyrec" data-field-type="text">Qty Received</a></li>
+                            <li><a href="#" class="filter-field" data-field="qtyleft" data-field-type="text">Qty Left</a></li>
+                            <li><a href="#" class="filter-field" data-field="shipped" data-field-type="text">Ship Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="potype" data-field-type="text">Type</a></li>
                         </ul>
                     </div>
                 </div>
@@ -106,46 +99,38 @@
             <div class="panel-table">
                 <table class="table table-striped" id="OnPurchaseOrderDashboardTable">
                     <colgroup>
-                        <col class="col-ordenno"/>
-                        <col class="col-ponum"/>
-                        <col class="col-custno"/>
-                        <col class="col-company"/>
+                        <col class="col-pono"/>
+                        <col class="col-vendno"/>
+                        <col class="col-podate"/>
                         <col class="col-qtyord"/>
-                        <col class="col-qtyshp"/>
-                        <col class="col-bckord"/>
-                        <col class="col-qtyshp0"/>
-                        <col class="col-qtyshprel"/>
-                        <col class="col-chipdate"/>
+                        <col class="col-qtyrec"/>
+                        <col class="col-qtyleft"/>
+                        <col class="col-shipped"/>
+                        <col class="col-potype"/>
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>Orden No. <button data-field="ordnum" class="btn-table-sort"></button></th>
-                        <th>Cust Po No. <button data-field="ponum" class="btn-table-sort"></button></th>
-                        <th>Cust No. <button data-field="custno" class="btn-table-sort"></button></th>
-                        <th>Customer Name <button data-field="company" class="btn-table-sort"></button></th>
-                        <th>Date <button data-field="podate" class="btn-table-sort"></button></th>
-                        <th>qty ord <button data-field="qtyord" class="btn-table-sort"></button></th>
-                        <th>qty shp <button data-field="qtyshp" class="btn-table-sort"></button></th>
-                        <th>Bck ord <button data-field="bckord" class="btn-table-sort"></button></th>
-                        <th>Allocatted <button data-field="qtyshp0" class="btn-table-sort"></button></th>
-                        <th>qty rel <button data-field="qtyshprel" class="btn-table-sort"></button></th>
-                        <th>Chip Date <button data-field="shipdate" class="btn-table-sort"></button></th>
+                        <th>P.O No. <button data-field="pono" class="btn-table-sort"></button></th>
+                        <th>Vendor <button data-field="vendno" class="btn-table-sort"></button></th>
+                        <th>Po Date <button data-field="podate" class="btn-table-sort"></button></th>
+                        <th>Qty Order <button data-field="qtyord" class="btn-table-sort"></button></th>
+                        <th>Qty Received <button data-field="qtyrec" class="btn-table-sort"></button></th>
+                        <th>Qty Left <button data-field="qtyleft" class="btn-table-sort"></button></th>
+                        <th>Ship Date <button data-field="shipped" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="potype" class="btn-table-sort"></button></th>
                     </tr>
                     </thead>
                     <body>
                     <?php foreach ($Items as $item): ?>
                         <tr>
-                            <td class="item-field"><?php echo $item->getOrdnum() ?></td>
-                            <td class="item-field"><?php echo $item->getPonum() ?></td>
-                            <td class="item-field"><?php echo $item->getCustno() ?></td>
-                            <td class="item-field"><?php echo $item->getCompany() ?></td>
+                            <td class="item-field"><?php echo $item->getPono() ?></td>
+                            <td class="item-field"><?php echo $item->getVendno() ?></td>
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
-                            <td class="item-field number"><?php echo $item->getQtyord() ?></td>
-                            <td class="item-field number"><?php echo $item->getQtyshp() ?></td>
-                            <td class="item-field number"><?php echo $item->getBckord() ?></td>
-                            <td class="item-field number"><?php echo $item->getQtyshp0() ?></td>
-                            <td class="item-field number"><?php echo $item->getQtyshprel() ?></td>
-                            <td class="item-field"><?php echo $item->getShipdate() ?></td>
+                            <td class="item-field"><?php echo $item->getQtyord() ?></td>
+                            <td class="item-field"><?php echo $item->getQtyrec() ?></td>
+                            <td class="item-field number"><?php echo $item->getQtyleft() ?></td>
+                            <td class="item-field number"><?php echo $item->getShipped() ?></td>
+                            <td class="item-field number"><?php echo $item->getPotype() ?></td>
                         </tr>
                     <?php endforeach ?>
                     </body>

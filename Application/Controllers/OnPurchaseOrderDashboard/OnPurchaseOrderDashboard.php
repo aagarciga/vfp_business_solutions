@@ -43,7 +43,7 @@ class OnPurchaseOrderDashboard extends DatActionsController
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
         $poitemTable = "POITEM$companysuffix";
-        $fields = 'pono, vendo, podate, qtyord, qtyrec, qtyleft, shipped, potype, ';
+        $fields = 'pono, vendno, podate, qtyord, qtyrec, qtyleft, shipped, potype, ';
 
         $sqlString = "SELECT "
             .$fields
