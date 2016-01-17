@@ -22,50 +22,51 @@ class GetPage_Post extends Action
 {
     public function Execute()
     {
-        $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : "";
-        $filterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
+        $onorder = $this->Request->hasProperty(ONORDER) ? base64_decode($this->Request->onorder) : "";
+        $userFilterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
 
         //todo: Set default value as global default value
         $page = $this->Request->hasProperty('page') ? $this->Request->page : 1;
         $itemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : 50;
-        $orderby = $this->Request->hasProperty('orderby') ? $this->Request->orderby : "ordnum";
+        $orderby = $this->Request->hasProperty('orderby') ? $this->Request->orderby : "pono";
         $order = $this->Request->hasProperty('order') ? $this->Request->order : "ASC";
 
-        $itemnoPredicate = "itemno = '$itemno'";
+        $onorderPredicate = $this->controller->GetOnOrderPredicate($onorder);
 
-        if ($itemno !== "" && $filterPredicate !== "")
+        if ($onorder !== "" && $userFilterPredicate !== "")
         {
-            $filterPredicate .= "AND $itemnoPredicate";
+            $filterPredicate = "$userFilterPredicate AND $onorderPredicate";
         }
-        elseif ($itemno !== "")
+        elseif ($onorder !== "")
         {
-            $filterPredicate = $itemnoPredicate;
+            $filterPredicate = $onorderPredicate;
         }
 
-        $this->FilterPredicate = $_SESSION['itemDashboard_filterPredicate'] = $filterPredicate;
-        $this->ItemPerPage = $_SESSION['itemDashboard_itemperpages'] = $itemsPerPage;
+        $this->FilterPredicate = $_SESSION['OnPurchaseOrderDashboard_filterPredicate'] = $userFilterPredicate;
+        $this->ItemPerPage = $_SESSION['OnPurchaseOrderDashboard_itemperpages'] = $userFilterPredicate;
 
         $result = array();
 
-
-        $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage, 5, 10, $orderby, $order);
+        $this->Pager = $this->controller->GetPager($filterPredicate, $this->ItemPerPage, 5, 10, $orderby, $order);
         $pager = $this->Pager->PaginateForAjax($page);
+        $itemCount = $this->Pager->getItemsCount();
         $queryResult = $this->Pager->getCurrentPagedItems();
 
-        foreach ($queryResult as $item) {
-            $current = array();
-            $current['ordnum'] = trim($item->ordnum);
-            $current['ponum'] = trim($item->ponum);
-            $current['custno'] = trim($item->custno);
-            $current['company'] = $item->company;
-            $current['podate'] = trim($item->podate);
-            $current['qtyord'] = trim($item->qtyord);
-            $current['qtyshp'] = trim($item->qtyshp);
-            $current['bckord'] = trim($item->bckord);
-            $current['qtyshp0'] = trim($item->qtyshp0);
-            $current['qtyshprel'] = trim($item->qtyshprel);
-            $current['shipdate'] = trim($item->shipdate);
-            $result[] = $current;
+        if ($itemCount > 0)
+        {
+            foreach ($queryResult as $item) {
+                $current = array();
+                $current['pono'] = trim($item->pono);
+                $current['vendo'] = trim($item->vendo);
+                $current['podate'] = trim($item->podate);
+                $current['qtyord'] = trim($item->qtyord);
+                $current['qtyrec'] = trim($item->qtyrec);
+                $current['qtyleft'] = trim($item->qtyord);
+                $current['qtyshp'] = trim($item->qtyleft);
+                $current['shipped'] = trim($item->shipped);
+                $current['potype'] = trim($item->potype);
+                $result[] = $current;
+            }
         }
 
         $pager['currentPagedItems'] = $result;

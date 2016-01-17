@@ -37,13 +37,17 @@ class Index extends Action
 
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();
+        $itemCount = $this->Pager->getItemsCount();
         $items = $this->Pager->getCurrentPagedItems();
         $viewModels = array();
 
-        foreach($items as $item)
+        if ($itemCount > 0)
         {
-            $currentItemViewModel = new OnSalesOrderDashboardViewModel($item->ordnum, $item->ponum, $item->custno, $item->company, $item->podate, $item->qtyord, $item->qtyshp, $item->bckord, $item->qtyshp0, $item->qtyshprel, $item->shipdate);
-            $viewModels[] = $currentItemViewModel;
+            foreach($items as $item)
+            {
+                $currentItemViewModel = new OnSalesOrderDashboardViewModel($item->ordnum, $item->ponum, $item->custno, $item->company, $item->podate, $item->qtyord, $item->qtyshp, $item->bckord, $item->qtyshp0, $item->qtyshprel, $item->shipdate);
+                $viewModels[] = $currentItemViewModel;
+            }
         }
 
         $this->Items = $viewModels;
@@ -56,5 +60,7 @@ class Index extends Action
         $this->ShowFiancialDashboard = (!isset($_SESSION['showFiancialDashboard'])) ? false : $_SESSION['showFiancialDashboard'];
 
         $this->JavascriptBootstrapPager = BootstrapPager::GetJavascriptBootstrapPager();
+
     }
 }
+

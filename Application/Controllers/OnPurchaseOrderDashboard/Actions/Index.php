@@ -35,7 +35,7 @@ class Index extends Action
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = isset($_SESSION['itemperpages']) ? $_SESSION['itemperpages'] : $defaultItemsPerPage;
 
-        $this->FilterPredicate = "((ABS(qtyord) - ABS(qtyord)) > 0 AND not ordcomp) AND (itemno + itmwhs) = $onorder";
+        $this->FilterPredicate = $this->controller->GetOnOrderPredicate($onorder);
 
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();
