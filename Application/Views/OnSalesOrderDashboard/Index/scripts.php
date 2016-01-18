@@ -7,8 +7,8 @@
 <script src="<?php echo $View->PublicVendorContext('responsive-tables/responsive-tables.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
-<script src="<?php echo $View->ScriptsContext('OnSalesOrderDashboard/OnSalesOrderDashboardDynamicFilter.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('OnSalesOrderDashboard/main.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('OnSalesOrderDashboard/OnSalesOrderDashboardDynamicFilter.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('OnSalesOrderDashboard/main.min.js'); ?>"></script>
 
 <script>
     /**
