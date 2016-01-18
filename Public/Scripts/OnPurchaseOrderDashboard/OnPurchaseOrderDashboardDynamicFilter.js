@@ -1,6 +1,6 @@
 /**
  * @author Alex
- * @namespace App.OnSalesOrderDashboard.DynamicFilter
+ * @namespace App.OnPurchaseOrderDashboard.DynamicFilter
  * @param {window} global
  * @param {jQuery} $
  * @param {Object} App
@@ -11,7 +11,7 @@
     "use strict";
 
     var dandelion = global.dandelion,
-        DynamicFilter = dandelion.namespace('App.OnSalesOrderDashboard.DynamicFilter', global);
+        DynamicFilter = dandelion.namespace('App.OnPurchaseOrderDashboard.DynamicFilter', global);
 
     DynamicFilter.status = {};
     DynamicFilter.status.filterId = "";
@@ -116,14 +116,14 @@
         return DynamicFilter.status.predicate;
     };
     DynamicFilter.functions.filter = function () {
-        App.OnSalesOrderDashboard.functions.paginate();
+        App.OnPurchaseOrderDashboard.functions.paginate();
     };
     DynamicFilter.functions.loadFilter = function (filterId) {
         $.ajax({
             data: {
                 filterid: filterId
             },
-            url: App.OnSalesOrderDashboard.urls.getSavedFilter,
+            url: App.OnPurchaseOrderDashboard.urls.getSavedFilter,
             type: 'post',
             beforeSend: function () {
                 $('.loading').show();
@@ -320,7 +320,7 @@
             data: {
                 filterId: filterId
             },
-            url: App.OnSalesOrderDashboard.urls.deleteFilter,
+            url: App.OnPurchaseOrderDashboard.urls.deleteFilter,
             type: 'post',
             beforeSend: function () {
                 $('.loading').show();
@@ -372,7 +372,7 @@
         } else if (fieldType === 'date' || fieldType === 'date-single') {
             $formGroup = DynamicFilter.functions.createDateField($button.data('field'), $button.text(), isDateRanged);
         } else if (fieldType === 'dropdown') {
-            dropdownValues = global.App.OnSalesOrderDashboard.dictionaries[$button.data('field-collection')];
+            dropdownValues = global.App.OnPurchaseOrderDashboard.dictionaries[$button.data('field-collection')];
             $formGroup = DynamicFilter.functions.createDropdownField($button.data('field'), $button.text(), dropdownValues, $button.data('field-value-type'));
         }
         $filterFieldsContainer.append($formGroup);
@@ -438,7 +438,7 @@
                     filterHtml      : filterHtml,
                     filterValues    : filterValues
                 },
-                url: App.OnSalesOrderDashboard.urls.saveFilter,
+                url: App.OnPurchaseOrderDashboard.urls.saveFilter,
                 type: 'post',
                 beforeSend: function () {
                     $('.loading').show();

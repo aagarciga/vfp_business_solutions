@@ -12,7 +12,7 @@ DynamicFilter = App.OnPurchaseOrderDashboard.DynamicFilter
 OnPurchaseOrderDashboard.status = {}
 OnPurchaseOrderDashboard.status.itemsPerPage = 50; # Default items per page value
 OnPurchaseOrderDashboard.status.table_header_sortLastButton = null;
-OnPurchaseOrderDashboard.status.table_header_sortField = 'ordnum'; # Default Order By Fields
+OnPurchaseOrderDashboard.status.table_header_sortField = 'pono'; # Default Order By Fields
 OnPurchaseOrderDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
 OnPurchaseOrderDashboard.status.currentPage = 1;
 OnPurchaseOrderDashboard.status.currentItemNo = '';
@@ -43,7 +43,7 @@ OnPurchaseOrderDashboard.functions = {}
 OnPurchaseOrderDashboard.functions.paginate = ->
   $.ajax(
     data:
-      itemno: OnPurchaseOrderDashboard.status.currentItemNo,
+      onorder: OnPurchaseOrderDashboard.status.currentOnOrder,
       predicate: OnPurchaseOrderDashboard.DynamicFilter.functions.getPredicate(),
       page: OnPurchaseOrderDashboard.status.currentPage,
       itemsPerPage: OnPurchaseOrderDashboard.status.itemsPerPage,
@@ -142,51 +142,43 @@ OnPurchaseOrderDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) 
 
 
 
-  tdOrdnumBuilder = ->
-    simpleTdBuilder(dataRow.ordnum)
+  tdPoNoBuilder = ->
+    simpleTdBuilder(dataRow.pono)
 
-  tdPonumBuilder = ->
-    simpleTdBuilder(dataRow.ponum)
+  tdVendNoBuilder = ->
+    simpleTdBuilder(dataRow.vendno)
 
-  tdCustnoBuilder = ->
-    simpleTdBuilder(dataRow.custno)
-
-  tdCompanyBuilder = ->
-    simpleTdBuilder(dataRow.company)
-
-  tdPodateBuilder = ->
+  tdPoDateBuilder = ->
     simpleTdBuilder(dataRow.podate)
 
-  tdQtyordBuilder = ->
+  tdQtyOrdBuilder = ->
     simpleTdBuilder(dataRow.qtyord, 'number')
 
-  tdQtyshpBuilder = ->
+  tdQtyRecBuilder = ->
+    simpleTdBuilder(dataRow.qtyrec, 'number')
+
+  tdQtyLeftBuilder = ->
+    simpleTdBuilder(dataRow.qtyleft, 'number')
+
+  tdQtyShpBuilder = ->
     simpleTdBuilder(dataRow.qtyshp, 'number')
 
-  tdBckordBuilder = ->
-    simpleTdBuilder(dataRow.bckord, 'number')
+  tdShippedBuilder = ->
+    simpleTdBuilder(dataRow.shipped, 'date')
 
-  tdQtyshp0Builder = ->
-    simpleTdBuilder(dataRow.qtyshp0, 'number')
-
-  tdQtyshprelBuilder = ->
-    simpleTdBuilder(dataRow.qtyshprel, 'number')
-
-  tdShipdateBuilder = ->
-    simpleTdBuilder(dataRow.shipdate)
+  tdPoTypeBuilder = ->
+    simpleTdBuilder(dataRow.potype, 'number')
 
   result.className = trClass;
-  result.appendChild(tdOrdnumBuilder());
-  result.appendChild(tdPonumBuilder());
-  result.appendChild(tdCustnoBuilder());
-  result.appendChild(tdCompanyBuilder());
-  result.appendChild(tdPodateBuilder());
-  result.appendChild(tdQtyordBuilder());
-  result.appendChild(tdQtyshpBuilder());
-  result.appendChild(tdBckordBuilder());
-  result.appendChild(tdQtyshp0Builder());
-  result.appendChild(tdQtyshprelBuilder());
-  result.appendChild(tdShipdateBuilder());
+  result.appendChild(tdPoNoBuilder());
+  result.appendChild(tdVendNoBuilder());
+  result.appendChild(tdPoDateBuilder());
+  result.appendChild(tdQtyOrdBuilder());
+  result.appendChild(tdQtyRecBuilder());
+  result.appendChild(tdQtyLeftBuilder());
+  result.appendChild(tdQtyShpBuilder());
+  result.appendChild(tdShippedBuilder());
+  result.appendChild(tdPoTypeBuilder());
   result
 
 OnPurchaseOrderDashboard.functions.bindTableItemsEventHandlers = ->
@@ -246,8 +238,8 @@ OnPurchaseOrderDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   OnPurchaseOrderDashboard.functions.paginate()
   @
 
-OnPurchaseOrderDashboard.init = (itemno, defaultUserFilter) ->
-  OnPurchaseOrderDashboard.status.currentItemNo = itemno
+OnPurchaseOrderDashboard.init = (onorder, defaultUserFilter) ->
+  OnPurchaseOrderDashboard.status.currentOnOrder = onorder
   OnPurchaseOrderDashboard.status.itemsPerPage = $(OnPurchaseOrderDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter)
   OnPurchaseOrderDashboard.functions.bindEventHandlers()
