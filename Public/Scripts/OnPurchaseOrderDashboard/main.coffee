@@ -7,6 +7,7 @@ OnPurchaseOrderDashboard = dandelion.namespace('App.OnPurchaseOrderDashboard', g
 
 DynamicFilter = App.OnPurchaseOrderDashboard.DynamicFilter
 
+
 # Statuses Declaration
 #-----------------------------------------------------------------------------------------------------------------------
 OnPurchaseOrderDashboard.status = {}

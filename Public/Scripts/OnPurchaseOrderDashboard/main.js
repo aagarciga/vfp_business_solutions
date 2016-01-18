@@ -20,7 +20,7 @@
 
   OnPurchaseOrderDashboard.status.table_header_sortLastButton = null;
 
-  OnPurchaseOrderDashboard.status.table_header_sortField = 'ordnum';
+  OnPurchaseOrderDashboard.status.table_header_sortField = 'pono';
 
   OnPurchaseOrderDashboard.status.table_header_sortFieldOrder = 'ASC';
 
@@ -63,7 +63,7 @@
   OnPurchaseOrderDashboard.functions.paginate = function() {
     $.ajax({
       data: {
-        itemno: OnPurchaseOrderDashboard.status.currentItemNo,
+        onorder: OnPurchaseOrderDashboard.status.currentOnOrder,
         predicate: OnPurchaseOrderDashboard.DynamicFilter.functions.getPredicate(),
         page: OnPurchaseOrderDashboard.status.currentPage,
         itemsPerPage: OnPurchaseOrderDashboard.status.itemsPerPage,
@@ -105,7 +105,7 @@
   };
 
   OnPurchaseOrderDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, selectBuilder, simpleTdBuilder, tdBckordBuilder, tdCompanyBuilder, tdCustnoBuilder, tdOrdnumBuilder, tdPodateBuilder, tdPonumBuilder, tdQtyordBuilder, tdQtyshp0Builder, tdQtyshpBuilder, tdQtyshprelBuilder, tdShipdateBuilder, withLinkTdBuilder, withSelectBuilder;
+    var doc, result, selectBuilder, simpleTdBuilder, tdPoDateBuilder, tdPoNoBuilder, tdPoTypeBuilder, tdQtyLeftBuilder, tdQtyOrdBuilder, tdQtyRecBuilder, tdQtyShpBuilder, tdShippedBuilder, tdVendNoBuilder, withLinkTdBuilder, withSelectBuilder;
     doc = global.document;
     result = doc.createElement('tr');
     simpleTdBuilder = function(data, tdClass) {
@@ -165,51 +165,43 @@
       td.appendChild(select);
       return td;
     };
-    tdOrdnumBuilder = function() {
-      return simpleTdBuilder(dataRow.ordnum);
+    tdPoNoBuilder = function() {
+      return simpleTdBuilder(dataRow.pono);
     };
-    tdPonumBuilder = function() {
-      return simpleTdBuilder(dataRow.ponum);
+    tdVendNoBuilder = function() {
+      return simpleTdBuilder(dataRow.vendno);
     };
-    tdCustnoBuilder = function() {
-      return simpleTdBuilder(dataRow.custno);
-    };
-    tdCompanyBuilder = function() {
-      return simpleTdBuilder(dataRow.company);
-    };
-    tdPodateBuilder = function() {
+    tdPoDateBuilder = function() {
       return simpleTdBuilder(dataRow.podate);
     };
-    tdQtyordBuilder = function() {
+    tdQtyOrdBuilder = function() {
       return simpleTdBuilder(dataRow.qtyord, 'number');
     };
-    tdQtyshpBuilder = function() {
+    tdQtyRecBuilder = function() {
+      return simpleTdBuilder(dataRow.qtyrec, 'number');
+    };
+    tdQtyLeftBuilder = function() {
+      return simpleTdBuilder(dataRow.qtyleft, 'number');
+    };
+    tdQtyShpBuilder = function() {
       return simpleTdBuilder(dataRow.qtyshp, 'number');
     };
-    tdBckordBuilder = function() {
-      return simpleTdBuilder(dataRow.bckord, 'number');
+    tdShippedBuilder = function() {
+      return simpleTdBuilder(dataRow.shipped, 'date');
     };
-    tdQtyshp0Builder = function() {
-      return simpleTdBuilder(dataRow.qtyshp0, 'number');
-    };
-    tdQtyshprelBuilder = function() {
-      return simpleTdBuilder(dataRow.qtyshprel, 'number');
-    };
-    tdShipdateBuilder = function() {
-      return simpleTdBuilder(dataRow.shipdate);
+    tdPoTypeBuilder = function() {
+      return simpleTdBuilder(dataRow.potype, 'number');
     };
     result.className = trClass;
-    result.appendChild(tdOrdnumBuilder());
-    result.appendChild(tdPonumBuilder());
-    result.appendChild(tdCustnoBuilder());
-    result.appendChild(tdCompanyBuilder());
-    result.appendChild(tdPodateBuilder());
-    result.appendChild(tdQtyordBuilder());
-    result.appendChild(tdQtyshpBuilder());
-    result.appendChild(tdBckordBuilder());
-    result.appendChild(tdQtyshp0Builder());
-    result.appendChild(tdQtyshprelBuilder());
-    result.appendChild(tdShipdateBuilder());
+    result.appendChild(tdPoNoBuilder());
+    result.appendChild(tdVendNoBuilder());
+    result.appendChild(tdPoDateBuilder());
+    result.appendChild(tdQtyOrdBuilder());
+    result.appendChild(tdQtyRecBuilder());
+    result.appendChild(tdQtyLeftBuilder());
+    result.appendChild(tdQtyShpBuilder());
+    result.appendChild(tdShippedBuilder());
+    result.appendChild(tdPoTypeBuilder());
     return result;
   };
 
@@ -270,8 +262,8 @@
     return this;
   };
 
-  OnPurchaseOrderDashboard.init = function(itemno, defaultUserFilter) {
-    OnPurchaseOrderDashboard.status.currentItemNo = itemno;
+  OnPurchaseOrderDashboard.init = function(onorder, defaultUserFilter) {
+    OnPurchaseOrderDashboard.status.currentOnOrder = onorder;
     OnPurchaseOrderDashboard.status.itemsPerPage = $(OnPurchaseOrderDashboard.htmlBindings.drpItemPerPageValue).text();
     DynamicFilter.init(defaultUserFilter);
     OnPurchaseOrderDashboard.functions.bindEventHandlers();
