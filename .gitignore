@@ -13,3 +13,4 @@ Public/Scripts/OnPurchaseOrderDashboard/main.min.js
 Public/Scripts/OnPurchaseOrderDashboard/OnSalesOrderDashboardDynamicFilter.min.js
 Public/Styles/OnPurchaseOrderDashboard/index.min.css
 .gitignore
+Public/Vendor/select2/js/select2.full.min.js
