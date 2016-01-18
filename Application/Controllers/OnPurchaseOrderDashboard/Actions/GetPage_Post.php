@@ -22,7 +22,7 @@ class GetPage_Post extends Action
 {
     public function Execute()
     {
-        $onorder = $this->Request->hasProperty(ONORDER) ? base64_decode($this->Request->onorder) : "";
+        $onorder = $this->Request->hasProperty('onorder') ? base64_decode($this->Request->onorder) : "";
         $userFilterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
 
         //todo: Set default value as global default value

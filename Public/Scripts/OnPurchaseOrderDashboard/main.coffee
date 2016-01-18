@@ -161,9 +161,6 @@ OnPurchaseOrderDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) 
   tdQtyLeftBuilder = ->
     simpleTdBuilder(dataRow.qtyleft, 'number')
 
-  tdQtyShpBuilder = ->
-    simpleTdBuilder(dataRow.qtyshp, 'number')
-
   tdShippedBuilder = ->
     simpleTdBuilder(dataRow.shipped, 'date')
 
@@ -177,7 +174,6 @@ OnPurchaseOrderDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) 
   result.appendChild(tdQtyOrdBuilder());
   result.appendChild(tdQtyRecBuilder());
   result.appendChild(tdQtyLeftBuilder());
-  result.appendChild(tdQtyShpBuilder());
   result.appendChild(tdShippedBuilder());
   result.appendChild(tdPoTypeBuilder());
   result

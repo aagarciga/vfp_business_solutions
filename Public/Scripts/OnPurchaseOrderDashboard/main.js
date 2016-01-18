@@ -105,7 +105,7 @@
   };
 
   OnPurchaseOrderDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, selectBuilder, simpleTdBuilder, tdPoDateBuilder, tdPoNoBuilder, tdPoTypeBuilder, tdQtyLeftBuilder, tdQtyOrdBuilder, tdQtyRecBuilder, tdQtyShpBuilder, tdShippedBuilder, tdVendNoBuilder, withLinkTdBuilder, withSelectBuilder;
+    var doc, result, selectBuilder, simpleTdBuilder, tdPoDateBuilder, tdPoNoBuilder, tdPoTypeBuilder, tdQtyLeftBuilder, tdQtyOrdBuilder, tdQtyRecBuilder, tdShippedBuilder, tdVendNoBuilder, withLinkTdBuilder, withSelectBuilder;
     doc = global.document;
     result = doc.createElement('tr');
     simpleTdBuilder = function(data, tdClass) {
@@ -183,9 +183,6 @@
     tdQtyLeftBuilder = function() {
       return simpleTdBuilder(dataRow.qtyleft, 'number');
     };
-    tdQtyShpBuilder = function() {
-      return simpleTdBuilder(dataRow.qtyshp, 'number');
-    };
     tdShippedBuilder = function() {
       return simpleTdBuilder(dataRow.shipped, 'date');
     };
@@ -199,7 +196,6 @@
     result.appendChild(tdQtyOrdBuilder());
     result.appendChild(tdQtyRecBuilder());
     result.appendChild(tdQtyLeftBuilder());
-    result.appendChild(tdQtyShpBuilder());
     result.appendChild(tdShippedBuilder());
     result.appendChild(tdPoTypeBuilder());
     return result;

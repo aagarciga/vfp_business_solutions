@@ -14,8 +14,6 @@ use Dandelion\MVC\Application\Controllers\OnPurchaseOrderDashboard\Models\OnPurc
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 
-define("ONORDER", 'onorder');
-
 /**
  * Created by: Victor
  * Class Index
@@ -26,7 +24,7 @@ class Index extends Action
     public function Execute()
     {
         $exportedBy = 'OPO';
-        $this->Onorder = $onorder = $this->Request->hasProperty(ONORDER) ? base64_decode($this->Request->onorder) : '';
+        $this->Onorder = $onorder = $this->Request->hasProperty('onorder') ? base64_decode($this->Request->onorder) : '';
 
         $this->Title = 'On Purchase Order Dashboard | VFP Business Series';
 
