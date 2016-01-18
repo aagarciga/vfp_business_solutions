@@ -42,12 +42,13 @@ class OnPurchaseOrderDashboard extends DatActionsController
         }
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
-        $poitemTable = "POITEM$companysuffix";
-        $fields = 'pono, vendno, podate, qtyord, qtyrec, qtyleft, shipped, potype, ';
+        $poitemTable = "POITOP$companysuffix";
+        $fields = 'pono, vendno, podate, qtyord, qtyrec, qtyleft, shipped, potype ';
 
         $sqlString = "SELECT "
             .$fields
-            ."FROM $poitemTable $predicate GROUP BY $fields"
+            ."FROM $poitemTable "
+            ."$predicate GROUP BY $fields"
             ."ORDER BY $orderby $order";
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
@@ -55,6 +56,6 @@ class OnPurchaseOrderDashboard extends DatActionsController
 
     public function GetOnOrderPredicate($onorder)
     {
-        return "((ABS(qtyord) - ABS(qtyord)) > 0 AND not ordcomp) AND (itemno + itmwhs) = $onorder";
+        return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp)";
     }
 }

@@ -107,7 +107,7 @@
                             <td class="item-field"><?php echo $item->getItmwhs() ?></td>
                             <td class="item-field"><?php echo $item->getDescrip() ?></td>
                             <td class="item-field number"><?php echo $item->getOnhand() ?></td>
-                            <td class="item-field number"><a href="<?php echo $View->Href('OnPurchaseOrderDashboard', 'Index', array(ONORDER => base64_encode($item->getOnorder())))?>" class="btn-onorder-form-link"><?php echo $item->getOnorder() ?></a></td>
+                            <td class="item-field number"><a href="<?php echo $View->Href('OnPurchaseOrderDashboard', 'Index', array('onorder' => base64_encode($item->getOnorder())))?>" class="btn-onorder-form-link"><?php echo $item->getOnorder() ?></a></td>
                             <td class="item-field number"><a href="<?php echo $View->Href('OnSalesOrderDashboard', 'Index', array('itemno' => base64_encode($item->getItemno())))?>" class="btn-committed-form-link"><?php echo $item->getCommitted() ?></a></td>
                         </tr>
                     <?php endforeach ?>

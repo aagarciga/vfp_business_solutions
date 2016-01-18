@@ -168,6 +168,7 @@ abstract class Pager {
             $countSql = preg_replace($pattern, $replacement, $countSql);
 
             $query = $this->dbDriver->GetQuery();
+
             $queryResult = $query->Execute($countSql);
 
             $this->itemsCount = $queryResult[0]->Total;
@@ -177,6 +178,7 @@ abstract class Pager {
     
     public function getCurrentPagedItems(){
         $query = $this->dbDriver->GetQuery();
+
         $queryResult = $query->ExecutePaged($this->sql, $this->itemsPerPage, $this->getOffset());
 
         return $queryResult;
