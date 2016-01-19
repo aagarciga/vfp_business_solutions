@@ -24,7 +24,8 @@ class Index extends Action
     public function Execute()
     {
         $exportedBy = 'OPO';
-        $this->Onorder = $onorder = $this->Request->hasProperty('onorder') ? base64_decode($this->Request->onorder) : '';
+        $this->Itemno = $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
+        $this->Itemwhs = $itemwhs = $this->Request-hasProperty('itemwhs') ? base64_decode($this->Request->itemwhs) : '';
 
         $this->Title = 'On Purchase Order Dashboard | VFP Business Series';
 
@@ -33,7 +34,7 @@ class Index extends Action
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = isset($_SESSION['itemperpages']) ? $_SESSION['itemperpages'] : $defaultItemsPerPage;
 
-        $this->FilterPredicate = $this->controller->GetOnOrderPredicate($onorder);
+        $this->FilterPredicate = $this->controller->GetOnOrderPredicate($itemno, $itemwhs);
 
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();

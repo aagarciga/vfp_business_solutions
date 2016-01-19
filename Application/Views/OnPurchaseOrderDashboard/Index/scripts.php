@@ -40,8 +40,7 @@
 
 //    OnPurchaseOrderDashboard.init('<?php //echo $DefaultUserFilterId ?>//');
 
-        //TODO: See script parameter here
-        OnPurchaseOrderDashboard.init('<?php echo  base64_encode($Onorder) ?>', '');
+        OnPurchaseOrderDashboard.init('<?php echo  base64_encode($Itemno) ?>', '<?php echo  base64_encode($Itemwhs) ?>', '');
 
     }(window, jQuery, App));
 </script>

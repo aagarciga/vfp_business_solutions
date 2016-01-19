@@ -54,8 +54,9 @@ class OnPurchaseOrderDashboard extends DatActionsController
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 
-    public function GetOnOrderPredicate($onorder)
+    public function GetOnOrderPredicate($itemno, $itemwhs)
     {
-        return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp)";
+        $key = $itemno.$itemwhs;
+        return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp) AND CONCAT(itemno, itmwhs) = $key";
     }
 }

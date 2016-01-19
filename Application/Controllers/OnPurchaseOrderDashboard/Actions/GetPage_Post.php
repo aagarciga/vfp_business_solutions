@@ -24,7 +24,8 @@ class GetPage_Post extends Action
 {
     public function Execute()
     {
-        $onorder = $this->Request->hasProperty('onorder') ? base64_decode($this->Request->onorder) : "";
+        $this->Itemno = $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
+        $this->Itemwhs = $itemwhs = $this->Request-hasProperty('itemwhs') ? base64_decode($this->Request->itemwhs) : '';
         $userFilterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
 
         //todo: Set default value as global default value
@@ -33,15 +34,17 @@ class GetPage_Post extends Action
         $orderby = $this->Request->hasProperty('orderby') ? $this->Request->orderby : "pono";
         $order = $this->Request->hasProperty('order') ? $this->Request->order : "ASC";
 
-        $onorderPredicate = $this->controller->GetOnOrderPredicate($onorder);
+        $defaultPredicate = $this->controller->GetOnOrderPredicate($itemno, $itemwhs);
 
-        if ($onorder !== "" && $userFilterPredicate !== "")
+        $key = $itemno.$itemwhs;
+
+        if ($key !== "" && $userFilterPredicate !== "")
         {
-            $filterPredicate = "$userFilterPredicate AND $onorderPredicate";
+            $filterPredicate = "$userFilterPredicate AND $defaultPredicate";
         }
-        elseif ($onorder !== "")
+        elseif ($key !== "")
         {
-            $filterPredicate = $onorderPredicate;
+            $filterPredicate = $defaultPredicate;
         }
 
         $this->FilterPredicate = $_SESSION['OnPurchaseOrderDashboard_filterPredicate'] = $userFilterPredicate;

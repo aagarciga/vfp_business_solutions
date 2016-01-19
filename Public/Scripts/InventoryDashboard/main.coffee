@@ -153,7 +153,7 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     simpleTdBuilder(dataRow.onhand, 'number')
 
   tdOnorderBuilder = ->
-    withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number')
+    withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number', dataRow.onorderHref)
 
   tdCommittedBuilder = ->
     withLinkTdBuilder(dataRow.committed,InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number', dataRow.committedHref)
