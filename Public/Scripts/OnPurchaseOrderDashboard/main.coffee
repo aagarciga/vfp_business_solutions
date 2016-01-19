@@ -44,7 +44,8 @@ OnPurchaseOrderDashboard.functions = {}
 OnPurchaseOrderDashboard.functions.paginate = ->
   $.ajax(
     data:
-      onorder: OnPurchaseOrderDashboard.status.currentOnOrder,
+      itemno: OnPurchaseOrderDashboard.status.currentItemNo,
+      itemwhs: OnPurchaseOrderDashboard.status.currentItemWhs,
       predicate: OnPurchaseOrderDashboard.DynamicFilter.functions.getPredicate(),
       page: OnPurchaseOrderDashboard.status.currentPage,
       itemsPerPage: OnPurchaseOrderDashboard.status.itemsPerPage,
@@ -162,10 +163,10 @@ OnPurchaseOrderDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) 
     simpleTdBuilder(dataRow.qtyleft, 'number')
 
   tdShippedBuilder = ->
-    simpleTdBuilder(dataRow.shipped, 'date')
+    simpleTdBuilder(dataRow.shipped)
 
   tdPoTypeBuilder = ->
-    simpleTdBuilder(dataRow.potype, 'number')
+    simpleTdBuilder(dataRow.potype)
 
   result.className = trClass;
   result.appendChild(tdPoNoBuilder());
@@ -235,8 +236,9 @@ OnPurchaseOrderDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   OnPurchaseOrderDashboard.functions.paginate()
   @
 
-OnPurchaseOrderDashboard.init = (onorder, defaultUserFilter) ->
-  OnPurchaseOrderDashboard.status.currentOnOrder = onorder
+OnPurchaseOrderDashboard.init = (itemno, itemwhs, defaultUserFilter) ->
+  OnPurchaseOrderDashboard.status.currentItemNo = itemno
+  OnPurchaseOrderDashboard.status.currentItemWhs = itemwhs
   OnPurchaseOrderDashboard.status.itemsPerPage = $(OnPurchaseOrderDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter)
   OnPurchaseOrderDashboard.functions.bindEventHandlers()

@@ -126,11 +126,11 @@
                             <td class="item-field"><?php echo $item->getPono() ?></td>
                             <td class="item-field"><?php echo $item->getVendno() ?></td>
                             <td class="item-field"><?php echo $item->getPodate() ?></td>
-                            <td class="item-field"><?php echo $item->getQtyord() ?></td>
-                            <td class="item-field"><?php echo $item->getQtyrec() ?></td>
+                            <td class="item-field number"><?php echo $item->getQtyord() ?></td>
+                            <td class="item-field number"><?php echo $item->getQtyrec() ?></td>
                             <td class="item-field number"><?php echo $item->getQtyleft() ?></td>
-                            <td class="item-field number"><?php echo $item->getShipped() ?></td>
-                            <td class="item-field number"><?php echo $item->getPotype() ?></td>
+                            <td class="item-field"><?php echo $item->getShipped() ?></td>
+                            <td class="item-field"><?php echo $item->getPotype() ?></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
