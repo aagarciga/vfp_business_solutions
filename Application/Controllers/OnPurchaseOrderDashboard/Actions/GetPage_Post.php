@@ -10,8 +10,10 @@
 
 namespace Dandelion\MVC\Application\Controllers\OnPurchaseOrderDashboard\Actions;
 
-
 use Dandelion\MVC\Core\Action;
+use Dandelion\MVC\Application\Tools;
+
+
 
 /**
  * Created by: Victor
@@ -55,14 +57,16 @@ class GetPage_Post extends Action
         if ($itemCount > 0)
         {
             foreach ($queryResult as $item) {
+                $poTypeValue = trim($item->podate);
+                $shippedValue = trim($item->shipped);
                 $current = array();
                 $current['pono'] = trim($item->pono);
                 $current['vendno'] = trim($item->vendno);
-                $current['podate'] = trim($item->podate);
+                $current['podate'] = ($poTypeValue === DATE_NULL_VALUE) ? '' : $poTypeValue;
                 $current['qtyord'] = trim($item->qtyord);
                 $current['qtyrec'] = trim($item->qtyrec);
                 $current['qtyleft'] = trim($item->qtyleft);
-                $current['shipped'] = trim($item->shipped);
+                $current['shipped'] = ($shippedValue === DATE_NULL_VALUE) ? '' : $shippedValue;
                 $current['potype'] = trim($item->potype);
                 $result[] = $current;
             }

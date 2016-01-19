@@ -45,8 +45,12 @@ class Index extends Action
         {
             foreach($items as $item)
             {
-                $currentItemViewModel = new OnPurchaseOrderDashboardViewModel($item->pono, $item->vendno, $item->podate,
-                    $item->qtyord, $item->qtyrec, $item->qtyleft, $item->shipped, $item->potype);
+                $poTypeValue = trim($item->podate);
+                $shippedValue = trim($item->shipped);
+                $poTypeValue = ($poTypeValue === DATE_NULL_VALUE) ? '' : $poTypeValue;
+                $shippedValue = ($shippedValue === DATE_NULL_VALUE) ? '' : $shippedValue;
+                $currentItemViewModel = new OnPurchaseOrderDashboardViewModel($item->pono, $item->vendno, $poTypeValue,
+                    $item->qtyord, $item->qtyrec, $item->qtyleft, $shippedValue, $item->potype);
                 $viewModels[] = $currentItemViewModel;
             }
         }
