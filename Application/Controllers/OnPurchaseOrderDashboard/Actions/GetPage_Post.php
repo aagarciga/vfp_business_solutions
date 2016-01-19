@@ -61,8 +61,7 @@ class GetPage_Post extends Action
                 $current['podate'] = trim($item->podate);
                 $current['qtyord'] = trim($item->qtyord);
                 $current['qtyrec'] = trim($item->qtyrec);
-                $current['qtyleft'] = trim($item->qtyord);
-                $current['qtyshp'] = trim($item->qtyleft);
+                $current['qtyleft'] = trim($item->qtyleft);
                 $current['shipped'] = trim($item->shipped);
                 $current['potype'] = trim($item->potype);
                 $result[] = $current;
