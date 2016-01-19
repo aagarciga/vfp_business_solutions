@@ -57,6 +57,6 @@ class OnPurchaseOrderDashboard extends DatActionsController
     public function GetOnOrderPredicate($itemno, $itemwhs)
     {
         $key = $itemno.$itemwhs;
-        return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp) AND CONCAT(itemno, itmwhs) = $key";
+        return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp) AND CONCAT(itemno, itmwhs) = '$key'";
     }
 }

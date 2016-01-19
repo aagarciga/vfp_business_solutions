@@ -48,7 +48,7 @@ class GetPage_Post extends Action
         }
 
         $this->FilterPredicate = $_SESSION['OnPurchaseOrderDashboard_filterPredicate'] = $userFilterPredicate;
-        $this->ItemPerPage = $_SESSION['OnPurchaseOrderDashboard_itemperpages'] = $userFilterPredicate;
+        $this->ItemPerPage = $_SESSION['OnPurchaseOrderDashboard_itemperpages'] = $itemsPerPage;
 
         $result = array();
 

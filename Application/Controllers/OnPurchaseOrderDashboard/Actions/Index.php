@@ -25,7 +25,7 @@ class Index extends Action
     {
         $exportedBy = 'OPO';
         $this->Itemno = $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
-        $this->Itemwhs = $itemwhs = $this->Request-hasProperty('itemwhs') ? base64_decode($this->Request->itemwhs) : '';
+        $this->Itemwhs = $itemwhs = $this->Request->hasProperty('itemwhs') ? base64_decode($this->Request->itemwhs) : '';
 
         $this->Title = 'On Purchase Order Dashboard | VFP Business Series';
 
