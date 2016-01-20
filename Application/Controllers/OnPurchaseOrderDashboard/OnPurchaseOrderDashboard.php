@@ -51,7 +51,7 @@ class OnPurchaseOrderDashboard extends DatActionsController
             ."$predicate GROUP BY $fields"
             ."ORDER BY $orderby $order";
 
-        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, null, false);
+        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 
     public function GetOnOrderPredicate($itemno, $itemwhs)

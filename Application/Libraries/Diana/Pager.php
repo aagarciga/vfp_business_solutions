@@ -80,12 +80,6 @@ abstract class Pager {
      * @var
      */
     protected $nextPage;
-
-    /**
-     * @var
-     * Clear Group By statement in getItemCount() sql query.
-     */
-    protected $clearGroupBy;
        
     /**
      * 
@@ -95,7 +89,7 @@ abstract class Pager {
      * @param int $middleRange This parameter must be an even value
      * @param type $itemsCount User for uncommon sql queries that can't be converted in a count sql query
      */
-    public function __construct(IDBDriver $dbDriver, $sql, $itemPerPage = 5, $middleRange = 5, $itemsCount = null, $clearGroupBy=true) {
+    public function __construct(IDBDriver $dbDriver, $sql, $itemPerPage = 5, $middleRange = 5, $itemsCount = null) {
 
         $this->dbDriver = $dbDriver;
         $this->sql = $sql;
@@ -103,9 +97,8 @@ abstract class Pager {
         $this->middleRange = (isset($middleRange)) ? $middleRange : 5;
         $this->itemsPerPage = (isset($itemPerPage)) ? $itemPerPage : 5;        
         $this->setItemsCount($itemsCount);
-        $this->clearGroupBy = $clearGroupBy;
     }
-    
+
     public function paginate($page = 1){
         $ipp = intval($this->itemsPerPage);
         if (!is_numeric($ipp) || $ipp <= 0) {
@@ -159,6 +152,7 @@ abstract class Pager {
     /**
      * For Commons sql queries
      * @return integer
+     * Changed by Victor
      */
     public function getItemsCount() {
 
@@ -166,15 +160,23 @@ abstract class Pager {
 
             //$countSql = strtolower($this->sql);
             $countSql = $this->sql;
-            $pattern = "/^(SELECT)(.*)(FROM)/";
-            $replacement = 'SELECT count(*) as Total FROM';
+
+            $pattern = "/(ORDER BY)(.*)/";
+            $replacement = '';
             $countSql = preg_replace($pattern, $replacement, $countSql);
 
-            if ($this->clearGroupBy)
+            $pattern = "/(GROUP BY)(.*)/";
+            $match = preg_match($pattern, $countSql);
+
+            if ($match < 0)
             {
-                $pattern = "/(GROUP BY)(.*)/";
-                $replacement = '';
+                $pattern = "/^(SELECT)(.*)(FROM)/";
+                $replacement = 'SELECT count(*) as Total FROM';
                 $countSql = preg_replace($pattern, $replacement, $countSql);
+            }
+            else
+            {
+                $countSql = "SELECT COUNT(*) AS Total FROM ($countSql) AS CountQuery";
             }
 
             $query = $this->dbDriver->GetQuery();
