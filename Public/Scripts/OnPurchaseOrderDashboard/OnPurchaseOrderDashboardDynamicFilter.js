@@ -209,11 +209,11 @@
             $control = $(tmpl);
         $control.children('a')
             .on('click',
-            DynamicFilter.eventHandlers.drpSavedFilterItem_onClick);
+                DynamicFilter.eventHandlers.drpSavedFilterItem_onClick);
 
         $control.find('button.close')
             .on('click',
-            DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
+                DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick);
         return $control;
     };
 
@@ -415,9 +415,9 @@
 
         // Alex: In order to remove the select2 element to save the select clean
         $filterContainer.find('select.select2-container').
-            each(function () {
-                $(this).select2('destroy');
-            });
+        each(function () {
+            $(this).select2('destroy');
+        });
         // Saving html filter before select2 elements are destroyed
         filterHtml = $filterContainer.html();
 
