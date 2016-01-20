@@ -51,12 +51,12 @@ class OnPurchaseOrderDashboard extends DatActionsController
             ."$predicate GROUP BY $fields"
             ."ORDER BY $orderby $order";
 
-        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
+        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan, null, false);
     }
 
     public function GetOnOrderPredicate($itemno, $itemwhs)
     {
         $key = $itemno.$itemwhs;
-        return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp) AND CONCAT(TRIM(itemno), TRIM(itmwhs)) = '$key'";
+        return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp)";
     }
 }

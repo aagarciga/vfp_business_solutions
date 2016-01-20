@@ -24,8 +24,8 @@ class BootstrapPager extends Pager {
      * @param int $middleRange
      * @param int $showPagerControlsIfMoreThan
      */
-    public function __construct($dbDriver, $sql, $itemPerPage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $itemsCount = null) {
-        parent::__construct($dbDriver, $sql, $itemPerPage, $middleRange, $itemsCount);
+    public function __construct($dbDriver, $sql, $itemPerPage = 5, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $itemsCount = null, $clearGroupBy=true) {
+        parent::__construct($dbDriver, $sql, $itemPerPage, $middleRange, $itemsCount, $clearGroupBy);
 
         $this->pagerControl = "<ul class=\"pagination\">\n";
         $this->showPagerControlsIfMoreThan = $showPagerControlsIfMoreThan;

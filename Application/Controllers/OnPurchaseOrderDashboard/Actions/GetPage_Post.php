@@ -11,21 +11,18 @@
 namespace Dandelion\MVC\Application\Controllers\OnPurchaseOrderDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
-use Dandelion\MVC\Application\Tools;
-
-
 
 /**
  * Created by: Victor
  * Class GetPage_Post
- * @package Dandelion\MVC\Application\Controllers\ItemDashboard\Actions
+ * @package Dandelion\MVC\Application\Controllers\OnPurchaseOrderDashboard\Actions
  */
 class GetPage_Post extends Action
 {
     public function Execute()
     {
         $this->Itemno = $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
-        $this->Itemwhs = $itemwhs = $this->Request-hasProperty('itemwhs') ? base64_decode($this->Request->itemwhs) : '';
+        $this->Itemwhs = $itemwhs = $this->Request->hasProperty('itemwhs') ? base64_decode($this->Request->itemwhs) : '';
         $userFilterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
 
         //todo: Set default value as global default value
