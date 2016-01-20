@@ -248,8 +248,10 @@
                 startDate: global.moment(),
                 endDate: global.moment()
             });
-        $formGroup.find('select')
-            .select2();
+
+        //TODO: Descoment code
+        //$formGroup.find('select')
+        //    .select2();
     };
     DynamicFilter.functions.bindFormGroupsEnventhandlers = function () {
         $(DynamicFilter.htmlBindings.filterFieldsContainer)
@@ -444,6 +446,7 @@
                     $('.loading').show();
                 },
                 success: function (response) {
+                    console.log(response);
                     var data = $.parseJSON(response),
                         $dropdown;
                     if ($drpSavedFilters.length === 0) {
