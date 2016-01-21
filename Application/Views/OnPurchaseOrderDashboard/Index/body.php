@@ -84,11 +84,11 @@
                             <li role="presentation" class="dropdown-header">By</li>
                             <li><a href="#" class="filter-field" data-field="pono" data-field-type="text">P.O No.</a></li>
                             <li><a href="#" class="filter-field" data-field="vendno" data-field-type="text">Vendor</a></li>
-                            <li><a href="#" class="filter-field" data-field="podate" data-field-type="text">Po Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Po Date</a></li>
                             <li><a href="#" class="filter-field" data-field="qtyord" data-field-type="text">Qty Order</a></li>
                             <li><a href="#" class="filter-field" data-field="qtyrec" data-field-type="text">Qty Received</a></li>
                             <li><a href="#" class="filter-field" data-field="qtyleft" data-field-type="text">Qty Left</a></li>
-                            <li><a href="#" class="filter-field" data-field="shipped" data-field-type="text">Ship Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="shipped" data-field-type="date">Ship Date</a></li>
                             <li><a href="#" class="filter-field" data-field="potype" data-field-type="text">Type</a></li>
                         </ul>
                     </div>
