@@ -98,7 +98,7 @@ abstract class Pager {
         $this->itemsPerPage = (isset($itemPerPage)) ? $itemPerPage : 5;        
         $this->setItemsCount($itemsCount);
     }
-    
+
     public function paginate($page = 1){
         $ipp = intval($this->itemsPerPage);
         if (!is_numeric($ipp) || $ipp <= 0) {
@@ -152,6 +152,7 @@ abstract class Pager {
     /**
      * For Commons sql queries
      * @return integer
+     * Changed by Victor
      */
     public function getItemsCount() {
 
@@ -159,24 +160,37 @@ abstract class Pager {
 
             //$countSql = strtolower($this->sql);
             $countSql = $this->sql;
-            $pattern = "/^(SELECT)(.*)(FROM)/";
-            $replacement = 'SELECT count(*) as Total FROM';
-            $countSql = preg_replace($pattern, $replacement, $countSql);
 
-            $pattern = "/(GROUP BY)(.*)/";
+            $pattern = "/(ORDER BY)(.*)/";
             $replacement = '';
             $countSql = preg_replace($pattern, $replacement, $countSql);
 
+            $pattern = "/(GROUP BY)(.*)/";
+            $match = preg_match($pattern, $countSql);
+
+            if ($match < 0)
+            {
+                $pattern = "/^(SELECT)(.*)(FROM)/";
+                $replacement = 'SELECT count(*) as Total FROM';
+                $countSql = preg_replace($pattern, $replacement, $countSql);
+            }
+            else
+            {
+                $countSql = "SELECT COUNT(*) AS Total FROM ($countSql) AS CountQuery";
+            }
+
             $query = $this->dbDriver->GetQuery();
+
             $queryResult = $query->Execute($countSql);
 
             $this->itemsCount = $queryResult[0]->Total;
         }
         return $this->itemsCount;
-    } 
+    }
     
     public function getCurrentPagedItems(){
         $query = $this->dbDriver->GetQuery();
+
         $queryResult = $query->ExecutePaged($this->sql, $this->itemsPerPage, $this->getOffset());
 
         return $queryResult;
@@ -185,5 +199,24 @@ abstract class Pager {
     public function getOffset(){
         return (($this->currentPage - 1) * $this->itemsPerPage) + 1;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getClearGroupBy()
+    {
+        return $this->clearGroupBy;
+    }
+
+    /**
+     * @param mixed $clearGroupBy
+     * @return Pager
+     */
+    public function setClearGroupBy($clearGroupBy)
+    {
+        $this->clearGroupBy = $clearGroupBy;
+        return $this;
+    }
+
 
 }

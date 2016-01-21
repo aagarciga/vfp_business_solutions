@@ -50,6 +50,9 @@ define('MVC_DIR_APP_LIBRARIES', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Libraries')
 define('MVC_DIR_APP_MODELS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Models');
 define('MVC_DIR_APP_VIEWS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Views');
 
+//Add by Victor
+define('MVC_DIR_APP_TOOLS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Tools');
+
 define('MVC_DIR_APP_VIEWS_SHARED', MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . 'Shared');
 
 /**
@@ -78,6 +81,9 @@ use Dandelion\MVC\Core\Exceptions;
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
 require_once 'Core/Exceptions.Core.php';
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_SEPARATOR . 'Diana.php';
+
+//Add by Victor
+require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'tools.php';
 
 /**
  * Front Controller instance for Singleton behavior.

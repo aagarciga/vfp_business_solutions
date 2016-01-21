@@ -8,32 +8,33 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\OnPurchaseOrderDashboard\Actions;
 
-use Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Models\OnSalesOrderDashboardViewModel;
+use Dandelion\MVC\Application\Controllers\OnPurchaseOrderDashboard\Models\OnPurchaseOrderDashboardViewModel;
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 
 /**
  * Created by: Victor
  * Class Index
- * @package Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Actions
+ * @package Dandelion\MVC\Application\Controllers\OnPurchaseOrderDashboard\Actions
  */
 class Index extends Action
 {
     public function Execute()
     {
-        $exportedBy = 'OSO';
+        $exportedBy = 'OPO';
         $this->Itemno = $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
+        $this->Itemwhs = $itemwhs = $this->Request->hasProperty('itemwhs') ? base64_decode($this->Request->itemwhs) : '';
 
-        $this->Title = 'On Sales Order Dashboard | VFP Business Series';
+        $this->Title = 'On Purchase Order Dashboard | VFP Business Series';
 
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = isset($_SESSION['itemperpages']) ? $_SESSION['itemperpages'] : $defaultItemsPerPage;
 
-        $this->FilterPredicate = (is_string($itemno) && $itemno != "") ? "itemno = '$itemno'" : "";
+        $this->FilterPredicate = $this->controller->GetOnOrderPredicate($itemno, $itemwhs);
 
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();
@@ -45,7 +46,12 @@ class Index extends Action
         {
             foreach($items as $item)
             {
-                $currentItemViewModel = new OnSalesOrderDashboardViewModel($item->ordnum, $item->ponum, $item->custno, $item->company, $item->podate, $item->qtyord, $item->qtyshp, $item->bckord, $item->qtyshp0, $item->qtyshprel, $item->shipdate);
+                $poTypeValue = trim($item->podate);
+                $shippedValue = trim($item->shipped);
+                $poTypeValue = ($poTypeValue === DATE_NULL_VALUE) ? '' : $poTypeValue;
+                $shippedValue = ($shippedValue === DATE_NULL_VALUE) ? '' : $shippedValue;
+                $currentItemViewModel = new OnPurchaseOrderDashboardViewModel($item->pono, $item->vendno, $poTypeValue,
+                    $item->qtyord, $item->qtyrec, $item->qtyleft, $shippedValue, $item->potype);
                 $viewModels[] = $currentItemViewModel;
             }
         }
@@ -60,7 +66,5 @@ class Index extends Action
         $this->ShowFiancialDashboard = (!isset($_SESSION['showFiancialDashboard'])) ? false : $_SESSION['showFiancialDashboard'];
 
         $this->JavascriptBootstrapPager = BootstrapPager::GetJavascriptBootstrapPager();
-
     }
 }
-

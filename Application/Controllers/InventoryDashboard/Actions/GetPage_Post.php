@@ -45,6 +45,10 @@ class GetPage_Post extends Action
             $current['onorder'] = number_format(trim($item->onorder));
             $current['committed'] = number_format(trim($item->committed));
             $current['committedHref'] = $this->view->Href('OnSalesOrderDashboard', 'Index', array('itemno' => base64_encode($current['itemno'])));
+            $current['onorderHref'] = $this->view->Href('OnPurchaseOrderDashboard', 'Index', array(
+                'itemno' => base64_encode($current['itemno']),
+                'itemwhs' => base64_encode($current['itmwhs'])
+            ));
             $result[] = $current;
         }
 
