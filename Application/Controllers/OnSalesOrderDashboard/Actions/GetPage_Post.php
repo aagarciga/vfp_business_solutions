@@ -32,6 +32,7 @@ class GetPage_Post extends Action
         $order = $this->Request->hasProperty('order') ? $this->Request->order : "ASC";
 
         $itemnoPredicate = "itemno = '$itemno'";
+        $filterPredicate = "";
 
         if ($itemno !== "" && $userFilterPredicate !== "")
         {

@@ -7,7 +7,6 @@ OnPurchaseOrderDashboard = dandelion.namespace('App.OnPurchaseOrderDashboard', g
 
 DynamicFilter = App.OnPurchaseOrderDashboard.DynamicFilter
 
-
 # Statuses Declaration
 #-----------------------------------------------------------------------------------------------------------------------
 OnPurchaseOrderDashboard.status = {}
@@ -143,7 +142,6 @@ OnPurchaseOrderDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) 
     td
 
 
-
   tdPoNoBuilder = ->
     simpleTdBuilder(dataRow.pono)
 
@@ -185,9 +183,12 @@ OnPurchaseOrderDashboard.functions.bindTableItemsEventHandlers = ->
   @
 
 OnPurchaseOrderDashboard.functions.bindEventHandlers = ->
-  $(OnPurchaseOrderDashboard.htmlBindings.drpItemPerPage).on('click', OnPurchaseOrderDashboard.eventHandlers.drpItemPerPage_onClick)
-  $(OnPurchaseOrderDashboard.htmlBindings.table_header_btnSort).on('click', OnPurchaseOrderDashboard.eventHandlers.table_body_btnSort_onClick);
-  $(OnPurchaseOrderDashboard.htmlBindings.pager_btnPagerPages).on('click', OnPurchaseOrderDashboard.eventHandlers.pager_btnPagerPages_onClick)
+  $(OnPurchaseOrderDashboard.htmlBindings.drpItemPerPage).on('click',
+    OnPurchaseOrderDashboard.eventHandlers.drpItemPerPage_onClick)
+  $(OnPurchaseOrderDashboard.htmlBindings.table_header_btnSort).on('click',
+    OnPurchaseOrderDashboard.eventHandlers.table_body_btnSort_onClick);
+  $(OnPurchaseOrderDashboard.htmlBindings.pager_btnPagerPages).on('click',
+    OnPurchaseOrderDashboard.eventHandlers.pager_btnPagerPages_onClick)
   OnPurchaseOrderDashboard.functions.bindTableItemsEventHandlers();
   @
 

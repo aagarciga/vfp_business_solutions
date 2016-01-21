@@ -469,7 +469,6 @@
                 .parent()
                 .addClass('has-error');
         }
-
         $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
     };
 

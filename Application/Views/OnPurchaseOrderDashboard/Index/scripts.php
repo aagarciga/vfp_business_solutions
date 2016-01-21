@@ -6,8 +6,8 @@
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
-<script src="<?php echo $View->ScriptsContext('OnPurchaseOrderDashboard/OnPurchaseOrderDashboardDynamicFilter.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('OnPurchaseOrderDashboard/main.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('OnPurchaseOrderDashboard/OnPurchaseOrderDashboardDynamicFilter.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('OnPurchaseOrderDashboard/main.min.js'); ?>"></script>
 
 <script>
     /**

@@ -40,7 +40,7 @@
         OnSalesOrderDashboard.urls.updateStatus = "<?php echo $View->Href('QuoteDashboard', 'UpdateStatus') ?>";
 
 //    OnSalesOrderDashboard.init('<?php //echo $DefaultUserFilterId ?>//');
-        OnSalesOrderDashboard.init('<?php echo  base64_encode($Itemno) ?>', '');
+        OnSalesOrderDashboard.init('<?php echo base64_encode($Itemno) ?>', '');
 
     }(window, jQuery, App));
 </script>

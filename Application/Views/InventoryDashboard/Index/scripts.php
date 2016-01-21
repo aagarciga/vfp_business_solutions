@@ -39,7 +39,7 @@
     InventoryDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('QuoteDashboard', 'GetCurrentProjectFiles') ?>";
     InventoryDashboard.urls.updateStatus = "<?php echo $View->Href('QuoteDashboard', 'UpdateStatus') ?>";
 
-//    InventoryDashboard.init('<?php ////echo $DefaultUserFilterId ?>//');
+//    InventoryDashboard.init('<?php //echo $DefaultUserFilterId ?>//');
     InventoryDashboard.init();
 
 }(window, jQuery, App));
