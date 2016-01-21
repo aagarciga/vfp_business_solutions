@@ -36,9 +36,28 @@ DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.coffee
 DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.js
 DEL /S /Q .\Public\Scripts\FinancialDashboard\financialdashboard.js.map
 
+DEL /S /Q .\Public\Scripts\InventoryDashboard\main.coffee
+DEL /S /Q .\Public\Scripts\InventoryDashboard\main.js
+DEL /S /Q .\Public\Scripts\InventoryDashboard\main.js.map
+DEL /S /Q .\Public\Scripts\InventoryDashboard\InventoryDashboardDynamicFilter.js
+
+DEL /S /Q .\Public\Scripts\OnPurchaseOrderDashboard\main.coffee
+DEL /S /Q .\Public\Scripts\OnPurchaseOrderDashboard\main.js
+DEL /S /Q .\Public\Scripts\OnPurchaseOrderDashboard\main.js.map
+DEL /S /Q .\Public\Scripts\OnPurchaseOrderDashboard\OnPurchaseOrderDashboardDynamicFilter.js
+
+DEL /S /Q .\Public\Scripts\OnSalesOrderDashboard\main.coffee
+DEL /S /Q .\Public\Scripts\OnSalesOrderDashboard\main.js
+DEL /S /Q .\Public\Scripts\OnSalesOrderDashboard\main.js.map
+DEL /S /Q .\Public\Scripts\OnSalesOrderDashboard\OnSalesOrderDashboardDynamicFilter.js
+
 DEL /S /Q .\Public\Scripts\ARDashboard\ardashboard.coffee
 DEL /S /Q .\Public\Scripts\ARDashboard\ardashboard.js
 DEL /S /Q .\Public\Scripts\ARDashboard\ardashboard.js.map
+
+DEL /S /Q .\Public\Scripts\APDashboard\apdashboard.coffee
+DEL /S /Q .\Public\Scripts\APDashboard\apdashboard.js
+DEL /S /Q .\Public\Scripts\APDashboard\apdashboard.js.map
 
 echo Cleaning Stylesheet Development Files
 DEL /S /Q .\Public\Vendor\bootstrap-3\css\bootstrap.css
