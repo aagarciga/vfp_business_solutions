@@ -177,7 +177,7 @@
       return simpleTdBuilder(dataRow.onhand, 'number');
     };
     tdOnorderBuilder = function() {
-      return withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number');
+      return withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number', dataRow.onorderHref);
     };
     tdCommittedBuilder = function() {
       return withLinkTdBuilder(dataRow.committed, InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number', dataRow.committedHref);
