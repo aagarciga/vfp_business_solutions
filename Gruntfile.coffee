@@ -3,17 +3,44 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
 
-    concat:
-      options:
-        separator: ';'
+    copy:
       dist:
+        expand: true
+        cwd: './'
         src: [
-          'Public/Scripts/jquery-1.10.2.min.js'
-          'Public/Scripts/knockback-full-stack.min.js'
+          'Core/**/*'
+          'index.php'
+          'Application/**/*'
+          'Public/Images/**/*'
+          'Public/Uploads/*.png'
+          'Public/Shared/Images/*'
+          'Public/Shared/Styles/*.min.css'
+          'Public/Shared/Scripts/*.min.js'
+          'Public/Styles/**/*.min.css'
+          'Public/Scripts/**/*.min.js'
+          'Public/Vendor/**/*'
         ]
-        dest: 'Public/Scripts/bundle.js'
+        dest: 'build/'
+    clean:
+      build:
+        src: ["build/"]
+    compress:
+      main:
+        options:
+          archive: 'build/vfpbs.<%= pkg.version %>.zip'
+          mode: 'zip'
+          level: 9
+          pretty: true
+        files: [
+          expand: true
+          cwd: 'build/'
+          src: ['**']
+          dest: 'vfpbs.<%= pkg.version %>'
+        ]
 
-  grunt.loadNpmTasks('grunt-contrib-concat')
+  grunt.loadNpmTasks('grunt-contrib-copy')
+  grunt.loadNpmTasks('grunt-contrib-clean')
+#  grunt.loadNpmTasks('grunt-contrib-compress')
 
   # Default task(s).
-  grunt.registerTask('default', ['concat'])
+  grunt.registerTask('default', ['clean', 'copy'])
