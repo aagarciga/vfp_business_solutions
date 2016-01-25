@@ -29,7 +29,11 @@ define('FILTER_DIR_ROOT', __DIR__);
 
 define('PHP_EXT_FILE', '.php');
 
+define('FILTER_DIR_INTERFACES', 'Interfaces');
 
+define('FILTER_DIR_NODES', 'Nodes');
+
+require_once FILTER_DIR_ROOT . DIRECTORY_SEPARATOR . 'tools.php';
 
 
 final class Filter
@@ -48,17 +52,17 @@ final class Filter
     }
 
     final function __construct(){
-        $this->dirsFilter = $this->loadDirs();
+        $directoryHead = FILTER_DIR_ROOT . DIRECTORY_SEPARATOR;
+        $rootDirectorys = array(
+            $directoryHead . FILTER_DIR_INTERFACES => false,
+            $directoryHead . FILTER_DIR_NODES => true
+        );
+
+        $this->dirsFilter = loadDirs($rootDirectorys);
     }
 
     final function __clone(){
         ;
-    }
-
-    private function loadDirs(){
-        return array(
-
-        );
     }
 
     private function classLoader($className){
@@ -71,8 +75,8 @@ final class Filter
         }
 
         foreach($this->dirsFilter as $key => $value){
-            if (is_file(FILTER_DIR_ROOT . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR . $className . PHP_EXT_FILE)){
-                require_once FILTER_DIR_ROOT . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR . $className . PHP_EXT_FILE;
+            if (is_file($value . DIRECTORY_SEPARATOR . $className . PHP_EXT_FILE)){
+                require_once $value . DIRECTORY_SEPARATOR . $className . PHP_EXT_FILE;
             }
         }
     }
