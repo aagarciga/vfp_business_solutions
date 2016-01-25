@@ -85,6 +85,9 @@ require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_S
 //Add by Victor
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'tools.php';
 
+//Filter libraries loader
+require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Filter' . DIRECTORY_SEPARATOR . 'Filter.php';
+
 /**
  * Front Controller instance for Singleton behavior.
  * 
@@ -120,6 +123,9 @@ final class index extends Core\FrontController {
         //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
         \Dandelion\Diana\Diana::Init();
+
+        //Add by Victor
+        \Dandelion\Filter\Filter::Init();
         
         date_default_timezone_set("America/New_York");
         
