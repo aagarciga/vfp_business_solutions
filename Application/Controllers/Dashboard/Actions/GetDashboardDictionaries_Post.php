@@ -40,7 +40,6 @@ class GetDashboardDictionaries_Post extends Action {
             $current['descrip'] = trim($row->getDescrip());
             $result[] = $current;
         }
-        error_log(print_r($result, true));
         return $result;
     }
     
