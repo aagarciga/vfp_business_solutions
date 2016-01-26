@@ -77,16 +77,22 @@ define('MVC_SETTINGS_INSTANCE', 'Application');
 
 use Dandelion\MVC\Core;
 use Dandelion\MVC\Core\Exceptions;
+use Dandelion\Tools\Tools;
 
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
 require_once 'Core/Exceptions.Core.php';
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_SEPARATOR . 'Diana.php';
 
-//Add by Victor
+//BEGIN: Add by Victor
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'tools.php';
 
 //Filter libraries loader
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Filter' . DIRECTORY_SEPARATOR . 'Filter.php';
+
+//Tools libraries loader
+require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Tools' . DIRECTORY_SEPARATOR . 'Index.php';
+
+//END: Add by Victor
 
 /**
  * Front Controller instance for Singleton behavior.
@@ -124,8 +130,11 @@ final class index extends Core\FrontController {
 
         \Dandelion\Diana\Diana::Init();
 
-        //Add by Victor
+        //BEGIN: Add by Victor
         \Dandelion\Filter\Filter::Init();
+
+        \Dandelion\Tools\Tools::Init();
+        //END: Add by Victor
         
         date_default_timezone_set("America/New_York");
         

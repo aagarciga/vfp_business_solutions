@@ -10,7 +10,7 @@
  * @link      http://www.thedandelionproject.com
  */
 
-namespace Dandelion\Filter;
+namespace Dandelion\Tools;
 
 define('PHP_EXT_FILE', '.php');
 

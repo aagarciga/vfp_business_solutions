@@ -1,17 +1,17 @@
 <?php
 /**
  * User: Victor
- * Date: 24/01/2016
- * Time: 15:26
+ * Date: 25/01/2016
+ * Time: 21:27
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
- * @copyright 2011-2014 Alex Alvarez G�rciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://www.thedandelionproject.com
  */
 
-namespace Dandelion\Filter;
+namespace Dandelion\Tools;
 
-define("FILTER_VERSION", "1.0.0.0");
+define("TOOLS_VERSION", "1.0.0.0");
 
 /**
  *
@@ -24,33 +24,20 @@ define("FILTER_VERSION", "1.0.0.0");
 if (!defined('__DIR__'))
     define('__DIR__', dirname(__FILE__));
 
-define('FILTER_DIR_ROOT', __DIR__);
+define('TOOLS_DIR_ROOT', __DIR__);
 
-define('FILTER_DIR_INTERFACES', 'Interfaces');
-
-define('FILTER_DIR_NODES', 'Nodes');
+require_once TOOLS_DIR_ROOT . DIRECTORY_SEPARATOR . 'tools.php';
 
 
-final class Filter
+final class Tools
 {
     static private $instance = null;
 
     private $dirsFilter;
 
-    public static function Init(){
-        if (self::$instance == null){
-            self::$instance = new Filter();
-        }
-        spl_autoload(array(self::$instance, 'classLoader'));
-
-        return self::$instance;
-    }
-
     final function __construct(){
         $directoryHead = FILTER_DIR_ROOT . DIRECTORY_SEPARATOR;
         $rootDirectorys = array(
-            $directoryHead . FILTER_DIR_INTERFACES => false,
-            $directoryHead . FILTER_DIR_NODES => true
         );
 
         $this->dirsFilter = loadDirs($rootDirectorys);
@@ -60,7 +47,16 @@ final class Filter
         ;
     }
 
+    public static function Init(){
+        if (self::$instance == null){
+            self::$instance = new Tools();
+        }
+        spl_autoload(array(self::$instance, 'classLoader'));
+
+        return self::$instance;
+    }
+
     private function classLoader($className){
-        classLoader($className, $this->dirsFilter, FILTER_DIR_ROOT);
+        classLoader($className, $this->dirsFilter, TOOLS_DIR_ROOT);
     }
 }
