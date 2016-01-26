@@ -13,7 +13,7 @@
 namespace Dandelion\Filter;
 
 
-interface IFilterGeneratorCode
+interface IFilterCodeGenerator
 {
     function getCode();
 }
