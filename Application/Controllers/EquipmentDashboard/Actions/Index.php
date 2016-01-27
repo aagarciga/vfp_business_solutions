@@ -13,6 +13,11 @@ namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 use Dandelion\MVC\Application\Controllers\EquipmentDashboard\Models\EquipmentDashboardViewModel;
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
+use Dandelion\MVC\Application\Tools;
+
+define("VIEW_MODEL_CLASS", 'EquipmentDashboardViewModel');
+
+
 
 /**
  * Created by: Victor
@@ -23,18 +28,15 @@ class Index extends Action
 {
     public function Execute()
     {
-        $exportedBy = 'OPO';
-        $this->Itemno = $itemno = $this->Request->hasProperty('itemno') ? base64_decode($this->Request->itemno) : '';
-        $this->Itemwhs = $itemwhs = $this->Request->hasProperty('itemwhs') ? base64_decode($this->Request->itemwhs) : '';
-
-        $this->Title = 'On Purchase Order Dashboard | VFP Business Series';
+        $exportedBy = 'EQM';
+        $this->Title = 'Equipment Dashboard | VFP Business Series';
 
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = isset($_SESSION['itemperpages']) ? $_SESSION['itemperpages'] : $defaultItemsPerPage;
 
-        $this->FilterPredicate = $this->controller->GetOnOrderPredicate($itemno, $itemwhs);
+        $this->FilterPredicate = "";
 
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();
@@ -46,12 +48,7 @@ class Index extends Action
         {
             foreach($items as $item)
             {
-                $poTypeValue = trim($item->podate);
-                $shippedValue = trim($item->shipped);
-                $poTypeValue = ($poTypeValue === DATE_NULL_VALUE) ? '' : $poTypeValue;
-                $shippedValue = ($shippedValue === DATE_NULL_VALUE) ? '' : $shippedValue;
-                $currentItemViewModel = new EquipmentDashboardViewModel($item->pono, $item->vendno, $poTypeValue,
-                    $item->qtyord, $item->qtyrec, $item->qtyleft, $shippedValue, $item->potype);
+                $currentItemViewModel = Tools\createViewModel(VIEW_MODEL_CLASS, $item, $this->controller->GetFieldsDefinition());
                 $viewModels[] = $currentItemViewModel;
             }
         }
