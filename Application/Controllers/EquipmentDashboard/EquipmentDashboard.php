@@ -86,9 +86,4 @@ class EquipmentDashboard extends DatActionsController
         $icparmTable = "ICPARM$companySuffix";
         return "($swequipTable INNER JOIN $icparmTable ON $swequipTable.itemno = $icparmTable.itemno)";
     }
-
-    public function GetOnOrderPredicate($itemno, $itemwhs){
-        $key = $itemno.$itemwhs;
-        return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp) AND CONCAT(TRIM(itemno), TRIM(itmwhs)) = '$key'";
-    }
 }
