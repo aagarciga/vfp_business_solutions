@@ -12,6 +12,7 @@ namespace Dandelion\MVC\Application\Controllers;
 use Dandelion\MVC\Application\Controllers\DatActionsController;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Core\Request;
+use Dandelion\MVC\Application\Tools;
 
 /**
  * Created by: Victor
@@ -33,7 +34,7 @@ class EquipmentDashboard extends DatActionsController
      * @internal Because in the feature this will be an INNER JOIN
      */
     public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5,
-                             $showPagerControlsIfMoreThan = 10, $orderby = "pono", $order = "ASC")
+                             $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC")
     {
         if ($predicate !== "")
         {
@@ -41,12 +42,13 @@ class EquipmentDashboard extends DatActionsController
         }
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
-        $poitemTable = "POITOP$companysuffix";
-        $fields = 'pono, vendno, podate, qtyord, qtyrec, qtyleft, shipped, potype ';
+        $table = $this->getDashboardTable($companysuffix);
+        $fields = loadFieldsSql($this->GetFieldsDefinition());
+        $selectField = loadFieldsSql($this->GetFieldsDefinition(), $this->getInnerJoinFields($companysuffix));
 
         $sqlString = "SELECT "
-            .$fields
-            ."FROM $poitemTable "
+            .$selectField
+            ."FROM $table "
             ."$predicate GROUP BY $fields"
             ."ORDER BY $orderby $order";
 
@@ -72,15 +74,20 @@ class EquipmentDashboard extends DatActionsController
         );
     }
 
-    protected function getDashboardTable($companySuffix)
-    {
+    protected function getInnerJoinFields($companySuffix){
+        $swequipTable = "SWEQUIP$companySuffix";
+        return array(
+            'itemno' => $swequipTable
+        );
+    }
+
+    protected function getDashboardTable($companySuffix){
         $swequipTable = "SWEQUIP$companySuffix";
         $icparmTable = "ICPARM$companySuffix";
         return "($swequipTable INNER JOIN $icparmTable ON $swequipTable.itemno = $icparmTable.itemno)";
     }
 
-    public function GetOnOrderPredicate($itemno, $itemwhs)
-    {
+    public function GetOnOrderPredicate($itemno, $itemwhs){
         $key = $itemno.$itemwhs;
         return "((ABS(qtyord) - ABS(qtyrec)) > 0 AND not ordcomp) AND CONCAT(TRIM(itemno), TRIM(itmwhs)) = '$key'";
     }

@@ -83,7 +83,7 @@ require_once 'Core/Exceptions.Core.php';
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_SEPARATOR . 'Diana.php';
 
 //Add by Victor
-require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'tools.php';
+require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'Tools.php';
 
 /**
  * Front Controller instance for Singleton behavior.
