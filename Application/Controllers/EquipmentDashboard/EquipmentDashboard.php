@@ -53,7 +53,7 @@ class EquipmentDashboard extends DatActionsController
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 
-    protected static function GetFieldsDefinition(){
+    protected function GetFieldsDefinition(){
         return array(
             'ordnum' => TYPE_CHAR,
             'equipid' => TYPE_CHAR,
@@ -70,6 +70,13 @@ class EquipmentDashboard extends DatActionsController
             'notes' => TYPE_MEMO,
             'picture_fi' => TYPE_DATE
         );
+    }
+
+    protected function getDashboardTable($companySuffix)
+    {
+        $swequipTable = "SWEQUIP$companySuffix";
+        $icparmTable = "ICPARM$companySuffix";
+        return "($swequipTable INNER JOIN $icparmTable ON $swequipTable.itemno = $icparmTable.itemno)";
     }
 
     public function GetOnOrderPredicate($itemno, $itemwhs)

@@ -80,6 +80,25 @@ function createArrayModel($item, $fieldDefinition){
     return $result;
 }
 
+/**
+ * @param array $fieldsDefinition definition of the field "field => type"
+ * @param array $innerJoinFields keys are fields, values are tables
+ * @return string sentence sql that represent the fields from the table
+ */
+function loadFieldsSql($fieldsDefinition, $innerJoinFields=array()){
+    $sqlSelectResult = "";
+    foreach ($fieldsDefinition as $field => $type){
+        if (array_key_exists($field, $innerJoinFields)){
+            $innerTable = $innerJoinFields[$field];
+            $sqlSelectResult .= " $innerTable.$field AS $field,";
+        }
+        else{
+            $sqlSelectResult .= " $field,";
+        }
+    }
+    return substr($sqlSelectResult, 0, count_chars($sqlSelectResult) - 1);
+}
+
 function fix_default($value){
     if (is_string($value)){
         return trim($value);
