@@ -9,10 +9,9 @@ namespace Dandelion\MVC\Application\Tools;
 
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'BootstrapPagerTest.php';
 
-
 define("DATE_NULL_VALUE", '1899-12-30');
 
-define("FIX_PREFIX", 'fix_');
+define("FIX_PREFIX", __NAMESPACE__ . '\fix_');
 
 define("FIX_DEFAULT", 'default');
 
@@ -32,6 +31,17 @@ define("TYPE_MEMO", 'memo');
  * END: Type definition
  */
 
+function fix_default($value){
+    if (is_string($value)){
+        return trim($value);
+    }
+    return $value;
+}
+
+function fix_date($value){
+    $value = trim($value);
+    return ($value === DATE_NULL_VALUE) ? '' : $value;
+}
 
 /**
  * @param string $viewModelClass type of return view model
@@ -47,8 +57,9 @@ function createViewModel($viewModelClass, $item, $fieldDefinition){
         $suffix = implode($arrayField);
         $setMethod = SET_PREFIX . $suffix;
         $fixMethod = createFixMethod($type);
-        $value = $fixMethod($item->$field);
-        $result.$setMethod($value);
+        $value = $item->$field;
+        $value = $fixMethod($value);
+        $result->$setMethod($value);
     }
     return $result;
 }
@@ -138,16 +149,4 @@ function fixKeywordsProblem($field){
         return "[$field]";
     }
     return $field;
-}
-
-function fix_default($value){
-    if (is_string($value)){
-        return trim($value);
-    }
-    return $value;
-}
-
-function fix_date($value){
-    $value = trim($value);
-    return ($value === DATE_NULL_VALUE) ? '' : $value;
 }

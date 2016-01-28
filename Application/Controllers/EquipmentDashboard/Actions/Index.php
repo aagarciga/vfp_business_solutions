@@ -10,12 +10,11 @@
 
 namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 
-use Dandelion\MVC\Application\Controllers\EquipmentDashboard\Models\EquipmentDashboardViewModel;
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Application\Tools;
 
-define("VIEW_MODEL_CLASS", 'EquipmentDashboardViewModel');
+define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\EquipmentDashboard\Models\EquipmentDashboardViewModel');
 
 
 

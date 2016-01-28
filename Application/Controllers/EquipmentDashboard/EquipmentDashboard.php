@@ -13,6 +13,7 @@ use Dandelion\MVC\Application\Controllers\DatActionsController;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Core\Request;
 use Dandelion\MVC\Application\Tools;
+use Dandelion\MVC\Application\Tools\BootstrapPagerTest;
 
 /**
  * Created by: Victor
@@ -52,10 +53,13 @@ class EquipmentDashboard extends DatActionsController
             ."$predicate"
             ." ORDER BY $orderby $order";
 
-        return new Tools\BootstrapPagerTest($this->GetFieldsDefinition(), $this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
+        return new BootstrapPagerTest($this->GetFieldsDefinition(), $this->DatUnitOfWork->DBDriver,
+            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
+//        return new BootstrapPager($this->DatUnitOfWork->DBDriver,
+//            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 
-    protected function GetFieldsDefinition(){
+    public function GetFieldsDefinition(){
         return array(
             'ordnum' => TYPE_CHAR,
             'equipid' => TYPE_CHAR,
@@ -74,7 +78,7 @@ class EquipmentDashboard extends DatActionsController
         );
     }
 
-    protected function getInnerJoinFields($companySuffix){
+    public function getInnerJoinFields($companySuffix){
         $swequipTable = "SWEQUIP$companySuffix";
         return array(
             'itemno' => $swequipTable,
@@ -85,7 +89,7 @@ class EquipmentDashboard extends DatActionsController
         );
     }
 
-    protected function getDashboardTable($companySuffix){
+    public function getDashboardTable($companySuffix){
         $swequipTable = "SWEQUIP$companySuffix";
         $icparmTable = "ICPARM$companySuffix";
         return "($swequipTable INNER JOIN $icparmTable ON $swequipTable.itemno = $icparmTable.itemno)";

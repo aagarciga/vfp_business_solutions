@@ -9,7 +9,7 @@ namespace Dandelion\MVC\Application\Tools;
 
 use Dandelion\Diana\BootstrapPager;
 
-require_once MVC_DIR_APP_TOOLSC . 'Dictionary.php';
+require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'Dictionary.php';
 
 
 class BootstrapPagerTest extends BootstrapPager
@@ -28,8 +28,9 @@ class BootstrapPagerTest extends BootstrapPager
 
     public function getCurrentPagedItems()
     {
+        $itemPerPage = (int) $this->itemsPerPage[0];
         $result = array();
-        for ($i = 0; i < $this->itemsPerPage; $i++){
+        for ($i = 0; $i < $itemPerPage; $i++){
             $item = new Dictionary();
             foreach ($this->_fieldsDefinition as $field => $type){
                 $item->$field = "NULL";
