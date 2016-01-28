@@ -90,13 +90,52 @@ function loadFieldsSql($fieldsDefinition, $innerJoinFields=array()){
     foreach ($fieldsDefinition as $field => $type){
         if (array_key_exists($field, $innerJoinFields)){
             $innerTable = $innerJoinFields[$field];
+            $field = fixKeywordsProblem($field);
             $sqlSelectResult .= " $innerTable.$field AS $field,";
         }
         else{
+            $field = fixKeywordsProblem($field);
             $sqlSelectResult .= " $field,";
         }
     }
     return substr($sqlSelectResult, 0, strlen($sqlSelectResult) - 1);
+}
+
+/**
+ * @param mixed $valueExist search value into array
+ * @param array $array collection used in the search
+ * @return bool true if value exist into array, false other wise
+ */
+function array_value_exist($valueExist, $array){
+    foreach ($array as $key => $value){
+        if ($valueExist === $value){
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * @param str $name
+ * @return bool true if name is a sql keyword
+ */
+function isSqlKeyword($name){
+    $name = strtolower($name);
+    $keywords = array(
+        'order'
+    );
+    return array_value_exist($name, $keywords);
+}
+
+/**
+ * @param str $field the name of the field or table to be fixed.
+ * @return string field or table name fixed.
+ */
+function fixKeywordsProblem($field){
+    if (isSqlKeyword($field)){
+        return "[$field]";
+    }
+    return $field;
 }
 
 function fix_default($value){
