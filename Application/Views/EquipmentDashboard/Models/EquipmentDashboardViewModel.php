@@ -29,7 +29,7 @@ class EquipmentDashboardViewModel
     protected $_status;
     protected $_toolboxid;
     protected $_notes;
-    protected $_picture;
+    protected $_picture_fi;
 
     /**
      * EquipmentDashboardViewModel constructor.
@@ -50,7 +50,7 @@ class EquipmentDashboardViewModel
      */
     public function __construct($ordnum=null, $equipid=null, $itemno=null, $model=null,
                                 $serialno=null, $make=null, $installdte=null, $expdtein=null, $daterec=null,
-                                $order=null, $status=null, $toolboxid=null, $notes=null, $picture=null)
+                                $order=null, $status=null, $toolboxid=null, $notes=null, $picture_fi=null)
     {
         $this->_ordnum = $ordnum;
         $this->_equipid = $equipid;
@@ -65,7 +65,7 @@ class EquipmentDashboardViewModel
         $this->_status = $status;
         $this->_toolboxid = $toolboxid;
         $this->_notes = $notes;
-        $this->_picture = $picture;
+        $this->_picture_fi = $picture_fi;
     }
 
     /**
@@ -305,18 +305,18 @@ class EquipmentDashboardViewModel
     /**
      * @return mixed
      */
-    public function getPicture()
+    public function getPicture_fi()
     {
-        return $this->_picture;
+        return $this->_picture_fi;
     }
 
     /**
      * @param mixed $picture
      * @return EquipmentDashboardViewModel
      */
-    public function setPicture($picture)
+    public function setPicture_fi($picture_fi)
     {
-        $this->_picture = $picture;
+        $this->_picture_fi = $picture_fi;
         return $this;
     }
 }

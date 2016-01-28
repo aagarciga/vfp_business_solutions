@@ -81,20 +81,20 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
-                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">P.O No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="equipid" data-field-type="text">Vendor</a></li>
-                            <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Po Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="model" data-field-type="text">Qty Order</a></li>
-                            <li><a href="#" class="filter-field" data-field="serialno" data-field-type="text">Qty Received</a></li>
-                            <li><a href="#" class="filter-field" data-field="make" data-field-type="text">Qty Left</a></li>
-                            <li><a href="#" class="filter-field" data-field="installdte" data-field-type="text">Ship Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="expdtein" data-field-type="text">Type</a></li>
-                            <li><a href="#" class="filter-field" data-field="daterec" data-field-type="text">Type</a></li>
-                            <li><a href="#" class="filter-field" data-field="order" data-field-type="text">Type</a></li>
-                            <li><a href="#" class="filter-field" data-field="status" data-field-type="text">Type</a></li>
-                            <li><a href="#" class="filter-field" data-field="toolboxid" data-field-type="text">Type</a></li>
-                            <li><a href="#" class="filter-field" data-field="notes" data-field-type="text">Type</a></li>
-                            <li><a href="#" class="filter-field" data-field="picture_fi" data-field-type="text">Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Work Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="equipid" data-field-type="text">Id</a></li>
+                            <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Part No.</a></li>
+                            <li><a href="#" class="filter-field" data-field="model" data-field-type="text">Model</a></li>
+                            <li><a href="#" class="filter-field" data-field="serialno" data-field-type="text">Serial No.</a></li>
+                            <li><a href="#" class="filter-field" data-field="make" data-field-type="text">Make</a></li>
+                            <li><a href="#" class="filter-field" data-field="installdte" data-field-type="text">Date Out</a></li>
+                            <li><a href="#" class="filter-field" data-field="expdtein" data-field-type="text">Expected date In</a></li>
+                            <li><a href="#" class="filter-field" data-field="daterec" data-field-type="text">Date Actually Received</a></li>
+                            <li><a href="#" class="filter-field" data-field="order" data-field-type="text">Order No</a></li>
+                            <li><a href="#" class="filter-field" data-field="status" data-field-type="text">Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="toolboxid" data-field-type="text">Tool Box</a></li>
+                            <li><a href="#" class="filter-field" data-field="notes" data-field-type="text">Notes</a></li>
+                            <li><a href="#" class="filter-field" data-field="picture_fi" data-field-type="text">Images</a></li>
                         </ul>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                             <td class="item-field"><?php echo $item->getStatus() ?></td>
                             <td class="item-field"><?php echo $item->getToolboxid() ?></td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
-                            <td class="item-field"><?php echo $item->getPicture() ?></td>
+                            <td class="item-field"><?php echo $item->getPicture_fi() ?></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
