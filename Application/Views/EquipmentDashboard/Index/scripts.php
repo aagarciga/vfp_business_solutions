@@ -6,13 +6,13 @@
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
-<script src="<?php echo $View->ScriptsContext('OnPurchaseOrderDashboard/OnPurchaseOrderDashboardDynamicFilter.min.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('OnPurchaseOrderDashboard/main.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/EquipmentDashboardDynamicFilter.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/main.min.js'); ?>"></script>
 
 <script>
     /**
      * @author Alex
-     * @namespace App.OnPurchaseOrderDashboard
+     * @namespace App.EquipmentDashboard
      * @param {window} global
      * @param {jQuery} $
      * @param {Object} App
@@ -23,24 +23,24 @@
         "use strict";
 
         var dandelion       = global.dandelion,
-            OnPurchaseOrderDashboard       = dandelion.namespace('App.OnPurchaseOrderDashboard', global);
+            EquipmentDashboard       = dandelion.namespace('App.EquipmentDashboard', global);
 
-        OnPurchaseOrderDashboard.urls = {};
-        OnPurchaseOrderDashboard.urls.getDictionaries = "<?php echo $View->Href('Dashboard', '') ?>";
-        OnPurchaseOrderDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', '') ?>";
-        OnPurchaseOrderDashboard.urls.getPage = "<?php echo $View->Href('OnPurchaseOrderDashboard', 'GetPage') ?>";
-        OnPurchaseOrderDashboard.urls.getSavedFilter = "<?php echo $View->Href('OnPurchaseOrderDashboard', 'GetSavedFilter') ?>";
-        OnPurchaseOrderDashboard.urls.deleteFilter = "<?php echo $View->Href('OnPurchaseOrderDashboard', 'DeleteFilter') ?>";
-        OnPurchaseOrderDashboard.urls.saveFilter = "<?php echo $View->Href('OnPurchaseOrderDashboard', 'SaveFilter') ?>";
+        EquipmentDashboard.urls = {};
+        EquipmentDashboard.urls.getDictionaries = "<?php echo $View->Href('Dashboard', '') ?>";
+        EquipmentDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', '') ?>";
+        EquipmentDashboard.urls.getPage = "<?php echo $View->Href('EquipmentDashboard', 'GetPage') ?>";
+        EquipmentDashboard.urls.getSavedFilter = "<?php echo $View->Href('EquipmentDashboard', 'GetSavedFilter') ?>";
+        EquipmentDashboard.urls.deleteFilter = "<?php echo $View->Href('EquipmentDashboard', 'DeleteFilter') ?>";
+        EquipmentDashboard.urls.saveFilter = "<?php echo $View->Href('EquipmentDashboard', 'SaveFilter') ?>";
 
         // TODO: Refactor this
-        OnPurchaseOrderDashboard.urls.projectAttachementsAPI = "<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>";
-        OnPurchaseOrderDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('QuoteDashboard', 'GetCurrentProjectFiles') ?>";
-        OnPurchaseOrderDashboard.urls.updateStatus = "<?php echo $View->Href('QuoteDashboard', 'UpdateStatus') ?>";
+        EquipmentDashboard.urls.projectAttachementsAPI = "<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>";
+        EquipmentDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('QuoteDashboard', 'GetCurrentProjectFiles') ?>";
+        EquipmentDashboard.urls.updateStatus = "<?php echo $View->Href('QuoteDashboard', 'UpdateStatus') ?>";
 
-//    OnPurchaseOrderDashboard.init('<?php //echo $DefaultUserFilterId ?>//');
+//    EquipmentDashboard.init('<?php //echo $DefaultUserFilterId ?>//');
 
-        OnPurchaseOrderDashboard.init('<?php echo  base64_encode($Itemno) ?>', '<?php echo  base64_encode($Itemwhs) ?>', '');
+        EquipmentDashboard.init('');
 
     }(window, jQuery, App));
 </script>

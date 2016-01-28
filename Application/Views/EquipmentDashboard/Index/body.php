@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: Victor
  * Date: 12/01/2016
  * Time: 15:01
@@ -82,14 +81,20 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
-                            <li><a href="#" class="filter-field" data-field="pono" data-field-type="text">P.O No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="vendno" data-field-type="text">Vendor</a></li>
-                            <li><a href="#" class="filter-field" data-field="podate" data-field-type="date">Po Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyord" data-field-type="text">Qty Order</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyrec" data-field-type="text">Qty Received</a></li>
-                            <li><a href="#" class="filter-field" data-field="qtyleft" data-field-type="text">Qty Left</a></li>
-                            <li><a href="#" class="filter-field" data-field="shipped" data-field-type="date">Ship Date</a></li>
-                            <li><a href="#" class="filter-field" data-field="potype" data-field-type="text">Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">P.O No.</a></li>
+                            <li><a href="#" class="filter-field" data-field="equipid" data-field-type="text">Vendor</a></li>
+                            <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Po Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="model" data-field-type="text">Qty Order</a></li>
+                            <li><a href="#" class="filter-field" data-field="serialno" data-field-type="text">Qty Received</a></li>
+                            <li><a href="#" class="filter-field" data-field="make" data-field-type="text">Qty Left</a></li>
+                            <li><a href="#" class="filter-field" data-field="installdte" data-field-type="text">Ship Date</a></li>
+                            <li><a href="#" class="filter-field" data-field="expdtein" data-field-type="text">Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="daterec" data-field-type="text">Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="order" data-field-type="text">Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="status" data-field-type="text">Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="toolboxid" data-field-type="text">Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="notes" data-field-type="text">Type</a></li>
+                            <li><a href="#" class="filter-field" data-field="picture_fi" data-field-type="text">Type</a></li>
                         </ul>
                     </div>
                 </div>
@@ -97,40 +102,58 @@
 
 
             <div class="panel-table">
-                <table class="table table-striped" id="OnPurchaseOrderDashboardTable">
+                <table class="table table-striped" id="EquipmentDashboardTable">
                     <colgroup>
-                        <col class="col-pono"/>
-                        <col class="col-vendno"/>
-                        <col class="col-podate"/>
-                        <col class="col-qtyord"/>
-                        <col class="col-qtyrec"/>
-                        <col class="col-qtyleft"/>
-                        <col class="col-shipped"/>
-                        <col class="col-potype"/>
+                        <col class="col-ordnum"/>
+                        <col class="col-equipid"/>
+                        <col class="col-itemno"/>
+                        <col class="col-model"/>
+                        <col class="col-serialno"/>
+                        <col class="col-make"/>
+                        <col class="col-installdte"/>
+                        <col class="col-expdtein"/>
+                        <col class="col-daterec"/>
+                        <col class="col-order"/>
+                        <col class="col-status"/>
+                        <col class="col-toolboxid"/>
+                        <col class="col-notes"/>
+                        <col class="col-picture_fi"/>
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>P.O No. <button data-field="pono" class="btn-table-sort"></button></th>
-                        <th>Vendor <button data-field="vendno" class="btn-table-sort"></button></th>
-                        <th>Po Date <button data-field="podate" class="btn-table-sort"></button></th>
-                        <th>Qty Order <button data-field="qtyord" class="btn-table-sort"></button></th>
-                        <th>Qty Received <button data-field="qtyrec" class="btn-table-sort"></button></th>
-                        <th>Qty Left <button data-field="qtyleft" class="btn-table-sort"></button></th>
-                        <th>Ship Date <button data-field="shipped" class="btn-table-sort"></button></th>
-                        <th>Type <button data-field="potype" class="btn-table-sort"></button></th>
+                        <th>P.O No. <button data-field="ordnum" class="btn-table-sort"></button></th>
+                        <th>Vendor <button data-field="equipid" class="btn-table-sort"></button></th>
+                        <th>Po Date <button data-field="itemno" class="btn-table-sort"></button></th>
+                        <th>Qty Order <button data-field="model" class="btn-table-sort"></button></th>
+                        <th>Qty Received <button data-field="serialno" class="btn-table-sort"></button></th>
+                        <th>Qty Left <button data-field="make" class="btn-table-sort"></button></th>
+                        <th>Ship Date <button data-field="installdte" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="expdtein" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="daterec" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="order" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="status" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="toolboxid" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="notes" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="picture_fi" class="btn-table-sort"></button></th>
                     </tr>
                     </thead>
                     <body>
                     <?php foreach ($Items as $item): ?>
                         <tr>
-                            <td class="item-field"><?php echo $item->getPono() ?></td>
-                            <td class="item-field"><?php echo $item->getVendno() ?></td>
-                            <td class="item-field"><?php echo $item->getPodate() ?></td>
-                            <td class="item-field number"><?php echo $item->getQtyord() ?></td>
-                            <td class="item-field number"><?php echo $item->getQtyrec() ?></td>
-                            <td class="item-field number"><?php echo $item->getQtyleft() ?></td>
-                            <td class="item-field"><?php echo $item->getShipped() ?></td>
-                            <td class="item-field"><?php echo $item->getPotype() ?></td>
+                            <td class="item-field"><?php echo $item->getOrdnum() ?></td>
+                            <td class="item-field"><?php echo $item->getEquipid() ?></td>
+                            <td class="item-field"><?php echo $item->getItemno() ?></td>
+                            <td class="item-field"><?php echo $item->getModel() ?></td>
+                            <td class="item-field"><?php echo $item->getSerialno() ?></td>
+                            <td class="item-field"><?php echo $item->getMake() ?></td>
+                            <td class="item-field"><?php echo $item->getInstalldte() ?></td>
+                            <td class="item-field"><?php echo $item->getExpdtein() ?></td>
+                            <td class="item-field"><?php echo $item->getDaterec() ?></td>
+                            <td class="item-field"><?php echo $item->getOrder() ?></td>
+                            <td class="item-field"><?php echo $item->getStatus() ?></td>
+                            <td class="item-field"><?php echo $item->getToolboxid() ?></td>
+                            <td class="item-field"><?php echo $item->getNotes() ?></td>
+                            <td class="item-field"><?php echo $item->getPicture() ?></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
