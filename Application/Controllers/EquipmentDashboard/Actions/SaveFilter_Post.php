@@ -28,7 +28,7 @@ class SaveFilter_Post extends Action
      */
     public function Execute()
     {
-        $exportedBy = 'OPO';
+        $exportedBy = 'EQM';
         $filterName = filter_input(INPUT_POST, 'filterName');
         $filterString = filter_input(INPUT_POST, 'filterString');
         $filterHtml = filter_input(INPUT_POST, 'filterHtml');
