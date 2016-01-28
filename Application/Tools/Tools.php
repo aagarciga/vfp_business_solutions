@@ -7,6 +7,8 @@
 
 namespace Dandelion\MVC\Application\Tools;
 
+require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'BootstrapPagerTest.php';
+
 
 define("DATE_NULL_VALUE", '1899-12-30');
 
