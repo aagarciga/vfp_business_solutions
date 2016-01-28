@@ -12,7 +12,7 @@ DynamicFilter = App.EquipmentDashboard.DynamicFilter
 EquipmentDashboard.status = {}
 EquipmentDashboard.status.itemsPerPage = 50; # Default items per page value
 EquipmentDashboard.status.table_header_sortLastButton = null;
-EquipmentDashboard.status.table_header_sortField = 'pono'; # Default Order By Fields
+EquipmentDashboard.status.table_header_sortField = 'ordnum'; # Default Order By Fields
 EquipmentDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
 EquipmentDashboard.status.currentPage = 1;
 EquipmentDashboard.status.currentItemNo = '';
@@ -43,8 +43,6 @@ EquipmentDashboard.functions = {}
 EquipmentDashboard.functions.paginate = ->
   $.ajax(
     data:
-      itemno: EquipmentDashboard.status.currentItemNo,
-      itemwhs: EquipmentDashboard.status.currentItemWhs,
       predicate: EquipmentDashboard.DynamicFilter.functions.getPredicate(),
       page: EquipmentDashboard.status.currentPage,
       itemsPerPage: EquipmentDashboard.status.itemsPerPage,
@@ -142,39 +140,63 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     td
 
 
-  tdPoNoBuilder = ->
-    simpleTdBuilder(dataRow.pono)
+  tdOrdNumBuilder = ->
+    simpleTdBuilder(dataRow.ordnum)
 
-  tdVendNoBuilder = ->
-    simpleTdBuilder(dataRow.vendno)
+  tdEquipIdBuilder = ->
+    simpleTdBuilder(dataRow.equipid)
 
-  tdPoDateBuilder = ->
-    simpleTdBuilder(dataRow.podate)
+  tdItemNoBuilder = ->
+    simpleTdBuilder(dataRow.itemno)
 
-  tdQtyOrdBuilder = ->
-    simpleTdBuilder(dataRow.qtyord, 'number')
+  tdModelBuilder = ->
+    simpleTdBuilder(dataRow.model)
 
-  tdQtyRecBuilder = ->
-    simpleTdBuilder(dataRow.qtyrec, 'number')
+  tdSerialNoBuilder = ->
+    simpleTdBuilder(dataRow.serialno)
 
-  tdQtyLeftBuilder = ->
-    simpleTdBuilder(dataRow.qtyleft, 'number')
+  tdMakeBuilder = ->
+    simpleTdBuilder(dataRow.make)
 
-  tdShippedBuilder = ->
-    simpleTdBuilder(dataRow.shipped)
+  tdInstallDteBuilder = ->
+    simpleTdBuilder(dataRow.installdte)
 
-  tdPoTypeBuilder = ->
-    simpleTdBuilder(dataRow.potype)
+  tdExpdteinBuilder = ->
+    simpleTdBuilder(dataRow.expdtein)
+
+  tdDateRecBuilder = ->
+    simpleTdBuilder(dataRow.daterec)
+
+  tdOrderBuilder = ->
+    simpleTdBuilder(dataRow.order)
+
+  tdStatusBuilder = ->
+    simpleTdBuilder(dataRow.status)
+
+  tdToolboxIdBuilder = ->
+    simpleTdBuilder(dataRow.toolboxid)
+
+  tdNotesBuilder = ->
+    simpleTdBuilder(dataRow.notes)
+
+  tdPictureBuilder = ->
+    simpleTdBuilder(dataRow.picture_fi)
 
   result.className = trClass;
-  result.appendChild(tdPoNoBuilder());
-  result.appendChild(tdVendNoBuilder());
-  result.appendChild(tdPoDateBuilder());
-  result.appendChild(tdQtyOrdBuilder());
-  result.appendChild(tdQtyRecBuilder());
-  result.appendChild(tdQtyLeftBuilder());
-  result.appendChild(tdShippedBuilder());
-  result.appendChild(tdPoTypeBuilder());
+  result.appendChild(tdOrdNumBuilder());
+  result.appendChild(tdEquipIdBuilder());
+  result.appendChild(tdItemNoBuilder());
+  result.appendChild(tdModelBuilder());
+  result.appendChild(tdSerialNoBuilder());
+  result.appendChild(tdMakeBuilder());
+  result.appendChild(tdInstallDteBuilder());
+  result.appendChild(tdExpdteinBuilder());
+  result.appendChild(tdDateRecBuilder());
+  result.appendChild(tdOrderBuilder());
+  result.appendChild(tdStatusBuilder());
+  result.appendChild(tdToolboxIdBuilder());
+  result.appendChild(tdNotesBuilder());
+  result.appendChild(tdPictureBuilder());
   result
 
 EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
@@ -237,9 +259,7 @@ EquipmentDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   EquipmentDashboard.functions.paginate()
   @
 
-EquipmentDashboard.init = (itemno, itemwhs, defaultUserFilter) ->
-  EquipmentDashboard.status.currentItemNo = itemno
-  EquipmentDashboard.status.currentItemWhs = itemwhs
+EquipmentDashboard.init = (defaultUserFilter) ->
   EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter)
   EquipmentDashboard.functions.bindEventHandlers()

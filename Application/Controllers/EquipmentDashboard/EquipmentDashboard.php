@@ -43,14 +43,14 @@ class EquipmentDashboard extends DatActionsController
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
         $table = $this->getDashboardTable($companysuffix);
-        $fields = loadFieldsSql($this->GetFieldsDefinition());
-        $selectField = loadFieldsSql($this->GetFieldsDefinition(), $this->getInnerJoinFields($companysuffix));
+        $fields = Tools\loadFieldsSql($this->GetFieldsDefinition());
+        $selectField = Tools\loadFieldsSql($this->GetFieldsDefinition(), $this->getInnerJoinFields($companysuffix));
 
         $sqlString = "SELECT "
             .$selectField
-            ."FROM $table "
+            ." FROM $table "
             ."$predicate GROUP BY $fields"
-            ."ORDER BY $orderby $order";
+            ." ORDER BY $orderby $order";
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
@@ -66,7 +66,7 @@ class EquipmentDashboard extends DatActionsController
             'installdte' => TYPE_DATE,
             'expdtein' => TYPE_DATE,
             'daterec' => TYPE_DATE,
-            'order' => TYPE_CHAR,
+            'orderno' => TYPE_CHAR,
             'status' => TYPE_CHAR,
             'toolboxid' => TYPE_CHAR,
             'notes' => TYPE_MEMO,
@@ -77,7 +77,10 @@ class EquipmentDashboard extends DatActionsController
     protected function getInnerJoinFields($companySuffix){
         $swequipTable = "SWEQUIP$companySuffix";
         return array(
-            'itemno' => $swequipTable
+            'itemno' => $swequipTable,
+            'notes' => $swequipTable,
+            'model' => $swequipTable,
+            'order' => $swequipTable,
         );
     }
 

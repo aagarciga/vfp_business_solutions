@@ -20,7 +20,7 @@
 
   EquipmentDashboard.status.table_header_sortLastButton = null;
 
-  EquipmentDashboard.status.table_header_sortField = 'pono';
+  EquipmentDashboard.status.table_header_sortField = 'ordnum';
 
   EquipmentDashboard.status.table_header_sortFieldOrder = 'ASC';
 
@@ -63,8 +63,6 @@
   EquipmentDashboard.functions.paginate = function() {
     $.ajax({
       data: {
-        itemno: EquipmentDashboard.status.currentItemNo,
-        itemwhs: EquipmentDashboard.status.currentItemWhs,
         predicate: EquipmentDashboard.DynamicFilter.functions.getPredicate(),
         page: EquipmentDashboard.status.currentPage,
         itemsPerPage: EquipmentDashboard.status.itemsPerPage,
@@ -106,7 +104,7 @@
   };
 
   EquipmentDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, selectBuilder, simpleTdBuilder, tdPoDateBuilder, tdPoNoBuilder, tdPoTypeBuilder, tdQtyLeftBuilder, tdQtyOrdBuilder, tdQtyRecBuilder, tdShippedBuilder, tdVendNoBuilder, withLinkTdBuilder, withSelectBuilder;
+    var doc, result, selectBuilder, simpleTdBuilder, tdDateRecBuilder, tdEquipIdBuilder, tdExpdteinBuilder, tdInstallDteBuilder, tdItemNoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdNumBuilder, tdOrderBuilder, tdPictureBuilder, tdSerialNoBuilder, tdStatusBuilder, tdToolboxIdBuilder, withLinkTdBuilder, withSelectBuilder;
     doc = global.document;
     result = doc.createElement('tr');
     simpleTdBuilder = function(data, tdClass) {
@@ -166,39 +164,63 @@
       td.appendChild(select);
       return td;
     };
-    tdPoNoBuilder = function() {
-      return simpleTdBuilder(dataRow.pono);
+    tdOrdNumBuilder = function() {
+      return simpleTdBuilder(dataRow.ordnum);
     };
-    tdVendNoBuilder = function() {
-      return simpleTdBuilder(dataRow.vendno);
+    tdEquipIdBuilder = function() {
+      return simpleTdBuilder(dataRow.equipid);
     };
-    tdPoDateBuilder = function() {
-      return simpleTdBuilder(dataRow.podate);
+    tdItemNoBuilder = function() {
+      return simpleTdBuilder(dataRow.itemno);
     };
-    tdQtyOrdBuilder = function() {
-      return simpleTdBuilder(dataRow.qtyord, 'number');
+    tdModelBuilder = function() {
+      return simpleTdBuilder(dataRow.model);
     };
-    tdQtyRecBuilder = function() {
-      return simpleTdBuilder(dataRow.qtyrec, 'number');
+    tdSerialNoBuilder = function() {
+      return simpleTdBuilder(dataRow.serialno);
     };
-    tdQtyLeftBuilder = function() {
-      return simpleTdBuilder(dataRow.qtyleft, 'number');
+    tdMakeBuilder = function() {
+      return simpleTdBuilder(dataRow.make);
     };
-    tdShippedBuilder = function() {
-      return simpleTdBuilder(dataRow.shipped);
+    tdInstallDteBuilder = function() {
+      return simpleTdBuilder(dataRow.installdte);
     };
-    tdPoTypeBuilder = function() {
-      return simpleTdBuilder(dataRow.potype);
+    tdExpdteinBuilder = function() {
+      return simpleTdBuilder(dataRow.expdtein);
+    };
+    tdDateRecBuilder = function() {
+      return simpleTdBuilder(dataRow.daterec);
+    };
+    tdOrderBuilder = function() {
+      return simpleTdBuilder(dataRow.order);
+    };
+    tdStatusBuilder = function() {
+      return simpleTdBuilder(dataRow.status);
+    };
+    tdToolboxIdBuilder = function() {
+      return simpleTdBuilder(dataRow.toolboxid);
+    };
+    tdNotesBuilder = function() {
+      return simpleTdBuilder(dataRow.notes);
+    };
+    tdPictureBuilder = function() {
+      return simpleTdBuilder(dataRow.picture_fi);
     };
     result.className = trClass;
-    result.appendChild(tdPoNoBuilder());
-    result.appendChild(tdVendNoBuilder());
-    result.appendChild(tdPoDateBuilder());
-    result.appendChild(tdQtyOrdBuilder());
-    result.appendChild(tdQtyRecBuilder());
-    result.appendChild(tdQtyLeftBuilder());
-    result.appendChild(tdShippedBuilder());
-    result.appendChild(tdPoTypeBuilder());
+    result.appendChild(tdOrdNumBuilder());
+    result.appendChild(tdEquipIdBuilder());
+    result.appendChild(tdItemNoBuilder());
+    result.appendChild(tdModelBuilder());
+    result.appendChild(tdSerialNoBuilder());
+    result.appendChild(tdMakeBuilder());
+    result.appendChild(tdInstallDteBuilder());
+    result.appendChild(tdExpdteinBuilder());
+    result.appendChild(tdDateRecBuilder());
+    result.appendChild(tdOrderBuilder());
+    result.appendChild(tdStatusBuilder());
+    result.appendChild(tdToolboxIdBuilder());
+    result.appendChild(tdNotesBuilder());
+    result.appendChild(tdPictureBuilder());
     return result;
   };
 
@@ -259,9 +281,7 @@
     return this;
   };
 
-  EquipmentDashboard.init = function(itemno, itemwhs, defaultUserFilter) {
-    EquipmentDashboard.status.currentItemNo = itemno;
-    EquipmentDashboard.status.currentItemWhs = itemwhs;
+  EquipmentDashboard.init = function(defaultUserFilter) {
     EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text();
     DynamicFilter.init(defaultUserFilter);
     EquipmentDashboard.functions.bindEventHandlers();

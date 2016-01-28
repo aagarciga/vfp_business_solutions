@@ -96,7 +96,7 @@ function loadFieldsSql($fieldsDefinition, $innerJoinFields=array()){
             $sqlSelectResult .= " $field,";
         }
     }
-    return substr($sqlSelectResult, 0, count_chars($sqlSelectResult) - 1);
+    return substr($sqlSelectResult, 0, strlen($sqlSelectResult) - 1);
 }
 
 function fix_default($value){
