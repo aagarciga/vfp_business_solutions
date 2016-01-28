@@ -168,7 +168,7 @@ abstract class Pager {
             $pattern = "/(GROUP BY)(.*)/";
             $match = preg_match($pattern, $countSql);
 
-            if ($match < 0)
+            if (!$match)
             {
                 $pattern = "/^(SELECT)(.*)(FROM)/";
                 $replacement = 'SELECT count(*) as Total FROM';

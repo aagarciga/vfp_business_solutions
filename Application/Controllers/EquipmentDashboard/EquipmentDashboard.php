@@ -49,7 +49,7 @@ class EquipmentDashboard extends DatActionsController
         $sqlString = "SELECT "
             .$selectField
             ." FROM $table "
-            ."$predicate GROUP BY $fields"
+            ."$predicate"
             ." ORDER BY $orderby $order";
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
@@ -66,7 +66,7 @@ class EquipmentDashboard extends DatActionsController
             'installdte' => TYPE_DATE,
             'expdtein' => TYPE_DATE,
             'daterec' => TYPE_DATE,
-            'orderno' => TYPE_CHAR,
+            'order' => TYPE_CHAR,
             'status' => TYPE_CHAR,
             'toolboxid' => TYPE_CHAR,
             'notes' => TYPE_MEMO,
@@ -81,6 +81,7 @@ class EquipmentDashboard extends DatActionsController
             'notes' => $swequipTable,
             'model' => $swequipTable,
             'order' => $swequipTable,
+            'ordnum' => $swequipTable,
         );
     }
 
