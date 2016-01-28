@@ -19,7 +19,7 @@
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                On Purchase Order Dashboard
+                Equipment Dashboard
             </a>
         </div>
 
@@ -94,7 +94,7 @@
                             <li><a href="#" class="filter-field" data-field="status" data-field-type="text">Status</a></li>
                             <li><a href="#" class="filter-field" data-field="toolboxid" data-field-type="text">Tool Box</a></li>
                             <li><a href="#" class="filter-field" data-field="notes" data-field-type="text">Notes</a></li>
-                            <li><a href="#" class="filter-field" data-field="picture_fi" data-field-type="text">Images</a></li>
+                            <li><a href="#" class="filter-field" data-field="picture_fi" data-field-type="text">Images9</a></li>
                         </ul>
                     </div>
                 </div>
