@@ -6,8 +6,8 @@
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
-<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/EquipmentDashboardDynamicFilter.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/main.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/EquipmentDashboardDynamicFilter.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/main.min.js'); ?>"></script>
 
 <script>
     /**
@@ -38,9 +38,7 @@
         EquipmentDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('QuoteDashboard', 'GetCurrentProjectFiles') ?>";
         EquipmentDashboard.urls.updateStatus = "<?php echo $View->Href('QuoteDashboard', 'UpdateStatus') ?>";
 
-//    EquipmentDashboard.init('<?php //echo $DefaultUserFilterId ?>//');
-
-        EquipmentDashboard.init('');
+        EquipmentDashboard.init();
 
     }(window, jQuery, App));
 </script>

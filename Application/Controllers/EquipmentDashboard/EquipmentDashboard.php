@@ -53,10 +53,10 @@ class EquipmentDashboard extends DatActionsController
             ."$predicate"
             ." ORDER BY $orderby $order";
 
-        return new BootstrapPagerTest($this->GetFieldsDefinition(), $this->DatUnitOfWork->DBDriver,
-            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
-//        return new BootstrapPager($this->DatUnitOfWork->DBDriver,
+//        return new BootstrapPagerTest($this->GetFieldsDefinition(), $this->DatUnitOfWork->DBDriver,
 //            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
+        return new BootstrapPager($this->DatUnitOfWork->DBDriver,
+            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 
     public function GetFieldsDefinition(){

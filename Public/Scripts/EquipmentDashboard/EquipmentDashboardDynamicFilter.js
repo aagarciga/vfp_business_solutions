@@ -10,6 +10,7 @@
 (function (global, $, App) {
     "use strict";
 
+
     var dandelion = global.dandelion,
         DynamicFilter = dandelion.namespace('App.EquipmentDashboard.DynamicFilter', global);
 
