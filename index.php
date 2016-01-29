@@ -82,9 +82,6 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
 require_once 'Core/Exceptions.Core.php';
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_SEPARATOR . 'Diana.php';
 
-//Add by Victor
-require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'tools.php';
-
 /**
  * Front Controller instance for Singleton behavior.
  * 
@@ -120,6 +117,9 @@ final class index extends Core\FrontController {
         //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
         \Dandelion\Diana\Diana::Init();
+
+        //Add by Victor
+        require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'Tools.php';
         
         date_default_timezone_set("America/New_York");
         
