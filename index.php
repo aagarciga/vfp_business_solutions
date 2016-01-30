@@ -131,7 +131,6 @@ final class index extends Core\FrontController {
         \Dandelion\Diana\Diana::Init();
 
         //BEGIN: Add by Victor
-        \Dandelion\Filter\Filter::Init();
 
         \Dandelion\Tools\Tools::Init();
         //END: Add by Victor

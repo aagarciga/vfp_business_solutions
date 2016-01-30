@@ -11,6 +11,9 @@
 
 namespace Dandelion\Tools;
 
+use Dandelion\Tools\Filter\Filter;
+use Dandelion\Tools\CodeGenerator\CodeGenerator;
+
 define("TOOLS_VERSION", "1.0.0.0");
 
 /**
@@ -21,13 +24,14 @@ define("TOOLS_VERSION", "1.0.0.0");
 /**
  * When __DIR__ is not defined, prior 5.3.0
  */
-if (!defined('__DIR__'))
-    define('__DIR__', dirname(__FILE__));
 
-define('TOOLS_DIR_ROOT', __DIR__);
+define('TOOLS_DIR_ROOT', dirname(__FILE__));
+define('CODE_GENERATOR', 'CodeGenerator');
+define('FILTER', 'Filter');
 
 require_once TOOLS_DIR_ROOT . DIRECTORY_SEPARATOR . 'tools.php';
-
+require_once TOOLS_DIR_ROOT . DIRECTORY_SEPARATOR . CODE_GENERATOR . DIRECTORY_SEPARATOR . 'Index.php';
+require_once TOOLS_DIR_ROOT . DIRECTORY_SEPARATOR . FILTER . DIRECTORY_SEPARATOR . 'Index.php';
 
 final class Tools
 {
@@ -36,7 +40,7 @@ final class Tools
     private $dirsFilter;
 
     final function __construct(){
-        $directoryHead = FILTER_DIR_ROOT . DIRECTORY_SEPARATOR;
+        $directoryHead = TOOLS_DIR_ROOT . DIRECTORY_SEPARATOR;
         $rootDirectorys = array(
         );
 
@@ -52,6 +56,9 @@ final class Tools
             self::$instance = new Tools();
         }
         spl_autoload(array(self::$instance, 'classLoader'));
+
+        CodeGenerator::Init();
+        Filter::Init();
 
         return self::$instance;
     }

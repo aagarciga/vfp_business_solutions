@@ -9,9 +9,9 @@
  * @link      http://www.thedandelionproject.com
  */
 
-namespace Dandelion\Filter;
+namespace Dandelion\Tools\CodeGenerator;
 
-define("FILTER_VERSION", "1.0.0.0");
+define("GENERATOR_VERSION", "1.0.0.0");
 
 /**
  *
@@ -21,17 +21,14 @@ define("FILTER_VERSION", "1.0.0.0");
 /**
  * When __DIR__ is not defined, prior 5.3.0
  */
-if (!defined('__DIR__'))
-    define('__DIR__', dirname(__FILE__));
-
-define('FILTER_DIR_ROOT', __DIR__);
-
-define('FILTER_DIR_INTERFACES', 'Interfaces');
-
-define('FILTER_DIR_NODES', 'Nodes');
 
 
-final class Filter
+define('TOOLS_DIR_GENERATOR_ROOT', dirname(__FILE__));
+
+define('GENERATOR_DIR_INTERFACES', 'Interfaces');
+
+
+final class CodeGenerator
 {
     static private $instance = null;
 
@@ -39,7 +36,7 @@ final class Filter
 
     public static function Init(){
         if (self::$instance == null){
-            self::$instance = new Filter();
+            self::$instance = new Generator();
         }
         spl_autoload(array(self::$instance, 'classLoader'));
 
@@ -47,10 +44,9 @@ final class Filter
     }
 
     final function __construct(){
-        $directoryHead = FILTER_DIR_ROOT . DIRECTORY_SEPARATOR;
+        $directoryHead = TOOLS_DIR_GENERATOR_ROOT . DIRECTORY_SEPARATOR;
         $rootDirectorys = array(
             $directoryHead . FILTER_DIR_INTERFACES => false,
-            $directoryHead . FILTER_DIR_NODES => true
         );
 
         $this->dirsFilter = loadDirs($rootDirectorys);
@@ -61,6 +57,6 @@ final class Filter
     }
 
     private function classLoader($className){
-        classLoader($className, $this->dirsFilter, FILTER_DIR_ROOT);
+        classLoader($className, $this->dirsFilter, TOOLS_DIR_GENERATOR_ROOT);
     }
 }
