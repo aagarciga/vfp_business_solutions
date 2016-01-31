@@ -153,3 +153,38 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" id="project-files-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Files</h4>
+            </div>
+            <div class="modal-body row">
+                <div class="col-xs-12 col-md-5 col-lg-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" value="" id="tree-search" placeholder="Search" />
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.QuoteDashboard.ProjectFiles.functions.createDir();"><i class="glyphicon glyphicon-asterisk"></i> Create</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.QuoteDashboard.ProjectFiles.functions.renameDir();"><i class="glyphicon glyphicon-pencil"></i> Rename</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="App.QuoteDashboard.ProjectFiles.functions.deleteDir();"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+                    </div>
+                    <div id="project-files-jstree">
+
+                    </div>
+                </div>
+                <form id="projectFilesDropzone" action="<?php echo $View->Href('FileManager', 'Upload') ?>" class="dropzone square  col-xs-12 col-md-7 col-lg-8">
+                    <span class="dz-message custom">Drop files to upload (or click)</span>
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form><!-- /.form #project-files-dropzone -->
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

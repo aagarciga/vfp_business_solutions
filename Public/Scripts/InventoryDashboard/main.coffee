@@ -6,6 +6,7 @@ dandelion = global.dandelion
 InventoryDashboard = dandelion.namespace('App.InventoryDashboard', global)
 
 DynamicFilter = App.InventoryDashboard.DynamicFilter
+ProjectFiles  = App.InventoryDashboard.ProjectFiles;
 
 # Statuses Declaration
 #-----------------------------------------------------------------------------------------------------------------------
@@ -15,7 +16,7 @@ InventoryDashboard.status.table_header_sortLastButton = null;
 InventoryDashboard.status.table_header_sortField = 'itemno'; # Default Order By Fields
 InventoryDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
 InventoryDashboard.status.currentPage = 1;
-InventoryDashboard.status.currentCustno = '';
+InventoryDashboard.status.currentItemno = '';
 InventoryDashboard.status.currentSet = 'details';
 InventoryDashboard.status.currentBalance = "0.0";
 
@@ -24,17 +25,18 @@ InventoryDashboard.status.currentBalance = "0.0";
 InventoryDashboard.dictionaries = {}
 
 InventoryDashboard.htmlBindings = {}
-InventoryDashboard.htmlBindings.container = '.container';
-InventoryDashboard.htmlBindings.itemCounter = '#panelHeadingItemsCount';
-InventoryDashboard.htmlBindings.drpItemPerPage = '.top-pager-itemmperpage-control a';
-InventoryDashboard.htmlBindings.drpItemPerPageValue = '.top-pager-itemmperpage-control button span.value';
-InventoryDashboard.htmlBindings.filterForm = '#filterForm';
-InventoryDashboard.htmlBindings.table = '#inventoryDashboardTable';
-InventoryDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
+InventoryDashboard.htmlBindings.container = '.container'
+InventoryDashboard.htmlBindings.itemCounter = '#panelHeadingItemsCount'
+InventoryDashboard.htmlBindings.drpItemPerPage = '.top-pager-itemmperpage-control a'
+InventoryDashboard.htmlBindings.drpItemPerPageValue = '.top-pager-itemmperpage-control button span.value'
+InventoryDashboard.htmlBindings.filterForm = '#filterForm'
+InventoryDashboard.htmlBindings.table = '#inventoryDashboardTable'
+InventoryDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort'
 InventoryDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link'
 InventoryDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
-InventoryDashboard.htmlBindings.pager_container = '.pager-wrapper';
-InventoryDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
+InventoryDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
+InventoryDashboard.htmlBindings.pager_container = '.pager-wrapper'
+InventoryDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn'
 
 # Functions Declaration
 #-----------------------------------------------------------------------------------------------------------------------
@@ -174,8 +176,9 @@ InventoryDashboard.functions.bindTableItemsEventHandlers = ->
 
 InventoryDashboard.functions.bindEventHandlers = ->
   $(InventoryDashboard.htmlBindings.drpItemPerPage).on('click', InventoryDashboard.eventHandlers.drpItemPerPage_onClick)
-  $(InventoryDashboard.htmlBindings.table_header_btnSort).on('click', InventoryDashboard.eventHandlers.table_body_btnSort_onClick);
+  $(InventoryDashboard.htmlBindings.table_header_btnSort).on('click', InventoryDashboard.eventHandlers.table_body_btnSort_onClick)
   $(InventoryDashboard.htmlBindings.pager_btnPagerPages).on('click', InventoryDashboard.eventHandlers.pager_btnPagerPages_onClick)
+  $(InventoryDashboard.htmlBindings.table_body_btnAttach).on('click', InventoryDashboard.eventHandlers.table_body_btnAttach_onClick)
   InventoryDashboard.functions.bindTableItemsEventHandlers();
   @
 
@@ -223,6 +226,18 @@ InventoryDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   InventoryDashboard.status.table_header_sortLastButton = $target
   InventoryDashboard.functions.paginate()
   @
+
+InventoryDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
+  currentItemno = $(@).data('itemno')
+  currentProjectRoot = currentItemno + '_IN';
+  InventoryDashboard.status.currentItemno = currentProjectRoot;
+  console.log ProjectFiles
+  ProjectFiles.functions.loadFileTree(currentProjectRoot);
+  $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
+#  //QuoteDashboard.FileManagerWidget.loadFileTree(currentQutno);
+#  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
+  @
+
 
 InventoryDashboard.init = (defaultUserFilter) ->
   InventoryDashboard.status.itemsPerPage = $(InventoryDashboard.htmlBindings.drpItemPerPageValue).text()
