@@ -338,7 +338,7 @@
                 this.on('removedfile', function (file) {
                     var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected(),
                         params = {
-                            rootDir: App.InventoryDashboard.status.currentQuote,
+                            rootDir: App.InventoryDashboard.status.currentItemno,
                             selectedDir: selectedDir[0],
                             fileName : file.name
                         };
@@ -360,15 +360,15 @@
                         selectedDir = jsTreeInstance.get_selected();
 
                     file.ready4Remove = true;
-                    file.uploadPath = App.InventoryDashboard.status.currentQuote + '/' + selectedDir;
-                    if (App.QuoteDashboard.status.currentQuote) {
-                        formData.append('rootDir', App.QuoteDashboard.status.currentQuote);
+                    file.uploadPath = App.InventoryDashboard.status.currentItemno + '/' + selectedDir;
+                    if (App.InventoryDashboard.status.currentItemno) {
+                        formData.append('rootDir', App.InventoryDashboard.status.currentItemno);
                         formData.append('selectedDir', selectedDir);
                     }
                     $(ProjectFiles.htmlBindings.dropzone_previews).on('click',
                         function () {
                             var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected()[0],
-                                rootDir = App.QuoteDashboard.status.currentQuote,
+                                rootDir = App.InventoryDashboard.status.currentItemno,
                                 fileName = $(this).find('.dz-filename span').html(),
                                 form = $('<form action="' +
                                     App.urls.fileManager.downloadFile +

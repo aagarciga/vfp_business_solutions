@@ -250,5 +250,6 @@ InventoryDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
 InventoryDashboard.init = (defaultUserFilter) ->
   InventoryDashboard.status.itemsPerPage = $(InventoryDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter)
+  ProjectFiles.init()
   InventoryDashboard.functions.bindEventHandlers()
   @

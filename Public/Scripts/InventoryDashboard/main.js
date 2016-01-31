@@ -276,6 +276,7 @@
   InventoryDashboard.init = function(defaultUserFilter) {
     InventoryDashboard.status.itemsPerPage = $(InventoryDashboard.htmlBindings.drpItemPerPageValue).text();
     DynamicFilter.init(defaultUserFilter);
+    ProjectFiles.init();
     InventoryDashboard.functions.bindEventHandlers();
     return this;
   };
