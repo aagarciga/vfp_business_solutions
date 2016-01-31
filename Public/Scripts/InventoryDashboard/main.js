@@ -108,7 +108,7 @@
   };
 
   InventoryDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, selectBuilder, simpleTdBuilder, tdCommittedBuilder, tdDescripBuilder, tdItemNoBuilder, tdItmwhsBuilder, tdOnhandBuilder, tdOnorderBuilder, withLinkTdBuilder, withSelectBuilder;
+    var doc, result, selectBuilder, simpleTdBuilder, tdAttachedFilesBuilder, tdCommittedBuilder, tdDescripBuilder, tdItemNoBuilder, tdItmwhsBuilder, tdOnhandBuilder, tdOnorderBuilder, withLinkTdBuilder, withSelectBuilder;
     doc = global.document;
     result = doc.createElement('tr');
     simpleTdBuilder = function(data, tdClass) {
@@ -127,7 +127,7 @@
       a = doc.createElement('a');
       a.href = href;
       a.className = linkClassName;
-      a.dataset.custno = dataRow.custno;
+      a.dataset.itemno = dataRow.itemno;
       if (typeof data === "string") {
         a.appendChild(doc.createTextNode(data));
       } else {
@@ -186,6 +186,12 @@
     tdCommittedBuilder = function() {
       return withLinkTdBuilder(dataRow.committed, InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number', dataRow.committedHref);
     };
+    tdAttachedFilesBuilder = function() {
+      var spanGlyphIcon;
+      spanGlyphIcon = doc.createElement('span');
+      spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
+      return withLinkTdBuilder(spanGlyphIcon, InventoryDashboard.htmlBindings.table_body_btnAttach.slice(1), 'item-action item-files');
+    };
     result.className = trClass;
     result.appendChild(tdItemNoBuilder());
     result.appendChild(tdItmwhsBuilder());
@@ -193,10 +199,12 @@
     result.appendChild(tdOnhandBuilder());
     result.appendChild(tdOnorderBuilder());
     result.appendChild(tdCommittedBuilder());
+    result.appendChild(tdAttachedFilesBuilder());
     return result;
   };
 
   InventoryDashboard.functions.bindTableItemsEventHandlers = function() {
+    $(InventoryDashboard.htmlBindings.table_body_btnAttach).on('click', InventoryDashboard.eventHandlers.table_body_btnAttach_onClick);
     return this;
   };
 

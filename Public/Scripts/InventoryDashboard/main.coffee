@@ -100,7 +100,7 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
 
     a.href = href
     a.className = linkClassName
-    a.dataset.custno = dataRow.custno
+    a.dataset.itemno = dataRow.itemno
 
     if typeof data == "string"
       a.appendChild(doc.createTextNode(data))
@@ -160,6 +160,12 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdCommittedBuilder = ->
     withLinkTdBuilder(dataRow.committed,InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number', dataRow.committedHref)
 
+  tdAttachedFilesBuilder = () ->
+    spanGlyphIcon = doc.createElement('span')
+    spanGlyphIcon.className = 'glyphicon glyphicon-folder-close'
+    withLinkTdBuilder(spanGlyphIcon, InventoryDashboard.htmlBindings.table_body_btnAttach.slice(1), 'item-action item-files')
+
+
   result.className = trClass;
   result.appendChild(tdItemNoBuilder());
   result.appendChild(tdItmwhsBuilder());
@@ -167,11 +173,13 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result.appendChild(tdOnhandBuilder());
   result.appendChild(tdOnorderBuilder());
   result.appendChild(tdCommittedBuilder());
+  result.appendChild(tdAttachedFilesBuilder());
   result
 
 InventoryDashboard.functions.bindTableItemsEventHandlers = ->
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
+  $(InventoryDashboard.htmlBindings.table_body_btnAttach).on('click', InventoryDashboard.eventHandlers.table_body_btnAttach_onClick)
   @
 
 InventoryDashboard.functions.bindEventHandlers = ->

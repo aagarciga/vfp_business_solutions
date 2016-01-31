@@ -8,7 +8,7 @@
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
 <script src="<?php echo $View->ScriptsContext('InventoryDashboard/InventoryDashboardDynamicFilter.min.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('InventoryDashboard/ProjectFiles.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('InventoryDashboard/ProjectFiles.min.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('InventoryDashboard/main.min.js'); ?>"></script>
 
 <script>
