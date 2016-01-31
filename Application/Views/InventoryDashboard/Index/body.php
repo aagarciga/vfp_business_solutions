@@ -89,6 +89,7 @@
                         <col class="col-onhand"/>
                         <col class="col-onorder"/>
                         <col class="col-committed"/>
+                        <col class="col-attached-files"/>
                     </colgroup>
                     <thead>
                         <tr>
@@ -98,6 +99,7 @@
                             <th>On Hand <button data-field="onhand" class="btn-table-sort"></button></th>
                             <th>On Purchase Order <button data-field="onorder" class="btn-table-sort"></button></th>
                             <th>On Sales Order <button data-field="committed" class="btn-table-sort"></button></th>
+                            <th>Attached Files</th>
                         </tr>
                     </thead>
                     <body>
@@ -111,6 +113,7 @@
                                     'itemno' => base64_encode($item->getItemno()),
                                     'itemwhs' => base64_encode($item->getItmwhs())))?>" class="btn-onorder-form-link"><?php echo $item->getOnorder() ?></a></td>
                             <td class="item-field number"><a href="<?php echo $View->Href('OnSalesOrderDashboard', 'Index', array('itemno' => base64_encode($item->getItemno())))?>" class="btn-committed-form-link"><?php echo $item->getCommitted() ?></a></td>
+                            <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-itemno="<?php echo $item->getItemno() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
