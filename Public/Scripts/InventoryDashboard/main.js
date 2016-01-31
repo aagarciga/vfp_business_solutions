@@ -108,89 +108,34 @@
   };
 
   InventoryDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, selectBuilder, simpleTdBuilder, tdAttachedFilesBuilder, tdCommittedBuilder, tdDescripBuilder, tdItemNoBuilder, tdItmwhsBuilder, tdOnhandBuilder, tdOnorderBuilder, withLinkTdBuilder, withSelectBuilder;
+    var doc, result, tdAttachedFilesBuilder, tdCommittedBuilder, tdDescripBuilder, tdItemNoBuilder, tdItmwhsBuilder, tdOnhandBuilder, tdOnorderBuilder;
     doc = global.document;
     result = doc.createElement('tr');
-    simpleTdBuilder = function(data, tdClass) {
-      var td;
-      td = doc.createElement('td');
-      td.className = tdClass;
-      td.appendChild(doc.createTextNode(data));
-      return td;
-    };
-    withLinkTdBuilder = function(data, linkClassName, tdLinkClass, href) {
-      var a, td;
-      if (href == null) {
-        href = '#';
-      }
-      td = doc.createElement('td');
-      a = doc.createElement('a');
-      a.href = href;
-      a.className = linkClassName;
-      a.dataset.itemno = dataRow.itemno;
-      if (typeof data === "string") {
-        a.appendChild(doc.createTextNode(data));
-      } else {
-        a.appendChild(data);
-      }
-      td.className = tdLinkClass || tdClass;
-      td.appendChild(a);
-      return td;
-    };
-    selectBuilder = function(current, values) {
-      var currentId, currentValue, index, option, select;
-      select = doc.createElement('select');
-      option = doc.createElement('option');
-      option.appendChild(doc.createTextNode("Empty"));
-      select.appendChild(option);
-      for (index in values) {
-        if (values.hasOwnProperty(index)) {
-          currentId = values[index].id;
-          currentValue = values[index].descrip;
-          option = doc.createElement('option');
-          if (current === currentId) {
-            option.selected = "selected";
-          }
-          option.value = currentId;
-          option.appendChild(doc.createTextNode(currentValue));
-          select.appendChild(option);
-        }
-      }
-      select.className = 'form-control update-dropdown';
-      return select;
-    };
-    withSelectBuilder = function(data, dictionary, dropdownClassName) {
-      var select, td;
-      td = doc.createElement('td');
-      select = selectBuilder(data, dictionary);
-      select.dataset.ordnum = dataRow.ordnum;
-      select.className += ' select2-nosearch ' + dropdownClassName;
-      td.appendChild(select);
-      return td;
-    };
     tdItemNoBuilder = function() {
-      return simpleTdBuilder(dataRow.itemno);
+      return App.Helpers.simpleTdBuilder(dataRow.itemno, '');
     };
     tdItmwhsBuilder = function() {
-      return simpleTdBuilder(dataRow.itmwhs);
+      return App.Helpers.simpleTdBuilder(dataRow.itmwhs, '');
     };
     tdDescripBuilder = function() {
-      return simpleTdBuilder(dataRow.descrip);
+      return App.Helpers.simpleTdBuilder(dataRow.descrip, '');
     };
     tdOnhandBuilder = function() {
-      return simpleTdBuilder(dataRow.onhand, 'number');
+      return App.Helpers.simpleTdBuilder(dataRow.onhand, 'number');
     };
     tdOnorderBuilder = function() {
-      return withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number', dataRow.onorderHref);
+      return App.Helpers.withLinkTdBuilder(dataRow.onorder, 'number', InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), dataRow.onorderHref, {});
     };
     tdCommittedBuilder = function() {
-      return withLinkTdBuilder(dataRow.committed, InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number', dataRow.committedHref);
+      return App.Helpers.withLinkTdBuilder(dataRow.committed, 'number', InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), dataRow.committedHref, {});
     };
     tdAttachedFilesBuilder = function() {
       var spanGlyphIcon;
       spanGlyphIcon = doc.createElement('span');
       spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
-      return withLinkTdBuilder(spanGlyphIcon, InventoryDashboard.htmlBindings.table_body_btnAttach.slice(1), 'item-action item-files');
+      return App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', InventoryDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {
+        itemno: dataRow.itemno
+      });
     };
     result.className = trClass;
     result.appendChild(tdItemNoBuilder());

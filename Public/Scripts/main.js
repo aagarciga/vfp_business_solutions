@@ -38,6 +38,72 @@ if (window.jQuery === 'undefined') {
         $parent.removeClass('has-success').addClass('has-error');
     };
 
+    App.Helpers.simpleTdBuilder = function(data, tdClass) {
+        var td, doc = global.document;
+        td = doc.createElement('td');
+        td.className = tdClass;
+        td.appendChild(doc.createTextNode(data));
+        return td;
+    };
+
+    App.Helpers.withLinkTdBuilder = function(data, tdClass, aClass, href, dataset) {
+        var a, td, doc = global.document;
+        if (href == null) {
+            href = '#';
+        }
+        td = doc.createElement('td');
+        a = doc.createElement('a');
+        a.href = href;
+        a.className = aClass;
+        for (var key in dataset){
+            a.dataset[key] = dataset[key];
+        }
+        if (typeof data === "string") {
+            a.appendChild(doc.createTextNode(data));
+        } else {
+            a.appendChild(data);
+        }
+        td.className = tdClass;
+        td.appendChild(a);
+        return td;
+    };
+
+    App.Helpers.selectBuilder = function(data, selectClass, values, dataset) {
+        var currentId, currentValue, index, option, select, doc = global.document;
+        select = doc.createElement('select');
+        select.className = selectClass;
+        option = doc.createElement('option');
+        option.appendChild(doc.createTextNode("Empty"));
+        select.appendChild(option);
+        for (index in values) {
+            if (values.hasOwnProperty(index)) {
+                currentId = values[index].id;
+                currentValue = values[index].descrip;
+                option = doc.createElement('option');
+                if (data === currentId) {
+                    option.selected = "selected";
+                }
+                option.value = currentId;
+                option.appendChild(doc.createTextNode(currentValue));
+                select.appendChild(option);
+            }
+        }
+        select.className += ' form-control update-dropdown select2-nosearch';
+        for (var key in dataset){
+            select.dataset[key] = dataset[key];
+        }
+        return select;
+    };
+
+    App.Helpers.withSelectBuilder = function(data, tdClass, selectClass, values, dataset) {
+        var select, td, doc = global.document;
+        td = doc.createElement('td');
+        td.className = tdClass;
+        select = App.Helpers.selectBuilder(data, selectClass, values, dataset);
+        td.appendChild(select);
+        return td;
+    };
+
 }(window, window.jQuery));
 
 // Avoid 'console' errors in browsers that lack a console.

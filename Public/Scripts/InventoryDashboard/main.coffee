@@ -88,83 +88,28 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   doc = global.document
   result = doc.createElement('tr')
 
-  simpleTdBuilder = (data, tdClass) ->
-    td = doc.createElement('td')
-    td.className = tdClass
-    td.appendChild(doc.createTextNode(data))
-    td;
-
-  withLinkTdBuilder = (data, linkClassName, tdLinkClass, href = '#') ->
-    td = doc.createElement('td')
-    a = doc.createElement('a')
-
-    a.href = href
-    a.className = linkClassName
-    a.dataset.itemno = dataRow.itemno
-
-    if typeof data == "string"
-      a.appendChild(doc.createTextNode(data))
-    else
-      a.appendChild(data)
-
-    td.className = tdLinkClass || tdClass
-    td.appendChild(a)
-    td;
-
-  selectBuilder = (current, values) ->
-    select = doc.createElement('select')
-
-    option = doc.createElement('option')
-    option.appendChild(doc.createTextNode("Empty"))
-
-    select.appendChild(option)
-
-    for index of values
-      if values.hasOwnProperty(index)
-        currentId = values[index].id
-        currentValue = values[index].descrip
-        option = doc.createElement('option')
-        if current == currentId
-          option.selected = "selected"
-        option.value = currentId
-        option.appendChild(doc.createTextNode(currentValue))
-        select.appendChild(option)
-
-    select.className = 'form-control update-dropdown'
-    select
-
-  withSelectBuilder = (data, dictionary, dropdownClassName) ->
-    td = doc.createElement('td')
-    select = selectBuilder(data, dictionary)
-    select.dataset.ordnum = dataRow.ordnum
-    select.className += ' select2-nosearch ' + dropdownClassName
-    td.appendChild(select)
-    td
-
   tdItemNoBuilder = ->
-#    withLinkTdBuilder(dataRow.custno, ARDashboard.htmlBindings.table_body_btnCustNo.slice(1))
-    simpleTdBuilder(dataRow.itemno)
+    App.Helpers.simpleTdBuilder(dataRow.itemno, '')
 
   tdItmwhsBuilder = ->
-    simpleTdBuilder(dataRow.itmwhs)
+    App.Helpers.simpleTdBuilder(dataRow.itmwhs, '')
 
   tdDescripBuilder = ->
-    simpleTdBuilder(dataRow.descrip)
+    App.Helpers.simpleTdBuilder(dataRow.descrip, '')
 
   tdOnhandBuilder = ->
-    simpleTdBuilder(dataRow.onhand, 'number')
+    App.Helpers.simpleTdBuilder(dataRow.onhand, 'number')
 
   tdOnorderBuilder = ->
-    withLinkTdBuilder(dataRow.onorder, InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), 'number', dataRow.onorderHref)
+    App.Helpers.withLinkTdBuilder(dataRow.onorder, 'number', InventoryDashboard.htmlBindings.table_body_btnOnorder.slice(1), dataRow.onorderHref, {})
 
   tdCommittedBuilder = ->
-    withLinkTdBuilder(dataRow.committed,InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), 'number', dataRow.committedHref)
+    App.Helpers.withLinkTdBuilder(dataRow.committed, 'number', InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), dataRow.committedHref, {})
 
   tdAttachedFilesBuilder = () ->
     spanGlyphIcon = doc.createElement('span')
     spanGlyphIcon.className = 'glyphicon glyphicon-folder-close'
-    withLinkTdBuilder(spanGlyphIcon, InventoryDashboard.htmlBindings.table_body_btnAttach.slice(1), 'item-action item-files')
-
+    App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', InventoryDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {itemno: dataRow.itemno})
 
   result.className = trClass;
   result.appendChild(tdItemNoBuilder());
