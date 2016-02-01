@@ -12,6 +12,8 @@
                                 <span class="glyphicon glyphicon-th"></span> Work Order Dashboard</a></li>
                         <li><a href="<?php echo $View->Href("InventoryDashboard") ?>" class="exit">
                                 <span class="glyphicon glyphicon-th"></span> Inventory Dashboard</a></li>
+                        <li><a href="<?php echo $View->Href("EquipmentDashboard") ?>" class="exit">
+                                <span class="glyphicon glyphicon-th"></span> Equipment Dashboard</a></li>
                         <?php if ($ShowFiancialDashboard === true):?>
                         <li><a href="<?php echo $View->Href("FinancialDashboard", "Index") ?>" class="exit">
                                 <span class="glyphicon glyphicon-th"></span> Financial Dashboard</a></li>
