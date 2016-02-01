@@ -15,5 +15,9 @@ use Dandelion\Tools\Filter\BaseAuxiliaryFilterNode;
 
 class ErrorFilterNode extends BaseAuxiliaryFilterNode
 {
+    public function Type()
+    {
+        return -1;
+    }
 
 }

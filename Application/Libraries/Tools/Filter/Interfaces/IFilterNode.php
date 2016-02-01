@@ -14,9 +14,9 @@ namespace Dandelion\Tools\Filter;
 
 interface IFilterNode
 {
-    function checkSemantic();
+    function checkSemantic($report);
 
-    function generateSqlCode();
+    function generateSqlCode($codeGenerator);
 
-    function generateHtmlCode();
+    function generateHtmlCode($codeGenerator);
 }

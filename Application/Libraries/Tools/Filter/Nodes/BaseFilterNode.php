@@ -11,14 +11,27 @@
 
 namespace Dandelion\Tools\Filter;
 
-use Dandelion\Tools\Filter\IFilterNode;
+use Dandelion\Tools\Filter\NilFilterNode;
 
 
-abstract class FilterNode implements IFilterNode
+abstract class BaseFilterNode
 {
-    public abstract function checkSemantic();
+    public function isNil(){
+        return $this->isNil() && ($this instanceof NilFilterNode);
+    }
 
-    public abstract function generateSqlCode();
+    public function Text(){
+        return gettype($this);
+    }
 
-    public abstract function generateHtmlCode();
+    public function Type(){
+        return 0;
+    }
+
+    function __toString()
+    {
+        return $this->Text();
+    }
+
+
 }
