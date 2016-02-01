@@ -28,6 +28,7 @@ define('FILTER_DIR_INTERFACES', 'Interfaces');
 
 define('FILTER_DIR_NODES', 'Nodes');
 
+require_once TOOLS_DIR_FILTER_ROOT . DIRECTORY_SEPARATOR . "constantTypes.php";
 
 final class Filter
 {

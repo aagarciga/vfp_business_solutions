@@ -15,5 +15,25 @@ use Dandelion\Tools\Filter\FilterNode;
 
 abstract class ExpressionNode extends FilterNode
 {
+    private $_type;
+
+    protected function setIsOk($isOk)
+    {
+        throw new \Exception("ExpressionNode not implement setIsOK method");
+    }
+
+    public function setType($type){
+        $this->_type = $type;
+        return $this;
+    }
+
+    public function type(){
+        return $this->_type;
+    }
+
+    public function isOk()
+    {
+        return $this->type() !== TYPE_ERROR;
+    }
 
 }
