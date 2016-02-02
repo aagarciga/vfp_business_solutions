@@ -11,7 +11,7 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-interface ICode
+interface IVirtualCode
 {
     function getCode();
 }
