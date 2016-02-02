@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: Victor
  * Date: 24/01/2016
  * Time: 19:34
@@ -70,4 +69,13 @@ function classLoader($className, $directory, $rootDirectory){
             require_once $value . DIRECTORY_SEPARATOR . $className . PHP_EXT_FILE;
         }
     }
+}
+
+/**
+ * @param IHtmlVirtualCode $virtualCode tag virtual code
+ * @return string tag close for virtualCode
+ */
+function createdCloseTag($virtualCode){
+    $tagName = $virtualCode->getTagName();
+    return "</$tagName>";
 }

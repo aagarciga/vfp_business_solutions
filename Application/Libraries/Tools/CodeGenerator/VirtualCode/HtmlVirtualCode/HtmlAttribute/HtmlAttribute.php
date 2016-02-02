@@ -1,8 +1,8 @@
 <?php
 /**
  * User: Victor
- * Date: 01/02/2016
- * Time: 20:40
+ * Date: 02/02/2016
+ * Time: 10:28
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -11,11 +11,17 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-use Dandelion\Tools\CodeGenerator\ICodeGenerator;
+use Dandelion\Tools\CodeGenerator\IHtmlAttribute;
 
-abstract class BaseCodeGenerator implements ICodeGenerator
+class HtmlAttribute implements IHtmlAttribute
 {
-    abstract function getCode();
+    function getAttributeName()
+    {
+        // TODO: Implement getAttributeName() method.
+    }
 
-    abstract function InsertCode($virtualCode);
+    function getValue()
+    {
+        // TODO: Implement getValue() method.
+    }
 }

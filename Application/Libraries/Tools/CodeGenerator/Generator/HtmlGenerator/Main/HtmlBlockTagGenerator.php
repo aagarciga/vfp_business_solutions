@@ -12,17 +12,28 @@
 namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\HtmlGenerator;
+use Dandelion\Tools;
 
 class HtmlBlockTagGenerator extends HtmlGenerator
 {
-    function getCode()
+    protected $virtualTag;
+
+    /**
+     * HtmlBlockTagGenerator constructor.
+     * @param IVirtualCode $virtualTag code that represents the tag
+     */
+    public function __construct($virtualTag=null)
     {
-        // TODO: Implement getCode() method.
+        $this->virtualTag = $virtualTag;
     }
 
-    function InsertCode($code)
+    function getCode()
     {
-        // TODO: Implement InsertCode() method.
+        $childVirtualCode = parent::getCode();
+        $htmlTagCode = $this->virtualTag->getCode();
+        $closeTag = Tools\createdCloseTag($this->virtualTag);
+        return "$htmlTagCode\n$childVirtualCode\n$closeTag\n";
     }
+
 
 }

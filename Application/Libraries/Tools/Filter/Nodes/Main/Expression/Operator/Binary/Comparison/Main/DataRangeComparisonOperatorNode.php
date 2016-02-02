@@ -29,5 +29,4 @@ class DataRangeComparisonOperatorNode extends ComparisonBinaryOperatorNode
     {
         // TODO: Implement generateHtmlCode() method.
     }
-
 }

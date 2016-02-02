@@ -15,5 +15,5 @@ use Dandelion\Tools\CodeGenerator\ICode;
 
 interface ICodeGenerator extends ICode
 {
-    function InsertCode($code);
+    function InsertCode($virtualCode);
 }

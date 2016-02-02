@@ -9,7 +9,7 @@ namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\VirtualCode;
 
-abstract class HtmlVirtualCode extends VirtualCode
+abstract class HtmlVirtualCode extends VirtualCode implements IHtmlVirtuaCode
 {
-
+    abstract function getTagName();
 }

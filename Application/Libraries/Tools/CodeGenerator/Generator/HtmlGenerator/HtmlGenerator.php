@@ -15,5 +15,26 @@ use Dandelion\Tools\CodeGenerator\BaseCodeGenerator;
 
 abstract class HtmlGenerator extends BaseCodeGenerator
 {
+    protected $virtualCodes;
+    /**
+     * HtmlGenerator constructor.
+     */
+    public function __construct()
+    {
+        $this->virtualCodes = array();
+    }
 
+    function getCode()
+    {
+        $result = "";
+        foreach($this->virtualCodes as $virtualCode){
+            $result .= $virtualCode->getCode() . "\n";
+        }
+        return $result;
+    }
+
+    function InsertCode($virtualCode)
+    {
+        $this->virtualCodes[] = $virtualCode;
+    }
 }
