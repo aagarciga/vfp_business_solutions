@@ -12,4 +12,10 @@ use Dandelion\Tools\CodeGenerator\VirtualCode;
 abstract class HtmlVirtualCode extends VirtualCode implements IHtmlVirtuaCode
 {
     abstract function getTagName();
+
+    abstract function InsertAttribute($attribute);
+
+    abstract function getAttributeCount();
+
+    abstract function getAttribute($index);
 }

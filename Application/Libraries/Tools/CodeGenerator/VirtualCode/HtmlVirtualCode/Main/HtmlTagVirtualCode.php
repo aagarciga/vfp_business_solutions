@@ -15,8 +15,42 @@ use Dandelion\Tools\CodeGenerator\HtmlVirtualCode;
 
 class HtmlTagVirtualCode extends HtmlVirtualCode
 {
+    protected $attributes;
+
+    protected $tagName;
+
+    /**
+     * HtmlTagVirtualCode constructor.
+     * @param string $tagName html tag
+     */
+    public function __construct($tagName)
+    {
+        $this->tagName = $tagName;
+        $this->attributes = array();
+    }
+
     function getCode()
     {
         // TODO: Implement getCode() method.
+    }
+
+    function InsertAttribute($attribute)
+    {
+        $this->attributes[] = $attribute;
+    }
+
+    function getAttributeCount()
+    {
+        return count($this->attributes);
+    }
+
+    function getAttribute($index)
+    {
+        return $this->attributes[$index];
+    }
+
+    function getTagName()
+    {
+        return $this->tagName;
     }
 }

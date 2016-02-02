@@ -14,10 +14,4 @@ namespace Dandelion\Tools\CodeGenerator;
 interface IVirtualCode
 {
     function getCode();
-
-    function InsertAttribute();
-
-    function getAttributeCount();
-
-    function getAttribute($index);
 }

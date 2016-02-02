@@ -15,14 +15,5 @@ use Dandelion\Tools\CodeGenerator\HtmlGenerator;
 
 class HtmlTagsGenerator extends HtmlGenerator
 {
-    function getCode()
-    {
-        // TODO: Implement getCode() method.
-    }
-
-    function InsertCode($code)
-    {
-        // TODO: Implement InsertCode() method.
-    }
 
 }

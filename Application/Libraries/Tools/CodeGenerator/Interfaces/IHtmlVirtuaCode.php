@@ -16,4 +16,10 @@ use Dandelion\Tools\CodeGenerator\IVirtualCode;
 interface IHtmlVirtuaCode extends IVirtualCode
 {
     function getTagName();
+
+    function InsertAttribute($attribute);
+
+    function getAttributeCount();
+
+    function getAttribute($index);
 }
