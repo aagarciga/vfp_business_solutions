@@ -20,9 +20,9 @@ class GreaterThanNode extends ComparisonBinaryOperatorNode
         // TODO: Implement checkSemantic() method.
     }
 
-    public function generateSqlCode($codeGenerator)
+    function getStringOperator()
     {
-        // TODO: Implement generateSqlCode() method.
+        return ">";
     }
 
     public function generateHtmlCode($codeGenerator)
