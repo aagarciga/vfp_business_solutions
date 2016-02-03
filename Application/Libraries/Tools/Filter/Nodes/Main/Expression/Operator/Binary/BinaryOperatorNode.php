@@ -15,6 +15,7 @@ define("INTERN_LEVEL", 1);
 
 use Dandelion\Tools\Filter\OperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode, Dandelion\Tools\CodeGenerator\SqlRigthBarcketVirtualCode;
 
 abstract class BinaryOperatorNode extends OperatorNode
 {
@@ -38,7 +39,17 @@ abstract class BinaryOperatorNode extends OperatorNode
     public function generateSqlCode($codeGenerator)
     {
         if ($this->getLeftChild()->getLevel() > INTERN_LEVEL){
+            $leftBracketVirtualCode = new SqlLeftBracketVirtualCode();
+            $rightBracketVirtualCode = new SqlRigthBarcketVirtualCode();
 
+            $codeGenerator->InsertCode($leftBracketVirtualCode);
+
+            $this->generateSqlInternCode($codeGenerator);
+
+            $codeGenerator->InsertCode($rightBracketVirtualCode);
+        }
+        else{
+            $this->generateSqlInternCode($codeGenerator);
         }
     }
 
