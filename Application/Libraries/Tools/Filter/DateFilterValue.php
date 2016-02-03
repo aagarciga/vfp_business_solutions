@@ -49,6 +49,6 @@ class DateFilterValue
         $mont = $this->getMont();
         $day = $this->getDay();
         $year = $this->getYear();
-        return "$mont-$day-$year";
+        return "$year-$mont-$day";
     }
 }

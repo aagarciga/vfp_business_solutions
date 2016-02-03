@@ -12,6 +12,7 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\ConstantNode;
+use Dandelion\Tools\CodeGenerator\SqlStringVirtualCode;
 
 class DateNode extends ConstantNode
 {
@@ -22,11 +23,7 @@ class DateNode extends ConstantNode
 
     public function generateSqlCode($codeGenerator)
     {
-        // TODO: Implement generateSqlCode() method.
-    }
-
-    public function generateHtmlCode($codeGenerator)
-    {
-        // TODO: Implement generateHtmlCode() method.
+        $virtualCode = new SqlStringVirtualCode((string) $this->getValue());
+        $codeGenerator->InsertCode($virtualCode);
     }
 }
