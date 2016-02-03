@@ -17,6 +17,18 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode
 {
     private $_isOk;
 
+    protected $level;
+
+    /**
+     * FilterNode constructor.
+     * @param $level
+     */
+    public function __construct()
+    {
+        $this->level = null;
+        $this->_isOk = false;
+    }
+
     public abstract function checkSemantic($report);
 
     public abstract function generateSqlCode($codeGenerator);
@@ -30,4 +42,9 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode
     public function isOk(){
         return $this->_isOk;
     }
+
+    /**
+     * @return mixed
+     */
+    public abstract function getLevel();
 }

@@ -12,8 +12,58 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\OperatorNode;
+use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
 abstract class BinaryOperatorNode extends OperatorNode
 {
+    protected $leftChild;
 
+    protected $rightChild;
+
+    /**
+     * BinaryOperatorNode constructor.
+     * @param IFilterNode $leftChild
+     * @param IFilterNode $rightChild
+     */
+    public function __construct($leftChild, $rightChild)
+    {
+        $this->leftChild = $leftChild;
+        $this->rightChild = $rightChild;
+    }
+
+    abstract function getStringOperator();
+
+    public function generateSqlCode($codeGenerator)
+    {
+        $this->getLeftChild()->generateSqlCode($codeGenerator);
+
+        $virtualCode = new SqlVirtualCode($this->getStringOperator());
+        $codeGenerator->InsertCode($virtualCode);
+
+        $this->getRightChild()->generateSqlCode($codeGenerator);
+    }
+
+    /**
+     * @return IFilterNode
+     */
+    public function getLeftChild()
+    {
+        return $this->leftChild;
+    }
+
+    /**
+     * @return IFilterNode
+     */
+    public function getRightChild()
+    {
+        return $this->rightChild;
+    }
+
+    public function getLevel()
+    {
+        if (is_null($this->level)){
+            $this->level = max($this->getLeftChild()->getLevel(), $this->getRightChild()->getLevel()) + 1;
+        }
+        return $this->level;
+    }
 }

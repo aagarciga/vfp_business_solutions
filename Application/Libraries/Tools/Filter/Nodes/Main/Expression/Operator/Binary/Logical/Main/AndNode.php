@@ -20,9 +20,9 @@ class AndNode extends LogicalBinaryOperatorNode
         // TODO: Implement checkSemantic() method.
     }
 
-    public function generateSqlCode($codeGenerator)
+    function getStringOperator()
     {
-        // TODO: Implement generateSqlCode() method.
+        return "AND";
     }
 
     public function generateHtmlCode($codeGenerator)

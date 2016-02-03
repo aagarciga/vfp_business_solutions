@@ -12,6 +12,7 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\LogicalUnaryOperatorNode;
+use Dandelion\Tools\CodeGenerator\SqlNotVirtualCode;
 
 class NotNode extends LogicalUnaryOperatorNode
 {
@@ -22,7 +23,8 @@ class NotNode extends LogicalUnaryOperatorNode
 
     public function generateSqlCode($codeGenerator)
     {
-        // TODO: Implement generateSqlCode() method.
+        $virtualCode = new SqlNotVirtualCode();
+        $codeGenerator->InsertCode($virtualCode);
     }
 
     public function generateHtmlCode($codeGenerator)

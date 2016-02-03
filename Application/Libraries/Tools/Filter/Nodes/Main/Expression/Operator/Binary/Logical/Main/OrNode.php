@@ -20,9 +20,9 @@ class OrNode extends LogicalBinaryOperatorNode
         // TODO: Implement checkSemantic() method.
     }
 
-    public function generateSqlCode($codeGenerator)
+    function getStringOperator()
     {
-        // TODO: Implement generateSqlCode() method.
+        return "OR";
     }
 
     public function generateHtmlCode($codeGenerator)
