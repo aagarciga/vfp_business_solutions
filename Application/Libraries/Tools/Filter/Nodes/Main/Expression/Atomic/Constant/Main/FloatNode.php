@@ -19,9 +19,4 @@ class FloatNode extends ConstantNode
     {
         // TODO: Implement checkSemantic() method.
     }
-
-    public function generateSqlCode($codeGenerator)
-    {
-        // TODO: Implement generateSqlCode() method.
-    }
 }
