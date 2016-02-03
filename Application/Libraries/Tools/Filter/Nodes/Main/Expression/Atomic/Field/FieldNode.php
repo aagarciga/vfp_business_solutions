@@ -36,7 +36,7 @@ class FieldNode extends ConstantNode
         // TODO: Implement checkSemantic() method.
     }
 
-    private function createField(){
+    public function getFullField(){
         $table = $this->table;
         $field = $this->field;
         return (is_null($table)) ? "[$field]" : "[$table].[$field]";
@@ -44,13 +44,20 @@ class FieldNode extends ConstantNode
 
     public function generateSqlCode($codeGenerator)
     {
-        $virtualCode = new SqlVirtualCode($this->createField());
+        $virtualCode = new SqlVirtualCode($this->getFullField());
         $codeGenerator->InsertCode($virtualCode);
     }
 
     public function generateHtmlCode($codeGenerator)
     {
-        // TODO: Implement generateHtmlCode() method.
+    }
+
+    public function getTable(){
+        return $this->table;
+    }
+
+    public function getField(){
+        return $this->field;
     }
 
 }
