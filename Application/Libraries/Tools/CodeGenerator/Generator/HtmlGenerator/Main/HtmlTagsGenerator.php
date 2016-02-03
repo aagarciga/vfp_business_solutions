@@ -15,5 +15,11 @@ use Dandelion\Tools\CodeGenerator\HtmlGenerator;
 
 class HtmlTagsGenerator extends HtmlGenerator
 {
-
+    /**
+     * HtmlTagsGenerator constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }
