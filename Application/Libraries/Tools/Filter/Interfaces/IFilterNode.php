@@ -14,9 +14,21 @@ namespace Dandelion\Tools\Filter;
 
 interface IFilterNode
 {
+    /**
+     * @param IFilterReport $report
+     * @return mixed
+     */
     function checkSemantic($report);
 
+    /**
+     * @param ICodeGenerator $codeGenerator
+     * @return mixed
+     */
     function generateSqlCode($codeGenerator);
 
+    /**
+     * @param ICodeGenerator $codeGenerator
+     * @return mixed
+     */
     function generateHtmlCode($codeGenerator);
 }
