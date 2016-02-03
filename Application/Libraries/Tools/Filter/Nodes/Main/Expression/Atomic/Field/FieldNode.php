@@ -12,17 +12,40 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\ConstantNode;
+use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
 class FieldNode extends ConstantNode
 {
+    protected $table;
+
+    protected $field;
+
+    /**
+     * FieldNode constructor.
+     * @param $table
+     * @param $field
+     */
+    public function __construct($field, $table=null)
+    {
+        $this->table = $table;
+        $this->field = $field;
+    }
+
     public function checkSemantic($report)
     {
         // TODO: Implement checkSemantic() method.
     }
 
+    private function createField(){
+        $table = $this->table;
+        $field = $this->field;
+        return (is_null($table)) ? "[$field]" : "[$table].[$field]";
+    }
+
     public function generateSqlCode($codeGenerator)
     {
-        // TODO: Implement generateSqlCode() method.
+        $virtualCode = new SqlVirtualCode($this->createField());
+        $codeGenerator->InsertCode($virtualCode);
     }
 
     public function generateHtmlCode($codeGenerator)
