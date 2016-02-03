@@ -15,6 +15,16 @@ use Dandelion\Tools\Filter\LogicalBinaryOperatorNode;
 
 class OrNode extends LogicalBinaryOperatorNode
 {
+    /**
+     * OrNode constructor.
+     * @param IFilterNode $leftChild
+     * @param IFilterNode $rightChild
+     */
+    public function __construct($leftChild, $rightChild)
+    {
+        parent::__construct($leftChild, $rightChild);
+    }
+
     public function checkSemantic($report)
     {
         // TODO: Implement checkSemantic() method.

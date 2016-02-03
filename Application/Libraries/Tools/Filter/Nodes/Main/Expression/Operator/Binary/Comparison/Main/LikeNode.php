@@ -15,14 +15,36 @@ use Dandelion\Tools\Filter\ComparisonBinaryOperatorNode;
 
 class LikeNode extends ComparisonBinaryOperatorNode
 {
+    /**
+     * OrNode constructor.
+     * @param IFilterNode $leftChild
+     * @param IFilterNode $rightChild
+     */
+    public function __construct($leftChild, $rightChild)
+    {
+        parent::__construct($leftChild, $rightChild);
+    }
+
     public function checkSemantic($report)
     {
         // TODO: Implement checkSemantic() method.
     }
 
+    function getStringOperator()
+    {
+        return "LIKE";
+    }
+
     public function generateSqlCode($codeGenerator)
     {
-        // TODO: Implement generateSqlCode() method.
+        $this->getLeftChild()->generateSqlCode($codeGenerator);
+
+        $virtualCode = new SqlVirtualCode($this->getStringOperator());
+        $codeGenerator->InsertCode($virtualCode);
+
+        $rigthChild = $this->getRightChild();
+        $stringValue = $rigthChild->getValue();
+
     }
 
     public function generateHtmlCode($codeGenerator)

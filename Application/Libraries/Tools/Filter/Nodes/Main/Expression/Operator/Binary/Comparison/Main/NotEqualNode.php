@@ -15,15 +15,24 @@ use Dandelion\Tools\Filter\ComparisonBinaryOperatorNode;
 
 class NotEqualNode extends ComparisonBinaryOperatorNode
 {
+    /**
+     * OrNode constructor.
+     * @param IFilterNode $leftChild
+     * @param IFilterNode $rightChild
+     */
+    public function __construct($leftChild, $rightChild)
+    {
+        parent::__construct($leftChild, $rightChild);
+    }
 
     public function checkSemantic($report)
     {
         // TODO: Implement checkSemantic() method.
     }
 
-    public function generateSqlCode($codeGenerator)
+    function getStringOperator()
     {
-        // TODO: Implement generateSqlCode() method.
+        return "<>";
     }
 
     public function generateHtmlCode($codeGenerator)

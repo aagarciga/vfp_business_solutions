@@ -15,6 +15,11 @@ use Dandelion\Tools\Filter\BinaryOperatorNode;
 
 abstract class LogicalBinaryOperatorNode extends BinaryOperatorNode
 {
+    /**
+     * OrNode constructor.
+     * @param IFilterNode $leftChild
+     * @param IFilterNode $rightChild
+     */
     public function __construct($leftChild, $rightChild)
     {
         parent::__construct($leftChild, $rightChild);

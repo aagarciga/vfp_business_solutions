@@ -41,4 +41,9 @@ abstract class ConstantNode extends AtomicNode
         $virtualCode = new HtmlTextVirtualCode((string) $this->getValue());
         $codeGenerator->InsertCode($virtualCode);
     }
+
+    public function getLevel()
+    {
+        return 0;
+    }
 }
