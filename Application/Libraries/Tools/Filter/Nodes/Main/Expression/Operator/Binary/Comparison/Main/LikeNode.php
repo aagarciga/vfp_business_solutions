@@ -12,6 +12,7 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\ComparisonBinaryOperatorNode;
+use Dandelion\Tools\CodeGenerator\SqlLikeValueVirtualCode;
 
 class LikeNode extends ComparisonBinaryOperatorNode
 {
@@ -44,7 +45,8 @@ class LikeNode extends ComparisonBinaryOperatorNode
 
         $rigthChild = $this->getRightChild();
         $stringValue = $rigthChild->getValue();
-
+        $virtualCode = new SqlLikeValueVirtualCode($stringValue);
+        $codeGenerator->InsertCode($virtualCode);
     }
 
     public function generateHtmlCode($codeGenerator)
