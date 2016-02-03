@@ -28,11 +28,4 @@ class StringNode extends ConstantNode
         $virtualCode = new SqlStringVirtualCode($this->getValue());
         $codeGenerator->InsertCode($virtualCode);
     }
-
-    public function generateHtmlCode($codeGenerator)
-    {
-        $virtualCode = new HtmlTextVirtualCode($this->getValue());
-        $codeGenerator->InsertCode($virtualCode);
-    }
-
 }

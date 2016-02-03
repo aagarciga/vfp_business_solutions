@@ -29,5 +29,4 @@ class DateNode extends ConstantNode
     {
         // TODO: Implement generateHtmlCode() method.
     }
-
 }

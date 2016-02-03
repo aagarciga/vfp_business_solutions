@@ -29,4 +29,16 @@ abstract class ConstantNode extends AtomicNode
     public function getValue(){
         return $this->value;
     }
+
+    public function generateSqlCode($codeGenerator)
+    {
+        $virtualCode = new SqlVirtualCode((string) $this->getValue());
+        $codeGenerator->InsertCode($virtualCode);
+    }
+
+    public function generateHtmlCode($codeGenerator)
+    {
+        $virtualCode = new HtmlTextVirtualCode((string) $this->getValue());
+        $codeGenerator->InsertCode($virtualCode);
+    }
 }

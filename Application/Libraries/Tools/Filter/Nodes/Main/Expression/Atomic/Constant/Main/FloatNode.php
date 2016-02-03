@@ -24,10 +24,4 @@ class FloatNode extends ConstantNode
     {
         // TODO: Implement generateSqlCode() method.
     }
-
-    public function generateHtmlCode($codeGenerator)
-    {
-        // TODO: Implement generateHtmlCode() method.
-    }
-
 }

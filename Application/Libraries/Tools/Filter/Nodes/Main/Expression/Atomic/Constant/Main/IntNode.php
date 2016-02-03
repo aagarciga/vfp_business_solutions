@@ -12,6 +12,7 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\ConstantNode;
+use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
 class IntNode extends ConstantNode
 {
@@ -19,15 +20,4 @@ class IntNode extends ConstantNode
     {
         // TODO: Implement checkSemantic() method.
     }
-
-    public function generateSqlCode($codeGenerator)
-    {
-        // TODO: Implement generateSqlCode() method.
-    }
-
-    public function generateHtmlCode($codeGenerator)
-    {
-        // TODO: Implement generateHtmlCode() method.
-    }
-
 }
