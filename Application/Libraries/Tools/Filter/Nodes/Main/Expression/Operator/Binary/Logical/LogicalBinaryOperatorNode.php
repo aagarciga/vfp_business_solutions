@@ -15,5 +15,8 @@ use Dandelion\Tools\Filter\BinaryOperatorNode;
 
 abstract class LogicalBinaryOperatorNode extends BinaryOperatorNode
 {
-
+    public function __construct($leftChild, $rightChild)
+    {
+        parent::__construct($leftChild, $rightChild);
+    }
 }

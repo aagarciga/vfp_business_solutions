@@ -11,6 +11,8 @@
 
 namespace Dandelion\Tools\Filter;
 
+define("INTERN_LEVEL", 1);
+
 use Dandelion\Tools\Filter\OperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
@@ -35,6 +37,12 @@ abstract class BinaryOperatorNode extends OperatorNode
 
     public function generateSqlCode($codeGenerator)
     {
+        if ($this->getLeftChild()->getLevel() > INTERN_LEVEL){
+
+        }
+    }
+
+    private function generateSqlInternCode($codeGenerator){
         $this->getLeftChild()->generateSqlCode($codeGenerator);
 
         $virtualCode = new SqlVirtualCode($this->getStringOperator());
