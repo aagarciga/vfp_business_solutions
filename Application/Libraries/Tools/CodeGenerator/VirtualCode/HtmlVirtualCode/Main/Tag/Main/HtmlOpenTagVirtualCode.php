@@ -14,7 +14,7 @@ namespace Dandelion\Tools\CodeGenerator;
 use Dandelion\Tools\CodeGenerator\HtmlVirtualCode;
 use Dandelion\Tools\CodeGenerator\IHtmlTagVirtualCode;
 
-class HtmlTagVirtualCode extends HtmlVirtualCode implements IHtmlTagVirtualCode
+class HtmlOpenTagVirtualCode extends HtmlVirtualCode implements IHtmlTagVirtualCode
 {
     protected $attributes;
 

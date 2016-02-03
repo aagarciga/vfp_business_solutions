@@ -13,7 +13,21 @@ namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\VirtualCode;
 
-abstract class HtmlVirtualCode extends VirtualCode
+abstract class HtmlTagVirtualCode extends HtmlVirtualCode implements IHtmlVirtuaCode
 {
+    protected $tagName;
 
+    /**
+     * HtmlVirtualCode constructor.
+     * @param string $tagName html tag
+     */
+    public function __construct($tagName)
+    {
+        $this->tagName = $tagName;
+    }
+
+    function getTagName()
+    {
+        return $this->tagName;
+    }
 }

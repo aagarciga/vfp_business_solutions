@@ -12,22 +12,27 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\ConstantNode;
+use Dandelion\Tools\CodeGenerator\SqlStringVirtualCode;
+use Dandelion\Tools\CodeGenerator\HtmlTextVirtualCode;
 
 class StringNode extends ConstantNode
 {
+
     public function checkSemantic($report)
     {
-        // TODO: Implement checkSemantic() method.
+        $this->setType(TYPE_STRING);
     }
 
     public function generateSqlCode($codeGenerator)
     {
-        // TODO: Implement generateSqlCode() method.
+        $virtualCode = new SqlStringVirtualCode($this->getValue());
+        $codeGenerator->InsertCode($virtualCode);
     }
 
     public function generateHtmlCode($codeGenerator)
     {
-        // TODO: Implement generateHtmlCode() method.
+        $virtualCode = new HtmlTextVirtualCode($this->getValue());
+        $codeGenerator->InsertCode($virtualCode);
     }
 
 }

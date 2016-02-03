@@ -32,6 +32,4 @@ abstract class BaseFilterNode
     {
         return $this->Text();
     }
-
-
 }

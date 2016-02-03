@@ -10,3 +10,5 @@
  */
 
 define("TYPE_ERROR", -1);
+
+define("TYPE_STRING", 1);
