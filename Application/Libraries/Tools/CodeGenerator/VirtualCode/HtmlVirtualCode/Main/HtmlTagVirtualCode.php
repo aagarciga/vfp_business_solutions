@@ -12,27 +12,21 @@
 namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\HtmlVirtualCode;
+use Dandelion\Tools\CodeGenerator\IHtmlTagVirtualCode;
 
-class HtmlTagVirtualCode extends HtmlVirtualCode
+class HtmlTagVirtualCode extends HtmlVirtualCode implements IHtmlTagVirtualCode
 {
     protected $attributes;
 
-    protected $tagName;
-
     /**
      * HtmlTagVirtualCode constructor.
-     * @param string $tagName html tag
      */
     public function __construct($tagName)
     {
-        $this->tagName = $tagName;
+        parent::__construct($tagName);
         $this->attributes = array();
     }
 
-    function getCode()
-    {
-        // TODO: Implement getCode() method.
-    }
 
     function InsertAttribute($attribute)
     {
@@ -49,8 +43,19 @@ class HtmlTagVirtualCode extends HtmlVirtualCode
         return $this->attributes[$index];
     }
 
-    function getTagName()
+    function getCode()
     {
-        return $this->tagName;
+        $tagName = $this->getTagName();
+
+        $result = "<$tagName ";
+
+        $attributesCount = $this->getAttributeCount();
+        for ($index = 0; $index < $attributesCount; $index++){
+            $attribute = $this->getAttribute($index);
+            $attributeName = $attribute->getAttributeName();
+            $attributeValue = $attribute->getValue();
+            $result .= "$attributeName=\"$attributeValue\" ";
+        }
+        return $result . ">";
     }
 }

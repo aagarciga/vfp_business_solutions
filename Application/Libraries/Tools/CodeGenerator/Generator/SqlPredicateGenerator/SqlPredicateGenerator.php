@@ -15,14 +15,25 @@ use Dandelion\Tools\CodeGenerator\BaseCodeGenerator;
 
 class SqlPredicateGenerator extends BaseCodeGenerator
 {
+    /**
+     * SqlPredicateGenerator constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     function getCode()
     {
-        // TODO: Implement getCode() method.
+        $result = "";
+        foreach ($this->virtualCodes as $virtualCode){
+            $sqlCode = $virtualCode->getCode();
+            $result .= "$sqlCode ";
+        }
+        $length = strlen($result);
+        if ($length > 0){
+            $result = substr($result, 0, $length - 1);
+        }
+        return $result;
     }
-
-    function InsertCode($code)
-    {
-        // TODO: Implement InsertCode() method.
-    }
-
 }

@@ -1,8 +1,8 @@
 <?php
 /**
  * User: Victor
- * Date: 01/02/2016
- * Time: 20:49
+ * Date: 02/02/2016
+ * Time: 22:21
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -11,24 +11,23 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-use Dandelion\Tools\CodeGenerator\BaseCodeGenerator;
+use Dandelion\Tools\CodeGenerator\HtmlVirtualCode;
 
-abstract class HtmlGenerator extends BaseCodeGenerator
+class HtmlCloseTagVirtualCode extends HtmlVirtualCode
 {
+
     /**
-     * HtmlGenerator constructor.
+     * @param string $tagName
      */
-    public function __construct()
+    public function __construct($tagName)
     {
-        parent::__construct();
+        parent::__construct($tagName);
     }
 
     function getCode()
     {
-        $result = "";
-        foreach($this->virtualCodes as $virtualCode){
-            $result .= $virtualCode->getCode() . "\n";
-        }
-        return $result;
+        $tagName = $this->tagName;
+        return "</$tagName>";
     }
+
 }

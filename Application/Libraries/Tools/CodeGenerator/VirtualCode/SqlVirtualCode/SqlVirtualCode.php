@@ -13,7 +13,22 @@ namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\VirtualCode;
 
-abstract class SqlVirtualCode extends VirtualCode
+class SqlVirtualCode extends VirtualCode
 {
+    protected $stringCode;
+
+    /**
+     * SqlVirtualCode constructor.
+     * @param string $stringCode
+     */
+    public function __construct($stringCode)
+    {
+        $this->stringCode = $stringCode;
+    }
+
+    function getCode()
+    {
+        return $this->stringCode;
+    }
 
 }

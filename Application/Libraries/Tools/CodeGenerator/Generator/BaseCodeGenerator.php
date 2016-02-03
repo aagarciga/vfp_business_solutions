@@ -15,7 +15,19 @@ use Dandelion\Tools\CodeGenerator\ICodeGenerator;
 
 abstract class BaseCodeGenerator implements ICodeGenerator
 {
+    protected $virtualCodes;
+    /**
+     * HtmlGenerator constructor.
+     */
+    public function __construct()
+    {
+        $this->virtualCodes = array();
+    }
+
     abstract function getCode();
 
-    abstract function InsertCode($virtualCode);
+    function InsertCode($virtualCode)
+    {
+        $this->virtualCodes[] = $virtualCode;
+    }
 }

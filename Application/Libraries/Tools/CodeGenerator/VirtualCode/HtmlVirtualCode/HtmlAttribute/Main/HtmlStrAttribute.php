@@ -2,7 +2,7 @@
 /**
  * User: Victor
  * Date: 02/02/2016
- * Time: 10:28
+ * Time: 22:46
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -11,26 +11,26 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-use Dandelion\Tools\CodeGenerator\IHtmlAttribute;
+use Dandelion\Tools\CodeGenerator\HtmlAttribute;
 
-abstract class HtmlAttribute implements IHtmlAttribute
+class HtmlStrAttribute extends HtmlAttribute
 {
-    protected $attributeName;
+    protected $attributeValue;
 
     /**
-     * HtmlAttribute constructor.
+     * HtmlStrAttribute constructor.
      * @param string $attributeName attribute
+     * @param string $attributeValue value of attribute
      */
-    public function __construct($attributeName)
+    public function __construct($attributeName, $attributeValue)
     {
-        $this->attributeName = $attributeName;
+        parent::__construct($attributeName);
+        $this->attributeValue = $attributeValue;
     }
 
-
-    function getAttributeName()
+    function getValue()
     {
-        return $this->attributeName;
+        return $this->attributeValue;
     }
 
-    abstract function getValue();
 }

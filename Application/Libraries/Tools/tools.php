@@ -70,12 +70,3 @@ function classLoader($className, $directory, $rootDirectory){
         }
     }
 }
-
-/**
- * @param IHtmlVirtualCode $virtualCode tag virtual code
- * @return string tag close for virtualCode
- */
-function createdCloseTag($virtualCode){
-    $tagName = $virtualCode->getTagName();
-    return "</$tagName>";
-}

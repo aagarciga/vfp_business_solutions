@@ -12,7 +12,7 @@
 namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\HtmlGenerator;
-use Dandelion\Tools;
+use Dandelion\Tools\CodeGenerator\HtmlCloseTagVirtualCode;
 
 class HtmlBlockTagGenerator extends HtmlGenerator
 {
@@ -31,8 +31,9 @@ class HtmlBlockTagGenerator extends HtmlGenerator
     {
         $childVirtualCode = parent::getCode();
         $htmlTagCode = $this->virtualTag->getCode();
-        $closeTag = Tools\createdCloseTag($this->virtualTag);
-        return "$htmlTagCode\n$childVirtualCode\n$closeTag\n";
+        $closeTag = new HtmlCloseTagVirtualCode($this->virtualTag->getTagName());
+        $closeTagCode = $closeTag->getCode();
+        return "$htmlTagCode\n$childVirtualCode\n$closeTagCode\n";
     }
 
 
