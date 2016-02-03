@@ -27,6 +27,10 @@ define('TOOLS_DIR_GENERATOR_ROOT', dirname(__FILE__));
 
 define('GENERATOR_DIR_INTERFACES', 'Interfaces');
 
+define('TOOLS_DIR_GENERATOR_VIRTUALCODE', 'VirtualCode');
+
+define('TOOLS_DIR_GENERATOR_GENERATOR', 'Generator');
+
 
 final class CodeGenerator
 {
@@ -46,7 +50,9 @@ final class CodeGenerator
     final function __construct(){
         $directoryHead = TOOLS_DIR_GENERATOR_ROOT . DIRECTORY_SEPARATOR;
         $rootDirectorys = array(
-            $directoryHead . FILTER_DIR_INTERFACES => false,
+            $directoryHead . GENERATOR_DIR_INTERFACES => false,
+            $directoryHead . TOOLS_DIR_GENERATOR_VIRTUALCODE => true,
+            $directoryHead . TOOLS_DIR_GENERATOR_GENERATOR => true,
         );
 
         $this->dirsFilter = loadDirs($rootDirectorys);
