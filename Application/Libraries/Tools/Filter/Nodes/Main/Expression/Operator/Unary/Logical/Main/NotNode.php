@@ -16,6 +16,25 @@ use Dandelion\Tools\CodeGenerator\SqlNotVirtualCode;
 
 class NotNode extends LogicalUnaryOperatorNode
 {
+    protected $level;
+
+    /**
+     * NotNode constructor.
+     * @param $child
+     */
+    public function __construct($child)
+    {
+        parent::__construct($child);
+    }
+
+    public function getLevel()
+    {
+        if (is_null($this->level)){
+            $this->level = $this->getChild()->getLevel() + 1;
+        }
+        return $this->level;
+    }
+
     public function checkSemantic($report)
     {
         // TODO: Implement checkSemantic() method.
@@ -31,5 +50,4 @@ class NotNode extends LogicalUnaryOperatorNode
     {
         // TODO: Implement generateHtmlCode() method.
     }
-
 }

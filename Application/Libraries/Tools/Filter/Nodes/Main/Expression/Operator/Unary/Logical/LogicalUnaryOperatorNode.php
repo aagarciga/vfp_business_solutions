@@ -15,5 +15,12 @@ use Dandelion\Tools\Filter\UnaryOperator;
 
 abstract class LogicalUnaryOperatorNode extends UnaryOperator
 {
-
+    /**
+     * LogicalUnaryOperatorNode constructor.
+     * @param $child
+     */
+    public function __construct($child)
+    {
+        parent::__construct($child);
+    }
 }

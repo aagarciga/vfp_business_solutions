@@ -15,5 +15,18 @@ use Dandelion\Tools\Filter\OperatorNode;
 
 abstract class UnaryOperator extends OperatorNode
 {
+    protected $child;
 
+    /**
+     * UnaryOperator constructor.
+     * @param $child
+     */
+    public function __construct($child)
+    {
+        $this->child = $child;
+    }
+
+    public function getChild(){
+        return $this->child;
+    }
 }
