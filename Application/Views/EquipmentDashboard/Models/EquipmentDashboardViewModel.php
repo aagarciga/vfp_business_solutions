@@ -16,56 +16,57 @@ namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Models;
  */
 class EquipmentDashboardViewModel
 {
-    protected $_ordnum;
-    protected $_equipid;
-    protected $_itemno;
-    protected $_model;
-    protected $_serialno;
-    protected $_make;
-    protected $_installdte;
-    protected $_expdtein;
-    protected $_daterec;
-    protected $_order;
-    protected $_status;
-    protected $_toolboxid;
-    protected $_notes;
-    protected $_picture_fi;
+    protected $ordnum;
+    protected $equipid;
+    protected $itemno;
+    protected $descrip;
+    protected $make;
+    protected $model;
+    protected $serialno;
+    protected $Voltage;
+    protected $EquipType ;
+    protected $installdte;
+    protected $expdtein;
+    protected $daterec;
+    protected $status;
+    protected $notes;
+    protected $picture_fi;
 
     /**
      * EquipmentDashboardViewModel constructor.
-     * @param $_ordnum
-     * @param $_equipid
-     * @param $_itemno
-     * @param $_model
-     * @param $_serialno
-     * @param $_make
-     * @param $_installdte
-     * @param $_expdtein
-     * @param $_daterec
-     * @param $_order
-     * @param $_status
-     * @param $_toolboxid
-     * @param $_notes
-     * @param $_picture
+     * @param $ordnum
+     * @param $equipid
+     * @param $itemno
+     * @param $descrip
+     * @param $make
+     * @param $model
+     * @param $serialno
+     * @param $Voltage
+     * @param $EquipType
+     * @param $installdte
+     * @param $expdtein
+     * @param $daterec
+     * @param $status
+     * @param $notes
+     * @param $picture_fi
      */
-    public function __construct($ordnum=null, $equipid=null, $itemno=null, $model=null,
-                                $serialno=null, $make=null, $installdte=null, $expdtein=null, $daterec=null,
-                                $order=null, $status=null, $toolboxid=null, $notes=null, $picture_fi=null)
+    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi)
     {
-        $this->_ordnum = $ordnum;
-        $this->_equipid = $equipid;
-        $this->_itemno = $itemno;
-        $this->_model = $model;
-        $this->_serialno = $serialno;
-        $this->_make = $make;
-        $this->_installdte = $installdte;
-        $this->_expdtein = $expdtein;
-        $this->_daterec = $daterec;
-        $this->_order = $order;
-        $this->_status = $status;
-        $this->_toolboxid = $toolboxid;
-        $this->_notes = $notes;
-        $this->_picture_fi = $picture_fi;
+        $this->ordnum = $ordnum;
+        $this->equipid = $equipid;
+        $this->itemno = $itemno;
+        $this->descrip = $descrip;
+        $this->make = $make;
+        $this->model = $model;
+        $this->serialno = $serialno;
+        $this->Voltage = $Voltage;
+        $this->EquipType = $EquipType;
+        $this->installdte = $installdte;
+        $this->expdtein = $expdtein;
+        $this->daterec = $daterec;
+        $this->status = $status;
+        $this->notes = $notes;
+        $this->picture_fi = $picture_fi;
     }
 
     /**
@@ -73,7 +74,7 @@ class EquipmentDashboardViewModel
      */
     public function getOrdnum()
     {
-        return $this->_ordnum;
+        return $this->ordnum;
     }
 
     /**
@@ -82,7 +83,7 @@ class EquipmentDashboardViewModel
      */
     public function setOrdnum($ordnum)
     {
-        $this->_ordnum = $ordnum;
+        $this->ordnum = $ordnum;
         return $this;
     }
 
@@ -91,7 +92,7 @@ class EquipmentDashboardViewModel
      */
     public function getEquipid()
     {
-        return $this->_equipid;
+        return $this->equipid;
     }
 
     /**
@@ -100,7 +101,7 @@ class EquipmentDashboardViewModel
      */
     public function setEquipid($equipid)
     {
-        $this->_equipid = $equipid;
+        $this->equipid = $equipid;
         return $this;
     }
 
@@ -109,7 +110,7 @@ class EquipmentDashboardViewModel
      */
     public function getItemno()
     {
-        return $this->_itemno;
+        return $this->itemno;
     }
 
     /**
@@ -118,43 +119,25 @@ class EquipmentDashboardViewModel
      */
     public function setItemno($itemno)
     {
-        $this->_itemno = $itemno;
+        $this->itemno = $itemno;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getModel()
+    public function getDescrip()
     {
-        return $this->_model;
+        return $this->descrip;
     }
 
     /**
-     * @param mixed $model
+     * @param mixed $descrip
      * @return EquipmentDashboardViewModel
      */
-    public function setModel($model)
+    public function setDescrip($descrip)
     {
-        $this->_model = $model;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSerialno()
-    {
-        return $this->_serialno;
-    }
-
-    /**
-     * @param mixed $serialno
-     * @return EquipmentDashboardViewModel
-     */
-    public function setSerialno($serialno)
-    {
-        $this->_serialno = $serialno;
+        $this->descrip = $descrip;
         return $this;
     }
 
@@ -163,7 +146,7 @@ class EquipmentDashboardViewModel
      */
     public function getMake()
     {
-        return $this->_make;
+        return $this->make;
     }
 
     /**
@@ -172,7 +155,79 @@ class EquipmentDashboardViewModel
      */
     public function setMake($make)
     {
-        $this->_make = $make;
+        $this->make = $make;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param mixed $model
+     * @return EquipmentDashboardViewModel
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSerialno()
+    {
+        return $this->serialno;
+    }
+
+    /**
+     * @param mixed $serialno
+     * @return EquipmentDashboardViewModel
+     */
+    public function setSerialno($serialno)
+    {
+        $this->serialno = $serialno;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVoltage()
+    {
+        return $this->Voltage;
+    }
+
+    /**
+     * @param mixed $Voltage
+     * @return EquipmentDashboardViewModel
+     */
+    public function setVoltage($Voltage)
+    {
+        $this->Voltage = $Voltage;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEquipType()
+    {
+        return $this->EquipType;
+    }
+
+    /**
+     * @param mixed $EquipType
+     * @return EquipmentDashboardViewModel
+     */
+    public function setEquipType($EquipType)
+    {
+        $this->EquipType = $EquipType;
         return $this;
     }
 
@@ -181,7 +236,7 @@ class EquipmentDashboardViewModel
      */
     public function getInstalldte()
     {
-        return $this->_installdte;
+        return $this->installdte;
     }
 
     /**
@@ -190,7 +245,7 @@ class EquipmentDashboardViewModel
      */
     public function setInstalldte($installdte)
     {
-        $this->_installdte = $installdte;
+        $this->installdte = $installdte;
         return $this;
     }
 
@@ -199,7 +254,7 @@ class EquipmentDashboardViewModel
      */
     public function getExpdtein()
     {
-        return $this->_expdtein;
+        return $this->expdtein;
     }
 
     /**
@@ -208,7 +263,7 @@ class EquipmentDashboardViewModel
      */
     public function setExpdtein($expdtein)
     {
-        $this->_expdtein = $expdtein;
+        $this->expdtein = $expdtein;
         return $this;
     }
 
@@ -217,7 +272,7 @@ class EquipmentDashboardViewModel
      */
     public function getDaterec()
     {
-        return $this->_daterec;
+        return $this->daterec;
     }
 
     /**
@@ -226,25 +281,7 @@ class EquipmentDashboardViewModel
      */
     public function setDaterec($daterec)
     {
-        $this->_daterec = $daterec;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOrder()
-    {
-        return $this->_order;
-    }
-
-    /**
-     * @param mixed $order
-     * @return EquipmentDashboardViewModel
-     */
-    public function setOrder($order)
-    {
-        $this->_order = $order;
+        $this->daterec = $daterec;
         return $this;
     }
 
@@ -253,7 +290,7 @@ class EquipmentDashboardViewModel
      */
     public function getStatus()
     {
-        return $this->_status;
+        return $this->status;
     }
 
     /**
@@ -262,25 +299,7 @@ class EquipmentDashboardViewModel
      */
     public function setStatus($status)
     {
-        $this->_status = $status;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getToolboxid()
-    {
-        return $this->_toolboxid;
-    }
-
-    /**
-     * @param mixed $toolboxid
-     * @return EquipmentDashboardViewModel
-     */
-    public function setToolboxid($toolboxid)
-    {
-        $this->_toolboxid = $toolboxid;
+        $this->status = $status;
         return $this;
     }
 
@@ -289,7 +308,7 @@ class EquipmentDashboardViewModel
      */
     public function getNotes()
     {
-        return $this->_notes;
+        return $this->notes;
     }
 
     /**
@@ -298,25 +317,27 @@ class EquipmentDashboardViewModel
      */
     public function setNotes($notes)
     {
-        $this->_notes = $notes;
+        $this->notes = $notes;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getPicture_fi()
+    public function getPictureFi()
     {
-        return $this->_picture_fi;
+        return $this->picture_fi;
     }
 
     /**
-     * @param mixed $picture
+     * @param mixed $picture_fi
      * @return EquipmentDashboardViewModel
      */
-    public function setPicture_fi($picture_fi)
+    public function setPictureFi($picture_fi)
     {
-        $this->_picture_fi = $picture_fi;
+        $this->picture_fi = $picture_fi;
         return $this;
     }
+
+
 }

@@ -37,21 +37,21 @@ class EquipmentDashboard extends DatActionsController
     public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5,
                              $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC")
     {
-        if ($predicate !== "")
-        {
+        if ($predicate !== "") {
             $predicate = "WHERE $predicate ";
         }
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
         $table = $this->getDashboardTable($companysuffix);
-        $fields = Tools\loadFieldsSql($this->GetFieldsDefinition());
-        $selectField = Tools\loadFieldsSql($this->GetFieldsDefinition(), $this->getInnerJoinFields($companysuffix));
+//        $fields = Tools\loadFieldsSql($this->GetFieldsDefinition());
+        $selectField = Tools\fetchSelectSQLFields($this->GetFieldsDefinition($companysuffix));
 
         $sqlString = "SELECT "
-            .$selectField
-            ." FROM $table "
-            ."$predicate"
-            ." ORDER BY $orderby $order";
+            . $selectField
+            . " FROM $table "
+            . "$predicate"
+            . " ORDER BY $orderby $order";
+
 
 //        return new BootstrapPagerTest($this->GetFieldsDefinition(), $this->DatUnitOfWork->DBDriver,
 //            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
@@ -59,37 +59,48 @@ class EquipmentDashboard extends DatActionsController
             $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 
-    public function GetFieldsDefinition(){
-        return array(
-            'ordnum' => TYPE_CHAR,
-            'equipid' => TYPE_CHAR,
-            'itemno' => TYPE_CHAR,
-            'model' => TYPE_CHAR,
-            'serialno' => TYPE_CHAR,
-            'make' => TYPE_CHAR,
-            'installdte' => TYPE_DATE,
-            'expdtein' => TYPE_DATE,
-            'daterec' => TYPE_DATE,
-            'order' => TYPE_CHAR,
-            'status' => TYPE_CHAR,
-            'toolboxid' => TYPE_CHAR,
-            'notes' => TYPE_MEMO,
-            'picture_fi' => TYPE_DATE
-        );
-    }
-
-    public function getInnerJoinFields($companySuffix){
+    public function GetFieldsDefinition($companySuffix)
+    {
         $swequipTable = "SWEQUIP$companySuffix";
+        $icparmTable = "ICPARM$companySuffix";
         return array(
-            'itemno' => $swequipTable,
-            'notes' => $swequipTable,
-            'model' => $swequipTable,
-            'order' => $swequipTable,
-            'ordnum' => $swequipTable,
+            'equipid' => array('type' => TYPE_CHAR, 'displayName' => 'Equipment Id', 'table' => $swequipTable),
+            'ordnum' => array('type' => TYPE_CHAR, 'displayName' => 'Work Order', 'table' => $swequipTable),
+            'itemno' => array('type' => TYPE_CHAR, 'displayName' => 'Part No', 'table' => $swequipTable),
+            'descrip' => array('type' => TYPE_CHAR, 'displayName' => 'Item Description', 'table' => $swequipTable),
+            'make' => array('type' => TYPE_CHAR, 'displayName' => 'Brand', 'table' => $swequipTable),
+            'model' => array('type' => TYPE_CHAR, 'displayName' => 'Model', 'table' => $swequipTable),
+            'serialno' => array('type' => TYPE_CHAR, 'displayName' => 'Serial No', 'table' => $swequipTable),
+            'Voltage' => array('type' => TYPE_CHAR, 'displayName' => 'Voltage', 'table' => $swequipTable),
+            'EquipType' => array('type' => TYPE_CHAR, 'displayName' => 'Type', 'table' => $swequipTable),
+            'installdte' => array('type' => TYPE_DATE, 'displayName' => 'Date Out', 'table' => $swequipTable),
+            'expdtein' => array('type' => TYPE_DATE, 'displayName' => 'Expected date In', 'table' => $swequipTable),
+            'daterec' => array('type' => TYPE_DATE, 'displayName' => 'Date Actually Received', 'table' => $swequipTable),
+            'status' => array('type' => TYPE_DICTIONARY, 'displayName' => 'Status', array(
+                'Broken' => 'Broken',
+                'Lost' => 'Lost'
+            ), 'table' => $swequipTable),
+            'notes' => array('type' => TYPE_MEMO, 'displayName' => 'Notes', 'table' => $swequipTable),
+            'picture_fi' => array('type' => TYPE_CHAR, 'displayName' => 'Image', 'table' => $icparmTable)
         );
+
+//equipimage  Image  ( debe ser un icon cuando click se muestra la imagen que esta guardada en icparm)
     }
 
-    public function getDashboardTable($companySuffix){
+//    public function getInnerJoinFields($companySuffix)
+//    {
+//        $swequipTable = "SWEQUIP$companySuffix";
+//        return array(
+//            'itemno' => $swequipTable,
+//            'notes' => $swequipTable,
+//            'model' => $swequipTable,
+//            'order' => $swequipTable,
+//            'ordnum' => $swequipTable,
+//        );
+//    }
+
+    public function getDashboardTable($companySuffix)
+    {
         $swequipTable = "SWEQUIP$companySuffix";
         $icparmTable = "ICPARM$companySuffix";
         return "($swequipTable INNER JOIN $icparmTable ON $swequipTable.itemno = $icparmTable.itemno)";

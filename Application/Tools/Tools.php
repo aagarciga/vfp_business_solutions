@@ -25,6 +25,8 @@ define("TYPE_CHAR", 'char');
 
 define("TYPE_DATE", 'date');
 
+define("TYPE_DICTIONARY", 'dropdown');
+
 define("TYPE_MEMO", 'memo');
 
 /**
@@ -49,19 +51,24 @@ function fix_date($value){
  * @param array $fieldDefinition definition of the field "field => type"
  * @return mixed view model object with field set
  */
+//function createViewModel($viewModelClass, $item, $fieldDefinition){
+//    $result = new $viewModelClass();
+//    foreach ($fieldDefinition as $field => $type){
+//        $arrayField = str_split($field);
+//        $arrayField[0] = strtoupper($arrayField[0]);
+//        $suffix = implode($arrayField);
+//        $setMethod = SET_PREFIX . $suffix;
+//        $fixMethod = createFixMethod($type);
+//        $value = $item->$field;
+//        $value = $fixMethod($value);
+//        $result->$setMethod($value);
+//    }
+//    return $result;
+//}
+
 function createViewModel($viewModelClass, $item, $fieldDefinition){
-    $result = new $viewModelClass();
-    foreach ($fieldDefinition as $field => $type){
-        $arrayField = str_split($field);
-        $arrayField[0] = strtoupper($arrayField[0]);
-        $suffix = implode($arrayField);
-        $setMethod = SET_PREFIX . $suffix;
-        $fixMethod = createFixMethod($type);
-        $value = $item->$field;
-        $value = $fixMethod($value);
-        $result->$setMethod($value);
-    }
-    return $result;
+    $rc = new ReflectionClass($viewModelClass);
+    return $rc->newInstanceArgs(createArrayModel($item, $fieldDefinition));
 }
 
 /**
@@ -98,20 +105,32 @@ function createArrayModel($item, $fieldDefinition){
  * @param array $innerJoinFields keys are fields, values are tables
  * @return string sentence sql that represent the fields from the table
  */
-function loadFieldsSql($fieldsDefinition, $innerJoinFields=array()){
+function fetchSelectSQLFields($fieldsDefinition){
     $sqlSelectResult = "";
-    foreach ($fieldsDefinition as $field => $type){
-        if (array_key_exists($field, $innerJoinFields)){
-            $innerTable = $innerJoinFields[$field];
-            $field = fixKeywordsProblem($field);
-            $sqlSelectResult .= " $innerTable.$field AS $field,";
+    foreach ($fieldsDefinition as $field => $components){
+        $currentField = '['.$field.']';
+
+        if(array_key_exists('table', $components)){
+            $currentTable = $components['table'];
+            $currentField =  '['.$currentTable.'].' . $currentField . ' AS ' . $currentField;
         }
-        else{
-            $field = fixKeywordsProblem($field);
-            $sqlSelectResult .= " $field,";
-        }
+        $sqlSelectResult .= $currentField . ", ";
     }
-    return substr($sqlSelectResult, 0, strlen($sqlSelectResult) - 1);
+    return substr($sqlSelectResult, 0, strlen($sqlSelectResult) - 2);
+}
+
+function fetchSQLFields($fieldsDefinition){
+    $sqlSelectResult = "";
+    foreach ($fieldsDefinition as $field => $components){
+        $currentField = '['.$field.']';
+
+        if(array_key_exists('table', $components)){
+            $currentTable = $components['table'];
+            $currentField =  '['.$currentTable.']' . $currentField;
+        }
+        $sqlSelectResult .= $currentField . ", ";
+    }
+    return substr($sqlSelectResult, 0, strlen($sqlSelectResult) - 2);
 }
 
 /**

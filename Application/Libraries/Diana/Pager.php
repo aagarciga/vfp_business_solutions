@@ -180,7 +180,6 @@ abstract class Pager {
             }
 
             $query = $this->dbDriver->GetQuery();
-
             $queryResult = $query->Execute($countSql);
 
             $this->itemsCount = $queryResult[0]->Total;
@@ -192,7 +191,6 @@ abstract class Pager {
         $query = $this->dbDriver->GetQuery();
 
         $queryResult = $query->ExecutePaged($this->sql, $this->itemsPerPage, $this->getOffset());
-
         return $queryResult;
     }
     

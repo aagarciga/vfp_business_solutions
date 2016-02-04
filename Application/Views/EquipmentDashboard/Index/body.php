@@ -143,17 +143,20 @@
                             <td class="item-field"><?php echo $item->getOrdnum() ?></td>
                             <td class="item-field"><?php echo $item->getEquipid() ?></td>
                             <td class="item-field"><?php echo $item->getItemno() ?></td>
-                            <td class="item-field"><?php echo $item->getModel() ?></td>
+                            <td class="item-field"><?php echo $item->getDescrip() ?></td>
                             <td class="item-field"><?php echo $item->getSerialno() ?></td>
                             <td class="item-field"><?php echo $item->getMake() ?></td>
+                            <td class="item-field"><?php echo $item->getModel() ?></td>
+                            <td class="item-field"><?php echo $item->getSerialno() ?></td>
+                            <td class="item-field"><?php echo $item->getVoltage() ?></td>
+                            <td class="item-field"><?php echo $item->getEquipType() ?></td>
                             <td class="item-field"><?php echo $item->getInstalldte() ?></td>
                             <td class="item-field"><?php echo $item->getExpdtein() ?></td>
                             <td class="item-field"><?php echo $item->getDaterec() ?></td>
-                            <td class="item-field"><?php echo $item->getOrder() ?></td>
                             <td class="item-field"><?php echo $item->getStatus() ?></td>
-                            <td class="item-field"><?php echo $item->getToolboxid() ?></td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
-                            <td class="item-field"><?php echo $item->getPicture_fi() ?></td>
+                            <td class="item-field"><?php echo $item->getPictureFi() ?></td>
+
                         </tr>
                     <?php endforeach ?>
                     </body>
