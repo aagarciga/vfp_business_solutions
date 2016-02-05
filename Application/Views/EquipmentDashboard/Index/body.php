@@ -122,18 +122,19 @@
                     <thead>
                     <tr>
                         <th>Work Order <button data-field="ordnum" class="btn-table-sort"></button></th>
-                        <th>Id <button data-field="equipid" class="btn-table-sort"></button></th>
+                        <th>Equipment Id <button data-field="equipid" class="btn-table-sort"></button></th>
                         <th>Part No. <button data-field="itemno" class="btn-table-sort"></button></th>
-                        <th>Model <button data-field="model" class="btn-table-sort"></button></th>
-                        <th>Serial No. <button data-field="serialno" class="btn-table-sort"></button></th>
-                        <th>Make <button data-field="make" class="btn-table-sort"></button></th>
-                        <th>Date Out <button data-field="installdte" class="btn-table-sort"></button></th>
-                        <th>Expected date In <button data-field="expdtein" class="btn-table-sort"></button></th>
-                        <th>Date Actually Received <button data-field="daterec" class="btn-table-sort"></button></th>
-                        <th>Order no <button data-field="order" class="btn-table-sort"></button></th>
-                        <th>Status <button data-field="status" class="btn-table-sort"></button></th>
-                        <th>Tool Box <button data-field="toolboxid" class="btn-table-sort"></button></th>
-                        <th>Notes <button data-field="notes" class="btn-table-sort"></button></th>
+                        <th>Item Description <button data-field="model" class="btn-table-sort"></button></th>
+                        <th>Brand <button data-field="make" class="btn-table-sort"></button></th>
+                        <th>Model <button data-field="make" class="btn-table-sort"></button></th>
+                        <th>Serial No <button data-field="installdte" class="btn-table-sort"></button></th>
+                        <th>Voltage <button data-field="expdtein" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="daterec" class="btn-table-sort"></button></th>
+                        <th>Date Out <button data-field="order" class="btn-table-sort"></button></th>
+                        <th>Expected date In <button data-field="status" class="btn-table-sort"></button></th>
+                        <th>Date Actually Received <button data-field="toolboxid" class="btn-table-sort"></button></th>
+                        <th>Status <button data-field="notes" class="btn-table-sort"></button></th>
+                        <th>Notes <button data-field="picture_fi" class="btn-table-sort"></button></th>
                         <th>Image <button data-field="picture_fi" class="btn-table-sort"></button></th>
                     </tr>
                     </thead>
@@ -144,7 +145,6 @@
                             <td class="item-field"><?php echo $item->getEquipid() ?></td>
                             <td class="item-field"><?php echo $item->getItemno() ?></td>
                             <td class="item-field"><?php echo $item->getDescrip() ?></td>
-                            <td class="item-field"><?php echo $item->getSerialno() ?></td>
                             <td class="item-field"><?php echo $item->getMake() ?></td>
                             <td class="item-field"><?php echo $item->getModel() ?></td>
                             <td class="item-field"><?php echo $item->getSerialno() ?></td>
