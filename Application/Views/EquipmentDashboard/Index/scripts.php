@@ -1,12 +1,13 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?><!--"></script>-->
-<!--<script src="--><?php //echo $View->PublicVendorContext('jstree/jstree.min.js'); ?><!--"></script>-->
-<!--<script src="--><?php //echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?><!--"></script>-->
+<script src="<?php echo $View->PublicVendorContext('jstree/jstree.min.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
 <script src="<?php echo $View->ScriptsContext('EquipmentDashboard/EquipmentDashboardDynamicFilter.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/ProjectFiles.min.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('EquipmentDashboard/main.min.js'); ?>"></script>
 
 <script>
@@ -34,9 +35,30 @@
         EquipmentDashboard.urls.saveFilter = "<?php echo $View->Href('EquipmentDashboard', 'SaveFilter') ?>";
 
         // TODO: Refactor this
+//        EquipmentDashboard.urls.projectAttachementsAPI = "<?php //echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>//";
+//        EquipmentDashboard.urls.getCurrentProjectFiles = "<?php //echo $View->Href('EquipmentDashboard', 'GetCurrentProjectFiles') ?>//";
+//        EquipmentDashboard.urls.updateStatus = "<?php //echo $View->Href('EquipmentDashboard', 'UpdateStatus') ?>//";
+
+        // TODO: Refactor this
         EquipmentDashboard.urls.projectAttachementsAPI = "<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>";
-        EquipmentDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('QuoteDashboard', 'GetCurrentProjectFiles') ?>";
-        EquipmentDashboard.urls.updateStatus = "<?php echo $View->Href('QuoteDashboard', 'UpdateStatus') ?>";
+        EquipmentDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>";
+
+
+        // TODO: Convert FileManager in a Controll and put this on it
+        App.urls = {};
+        App.urls.treeViewManager = {};
+        App.urls.treeViewManager.getNode = "<?php echo $View->Href('TreeViewManager', 'GetNode') ?>";
+        App.urls.treeViewManager.getContent = "<?php echo $View->Href('TreeViewManager', 'GetContent') ?>";
+        App.urls.treeViewManager.deleteNode = "<?php echo $View->Href('TreeViewManager', 'Delete') ?>";
+        App.urls.treeViewManager.createNode = "<?php echo $View->Href('TreeViewManager', 'Create') ?>";
+        App.urls.treeViewManager.renameNode = "<?php echo $View->Href('TreeViewManager', 'Rename') ?>";
+        App.urls.treeViewManager.moveNode = "<?php echo $View->Href('TreeViewManager', 'Move') ?>";
+        App.urls.treeViewManager.copyNode = "<?php echo $View->Href('TreeViewManager', 'Copy') ?>";
+        App.urls.fileManager = {};
+        App.urls.fileManager.list = "<?php echo $View->Href('FileManager', 'List') ?>";
+        App.urls.fileManager.deleteFile = "<?php echo $View->Href('FileManager', 'Delete') ?>";
+        App.urls.fileManager.uploadFile = "<?php echo $View->Href('FileManager', 'Upload') ?>";
+        App.urls.fileManager.downloadFile = "<?php echo $View->Href('FileManager', 'Download') ?>";
 
         EquipmentDashboard.init();
 

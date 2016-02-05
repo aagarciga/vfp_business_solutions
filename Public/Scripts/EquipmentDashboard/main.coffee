@@ -6,6 +6,7 @@ dandelion = global.dandelion
 EquipmentDashboard = dandelion.namespace('App.EquipmentDashboard', global)
 
 DynamicFilter = App.EquipmentDashboard.DynamicFilter
+ProjectFiles  = App.EquipmentDashboard.ProjectFiles
 
 # Statuses Declaration
 #-----------------------------------------------------------------------------------------------------------------------
@@ -15,7 +16,7 @@ EquipmentDashboard.status.table_header_sortLastButton = null;
 EquipmentDashboard.status.table_header_sortField = 'ordnum'; # Default Order By Fields
 EquipmentDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
 EquipmentDashboard.status.currentPage = 1;
-EquipmentDashboard.status.currentItemNo = '';
+EquipmentDashboard.status.currentEquipid = '';
 EquipmentDashboard.status.currentSet = 'details';
 EquipmentDashboard.status.currentBalance = "0.0";
 
@@ -33,6 +34,7 @@ EquipmentDashboard.htmlBindings.table = '#EquipmentDashboardTable';
 EquipmentDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
 EquipmentDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link'
 EquipmentDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
+EquipmentDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
 EquipmentDashboard.htmlBindings.pager_container = '.pager-wrapper';
 EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
 
@@ -212,6 +214,8 @@ EquipmentDashboard.functions.bindEventHandlers = ->
   $(EquipmentDashboard.htmlBindings.pager_btnPagerPages).on('click',
     EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick)
   EquipmentDashboard.functions.bindTableItemsEventHandlers();
+  $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click',
+    EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
   @
 
 # Event Handlers Declaration
@@ -259,8 +263,19 @@ EquipmentDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   EquipmentDashboard.functions.paginate()
   @
 
+EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
+  currentEquipid = $(@).data('equipid')
+  currentProjectRoot = currentEquipid + '_EQ';
+  EquipmentDashboard.status.currentEquipid = currentProjectRoot;
+  ProjectFiles.functions.loadFileTree(currentProjectRoot);
+  $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
+  #  //QuoteDashboard.FileManagerWidget.loadFileTree(currentQutno);
+  #  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
+  @
+
 EquipmentDashboard.init = (defaultUserFilter) ->
   EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter)
+  ProjectFiles.init()
   EquipmentDashboard.functions.bindEventHandlers()
   @
