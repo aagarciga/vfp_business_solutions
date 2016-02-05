@@ -195,7 +195,9 @@ abstract class Pager {
     }
     
     public function getOffset(){
-        return (($this->currentPage - 1) * $this->itemsPerPage) + 1;
+        if ($this->currentPage > 0)
+            return (($this->currentPage - 1) * $this->itemsPerPage) + 1;
+        return 0;
     }
 
     /**
