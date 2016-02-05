@@ -31,6 +31,8 @@ class EquipmentDashboardViewModel
     protected $status;
     protected $notes;
     protected $picture_fi;
+    protected $assetDesc;
+    protected $locno;
 
     /**
      * EquipmentDashboardViewModel constructor.
@@ -49,8 +51,10 @@ class EquipmentDashboardViewModel
      * @param $status
      * @param $notes
      * @param $picture_fi
+     * @param $assetDesc
+     * @param $locno
      */
-    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi)
+    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi, $assetDesc, $locno)
     {
         $this->ordnum = $ordnum;
         $this->equipid = $equipid;
@@ -67,6 +71,8 @@ class EquipmentDashboardViewModel
         $this->status = $status;
         $this->notes = $notes;
         $this->picture_fi = $picture_fi;
+        $this->assetDesc = $assetDesc;
+        $this->locno = $locno;
     }
 
     /**
@@ -336,6 +342,42 @@ class EquipmentDashboardViewModel
     public function setPictureFi($picture_fi)
     {
         $this->picture_fi = $picture_fi;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAssetDesc()
+    {
+        return $this->assetDesc;
+    }
+
+    /**
+     * @param mixed $assetDesc
+     * @return EquipmentDashboardViewModel
+     */
+    public function setAssetDesc($assetDesc)
+    {
+        $this->assetDesc = $assetDesc;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocno()
+    {
+        return $this->locno;
+    }
+
+    /**
+     * @param mixed $locno
+     * @return EquipmentDashboardViewModel
+     */
+    public function setLocno($locno)
+    {
+        $this->locno = $locno;
         return $this;
     }
 

@@ -118,6 +118,8 @@
                         <col class="col-toolboxid"/>
                         <col class="col-notes"/>
                         <col class="col-picture_fi"/>
+                        <col class="col-assetdesc"/>
+                        <col class="col-locno"/>
                     </colgroup>
                     <thead>
                     <tr>
@@ -136,6 +138,8 @@
                         <th>Status <button data-field="notes" class="btn-table-sort"></button></th>
                         <th>Notes <button data-field="picture_fi" class="btn-table-sort"></button></th>
                         <th>Image <button data-field="picture_fi" class="btn-table-sort"></button></th>
+                        <th>Asset Desc <button data-field="assetdesc" class="btn-table-sort"></button></th>
+                        <th>Locno  <button data-field="locno" class="btn-table-sort"></button></th>
                     </tr>
                     </thead>
                     <body>
@@ -156,6 +160,8 @@
                             <td class="item-field"><?php echo $item->getStatus() ?></td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
                             <td class="item-field"><?php echo $item->getPictureFi() ?></td>
+                            <td class="item-field"><?php echo $item->getAssetDesc() ?></td>
+                            <td class="item-field"><?php echo $item->getLocno() ?></td>
                         </tr>
                     <?php endforeach ?>
                     </body>
