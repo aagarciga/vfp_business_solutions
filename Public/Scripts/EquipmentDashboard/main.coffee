@@ -88,122 +88,72 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   doc = global.document
   result = doc.createElement('tr')
 
-  simpleTdBuilder = (data, tdClass) ->
-    td = doc.createElement('td')
-    td.className = tdClass
-    td.appendChild(doc.createTextNode(data))
-    td;
-
-  withLinkTdBuilder = (data, linkClassName, tdLinkClass, href = '#') ->
-    td = doc.createElement('td')
-    a = doc.createElement('a')
-
-    a.href = href
-    a.className = linkClassName
-    a.dataset.custno = dataRow.custno
-
-    if typeof data == "string"
-      a.appendChild(doc.createTextNode(data))
-    else
-      a.appendChild(data)
-
-    td.className = tdLinkClass || tdClass
-    td.appendChild(a)
-    td;
-
-  selectBuilder = (current, values) ->
-    select = doc.createElement('select')
-
-    option = doc.createElement('option')
-    option.appendChild(doc.createTextNode("Empty"))
-
-    select.appendChild(option)
-
-    for index of values
-      if values.hasOwnProperty(index)
-        currentId = values[index].id
-        currentValue = values[index].descrip
-        option = doc.createElement('option')
-        if current == currentId
-          option.selected = "selected"
-        option.value = currentId
-        option.appendChild(doc.createTextNode(currentValue))
-        select.appendChild(option)
-
-    select.className = 'form-control update-dropdown'
-    select
-
-  withSelectBuilder = (data, dictionary, dropdownClassName) ->
-    td = doc.createElement('td')
-    select = selectBuilder(data, dictionary)
-    select.dataset.ordnum = dataRow.ordnum
-    select.className += ' select2-nosearch ' + dropdownClassName
-    td.appendChild(select)
-    td
-
-
-  tdOrdNumBuilder = ->
-    simpleTdBuilder(dataRow.ordnum)
-
-  tdEquipIdBuilder = ->
-    simpleTdBuilder(dataRow.equipid)
-
-  tdItemNoBuilder = ->
-    simpleTdBuilder(dataRow.itemno)
-
-  tdModelBuilder = ->
-    simpleTdBuilder(dataRow.model)
-
-  tdSerialNoBuilder = ->
-    simpleTdBuilder(dataRow.serialno)
-
+  tdOrdnumBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.ordnum, '')
+  tdEquipidBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.equipid, '')
+  tdItemnoBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.itemno, '')
+  tdDescripBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.descrip, '')
   tdMakeBuilder = ->
-    simpleTdBuilder(dataRow.make)
-
-  tdInstallDteBuilder = ->
-    simpleTdBuilder(dataRow.installdte)
-
+    App.Helpers.simpleTdBuilder(dataRow.make, '')
+  tdModelBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.model, '')
+  tdSerialnoBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.serialno, '')
+  tdVoltageBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.Voltage, '')
+  tdEquipTypeBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.EquipType, '')
+  tdInstalldteBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.installdte, '')
   tdExpdteinBuilder = ->
-    simpleTdBuilder(dataRow.expdtein)
-
-  tdDateRecBuilder = ->
-    simpleTdBuilder(dataRow.daterec)
-
-  tdOrderBuilder = ->
-    simpleTdBuilder(dataRow.order)
-
+    App.Helpers.simpleTdBuilder(dataRow.expdtein, '')
+  tdDaterecBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.daterec, '')
   tdStatusBuilder = ->
-    simpleTdBuilder(dataRow.status)
-
-  tdToolboxIdBuilder = ->
-    simpleTdBuilder(dataRow.toolboxid)
-
+    App.Helpers.withSelectBuilder(dataRow.status, '', '', [{id: 'Broken', descrip: 'Broken'}, {id: 'Lost', descrip: 'Lost'}], {})
   tdNotesBuilder = ->
-    simpleTdBuilder(dataRow.notes)
+    App.Helpers.simpleTdBuilder(dataRow.notes, '')
+  tdPicture_fiBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.picture_fi, '')
+  tdAssetDescBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.AssetDesc, '')
+  tdLocnoBuilder = ->
+    App.Helpers.simpleTdBuilder(dataRow.Locno, '')
 
-  tdPictureBuilder = ->
-    simpleTdBuilder(dataRow.picture_fi)
+  tdAttachedFilesBuilder = () ->
+    spanGlyphIcon = doc.createElement('span')
+    spanGlyphIcon.className = 'glyphicon glyphicon-folder-close'
+    App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', EquipmentDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {equipid: dataRow.equipid})
 
   result.className = trClass;
-  result.appendChild(tdOrdNumBuilder());
-  result.appendChild(tdEquipIdBuilder());
-  result.appendChild(tdItemNoBuilder());
-  result.appendChild(tdModelBuilder());
-  result.appendChild(tdSerialNoBuilder());
+  result.appendChild(tdOrdnumBuilder());
+  result.appendChild(tdEquipidBuilder());
+  result.appendChild(tdItemnoBuilder());
+  result.appendChild(tdDescripBuilder());
   result.appendChild(tdMakeBuilder());
-  result.appendChild(tdInstallDteBuilder());
+  result.appendChild(tdModelBuilder());
+  result.appendChild(tdSerialnoBuilder());
+  result.appendChild(tdVoltageBuilder());
+  result.appendChild(tdEquipTypeBuilder());
+  result.appendChild(tdInstalldteBuilder());
   result.appendChild(tdExpdteinBuilder());
-  result.appendChild(tdDateRecBuilder());
-  result.appendChild(tdOrderBuilder());
+  result.appendChild(tdDaterecBuilder());
   result.appendChild(tdStatusBuilder());
-  result.appendChild(tdToolboxIdBuilder());
   result.appendChild(tdNotesBuilder());
-  result.appendChild(tdPictureBuilder());
+  result.appendChild(tdPicture_fiBuilder());
+  result.appendChild(tdAssetDescBuilder());
+  result.appendChild(tdLocnoBuilder());
+  result.appendChild(tdAttachedFilesBuilder());
   result
 
 EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
+  $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
+
   @
 
 EquipmentDashboard.functions.bindEventHandlers = ->
@@ -269,6 +219,7 @@ EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
   EquipmentDashboard.status.currentEquipid = currentProjectRoot;
   ProjectFiles.functions.loadFileTree(currentProjectRoot);
   $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
+
   #  //QuoteDashboard.FileManagerWidget.loadFileTree(currentQutno);
   #  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
   @

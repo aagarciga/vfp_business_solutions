@@ -108,127 +108,100 @@
   };
 
   EquipmentDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, selectBuilder, simpleTdBuilder, tdDateRecBuilder, tdEquipIdBuilder, tdExpdteinBuilder, tdInstallDteBuilder, tdItemNoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdNumBuilder, tdOrderBuilder, tdPictureBuilder, tdSerialNoBuilder, tdStatusBuilder, tdToolboxIdBuilder, withLinkTdBuilder, withSelectBuilder;
+    var doc, result, tdAssetDescBuilder, tdAttachedFilesBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder;
     doc = global.document;
     result = doc.createElement('tr');
-    simpleTdBuilder = function(data, tdClass) {
-      var td;
-      td = doc.createElement('td');
-      td.className = tdClass;
-      td.appendChild(doc.createTextNode(data));
-      return td;
+    tdOrdnumBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.ordnum, '');
     };
-    withLinkTdBuilder = function(data, linkClassName, tdLinkClass, href) {
-      var a, td;
-      if (href == null) {
-        href = '#';
-      }
-      td = doc.createElement('td');
-      a = doc.createElement('a');
-      a.href = href;
-      a.className = linkClassName;
-      a.dataset.custno = dataRow.custno;
-      if (typeof data === "string") {
-        a.appendChild(doc.createTextNode(data));
-      } else {
-        a.appendChild(data);
-      }
-      td.className = tdLinkClass || tdClass;
-      td.appendChild(a);
-      return td;
+    tdEquipidBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.equipid, '');
     };
-    selectBuilder = function(current, values) {
-      var currentId, currentValue, index, option, select;
-      select = doc.createElement('select');
-      option = doc.createElement('option');
-      option.appendChild(doc.createTextNode("Empty"));
-      select.appendChild(option);
-      for (index in values) {
-        if (values.hasOwnProperty(index)) {
-          currentId = values[index].id;
-          currentValue = values[index].descrip;
-          option = doc.createElement('option');
-          if (current === currentId) {
-            option.selected = "selected";
-          }
-          option.value = currentId;
-          option.appendChild(doc.createTextNode(currentValue));
-          select.appendChild(option);
-        }
-      }
-      select.className = 'form-control update-dropdown';
-      return select;
+    tdItemnoBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.itemno, '');
     };
-    withSelectBuilder = function(data, dictionary, dropdownClassName) {
-      var select, td;
-      td = doc.createElement('td');
-      select = selectBuilder(data, dictionary);
-      select.dataset.ordnum = dataRow.ordnum;
-      select.className += ' select2-nosearch ' + dropdownClassName;
-      td.appendChild(select);
-      return td;
-    };
-    tdOrdNumBuilder = function() {
-      return simpleTdBuilder(dataRow.ordnum);
-    };
-    tdEquipIdBuilder = function() {
-      return simpleTdBuilder(dataRow.equipid);
-    };
-    tdItemNoBuilder = function() {
-      return simpleTdBuilder(dataRow.itemno);
-    };
-    tdModelBuilder = function() {
-      return simpleTdBuilder(dataRow.model);
-    };
-    tdSerialNoBuilder = function() {
-      return simpleTdBuilder(dataRow.serialno);
+    tdDescripBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.descrip, '');
     };
     tdMakeBuilder = function() {
-      return simpleTdBuilder(dataRow.make);
+      return App.Helpers.simpleTdBuilder(dataRow.make, '');
     };
-    tdInstallDteBuilder = function() {
-      return simpleTdBuilder(dataRow.installdte);
+    tdModelBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.model, '');
+    };
+    tdSerialnoBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.serialno, '');
+    };
+    tdVoltageBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.Voltage, '');
+    };
+    tdEquipTypeBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.EquipType, '');
+    };
+    tdInstalldteBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.installdte, '');
     };
     tdExpdteinBuilder = function() {
-      return simpleTdBuilder(dataRow.expdtein);
+      return App.Helpers.simpleTdBuilder(dataRow.expdtein, '');
     };
-    tdDateRecBuilder = function() {
-      return simpleTdBuilder(dataRow.daterec);
-    };
-    tdOrderBuilder = function() {
-      return simpleTdBuilder(dataRow.order);
+    tdDaterecBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.daterec, '');
     };
     tdStatusBuilder = function() {
-      return simpleTdBuilder(dataRow.status);
-    };
-    tdToolboxIdBuilder = function() {
-      return simpleTdBuilder(dataRow.toolboxid);
+      return App.Helpers.withSelectBuilder(dataRow.status, '', '', [
+        {
+          id: 'Broken',
+          descrip: 'Broken'
+        }, {
+          id: 'Lost',
+          descrip: 'Lost'
+        }
+      ], {});
     };
     tdNotesBuilder = function() {
-      return simpleTdBuilder(dataRow.notes);
+      return App.Helpers.simpleTdBuilder(dataRow.notes, '');
     };
-    tdPictureBuilder = function() {
-      return simpleTdBuilder(dataRow.picture_fi);
+    tdPicture_fiBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.picture_fi, '');
+    };
+    tdAssetDescBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.AssetDesc, '');
+    };
+    tdLocnoBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.Locno, '');
+    };
+    tdAttachedFilesBuilder = function() {
+      var spanGlyphIcon;
+      spanGlyphIcon = doc.createElement('span');
+      spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
+      return App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', EquipmentDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {
+        equipid: dataRow.equipid
+      });
     };
     result.className = trClass;
-    result.appendChild(tdOrdNumBuilder());
-    result.appendChild(tdEquipIdBuilder());
-    result.appendChild(tdItemNoBuilder());
-    result.appendChild(tdModelBuilder());
-    result.appendChild(tdSerialNoBuilder());
+    result.appendChild(tdOrdnumBuilder());
+    result.appendChild(tdEquipidBuilder());
+    result.appendChild(tdItemnoBuilder());
+    result.appendChild(tdDescripBuilder());
     result.appendChild(tdMakeBuilder());
-    result.appendChild(tdInstallDteBuilder());
+    result.appendChild(tdModelBuilder());
+    result.appendChild(tdSerialnoBuilder());
+    result.appendChild(tdVoltageBuilder());
+    result.appendChild(tdEquipTypeBuilder());
+    result.appendChild(tdInstalldteBuilder());
     result.appendChild(tdExpdteinBuilder());
-    result.appendChild(tdDateRecBuilder());
-    result.appendChild(tdOrderBuilder());
+    result.appendChild(tdDaterecBuilder());
     result.appendChild(tdStatusBuilder());
-    result.appendChild(tdToolboxIdBuilder());
     result.appendChild(tdNotesBuilder());
-    result.appendChild(tdPictureBuilder());
+    result.appendChild(tdPicture_fiBuilder());
+    result.appendChild(tdAssetDescBuilder());
+    result.appendChild(tdLocnoBuilder());
+    result.appendChild(tdAttachedFilesBuilder());
     return result;
   };
 
   EquipmentDashboard.functions.bindTableItemsEventHandlers = function() {
+    $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick);
     return this;
   };
 

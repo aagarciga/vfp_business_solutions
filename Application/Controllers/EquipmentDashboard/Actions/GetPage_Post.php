@@ -42,7 +42,7 @@ class GetPage_Post extends Action
         if ($itemCount > 0)
         {
             foreach ($queryResult as $item) {
-                $current = Tools\createArrayModel($item, $this->controller->GetFieldsDefinition());
+                $current = Tools\createArrayModel($item, $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix));
                 $result[] = $current;
             }
         }
