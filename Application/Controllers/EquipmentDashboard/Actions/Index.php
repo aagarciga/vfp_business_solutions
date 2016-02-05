@@ -47,7 +47,7 @@ class Index extends Action
         {
             foreach($items as $item)
             {
-                $currentItemViewModel = Tools\createViewModel(VIEW_MODEL_CLASS, $item, $this->controller->GetFieldsDefinition());
+                $currentItemViewModel = Tools\createViewModel(VIEW_MODEL_CLASS, $item, $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix));
                 $viewModels[] = $currentItemViewModel;
             }
         }

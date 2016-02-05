@@ -67,7 +67,7 @@ function fix_date($value){
 //}
 
 function createViewModel($viewModelClass, $item, $fieldDefinition){
-    $rc = new ReflectionClass($viewModelClass);
+    $rc = new \ReflectionClass($viewModelClass);
     return $rc->newInstanceArgs(createArrayModel($item, $fieldDefinition));
 }
 
