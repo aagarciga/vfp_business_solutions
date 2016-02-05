@@ -43,7 +43,6 @@ class EquipmentDashboard extends DatActionsController
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
         $table = $this->getDashboardTable($companysuffix);
-//        $fields = Tools\loadFieldsSql($this->GetFieldsDefinition());
         $selectField = Tools\fetchSelectSQLFields($this->GetFieldsDefinition($companysuffix));
 
         $sqlString = "SELECT "
@@ -52,9 +51,6 @@ class EquipmentDashboard extends DatActionsController
             . "$predicate"
             . " ORDER BY $orderby $order";
 
-
-//        return new BootstrapPagerTest($this->GetFieldsDefinition(), $this->DatUnitOfWork->DBDriver,
-//            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
         return new BootstrapPager($this->DatUnitOfWork->DBDriver,
             $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
@@ -83,21 +79,7 @@ class EquipmentDashboard extends DatActionsController
             'notes' => array('type' => TYPE_MEMO, 'displayName' => 'Notes', 'table' => $swequipTable),
             'picture_fi' => array('type' => TYPE_CHAR, 'displayName' => 'Image', 'table' => $icparmTable)
         );
-
-//equipimage  Image  ( debe ser un icon cuando click se muestra la imagen que esta guardada en icparm)
     }
-
-//    public function getInnerJoinFields($companySuffix)
-//    {
-//        $swequipTable = "SWEQUIP$companySuffix";
-//        return array(
-//            'itemno' => $swequipTable,
-//            'notes' => $swequipTable,
-//            'model' => $swequipTable,
-//            'order' => $swequipTable,
-//            'ordnum' => $swequipTable,
-//        );
-//    }
 
     public function getDashboardTable($companySuffix)
     {
