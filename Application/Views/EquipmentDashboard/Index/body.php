@@ -156,7 +156,6 @@
                             <td class="item-field"><?php echo $item->getStatus() ?></td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
                             <td class="item-field"><?php echo $item->getPictureFi() ?></td>
-
                         </tr>
                     <?php endforeach ?>
                     </body>

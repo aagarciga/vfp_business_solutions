@@ -54,7 +54,6 @@ class AdvantageODBCQuery extends Query {
         // The ADS SQL Dialect way
         $replace = "SELECT TOP $itemsPerPage START AT $offset";
         $sqlString = str_ireplace($search, $replace, $sqlString);
-        error_log("Advantage ODBC Query Execute Paged (2): ". $sqlString);
 
         return $this->Execute($sqlString);
     }

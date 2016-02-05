@@ -23,6 +23,8 @@ define("SET_PREFIX", 'set');
 
 define("TYPE_CHAR", 'char');
 
+define("DEFAULT_TYPE", TYPE_CHAR);
+
 define("TYPE_DATE", 'date');
 
 define("TYPE_DICTIONARY", 'dropdown');
@@ -92,7 +94,12 @@ function createFixMethod($type)
  */
 function createArrayModel($item, $fieldDefinition){
     $result = array();
-    foreach ($fieldDefinition as $field => $type){
+    foreach ($fieldDefinition as $field => $component){
+        $type = DEFAULT_TYPE;
+        if (array_key_exists('type', $component)){
+            $type = $component['type'];
+        }
+
         $fixMethod = createFixMethod($type);
         $value = $fixMethod($item->$field);
         $result[$field] = $value;
