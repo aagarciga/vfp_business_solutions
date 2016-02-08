@@ -199,24 +199,4 @@ abstract class Pager {
     public function getOffset(){
         return (($this->currentPage - 1) * $this->itemsPerPage) + 1;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getClearGroupBy()
-    {
-        return $this->clearGroupBy;
-    }
-
-    /**
-     * @param mixed $clearGroupBy
-     * @return Pager
-     */
-    public function setClearGroupBy($clearGroupBy)
-    {
-        $this->clearGroupBy = $clearGroupBy;
-        return $this;
-    }
-
-
 }
