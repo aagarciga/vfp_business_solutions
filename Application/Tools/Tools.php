@@ -31,6 +31,8 @@ define("TYPE_DICTIONARY", 'dropdown');
 
 define("TYPE_MEMO", 'memo');
 
+define("TYPE_HREF", 'href');
+
 /**
  * END: Type definition
  */
@@ -45,6 +47,13 @@ function fix_default($value){
 function fix_date($value){
     $value = trim($value);
     return ($value === DATE_NULL_VALUE) ? '' : $value;
+}
+
+function fix_href($value){
+    if (is_null($value) || $value == ""){
+        return "#";
+    }
+    return (string) $value;
 }
 
 /**

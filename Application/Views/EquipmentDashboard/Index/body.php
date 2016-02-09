@@ -107,39 +107,41 @@
                         <col class="col-ordnum"/>
                         <col class="col-equipid"/>
                         <col class="col-itemno"/>
+                        <col class="col-descrip"/>
+                        <col class="col-make"/>
                         <col class="col-model"/>
                         <col class="col-serialno"/>
-                        <col class="col-make"/>
+                        <col class="col-Voltage"/>
+                        <col class="col-EquipType"/>
                         <col class="col-installdte"/>
                         <col class="col-expdtein"/>
                         <col class="col-daterec"/>
-                        <col class="col-order"/>
                         <col class="col-status"/>
-                        <col class="col-toolboxid"/>
                         <col class="col-notes"/>
                         <col class="col-picture_fi"/>
-                        <col class="col-assetdesc"/>
-                        <col class="col-locno"/>
+                        <col class="col-AssetDesc"/>
+                        <col class="col-Locno"/>
+                        <col class="col-Locno"/>
                     </colgroup>
                     <thead>
                     <tr>
                         <th>Work Order <button data-field="ordnum" class="btn-table-sort"></button></th>
                         <th>Equipment Id <button data-field="equipid" class="btn-table-sort"></button></th>
                         <th>Part No. <button data-field="itemno" class="btn-table-sort"></button></th>
-                        <th>Item Description <button data-field="model" class="btn-table-sort"></button></th>
+                        <th>Item Description <button data-field="descrip" class="btn-table-sort"></button></th>
                         <th>Brand <button data-field="make" class="btn-table-sort"></button></th>
-                        <th>Model <button data-field="make" class="btn-table-sort"></button></th>
-                        <th>Serial No <button data-field="installdte" class="btn-table-sort"></button></th>
-                        <th>Voltage <button data-field="expdtein" class="btn-table-sort"></button></th>
-                        <th>Type <button data-field="daterec" class="btn-table-sort"></button></th>
-                        <th>Date Out <button data-field="order" class="btn-table-sort"></button></th>
-                        <th>Expected date In <button data-field="status" class="btn-table-sort"></button></th>
-                        <th>Date Actually Received <button data-field="toolboxid" class="btn-table-sort"></button></th>
-                        <th>Status <button data-field="notes" class="btn-table-sort"></button></th>
-                        <th>Notes <button data-field="picture_fi" class="btn-table-sort"></button></th>
+                        <th>Model <button data-field="model" class="btn-table-sort"></button></th>
+                        <th>Serial No <button data-field="serialno" class="btn-table-sort"></button></th>
+                        <th>Voltage <button data-field="Voltage" class="btn-table-sort"></button></th>
+                        <th>Type <button data-field="EquipType" class="btn-table-sort"></button></th>
+                        <th>Date Out <button data-field="installdte" class="btn-table-sort"></button></th>
+                        <th>Expected date In <button data-field="expdtein" class="btn-table-sort"></button></th>
+                        <th>Date Actually Received <button data-field="daterec" class="btn-table-sort"></button></th>
+                        <th>Status <button data-field="status" class="btn-table-sort"></button></th>
+                        <th>Notes <button data-field="notes" class="btn-table-sort"></button></th>
                         <th>Image <button data-field="picture_fi" class="btn-table-sort"></button></th>
-                        <th>Asset Desc <button data-field="assetdesc" class="btn-table-sort"></button></th>
-                        <th>Locno  <button data-field="locno" class="btn-table-sort"></button></th>
+                        <th>Asset Desc <button data-field="AssetDesc" class="btn-table-sort"></button></th>
+                        <th>Locno  <button data-field="Locno" class="btn-table-sort"></button></th>
                         <th>Attached Files</th>
                     </tr>
                     </thead>
@@ -160,7 +162,16 @@
                             <td class="item-field"><?php echo $item->getDaterec() ?></td>
                             <td class="item-field"><?php echo $item->getStatus() ?></td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
-                            <td class="item-field"><?php echo $item->getPictureFi() ?></td>
+                            <td class="item-image">
+                                <?php if ($item->getPictureFi() !== "#"):?>
+                                    <a href="<?php echo $item->getPictureFi() ?>" data-lightbox="<?php echo $item->getItemno() ?>">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                    </a>
+                                <?php endif ?>
+                                <?php if ($item->getPictureFi() === "#"):?>
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                <?php endif ?>
+                            </td>
                             <td class="item-field"><?php echo $item->getAssetDesc() ?></td>
                             <td class="item-field"><?php echo $item->getLocno() ?></td>
                             <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>

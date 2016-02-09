@@ -77,7 +77,7 @@ class EquipmentDashboard extends DatActionsController
                 'Lost' => 'Lost'
             ), 'table' => $swequipTable),
             'notes' => array('type' => TYPE_MEMO, 'displayName' => 'Notes', 'table' => $swequipTable),
-            'picture_fi' => array('type' => TYPE_CHAR, 'displayName' => 'Image', 'table' => $icparmTable),
+            'picture_fi' => array('type' => TYPE_HREF, 'displayName' => 'Image', 'table' => $icparmTable),
             'AssetDesc' => array('type' => TYPE_CHAR, 'displayName' => 'Asset Description', 'table' => $swequipTable),
             'Locno' => array('type' => TYPE_CHAR, 'displayName' => 'Locno', 'table' => $swequipTable)
 

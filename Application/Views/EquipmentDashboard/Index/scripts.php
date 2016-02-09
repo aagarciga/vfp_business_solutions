@@ -6,6 +6,9 @@
 <script src="<?php echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('fileManagerWidget.js'); ?><!--"></script>-->
 
+<script src="<?php echo $View->PublicVendorContext('lightbox2-master/dist/js/lightbox.min.js')?>"></script>
+<script src="<?php echo $View->PublicVendorContext('lightbox2-master/dist/js/lightbox-plus-jquery.min.js')?>"></script>
+
 <script src="<?php echo $View->ScriptsContext('EquipmentDashboard/EquipmentDashboardDynamicFilter.min.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('EquipmentDashboard/ProjectFiles.min.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('EquipmentDashboard/main.min.js'); ?>"></script>
