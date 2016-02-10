@@ -224,6 +224,27 @@ EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
   #  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
   @
 
+EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
+  $target = $(event.target)
+  currentEquipId = $target.data('equipid')
+  value = $target.val()
+  $.ajax(
+    data:
+      equipid: currentEquipId
+      status: value
+    url: EquipmentDashboard.urls.updateStatus
+    type: 'post'
+    beforeSend: ->
+      $('.loading').show()
+    success: (response) ->
+      data = $.parseJSON(response)
+      if data == 'success'
+        $('.loading').hide()
+      else
+        throw data
+  )
+  @
+
 EquipmentDashboard.init = (defaultUserFilter) ->
   EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter)
