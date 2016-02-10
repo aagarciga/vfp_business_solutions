@@ -160,7 +160,14 @@
                             <td class="item-field"><?php echo $item->getInstalldte() ?></td>
                             <td class="item-field"><?php echo $item->getExpdtein() ?></td>
                             <td class="item-field"><?php echo $item->getDaterec() ?></td>
-                            <td class="item-field"><?php echo $item->getStatus() ?></td>
+                            <td class="item-field">
+                                <select class="form-control update-dropdown status select2-nosearch" data-equipid="<?php echo $item->getEquipid() ?>">
+                                    <option>Empty</option>
+                                    <?php foreach ($FieldDefinitions['status']['values'] as $id => $descript): ?>
+                                        <option <?php echo ($item->getStatus() !== $id) ? '' : 'selected="selected"' ?>  value="<?php echo $id ?>" ><?php echo $descript ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
                             <td class="item-image">
                             <?php if ($item->getPictureFi() !== "#"):?>

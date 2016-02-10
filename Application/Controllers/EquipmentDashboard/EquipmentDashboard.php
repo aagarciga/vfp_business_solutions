@@ -72,7 +72,7 @@ class EquipmentDashboard extends DatActionsController
             'installdte' => array('type' => TYPE_DATE, 'displayName' => 'Date Out', 'table' => $swequipTable),
             'expdtein' => array('type' => TYPE_DATE, 'displayName' => 'Expected date In', 'table' => $swequipTable),
             'daterec' => array('type' => TYPE_DATE, 'displayName' => 'Date Actually Received', 'table' => $swequipTable),
-            'status' => array('type' => TYPE_DICTIONARY, 'displayName' => 'Status', array(
+            'status' => array('type' => TYPE_DICTIONARY, 'displayName' => 'Status', 'values' => array(
                 'Broken' => 'Broken',
                 'Lost' => 'Lost'
             ), 'table' => $swequipTable),

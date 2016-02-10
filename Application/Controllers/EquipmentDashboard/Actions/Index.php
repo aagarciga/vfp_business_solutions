@@ -30,6 +30,8 @@ class Index extends Action
         $exportedBy = 'EQM';
         $this->Title = 'Equipment Dashboard | VFP Business Series';
 
+        $this->FieldDefinitions = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
+
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
