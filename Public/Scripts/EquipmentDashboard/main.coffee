@@ -35,6 +35,7 @@ EquipmentDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
 EquipmentDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link'
 EquipmentDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
 EquipmentDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
+EquipmentDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown '
 EquipmentDashboard.htmlBindings.pager_container = '.pager-wrapper';
 EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
 
@@ -153,6 +154,7 @@ EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
   $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
+  $(EquipmentDashboard.htmlBindings.table_body_drpStatus).on('change', EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange)
 
   @
 
