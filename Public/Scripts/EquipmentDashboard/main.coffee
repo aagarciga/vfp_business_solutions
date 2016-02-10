@@ -117,7 +117,7 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdNotesBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.notes, '')
   tdPicture_fiBuilder = ->
-    App.Helpers.simpleTdBuilder(dataRow.picture_fi, '')
+    App.Helpers.withLightboxLinkPictureBuilder(dataRow.equipid, '', '', dataRow.picture_fi, "glyphicon glyphicon-eye-open", null, {})
   tdAssetDescBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.AssetDesc, '')
   tdLocnoBuilder = ->

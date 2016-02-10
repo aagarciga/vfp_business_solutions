@@ -162,7 +162,7 @@
       return App.Helpers.simpleTdBuilder(dataRow.notes, '');
     };
     tdPicture_fiBuilder = function() {
-      return App.Helpers.simpleTdBuilder(dataRow.picture_fi, '');
+      return App.Helpers.withLightboxLinkPictureBuilder(dataRow.equipid, '', '', dataRow.picture_fi, "glyphicon glyphicon-eye-open", null, {});
     };
     tdAssetDescBuilder = function() {
       return App.Helpers.simpleTdBuilder(dataRow.AssetDesc, '');

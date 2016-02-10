@@ -68,6 +68,43 @@ if (window.jQuery === 'undefined') {
         return td;
     };
 
+    App.Helpers.withLightboxLinkPictureBuilder = function(data, tdClass, aClass, href, spanClass, spanChild, dataset) {
+        var a, td, span, doc = global.document;
+        var tdChild;
+        if (href == null) {
+            href = '#';
+        }
+
+        td = doc.createElement('td');
+        a = doc.createElement('a');
+        span = doc.createElement('span');
+
+        a.className = aClass;
+        a.href = href;
+
+        a.dataset["lightbox"] = data;
+
+        for (var key in dataset) {
+            a.dataset[key] = dataset[key];
+        }
+
+        span.className = spanClass;
+        if (spanChild != null){
+            span.appendChild(spanChild);
+        }
+
+        td.className = tdClass;
+
+        if (href !== '#'){
+            a.appendChild(span);
+            td.appendChild(a);
+        }
+        else {
+            td.appendChild(span);
+        }
+        return td;
+    };
+
     App.Helpers.selectBuilder = function(data, selectClass, values, dataset) {
         var currentId, currentValue, index, option, select, doc = global.document;
         select = doc.createElement('select');
