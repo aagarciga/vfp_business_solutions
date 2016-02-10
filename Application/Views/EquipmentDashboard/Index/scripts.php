@@ -42,6 +42,7 @@
         EquipmentDashboard.urls.getSavedFilter = "<?php echo $View->Href('EquipmentDashboard', 'GetSavedFilter') ?>";
         EquipmentDashboard.urls.deleteFilter = "<?php echo $View->Href('EquipmentDashboard', 'DeleteFilter') ?>";
         EquipmentDashboard.urls.saveFilter = "<?php echo $View->Href('EquipmentDashboard', 'SaveFilter') ?>";
+        EquipmentDashboard.urls.updateStatus = "<?php echo $View->Href('EquipmentDashboard', 'UpdateStatus') ?>"
 
         // TODO: Refactor this
 //        EquipmentDashboard.urls.projectAttachementsAPI = "<?php //echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>//";

@@ -114,7 +114,7 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdDaterecBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.daterec, '')
   tdStatusBuilder = ->
-    App.Helpers.withSelectBuilder(dataRow.status, '', 'status', [{id: 'Broken', descrip: 'Broken'}, {id: 'Lost', descrip: 'Lost'}], {})
+    App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', [{id: 'Broken', descrip: 'Broken'}, {id: 'Lost', descrip: 'Lost'}], {})
   tdNotesBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.notes, '')
   tdPicture_fiBuilder = ->
