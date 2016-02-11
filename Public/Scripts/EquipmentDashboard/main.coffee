@@ -239,6 +239,7 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
     beforeSend: ->
       $('.loading').show()
     success: (response) ->
+      console.log("Llegue")
       data = $.parseJSON(response)
       if data == 'success'
         $('.loading').hide()

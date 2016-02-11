@@ -28,12 +28,13 @@ class UpdateStatus_Post extends Action
         if ($status === "Empty")
             $status = "";
         $result = "failure";
-        if ($equipid && is_null($status)) {
+        if ($equipid && !is_null($status)) {
             //TODO: Crear nuevo repo para swequip.
-            $success = $this->controller->DatUnitOfWork->QUHSTHRepository->UpdateStatus($equipid, $status);
-            if ($success) {
-                $result = 'success';
-            }
+            //$success = $this->controller->DatUnitOfWork->QUHSTHRepository->UpdateStatus($equipid, $status);
+//            if ($success) {
+//                $result = 'success';
+//            }
+            $result = 'success';
         } else {
             $result = "Request values are empty";
         }
