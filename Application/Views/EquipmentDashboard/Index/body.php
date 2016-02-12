@@ -170,13 +170,14 @@
                             </td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
                             <td class="item-image">
-                            <?php if ($item->getPictureFi() !== "#"):?>
-                                    <a href="<?php echo $item->getPictureFi() ?>" data-lightbox="<?php echo $item->getItemno() ?>">
+                                <?php $pictureHref = $View->ServerFileContext($item->getPictureFi()) ?>
+                                <?php if ($pictureHref !== "#"):?>
+                                        <a href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getItemno() ?>">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                        </a>
+                                <?php endif ?>
+                                <?php if ($pictureHref === "#"):?>
                                         <span class="glyphicon glyphicon-eye-open"></span>
-                                    </a>
-                            <?php endif ?>
-                                <?php if ($item->getPictureFi() === "#"):?>
-                                    <span class="glyphicon glyphicon-eye-open"></span>
                                 <?php endif ?>
                             </td>
                             <td class="item-field"><?php echo $item->getAssetDesc() ?></td>
