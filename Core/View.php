@@ -244,12 +244,16 @@ class View {
 
     public function ServerFileContext($file = ''){
         $rootDirectory = MVC_DIR_ROOT . DIRECTORY_SEPARATOR;
-        $absoluteFilePath = $rootDirectory . $file;
+        $absoluteFilePath = "";
 
         if (file_exists($file)){
+            $index = strpos($file, $rootDirectory);
+            if ($index !== 0){
+                return $file;
+            }
             $absoluteFilePath = $file;
         }
-        elseif (!file_exists($absoluteFilePath)){
+        else {
             return "#";
         }
 
