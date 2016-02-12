@@ -241,4 +241,34 @@ class View {
     public function PublicVendorContext($file = ''){
         return MVC_DIR_PUBLIC . '/Vendor/' . $file;
     }
+
+    public function ServerFileContext($file = ''){
+        $rootDirectory = MVC_DIR_ROOT . DIRECTORY_SEPARATOR;
+        $absoluteFilePath = "";
+
+        if (file_exists($file)){
+            $index = strpos($file, $rootDirectory);
+            if ($index !== 0){
+                return $file;
+            }
+            $absoluteFilePath = $file;
+        }
+        else {
+            return "#";
+        }
+
+        $index = strpos($absoluteFilePath, $rootDirectory);
+        if ($index !== 0){
+            return "#";
+        }
+
+        $absoluteLengt = strlen($absoluteFilePath);
+        $rootLength = strlen($rootDirectory);
+        $length = $absoluteLengt - $rootLength;
+        if ($length <= 0){
+            return "#";
+        }
+        $relativePath = substr($absoluteFilePath, $rootLength, $length);
+        return $relativePath;
+    }
 }
