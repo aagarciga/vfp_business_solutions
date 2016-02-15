@@ -7,6 +7,8 @@
 
 namespace Dandelion\MVC\Application\Tools;
 
+use Dandelion\MVC\Core\View;
+
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'BootstrapPagerTest.php';
 
 define("DATE_NULL_VALUE", '1899-12-30');
@@ -50,6 +52,7 @@ function fix_date($value){
 }
 
 function fix_href($value){
+    $value = View::ServerFileContext($value);
     if (is_null($value) || $value == ""){
         return "#";
     }
