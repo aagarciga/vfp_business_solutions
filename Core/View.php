@@ -242,7 +242,7 @@ class View {
         return MVC_DIR_PUBLIC . '/Vendor/' . $file;
     }
 
-    public function ServerFileContext($file = ''){
+    public static function ServerFileContext($file = ''){
         $rootDirectory = MVC_DIR_ROOT . DIRECTORY_SEPARATOR;
         $absoluteFilePath = "";
 

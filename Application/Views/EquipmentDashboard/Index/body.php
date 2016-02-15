@@ -170,7 +170,7 @@
                             </td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
                             <td class="item-image">
-                                <?php $pictureHref = $View->ServerFileContext($item->getPictureFi()) ?>
+                                <?php $pictureHref = $item->getPictureFi() ?>
                                 <?php if ($pictureHref !== "#"):?>
                                         <a href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getItemno() ?>">
                                             <span class="glyphicon glyphicon-eye-open"></span>
