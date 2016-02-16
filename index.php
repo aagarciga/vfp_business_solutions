@@ -26,7 +26,9 @@ if (!defined('__DIR__')){
     define('__DIR__', dirname(__FILE__));
 }
 
+define('MVC_DIR_SERVER', $_SERVER["DOCUMENT_ROOT"]);
 define('MVC_DIR_ROOT', __DIR__);
+
 
 define('MVC_DIR_CORE', MVC_DIR_ROOT . DIRECTORY_SEPARATOR . 'Core');
 define('MVC_DIR_APP', MVC_DIR_ROOT . DIRECTORY_SEPARATOR . 'Application');

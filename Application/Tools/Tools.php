@@ -40,6 +40,10 @@ define("TYPE_HREF", 'href');
  */
 
 function fix_default($value){
+    if (is_null($value))
+    {
+        return '';
+    }
     if (is_string($value)){
         return trim($value);
     }

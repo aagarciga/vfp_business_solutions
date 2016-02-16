@@ -119,7 +119,7 @@
                         <col class="col-status"/>
                         <col class="col-notes"/>
                         <col class="col-picture_fi"/>
-                        <col class="col-AssetDesc"/>
+<!--                        <col class="col-AssetDesc"/>-->
                         <col class="col-Locno"/>
                         <col class="col-Locno"/>
                     </colgroup>
@@ -140,7 +140,7 @@
                         <th>Status <button data-field="status" class="btn-table-sort"></button></th>
                         <th>Notes <button data-field="notes" class="btn-table-sort"></button></th>
                         <th>Image <button data-field="picture_fi" class="btn-table-sort"></button></th>
-                        <th>Asset Desc <button data-field="AssetDesc" class="btn-table-sort"></button></th>
+<!--                        <th>Asset Desc <button data-field="AssetDesc" class="btn-table-sort"></button></th>-->
                         <th>Locno  <button data-field="Locno" class="btn-table-sort"></button></th>
                         <th>Attached Files</th>
                     </tr>
@@ -179,7 +179,7 @@
                                         <span class="glyphicon glyphicon-eye-open"></span>
                                 <?php endif ?>
                             </td>
-                            <td class="item-field"><?php echo $item->getAssetDesc() ?></td>
+<!--                            <td class="item-field">--><?php //echo $item->getAssetDesc() ?><!--</td>-->
                             <td class="item-field"><?php echo $item->getLocno() ?></td>
                             <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>
                         </tr>
