@@ -175,8 +175,7 @@
                                         <a href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getItemno() ?>">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </a>
-                                <?php endif ?>
-                                <?php if ($pictureHref === "#"):?>
+                                <?php else: ?>
                                         <span class="glyphicon glyphicon-eye-open"></span>
                                 <?php endif ?>
                             </td>
