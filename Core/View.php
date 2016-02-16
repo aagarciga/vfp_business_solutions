@@ -243,24 +243,28 @@ class View {
     }
 
     public static function ServerFileContext($file = ''){
-
-        $rootDirectory = MVC_DIR_ROOT . DIRECTORY_SEPARATOR;
-
-        $absoluteFilePath = "";
-
-        if (file_exists($file)){
-            $index = strpos($file, $rootDirectory);
-            if ($index !== 0){
-                return $file;
-            }
-            $absoluteFilePath = $file;
-        }
-        else {
+        $path = View::PrivateServerFileContext($file);
+        if ($path === "#")
             return "#";
+        $path = str_replace(DIRECTORY_SEPARATOR, URL_SEPARATOR, $path);
+        return View::UrlHeaderServerContext() . $path;
+    }
+
+    private static function PrivateServerFileContext($file) {
+        $rootDirectory = MVC_DIR_SERVER . DIRECTORY_SEPARATOR;
+
+        $directoryProyectName = pathinfo(MVC_DIR_ROOT, PATHINFO_FILENAME);
+
+        $absoluteFilePath = $file;
+
+        if (!View::IsSubDirectory($rootDirectory, $absoluteFilePath))
+            $absoluteFilePath = $rootDirectory . $file;
+
+        if (!file_exists($absoluteFilePath)){
+            $absoluteFilePath = $rootDirectory . $directoryProyectName . DIRECTORY_SEPARATOR . $file;
         }
 
-        $index = strpos($absoluteFilePath, $rootDirectory);
-        if ($index !== 0){
+        if (!file_exists($absoluteFilePath)){
             return "#";
         }
 
@@ -272,5 +276,27 @@ class View {
         }
         $relativePath = substr($absoluteFilePath, $rootLength, $length);
         return $relativePath;
+    }
+
+    private static function IsSubDirectory($directory, $subDirectory){
+        $index = strpos($subDirectory, $directory);
+        return $index === 0;
+    }
+
+    public static function UrlHeaderServerContext(){
+        $serverName = "";
+
+        if (isset($_SERVER['SERVER_NAME']))
+            $serverName = $_SERVER['SERVER_NAME'];
+        elseif (isset($_SERVER['HTTP_HOST']))
+            $serverName = $_SERVER['HTTP_HOST'];
+        else
+            return "";
+
+        $protocol = 'http';
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === "on")
+            $protocol = 'https';
+
+        return $protocol . ':' . URL_SEPARATOR . URL_SEPARATOR . $serverName . URL_SEPARATOR;
     }
 }
