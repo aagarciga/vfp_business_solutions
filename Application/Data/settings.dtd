@@ -1,22 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
 <!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/settings.dtd
+
+-->
+
+<!--
     An example how to use this DTD from your XML document:
 
     <?xml version="1.0"?>
 
     <!DOCTYPE Application SYSTEM "settings.dtd">
 
-    <Application Name="VFP Business Series" Controller="main" Action="index" State="Development">
-        <Pager ItemsPerPage="50" />
-        <PickTicket ItemsPerPage="10" />
-        <DB Name="vfpdata" Manager="MySQL" Host="localhost" User="vfpdata" Password="vfpdata" />
-        <DB Name="vfpdata.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\" User="" Password="" ServerType="Local" />
+    <Application>
+    ...
     </Application>
 -->
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT Application (DB|PickTicket|Pager)*>
+<!ELEMENT Application (Company|DB|PickTicket|Pager)*>
 <!ATTLIST Application
     State CDATA #IMPLIED
     Action CDATA #IMPLIED
@@ -45,4 +49,28 @@
     Host CDATA #IMPLIED
     Manager CDATA #IMPLIED
     Name CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Company (Dashboard)*>
+<!ATTLIST Company
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Dashboard (Attachments)*>
+<!ATTLIST Dashboard
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Attachments (FileStructure)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT FileStructure (Dir)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Dir EMPTY>
+<!ATTLIST Dir
+    name CDATA #IMPLIED
   >

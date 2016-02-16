@@ -6,4 +6,22 @@
     <PickTicket ItemsPerPage="10" />
     <DB Name="vfpdata.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\" User="" Password="" ServerType="Local"/>
     <!--<DB Name="dat00.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\DAT00\" User="" Password="" ServerType="Local"/>-->
+    <Company id="default">
+        <Dashboard id="default">
+            <Attachments>
+                <FileStructure>
+                    <Dir name="Freights"></Dir>
+                    <Dir name="Miscellaneous"></Dir>
+                    <Dir name="POs and Invoices from OMG"></Dir>
+                    <Dir name="POs and Invoices from WMS"></Dir>
+                    <Dir name="Quotation-PO-Invoice"></Dir>
+                    <Dir name="Reports and Files"></Dir>
+                    <Dir name="Time Sheets"></Dir>
+                    <Dir name="Tool Box"></Dir>
+                    <Dir name="Travel Expenses"></Dir>
+                </FileStructure>
+            </Attachments>
+        </Dashboard>
+
+    </Company>
 </Application>
