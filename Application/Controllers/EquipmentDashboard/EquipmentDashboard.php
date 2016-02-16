@@ -73,8 +73,11 @@ class EquipmentDashboard extends DatActionsController
             'expdtein' => array('type' => TYPE_DATE, 'displayName' => 'Expected date In', 'table' => $swequipTable),
             'daterec' => array('type' => TYPE_DATE, 'displayName' => 'Date Actually Received', 'table' => $swequipTable),
             'status' => array('type' => TYPE_DICTIONARY, 'displayName' => 'Status', 'values' => array(
+                'Available' => 'Available',
+                'Assigned' => 'Assigned',
                 'Broken' => 'Broken',
-                'Lost' => 'Lost'
+                'Lost' => 'Lost',
+                'Received' => 'Received'
             ), 'table' => $swequipTable),
             'notes' => array('type' => TYPE_MEMO, 'displayName' => 'Notes', 'table' => $swequipTable),
             'picture_fi' => array('type' => TYPE_HREF, 'displayName' => 'Image', 'table' => $icparmTable),

@@ -70,7 +70,7 @@
         App.urls.fileManager.uploadFile = "<?php echo $View->Href('FileManager', 'Upload') ?>";
         App.urls.fileManager.downloadFile = "<?php echo $View->Href('FileManager', 'Download') ?>";
 
-        EquipmentDashboard.init();
+        EquipmentDashboard.init('', '<?php echo json_encode($FieldDefinitions) ?>');
 
     }(window, jQuery, App));
 </script>

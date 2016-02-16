@@ -114,7 +114,7 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdDaterecBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.daterec, '')
   tdStatusBuilder = ->
-    App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', [{id: 'Broken', descrip: 'Broken'}, {id: 'Lost', descrip: 'Lost'}], {})
+    App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', EquipmentDashboard.status.statusValue, {})
   tdNotesBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.notes, '')
   tdPicture_fiBuilder = ->
@@ -239,7 +239,6 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
     beforeSend: ->
       $('.loading').show()
     success: (response) ->
-      console.log("Llegue")
       data = $.parseJSON(response)
       if data == 'success'
         $('.loading').hide()
@@ -248,7 +247,15 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
   )
   @
 
-EquipmentDashboard.init = (defaultUserFilter) ->
+EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->
+  EquipmentDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition)
+  statusValue = []
+  statusArray = EquipmentDashboard.status.fieldsDefinition['status']['values']
+  for key of statusArray
+    if statusArray.hasOwnProperty(key)
+      value = statusArray[key]
+      statusValue.push({id: key, descrip: value})
+  EquipmentDashboard.status.statusValue = statusValue
   EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter)
   ProjectFiles.init()
