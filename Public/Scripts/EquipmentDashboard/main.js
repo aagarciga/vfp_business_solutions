@@ -110,7 +110,7 @@
   };
 
   EquipmentDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, tdAttachedFilesBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder;
+    var doc, result, tdAssetTagBuilder, tdAttachedFilesBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder;
     doc = global.document;
     result = doc.createElement('tr');
     tdOrdnumBuilder = function() {
@@ -158,6 +158,9 @@
     tdPicture_fiBuilder = function() {
       return App.Helpers.withLightboxLinkPictureBuilder(dataRow.equipid, '', '', dataRow.picture_fi, "glyphicon glyphicon-eye-open", null, {});
     };
+    tdAssetTagBuilder = function() {
+      return App.Helpers.simpleTdBuilder(dataRow.assettag, '');
+    };
     tdLocnoBuilder = function() {
       return App.Helpers.simpleTdBuilder(dataRow.Locno, '');
     };
@@ -185,6 +188,7 @@
     result.appendChild(tdStatusBuilder());
     result.appendChild(tdNotesBuilder());
     result.appendChild(tdPicture_fiBuilder());
+    result.appendChild(tdAssetTagBuilder());
     result.appendChild(tdLocnoBuilder());
     result.appendChild(tdAttachedFilesBuilder());
     return result;

@@ -143,7 +143,7 @@
                         <th>Status <button data-field="status" class="btn-table-sort"></button></th>
                         <th>Notes <button data-field="notes" class="btn-table-sort"></button></th>
                         <th>Image <button data-field="picture_fi" class="btn-table-sort"></button></th>
-                        <th>Asset Desc <button data-field="assettag" class="btn-table-sort"></button></th>
+                        <th>Asset Tag <button data-field="assettag" class="btn-table-sort"></button></th>
                         <th>Locno  <button data-field="Locno" class="btn-table-sort"></button></th>
                         <th>Attached Files</th>
                     </tr>
