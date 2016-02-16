@@ -31,7 +31,7 @@ class EquipmentDashboardViewModel
     protected $status;
     protected $notes;
     protected $picture_fi;
-//    protected $assetDesc;
+    protected $assettag;
     protected $locno;
 
     /**
@@ -54,7 +54,7 @@ class EquipmentDashboardViewModel
      * @param $assetDesc
      * @param $locno
      */
-    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi, $locno)
+    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi, $assettag, $locno)
     {
         $this->ordnum = $ordnum;
         $this->equipid = $equipid;
@@ -71,7 +71,7 @@ class EquipmentDashboardViewModel
         $this->status = $status;
         $this->notes = $notes;
         $this->picture_fi = $picture_fi;
-//        $this->assetDesc = $assetDesc;
+        $this->assettag = $assettag;
         $this->locno = $locno;
     }
 
@@ -348,20 +348,20 @@ class EquipmentDashboardViewModel
     /**
      * @return mixed
      */
-//    public function getAssetDesc()
-//    {
-//        return $this->assetDesc;
-//    }
+    public function getAssetTag()
+    {
+        return $this->assettag;
+    }
 
     /**
-     * @param mixed $assetDesc
+     * @param mixed $assettag
      * @return EquipmentDashboardViewModel
      */
-//    public function setAssetDesc($assetDesc)
-//    {
-//        $this->assetDesc = $assetDesc;
-//        return $this;
-//    }
+    public function setAssetTag($assettag)
+    {
+        $this->assettag = $assettag;
+        return $this;
+    }
 
     /**
      * @return mixed
