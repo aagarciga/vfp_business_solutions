@@ -84,17 +84,20 @@
                             <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Work Order</a></li>
                             <li><a href="#" class="filter-field" data-field="equipid" data-field-type="text">Id</a></li>
                             <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Part No.</a></li>
+                            <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Item Description</a></li>
+                            <li><a href="#" class="filter-field" data-field="make" data-field-type="text">Brand</a></li>
                             <li><a href="#" class="filter-field" data-field="model" data-field-type="text">Model</a></li>
                             <li><a href="#" class="filter-field" data-field="serialno" data-field-type="text">Serial No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="make" data-field-type="text">Make</a></li>
+                            <li><a href="#" class="filter-field" data-field="Voltage" data-field-type="text">Voltage</a></li>
+                            <li><a href="#" class="filter-field" data-field="EquipType" data-field-type="text">Type</a></li>
                             <li><a href="#" class="filter-field" data-field="installdte" data-field-type="date">Date Out</a></li>
                             <li><a href="#" class="filter-field" data-field="expdtein" data-field-type="date">Expected date In</a></li>
                             <li><a href="#" class="filter-field" data-field="daterec" data-field-type="date">Date Actually Received</a></li>
-                            <li><a href="#" class="filter-field" data-field="order" data-field-type="text">Order No</a></li>
                             <li><a href="#" class="filter-field" data-field="status" data-field-type="text">Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="toolboxid" data-field-type="text">Tool Box</a></li>
                             <li><a href="#" class="filter-field" data-field="notes" data-field-type="text">Notes</a></li>
                             <li><a href="#" class="filter-field" data-field="picture_fi" data-field-type="text">Images</a></li>
+                            <li><a href="#" class="filter-field" data-field="assettag" data-field-type="text">Asset Tag</a></li>
+                            <li><a href="#" class="filter-field" data-field="Locno" data-field-type="text">Locno</a></li>
                         </ul>
                     </div>
                 </div>
@@ -119,7 +122,7 @@
                         <col class="col-status"/>
                         <col class="col-notes"/>
                         <col class="col-picture_fi"/>
-<!--                        <col class="col-AssetDesc"/>-->
+                        <col class="col-assettag"/>
                         <col class="col-Locno"/>
                         <col class="col-Locno"/>
                     </colgroup>
@@ -140,7 +143,7 @@
                         <th>Status <button data-field="status" class="btn-table-sort"></button></th>
                         <th>Notes <button data-field="notes" class="btn-table-sort"></button></th>
                         <th>Image <button data-field="picture_fi" class="btn-table-sort"></button></th>
-<!--                        <th>Asset Desc <button data-field="AssetDesc" class="btn-table-sort"></button></th>-->
+                        <th>Asset Desc <button data-field="assettag" class="btn-table-sort"></button></th>
                         <th>Locno  <button data-field="Locno" class="btn-table-sort"></button></th>
                         <th>Attached Files</th>
                     </tr>
@@ -179,7 +182,7 @@
                                         <span class="glyphicon glyphicon-eye-open"></span>
                                 <?php endif ?>
                             </td>
-<!--                            <td class="item-field">--><?php //echo $item->getAssetDesc() ?><!--</td>-->
+                            <td class="item-field"><?php echo $item->getAssetTag() ?></td>
                             <td class="item-field"><?php echo $item->getLocno() ?></td>
                             <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>
                         </tr>
