@@ -257,7 +257,7 @@ EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->
       statusValue.push({id: key, descrip: value})
   EquipmentDashboard.status.statusValue = statusValue
   EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text()
-  DynamicFilter.init(defaultUserFilter)
+  DynamicFilter.init(defaultUserFilter, EquipmentDashboard.status.fieldsDefinition)
   ProjectFiles.init()
   EquipmentDashboard.functions.bindEventHandlers()
   @

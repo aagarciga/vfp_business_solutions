@@ -86,26 +86,31 @@
                 $currentComponentControl = $currentComponent.find('input, select');
                 currentComponentControlValue = $currentComponentControl.val();
                 currentComponentControlFieldName = $currentComponentControl.data('fieldname');
+
+                var field = currentComponentControlFieldName;
+                var tableField = DynamicFilter.status.fieldsDefinition[field]['table'];
+                var fieldDefinition = '[' + tableField + '].[' + field + ']'
+
                 if (currentComponentControlValue === '') {
-                    DynamicFilter.status.predicate += "EMPTY(" + currentComponentControlFieldName + ") ";
+                    DynamicFilter.status.predicate += "EMPTY(" + fieldDefinition + ") ";
                 } else if ($currentComponentControl.hasClass('daterangepicker')) {
                     dateRange = currentComponentControlValue.split(' - ');
-                    DynamicFilter.status.predicate += "(" + currentComponentControlFieldName +
+                    DynamicFilter.status.predicate += "(" + fieldDefinition +
                         " >= '" + dateRange[0] +
-                        "' AND " + currentComponentControlFieldName +
+                        "' AND " + fieldDefinition +
                         " <= '" + dateRange[1] +
                         "') ";
                 } else if ($currentComponentControl.hasClass('daterangepicker-single')) {
-                    DynamicFilter.status.predicate += currentComponentControlFieldName + " = '" + currentComponentControlValue + "' ";
+                    DynamicFilter.status.predicate += fieldDefinition + " = '" + currentComponentControlValue + "' ";
                 } else {
                     if ($currentComponentControl.data('value-type') === 'numeric') {
                         // Logic for numbers
-                        DynamicFilter.status.predicate += currentComponentControlFieldName +
+                        DynamicFilter.status.predicate += fieldDefinition +
                             " = " + currentComponentControlValue +
                             " ";
                     } else {
                         // Logic for strings
-                        DynamicFilter.status.predicate += "LOWER(" + currentComponentControlFieldName +
+                        DynamicFilter.status.predicate += "LOWER(" + fieldDefinition +
                             ") LIKE '%" + currentComponentControlValue.toLowerCase() +
                             "%' ";
                     }
@@ -473,7 +478,8 @@
         $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
     };
 
-    DynamicFilter.init = function (filterId) {
+    DynamicFilter.init = function (filterId, fieldsDefinition) {
+        DynamicFilter.status.fieldsDefinition = fieldsDefinition;
         if (filterId) {
             DynamicFilter.status.filterId = filterId;
             DynamicFilter.functions.reset(true);
