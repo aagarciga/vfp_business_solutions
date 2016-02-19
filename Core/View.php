@@ -279,6 +279,8 @@ class View {
     }
 
     private static function IsSubDirectory($directory, $subDirectory){
+        $directory = strtolower($directory);
+        $subDirectory = strtolower($subDirectory);
         $index = strpos($subDirectory, $directory);
         return $index === 0;
     }

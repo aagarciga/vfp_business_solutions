@@ -56,10 +56,10 @@ function fix_date($value){
 }
 
 function fix_href($value){
-    $value = View::ServerFileContext($value);
     if (is_null($value) || $value == ""){
         return "#";
     }
+    $value = View::ServerFileContext($value);
     return (string) $value;
 }
 
