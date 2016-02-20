@@ -17,6 +17,14 @@ abstract class ExpressionNode extends FilterNode
 {
     private $_type;
 
+    /**
+     * ExpressionNode constructor.
+     */
+    public function __construct()
+    {
+        $this->_type = TYPE_ERROR;
+    }
+
     protected function setIsOk($isOk)
     {
         throw new \Exception("ExpressionNode not implement setIsOK method");

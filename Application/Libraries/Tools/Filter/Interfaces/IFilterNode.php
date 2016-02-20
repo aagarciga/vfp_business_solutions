@@ -31,4 +31,6 @@ interface IFilterNode
      * @return mixed
      */
     function generateHtmlCode($codeGenerator);
+
+    function getLevel();
 }
