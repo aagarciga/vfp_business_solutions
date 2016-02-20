@@ -46,13 +46,13 @@ final class Filter
     }
 
     final function __construct(){
-        $directoryHead = FILTER_DIR_ROOT . DIRECTORY_SEPARATOR;
+        $directoryHead = TOOLS_DIR_FILTER_ROOT . DIRECTORY_SEPARATOR;
         $rootDirectorys = array(
             $directoryHead . FILTER_DIR_INTERFACES => false,
             $directoryHead . FILTER_DIR_NODES => true
         );
 
-        $this->dirsFilter = loadDirs($rootDirectorys);
+        $this->dirsFilter = \Dandelion\Tools\loadDirs($rootDirectorys);
     }
 
     final function __clone(){
@@ -60,6 +60,6 @@ final class Filter
     }
 
     private function classLoader($className){
-        classLoader($className, $this->dirsFilter, FILTER_DIR_ROOT);
+        \Dandelion\Tools\classLoader($className, $this->dirsFilter, TOOLS_DIR_FILTER_ROOT);
     }
 }

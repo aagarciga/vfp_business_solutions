@@ -24,7 +24,7 @@ function loadDirs($rootDirectorys){
     foreach($rootDirectorys as $rootDirectory => $exploreSubDirectory){
         $result[] = $rootDirectory;
         if ($exploreSubDirectory){
-            $subDirectorys = loadDirs($rootDirectory);
+            $subDirectorys = loadSubDirectorys($rootDirectory);
             $result = array_merge($result, $subDirectorys);
         }
     }
@@ -38,10 +38,11 @@ function loadDirs($rootDirectorys){
  */
 function loadSubDirectorys($directory){
     $result = array();
-    $directoryIterator = new DirectoryIterator($directory);
+    $directoryIterator = new \DirectoryIterator($directory);
     foreach($directoryIterator as $file){
-        if ($file->isDir()){
-            $path = $file->getPath();
+        $name = $file->getFilename();
+        if ($file->isDir() && $name !== '.' && $name != '..'){
+            $path = $file->getRealPath();
             $result[] = $path;
             $subDirectorys = loadSubDirectorys($path);
             $result = array_merge($result, $subDirectorys);

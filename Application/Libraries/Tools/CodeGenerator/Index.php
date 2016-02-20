@@ -65,6 +65,6 @@ final class CodeGenerator
     }
 
     private function classLoader($className){
-        classLoader($className, $this->dirsFilter, TOOLS_DIR_GENERATOR_ROOT);
+        \Dandelion\Tools\classLoader($className, $this->dirsFilter, TOOLS_DIR_GENERATOR_ROOT);
     }
 }
