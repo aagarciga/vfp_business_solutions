@@ -86,9 +86,6 @@ require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_S
 //BEGIN: Add by Victor
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'tools.php';
 
-//Filter libraries loader
-require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Filter' . DIRECTORY_SEPARATOR . 'Filter.php';
-
 //Tools libraries loader
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Tools' . DIRECTORY_SEPARATOR . 'Index.php';
 

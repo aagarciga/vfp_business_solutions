@@ -11,6 +11,7 @@
 
 namespace Dandelion\Tools\Filter;
 
+use Dandelion\Tools\CodeGenerator\SqlAndVirtualCode;
 use Dandelion\Tools\Filter\BlockExpresionNode;
 
 
@@ -23,7 +24,14 @@ class AndBlockExpresionNode extends BlockExpresionNode
 
     public function generateSqlCode($codeGenerator)
     {
-        // TODO: Implement generateSqlCode() method.
+        $countChild = $this->getChildCount();
+        $andSqlCode = new SqlAndVirtualCode();
+        for($i = 0; $i < $countChild - 1; $i++){
+            $child = $this->getChild($i);
+            $child->generateSqlCode($codeGenerator);
+
+            $codeGenerator->InsertCode($andSqlCode);
+        }
     }
 
     public function generateHtmlCode($codeGenerator)

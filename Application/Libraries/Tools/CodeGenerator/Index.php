@@ -11,6 +11,8 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
+use Dandelion\Tools\Tools;
+
 define("GENERATOR_VERSION", "1.0.0.0");
 
 /**
@@ -40,9 +42,9 @@ final class CodeGenerator
 
     public static function Init(){
         if (self::$instance == null){
-            self::$instance = new Generator();
+            self::$instance = new CodeGenerator();
         }
-        spl_autoload(array(self::$instance, 'classLoader'));
+        spl_autoload_register(array(self::$instance, 'classLoader'));
 
         return self::$instance;
     }
@@ -55,7 +57,7 @@ final class CodeGenerator
             $directoryHead . TOOLS_DIR_GENERATOR_GENERATOR => true,
         );
 
-        $this->dirsFilter = loadDirs($rootDirectorys);
+        $this->dirsFilter = \Dandelion\Tools\loadDirs($rootDirectorys);
     }
 
     final function __clone(){

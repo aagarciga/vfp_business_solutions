@@ -40,7 +40,7 @@ final class Filter
         if (self::$instance == null){
             self::$instance = new Filter();
         }
-        spl_autoload(array(self::$instance, 'classLoader'));
+        spl_autoload_register(array(self::$instance, 'classLoader'));
 
         return self::$instance;
     }

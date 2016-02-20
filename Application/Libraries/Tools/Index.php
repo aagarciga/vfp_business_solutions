@@ -55,7 +55,7 @@ final class Tools
         if (self::$instance == null){
             self::$instance = new Tools();
         }
-        spl_autoload(array(self::$instance, 'classLoader'));
+        spl_autoload_register(array(self::$instance, 'classLoader'));
 
         CodeGenerator::Init();
         Filter::Init();
