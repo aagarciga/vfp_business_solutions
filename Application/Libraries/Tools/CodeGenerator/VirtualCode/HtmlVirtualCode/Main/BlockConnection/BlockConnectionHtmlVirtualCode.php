@@ -12,7 +12,7 @@
 namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\HtmlVirtualCode;
-use Dandelion\Tools\CodeGenerator\VirtualCode\HtmlVirtualCode\Main\Tag\Main\Open\Main\ButtonHtmlOpenTagVirtualCode;
+use Dandelion\Tools\CodeGenerator\ButtonHtmlOpenTagVirtualCode;
 
 abstract class BlockConnectionHtmlVirtualCode extends HtmlVirtualCode
 {
@@ -43,6 +43,15 @@ abstract class BlockConnectionHtmlVirtualCode extends HtmlVirtualCode
         $tagButtonCaretGenerator = new ButtonHtmlOpenTagVirtualCode();
         $tagButtonCaretGenerator->InsertAttribute(new TypeHtmlAttribute("button"));
         $tagButtonCaretGenerator->InsertAttribute(new ClassHtmlAttribute("btn btn-default dropdown-toggle"));
-        $tagButtonCaretGenerator->InsertAttribute()
+        $tagButtonCaretGenerator->InsertAttribute(new ToggleDataHtmlAttribute("dropdown"));
+        $buttonCaretCodeGenerator = new HtmlBlockTagGenerator($tagButtonCaretGenerator);
+
+        $tagCaretGenerator = new SpanHtmlOpenTagVirtualCode();
+        $tagCaretGenerator->InsertAttribute(new ClassHtmlAttribute("caret"));
+        $caretCodeGenerator = new HtmlBlockTagGenerator($tagCaretGenerator);
+
+        $buttonCaretCodeGenerator->InsertCode($caretCodeGenerator);
+
+        $codeGenerator->InsertCode($buttonCaretCodeGenerator);
     }
 }

@@ -2,7 +2,7 @@
 /**
  * User: Victor
  * Date: 21/02/2016
- * Time: 19:35
+ * Time: 20:10
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -13,13 +13,13 @@ namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\HtmlOpenTagVirtualCode;
 
-class ButtonHtmlOpenTagVirtualCode extends HtmlOpenTagVirtualCode
+class SpanHtmlOpenTagVirtualCode extends HtmlOpenTagVirtualCode
 {
     /**
-     * ButtonHtmlOpenTagVirtualCode constructor.
+     * SpanHtmlOpenTagVirtualCode constructor.
      */
     public function __construct()
     {
-        parent::__construct("button");
+        parent::__construct("span");
     }
 }
