@@ -11,9 +11,9 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-use Dandelion\Tools\CodeGenerator\HtmlTagVirtualCode;
+use Dandelion\Tools\CodeGenerator\HtmlOpenTagVirtualCode;
 
-class HtmlOpenCloseTagVirtualCode extends HtmlTagVirtualCode
+class HtmlOpenCloseTagVirtualCode extends HtmlOpenTagVirtualCode
 {
     /**
      * HtmlOpenCloseTagVirtualCode constructor.

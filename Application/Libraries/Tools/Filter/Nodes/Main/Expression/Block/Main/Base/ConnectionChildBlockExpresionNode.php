@@ -11,6 +11,8 @@
 
 namespace Dandelion\Tools\Filter;
 
+use Dandelion\Tools\CodeGenerator\DivHtmlOpenTagVirtualCode;
+use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
 use Dandelion\Tools\CodeGenerator\IVirtualCode;
 use Dandelion\Tools\Filter\BaseBlockExpresionNode;
 
@@ -55,6 +57,7 @@ abstract class ConnectionChildBlockExpresionNode extends BaseBlockExpresionNode
 
     public function generateHtmlCode($codeGenerator)
     {
-        // TODO: Implement generateHtmlCode() method.
+        $tag = new DivHtmlOpenTagVirtualCode();
+        $blockGenerator = new HtmlBlockTagGenerator($tag);
     }
 }

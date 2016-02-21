@@ -1,8 +1,8 @@
 <?php
 /**
  * User: Victor
- * Date: 02/02/2016
- * Time: 22:21
+ * Date: 21/02/2016
+ * Time: 15:52
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -11,22 +11,16 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-use Dandelion\Tools\CodeGenerator\HtmlTagVirtualCode;
+use Dandelion\Tools\CodeGenerator\HtmlOpenTagVirtualCode;
 
-class HtmlCloseTagVirtualCode extends HtmlTagVirtualCode
+class DivHtmlOpenTagVirtualCode extends HtmlOpenTagVirtualCode
 {
+
     /**
-     * @param string $tagName
+     * DivHtmlOpenTagVirtualCode constructor.
      */
-    public function __construct($tagName)
+    public function __construct()
     {
-        parent::__construct($tagName);
+        parent::__construct("div");
     }
-
-    function getCode()
-    {
-        $tagName = $this->tagName;
-        return "</$tagName>";
-    }
-
 }

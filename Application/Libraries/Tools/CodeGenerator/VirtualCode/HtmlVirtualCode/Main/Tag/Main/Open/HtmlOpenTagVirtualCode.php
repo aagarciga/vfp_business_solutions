@@ -14,7 +14,7 @@ namespace Dandelion\Tools\CodeGenerator;
 use Dandelion\Tools\CodeGenerator\HtmlVirtualCode;
 use Dandelion\Tools\CodeGenerator\IHtmlTagVirtualCode;
 
-class HtmlOpenTagVirtualCode extends HtmlVirtualCode implements IHtmlTagVirtualCode
+class HtmlOpenTagVirtualCode extends HtmlTagVirtualCode implements IHtmlTagVirtualCode
 {
     protected $attributes;
 
@@ -57,5 +57,9 @@ class HtmlOpenTagVirtualCode extends HtmlVirtualCode implements IHtmlTagVirtualC
             $result .= "$attributeName=\"$attributeValue\" ";
         }
         return $result . ">";
+    }
+
+    public function getCloseTagVirtualCode(){
+        return new HtmlCloseTagVirtualCode($this->getTagName());
     }
 }
