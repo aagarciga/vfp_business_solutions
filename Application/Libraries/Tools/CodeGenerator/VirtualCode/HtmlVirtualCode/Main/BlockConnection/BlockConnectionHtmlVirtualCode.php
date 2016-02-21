@@ -16,6 +16,8 @@ use Dandelion\Tools\CodeGenerator\ButtonHtmlOpenTagVirtualCode;
 
 abstract class BlockConnectionHtmlVirtualCode extends HtmlVirtualCode
 {
+    static private $_captions = array("And", "Or");
+
     /**
      * BlockConnectionHtmlVirtualCode constructor.
      */
@@ -25,9 +27,9 @@ abstract class BlockConnectionHtmlVirtualCode extends HtmlVirtualCode
 
     abstract function getCaption();
 
-    function getCode(){
+    public function getCode(){
         $tagGenerator = new DivHtmlOpenTagVirtualCode();
-        $tagGenerator->InsertAttribute(new ClassHtmlAttribute("btn-group"));
+        $tagGenerator->InsertAttribute(new ClassHtmlAttribute("btn-group open"));
         $codeGenerator = new HtmlBlockTagGenerator($tagGenerator);
 
         $tagButtonAndGenerator = new ButtonHtmlOpenTagVirtualCode();
@@ -53,5 +55,42 @@ abstract class BlockConnectionHtmlVirtualCode extends HtmlVirtualCode
         $buttonCaretCodeGenerator->InsertCode($caretCodeGenerator);
 
         $codeGenerator->InsertCode($buttonCaretCodeGenerator);
+
+        $ulTagGenerator = new UlHtmlOpenTagVirtualCode();
+        $ulTagGenerator->InsertAttribute(new ClassHtmlAttribute("dropdown-menu"));
+        $ulCodeGenerator = new HtmlBlockTagGenerator($ulTagGenerator);
+
+        $liCurrentGenerator = BlockConnectionHtmlVirtualCode::getLi($this->getCaption(), true);
+
+        $ulCodeGenerator->InsertCode($liCurrentGenerator);
+
+        foreach(BlockConnectionHtmlVirtualCode::$_captions as $caption){
+            if (strtolower($caption) !== $this->getCaption()){
+                $liCodeGenerator = BlockConnectionHtmlVirtualCode::getLi($caption);
+
+                $ulCodeGenerator->InsertCode($liCodeGenerator);
+            }
+        }
+
+        $codeGenerator->InsertCode($ulCodeGenerator);
+
+        return $codeGenerator->getCode();
+    }
+
+    private static function getLi($caption, $isCurrent=false){
+        $liCurrentTagGenerator = new LiHtmlOpenTagVirtualCode();
+        if ($isCurrent){
+            $liCurrentTagGenerator->InsertAttribute(new ClassHtmlAttribute("current"));
+        }
+        $liCurrentCodeGenerator = new HtmlBlockTagGenerator($liCurrentTagGenerator);
+
+        $aCurrentTagGenerator = new AHtmlOpenTagVirtualCode();
+        $aCurrentTagGenerator->InsertAttribute(new HrefHtmlAttribute());
+        $aCurrentCodeGenerator = new HtmlBlockTagGenerator($aCurrentTagGenerator);
+
+        $aCurrentCodeGenerator->InsertCode(new HtmlTextVirtualCode($caption));
+
+        $liCurrentCodeGenerator->InsertCode($aCurrentCodeGenerator);
+        return $liCurrentCodeGenerator;
     }
 }
