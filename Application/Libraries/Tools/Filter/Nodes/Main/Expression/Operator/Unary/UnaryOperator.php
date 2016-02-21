@@ -15,6 +15,8 @@ use Dandelion\Tools\Filter\OperatorNode;
 
 abstract class UnaryOperator extends OperatorNode
 {
+    protected $level;
+
     protected $child;
 
     /**
@@ -24,9 +26,18 @@ abstract class UnaryOperator extends OperatorNode
     public function __construct($child)
     {
         $this->child = $child;
+        $this->level = null;
     }
 
     public function getChild(){
         return $this->child;
+    }
+
+    public function getLevel()
+    {
+        if (is_null($this->level)){
+            $this->level = $this->getChild()->getLevel() + 1;
+        }
+        return $this->level;
     }
 }

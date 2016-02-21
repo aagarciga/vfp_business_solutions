@@ -67,7 +67,14 @@ abstract class ConnectionChildBlockExpresionNode extends BaseBlockExpresionNode
             $child = $this->getChild($i);
             $child->generateHtmlCode($blockGenerator);
 
+            $connectionVirtualCode = $this->getHtmlConnectionChildCode($i);
 
+            $blockGenerator->InsertCode($connectionVirtualCode);
+        }
+
+        if ($countChild > 0){
+            $child = $this->getChild($countChild - 1);
+            $child->generateHtmlCode($blockGenerator);
         }
 
         $codeGenerator->InsertCode($blockGenerator);

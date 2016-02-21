@@ -1,8 +1,8 @@
 <?php
 /**
  * User: Victor
- * Date: 01/02/2016
- * Time: 19:06
+ * Date: 21/02/2016
+ * Time: 23:27
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -12,14 +12,12 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\LogicalUnaryOperatorNode;
-use Dandelion\Tools\CodeGenerator\SqlNotVirtualCode;
 
-class NotNode extends LogicalUnaryOperatorNode
+class PositiveNode extends LogicalUnaryOperatorNode
 {
-
     /**
-     * NotNode constructor.
-     * @param $child
+     * PositiveNode constructor.
+     * @param IFilterNode $child
      */
     public function __construct($child)
     {
@@ -31,11 +29,7 @@ class NotNode extends LogicalUnaryOperatorNode
         // TODO: Implement checkSemantic() method.
     }
 
-    public function generateSqlCode($codeGenerator)
-    {
-        $virtualCode = new SqlNotVirtualCode();
-        $codeGenerator->InsertCode($virtualCode);
-    }
+    public function generateSqlCode($codeGenerator){}
 
     public function generateHtmlCode($codeGenerator)
     {
