@@ -20,7 +20,7 @@ class HtmlBlockTagGenerator extends HtmlGenerator
 
     /**
      * HtmlBlockTagGenerator constructor.
-     * @param IVirtualCode $virtualTag code that represents the tag
+     * @param HtmlOpenTagVirtualCode $virtualTag code that represents the tag
      */
     public function __construct($virtualTag=null)
     {
@@ -31,9 +31,9 @@ class HtmlBlockTagGenerator extends HtmlGenerator
     {
         $childVirtualCode = parent::getCode();
         $htmlTagCode = $this->virtualTag->getCode();
-        $closeTag = new HtmlCloseTagVirtualCode($this->virtualTag->getTagName());
+        $closeTag = $this->virtualTag->getCloseTagVirtualCode();
         $closeTagCode = $closeTag->getCode();
-        return "$htmlTagCode\n$childVirtualCode\n$closeTagCode\n";
+        return $htmlTagCode. "\n" . $childVirtualCode . "\n" . $closeTagCode. "\n";
     }
 
 
