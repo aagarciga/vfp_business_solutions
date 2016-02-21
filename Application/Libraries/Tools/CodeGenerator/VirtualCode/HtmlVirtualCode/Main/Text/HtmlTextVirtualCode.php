@@ -15,7 +15,7 @@ use Dandelion\Tools\CodeGenerator\HtmlVirtualCode;
 
 class HtmlTextVirtualCode extends HtmlVirtualCode
 {
-    private $text;
+    protected $text;
 
     /**
      * HtmlTextVirtualCode constructor.

@@ -13,6 +13,7 @@ namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\CodeGenerator\DivHtmlOpenTagVirtualCode;
 use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
+use Dandelion\Tools\CodeGenerator\IdHtmlAttribute;
 use Dandelion\Tools\CodeGenerator\IVirtualCode;
 use Dandelion\Tools\Filter\BaseBlockExpresionNode;
 
@@ -58,6 +59,17 @@ abstract class ConnectionChildBlockExpresionNode extends BaseBlockExpresionNode
     public function generateHtmlCode($codeGenerator)
     {
         $tag = new DivHtmlOpenTagVirtualCode();
+        $tag->InsertAttribute(new IdHtmlAttribute("dynamicFilter_filterFieldsContainer"));
         $blockGenerator = new HtmlBlockTagGenerator($tag);
+
+        $countChild = $this->getChildCount();
+        for($i = 0; $i < $countChild - 1; $i++){
+            $child = $this->getChild($i);
+            $child->generateHtmlCode($blockGenerator);
+
+
+        }
+
+        $codeGenerator->InsertCode($blockGenerator);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 /**
  * User: Victor
- * Date: 01/02/2016
- * Time: 21:41
+ * Date: 21/02/2016
+ * Time: 18:33
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -11,9 +11,16 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-interface IHtmlAttribute extends IVirtualCode
-{
-    function getAttributeName();
+use Dandelion\Tools\CodeGenerator\HtmlStrAttribute;
 
-    function getValue();
+class IdHtmlAttribute extends HtmlStrAttribute
+{
+
+    /**
+     * IdHtmlAttribute constructor.
+     */
+    public function __construct($id)
+    {
+        parent::__construct("id", $id);
+    }
 }

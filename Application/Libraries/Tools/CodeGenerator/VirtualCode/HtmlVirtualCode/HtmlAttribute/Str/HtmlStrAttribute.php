@@ -33,4 +33,11 @@ class HtmlStrAttribute extends HtmlAttribute
         return $this->attributeValue;
     }
 
+    function getCode()
+    {
+        $attribute = $this->getAttributeName();
+        $value = $this->getValue();
+        return $attribute . "=" . "\"" . $value . "\"";
+    }
+
 }
