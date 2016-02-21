@@ -33,25 +33,41 @@ class BlockExpresionNode extends ConnectionChildBlockExpresionNode
 
     /**
      * @param IVirtualCode $code
+     * @return $this
      */
     public function addSqlConnectionChildCode($code){
+        BlockExpresionNode::addConnectionChildCode($this->_sqlConnectionChildCode, $code);
+        return $this;
+    }
 
+    private static function addConnectionChildCode($connectionChildCode, $code){
+        $connectionChildCode[] = $code;
     }
 
     /**
      * @param IVirtualCode $code
+     * @return $this
      */
     public function addHtmlConnectionChildCode($code){
-
+        BlockExpresionNode::addConnectionChildCode($this->_htmlConnectionChildCode, $code);
+        return $this;
     }
 
     public function getSqlConnectionChildCode($leftIndex)
     {
-        // TODO: Implement getSqlConnectionChildCode() method.
+        return BlockExpresionNode::getConnectionChildCode($this->_sqlConnectionChildCode, $leftIndex);
+    }
+
+    private static function getConnectionChildCode($connectionChildCode, $leftIndex){
+        $connectionChildCodeCount = count($connectionChildCode);
+        if ($leftIndex >= $connectionChildCodeCount || $leftIndex < 0){
+            throw new \Exception("Index not valid.");
+        }
+        return $connectionChildCode[$leftIndex];
     }
 
     public function getHtmlConnectionChildCode($leftIndex)
     {
-        // TODO: Implement getHtmlConnectionChildCode() method.
+        return BlockExpresionNode::getConnectionChildCode($this->_htmlConnectionChildCode, $leftIndex);
     }
 }
