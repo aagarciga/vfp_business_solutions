@@ -17,7 +17,7 @@ use Dandelion\Tools\Filter\ExpressionNode;
  * Class BlockExpresionNode
  * @package Dandelion\Tools\Filter
  */
-abstract class BlockExpresionNode extends ExpressionNode
+abstract class BaseBlockExpresionNode extends ExpressionNode
 {
     private $_child;
 
