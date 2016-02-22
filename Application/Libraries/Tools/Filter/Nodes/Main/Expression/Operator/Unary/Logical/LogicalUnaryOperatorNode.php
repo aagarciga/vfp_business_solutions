@@ -23,4 +23,11 @@ abstract class LogicalUnaryOperatorNode extends UnaryOperator
     {
         parent::__construct($child);
     }
+
+    public abstract function getCaption();
+
+    public function generateHtmlCode($codeGenerator)
+    {
+        // TODO: Implement generateHtmlCode() method.
+    }
 }

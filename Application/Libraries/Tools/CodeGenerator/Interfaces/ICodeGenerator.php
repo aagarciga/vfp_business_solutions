@@ -11,9 +11,13 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-use Dandelion\Tools\CodeGenerator\ICode;
+use Dandelion\Tools\CodeGenerator\IVirtualCode;
 
-interface ICodeGenerator extends ICode
+interface ICodeGenerator extends IVirtualCode
 {
+    /**
+     * @param IVirtualCode $virtualCode
+     * @return ICodeGenerator
+     */
     function InsertCode($virtualCode);
 }

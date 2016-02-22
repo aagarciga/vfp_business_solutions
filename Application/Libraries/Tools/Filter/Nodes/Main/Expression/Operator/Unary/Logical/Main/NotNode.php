@@ -36,9 +36,4 @@ class NotNode extends LogicalUnaryOperatorNode
         $virtualCode = new SqlNotVirtualCode();
         $codeGenerator->InsertCode($virtualCode);
     }
-
-    public function generateHtmlCode($codeGenerator)
-    {
-        // TODO: Implement generateHtmlCode() method.
-    }
 }

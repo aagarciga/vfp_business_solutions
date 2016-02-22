@@ -30,9 +30,4 @@ class PositiveNode extends LogicalUnaryOperatorNode
     }
 
     public function generateSqlCode($codeGenerator){}
-
-    public function generateHtmlCode($codeGenerator)
-    {
-        // TODO: Implement generateHtmlCode() method.
-    }
 }
