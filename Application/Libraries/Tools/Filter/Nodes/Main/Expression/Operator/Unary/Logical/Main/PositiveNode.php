@@ -30,4 +30,9 @@ class PositiveNode extends LogicalUnaryOperatorNode
     }
 
     public function generateSqlCode($codeGenerator){}
+
+    public function getCaption()
+    {
+        return "";
+    }
 }

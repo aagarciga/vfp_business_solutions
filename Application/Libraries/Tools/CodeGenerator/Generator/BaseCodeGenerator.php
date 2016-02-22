@@ -29,5 +29,6 @@ abstract class BaseCodeGenerator implements ICodeGenerator
     function InsertCode($virtualCode)
     {
         $this->virtualCodes[] = $virtualCode;
+        return $this;
     }
 }

@@ -12,9 +12,12 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\UnaryOperator;
+use Dandelion\Tools\CodeGenerator\BtnGroupVirtualCode;
 
 abstract class LogicalUnaryOperatorNode extends UnaryOperator
 {
+    static private $_captions = array("", "Not");
+
     /**
      * LogicalUnaryOperatorNode constructor.
      * @param $child
@@ -28,6 +31,7 @@ abstract class LogicalUnaryOperatorNode extends UnaryOperator
 
     public function generateHtmlCode($codeGenerator)
     {
-        // TODO: Implement generateHtmlCode() method.
+        $codeGeneratorBtnGroup = BtnGroupVirtualCode::getCodeGenerator($this->getCaption(), LogicalUnaryOperatorNode::$_captions);
+        $codeGenerator->InsertCode($codeGeneratorBtnGroup);
     }
 }
