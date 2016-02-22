@@ -150,7 +150,9 @@
       return App.Helpers.simpleTdBuilder(dataRow.daterec, '');
     };
     tdStatusBuilder = function() {
-      return App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', EquipmentDashboard.status.statusValue, {});
+      return App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', EquipmentDashboard.status.statusValue, {
+        equipid: dataRow.equipid
+      });
     };
     tdNotesBuilder = function() {
       return App.Helpers.simpleTdBuilder(dataRow.notes, '');
