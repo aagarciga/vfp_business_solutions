@@ -93,7 +93,7 @@
                             <li><a href="#" class="filter-field" data-field="installdte" data-field-type="date">Date Out</a></li>
                             <li><a href="#" class="filter-field" data-field="expdtein" data-field-type="date">Expected date In</a></li>
                             <li><a href="#" class="filter-field" data-field="daterec" data-field-type="date">Date Actually Received</a></li>
-                            <li><a href="#" class="filter-field" data-field="status" data-field-type="text">Status</a></li>
+                            <li><a href="#" class="filter-field" data-field="status" data-field-type="dropdown" data-field-collection="status">Status</a></li>
                             <li><a href="#" class="filter-field" data-field="notes" data-field-type="text">Notes</a></li>
                             <li><a href="#" class="filter-field" data-field="picture_fi" data-field-type="text">Images</a></li>
                             <li><a href="#" class="filter-field" data-field="assettag" data-field-type="text">Asset Tag</a></li>

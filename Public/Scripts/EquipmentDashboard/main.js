@@ -307,6 +307,7 @@
       }
     }
     EquipmentDashboard.status.statusValue = statusValue;
+    EquipmentDashboard.dictionaries.status = statusValue;
     EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text();
     DynamicFilter.init(defaultUserFilter, EquipmentDashboard.status.fieldsDefinition);
     ProjectFiles.init();

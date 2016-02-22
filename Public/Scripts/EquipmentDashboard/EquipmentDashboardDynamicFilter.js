@@ -256,8 +256,8 @@
             });
 
         //TODO: Descoment code
-        //$formGroup.find('select')
-        //    .select2();
+        $formGroup.find('select')
+            .select2();
     };
     DynamicFilter.functions.bindFormGroupsEnventhandlers = function () {
         $(DynamicFilter.htmlBindings.filterFieldsContainer)
