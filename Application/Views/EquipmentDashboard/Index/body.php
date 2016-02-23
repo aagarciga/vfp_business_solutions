@@ -95,7 +95,6 @@
                             <li><a href="#" class="filter-field" data-field="daterec" data-field-type="date">Date Actually Received</a></li>
                             <li><a href="#" class="filter-field" data-field="status" data-field-type="dropdown" data-field-collection="status">Status</a></li>
                             <li><a href="#" class="filter-field" data-field="notes" data-field-type="text">Notes</a></li>
-                            <li><a href="#" class="filter-field" data-field="picture_fi" data-field-type="text">Images</a></li>
                             <li><a href="#" class="filter-field" data-field="assettag" data-field-type="text">Asset Tag</a></li>
                             <li><a href="#" class="filter-field" data-field="Locno" data-field-type="text">Locno</a></li>
                         </ul>
@@ -141,8 +140,8 @@
                         <th>Expected date In <button data-field="expdtein" class="btn-table-sort"></button></th>
                         <th>Date Actually Received <button data-field="daterec" class="btn-table-sort"></button></th>
                         <th>Status <button data-field="status" class="btn-table-sort"></button></th>
-                        <th>Notes <button data-field="notes" class="btn-table-sort"></button></th>
-                        <th>Image <button data-field="picture_fi" class="btn-table-sort"></button></th>
+                        <th>Notes </th>
+                        <th>Image </th>
                         <th>Asset Tag <button data-field="assettag" class="btn-table-sort"></button></th>
                         <th>Locno  <button data-field="Locno" class="btn-table-sort"></button></th>
                         <th>Attached Files</th>
