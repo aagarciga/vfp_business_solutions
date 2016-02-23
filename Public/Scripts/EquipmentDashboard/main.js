@@ -158,7 +158,7 @@
       return App.Helpers.simpleTdBuilder(dataRow.notes, '');
     };
     tdPicture_fiBuilder = function() {
-      return App.Helpers.withLightboxLinkPictureBuilder(dataRow.equipid, '', '', dataRow.picture_fi, "glyphicon glyphicon-eye-open", null, {});
+      return App.Helpers.withLightboxLinkPictureBuilder(dataRow.equipid, 'item-image', '', dataRow.picture_fi, "glyphicon glyphicon-eye-open", null, {});
     };
     tdAssetTagBuilder = function() {
       return App.Helpers.simpleTdBuilder(dataRow.assettag, '');

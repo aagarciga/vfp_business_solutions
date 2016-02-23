@@ -35,7 +35,7 @@ class Index extends Action {
         $viewModels = array();
         
         foreach ($items as $item) {
-            $currentItemViewModel = new InventoryDashboardViewModel($item->itemno, $item->itmwhs, $item->descrip, $item->onhand, $item->onorder, $item->committed);
+            $currentItemViewModel = new InventoryDashboardViewModel($item->itemno, $item->itmwhs, $item->descrip, $item->onhand, $item->onorder, $item->committed, $item->picture_fi);
             $viewModels []= $currentItemViewModel;
         }
         

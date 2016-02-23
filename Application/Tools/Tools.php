@@ -59,6 +59,7 @@ function fix_href($value){
     if (is_null($value) || $value == ""){
         return "#";
     }
+    $value = trim($value);
     $value = View::ServerFileContext($value);
     return (string) $value;
 }

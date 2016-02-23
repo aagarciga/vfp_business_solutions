@@ -108,7 +108,7 @@
   };
 
   InventoryDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, tdAttachedFilesBuilder, tdCommittedBuilder, tdDescripBuilder, tdItemNoBuilder, tdItmwhsBuilder, tdOnhandBuilder, tdOnorderBuilder;
+    var doc, result, tdAttachedFilesBuilder, tdCommittedBuilder, tdDescripBuilder, tdItemNoBuilder, tdItmwhsBuilder, tdOnhandBuilder, tdOnorderBuilder, tdPictureBuilder;
     doc = global.document;
     result = doc.createElement('tr');
     tdItemNoBuilder = function() {
@@ -129,6 +129,9 @@
     tdCommittedBuilder = function() {
       return App.Helpers.withLinkTdBuilder(dataRow.committed, 'number', InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), dataRow.committedHref, {});
     };
+    tdPictureBuilder = function() {
+      return App.Helpers.withLightboxLinkPictureBuilder(dataRow.itemno + dataRow.itmwhs, 'item-image', '', dataRow.picture_fi, "glyphicon glyphicon-eye-open", null, {});
+    };
     tdAttachedFilesBuilder = function() {
       var spanGlyphIcon;
       spanGlyphIcon = doc.createElement('span');
@@ -144,6 +147,7 @@
     result.appendChild(tdOnhandBuilder());
     result.appendChild(tdOnorderBuilder());
     result.appendChild(tdCommittedBuilder());
+    result.appendChild(tdPictureBuilder());
     result.appendChild(tdAttachedFilesBuilder());
     return result;
   };

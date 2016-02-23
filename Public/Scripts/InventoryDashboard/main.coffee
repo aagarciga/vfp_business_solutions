@@ -106,6 +106,9 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdCommittedBuilder = ->
     App.Helpers.withLinkTdBuilder(dataRow.committed, 'number', InventoryDashboard.htmlBindings.table_body_btnCommitted.slice(1), dataRow.committedHref, {})
 
+  tdPictureBuilder = ->
+    App.Helpers.withLightboxLinkPictureBuilder(dataRow.itemno+dataRow.itmwhs, 'item-image', '', dataRow.picture_fi, "glyphicon glyphicon-eye-open", null, {})
+
   tdAttachedFilesBuilder = () ->
     spanGlyphIcon = doc.createElement('span')
     spanGlyphIcon.className = 'glyphicon glyphicon-folder-close'
@@ -118,6 +121,7 @@ InventoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result.appendChild(tdOnhandBuilder());
   result.appendChild(tdOnorderBuilder());
   result.appendChild(tdCommittedBuilder());
+  result.appendChild(tdPictureBuilder());
   result.appendChild(tdAttachedFilesBuilder());
   result
 

@@ -18,6 +18,7 @@ class InventoryDashboardViewModel
     protected $_onhand;
     protected $_onorder;
     protected $_committed;
+    protected $_picture;
 
     /**
      * InventoryDashboardViewModel constructor.
@@ -27,8 +28,9 @@ class InventoryDashboardViewModel
      * @param $onhand
      * @param $onorder
      * @param $committed
+     * @param $picture
      */
-    public function __construct($itemno, $itmwhs, $descrip, $onhand, $onorder, $committed)
+    public function __construct($itemno, $itmwhs, $descrip, $onhand, $onorder, $committed, $picture)
     {
         /*
          * In order to clean VM constructor parameters use trim function for all data types
@@ -43,6 +45,7 @@ class InventoryDashboardViewModel
         $this->_onhand = number_format(trim($onhand));
         $this->_onorder = number_format(trim($onorder));
         $this->_committed = number_format(trim($committed));
+        $this->_picture = \Dandelion\MVC\Application\Tools\fix_href($picture);
     }
 
     /*
@@ -154,6 +157,24 @@ class InventoryDashboardViewModel
     public function setCommitted($committed)
     {
         $this->_committed = $committed;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPicture()
+    {
+        return $this->_picture;
+    }
+
+    /**
+     * @param $picture
+     * @return $this
+     */
+    public function setPicture($picture)
+    {
+        $this->_picture = $picture;
         return $this;
     }
 }

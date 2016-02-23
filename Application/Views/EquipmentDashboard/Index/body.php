@@ -174,7 +174,7 @@
                             <td class="item-image">
                                 <?php $pictureHref = $item->getPictureFi() ?>
                                 <?php if ($pictureHref !== "#"):?>
-                                        <a href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getItemno() ?>">
+                                        <a href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getEquipid() ?>">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </a>
                                 <?php else: ?>

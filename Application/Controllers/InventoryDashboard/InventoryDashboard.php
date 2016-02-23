@@ -50,8 +50,9 @@ class InventoryDashboard extends DatActionsController
             . "descrip, "
             . "onhand, "
             . "onorder, "
-            . "committed "
-            . "FROM ICPARM$companySuffix $predicate GROUP BY itemno, itmwhs, descrip, onhand, onorder, committed ORDER BY $orderby $order";
+            . "committed, "
+            . "picture_fi "
+            . "FROM ICPARM$companySuffix $predicate ORDER BY $orderby $order";
 
         //SELECT itemno, itmwhs, descrip, onhand, onorder, committed FROM ICPARM05 GROUP BY itemno, itmwhs, descrip, onhand, onorder, committed ORDER BY itemno asc
 

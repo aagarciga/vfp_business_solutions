@@ -10,6 +10,14 @@
 <script src="<?php echo $View->ScriptsContext('InventoryDashboard/InventoryDashboardDynamicFilter.min.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('InventoryDashboard/ProjectFiles.min.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('InventoryDashboard/main.min.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('lightbox2-master/dist/js/lightbox.min.js')?>"></script>
+
+<script>
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true
+    })
+</script>
 
 <script>
 /**

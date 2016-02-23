@@ -44,6 +44,7 @@ class GetPage_Post extends Action
             $current['onhand'] = number_format(trim($item->onhand));
             $current['onorder'] = number_format(trim($item->onorder));
             $current['committed'] = number_format(trim($item->committed));
+            $current['picture_fi'] = \Dandelion\MVC\Application\Tools\fix_href($item->picture_fi);
             $current['committedHref'] = $this->view->Href('OnSalesOrderDashboard', 'Index', array('itemno' => base64_encode($current['itemno'])));
             $current['onorderHref'] = $this->view->Href('OnPurchaseOrderDashboard', 'Index', array(
                 'itemno' => base64_encode($current['itemno']),

@@ -5,3 +5,5 @@
         <link rel="stylesheet" href="<?php echo $View->PublicVendorContext('responsive-tables/responsive-tables.css'); ?>">
         <link rel="stylesheet" href="<?php echo $View->StylesContext('InventoryDashboard/index.min.css'); ?>">
 
+        <link rel="stylesheet" href="<?php echo $View->PublicVendorContext('lightbox2-master/dist/css/lightbox.min.css')?>">
+
