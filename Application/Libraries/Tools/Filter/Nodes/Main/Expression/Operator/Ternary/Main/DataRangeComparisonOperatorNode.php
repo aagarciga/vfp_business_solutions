@@ -9,38 +9,24 @@
  * @link      http://www.thedandelionproject.com
  */
 
-//TODO: Move to ternary operator.
-
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\CodeGenerator\SqlAndVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlGreaterEqualThanVirtualCode;
-use Dandelion\Tools\Filter\ComparisonBinaryOperatorNode;
+use Dandelion\Tools\Filter\TernaryOperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlStringVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlRigthBarcketVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlLessEqualThanVirtualCode;
 
-class DataRangeComparisonOperatorNode extends ComparisonBinaryOperatorNode
+class DataRangeComparisonOperatorNode extends TernaryOperatorNode
 {
-    protected $thirdChild;
-
     /**
      * OrNode constructor.
-     * @param IFilterNode $fieldChild
-     * @param IFilterNode $leftLimitChild
-     * @param IFilterNode $rightLimitChild
      */
-    public function __construct($fieldChild, $leftLimitChild, $rightLimitChild)
+    public function __construct()
     {
-        parent::__construct($fieldChild, $leftLimitChild);
-
-        $this->thirdChild = $rightLimitChild;
-    }
-
-    function getStringOperator()
-    {
-        return "";
+        parent::__construct();
     }
 
     public function checkSemantic($report)
@@ -80,20 +66,20 @@ class DataRangeComparisonOperatorNode extends ComparisonBinaryOperatorNode
      * @return IFilterNode
      */
     public  function getFieldNode(){
-        return $this->leftChild;
+        return $this->getFirstChild();
     }
 
     /**
      * @return IFilterNode
      */
     public function getLeftLimitNode(){
-        return $this->rightChild;
+        return $this->getSecondChild();
     }
 
     /**
      * @return IFilterNode
      */
     public function getRightLimitNode(){
-        return $this->thirdChild;
+        return $this->getThirdChild();
     }
 }

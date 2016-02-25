@@ -22,17 +22,4 @@ abstract class BaseBlockExpresionNode extends ExpressionNode
     public function __construct(){
         parent::__construct();
     }
-
-    public function getLevel()
-    {
-        $maxLevel = 0;
-        $countChild = $this->getChildCount();
-        for($i = 0; $i < $countChild; $i++){
-            $childLevel = $this->getChild($i)->getLevel();
-            if ($childLevel > $maxLevel){
-                $maxLevel = $childLevel;
-            }
-        }
-        return $maxLevel + 1;
-    }
 }

@@ -17,6 +17,8 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode, INodeCr
 {
     private $_isOk;
 
+    private $_level;
+
     protected $children;
 
     protected $value;
@@ -29,6 +31,7 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode, INodeCr
         $this->_isOk = false;
         $this->children = array();
         $this->value = null;
+        $this->_level = null;
     }
 
     public abstract function checkSemantic($report);
@@ -46,9 +49,27 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode, INodeCr
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public abstract function getLevel();
+    public function getLevel()
+    {
+        if (is_null($this->_level)){
+            $this->_level = $this->getLevelByChild();
+        }
+        return $this->_level;
+    }
+
+    private function getLevelByChild(){
+        $maxLevel = 0;
+        $countChild = $this->getChildCount();
+        for($i = 0; $i < $countChild; $i++){
+            $childLevel = $this->getChild($i)->getLevel();
+            if ($childLevel > $maxLevel){
+                $maxLevel = $childLevel;
+            }
+        }
+        return $maxLevel + 1;
+    }
 
     function getChild($index)
     {
