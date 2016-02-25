@@ -15,5 +15,11 @@ use Dandelion\Tools\Filter\ExpressionNode;
 
 abstract class OperatorNode extends ExpressionNode
 {
-
+    /**
+     * OperatorNode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

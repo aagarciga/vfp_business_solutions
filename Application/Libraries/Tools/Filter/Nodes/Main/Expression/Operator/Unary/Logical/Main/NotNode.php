@@ -21,9 +21,9 @@ class NotNode extends LogicalUnaryOperatorNode
      * NotNode constructor.
      * @param $child
      */
-    public function __construct($child)
+    public function __construct()
     {
-        parent::__construct($child);
+        parent::__construct();
     }
 
     public function checkSemantic($report)

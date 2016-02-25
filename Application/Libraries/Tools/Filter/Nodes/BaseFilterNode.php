@@ -16,20 +16,27 @@ use Dandelion\Tools\Filter\NilFilterNode;
 
 abstract class BaseFilterNode
 {
+    /**
+     * BaseFilterNode constructor.
+     */
+    public function __construct()
+    {
+    }
+
     public function isNil(){
         return $this->isNil() && ($this instanceof NilFilterNode);
     }
 
-    public function Text(){
+    public function text(){
         return gettype($this);
     }
 
-    public function Type(){
+    public function nodeType(){
         return 0;
     }
 
     function __toString()
     {
-        return $this->Text();
+        return $this->text();
     }
 }

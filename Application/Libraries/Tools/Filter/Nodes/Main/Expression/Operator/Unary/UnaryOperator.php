@@ -17,20 +17,17 @@ abstract class UnaryOperator extends OperatorNode
 {
     protected $level;
 
-    protected $child;
-
     /**
      * UnaryOperator constructor.
      * @param $child
      */
-    public function __construct($child)
+    public function __construct()
     {
-        $this->child = $child;
         $this->level = null;
     }
 
-    public function getChild(){
-        return $this->child;
+    public function getUniqueChild(){
+        return $this->getChild(0);
     }
 
     public function getLevel()

@@ -19,9 +19,9 @@ class PositiveNode extends LogicalUnaryOperatorNode
      * PositiveNode constructor.
      * @param IFilterNode $child
      */
-    public function __construct($child)
+    public function __construct()
     {
-        parent::__construct($child);
+        parent::__construct();
     }
 
     public function checkSemantic($report)

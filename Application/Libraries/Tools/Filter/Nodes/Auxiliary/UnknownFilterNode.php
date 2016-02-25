@@ -16,5 +16,11 @@ use Dandelion\Tools\Filter\BaseAuxiliaryFilterNode;
 
 class UnknownFilterNode extends BaseAuxiliaryFilterNode
 {
-
+    /**
+     * UnknownFilterNode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

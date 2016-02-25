@@ -15,5 +15,11 @@ use Dandelion\Tools\Filter\BaseAuxiliaryFilterNode;
 
 class NilFilterNode extends BaseAuxiliaryFilterNode
 {
-
+    /**
+     * NilFilterNode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

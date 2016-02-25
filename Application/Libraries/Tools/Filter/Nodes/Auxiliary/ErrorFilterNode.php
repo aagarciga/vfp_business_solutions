@@ -15,7 +15,15 @@ use Dandelion\Tools\Filter\BaseAuxiliaryFilterNode;
 
 class ErrorFilterNode extends BaseAuxiliaryFilterNode
 {
-    public function Type()
+    /**
+     * ErrorFilterNode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function nodeType()
     {
         return -1;
     }

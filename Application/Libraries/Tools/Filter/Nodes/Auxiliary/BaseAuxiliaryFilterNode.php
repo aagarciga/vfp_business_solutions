@@ -15,5 +15,11 @@ use Dandelion\Tools\Filter\FilterNode;
 
 abstract class BaseAuxiliaryFilterNode extends BaseFilterNode
 {
-
+    /**
+     * BaseAuxiliaryFilterNode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

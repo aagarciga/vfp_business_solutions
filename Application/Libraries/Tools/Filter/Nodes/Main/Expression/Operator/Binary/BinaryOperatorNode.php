@@ -19,19 +19,11 @@ use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode, Dandelion\Tools\Cod
 
 abstract class BinaryOperatorNode extends OperatorNode
 {
-    protected $leftChild;
-
-    protected $rightChild;
-
     /**
      * BinaryOperatorNode constructor.
-     * @param IFilterNode $leftChild
-     * @param IFilterNode $rightChild
      */
-    public function __construct($leftChild, $rightChild)
+    public function __construct()
     {
-        $this->leftChild = $leftChild;
-        $this->rightChild = $rightChild;
     }
 
     abstract function getStringOperator();
@@ -67,7 +59,7 @@ abstract class BinaryOperatorNode extends OperatorNode
      */
     public function getLeftChild()
     {
-        return $this->leftChild;
+        return $this->getChild(0);
     }
 
     /**
@@ -75,7 +67,7 @@ abstract class BinaryOperatorNode extends OperatorNode
      */
     public function getRightChild()
     {
-        return $this->rightChild;
+        return $this->getChild(1);
     }
 
     public function getLevel()

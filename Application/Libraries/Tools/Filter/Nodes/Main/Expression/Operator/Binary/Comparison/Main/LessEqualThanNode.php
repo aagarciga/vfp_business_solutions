@@ -17,12 +17,10 @@ class LessEqualThanNode extends ComparisonBinaryOperatorNode
 {
     /**
      * OrNode constructor.
-     * @param IFilterNode $leftChild
-     * @param IFilterNode $rightChild
      */
-    public function __construct($leftChild, $rightChild)
+    public function __construct()
     {
-        parent::__construct($leftChild, $rightChild);
+        parent::__construct();
     }
 
     public function checkSemantic($report)

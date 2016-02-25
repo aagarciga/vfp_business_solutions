@@ -9,6 +9,8 @@
  * @link      http://www.thedandelionproject.com
  */
 
+//TODO: Move to ternary operator.
+
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\CodeGenerator\SqlAndVirtualCode;
