@@ -15,19 +15,14 @@ use Dandelion\Tools\Filter\AtomicNode;
 
 abstract class ConstantNode extends AtomicNode
 {
-    protected $value;
 
     /**
      * ConstantNode constructor.
      * @param $value
      */
-    public function __construct($value)
+    public function __construct()
     {
-        $this->value = $value;
-    }
 
-    public function getValue(){
-        return $this->value;
     }
 
     public function generateSqlCode($codeGenerator)

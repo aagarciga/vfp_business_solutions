@@ -1,8 +1,8 @@
 <?php
 /**
  * User: Victor
- * Date: 01/02/2016
- * Time: 19:34
+ * Date: 25/02/2016
+ * Time: 9:48
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -11,13 +11,14 @@
 
 namespace Dandelion\Tools\Filter;
 
-use Dandelion\Tools\Filter\ConstantNode;
-use Dandelion\Tools\CodeGenerator\SqlStringVirtualCode;
 
-class DateNode extends ConstantNode
+use Dandelion\Tools\CodeGenerator\OrBlockConnectionHtmlVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlOrVirtualCode;
+
+class OrBlockExpresionNode extends ConnectionChildBlockExpresionNode
 {
     /**
-     * DateNode constructor.
+     * OrBlockExpresionNode constructor.
      */
     public function __construct()
     {
@@ -29,9 +30,13 @@ class DateNode extends ConstantNode
         // TODO: Implement checkSemantic() method.
     }
 
-    public function generateSqlCode($codeGenerator)
+    public function getSqlConnectionChildCode($leftIndex)
     {
-        $virtualCode = new SqlStringVirtualCode((string) $this->getValue());
-        $codeGenerator->InsertCode($virtualCode);
+        return new SqlOrVirtualCode();
+    }
+
+    public function getHtmlConnectionChildCode($leftIndex)
+    {
+        return new OrBlockConnectionHtmlVirtualCode();
     }
 }

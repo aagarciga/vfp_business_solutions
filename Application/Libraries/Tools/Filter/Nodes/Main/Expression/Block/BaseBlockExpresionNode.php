@@ -19,35 +19,8 @@ use Dandelion\Tools\Filter\ExpressionNode;
  */
 abstract class BaseBlockExpresionNode extends ExpressionNode
 {
-    private $_child;
-
     public function __construct(){
         parent::__construct();
-        $this->_child = array();
-    }
-
-    /**
-     * @return int
-     */
-    public function getChildCount(){
-        return count($this->_child);
-    }
-
-    /**
-     * @param int $index
-     * @return IFilterNode mixed
-     */
-    public function getChild($index){
-        return $this->_child[$index];
-    }
-
-    /**
-     * @param IFilterNode $child
-     * @return BlockExpresionNode $this
-     */
-    public function addChild($child){
-        $this->_child[] = $child;
-        return $this;
     }
 
     public function getLevel()

@@ -13,11 +13,15 @@ namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\Filter\BaseFilterNode;
 
-abstract class FilterNode extends BaseFilterNode implements IFilterNode
+abstract class FilterNode extends BaseFilterNode implements IFilterNode, INodeCreator
 {
     private $_isOk;
 
     protected $level;
+
+    protected $children;
+
+    protected $value;
 
     /**
      * FilterNode constructor.
@@ -26,6 +30,8 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode
     {
         $this->level = null;
         $this->_isOk = false;
+        $this->children = array();
+        $this->value = null;
     }
 
     public abstract function checkSemantic($report);
@@ -46,4 +52,33 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode
      * @return mixed
      */
     public abstract function getLevel();
+
+    function getChild($index)
+    {
+        return $this->children[$index];
+    }
+
+    function addChild($child)
+    {
+        $this->children[] = $child;
+        return $this;
+    }
+
+    function getChildCount()
+    {
+        return count($this->children);
+    }
+
+    function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    function getValue()
+    {
+        return $this->value;
+    }
+
+
 }

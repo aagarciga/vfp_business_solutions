@@ -15,5 +15,11 @@ use Dandelion\Tools\Filter\ExpressionNode;
 
 abstract class AtomicNode extends ExpressionNode
 {
-
+    /**
+     * AtomicNode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

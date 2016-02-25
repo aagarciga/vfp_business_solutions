@@ -11,6 +11,7 @@
 
 namespace Dandelion\Tools\Filter;
 
+use Dandelion\Tools\CodeGenerator\AndBlockConnectionHtmlVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlAndVirtualCode;
 use Dandelion\Tools\Filter\ConnectionChildBlockExpresionNode;
 
@@ -34,6 +35,6 @@ class AndBlockExpresionNode extends ConnectionChildBlockExpresionNode
 
     public function getHtmlConnectionChildCode($leftIndex)
     {
-        // TODO: Implement getHtmlConnectionChildCode() method.
+        return new AndBlockConnectionHtmlVirtualCode();
     }
 }

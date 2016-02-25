@@ -15,6 +15,14 @@ use Dandelion\Tools\Filter\ConstantNode;
 
 class FloatNode extends ConstantNode
 {
+    /**
+     * FloatNode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function checkSemantic($report)
     {
         // TODO: Implement checkSemantic() method.

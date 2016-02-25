@@ -17,6 +17,13 @@ use Dandelion\Tools\CodeGenerator\HtmlTextVirtualCode;
 
 class StringNode extends ConstantNode
 {
+    /**
+     * StringNode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function checkSemantic($report)
     {

@@ -16,19 +16,12 @@ use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
 class FieldNode extends ConstantNode
 {
-    protected $table;
-
-    protected $field;
-
     /**
      * FieldNode constructor.
-     * @param $table
-     * @param $field
      */
-    public function __construct($field, $table=null)
+    public function __construct()
     {
-        $this->table = $table;
-        $this->field = $field;
+        parent::__construct();
     }
 
     public function checkSemantic($report)
@@ -37,8 +30,8 @@ class FieldNode extends ConstantNode
     }
 
     public function getFullField(){
-        $table = $this->table;
-        $field = $this->field;
+        $table = $this->getTable();
+        $field = $this->getField();
         return (is_null($table)) ? "[$field]" : "[$table].[$field]";
     }
 
@@ -53,11 +46,12 @@ class FieldNode extends ConstantNode
     }
 
     public function getTable(){
-        return $this->table;
+        $value = $this->getValue();
+        return isset($value[1])? $value[1] : null;
     }
 
     public function getField(){
-        return $this->field;
+        return $this->getValue()[0];
     }
 
 }
