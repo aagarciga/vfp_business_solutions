@@ -21,7 +21,6 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode
 
     /**
      * FilterNode constructor.
-     * @param $level
      */
     public function __construct()
     {
