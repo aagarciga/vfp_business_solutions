@@ -84,7 +84,7 @@
                             <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Work Order</a></li>
                             <li><a href="#" class="filter-field" data-field="equipid" data-field-type="text">Id</a></li>
                             <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Part No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Item Description</a></li>
+                            <li><a href="#" class="filter-field" data-field="descrip" data-field-type="text">Item Description</a></li>
                             <li><a href="#" class="filter-field" data-field="make" data-field-type="text">Brand</a></li>
                             <li><a href="#" class="filter-field" data-field="model" data-field-type="text">Model</a></li>
                             <li><a href="#" class="filter-field" data-field="serialno" data-field-type="text">Serial No.</a></li>
