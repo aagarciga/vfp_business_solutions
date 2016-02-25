@@ -33,5 +33,7 @@ abstract class LogicalUnaryOperatorNode extends UnaryOperator
     {
         $codeGeneratorBtnGroup = BtnGroupVirtualCode::getCodeGenerator($this->getCaption(), LogicalUnaryOperatorNode::$_captions);
         $codeGenerator->InsertCode($codeGeneratorBtnGroup);
+
+        $this->getUniqueChild()->generateHtmlCode($codeGenerator);
     }
 }

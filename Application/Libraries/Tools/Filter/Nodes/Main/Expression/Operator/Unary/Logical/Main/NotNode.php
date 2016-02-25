@@ -35,6 +35,8 @@ class NotNode extends LogicalUnaryOperatorNode
     {
         $virtualCode = new SqlNotVirtualCode();
         $codeGenerator->InsertCode($virtualCode);
+
+        $this->getUniqueChild()->generateHtmlCode($codeGenerator);
     }
 
     public function getCaption()
