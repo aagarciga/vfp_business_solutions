@@ -18,11 +18,10 @@ abstract class ConstantNode extends AtomicNode
 
     /**
      * ConstantNode constructor.
-     * @param $value
      */
     public function __construct()
     {
-
+        parent::__construct();
     }
 
     public function generateSqlCode($codeGenerator)

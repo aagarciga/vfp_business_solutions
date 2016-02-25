@@ -16,10 +16,8 @@ use Dandelion\Tools\CodeGenerator\SqlNotVirtualCode;
 
 class NotNode extends LogicalUnaryOperatorNode
 {
-
     /**
      * NotNode constructor.
-     * @param $child
      */
     public function __construct()
     {
