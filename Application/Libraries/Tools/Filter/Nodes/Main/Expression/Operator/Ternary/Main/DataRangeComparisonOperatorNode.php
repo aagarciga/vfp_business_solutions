@@ -124,7 +124,7 @@ class DataRangeComparisonOperatorNode extends TernaryOperatorNode
     }
 
     /**
-     * @return IFilterNode
+     * @return FieldNode
      */
     public  function getFieldNode(){
         return $this->getFirstChild();

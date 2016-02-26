@@ -20,7 +20,6 @@ abstract class LogicalUnaryOperatorNode extends UnaryOperator
 
     /**
      * LogicalUnaryOperatorNode constructor.
-     * @param $child
      */
     public function __construct()
     {

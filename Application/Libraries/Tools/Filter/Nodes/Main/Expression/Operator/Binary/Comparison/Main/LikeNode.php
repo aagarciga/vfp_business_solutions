@@ -49,7 +49,7 @@ class LikeNode extends ComparisonBinaryOperatorNode
 
     public function generateHtmlCode($codeGenerator)
     {
-        // TODO: Implement generateHtmlCode() method.
+        
     }
 
 }
