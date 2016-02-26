@@ -11,8 +11,11 @@
 
 namespace Dandelion\Tools\Filter;
 
+use Dandelion\Tools\CodeGenerator\TitleHtmlAttribute;
 use Dandelion\Tools\Filter\ComparisonBinaryOperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlLikeValueVirtualCode;
+use Dandelion\Tools\CodeGenerator\DivHtmlOpenTagVirtualCode;
+use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
 
 class LikeNode extends ComparisonBinaryOperatorNode
 {
@@ -49,7 +52,32 @@ class LikeNode extends ComparisonBinaryOperatorNode
 
     public function generateHtmlCode($codeGenerator)
     {
-        
+        $leftChild = $this->getLeftChild();
+        if (!$leftChild instanceof FieldNode){
+            return;
+        }
+
+        $title = $leftChild->getCaption();
+
+        $tagBlockGenerator = new DivHtmlOpenTagVirtualCode();
+        $tagBlockGenerator->InsertAttribute(new ClassHtmlAttribute("form-group"));
+        $tagBlockGenerator->InsertAttribute(new TitleHtmlAttribute($title));
+        $blockCodeGenerator = new HtmlBlockTagGenerator($tagBlockGenerator);
+
+        $leftChild->generateHtmlCode($blockCodeGenerator);
+
+        $fieldCaption = $leftChild->getCaption();
+        $fullFieldName = $leftChild->getFullField();
+        $tagDateRangeGenerator = new DivHtmlOpenTagVirtualCode();
+        $tagDateRangeGenerator->InsertAttribute(new ClassHtmlAttribute("input-group"));
+        $tagDateRangeGenerator->InsertAttribute(new TitleHtmlAttribute($fieldCaption));
+        $divDateRangeCodeGenerator = new HtmlBlockTagGenerator($tagDateRangeGenerator);
+
+        BinaryOperatorNode::generateValueHtmlCode($divDateRangeCodeGenerator, $fullFieldName, $fieldCaption);
+
+        $blockCodeGenerator->InsertCode($divDateRangeCodeGenerator);
+
+        $codeGenerator->InsertCode($blockCodeGenerator);
     }
 
 }

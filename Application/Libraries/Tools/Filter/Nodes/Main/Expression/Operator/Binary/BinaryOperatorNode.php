@@ -13,9 +13,18 @@ namespace Dandelion\Tools\Filter;
 
 define("INTERN_LEVEL", 1);
 
+use Dandelion\Tools\CodeGenerator\TitleHtmlAttribute;
 use Dandelion\Tools\Filter\OperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode, Dandelion\Tools\CodeGenerator\SqlRigthBarcketVirtualCode;
+use Dandelion\Tools\CodeGenerator\SpanHtmlOpenTagVirtualCode;
+use Dandelion\Tools\CodeGenerator\InputHtmlOpenTagVirtualCode;
+use Dandelion\Tools\CodeGenerator\TypeHtmlAttribute;
+use Dandelion\Tools\CodeGenerator\ClassHtmlAttribute;
+use Dandelion\Tools\CodeGenerator\DataHtmlStrAttribute;
+use Dandelion\Tools\CodeGenerator\PlaceholderHtmlAttribute;
+use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
+use Dandelion\Tools\CodeGenerator\ButtonHtmlOpenTagVirtualCode;
 
 abstract class BinaryOperatorNode extends OperatorNode
 {
@@ -76,5 +85,32 @@ abstract class BinaryOperatorNode extends OperatorNode
             $this->level = max($this->getLeftChild()->getLevel(), $this->getRightChild()->getLevel()) + 1;
         }
         return $this->level;
+    }
+
+    public static function generateValueHtmlCode($divDateRangeCodeGenerator, $fullFieldName, $fieldCaption, $inputAddCssClass=""){
+        $inputAddCssClass = ($inputAddCssClass !== "")? "form-control " . $inputAddCssClass : "form-control";
+
+        $tagInputGenerator = new InputHtmlOpenTagVirtualCode();
+        $tagInputGenerator->InsertAttribute(new TypeHtmlAttribute("text"));
+        $tagInputGenerator->InsertAttribute(new ClassHtmlAttribute($inputAddCssClass));
+        $tagInputGenerator->InsertAttribute(new DataHtmlStrAttribute("fieldname", $fullFieldName));
+        $tagInputGenerator->InsertAttribute(new PlaceholderHtmlAttribute($fieldCaption));
+        $inputCodeGenerator = new HtmlBlockTagGenerator($tagInputGenerator);
+
+        $divDateRangeCodeGenerator->InsertCode($inputCodeGenerator);
+
+        $tagSpanInputGroupBtnGenerator = new SpanHtmlOpenTagVirtualCode();
+        $tagSpanInputGroupBtnGenerator->InsertAttribute(new ClassHtmlAttribute("input-group-btn"));
+        $inputGroupBtnCodeGenerator = new HtmlBlockTagGenerator($tagSpanInputGroupBtnGenerator);
+
+        $tagButtonGenerator = new ButtonHtmlOpenTagVirtualCode();
+        $tagButtonGenerator->InsertAttribute(new TypeHtmlAttribute("button"));
+        $tagButtonGenerator->InsertAttribute(new ClassHtmlAttribute("btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field"));
+        $tagButtonGenerator->InsertAttribute(new TitleHtmlAttribute("Delete Filter Field"));
+        $buttonCodeGenerator = new HtmlBlockTagGenerator($tagButtonGenerator);
+
+        $inputGroupBtnCodeGenerator->InsertCode($buttonCodeGenerator);
+
+        $divDateRangeCodeGenerator->InsertCode($inputGroupBtnCodeGenerator);
     }
 }

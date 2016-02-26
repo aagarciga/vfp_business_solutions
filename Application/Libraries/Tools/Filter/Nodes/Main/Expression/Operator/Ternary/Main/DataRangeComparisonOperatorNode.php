@@ -96,27 +96,7 @@ class DataRangeComparisonOperatorNode extends TernaryOperatorNode
 
         $divDateRangeCodeGenerator->InsertCode($spanAddOnCodeGenerator);
 
-        $tagInputGenerator = new InputHtmlOpenTagVirtualCode();
-        $tagInputGenerator->InsertAttribute(new TypeHtmlAttribute("text"));
-        $tagInputGenerator->InsertAttribute(new ClassHtmlAttribute("form-control daterangepicker"));
-        $tagInputGenerator->InsertAttribute(new DataHtmlStrAttribute("fieldname", $fullFieldName));
-        $tagInputGenerator->InsertAttribute(new PlaceholderHtmlAttribute($fieldCaption));
-        $inputCodeGenerator = new HtmlBlockTagGenerator($tagInputGenerator);
-
-        $divDateRangeCodeGenerator->InsertCode($inputCodeGenerator);
-
-        $tagSpanInputGroupBtnGenerator = new SpanHtmlOpenTagVirtualCode();
-        $tagSpanInputGroupBtnGenerator->InsertAttribute(new ClassHtmlAttribute("input-group-btn"));
-        $inputGroupBtnCodeGenerator = new HtmlBlockTagGenerator($tagSpanInputGroupBtnGenerator);
-
-        $tagButtonGenerator = new ButtonHtmlOpenTagVirtualCode();
-        $tagButtonGenerator->InsertAttribute(new TypeHtmlAttribute("button"));
-        $tagButtonGenerator->InsertAttribute(new ClassHtmlAttribute("btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field"));
-        $buttonCodeGenerator = new HtmlBlockTagGenerator($tagButtonGenerator);
-
-        $inputGroupBtnCodeGenerator->InsertCode($buttonCodeGenerator);
-
-        $divDateRangeCodeGenerator->InsertCode($inputGroupBtnCodeGenerator);
+        BinaryOperatorNode::generateValueHtmlCode($divDateRangeCodeGenerator, $fullFieldName, $fieldCaption, "daterangepicker");
 
         $blockCodeGenerator->InsertCode($divDateRangeCodeGenerator);
 
