@@ -30,6 +30,17 @@ define('CHILDREN_NAME', 'children');
 
 class TreeCreator
 {
+    private static $types = array(
+        'blockExpresion' => 'blockExpresionCreator',
+        'field' => 'fieldCreator',
+        'string' => 'stringCreator',
+        'date' => 'dateCreator',
+        'like' => 'likeCreator',
+        'not' => 'notCreator',
+        'positive' => 'positiveCreator',
+        'dateRange' => 'dateRangeCreator'
+    );
+
     /**
      * @param array $arrayTree
      * @return IFilterNode
@@ -56,27 +67,54 @@ class TreeCreator
      * @return IFilterNode
      */
     protected static function createNodeByType($type){
-        $types = array(
-            'blockExpresion' => 'blockExpresionCreator',
-            'field' => 'fieldCreator',
-            'string' => 'stringCreator',
-            'date' => 'dateCreator',
-            'like' => 'likeCreator',
-            'not' => 'notCreator',
-            'positive' => 'positiveCreator',
-            'dateRange' => 'dateRangeCreator'
-        );
 
-        if (array_key_exists($type, $types)) {
-            return $types[$type]();
+        if (array_key_exists($type, self::$types)) {
+            $creator = self::$types[$type];
+            return $creator();
         }
 
         return defaultCreator();
     }
+
+    public function treeToArray($tree){
+        $phpTypes = self::invertCreatorType();
+
+        $result = array();
+
+        $nodePhpType = gettype($tree);
+
+        if (!array_key_exists($nodePhpType)){
+            throw new \Exception("Unknown node");
+        }
+        $result[TYPE_NAME] = $phpTypes[$nodePhpType];
+
+        $result[VALUE_NAME] = $tree->getValue();
+
+        $children = array();
+        $childCount = $tree->getChildCount();
+        for ($i = 0; $i < $childCount; $i++){
+            $children[] = self::treeToArray($tree->getChild($i));
+        }
+
+        $result[CHILDREN_NAME] = $children;
+
+        return $result;
+    }
+
+    private static function invertCreatorType(){
+        $phpType = array();
+
+        foreach (self::$types as $type => $creator){
+            $node = $creator();
+            $phpType[gettype($node)] = $type;
+        }
+
+        return $phpType;
+    }
 }
 
 function defaultCreator(){
-
+    throw new \Exception("Unknown node");
 }
 
 function blockExpresionCreator(){
