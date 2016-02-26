@@ -11,6 +11,10 @@
 
 namespace Dandelion\Tools\Filter;
 
+use Dandelion\Tools\CodeGenerator\ClassHtmlAttribute;
+use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
+use Dandelion\Tools\CodeGenerator\HtmlTextVirtualCode;
+use Dandelion\Tools\CodeGenerator\LabelHtmlTagVirtualCode;
 use Dandelion\Tools\Filter\ConstantNode;
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
@@ -43,6 +47,13 @@ class FieldNode extends ConstantNode
 
     public function generateHtmlCode($codeGenerator)
     {
+        $taglabelGenerator = new LabelHtmlTagVirtualCode();
+        $taglabelGenerator->InsertAttribute(new ClassHtmlAttribute("control-label"));
+        $labelCodeGenerator = new HtmlBlockTagGenerator($taglabelGenerator);
+
+        $labelCodeGenerator->InsertCode(new HtmlTextVirtualCode($this->getCaption()));
+
+        $codeGenerator->InsertCode($labelCodeGenerator);
     }
 
     public function getCaption(){
