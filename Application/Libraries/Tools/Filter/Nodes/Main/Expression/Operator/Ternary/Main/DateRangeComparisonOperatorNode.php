@@ -30,7 +30,7 @@ use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlRigthBarcketVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlLessEqualThanVirtualCode;
 
-class DataRangeComparisonOperatorNode extends TernaryOperatorNode
+class DateRangeComparisonOperatorNode extends TernaryOperatorNode
 {
     /**
      * OrNode constructor.
