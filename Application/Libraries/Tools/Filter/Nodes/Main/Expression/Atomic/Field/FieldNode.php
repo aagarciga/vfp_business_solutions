@@ -45,6 +45,11 @@ class FieldNode extends ConstantNode
     {
     }
 
+    public function getCaption(){
+        $value = $this->getValue();
+        return isset($value[2])? $value[2] : "";
+    }
+
     public function getTable(){
         $value = $this->getValue();
         return isset($value[1])? $value[1] : null;
