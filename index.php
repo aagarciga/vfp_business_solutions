@@ -86,17 +86,14 @@ require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'FrontController.php';
 require_once 'Core/Exceptions.Core.php';
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_SEPARATOR . 'Diana.php';
 
-<<<<<<< HEAD
-=======
+
 //BEGIN: Add by Victor
-require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'tools.php';
 
 //Tools libraries loader
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Tools' . DIRECTORY_SEPARATOR . 'Index.php';
 
 //END: Add by Victor
 
->>>>>>> feature-filterTree
 /**
  * Front Controller instance for Singleton behavior.
  * 
@@ -133,15 +130,14 @@ final class index extends Core\FrontController {
 
         \Dandelion\Diana\Diana::Init();
 
-<<<<<<< HEAD
+
         //Add by Victor
         require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'Tools.php';
-=======
         //BEGIN: Add by Victor
 
         \Dandelion\Tools\Tools::Init();
         //END: Add by Victor
->>>>>>> feature-filterTree
+
         
         date_default_timezone_set("America/New_York");
         
