@@ -23,8 +23,12 @@ class GetPage_Post extends Action {
         $orderby = $this->Request->hasProperty('orderby') ? $this->Request->orderby : "ordnum";
         $order = $this->Request->hasProperty('order') ? $this->Request->order : "ASC";
 
-        $this->FilterPredicate = $_SESSION['filterPredicate'] = $filterPredicate;
-        $this->ItemPerPage = $_SESSION['itemperpages'] = $itemsPerPage;
+//        //Set filter and count on sesion global variable.
+//        $this->FilterPredicate = $_SESSION['filterPredicate'] = $filterPredicate;
+//        $this->ItemPerPage = $_SESSION['itemperpages'] = $itemsPerPage;
+
+        $this->FilterPredicate =  $filterPredicate;
+        $this->ItemPerPage =  $itemsPerPage;
         
         $result = array();
         
