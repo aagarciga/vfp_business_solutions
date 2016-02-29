@@ -15,4 +15,3 @@ Public/Styles/OnPurchaseOrderDashboard/index.min.css
 .gitignore
 Public/Vendor/select2/js/select2.full.min.js
 *.map
-*.min.*.js
