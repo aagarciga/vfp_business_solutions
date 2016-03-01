@@ -314,6 +314,49 @@ class Application implements INameable {
         $this->settings->Pager['ItemsPerPage'] = $value;
     }
 
+    private static function equalAttributeValue($xmlObj, $attributeName, $attributeValue){
+        if (isset($xmlObj[$attributeName])){
+            return ((string) $xmlObj[$attributeName]) == $attributeValue;
+        }
+        return false;
+    }
+
+    private static function getXmlObjectByAttribute($xmlObj, $attributeName, $attributeValue){
+        if (!is_array($xmlObj)){
+            if (self::equalAttributeValue($xmlObj, $attributeName, $attributeValue)){
+                return $xmlObj;
+            }
+        }
+        else{
+            foreach ($xmlObj as $obj){
+                if (self::equalAttributeValue($obj, $attributeName, $attributeValue)){
+                    return $obj;
+                }
+            }
+        }
+        return null;
+
+    }
+
+    protected function getCompany($companyId="default"){
+        $companiesXmlObject = $this->settings->Company;
+        return self::getXmlObjectByAttribute($companiesXmlObject, "id", $companyId);
+    }
+
+    public function getDefaultCompanyDashboardPredicate($dashboard="default", $predicateId="default"){
+        $company = $this->getCompany();
+        if (!is_null($company) && isset($company->Dashboard)){
+            $dashboardXmlObject = self::getXmlObjectByAttribute($company->Dashboard, "id", $dashboard);
+            if (!is_null($dashboardXmlObject) && isset($dashboardXmlObject->Predicate)){
+                $predicateXmlObject = self::getXmlObjectByAttribute($dashboardXmlObject->Predicate, "id", $dashboard);
+                if (!is_null($predicateXmlObject) && isset($predicateXmlObject["value"])){
+                    return $predicateXmlObject["value"];
+                }
+            }
+        }
+        return "";
+    }
+
 //    public function getPickTicketPagerItermsPerPage(){
 //        return isset($this->settings->PickTicket['ItemsPerPage'])? $this->settings->PickTicket['ItemsPerPage'] : $this->getDefaultPagerItermsPerPage();
 //    }

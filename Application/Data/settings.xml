@@ -21,7 +21,14 @@
                     <Dir name="Travel Expenses"></Dir>
                 </FileStructure>
             </Attachments>
+            <Predicate id="default" value=""></Predicate>
+        </Dashboard>
+
+        <Dashboard id="InventoryDashboard">
+            <Predicate id="default" value=""></Predicate>
         </Dashboard>
 
     </Company>
+
+
 </Application>
