@@ -193,3 +193,9 @@ function fixKeywordsProblem($field){
     }
     return $field;
 }
+
+function getClassName($classFullName){
+    $className = explode("\\", $classFullName);
+    $className = $className[count($className)-1];
+    return $className;
+}

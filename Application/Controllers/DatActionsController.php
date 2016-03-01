@@ -30,6 +30,8 @@ abstract class DatActionsController extends ActionsController {
      */
     public $VfpDataUnitOfWork;
 
+    protected $includeFilter;
+
     /**
      * Controller initialization method
      */
@@ -42,6 +44,11 @@ abstract class DatActionsController extends ActionsController {
             $application->getDefaultDbUser(),
             $application->getDefaultDbPassword(),
             $application->getDefaultDbServerType()));
+
+        $classFullName = gettype($this);
+        $className = \Dandelion\MVC\Application\Tools\getClassName($classFullName);
+
+        $this->includeFilter = $application->getDefaultCompanyDashboardPredicate($className);
     }
 
     /**
