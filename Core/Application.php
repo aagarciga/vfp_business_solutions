@@ -339,7 +339,7 @@ class Application implements INameable {
     }
 
     protected function getCompany($companyId="default"){
-        $companiesXmlObject = $this->settings->Company;
+        $companiesXmlObject = self::getChildrenXmlObject($this->settings, "Company");
         return self::getXmlObjectByAttribute($companiesXmlObject, "id", $companyId);
     }
 
