@@ -37,9 +37,7 @@ class EquipmentDashboard extends DatActionsController
     public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5,
                              $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC")
     {
-        if ($predicate !== "") {
-            $predicate = "WHERE $predicate ";
-        }
+        $predicate = $this->getComposedFilter($predicate);
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
         $table = $this->getDashboardTable($companysuffix);
@@ -92,5 +90,21 @@ class EquipmentDashboard extends DatActionsController
         $swequipTable = "SWEQUIP$companySuffix";
         $icparmTable = "ICPARM$companySuffix";
         return "($swequipTable INNER JOIN $icparmTable ON $swequipTable.itemno = $icparmTable.itemno)";
+    }
+
+    protected function getComposedFilter($predicate){
+        if ($predicate !== "") {
+            $predicate = "WHERE " . $predicate;
+        }
+
+        if ($this->includeFilter !== ""){
+            if ($predicate !== ""){
+                $predicate .= "AND (" . $this->includeFilter . ")";
+            }
+            else{
+                $predicate = "WHERE " . $this->includeFilter;
+            }
+        }
+        return $predicate;
     }
 }
