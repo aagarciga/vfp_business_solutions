@@ -363,9 +363,12 @@ class Application implements INameable {
             if (!is_null($dashboardXmlObject) && isset($dashboardXmlObject->Predicate)){
                 $predicates = self::getChildrenXmlObject($dashboardXmlObject, "Predicate");
                 $predicateXmlObject = self::getXmlObjectByAttribute($predicates, "id", $predicateId);
-                if (!is_null($predicateXmlObject) && isset($predicateXmlObject["value"])){
-                    return (string) $predicateXmlObject["value"];
-                }
+                return (string) $predicateXmlObject;
+
+//                if (!is_null($predicateXmlObject) && isset($predicateXmlObject["value"])){
+//
+//                    return (string) $predicateXmlObject;
+//                }
             }
         }
         return "";
