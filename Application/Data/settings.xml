@@ -25,9 +25,9 @@
         </Dashboard>
 
         <Dashboard id="InventoryDashboard">
-            <Predicate id="default" value="LOWER(TRIM(ITEMTYPE)) = 'inventory' AND LOWER(TRIM(ITEMTYPE)) = 'group' AND
-            LOWER(TRIM(ITEMTYPE)) = 'kit' AND LOWER(TRIM(ITEMTYPE)) = 'toplvlassy' AND LOWER(TRIM(ITEMTYPE)) = 'subassy' AND
-            LOWER(TRIM(ITEMTYPE)) = 'rawmatrl' AND LOWER(TRIM(ITEMTYPE)) = 'component'"></Predicate>
+            <Predicate id="default" value="LOWER(TRIM(ITEMTYPE)) = 'inventory' OR LOWER(TRIM(ITEMTYPE)) = 'group' OR
+            LOWER(TRIM(ITEMTYPE)) = 'kit' OR LOWER(TRIM(ITEMTYPE)) = 'toplvlassy' OR LOWER(TRIM(ITEMTYPE)) = 'subassy' OR
+            LOWER(TRIM(ITEMTYPE)) = 'rawmatrl' OR LOWER(TRIM(ITEMTYPE)) = 'component'"></Predicate>
         </Dashboard>
 
     </Company>

@@ -45,7 +45,7 @@ abstract class DatActionsController extends ActionsController {
             $application->getDefaultDbPassword(),
             $application->getDefaultDbServerType()));
 
-        $classFullName = gettype($this);
+        $classFullName = get_class($this);
         $className = \Dandelion\MVC\Application\Tools\getClassName($classFullName);
 
         $this->includeFilter = $application->getDefaultCompanyDashboardPredicate($className);

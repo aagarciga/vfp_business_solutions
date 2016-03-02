@@ -30,9 +30,19 @@ class InventoryDashboard extends DatActionsController
      */
     public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5, $showPagerControlsIfMoreThan = 10, $orderby = "itemno", $order = "ASC")
     {
-        if ($predicate !== "" || $this->includeFilter !== "") {
-            $predicate = " WHERE " . $predicate . " " . $this->includeFilter;
+        if ($predicate !== "") {
+            $predicate = "WHERE " . $predicate;
         }
+
+        if ($this->includeFilter !== ""){
+            if ($predicate !== ""){
+                $predicate .= "AND (" . $this->includeFilter . ")";
+            }
+            else{
+                $predicate = "WHERE " . $this->includeFilter;
+            }
+        }
+
 //        $orderby = $this->prepareOrderByField($orderby); // Converting String yo Integer for correct representation
         $companySuffix = $this->DatUnitOfWork->CompanySuffix;
 

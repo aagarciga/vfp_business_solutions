@@ -343,14 +343,28 @@ class Application implements INameable {
         return self::getXmlObjectByAttribute($companiesXmlObject, "id", $companyId);
     }
 
+    private static function getChildrenXmlObject($xmlObj, $childrenName){
+        $result = array();
+
+        foreach ($xmlObj->children() as $child){
+            if ($child->getName() === $childrenName){
+                $result[] = $child;
+            }
+        }
+
+        return $result;
+    }
+
     public function getDefaultCompanyDashboardPredicate($dashboard="default", $predicateId="default"){
         $company = $this->getCompany();
         if (!is_null($company) && isset($company->Dashboard)){
-            $dashboardXmlObject = self::getXmlObjectByAttribute($company->Dashboard, "id", $dashboard);
+            $dashboards = self::getChildrenXmlObject($company, "Dashboard");
+            $dashboardXmlObject = self::getXmlObjectByAttribute($dashboards, "id", $dashboard);
             if (!is_null($dashboardXmlObject) && isset($dashboardXmlObject->Predicate)){
-                $predicateXmlObject = self::getXmlObjectByAttribute($dashboardXmlObject->Predicate, "id", $dashboard);
+                $predicates = self::getChildrenXmlObject($dashboardXmlObject, "Predicate");
+                $predicateXmlObject = self::getXmlObjectByAttribute($predicates, "id", $predicateId);
                 if (!is_null($predicateXmlObject) && isset($predicateXmlObject["value"])){
-                    return $predicateXmlObject["value"];
+                    return (string) $predicateXmlObject["value"];
                 }
             }
         }
