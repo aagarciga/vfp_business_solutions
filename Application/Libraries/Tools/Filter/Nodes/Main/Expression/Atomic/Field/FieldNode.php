@@ -67,7 +67,8 @@ class FieldNode extends ConstantNode
     }
 
     public function getField(){
-        return $this->getValue()[0];
+        $value = $this->getValue();
+        return $value[0];
     }
 
 }

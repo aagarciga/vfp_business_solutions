@@ -58,7 +58,7 @@
   >
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT Dashboard (Attachments)*>
+<!ELEMENT Dashboard (Predicate|Attachments)*>
 <!ATTLIST Dashboard
     id CDATA #IMPLIED
   >
@@ -73,4 +73,11 @@
 <!ELEMENT Dir EMPTY>
 <!ATTLIST Dir
     name CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Predicate (#PCDATA)>
+<!ATTLIST Predicate
+    value CDATA #IMPLIED
+    id CDATA #IMPLIED
   >

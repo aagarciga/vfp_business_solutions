@@ -15,7 +15,7 @@
     })
 </script>
 
-<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/EquipmentDashboardDynamicFilter.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/EquipmentDashboardDynamicFilter.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('EquipmentDashboard/ProjectFiles.min.js'); ?>"></script>
 <script src="<?php echo $View->ScriptsContext('EquipmentDashboard/main.min.js'); ?>"></script>
 

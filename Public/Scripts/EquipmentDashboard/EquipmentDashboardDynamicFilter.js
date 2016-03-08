@@ -67,6 +67,68 @@
             DynamicFilter.functions.filter();
         }
     };
+
+    DynamicFilter.functions.getFilterTree = function (){
+        var $filterComponents = $(DynamicFilter.htmlBindings.filterFieldsContainer).children();
+        var Node = (function() {
+            function Node(nodeType, nodeValue, nodeChildren) {
+                this.nodeType = nodeType;
+                this.nodeValue = nodeValue;
+                this.nodeChildren = nodeChildren;
+            }
+            return Node;
+        })();
+        var nodeChildren = [];
+        var nodeValue = [];
+        var logicalNode = null;
+
+
+        $filterComponents.each( function () {
+            var $currentComponent = $(this);
+            var $currentComponentValue;
+            var $currentComponentControl;
+            var currentComponentControlValue;
+            var currentComponentControlFieldName;
+            var currentNode;
+
+            if ($currentComponent.hasClass('btn-group')){
+                $currentComponentValue = $currentComponent.children('button').text();
+                if($currentComponentValue = " "){
+                    currentNode = new Node('positive', '');
+                } else if ($currentComponentValue = "Not"){
+                    currentNode = new Node('not', '');
+                }
+                logicalNode = currentNode;
+
+            } else if ($currentComponent.hasClass('form-group')){
+                $currentComponentControl = $currentComponent.find('input, select');
+                currentComponentControlValue = $currentComponentControl.val();
+                currentComponentControlFieldName = $currentComponentControl.data('fieldname');
+                //if ($currentComponentControl.hasClass('daterangepicker')){
+                //    currentNode = new Node('dateRange', '');
+                //}
+                    var field = currentComponentControlFieldName;
+                    var tableField = DynamicFilter.status.fieldsDefinition[field]['table'];
+                    var captionField = DynamicFilter.status.fieldsDefinition[field]["displayName"];
+
+                    var fieldNode = new Node('field', [field, tableField, captionField], []);
+
+                    var valueNode = new Node('string', [currentComponentControlValue], []);
+
+                    currentNode = new Node('like', '', [fieldNode, valueNode]);
+
+                    logicalNode.children = [currentNode];
+
+                    nodeChildren.push(logicalNode);
+            }
+        });
+
+        var filterTree = new Node('blockExpression', nodeValue, nodeChildren);
+
+        console.log(filterTree);
+
+    };
+
     DynamicFilter.functions.getPredicate = function () {
         var $filterComponents = $(DynamicFilter.htmlBindings.filterFieldsContainer).children(),
             $currentComponent = null,
@@ -163,7 +225,7 @@
 
     DynamicFilter.functions.createOperatorGroup = function (first) {
         var tmplFirstOperatorGroup = '<div class="btn-group"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
-            tmplOperatorGroup = '<div class="btn-group "><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">And Not</a></li><li class="divider"></li><li><a href="#">Or</a></li><li><a href="#">Or Not</a></li></ul></div>';
+            tmplOperatorGroup = '<div class="btn-group "><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">Or</a></li></ul></div>';
         if (first === true) {
             return $(tmplFirstOperatorGroup);
         }
@@ -370,10 +432,15 @@
             isDateRanged = fieldType === 'date',
             dropdownValues = [],
             $operandGroup = DynamicFilter.functions.createOperatorGroup(isFirstField),
+            $secondOperandGroup,
             $formGroup;
-
         $filterFieldsContainer.append($operandGroup);
         DynamicFilter.functions.bindOperatorGroupEventHandler($operandGroup);
+        if(!isFirstField){
+            $secondOperandGroup = DynamicFilter.functions.createOperatorGroup(true);
+            $filterFieldsContainer.append($secondOperandGroup);
+            DynamicFilter.functions.bindOperatorGroupEventHandler($secondOperandGroup);
+        }
 
         if (fieldType === 'text') {
             $formGroup = DynamicFilter.functions.createTextField($button.data('field'), $button.text(), $button.data('field-value-type'));
