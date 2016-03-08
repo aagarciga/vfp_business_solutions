@@ -90,10 +90,9 @@
             var currentComponentControlValue;
             var currentComponentControlFieldName;
             var currentNode;
-
-            if ($currentComponent.hasClass('unary-logical-operator')){
+            if ($currentComponent.hasClass('btn-group unary-logical-operator')){
                 $currentComponentValue = $currentComponent.children('button').text();
-                if($currentComponentValue === " "){
+                if($currentComponentValue === ""){
                     currentNode = new Node('positive', '');
                 } else if ($currentComponentValue === "Not"){
                     currentNode = new Node('not', '');
