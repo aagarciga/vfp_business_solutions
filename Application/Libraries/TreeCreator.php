@@ -22,11 +22,11 @@ use Dandelion\Tools\Filter\NotNode;
 use Dandelion\Tools\Filter\PositiveNode;
 use Dandelion\Tools\Filter\StringNode;
 
-define('TYPE_NAME', 'type');
+define('TYPE_NAME', 'nodeType');
 
-define('VALUE_NAME', 'value');
+define('VALUE_NAME', 'nodeValue');
 
-define('CHILDREN_NAME', 'children');
+define('CHILDREN_NAME', 'nodeChildren');
 
 class TreeCreator
 {
@@ -76,7 +76,7 @@ class TreeCreator
         return defaultCreator();
     }
 
-    public function treeToArray($tree){
+    public static function treeToArray($tree){
         $phpTypes = self::invertCreatorType();
 
         $result = array();
