@@ -31,7 +31,7 @@ define('CHILDREN_NAME', 'nodeChildren');
 class TreeCreator
 {
     private static $types = array(
-        'blockExpresion' => 'blockExpresionCreator',
+        'blockExpression' => 'blockExpresionCreator',
         'field' => 'fieldCreator',
         'string' => 'stringCreator',
         'date' => 'dateCreator',
