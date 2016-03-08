@@ -11,7 +11,14 @@
 
 namespace Dandelion\Tools\Filter;
 
+define('SQL_CODE_SUFFIX_CREATOR', "SqlCodeCreator");
+define('HTML_CODE_SUFFIX_CREATOR', "HtmlCodeCreator");
+
+use Dandelion\Tools\CodeGenerator\AndBlockConnectionHtmlVirtualCode;
 use Dandelion\Tools\CodeGenerator\IVirtualCode;
+use Dandelion\Tools\CodeGenerator\OrBlockConnectionHtmlVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlAndVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlOrVirtualCode;
 use Dandelion\Tools\Filter\ConnectionChildBlockExpresionNode;
 
 
@@ -70,4 +77,33 @@ class BlockExpresionNode extends ConnectionChildBlockExpresionNode
     {
         return BlockExpresionNode::getConnectionChildCode($this->_htmlConnectionChildCode, $leftIndex);
     }
+
+    function setValue($value)
+    {
+        foreach ($value as $simpleValue){
+            $codeSqlCreator = strtolower($simpleValue) . SQL_CODE_SUFFIX_CREATOR;
+            $codeHtmlCreator = strtolower($simpleValue) . HTML_CODE_SUFFIX_CREATOR;
+
+            $this->addSqlConnectionChildCode($codeSqlCreator());
+            $this->addHtmlConnectionChildCode($codeHtmlCreator());
+        }
+
+        return parent::setValue($value);
+    }
+}
+
+function andSqlCodeCreator(){
+    return new SqlAndVirtualCode();
+}
+
+function andHtmlCodeCreator(){
+    return new AndBlockConnectionHtmlVirtualCode();
+}
+
+function orSqlCodeCreator(){
+    return new SqlOrVirtualCode();
+}
+
+function orHtmlCodeCreator(){
+    return new OrBlockConnectionHtmlVirtualCode();
 }

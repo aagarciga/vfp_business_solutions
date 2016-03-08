@@ -91,11 +91,11 @@
             var currentComponentControlFieldName;
             var currentNode;
 
-            if ($currentComponent.hasClass('btn-group')){
+            if ($currentComponent.hasClass('unary-logical-operator')){
                 $currentComponentValue = $currentComponent.children('button').text();
-                if($currentComponentValue = " "){
+                if($currentComponentValue === " "){
                     currentNode = new Node('positive', '');
-                } else if ($currentComponentValue = "Not"){
+                } else if ($currentComponentValue === "Not"){
                     currentNode = new Node('not', '');
                 }
                 logicalNode = currentNode;
@@ -104,29 +104,38 @@
                 $currentComponentControl = $currentComponent.find('input, select');
                 currentComponentControlValue = $currentComponentControl.val();
                 currentComponentControlFieldName = $currentComponentControl.data('fieldname');
-                //if ($currentComponentControl.hasClass('daterangepicker')){
-                //    currentNode = new Node('dateRange', '');
-                //}
-                    var field = currentComponentControlFieldName;
-                    var tableField = DynamicFilter.status.fieldsDefinition[field]['table'];
-                    var captionField = DynamicFilter.status.fieldsDefinition[field]["displayName"];
 
-                    var fieldNode = new Node('field', [field, tableField, captionField], []);
+                var field = currentComponentControlFieldName;
+                var tableField = DynamicFilter.status.fieldsDefinition[field]['table'];
+                var captionField = DynamicFilter.status.fieldsDefinition[field]["displayName"];
 
+                var fieldNode = new Node('field', [field, tableField, captionField], []);
+
+                if ($currentComponentControl.hasClass('daterangepicker')){
+                    var dateRange = currentComponentControlValue.split(' - ');
+                    var inferiorDateLimitNode = new Node('date', dateRange[0], []);
+                    var superDateLimitNode = new Node('date', dateRange[1], []);
+
+                    currentNode = new Node('dateRange', '', [field, inferiorDateLimitNode, superDateLimitNode]);
+                }else{
                     var valueNode = new Node('string', [currentComponentControlValue], []);
 
                     currentNode = new Node('like', '', [fieldNode, valueNode]);
+                }
+                logicalNode.nodeChildren = [currentNode];
 
-                    logicalNode.children = [currentNode];
+                nodeChildren.push(logicalNode);
+            }
+            else if ($currentComponent.hasClass('binary-logical-operator')){
+                $currentComponentValue = $currentComponent.children('button').text();
 
-                    nodeChildren.push(logicalNode);
+                nodeValue.push($currentComponentValue);
             }
         });
 
         var filterTree = new Node('blockExpression', nodeValue, nodeChildren);
 
         console.log(filterTree);
-
     };
 
     DynamicFilter.functions.getPredicate = function () {
@@ -224,8 +233,8 @@
     };
 
     DynamicFilter.functions.createOperatorGroup = function (first) {
-        var tmplFirstOperatorGroup = '<div class="btn-group"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
-            tmplOperatorGroup = '<div class="btn-group "><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">Or</a></li></ul></div>';
+        var tmplFirstOperatorGroup = '<div class="btn-group unary-logical-operator"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
+            tmplOperatorGroup = '<div class="btn-group binary-logical-operator"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">Or</a></li></ul></div>';
         if (first === true) {
             return $(tmplFirstOperatorGroup);
         }
