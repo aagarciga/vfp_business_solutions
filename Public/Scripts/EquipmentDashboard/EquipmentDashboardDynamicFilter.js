@@ -134,7 +134,7 @@
 
         var filterTree = new Node('blockExpression', nodeValue, nodeChildren);
 
-        console.log(filterTree);
+        return filterTree;
     };
 
     DynamicFilter.functions.getPredicate = function () {

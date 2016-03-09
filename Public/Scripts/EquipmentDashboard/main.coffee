@@ -44,9 +44,11 @@ EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
 EquipmentDashboard.functions = {}
 
 EquipmentDashboard.functions.paginate = ->
+  filterTree = App.EquipmentDashboard.DynamicFilter.functions.getFilterTree()
+  jsonFilterTree = JSON.stringify(filterTree)
   $.ajax(
     data:
-      predicate: EquipmentDashboard.DynamicFilter.functions.getPredicate(),
+      filterTree: jsonFilterTree,
       page: EquipmentDashboard.status.currentPage,
       itemsPerPage: EquipmentDashboard.status.itemsPerPage,
       orderby: EquipmentDashboard.status.table_header_sortField,
