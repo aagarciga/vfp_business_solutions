@@ -34,12 +34,6 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode, INodeCr
         $this->_level = null;
     }
 
-    public abstract function checkSemantic($report);
-
-    public abstract function generateSqlCode($codeGenerator);
-
-    public abstract function generateHtmlCode($codeGenerator);
-
     protected function setIsOk($isOk){
         $this->_isOk = $isOk;
     }

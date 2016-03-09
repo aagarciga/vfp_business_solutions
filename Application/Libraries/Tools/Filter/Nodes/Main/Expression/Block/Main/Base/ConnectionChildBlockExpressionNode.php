@@ -15,10 +15,10 @@ use Dandelion\Tools\CodeGenerator\DivHtmlOpenTagVirtualCode;
 use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
 use Dandelion\Tools\CodeGenerator\IdHtmlAttribute;
 use Dandelion\Tools\CodeGenerator\IVirtualCode;
-use Dandelion\Tools\Filter\BaseBlockExpresionNode;
+use Dandelion\Tools\Filter\BaseBlockExpressionNode;
 
 
-abstract class ConnectionChildBlockExpresionNode extends BaseBlockExpresionNode
+abstract class ConnectionChildBlockExpressionNode extends BaseBlockExpressionNode
 {
     public function __construct(){
         parent::__construct();

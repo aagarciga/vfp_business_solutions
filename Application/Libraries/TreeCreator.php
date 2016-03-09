@@ -11,8 +11,7 @@
 
 namespace Dandelion;
 
-
-use Dandelion\Tools\Filter\BlockExpresionNode;
+use Dandelion\Tools\Filter\BlockExpressionNode;
 use Dandelion\Tools\Filter\DateNode;
 use Dandelion\Tools\Filter\DateRangeComparisonOperatorNode;
 use Dandelion\Tools\Filter\FieldNode;
@@ -30,25 +29,33 @@ define('CHILDREN_NAME', 'nodeChildren');
 
 class TreeCreator
 {
-    private static $types = array(
-        'blockExpression' => 'blockExpresionCreator',
-        'field' => 'fieldCreator',
-        'string' => 'stringCreator',
-        'date' => 'dateCreator',
-        'like' => 'likeCreator',
-        'not' => 'notCreator',
-        'positive' => 'positiveCreator',
-        'dateRange' => 'dateRangeCreator'
-    );
+    private static $types;
+
+    public  static  function Init(){
+        self::$types  = array(
+            'blockExpression' => 'blockExpressionCreator',
+            'field' => 'fieldCreator',
+            'string' => 'stringCreator',
+            'date' => 'dateCreator',
+            'like' => 'likeCreator',
+            'not' => 'notCreator',
+            'positive' => 'positiveCreator',
+            'dateRange' => 'dateRangeCreator'
+        );
+    }
+
+    private static function getProperty($obj, $property){
+        return $obj->$property;
+    }
 
     /**
      * @param array $arrayTree
      * @return IFilterNode
      */
     public static function createTree($arrayTree){
-        $type = $arrayTree[TYPE_NAME];
-        $value = $arrayTree[VALUE_NAME];
-        $childrenArray = $arrayTree[CHILDREN_NAME];
+        $type = self::getProperty($arrayTree, TYPE_NAME);
+        $value = self::getProperty($arrayTree, VALUE_NAME);
+        $childrenArray = self::getProperty($arrayTree, CHILDREN_NAME);
 
         $node = self::createNodeByType($type);
 
@@ -69,7 +76,7 @@ class TreeCreator
     protected static function createNodeByType($type){
 
         if (array_key_exists($type, self::$types)) {
-            $creator = self::$types[$type];
+            $creator = "\\" . __NAMESPACE__ . "\\" . self::$types[$type];
             return $creator();
         }
 
@@ -117,8 +124,8 @@ function defaultCreator(){
     throw new \Exception("Unknown node");
 }
 
-function blockExpresionCreator(){
-    return new BlockExpresionNode();
+function blockExpressionCreator(){
+    return new BlockExpressionNode();
 }
 
 function fieldCreator(){

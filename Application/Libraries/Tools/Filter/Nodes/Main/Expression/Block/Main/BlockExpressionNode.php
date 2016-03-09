@@ -19,10 +19,10 @@ use Dandelion\Tools\CodeGenerator\IVirtualCode;
 use Dandelion\Tools\CodeGenerator\OrBlockConnectionHtmlVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlAndVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlOrVirtualCode;
-use Dandelion\Tools\Filter\ConnectionChildBlockExpresionNode;
+use Dandelion\Tools\Filter\ConnectionChildBlockExpressionNode;
 
 
-class BlockExpresionNode extends ConnectionChildBlockExpresionNode
+class BlockExpressionNode extends ConnectionChildBlockExpressionNode
 {
     private $_sqlConnectionChildCode;
 

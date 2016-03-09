@@ -11,6 +11,7 @@ namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Application\Tools;
+use Dandelion\TreeCreator;
 
 /**
  * Created by: Victor
@@ -21,7 +22,10 @@ class GetPage_Post extends Action
 {
     public function Execute()
     {
-        $userFilterPredicate = $this->Request->hasProperty('predicate') ? $this->Request->predicate : "";
+        TreeCreator::Init();
+
+        $userFilterPredicate = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
+        $filterTree = TreeCreator::createTree(json_decode($userFilterPredicate));
 
         //todo: Set default value as global default value
         $page = $this->Request->hasProperty('page') ? $this->Request->page : 1;
