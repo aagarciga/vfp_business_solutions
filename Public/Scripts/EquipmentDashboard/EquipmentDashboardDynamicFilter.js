@@ -115,9 +115,9 @@
                     var inferiorDateLimitNode = new Node('date', dateRange[0], []);
                     var superDateLimitNode = new Node('date', dateRange[1], []);
 
-                    currentNode = new Node('dateRange', '', [field, inferiorDateLimitNode, superDateLimitNode]);
+                    currentNode = new Node('dateRange', '', [fieldNode, inferiorDateLimitNode, superDateLimitNode]);
                 }else{
-                    var valueNode = new Node('string', [currentComponentControlValue], []);
+                    var valueNode = new Node('string', currentComponentControlValue, []);
 
                     currentNode = new Node('like', '', [fieldNode, valueNode]);
                 }
