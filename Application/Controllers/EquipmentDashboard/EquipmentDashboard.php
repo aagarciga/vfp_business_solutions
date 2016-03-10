@@ -9,11 +9,20 @@
 
 namespace Dandelion\MVC\Application\Controllers;
 
+define('EQUIPMENT_FILTER_TREE', 'EquipmentDashboard_filterTree');
+define('EQUIPMENT_ITEM_PER_PAGE', 'EquipmentDashboard_itemperpages');
+define('EQUIPMENT_PAGE', 'EquipmentDashboard_page');
+define('EQUIPMENT_ORDERBY', 'EquipmentDashboard_orderby');
+define('EQUIPMENT_ORDER', 'EquipmentDashboard_order');
+
 use Dandelion\MVC\Application\Controllers\DatActionsController;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Core\Request;
 use Dandelion\MVC\Application\Tools;
 use Dandelion\MVC\Application\Tools\BootstrapPagerTest;
+use Dandelion\Tools\CodeGenerator\SqlPredicateGenerator;
+use Dandelion\Tools\Filter\BlockExpressionNode;
+use Dandelion\Tools\Filter\IFilterNode;
 
 /**
  * Created by: Victor
@@ -24,7 +33,7 @@ class EquipmentDashboard extends DatActionsController
 {
     /**
      *
-     * @param string $predicate
+     * @param IFilterNode $filterTree
      * @param int $itemsPerpage
      * @param int $middleRange
      * @param int $showPagerControlsIfMoreThan
@@ -34,10 +43,13 @@ class EquipmentDashboard extends DatActionsController
      *
      * @internal Because in the feature this will be an INNER JOIN
      */
-    public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5,
+    public function GetPager($filterTree, $itemsPerpage = 50, $middleRange = 5,
                              $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC")
     {
-        $predicate = $this->getComposedFilter($predicate);
+        $sqlCodeGenerator = new SqlPredicateGenerator();
+        $filterTree->generateSqlCode($sqlCodeGenerator);
+
+        $predicate = $this->getComposedFilter($sqlCodeGenerator->getCode());
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
         $table = $this->getDashboardTable($companysuffix);
@@ -106,5 +118,31 @@ class EquipmentDashboard extends DatActionsController
             }
         }
         return $predicate;
+    }
+
+    public function getDefaultFilterTree(){
+        return new BlockExpressionNode();
+    }
+
+    public function getDefaultOrderByField(){
+        $companysuffix = $this->DatUnitOfWork->CompanySuffix;
+        $fieldsDefinition = $this->GetFieldsDefinition($companysuffix);
+        $arrayField = array_keys($fieldsDefinition);
+        return $arrayField[0];
+    }
+
+    public function getDefaultOrder(){
+        return "ASC";
+    }
+
+    public function getDefaultPage(){
+        return 0;
+    }
+
+    public function getDefaultItemPerPage($request=null){
+        if (is_null($request)){
+            return 50;
+        }
+        return (string) $request->Application->getDefaultPagerItermsPerPage();
     }
 }
