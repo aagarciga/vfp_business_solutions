@@ -37,7 +37,7 @@ class Index extends Action
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = self::getSessionValue(EQUIPMENT_ITEM_PER_PAGE, $defaultItemsPerPage);
-        $this->FilterTree = self::getSessionValue(EQUIPMENT_FILTER_TREE, $this->controller->getDefaultFilterTree());
+        $this->FilterTree = $this->controller->getSessionFilterTree();
         $this->Page = self::getSessionValue(EQUIPMENT_PAGE, $this->controller->getDefaultPage());
         $this->OrderBy = self::getSessionValue(EQUIPMENT_ORDERBY, $this->controller->getDefaultOrderByField());
         $this->Order = self::getSessionValue(EQUIPMENT_ORDER, $this->controller->getDefaultOrder());

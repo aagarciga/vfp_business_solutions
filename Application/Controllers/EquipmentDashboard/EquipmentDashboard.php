@@ -23,6 +23,7 @@ use Dandelion\MVC\Application\Tools\BootstrapPagerTest;
 use Dandelion\Tools\CodeGenerator\SqlPredicateGenerator;
 use Dandelion\Tools\Filter\BlockExpressionNode;
 use Dandelion\Tools\Filter\IFilterNode;
+use Dandelion\TreeCreator;
 
 /**
  * Created by: Victor
@@ -31,6 +32,13 @@ use Dandelion\Tools\Filter\IFilterNode;
  */
 class EquipmentDashboard extends DatActionsController
 {
+    protected function PreController(Request $request)
+    {
+        parent::PreController($request);
+        TreeCreator::Init();
+    }
+
+
     /**
      *
      * @param IFilterNode $filterTree
@@ -144,5 +152,28 @@ class EquipmentDashboard extends DatActionsController
             return 50;
         }
         return (string) $request->Application->getDefaultPagerItermsPerPage();
+    }
+
+    public function getSessionFilterTree(){
+        $defaultJsonTree = json_encode(TreeCreator::treeToArray($this->getDefaultFilterTree()));
+        $josnFiletrTree = self::getSessionValue(EQUIPMENT_FILTER_TREE, $defaultJsonTree);
+        return TreeCreator::createTree(json_decode($josnFiletrTree));
+    }
+
+    /**
+     * @param string | IFilterNode $filterTree
+     * @return IFilterNode
+     */
+    public function setSessionFilterTree($filterTree){
+        if (!is_string($filterTree)){
+            $arrayFilterTree = TreeCreator::treeToArray($filterTree);
+            $filterTree = json_encode($arrayFilterTree);
+        }
+        $_SESSION[EQUIPMENT_FILTER_TREE] = $filterTree;
+        return $this->getSessionFilterTree();
+    }
+
+    private static function getSessionValue($key, $defaultValue){
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
     }
 }

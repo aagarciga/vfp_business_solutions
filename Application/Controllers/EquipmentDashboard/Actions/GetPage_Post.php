@@ -25,7 +25,6 @@ class GetPage_Post extends Action
         TreeCreator::Init();
 
         $userJsonFilterTree = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
-        $filterTree = TreeCreator::createTree(json_decode($userJsonFilterTree));
 
         //todo: Set default value as global default value
         $page = $this->Request->hasProperty('page') ? $this->Request->page : 1;
@@ -33,7 +32,7 @@ class GetPage_Post extends Action
         $orderby = $this->Request->hasProperty('orderby') ? $this->Request->orderby : "ordnum";
         $order = $this->Request->hasProperty('order') ? $this->Request->order : "ASC";
 
-        $this->FilterPredicate = $_SESSION[EQUIPMENT_FILTER_TREE] = $filterTree;
+        $this->FilterPredicate = $this->controller->setSessionFilterTree($userJsonFilterTree);
         $this->ItemPerPage = $_SESSION[EQUIPMENT_ITEM_PER_PAGE] = $itemsPerPage;
         $this->Page = $_SESSION[EQUIPMENT_PAGE] = $page;
         $this->Orderby = $_SESSION[EQUIPMENT_ORDERBY] = $orderby;
@@ -41,7 +40,7 @@ class GetPage_Post extends Action
 
         $result = array();
 
-        $this->Pager = $this->controller->GetPager($filterTree, $this->ItemPerPage, 5, 10, $orderby, $order);
+        $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage, 5, 10, $orderby, $order);
         $pager = $this->Pager->PaginateForAjax($page);
         $itemCount = $this->Pager->getItemsCount();
         $queryResult = $this->Pager->getCurrentPagedItems();

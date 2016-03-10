@@ -27,6 +27,8 @@ define('VALUE_NAME', 'nodeValue');
 
 define('CHILDREN_NAME', 'nodeChildren');
 
+define('NAMESPACE_PREFIX_CREATOR', "\\" . __NAMESPACE__ . "\\");
+
 class TreeCreator
 {
     private static $types;
@@ -76,7 +78,7 @@ class TreeCreator
     protected static function createNodeByType($type){
 
         if (array_key_exists($type, self::$types)) {
-            $creator = "\\" . __NAMESPACE__ . "\\" . self::$types[$type];
+            $creator = NAMESPACE_PREFIX_CREATOR . self::$types[$type];
             return $creator();
         }
 
@@ -88,9 +90,9 @@ class TreeCreator
 
         $result = array();
 
-        $nodePhpType = gettype($tree);
+        $nodePhpType = get_class($tree);
 
-        if (!array_key_exists($nodePhpType)){
+        if (!array_key_exists($nodePhpType, $phpTypes)){
             throw new \Exception("Unknown node");
         }
         $result[TYPE_NAME] = $phpTypes[$nodePhpType];
@@ -112,8 +114,9 @@ class TreeCreator
         $phpType = array();
 
         foreach (self::$types as $type => $creator){
+            $creator = NAMESPACE_PREFIX_CREATOR . $creator;
             $node = $creator();
-            $phpType[gettype($node)] = $type;
+            $phpType[get_class($node)] = $type;
         }
 
         return $phpType;
