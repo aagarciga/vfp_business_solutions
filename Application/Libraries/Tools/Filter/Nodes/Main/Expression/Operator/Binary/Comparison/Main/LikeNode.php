@@ -16,6 +16,7 @@ use Dandelion\Tools\Filter\ComparisonBinaryOperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlLikeValueVirtualCode;
 use Dandelion\Tools\CodeGenerator\DivHtmlOpenTagVirtualCode;
 use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
+use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
 class LikeNode extends ComparisonBinaryOperatorNode
 {

@@ -23,6 +23,7 @@ class SqlVirtualCode extends VirtualCode
      */
     public function __construct($stringCode)
     {
+        parent::__construct();
         $this->stringCode = $stringCode;
     }
 

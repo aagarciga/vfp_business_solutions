@@ -15,8 +15,8 @@ use Dandelion\Tools\CodeGenerator\ClassHtmlAttribute;
 use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
 use Dandelion\Tools\CodeGenerator\HtmlTextVirtualCode;
 use Dandelion\Tools\CodeGenerator\LabelHtmlTagVirtualCode;
-use Dandelion\Tools\Filter\ConstantNode;
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
+use Dandelion\Tools\Filter\ConstantNode;
 
 class FieldNode extends ConstantNode
 {

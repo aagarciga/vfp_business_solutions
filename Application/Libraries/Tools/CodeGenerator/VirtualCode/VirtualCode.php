@@ -15,5 +15,10 @@ use Dandelion\Tools\CodeGenerator\IVirtualCode;
 
 abstract class VirtualCode implements IVirtualCode
 {
-    abstract function getCode();
+    /**
+     * VirtualCode constructor.
+     */
+    public function __construct()
+    {
+    }
 }

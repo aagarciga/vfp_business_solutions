@@ -57,6 +57,7 @@ class EquipmentDashboard extends DatActionsController
         $sqlCodeGenerator = new SqlPredicateGenerator();
         $filterTree->generateSqlCode($sqlCodeGenerator);
 
+        //TODO: Me quede aqui
         $predicate = $this->getComposedFilter($sqlCodeGenerator->getCode());
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
