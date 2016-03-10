@@ -52,8 +52,10 @@ abstract class ConnectionChildBlockExpressionNode extends BaseBlockExpressionNod
             $codeGenerator->InsertCode($this->getSqlConnectionChildCode($i));
         }
 
-        $child = $this->getChild($countChild - 1);
-        $child->generateSqlCode($codeGenerator);
+        if ($countChild > 0){
+            $child = $this->getChild($countChild - 1);
+            $child->generateSqlCode($codeGenerator);
+        }
     }
 
     public function generateHtmlCode($codeGenerator)
