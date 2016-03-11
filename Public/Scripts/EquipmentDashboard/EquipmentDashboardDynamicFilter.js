@@ -68,6 +68,25 @@
         }
     };
 
+    DynamicFilter.functions.splitDate = function (date) {
+        var dateSplit = date.split('/');
+        if (dateSplit === 3){
+            return dateSplit;
+        }
+        return ["", "", ""];
+    };
+
+    DynamicFilter.functions.splitDateRange = function (dateRangeValue){
+        var dateRangeSplitValue = dateRangeValue.split('-');
+        if (dateRangeSplitValue.length === 2)
+        {
+            var inferiorDate = dateRangeSplitValue[0], superDate = dateRangeSplitValue[1];
+            var inferiorDateSplit = DynamicFilter.functions.splitDate(inferiorDate), superDateSplit = DynamicFilter.functions.splitDate(superDate);
+            return {inferiorLimit: inferiorDateSplit, superLimit: superDateSplit};
+        }
+        return {inferiorLimit: ["", "", ""], superLimit: ["", "", ""]};
+    };
+
     DynamicFilter.functions.getFilterTree = function (){
         var $filterComponents = $(DynamicFilter.htmlBindings.filterFieldsContainer).children();
         var Node = (function() {
@@ -111,9 +130,9 @@
                 var fieldNode = new Node('field', [field, tableField, captionField], []);
 
                 if ($currentComponentControl.hasClass('daterangepicker')){
-                    var dateRange = currentComponentControlValue.split(' - ');
-                    var inferiorDateLimitNode = new Node('date', dateRange[0], []);
-                    var superDateLimitNode = new Node('date', dateRange[1], []);
+                    var dateRange = DynamicFilter.functions.splitDateRange(currentComponentControlValue);
+                    var inferiorDateLimitNode = new Node('date', dateRange.inferiorLimit, []);
+                    var superDateLimitNode = new Node('date', dateRange.superLimit, []);
 
                     currentNode = new Node('dateRange', '', [fieldNode, inferiorDateLimitNode, superDateLimitNode]);
                 }else{
