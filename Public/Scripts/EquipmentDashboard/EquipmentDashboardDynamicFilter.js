@@ -70,10 +70,10 @@
 
     DynamicFilter.functions.splitDate = function (date) {
         var dateSplit = date.split('/');
-        if (dateSplit === 3){
+        if (dateSplit.length === 3){
             return dateSplit;
         }
-        return ["", "", ""];
+        return ["12", "30", "1899"];
     };
 
     DynamicFilter.functions.splitDateRange = function (dateRangeValue){
@@ -84,7 +84,7 @@
             var inferiorDateSplit = DynamicFilter.functions.splitDate(inferiorDate), superDateSplit = DynamicFilter.functions.splitDate(superDate);
             return {inferiorLimit: inferiorDateSplit, superLimit: superDateSplit};
         }
-        return {inferiorLimit: ["", "", ""], superLimit: ["", "", ""]};
+        return {inferiorLimit: DynamicFilter.functions.splitDate(""), superLimit: DynamicFilter.functions.splitDate("")};
     };
 
     DynamicFilter.functions.getFilterTree = function (){
@@ -442,7 +442,6 @@
             $operatorContainer = $operator.parent().parent(),
             $buttonGroup = $operatorContainer.parent(),
             $button = $buttonGroup.children(':first');
-
         if (value === "Clear Not") {
             value = "";
         }

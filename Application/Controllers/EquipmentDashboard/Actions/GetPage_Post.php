@@ -22,8 +22,6 @@ class GetPage_Post extends Action
 {
     public function Execute()
     {
-        TreeCreator::Init();
-
         $userJsonFilterTree = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
 
         //todo: Set default value as global default value

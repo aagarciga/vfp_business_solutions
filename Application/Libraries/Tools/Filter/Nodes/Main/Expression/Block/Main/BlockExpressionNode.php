@@ -13,6 +13,7 @@ namespace Dandelion\Tools\Filter;
 
 define('SQL_CODE_SUFFIX_CREATOR', "SqlCodeCreator");
 define('HTML_CODE_SUFFIX_CREATOR', "HtmlCodeCreator");
+define('NAMESPACE_PREFIX', "\\" . __NAMESPACE__ . "\\");
 
 use Dandelion\Tools\CodeGenerator\AndBlockConnectionHtmlVirtualCode;
 use Dandelion\Tools\CodeGenerator\IVirtualCode;
@@ -43,11 +44,11 @@ class BlockExpressionNode extends ConnectionChildBlockExpressionNode
      * @return $this
      */
     public function addSqlConnectionChildCode($code){
-        BlockExpresionNode::addConnectionChildCode($this->_sqlConnectionChildCode, $code);
+        self::addConnectionChildCode($this->_sqlConnectionChildCode, $code);
         return $this;
     }
 
-    private static function addConnectionChildCode($connectionChildCode, $code){
+    private static function addConnectionChildCode(&$connectionChildCode, $code){
         $connectionChildCode[] = $code;
     }
 
@@ -56,13 +57,13 @@ class BlockExpressionNode extends ConnectionChildBlockExpressionNode
      * @return $this
      */
     public function addHtmlConnectionChildCode($code){
-        BlockExpresionNode::addConnectionChildCode($this->_htmlConnectionChildCode, $code);
+        self::addConnectionChildCode($this->_htmlConnectionChildCode, $code);
         return $this;
     }
 
     public function getSqlConnectionChildCode($leftIndex)
     {
-        return BlockExpresionNode::getConnectionChildCode($this->_sqlConnectionChildCode, $leftIndex);
+        return self::getConnectionChildCode($this->_sqlConnectionChildCode, $leftIndex);
     }
 
     private static function getConnectionChildCode($connectionChildCode, $leftIndex){
@@ -75,14 +76,14 @@ class BlockExpressionNode extends ConnectionChildBlockExpressionNode
 
     public function getHtmlConnectionChildCode($leftIndex)
     {
-        return BlockExpresionNode::getConnectionChildCode($this->_htmlConnectionChildCode, $leftIndex);
+        return self::getConnectionChildCode($this->_htmlConnectionChildCode, $leftIndex);
     }
 
     function setValue($value)
     {
         foreach ($value as $simpleValue){
-            $codeSqlCreator = strtolower($simpleValue) . SQL_CODE_SUFFIX_CREATOR;
-            $codeHtmlCreator = strtolower($simpleValue) . HTML_CODE_SUFFIX_CREATOR;
+            $codeSqlCreator = NAMESPACE_PREFIX . strtolower($simpleValue) . SQL_CODE_SUFFIX_CREATOR;
+            $codeHtmlCreator = NAMESPACE_PREFIX . strtolower($simpleValue) . HTML_CODE_SUFFIX_CREATOR;
 
             $this->addSqlConnectionChildCode($codeSqlCreator());
             $this->addHtmlConnectionChildCode($codeHtmlCreator());
