@@ -11,6 +11,8 @@
 
 namespace Dandelion\Tools\Filter;
 
+define('DATE_SEPARATOR', '/');
+
 use Dandelion\Tools\Filter\ConstantNode;
 use Dandelion\Tools\CodeGenerator\SqlStringVirtualCode;
 
@@ -31,7 +33,26 @@ class DateNode extends ConstantNode
 
     public function generateSqlCode($codeGenerator)
     {
-        $virtualCode = new SqlStringVirtualCode((string) $this->getValue());
+        $virtualCode = new SqlStringVirtualCode((string) $this->getStrDate());
         $codeGenerator->InsertCode($virtualCode);
+    }
+
+    public function getDay(){
+        $value = $this->getValue();
+        return $value[1];
+    }
+
+    public function getMonth(){
+        $value = $this->getValue();
+        return $value[0];
+    }
+
+    public function getYear(){
+        $value = $this->getValue();
+        return $value[2];
+    }
+
+    public function getStrDate(){
+        return $this->getMonth() . DATE_SEPARATOR . $this->getDay() . DATE_SEPARATOR . $this->getYear();
     }
 }

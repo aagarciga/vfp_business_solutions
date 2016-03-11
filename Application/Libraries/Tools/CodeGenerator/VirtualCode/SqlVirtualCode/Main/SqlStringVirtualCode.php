@@ -21,6 +21,6 @@ class SqlStringVirtualCode extends SqlVirtualCode
      */
     public function __construct($stringValue)
     {
-        parent::__construct("\"$stringValue\"");
+        parent::__construct("\'$stringValue\'");
     }
 }
