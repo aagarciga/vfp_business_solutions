@@ -17,7 +17,6 @@ class PositiveNode extends LogicalUnaryOperatorNode
 {
     /**
      * PositiveNode constructor.
-     * @param IFilterNode $child
      */
     public function __construct()
     {
