@@ -15,6 +15,8 @@ define('EQUIPMENT_PAGE', 'EquipmentDashboard_page');
 define('EQUIPMENT_ORDERBY', 'EquipmentDashboard_orderby');
 define('EQUIPMENT_ORDER', 'EquipmentDashboard_order');
 
+define('DEFAULT_SESSION_FILTER_ID', 'SESSION_FILTER');
+
 use Dandelion\MVC\Application\Controllers\DatActionsController;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Core\Request;
@@ -176,5 +178,9 @@ class EquipmentDashboard extends DatActionsController
 
     private static function getSessionValue($key, $defaultValue){
         return isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
+    }
+
+    public function getDefaultFilterId(){
+        return DEFAULT_SESSION_FILTER_ID;
     }
 }

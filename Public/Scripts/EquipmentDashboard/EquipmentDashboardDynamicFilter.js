@@ -490,7 +490,6 @@
             $nextOperator = $formGroup.next();
         if ($previousOperator.prev().length === 0) {
             if ($nextOperator.length === 0) {
-                $previousOperator.remove();
                 if (DynamicFilter.status.areControlsEnabled) {
                     DynamicFilter.functions.disableControls();
                 }
@@ -498,8 +497,13 @@
                 $nextOperator.remove();
             }
         } else {
-            $previousOperator.remove();
+            var $previousPreviousOperator = $previousOperator.prev();
+            if ($previousPreviousOperator.prev().length > 0)
+            {
+                $previousPreviousOperator.remove();
+            }
         }
+        $previousOperator.remove();
         $formGroup.remove();
         DynamicFilter.functions.filter();
     };
