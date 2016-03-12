@@ -60,25 +60,19 @@ abstract class ConnectionChildBlockExpressionNode extends BaseBlockExpressionNod
 
     public function generateHtmlCode($codeGenerator)
     {
-        $tag = new DivHtmlOpenTagVirtualCode();
-        $tag->InsertAttribute(new IdHtmlAttribute("dynamicFilter_filterFieldsContainer"));
-        $blockGenerator = new HtmlBlockTagGenerator($tag);
-
         $countChild = $this->getChildCount();
         for($i = 0; $i < $countChild - 1; $i++){
             $child = $this->getChild($i);
-            $child->generateHtmlCode($blockGenerator);
+            $child->generateHtmlCode($codeGenerator);
 
             $connectionVirtualCode = $this->getHtmlConnectionChildCode($i);
 
-            $blockGenerator->InsertCode($connectionVirtualCode);
+            $codeGenerator->InsertCode($connectionVirtualCode);
         }
 
         if ($countChild > 0){
             $child = $this->getChild($countChild - 1);
-            $child->generateHtmlCode($blockGenerator);
+            $child->generateHtmlCode($codeGenerator);
         }
-
-        $codeGenerator->InsertCode($blockGenerator);
     }
 }

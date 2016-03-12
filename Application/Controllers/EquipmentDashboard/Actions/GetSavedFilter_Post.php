@@ -29,12 +29,10 @@ class GetSavedFilter_Post extends Action
 
         $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : '';
 
-        $savedFilterTree = null;
+        $savedFilterTree = $savedFilterTree = $this->controller->getSessionFilterTree();;
         $savedFilter = new SYSEXPORT("", "", "", "", "", "", "", "", DEFAULT_SESSION_FILTER_ID);
-        if ($filterid === DEFAULT_SESSION_FILTER_ID){
-            $savedFilterTree = $this->controller->getSessionFilterTree();
-        }
-        else{
+        $htmlCodeGenerator = new HtmlTagsGenerator();
+        if ($filterid !== DEFAULT_SESSION_FILTER_ID){
             $savedFilter = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetByFilterid($filterid);
             if ($savedFilter !== ''){
                 $jsonSaveFilter = $savedFilter->getExpfields();
@@ -42,7 +40,6 @@ class GetSavedFilter_Post extends Action
             }
         }
 
-        $htmlCodeGenerator = new HtmlTagsGenerator();
         $savedFilterTree->generateHtmlCode($htmlCodeGenerator);
 
         $success = !is_null($savedFilter);
