@@ -28,24 +28,29 @@ class GetSavedFilter_Post extends Action
 
         $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : '';
 
-        $savedFilter = null;
+        $savedFilterTree = null;
+        
         if ($filterid === DEFAULT_SESSION_FILTER_ID){
-            $savedFilter = $this->controller->getSessionFilterTree();
+            $savedFilterTree = $this->controller->getSessionFilterTree();
         }
         else{
-            $jsonSaveFilter = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetByFilterid($filterid);
-            $savedFilter = ($jsonSaveFilter === '') ? null : TreeCreator::createTree(json_decode($jsonSaveFilter));
+            $savedFilter = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetByFilterid($filterid);
+            if ($savedFilter !== ''){
+                $jsonSaveFilter = $savedFilter->getExpfields();
+                $savedFilterTree = TreeCreator::createTree(json_decode($jsonSaveFilter));
+            }
         }
 
         $htmlCodeGenerator = new HtmlTagsGenerator();
-        $savedFilter->generateHtmlCode($htmlCodeGenerator);
+        $savedFilterTree->generateHtmlCode($htmlCodeGenerator);
 
         $success = !is_null($savedFilter);
-        $result['success'] = $success;
+        $result['success'] = false;
         if ($success) {
+            $result['success'] = true;
             $result['exportid'] = trim($savedFilter->getExportid()); // Filter Name
             $result['descrip'] = trim($savedFilter->getDescrip()); // Legacy
-            $result['expfields'] = $savedFilter->getExpfields() ; // HTML Filter fields
+            $result['expfields'] =  $htmlCodeGenerator->getCode(); // HTML Filter fields
             $result['expfrom'] = trim($savedFilter->getExpfrom()); // Legacy
             $result['expfilter'] = trim($savedFilter->getExpfilter()); // Filter String
             $result['explink'] = trim($savedFilter->getExplink()); //Legacy

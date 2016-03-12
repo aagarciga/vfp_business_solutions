@@ -11,9 +11,9 @@
 
 namespace Dandelion\Tools\CodeGenerator;
 
-use Dandelion\Tools\CodeGenerator\IHtmlVirtuaCode;
+use Dandelion\Tools\CodeGenerator\IHtmlVirtualCode;
 
-interface IHtmlTagVirtualCode extends IHtmlVirtuaCode
+interface IHtmlTagVirtualCode extends IHtmlVirtualCode
 {
     function InsertAttribute($attribute);
 

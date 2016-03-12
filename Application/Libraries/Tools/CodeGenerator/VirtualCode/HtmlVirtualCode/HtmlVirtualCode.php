@@ -15,5 +15,11 @@ use Dandelion\Tools\CodeGenerator\VirtualCode;
 
 abstract class HtmlVirtualCode extends VirtualCode
 {
-
+    /**
+     * HtmlVirtualCode constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

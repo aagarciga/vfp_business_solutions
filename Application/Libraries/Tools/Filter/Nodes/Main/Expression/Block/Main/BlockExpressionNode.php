@@ -79,6 +79,10 @@ class BlockExpressionNode extends ConnectionChildBlockExpressionNode
         return self::getConnectionChildCode($this->_htmlConnectionChildCode, $leftIndex);
     }
 
+    /**
+     * @param array $value
+     * @return $this
+     */
     function setValue($value)
     {
         foreach ($value as $simpleValue){
