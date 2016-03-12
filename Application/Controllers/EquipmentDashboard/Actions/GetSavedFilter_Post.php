@@ -11,6 +11,9 @@ namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 
 
 use Dandelion\MVC\Core\Action;
+use Dandelion\Tools\CodeGenerator\CodeGenerator;
+use Dandelion\Tools\CodeGenerator\HtmlTagsGenerator;
+use Dandelion\TreeCreator;
 
 /**
  * Create by Victor
@@ -24,10 +27,21 @@ class GetSavedFilter_Post extends Action
         $result = array();
 
         $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : '';
-        $savedFilter = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetByFilterid($filterid);
 
-        $success = $savedFilter !== "";
-        $result['success'] = $success ? true : false ;
+        $savedFilter = null;
+        if ($filterid === DEFAULT_SESSION_FILTER_ID){
+            $savedFilter = $this->controller->getSessionFilterTree();
+        }
+        else{
+            $jsonSaveFilter = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetByFilterid($filterid);
+            $savedFilter = ($jsonSaveFilter === '') ? null : TreeCreator::createTree(json_decode($jsonSaveFilter));
+        }
+
+        $htmlCodeGenerator = new HtmlTagsGenerator();
+        $savedFilter->generateHtmlCode($htmlCodeGenerator);
+
+        $success = !is_null($savedFilter);
+        $result['success'] = $success;
         if ($success) {
             $result['exportid'] = trim($savedFilter->getExportid()); // Filter Name
             $result['descrip'] = trim($savedFilter->getDescrip()); // Legacy
