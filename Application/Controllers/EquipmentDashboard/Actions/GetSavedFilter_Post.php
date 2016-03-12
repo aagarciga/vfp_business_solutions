@@ -10,6 +10,7 @@
 namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 
 
+use Dandelion\MVC\Application\Models\Entities\SYSEXPORT;
 use Dandelion\MVC\Core\Action;
 use Dandelion\Tools\CodeGenerator\CodeGenerator;
 use Dandelion\Tools\CodeGenerator\HtmlTagsGenerator;
@@ -29,7 +30,7 @@ class GetSavedFilter_Post extends Action
         $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : '';
 
         $savedFilterTree = null;
-        
+        $savedFilter = new SYSEXPORT("", "", "", "", "", "", "", "", DEFAULT_SESSION_FILTER_ID);
         if ($filterid === DEFAULT_SESSION_FILTER_ID){
             $savedFilterTree = $this->controller->getSessionFilterTree();
         }
