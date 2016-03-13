@@ -75,7 +75,9 @@ class LikeNode extends ComparisonBinaryOperatorNode
         $tagDateRangeGenerator->InsertAttribute(new TitleHtmlAttribute($fieldCaption));
         $divDateRangeCodeGenerator = new HtmlBlockTagGenerator($tagDateRangeGenerator);
 
-        BinaryOperatorNode::generateValueHtmlCode($divDateRangeCodeGenerator, $fullFieldName, $fieldCaption);
+        $valueChild = $this->getRightChild();
+
+        BinaryOperatorNode::generateValueHtmlCode($divDateRangeCodeGenerator, $fullFieldName, $fieldCaption, "", $valueChild->getValue());
 
         $blockCodeGenerator->InsertCode($divDateRangeCodeGenerator);
 
