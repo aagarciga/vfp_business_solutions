@@ -52,15 +52,16 @@
   >
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT Company (Dashboard)*>
+<!ELEMENT Company (Dashboard|Controller)*>
 <!ATTLIST Company
     id CDATA #IMPLIED
   >
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT Dashboard (Predicate|Attachments)*>
-<!ATTLIST Dashboard
-    id CDATA #IMPLIED
+<!ELEMENT Controller (Predicate|Attachments)*>
+<!ATTLIST Controller
+    type CDATA #IMPLIED
+    name CDATA #IMPLIED
   >
 
 <!--- Put your DTDDoc comment here. -->
@@ -78,6 +79,11 @@
 <!--- Put your DTDDoc comment here. -->
 <!ELEMENT Predicate (#PCDATA)>
 <!ATTLIST Predicate
-    value CDATA #IMPLIED
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Dashboard (Predicate)*>
+<!ATTLIST Dashboard
     id CDATA #IMPLIED
   >
