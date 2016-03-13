@@ -213,7 +213,7 @@
     DynamicFilter.functions.filter = function () {
         App.EquipmentDashboard.functions.paginate();
     };
-    DynamicFilter.functions.loadFilter = function (filterId) {
+    DynamicFilter.functions.loadFilter = function (filterId, filter) {
         $.ajax({
             data: {
                 filterid: filterId
@@ -244,7 +244,9 @@
 
                         DynamicFilter.functions.enableControls();
 
-                        DynamicFilter.functions.filter();
+                        if (filter){
+                            DynamicFilter.functions.filter();
+                        }
                     }
                 } else {
                     throw "Filter not loaded";
@@ -253,7 +255,12 @@
             }
         });
     };
-
+    DynamicFilter.functions.loadHtmlFilter = function(filterId){
+        DynamicFilter.functions.loadFilter(filterId, false);
+    };
+    DynamicFilter.functions.loadHtmlFilterAndFilter = function(filterId){
+        DynamicFilter.functions.loadFilter(filterId, true);
+    };
     DynamicFilter.functions.createOperatorGroup = function (first) {
         var tmplFirstOperatorGroup = '<div class="btn-group unary-logical-operator"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
             tmplOperatorGroup = '<div class="btn-group binary-logical-operator"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">Or</a></li></ul></div>';
@@ -409,8 +416,7 @@
          */
         var filterId = event.currentTarget.dataset.filterid;
         DynamicFilter.functions.reset(true);
-        DynamicFilter.functions.loadFilter(filterId);
-        DynamicFilter.functions.enableControls();
+        DynamicFilter.functions.loadHtmlFilterAndFilter(filterId);
     };
     DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick = function (event) {
         var $btnDelete = $(event.currentTarget),
@@ -562,7 +568,7 @@
         if (filterId) {
             DynamicFilter.status.filterId = filterId;
             DynamicFilter.functions.reset(true);
-            DynamicFilter.functions.loadFilter(filterId);
+            DynamicFilter.functions.loadHtmlFilter(filterId);
         }
 
         $(DynamicFilter.htmlBindings.controls.btnFilter).on('click',
