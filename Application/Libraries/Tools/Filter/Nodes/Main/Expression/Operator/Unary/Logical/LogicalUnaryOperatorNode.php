@@ -16,7 +16,10 @@ use Dandelion\Tools\CodeGenerator\BtnGroupVirtualCode;
 
 abstract class LogicalUnaryOperatorNode extends UnaryOperator
 {
-    static private $_captions = array("", "Not");
+    static private $_captions = array(
+        "" => "Clear Not",
+        "Not" => "Not",
+    );
 
     /**
      * LogicalUnaryOperatorNode constructor.

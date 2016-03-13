@@ -64,13 +64,15 @@ class BtnGroupVirtualCode
         $ulTagGenerator->InsertAttribute(new ClassHtmlAttribute("dropdown-menu"));
         $ulCodeGenerator = new HtmlBlockTagGenerator($ulTagGenerator);
 
-        $liCurrentGenerator = BtnGroupVirtualCode::getLi($currentCaption, true);
+        $currentLiCaption = array_key_exists($currentCaption, $captions) ? $captions[$currentCaption] : $currentCaption;
+
+        $liCurrentGenerator = BtnGroupVirtualCode::getLi($currentLiCaption, true);
 
         $ulCodeGenerator->InsertCode($liCurrentGenerator);
 
-        foreach($captions as $caption){
-            if (strtolower($caption) !== $currentCaption){
-                $liCodeGenerator = BtnGroupVirtualCode::getLi($caption);
+        foreach($captions as $caption => $liCaption){
+            if (strtolower($caption) !== strtolower($currentCaption)){
+                $liCodeGenerator = BtnGroupVirtualCode::getLi($liCaption);
 
                 $ulCodeGenerator->InsertCode($liCodeGenerator);
             }

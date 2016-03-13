@@ -16,7 +16,10 @@ use Dandelion\Tools\CodeGenerator\BtnGroupVirtualCode;
 
 abstract class BlockConnectionHtmlVirtualCode extends HtmlVirtualCode
 {
-    static private $_captions = array("And", "Or");
+    static private $_captions = array(
+        "And" => "And",
+        "Or" => "Or"
+    );
 
     /**
      * BlockConnectionHtmlVirtualCode constructor.
