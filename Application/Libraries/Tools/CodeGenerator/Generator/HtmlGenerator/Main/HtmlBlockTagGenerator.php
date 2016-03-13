@@ -33,7 +33,7 @@ class HtmlBlockTagGenerator extends HtmlGenerator
         $htmlTagCode = $this->virtualTag->getCode();
         $closeTag = $this->virtualTag->getCloseTagVirtualCode();
         $closeTagCode = $closeTag->getCode();
-        return $htmlTagCode. "\n" . $childVirtualCode . "\n" . $closeTagCode. "\n";
+        return $htmlTagCode. $childVirtualCode . $closeTagCode;
     }
 
 

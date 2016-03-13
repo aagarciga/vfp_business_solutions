@@ -28,9 +28,12 @@ class BtnGroupVirtualCode
      * @param array $captions
      * @return ICodeGenerator
      */
-    public static function getCodeGenerator($currentCaption, $captions){
+    public static function getCodeGenerator($currentCaption, $captions, $addDivContainerCcsClass=null){
         $tagGenerator = new DivHtmlOpenTagVirtualCode();
-        $tagGenerator->InsertAttribute(new ClassHtmlAttribute("btn-group open"));
+
+        $ccsClass = $addDivContainerCcsClass ? "btn-group open" . " " . $addDivContainerCcsClass : "btn-group open";
+
+        $tagGenerator->InsertAttribute(new ClassHtmlAttribute($ccsClass));
         $codeGenerator = new HtmlBlockTagGenerator($tagGenerator);
 
         $tagButtonAndGenerator = new ButtonHtmlOpenTagVirtualCode();

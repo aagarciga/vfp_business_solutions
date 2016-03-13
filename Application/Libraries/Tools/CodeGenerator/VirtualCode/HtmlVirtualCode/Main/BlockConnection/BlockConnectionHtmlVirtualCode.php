@@ -28,7 +28,7 @@ abstract class BlockConnectionHtmlVirtualCode extends HtmlVirtualCode
     abstract function getCaption();
 
     public function getCode(){
-        $codeGenerator = BtnGroupVirtualCode::getCodeGenerator($this->getCaption(), BlockConnectionHtmlVirtualCode::$_captions);
+        $codeGenerator = BtnGroupVirtualCode::getCodeGenerator($this->getCaption(), self::$_captions, "binary-logical-operator");
         return $codeGenerator->getCode();
     }
 }
