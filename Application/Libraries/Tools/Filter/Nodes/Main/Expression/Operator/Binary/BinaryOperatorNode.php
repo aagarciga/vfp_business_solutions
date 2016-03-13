@@ -88,13 +88,13 @@ abstract class BinaryOperatorNode extends OperatorNode
         return $this->level;
     }
 
-    public static function generateValueHtmlCode($divDateRangeCodeGenerator, $fullFieldName, $fieldCaption, $inputAddCssClass="", $value=""){
+    public static function generateValueHtmlCode($divDateRangeCodeGenerator, $fieldName, $fieldCaption, $inputAddCssClass="", $value=""){
         $inputAddCssClass = ($inputAddCssClass !== "")? "form-control " . $inputAddCssClass : "form-control";
 
         $tagInputGenerator = new InputHtmlOpenTagVirtualCode();
         $tagInputGenerator->InsertAttribute(new TypeHtmlAttribute("text"));
         $tagInputGenerator->InsertAttribute(new ClassHtmlAttribute($inputAddCssClass));
-        $tagInputGenerator->InsertAttribute(new DataHtmlStrAttribute("fieldname", $fullFieldName));
+        $tagInputGenerator->InsertAttribute(new DataHtmlStrAttribute("fieldname", $fieldName));
         $tagInputGenerator->InsertAttribute(new PlaceholderHtmlAttribute($fieldCaption));
         $tagInputGenerator->InsertAttribute(new ValueHtmlAttribute($value));
         $inputCodeGenerator = new HtmlBlockTagGenerator($tagInputGenerator);
