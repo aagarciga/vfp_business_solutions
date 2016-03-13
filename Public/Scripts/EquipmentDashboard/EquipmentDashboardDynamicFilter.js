@@ -517,35 +517,14 @@
          */
         var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName),
             filterName = $filterName.val(),
-            $filterContainer = $(DynamicFilter.htmlBindings.filterFieldsContainer),
-            filterHtml = "",
-            filterValues = "",
+            jsonFilterTree = JSON.stringify(DynamicFilter.functions.getFilterTree()),
             $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
-
-        // Alex: In order to remove the select2 element to save the select clean
-        $filterContainer.find('select.select2-container').
-        each(function () {
-            $(this).select2('destroy');
-        });
-        // Saving html filter before select2 elements are destroyed
-        filterHtml = $filterContainer.html();
-
-        $filterContainer.find('select, input[type=text]')
-            .each(function (index) {
-                if (index === 0) {
-                    filterValues += $(this).val();
-                } else {
-                    filterValues += ", " + $(this).val();
-                }
-            });
 
         if (filterName !== "" && /\w/.test(filterName)) {
             $.ajax({
                 data: {
                     filterName      : filterName,
-                    filterString    : DynamicFilter.functions.getPredicate(),
-                    filterHtml      : filterHtml,
-                    filterValues    : filterValues
+                    jsonFilterTree  : jsonFilterTree,
                 },
                 url: App.EquipmentDashboard.urls.saveFilter,
                 type: 'post',
@@ -564,8 +543,6 @@
                     $drpSavedFilters.append(DynamicFilter.functions.createDropdownSavedFilterItem(data.filterid, filterName));
                     $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
 
-                    // Restauring select2 elements
-                    $filterContainer.find('select.select2-container').select2();
                     $('.loading').hide();
                 }
             });
