@@ -225,23 +225,27 @@
             },
             success: function (response) {
                 var data = $.parseJSON(response),
-                    values,
+                    //values,
                     $filterFields;
                 if (data.success) {
-                    values = data.expfrom.split(", "); // Legacy data are saved with format value1, value2, ... valuenN
-                    $filterFields = $(DynamicFilter.htmlBindings.filterFieldsContainer);
-                    $filterFields.append(data.expfields);
-                    $filterFields.find('select, input')
-                        .each(function (index) {
-                            $(this).val(values[index]);
-                        });
-                    DynamicFilter.functions.bindOperatorGroupsEventHandlers();
-                    DynamicFilter.functions.bindFormGroupsEnventhandlers();
+                    if (data.expfields !== ''){
+                        //values = data.expfrom.split(", "); // Legacy data are saved with format value1, value2, ... valuenN
+                        $filterFields = $(DynamicFilter.htmlBindings.filterFieldsContainer);
+                        $filterFields.append(data.expfields);
+                        //$filterFields.find('select, input')
+                        //    .each(function (index) {
+                        //        $(this).val(values[index]);
+                        //    });
+                        DynamicFilter.functions.bindOperatorGroupsEventHandlers();
+                        DynamicFilter.functions.bindFormGroupsEnventhandlers();
 
-                    // Client request behavior (on filter load hide dynamic filter fields)
-                    $(DynamicFilter.htmlBindings.controls.btnToggleVisibility).click();
+                        // Client request behavior (on filter load hide dynamic filter fields)
+                        $(DynamicFilter.htmlBindings.controls.btnToggleVisibility).click();
 
-                    DynamicFilter.functions.filter();
+                        DynamicFilter.functions.enableControls();
+
+                        DynamicFilter.functions.filter();
+                    }
                 } else {
                     throw "Filter not loaded";
                 }
@@ -577,13 +581,11 @@
 
     DynamicFilter.init = function (filterId, fieldsDefinition) {
         DynamicFilter.status.fieldsDefinition = fieldsDefinition;
+        DynamicFilter.functions.disableControls();
         if (filterId) {
             DynamicFilter.status.filterId = filterId;
             DynamicFilter.functions.reset(true);
             DynamicFilter.functions.loadFilter(filterId);
-            DynamicFilter.functions.enableControls();
-        } else {
-            DynamicFilter.functions.disableControls();
         }
 
         $(DynamicFilter.htmlBindings.controls.btnFilter).on('click',

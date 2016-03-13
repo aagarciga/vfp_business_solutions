@@ -48,7 +48,7 @@ class GetSavedFilter_Post extends Action
             $result['success'] = true;
             $result['exportid'] = trim($savedFilter->getExportid()); // Filter Name
             $result['descrip'] = trim($savedFilter->getDescrip()); // Legacy
-            $result['expfields'] =  $htmlCodeGenerator->getCode(); // HTML Filter fields
+            $result['expfields'] =  trim($htmlCodeGenerator->getCode()); // HTML Filter fields
             $result['expfrom'] = trim($savedFilter->getExpfrom()); // Legacy
             $result['expfilter'] = trim($savedFilter->getExpfilter()); // Filter String
             $result['explink'] = trim($savedFilter->getExplink()); //Legacy
