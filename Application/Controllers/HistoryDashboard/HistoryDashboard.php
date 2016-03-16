@@ -78,41 +78,20 @@ class HistoryDashboard extends DatActionsController
 
     public function GetFieldsDefinition($companySuffix)
     {
-        $swequipTable = "SWEQUIP$companySuffix";
-        $icparmTable = "ICPARM$companySuffix";
+        $swequipdTable = "SWEQUIPD" . $companySuffix;
         return array(
-            'ordnum' => array('type' => TYPE_CHAR, 'displayName' => 'Work Order', 'table' => $swequipTable),
-            'equipid' => array('type' => TYPE_CHAR, 'displayName' => 'Equipment Id', 'table' => $swequipTable),
-            'itemno' => array('type' => TYPE_CHAR, 'displayName' => 'Part No', 'table' => $swequipTable),
-            'descrip' => array('type' => TYPE_CHAR, 'displayName' => 'Item Description', 'table' => $swequipTable),
-            'make' => array('type' => TYPE_CHAR, 'displayName' => 'Brand', 'table' => $swequipTable),
-            'model' => array('type' => TYPE_CHAR, 'displayName' => 'Model', 'table' => $swequipTable),
-            'serialno' => array('type' => TYPE_CHAR, 'displayName' => 'Serial No', 'table' => $swequipTable),
-            'Voltage' => array('type' => TYPE_CHAR, 'displayName' => 'Voltage', 'table' => $swequipTable),
-            'EquipType' => array('type' => TYPE_CHAR, 'displayName' => 'Type', 'table' => $swequipTable),
-            'installdte' => array('type' => TYPE_DATE, 'displayName' => 'Date Out', 'table' => $swequipTable),
-            'expdtein' => array('type' => TYPE_DATE, 'displayName' => 'Expected date In', 'table' => $swequipTable),
-            'daterec' => array('type' => TYPE_DATE, 'displayName' => 'Date Actually Received', 'table' => $swequipTable),
-            'status' => array('type' => TYPE_DICTIONARY, 'displayName' => 'Status', 'values' => array(
-                'Available' => 'Available',
-                'Assigned' => 'Assigned',
-                'Broken' => 'Broken',
-                'Lost' => 'Lost',
-                'Received' => 'Received'
-            ), 'table' => $swequipTable),
-            'notes' => array('type' => TYPE_MEMO, 'displayName' => 'Notes', 'table' => $swequipTable),
-            'picture_fi' => array('type' => TYPE_HREF, 'displayName' => 'Image', 'table' => $icparmTable),
-            'assettag' => array('type' => TYPE_CHAR, 'displayName' => 'Asset Tag', 'table' => $swequipTable),
-            'Locno' => array('type' => TYPE_CHAR, 'displayName' => 'Locno', 'table' => $swequipTable)
-
+            'equipid' => array('type' => TYPE_CHAR, 'displayName' => 'Equipment Id', 'table' => $swequipdTable),
+            'ordnum' => array('type' => TYPE_CHAR, 'displayName' => 'Order No.', 'table' => $swequipdTable),
+            'inspectno' => array('type' => TYPE_CHAR, 'displayName' => 'Inpection No.', 'table' => $swequipdTable),
+            'installdte' => array('type' => TYPE_DATE, 'displayName' => 'Date Out', 'table' => $swequipdTable),
+            'expdtein' => array('type' => TYPE_DATE, 'displayName' => 'Expected date In', 'table' => $swequipdTable),
+            'daterec' => array('type' => TYPE_DATE, 'displayName' => 'Date Actually Received', 'table' => $swequipdTable),
         );
     }
 
     public function getDashboardTable($companySuffix)
     {
-        $swequipTable = "SWEQUIP$companySuffix";
-        $icparmTable = "ICPARM$companySuffix";
-        return "($swequipTable INNER JOIN $icparmTable ON $swequipTable.itemno = $icparmTable.itemno)";
+        return "SWEQUIPD" . $companySuffix;
     }
 
     protected function getComposedFilter($predicate){
@@ -147,7 +126,7 @@ class HistoryDashboard extends DatActionsController
     }
 
     public function getDefaultPage(){
-        return 0;
+        return 1;
     }
 
     public function getDefaultItemPerPage($request=null){

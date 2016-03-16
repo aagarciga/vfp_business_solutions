@@ -23,12 +23,13 @@ class GetPage_Post extends Action
     public function Execute()
     {
         $userJsonFilterTree = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
+        $equipid = $this->Request->hasProperty('equipid') ? $this->Request->equipid : "";
 
         //todo: Set default value as global default value
-        $page = $this->Request->hasProperty('page') ? $this->Request->page : 1;
-        $itemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : 50;
-        $orderby = $this->Request->hasProperty('orderby') ? $this->Request->orderby : "ordnum";
-        $order = $this->Request->hasProperty('order') ? $this->Request->order : "ASC";
+        $page = $this->Request->hasProperty('page') ? $this->Request->page : $this->controller->getDefaultPage();
+        $itemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : $this->controller->getDefaultItemPerPage($this->Request);
+        $orderby = $this->Request->hasProperty('orderby') ? $this->Request->orderby : $this->controller->getDefaultOrderByField();
+        $order = $this->Request->hasProperty('order') ? $this->Request->order : $this->controller->getDefaultOrder();
 
         $this->FilterPredicate = $this->controller->setSessionFilterTree($userJsonFilterTree);
         $this->ItemPerPage = $_SESSION[HISTORY_ITEM_PER_PAGE] = $itemsPerPage;
