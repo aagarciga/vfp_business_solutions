@@ -85,14 +85,16 @@ class BlockExpressionNode extends ConnectionChildBlockExpressionNode
      */
     function setValue($value)
     {
-        foreach ($value as $simpleValue){
-            $codeSqlCreator = NAMESPACE_PREFIX . strtolower($simpleValue) . SQL_CODE_SUFFIX_CREATOR;
-            $codeHtmlCreator = NAMESPACE_PREFIX . strtolower($simpleValue) . HTML_CODE_SUFFIX_CREATOR;
+        if (is_array($value))
+        {
+            foreach ($value as $simpleValue){
+                $codeSqlCreator = NAMESPACE_PREFIX . strtolower($simpleValue) . SQL_CODE_SUFFIX_CREATOR;
+                $codeHtmlCreator = NAMESPACE_PREFIX . strtolower($simpleValue) . HTML_CODE_SUFFIX_CREATOR;
 
-            $this->addSqlConnectionChildCode($codeSqlCreator());
-            $this->addHtmlConnectionChildCode($codeHtmlCreator());
+                $this->addSqlConnectionChildCode($codeSqlCreator());
+                $this->addHtmlConnectionChildCode($codeHtmlCreator());
+            }
         }
-
         return parent::setValue($value);
     }
 }
