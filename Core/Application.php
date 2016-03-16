@@ -47,6 +47,18 @@ class Application implements INameable
 
     }
 
+    protected static function getXmlObjectsByAttribute($xmlObj, $attributeName, $attributeValue){
+        $result = array();
+        if (is_array($xmlObj)){
+            foreach ($xmlObj as $obj){
+                if (self::equalAttributeValue($obj, $attributeName, $attributeValue)){
+                    $result[] = $obj;
+                }
+            }
+        }
+        return $result;
+    }
+
     protected static function getChildrenXmlObject($xmlObj, $childrenName){
         $result = array();
 

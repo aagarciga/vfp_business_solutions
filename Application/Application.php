@@ -277,9 +277,10 @@ class Application extends Core\Application
 
     public function getDefaultCompanyDashboardPredicate($dashboard="default", $predicateId="default"){
         $company = $this->getCompany();
-        if (!is_null($company) && isset($company->Dashboard)){
-            $dashboards = self::getChildrenXmlObject($company, "Dashboard");
-            $dashboardXmlObject = self::getXmlObjectByAttribute($dashboards, "id", $dashboard);
+        if (!is_null($company) && isset($company->Controller)){
+            $controllers = self::getChildrenXmlObject($company, "Controller");
+            $dashboards = self::getXmlObjectsByAttribute($controllers, "type", "Dashboard");
+            $dashboardXmlObject = self::getXmlObjectByAttribute($dashboards, "name", $dashboard);
             if (!is_null($dashboardXmlObject) && isset($dashboardXmlObject->Predicate)){
                 $predicates = self::getChildrenXmlObject($dashboardXmlObject, "Predicate");
                 $predicateXmlObject = self::getXmlObjectByAttribute($predicates, "id", $predicateId);
