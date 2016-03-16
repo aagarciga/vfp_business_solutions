@@ -166,7 +166,6 @@ final class index extends Core\FrontController {
      * @param type $className
      */
     private function loader($className) {
-        
         $className = explode("\\", $className);
         $className = $className[count($className)-1];
         
@@ -184,6 +183,9 @@ final class index extends Core\FrontController {
             require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . $className . '.php';
         else if (is_file(MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php'))
             require_once MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php';
+
+        if (is_file(MVC_DIR_APP . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_APP . DIRECTORY_SEPARATOR . $className . '.php';
                     
     }
     

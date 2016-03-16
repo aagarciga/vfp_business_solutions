@@ -3,9 +3,10 @@
 namespace Dandelion\MVC\Core;
 
 use Dandelion\MVC\Core\Nomenclatures;
+use Dandelion\MVC\Application\Application;
 
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
-require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Application.php';
+//require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Application.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
 

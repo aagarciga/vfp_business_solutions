@@ -10,7 +10,7 @@ use Dandelion\Diana\Drivers\AdvantageODBC\AdvantageODBCDriver;
 use Dandelion\MVC\Application\Models\DatUnitOfWork;
 use Dandelion\MVC\Application\Models\VfpDataUnitOfWork;
 use Dandelion\MVC\Core\ActionsController ;
-use Dandelion\MVC\Core\Application;
+use Dandelion\MVC\Application;
 use Dandelion\MVC\Core\Request;
 
 /**
@@ -37,7 +37,7 @@ abstract class DatActionsController extends ActionsController {
      */
     protected function Init()
     {
-        $application = new Application();
+        $application = new Application\Application();
         
         $this->VfpDataUnitOfWork = new VfpDataUnitOfWork(new AdvantageODBCDriver($application->getDefaultDbName(),
             $application->getDefaultDbHost(),
