@@ -19,6 +19,12 @@ define("FIX_DEFAULT", 'default');
 
 define("SET_PREFIX", 'set');
 
+define("FILTER_ABLE_KEY", 'filter-able');
+
+define("DISPLAY_NAME", 'displayName');
+
+define("TYPE_KEY", 'type');
+
 /**
  * BEGIN: Type definition
 */
@@ -194,8 +200,44 @@ function fixKeywordsProblem($field){
     return $field;
 }
 
+/**
+ * @param string $classFullName
+ * @return string
+ */
 function getClassName($classFullName){
     $className = explode("\\", $classFullName);
     $className = $className[count($className)-1];
     return $className;
+}
+
+/**
+ * @param array $fieldDefinition
+ * @return bool
+ */
+function isFilterAble($fieldDefinition){
+    return array_key_exists(FILTER_ABLE_KEY, $fieldDefinition) ? $fieldDefinition[FILTER_ABLE_KEY] : true;
+}
+
+/**
+ * @param array $fieldDefinition
+ * @return string
+ */
+function getDisplayName($fieldDefinition){
+    return array_key_exists(DISPLAY_NAME, $fieldDefinition) ? $fieldDefinition[DISPLAY_NAME] : "";
+}
+
+function getJsType($fieldDefinition){
+    $fieldType = array_key_exists(TYPE_KEY, $fieldDefinition) ? $fieldDefinition[TYPE_KEY] : DEFAULT_TYPE;
+
+    $typesConvert = array(
+        TYPE_CHAR => "text",
+    );
+
+    foreach ($typesConvert as $internalType => $jsType){
+        if ($internalType === $fieldType){
+            return $jsType;
+        }
+    }
+
+    return DEFAULT_TYPE;
 }

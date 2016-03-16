@@ -4,6 +4,8 @@
  * Date: 12/01/2016
  * Time: 15:01
  */
+
+use Dandelion\MVC\Application\Tools;
 ?>
 
 <div class="container">
@@ -19,7 +21,7 @@
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                Equipment Dashboard
+                History Dashboard
             </a>
         </div>
 
@@ -81,28 +83,17 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation" class="dropdown-header">By</li>
-                            <li><a href="#" class="filter-field" data-field="ordnum" data-field-type="text">Work Order</a></li>
-                            <li><a href="#" class="filter-field" data-field="equipid" data-field-type="text">Id</a></li>
-                            <li><a href="#" class="filter-field" data-field="itemno" data-field-type="text">Part No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="descrip" data-field-type="text">Item Description</a></li>
-                            <li><a href="#" class="filter-field" data-field="make" data-field-type="text">Brand</a></li>
-                            <li><a href="#" class="filter-field" data-field="model" data-field-type="text">Model</a></li>
-                            <li><a href="#" class="filter-field" data-field="serialno" data-field-type="text">Serial No.</a></li>
-                            <li><a href="#" class="filter-field" data-field="Voltage" data-field-type="text">Voltage</a></li>
-                            <li><a href="#" class="filter-field" data-field="EquipType" data-field-type="text">Type</a></li>
-                            <li><a href="#" class="filter-field" data-field="installdte" data-field-type="date">Date Out</a></li>
-                            <li><a href="#" class="filter-field" data-field="expdtein" data-field-type="date">Expected date In</a></li>
-                            <li><a href="#" class="filter-field" data-field="daterec" data-field-type="date">Date Actually Received</a></li>
-                            <li><a href="#" class="filter-field" data-field="status" data-field-type="dropdown" data-field-collection="status">Status</a></li>
-                            <li><a href="#" class="filter-field" data-field="notes" data-field-type="text">Notes</a></li>
-                            <li><a href="#" class="filter-field" data-field="assettag" data-field-type="text">Asset Tag</a></li>
-                            <li><a href="#" class="filter-field" data-field="Locno" data-field-type="text">Locno</a></li>
+                            <?php foreach ($FieldsDefinitions as $field => $fieldDefinition): ?>
+                                <?php if (Tools\isFilterAble($fieldDefinition)): ?>
+                                    <li><a href="#" class="filter-field" data-field="<?php echo $field ?>" data-field-type="<?php echo Tools\getJsType($fieldDefinition) ?>"><?php echo Tools\getDisplayName($fieldDefinition) ?></a></li>
+                                <?php endif ?>
+                            <?php endforeach ?>
                         </ul>
                     </div>
                 </div>
             </div>
 
-
+<!--TODO: Me quede aqui-->
             <div class="panel-table">
                 <table class="table table-striped" id="HistoryDashboardTable">
                     <colgroup>

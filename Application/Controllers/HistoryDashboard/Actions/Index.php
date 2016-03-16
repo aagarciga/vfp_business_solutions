@@ -30,7 +30,7 @@ class Index extends Action
         $exportedBy = 'HTD';
         $this->Title = 'History Dashboard | VFP Business Series';
 
-        $this->FieldDefinitions = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
+        $this->FieldsDefinitions = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
 
         $defaultItemsPerPage = $this->controller->getDefaultItemPerPage($this->Request);
 
