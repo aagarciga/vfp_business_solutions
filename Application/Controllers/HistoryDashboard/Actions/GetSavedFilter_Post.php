@@ -27,12 +27,14 @@ class GetSavedFilter_Post extends Action
     {
         $result = array();
 
-        $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : '';
+        $defaultFilterId = $this->controller->getDefaultFilterId();
+
+        $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : $defaultFilterId;
 
         $savedFilterTree = $savedFilterTree = $this->controller->getSessionFilterTree();;
-        $savedFilter = new SYSEXPORT("", "", "", "", "", "", "", "", DEFAULT_SESSION_FILTER_ID);
+        $savedFilter = new SYSEXPORT("", "", "", "", "", "", "", "", $defaultFilterId);
         $htmlCodeGenerator = new HtmlTagsGenerator();
-        if ($filterid !== DEFAULT_SESSION_FILTER_ID){
+        if ($filterid !== $defaultFilterId){
             $savedFilter = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetByFilterid($filterid);
             if ($savedFilter !== ''){
                 $jsonSaveFilter = $savedFilter->getExpfields();
