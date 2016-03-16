@@ -10,75 +10,75 @@
 
   dandelion = global.dandelion;
 
-  EquipmentDashboard = dandelion.namespace('App.EquipmentDashboard', global);
+  EquipmentDashboard = dandelion.namespace('App.HistoryDashboard', global);
 
-  DynamicFilter = App.EquipmentDashboard.DynamicFilter;
+  DynamicFilter = App.HistoryDashboard.DynamicFilter;
 
-  ProjectFiles = App.EquipmentDashboard.ProjectFiles;
+  ProjectFiles = App.HistoryDashboard.ProjectFiles;
 
-  EquipmentDashboard.status = {};
+  HistoryDashboard.status = {};
 
-  EquipmentDashboard.status.itemsPerPage = 50;
+  HistoryDashboard.status.itemsPerPage = 50;
 
-  EquipmentDashboard.status.table_header_sortLastButton = null;
+  HistoryDashboard.status.table_header_sortLastButton = null;
 
-  EquipmentDashboard.status.table_header_sortField = 'ordnum';
+  HistoryDashboard.status.table_header_sortField = 'ordnum';
 
-  EquipmentDashboard.status.table_header_sortFieldOrder = 'ASC';
+  HistoryDashboard.status.table_header_sortFieldOrder = 'ASC';
 
-  EquipmentDashboard.status.currentPage = 1;
+  HistoryDashboard.status.currentPage = 1;
 
-  EquipmentDashboard.status.currentEquipid = '';
+  HistoryDashboard.status.currentEquipid = '';
 
-  EquipmentDashboard.status.currentSet = 'details';
+  HistoryDashboard.status.currentSet = 'details';
 
-  EquipmentDashboard.status.currentBalance = "0.0";
+  HistoryDashboard.status.currentBalance = "0.0";
 
-  EquipmentDashboard.dictionaries = {};
+  HistoryDashboard.dictionaries = {};
 
-  EquipmentDashboard.htmlBindings = {};
+  HistoryDashboard.htmlBindings = {};
 
-  EquipmentDashboard.htmlBindings.container = '.container';
+  HistoryDashboard.htmlBindings.container = '.container';
 
-  EquipmentDashboard.htmlBindings.itemCounter = '#panelHeadingItemsCount';
+  HistoryDashboard.htmlBindings.itemCounter = '#panelHeadingItemsCount';
 
-  EquipmentDashboard.htmlBindings.drpItemPerPage = '.top-pager-itemmperpage-control a';
+  HistoryDashboard.htmlBindings.drpItemPerPage = '.top-pager-itemmperpage-control a';
 
-  EquipmentDashboard.htmlBindings.drpItemPerPageValue = '.top-pager-itemmperpage-control button span.value';
+  HistoryDashboard.htmlBindings.drpItemPerPageValue = '.top-pager-itemmperpage-control button span.value';
 
-  EquipmentDashboard.htmlBindings.filterForm = '#filterForm';
+  HistoryDashboard.htmlBindings.filterForm = '#filterForm';
 
-  EquipmentDashboard.htmlBindings.table = '#EquipmentDashboardTable';
+  HistoryDashboard.htmlBindings.table = '#HistoryDashboardTable';
 
-  EquipmentDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
+  HistoryDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
 
-  EquipmentDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link';
+  HistoryDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link';
 
-  EquipmentDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link';
+  HistoryDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link';
 
-  EquipmentDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog';
+  HistoryDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog';
 
-  EquipmentDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown ';
+  HistoryDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown ';
 
-  EquipmentDashboard.htmlBindings.pager_container = '.pager-wrapper';
+  HistoryDashboard.htmlBindings.pager_container = '.pager-wrapper';
 
-  EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
+  HistoryDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
 
-  EquipmentDashboard.functions = {};
+  HistoryDashboard.functions = {};
 
-  EquipmentDashboard.functions.paginate = function() {
+  HistoryDashboard.functions.paginate = function() {
     var filterTree, jsonFilterTree;
-    filterTree = App.EquipmentDashboard.DynamicFilter.functions.getFilterTree();
+    filterTree = App.HistoryDashboard.DynamicFilter.functions.getFilterTree();
     jsonFilterTree = JSON.stringify(filterTree);
     $.ajax({
       data: {
         filterTree: jsonFilterTree,
-        page: EquipmentDashboard.status.currentPage,
-        itemsPerPage: EquipmentDashboard.status.itemsPerPage,
-        orderby: EquipmentDashboard.status.table_header_sortField,
-        order: EquipmentDashboard.status.table_header_sortFieldOrder
+        page: HistoryDashboard.status.currentPage,
+        itemsPerPage: HistoryDashboard.status.itemsPerPage,
+        orderby: HistoryDashboard.status.table_header_sortField,
+        order: HistoryDashboard.status.table_header_sortFieldOrder
       },
-      url: EquipmentDashboard.urls.getPage,
+      url: HistoryDashboard.urls.getPage,
       type: 'post',
       beforeSend: function() {
         return $('.loading').show();
@@ -86,33 +86,33 @@
       success: function(response, textStatus, jqXHR) {
         var data, pager, pagerControl, pagerItems;
         data = $.parseJSON(response);
-        pager = new BootstrapPager(data, EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick);
+        pager = new BootstrapPager(data, HistoryDashboard.eventHandlers.pager_btnPagerPages_onClick);
         pagerItems = pager.getCurrentPagedItems();
         pagerControl = pager.getPagerControl();
-        $(EquipmentDashboard.htmlBindings.pager_container).empty().append(pagerControl);
-        EquipmentDashboard.functions.updateTable(pagerItems);
-        $(EquipmentDashboard.htmlBindings.itemCounter).html(pager.itemsCount);
+        $(HistoryDashboard.htmlBindings.pager_container).empty().append(pagerControl);
+        HistoryDashboard.functions.updateTable(pagerItems);
+        $(HistoryDashboard.htmlBindings.itemCounter).html(pager.itemsCount);
         return $('.loading').hide();
       }
     });
     return this;
   };
 
-  EquipmentDashboard.functions.updateTable = function(items) {
+  HistoryDashboard.functions.updateTable = function(items) {
     var $table, $tableBody, index;
-    $table = $(EquipmentDashboard.htmlBindings.table);
+    $table = $(HistoryDashboard.htmlBindings.table);
     $tableBody = $table.children('tbody');
     $tableBody.empty();
     for (index in items) {
       if (items.hasOwnProperty(index)) {
-        $tableBody.append(EquipmentDashboard.functions.buildTableItem(items[index], '', "item-field"));
+        $tableBody.append(HistoryDashboard.functions.buildTableItem(items[index], '', "item-field"));
       }
     }
-    EquipmentDashboard.functions.bindTableItemsEventHandlers();
+    HistoryDashboard.functions.bindTableItemsEventHandlers();
     return this;
   };
 
-  EquipmentDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
+  HistoryDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
     var doc, result, tdAssetTagBuilder, tdAttachedFilesBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder;
     doc = global.document;
     result = doc.createElement('tr');
@@ -153,7 +153,7 @@
       return App.Helpers.simpleTdBuilder(dataRow.daterec, '');
     };
     tdStatusBuilder = function() {
-      return App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', EquipmentDashboard.status.statusValue, {
+      return App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', HistoryDashboard.status.statusValue, {
         equipid: dataRow.equipid
       });
     };
@@ -173,7 +173,7 @@
       var spanGlyphIcon;
       spanGlyphIcon = doc.createElement('span');
       spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
-      return App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', EquipmentDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {
+      return App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', HistoryDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {
         equipid: dataRow.equipid
       });
     };
@@ -199,77 +199,77 @@
     return result;
   };
 
-  EquipmentDashboard.functions.bindTableItemsEventHandlers = function() {
-    $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick);
-    $(EquipmentDashboard.htmlBindings.table_body_drpStatus).on('change', EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange);
+  HistoryDashboard.functions.bindTableItemsEventHandlers = function() {
+    $(HistoryDashboard.htmlBindings.table_body_btnAttach).on('click', HistoryDashboard.eventHandlers.table_body_btnAttach_onClick);
+    $(HistoryDashboard.htmlBindings.table_body_drpStatus).on('change', HistoryDashboard.eventHandlers.table_body_dprStatus_onChange);
     return this;
   };
 
-  EquipmentDashboard.functions.bindEventHandlers = function() {
-    $(EquipmentDashboard.htmlBindings.drpItemPerPage).on('click', EquipmentDashboard.eventHandlers.drpItemPerPage_onClick);
-    $(EquipmentDashboard.htmlBindings.table_header_btnSort).on('click', EquipmentDashboard.eventHandlers.table_body_btnSort_onClick);
-    $(EquipmentDashboard.htmlBindings.pager_btnPagerPages).on('click', EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick);
-    EquipmentDashboard.functions.bindTableItemsEventHandlers();
-    $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick);
+  HistoryDashboard.functions.bindEventHandlers = function() {
+    $(HistoryDashboard.htmlBindings.drpItemPerPage).on('click', HistoryDashboard.eventHandlers.drpItemPerPage_onClick);
+    $(HistoryDashboard.htmlBindings.table_header_btnSort).on('click', HistoryDashboard.eventHandlers.table_body_btnSort_onClick);
+    $(HistoryDashboard.htmlBindings.pager_btnPagerPages).on('click', HistoryDashboard.eventHandlers.pager_btnPagerPages_onClick);
+    HistoryDashboard.functions.bindTableItemsEventHandlers();
+    $(HistoryDashboard.htmlBindings.table_body_btnAttach).on('click', HistoryDashboard.eventHandlers.table_body_btnAttach_onClick);
     return this;
   };
 
-  EquipmentDashboard.eventHandlers = {};
+  HistoryDashboard.eventHandlers = {};
 
-  EquipmentDashboard.eventHandlers.drpItemPerPage_onClick = function(event) {
+  HistoryDashboard.eventHandlers.drpItemPerPage_onClick = function(event) {
     var $target, value;
     $target = $(event.target);
     value = $target.html();
-    EquipmentDashboard.status.itemsPerPage = value;
-    $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text(value);
-    EquipmentDashboard.status.currentPage = 1;
-    EquipmentDashboard.functions.paginate();
+    HistoryDashboard.status.itemsPerPage = value;
+    $(HistoryDashboard.htmlBindings.drpItemPerPageValue).text(value);
+    HistoryDashboard.status.currentPage = 1;
+    HistoryDashboard.functions.paginate();
     return this;
   };
 
-  EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick = function(event) {
+  HistoryDashboard.eventHandlers.pager_btnPagerPages_onClick = function(event) {
     var $target, value;
     $target = $(event.target);
     value = $target.data('page');
-    EquipmentDashboard.status.currentPage = value;
-    EquipmentDashboard.functions.paginate();
+    HistoryDashboard.status.currentPage = value;
+    HistoryDashboard.functions.paginate();
     return this;
   };
 
-  EquipmentDashboard.eventHandlers.table_body_btnSort_onClick = function(event) {
+  HistoryDashboard.eventHandlers.table_body_btnSort_onClick = function(event) {
     var $target, sortingField;
     $target = $(event.target);
     sortingField = $target.data('field');
-    if (EquipmentDashboard.status.table_header_sortLastButton !== null) {
-      EquipmentDashboard.status.table_header_sortLastButton.removeClass('asc desc');
+    if (HistoryDashboard.status.table_header_sortLastButton !== null) {
+      HistoryDashboard.status.table_header_sortLastButton.removeClass('asc desc');
     }
-    if (EquipmentDashboard.status.table_header_sortField !== sortingField) {
-      EquipmentDashboard.status.table_header_sortFieldOrder = '';
+    if (HistoryDashboard.status.table_header_sortField !== sortingField) {
+      HistoryDashboard.status.table_header_sortFieldOrder = '';
     }
-    EquipmentDashboard.status.table_header_sortField = sortingField;
-    if (EquipmentDashboard.status.table_header_sortFieldOrder === 'ASC') {
-      EquipmentDashboard.status.table_header_sortFieldOrder = 'DESC';
+    HistoryDashboard.status.table_header_sortField = sortingField;
+    if (HistoryDashboard.status.table_header_sortFieldOrder === 'ASC') {
+      HistoryDashboard.status.table_header_sortFieldOrder = 'DESC';
       $target.addClass('asc').removeClass('desc');
     } else {
-      EquipmentDashboard.status.table_header_sortFieldOrder = 'ASC';
+      HistoryDashboard.status.table_header_sortFieldOrder = 'ASC';
       $target.addClass('desc').removeClass('asc');
     }
-    EquipmentDashboard.status.table_header_sortLastButton = $target;
-    EquipmentDashboard.functions.paginate();
+    HistoryDashboard.status.table_header_sortLastButton = $target;
+    HistoryDashboard.functions.paginate();
     return this;
   };
 
-  EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = function(event) {
+  HistoryDashboard.eventHandlers.table_body_btnAttach_onClick = function(event) {
     var currentEquipid, currentProjectRoot;
     currentEquipid = $(this).data('equipid');
     currentProjectRoot = currentEquipid + '_EQ';
-    EquipmentDashboard.status.currentEquipid = currentProjectRoot;
+    HistoryDashboard.status.currentEquipid = currentProjectRoot;
     ProjectFiles.functions.loadFileTree(currentProjectRoot);
     $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
     return this;
   };
 
-  EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = function(event) {
+  HistoryDashboard.eventHandlers.table_body_dprStatus_onChange = function(event) {
     var $target, currentEquipId, value;
     $target = $(event.target);
     currentEquipId = $target.data('equipid');
@@ -279,7 +279,7 @@
         equipid: currentEquipId,
         status: value
       },
-      url: EquipmentDashboard.urls.updateStatus,
+      url: HistoryDashboard.urls.updateStatus,
       type: 'post',
       beforeSend: function() {
         return $('.loading').show();
@@ -297,11 +297,11 @@
     return this;
   };
 
-  EquipmentDashboard.init = function(defaultUserFilter, fieldsDefinition) {
+  HistoryDashboard.init = function(defaultUserFilter, fieldsDefinition) {
     var key, statusArray, statusValue, value;
-    EquipmentDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition);
+    HistoryDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition);
     statusValue = [];
-    statusArray = EquipmentDashboard.status.fieldsDefinition['status']['values'];
+    statusArray = HistoryDashboard.status.fieldsDefinition['status']['values'];
     for (key in statusArray) {
       if (statusArray.hasOwnProperty(key)) {
         value = statusArray[key];
@@ -311,12 +311,12 @@
         });
       }
     }
-    EquipmentDashboard.status.statusValue = statusValue;
-    EquipmentDashboard.dictionaries.status = statusValue;
-    EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text();
-    DynamicFilter.init(defaultUserFilter, EquipmentDashboard.status.fieldsDefinition);
+    HistoryDashboard.status.statusValue = statusValue;
+    HistoryDashboard.dictionaries.status = statusValue;
+    HistoryDashboard.status.itemsPerPage = $(HistoryDashboard.htmlBindings.drpItemPerPageValue).text();
+    DynamicFilter.init(defaultUserFilter, HistoryDashboard.status.fieldsDefinition);
     ProjectFiles.init();
-    EquipmentDashboard.functions.bindEventHandlers();
+    HistoryDashboard.functions.bindEventHandlers();
     return this;
   };
 

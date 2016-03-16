@@ -1,6 +1,6 @@
 /**
  * @author Alex
- * @namespace App.EquipmentDashboard.DynamicFilter
+ * @namespace App.HistoryDashboard.DynamicFilter
  * @param {window} global
  * @param {jQuery} $
  * @param {Object} App
@@ -12,7 +12,7 @@
 
 
     var dandelion = global.dandelion,
-        DynamicFilter = dandelion.namespace('App.EquipmentDashboard.DynamicFilter', global);
+        DynamicFilter = dandelion.namespace('App.HistoryDashboard.DynamicFilter', global);
 
     DynamicFilter.status = {};
     DynamicFilter.status.filterId = "";
@@ -211,14 +211,14 @@
         return DynamicFilter.status.predicate;
     };
     DynamicFilter.functions.filter = function () {
-        App.EquipmentDashboard.functions.paginate();
+        App.HistoryDashboard.functions.paginate();
     };
     DynamicFilter.functions.loadFilter = function (filterId, filter) {
         $.ajax({
             data: {
                 filterid: filterId
             },
-            url: App.EquipmentDashboard.urls.getSavedFilter,
+            url: App.HistoryDashboard.urls.getSavedFilter,
             type: 'post',
             beforeSend: function () {
                 $('.loading').show();
@@ -427,7 +427,7 @@
             data: {
                 filterId: filterId
             },
-            url: App.EquipmentDashboard.urls.deleteFilter,
+            url: App.HistoryDashboard.urls.deleteFilter,
             type: 'post',
             beforeSend: function () {
                 $('.loading').show();
@@ -483,7 +483,7 @@
         } else if (fieldType === 'date' || fieldType === 'date-single') {
             $formGroup = DynamicFilter.functions.createDateField($button.data('field'), $button.text(), isDateRanged);
         } else if (fieldType === 'dropdown') {
-            dropdownValues = global.App.EquipmentDashboard.dictionaries[$button.data('field-collection')];
+            dropdownValues = global.App.HistoryDashboard.dictionaries[$button.data('field-collection')];
             $formGroup = DynamicFilter.functions.createDropdownField($button.data('field'), $button.text(), dropdownValues, $button.data('field-value-type'));
         }
         $filterFieldsContainer.append($formGroup);
@@ -532,7 +532,7 @@
                     filterName      : filterName,
                     jsonFilterTree  : jsonFilterTree,
                 },
-                url: App.EquipmentDashboard.urls.saveFilter,
+                url: App.HistoryDashboard.urls.saveFilter,
                 type: 'post',
                 beforeSend: function () {
                     $('.loading').show();

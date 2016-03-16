@@ -1,6 +1,6 @@
 /**
  * @author Alex
- * @namespace App.EquipmentDashboard.ProjectFiles
+ * @namespace App.HistoryDashboard.ProjectFiles
  * @param {type} global
  * @param {type} $
  * @param {type} App
@@ -10,7 +10,7 @@
     "use strict";
 
     var dandelion = global.dandelion,
-        ProjectFiles = dandelion.namespace('App.EquipmentDashboard.ProjectFiles', global);
+        ProjectFiles = dandelion.namespace('App.HistoryDashboard.ProjectFiles', global);
 
     ProjectFiles.status = {};
     ProjectFiles.status.dropzone = null;
@@ -338,7 +338,7 @@
                 this.on('removedfile', function (file) {
                     var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected(),
                         params = {
-                            rootDir: App.EquipmentDashboard.status.currentEquipid,
+                            rootDir: App.HistoryDashboard.status.currentEquipid,
                             selectedDir: selectedDir[0],
                             fileName : file.name
                         };
@@ -360,15 +360,15 @@
                         selectedDir = jsTreeInstance.get_selected();
 
                     file.ready4Remove = true;
-                    file.uploadPath = App.EquipmentDashboard.status.currentEquipid + '/' + selectedDir;
-                    if (App.EquipmentDashboard.status.currentEquipid) {
-                        formData.append('rootDir', App.EquipmentDashboard.status.currentEquipid);
+                    file.uploadPath = App.HistoryDashboard.status.currentEquipid + '/' + selectedDir;
+                    if (App.HistoryDashboard.status.currentEquipid) {
+                        formData.append('rootDir', App.HistoryDashboard.status.currentEquipid);
                         formData.append('selectedDir', selectedDir);
                     }
                     $(ProjectFiles.htmlBindings.dropzone_previews).on('click',
                         function () {
                             var selectedDir = ProjectFiles.status.jsTree.jstree(true).get_selected()[0],
-                                rootDir = App.EquipmentDashboard.status.currentEquipid,
+                                rootDir = App.HistoryDashboard.status.currentEquipid,
                                 fileName = $(this).find('.dz-filename span').html(),
                                 form = $('<form action="' +
                                     App.urls.fileManager.downloadFile +

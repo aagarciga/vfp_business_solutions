@@ -104,7 +104,7 @@
 
 
             <div class="panel-table">
-                <table class="table table-striped" id="EquipmentDashboardTable">
+                <table class="table table-striped" id="HistoryDashboardTable">
                     <colgroup>
                         <col class="col-ordnum"/>
                         <col class="col-equipid"/>

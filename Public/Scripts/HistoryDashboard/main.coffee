@@ -3,91 +3,91 @@ $ = global.jQuery
 App = global.App
 dandelion = global.dandelion
 
-EquipmentDashboard = dandelion.namespace('App.EquipmentDashboard', global)
+EquipmentDashboard = dandelion.namespace('App.HistoryDashboard', global)
 
-DynamicFilter = App.EquipmentDashboard.DynamicFilter
-ProjectFiles  = App.EquipmentDashboard.ProjectFiles
+DynamicFilter = App.HistoryDashboard.DynamicFilter
+ProjectFiles  = App.HistoryDashboard.ProjectFiles
 
 # Statuses Declaration
 #-----------------------------------------------------------------------------------------------------------------------
-EquipmentDashboard.status = {}
-EquipmentDashboard.status.itemsPerPage = 50; # Default items per page value
-EquipmentDashboard.status.table_header_sortLastButton = null;
-EquipmentDashboard.status.table_header_sortField = 'ordnum'; # Default Order By Fields
-EquipmentDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
-EquipmentDashboard.status.currentPage = 1;
-EquipmentDashboard.status.currentEquipid = '';
-EquipmentDashboard.status.currentSet = 'details';
-EquipmentDashboard.status.currentBalance = "0.0";
+HistoryDashboard.status = {}
+HistoryDashboard.status.itemsPerPage = 50; # Default items per page value
+HistoryDashboard.status.table_header_sortLastButton = null;
+HistoryDashboard.status.table_header_sortField = 'ordnum'; # Default Order By Fields
+HistoryDashboard.status.table_header_sortFieldOrder = 'ASC'; # Default Order
+HistoryDashboard.status.currentPage = 1;
+HistoryDashboard.status.currentEquipid = '';
+HistoryDashboard.status.currentSet = 'details';
+HistoryDashboard.status.currentBalance = "0.0";
 
 # Dictionaries Declaration
 #-----------------------------------------------------------------------------------------------------------------------
-EquipmentDashboard.dictionaries = {}
+HistoryDashboard.dictionaries = {}
 
-EquipmentDashboard.htmlBindings = {}
-EquipmentDashboard.htmlBindings.container = '.container';
-EquipmentDashboard.htmlBindings.itemCounter = '#panelHeadingItemsCount';
-EquipmentDashboard.htmlBindings.drpItemPerPage = '.top-pager-itemmperpage-control a';
-EquipmentDashboard.htmlBindings.drpItemPerPageValue = '.top-pager-itemmperpage-control button span.value';
-EquipmentDashboard.htmlBindings.filterForm = '#filterForm';
-EquipmentDashboard.htmlBindings.table = '#EquipmentDashboardTable';
-EquipmentDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
-EquipmentDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link'
-EquipmentDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
-EquipmentDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
-EquipmentDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown '
-EquipmentDashboard.htmlBindings.pager_container = '.pager-wrapper';
-EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
+HistoryDashboard.htmlBindings = {}
+HistoryDashboard.htmlBindings.container = '.container';
+HistoryDashboard.htmlBindings.itemCounter = '#panelHeadingItemsCount';
+HistoryDashboard.htmlBindings.drpItemPerPage = '.top-pager-itemmperpage-control a';
+HistoryDashboard.htmlBindings.drpItemPerPageValue = '.top-pager-itemmperpage-control button span.value';
+HistoryDashboard.htmlBindings.filterForm = '#filterForm';
+HistoryDashboard.htmlBindings.table = '#HistoryDashboardTable';
+HistoryDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
+HistoryDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link'
+HistoryDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
+HistoryDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
+HistoryDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown '
+HistoryDashboard.htmlBindings.pager_container = '.pager-wrapper';
+HistoryDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
 
 # Functions Declaration
 #-----------------------------------------------------------------------------------------------------------------------
-EquipmentDashboard.functions = {}
+HistoryDashboard.functions = {}
 
-EquipmentDashboard.functions.paginate = ->
-  filterTree = App.EquipmentDashboard.DynamicFilter.functions.getFilterTree()
+HistoryDashboard.functions.paginate = ->
+  filterTree = App.HistoryDashboard.DynamicFilter.functions.getFilterTree()
   jsonFilterTree = JSON.stringify(filterTree)
   $.ajax(
     data:
       filterTree: jsonFilterTree,
-      page: EquipmentDashboard.status.currentPage,
-      itemsPerPage: EquipmentDashboard.status.itemsPerPage,
-      orderby: EquipmentDashboard.status.table_header_sortField,
-      order: EquipmentDashboard.status.table_header_sortFieldOrder
-    url: EquipmentDashboard.urls.getPage
+      page: HistoryDashboard.status.currentPage,
+      itemsPerPage: HistoryDashboard.status.itemsPerPage,
+      orderby: HistoryDashboard.status.table_header_sortField,
+      order: HistoryDashboard.status.table_header_sortFieldOrder
+    url: HistoryDashboard.urls.getPage
     type: 'post'
     beforeSend: ->
       $('.loading').show()
     success: (response, textStatus, jqXHR) ->
       data = $.parseJSON(response)
-      pager = new BootstrapPager(data, EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick)
+      pager = new BootstrapPager(data, HistoryDashboard.eventHandlers.pager_btnPagerPages_onClick)
       pagerItems = pager.getCurrentPagedItems()
       pagerControl = pager.getPagerControl()
 
-      $(EquipmentDashboard.htmlBindings.pager_container)
+      $(HistoryDashboard.htmlBindings.pager_container)
       .empty()
       .append(pagerControl)
 
-      EquipmentDashboard.functions.updateTable(pagerItems)
+      HistoryDashboard.functions.updateTable(pagerItems)
 
-      $(EquipmentDashboard.htmlBindings.itemCounter).html(pager.itemsCount)
+      $(HistoryDashboard.htmlBindings.itemCounter).html(pager.itemsCount)
       $('.loading').hide()
   )
   @
 
-EquipmentDashboard.functions.updateTable = (items) ->
-  $table = $(EquipmentDashboard.htmlBindings.table)
+HistoryDashboard.functions.updateTable = (items) ->
+  $table = $(HistoryDashboard.htmlBindings.table)
   $tableBody = $table.children('tbody')
 
   $tableBody.empty()
 
   for index of items #  using comprehensions for iterating over properties in objects
     if items.hasOwnProperty(index)
-      $tableBody.append(EquipmentDashboard.functions.buildTableItem(items[index], '', "item-field"));
+      $tableBody.append(HistoryDashboard.functions.buildTableItem(items[index], '', "item-field"));
 
-  EquipmentDashboard.functions.bindTableItemsEventHandlers();
+  HistoryDashboard.functions.bindTableItemsEventHandlers();
   @
 
-EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
+HistoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   doc = global.document
   result = doc.createElement('tr')
 
@@ -116,7 +116,7 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdDaterecBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.daterec, '')
   tdStatusBuilder = ->
-    App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', EquipmentDashboard.status.statusValue, {equipid: dataRow.equipid})
+    App.Helpers.withSelectBuilder(dataRow.status, '', 'form-control update-dropdown status select2-nosearch', HistoryDashboard.status.statusValue, {equipid: dataRow.equipid})
   tdNotesBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.notes, '')
   tdPicture_fiBuilder = ->
@@ -129,7 +129,7 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdAttachedFilesBuilder = () ->
     spanGlyphIcon = doc.createElement('span')
     spanGlyphIcon.className = 'glyphicon glyphicon-folder-close'
-    App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', EquipmentDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {equipid: dataRow.equipid})
+    App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', HistoryDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {equipid: dataRow.equipid})
 
   result.className = trClass;
   result.appendChild(tdOrdnumBuilder());
@@ -152,75 +152,75 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result.appendChild(tdAttachedFilesBuilder());
   result
 
-EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
+HistoryDashboard.functions.bindTableItemsEventHandlers = ->
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
-  $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
-  $(EquipmentDashboard.htmlBindings.table_body_drpStatus).on('change', EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange)
+  $(HistoryDashboard.htmlBindings.table_body_btnAttach).on('click', HistoryDashboard.eventHandlers.table_body_btnAttach_onClick)
+  $(HistoryDashboard.htmlBindings.table_body_drpStatus).on('change', HistoryDashboard.eventHandlers.table_body_dprStatus_onChange)
 
   @
 
-EquipmentDashboard.functions.bindEventHandlers = ->
-  $(EquipmentDashboard.htmlBindings.drpItemPerPage).on('click',
-    EquipmentDashboard.eventHandlers.drpItemPerPage_onClick)
-  $(EquipmentDashboard.htmlBindings.table_header_btnSort).on('click',
-    EquipmentDashboard.eventHandlers.table_body_btnSort_onClick);
-  $(EquipmentDashboard.htmlBindings.pager_btnPagerPages).on('click',
-    EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick)
-  EquipmentDashboard.functions.bindTableItemsEventHandlers();
-  $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click',
-    EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
+HistoryDashboard.functions.bindEventHandlers = ->
+  $(HistoryDashboard.htmlBindings.drpItemPerPage).on('click',
+    HistoryDashboard.eventHandlers.drpItemPerPage_onClick)
+  $(HistoryDashboard.htmlBindings.table_header_btnSort).on('click',
+    HistoryDashboard.eventHandlers.table_body_btnSort_onClick);
+  $(HistoryDashboard.htmlBindings.pager_btnPagerPages).on('click',
+    HistoryDashboard.eventHandlers.pager_btnPagerPages_onClick)
+  HistoryDashboard.functions.bindTableItemsEventHandlers();
+  $(HistoryDashboard.htmlBindings.table_body_btnAttach).on('click',
+    HistoryDashboard.eventHandlers.table_body_btnAttach_onClick)
   @
 
 # Event Handlers Declaration
 #-----------------------------------------------------------------------------------------------------------------------
-EquipmentDashboard.eventHandlers = {}
+HistoryDashboard.eventHandlers = {}
 
-EquipmentDashboard.eventHandlers.drpItemPerPage_onClick = (event) ->
+HistoryDashboard.eventHandlers.drpItemPerPage_onClick = (event) ->
   $target = $(event.target)
   value = $target.html()
-  EquipmentDashboard.status.itemsPerPage = value
-  $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text(value)
+  HistoryDashboard.status.itemsPerPage = value
+  $(HistoryDashboard.htmlBindings.drpItemPerPageValue).text(value)
 
   # When change items per page, show page one
-  EquipmentDashboard.status.currentPage = 1
-  EquipmentDashboard.functions.paginate()
+  HistoryDashboard.status.currentPage = 1
+  HistoryDashboard.functions.paginate()
   @
 
-EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick = (event) ->
+HistoryDashboard.eventHandlers.pager_btnPagerPages_onClick = (event) ->
   $target = $(event.target)
   value = $target.data('page')
-  EquipmentDashboard.status.currentPage = value
-  EquipmentDashboard.functions.paginate()
+  HistoryDashboard.status.currentPage = value
+  HistoryDashboard.functions.paginate()
   @
 
-EquipmentDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
+HistoryDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   $target = $(event.target)
   sortingField = $target.data('field')
 
-  if EquipmentDashboard.status.table_header_sortLastButton isnt null
-    EquipmentDashboard.status.table_header_sortLastButton.removeClass('asc desc')
+  if HistoryDashboard.status.table_header_sortLastButton isnt null
+    HistoryDashboard.status.table_header_sortLastButton.removeClass('asc desc')
 
-  if EquipmentDashboard.status.table_header_sortField isnt sortingField
-    EquipmentDashboard.status.table_header_sortFieldOrder = ''
+  if HistoryDashboard.status.table_header_sortField isnt sortingField
+    HistoryDashboard.status.table_header_sortFieldOrder = ''
 
-  EquipmentDashboard.status.table_header_sortField = sortingField
+  HistoryDashboard.status.table_header_sortField = sortingField
 
-  if EquipmentDashboard.status.table_header_sortFieldOrder is 'ASC'
-    EquipmentDashboard.status.table_header_sortFieldOrder = 'DESC'
+  if HistoryDashboard.status.table_header_sortFieldOrder is 'ASC'
+    HistoryDashboard.status.table_header_sortFieldOrder = 'DESC'
     $target.addClass('asc').removeClass('desc')
   else
-    EquipmentDashboard.status.table_header_sortFieldOrder = 'ASC'
+    HistoryDashboard.status.table_header_sortFieldOrder = 'ASC'
     $target.addClass('desc').removeClass('asc')
 
-  EquipmentDashboard.status.table_header_sortLastButton = $target
-  EquipmentDashboard.functions.paginate()
+  HistoryDashboard.status.table_header_sortLastButton = $target
+  HistoryDashboard.functions.paginate()
   @
 
-EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
+HistoryDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
   currentEquipid = $(@).data('equipid')
   currentProjectRoot = currentEquipid + '_EQ';
-  EquipmentDashboard.status.currentEquipid = currentProjectRoot;
+  HistoryDashboard.status.currentEquipid = currentProjectRoot;
   ProjectFiles.functions.loadFileTree(currentProjectRoot);
   $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
 
@@ -228,7 +228,7 @@ EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
   #  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
   @
 
-EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
+HistoryDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
   $target = $(event.target)
   currentEquipId = $target.data('equipid')
   value = $target.val()
@@ -236,7 +236,7 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
     data:
       equipid: currentEquipId
       status: value
-    url: EquipmentDashboard.urls.updateStatus
+    url: HistoryDashboard.urls.updateStatus
     type: 'post'
     beforeSend: ->
       $('.loading').show()
@@ -249,18 +249,18 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
   )
   @
 
-EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->
-  EquipmentDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition)
+HistoryDashboard.init = (defaultUserFilter, fieldsDefinition) ->
+  HistoryDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition)
   statusValue = []
-  statusArray = EquipmentDashboard.status.fieldsDefinition['status']['values']
+  statusArray = HistoryDashboard.status.fieldsDefinition['status']['values']
   for key of statusArray
     if statusArray.hasOwnProperty(key)
       value = statusArray[key]
       statusValue.push({id: key, descrip: value})
-  EquipmentDashboard.status.statusValue = statusValue
-  EquipmentDashboard.dictionaries.status = statusValue
-  EquipmentDashboard.status.itemsPerPage = $(EquipmentDashboard.htmlBindings.drpItemPerPageValue).text()
-  DynamicFilter.init(defaultUserFilter, EquipmentDashboard.status.fieldsDefinition)
+  HistoryDashboard.status.statusValue = statusValue
+  HistoryDashboard.dictionaries.status = statusValue
+  HistoryDashboard.status.itemsPerPage = $(HistoryDashboard.htmlBindings.drpItemPerPageValue).text()
+  DynamicFilter.init(defaultUserFilter, HistoryDashboard.status.fieldsDefinition)
   ProjectFiles.init()
-  EquipmentDashboard.functions.bindEventHandlers()
+  HistoryDashboard.functions.bindEventHandlers()
   @

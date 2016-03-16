@@ -15,14 +15,14 @@
     })
 </script>
 
-<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/EquipmentDashboardDynamicFilter.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/ProjectFiles.min.js'); ?>"></script>
-<script src="<?php echo $View->ScriptsContext('EquipmentDashboard/main.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('HistoryDashboard/HistoryDashboardDynamicFilter.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('HistoryDashboard/ProjectFiles.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('HistoryDashboard/main.min.js'); ?>"></script>
 
 <script>
     /**
      * @author Alex
-     * @namespace App.EquipmentDashboard
+     * @namespace App.HistoryDashboard
      * @param {window} global
      * @param {jQuery} $
      * @param {Object} App
@@ -33,25 +33,24 @@
         "use strict";
 
         var dandelion       = global.dandelion,
-            EquipmentDashboard       = dandelion.namespace('App.EquipmentDashboard', global);
+            HistoryDashboard       = dandelion.namespace('App.HistoryDashboard', global);
 
-        EquipmentDashboard.urls = {};
-        EquipmentDashboard.urls.getDictionaries = "<?php echo $View->Href('Dashboard', '') ?>";
-        EquipmentDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', '') ?>";
-        EquipmentDashboard.urls.getPage = "<?php echo $View->Href('EquipmentDashboard', 'GetPage') ?>";
-        EquipmentDashboard.urls.getSavedFilter = "<?php echo $View->Href('EquipmentDashboard', 'GetSavedFilter') ?>";
-        EquipmentDashboard.urls.deleteFilter = "<?php echo $View->Href('EquipmentDashboard', 'DeleteFilter') ?>";
-        EquipmentDashboard.urls.saveFilter = "<?php echo $View->Href('EquipmentDashboard', 'SaveFilter') ?>";
-        EquipmentDashboard.urls.updateStatus = "<?php echo $View->Href('EquipmentDashboard', 'UpdateStatus') ?>"
-
-        // TODO: Refactor this
-//        EquipmentDashboard.urls.projectAttachementsAPI = "<?php //echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>//";
-//        EquipmentDashboard.urls.getCurrentProjectFiles = "<?php //echo $View->Href('EquipmentDashboard', 'GetCurrentProjectFiles') ?>//";
-//        EquipmentDashboard.urls.updateStatus = "<?php //echo $View->Href('EquipmentDashboard', 'UpdateStatus') ?>//";
+        HistoryDashboard.urls = {};
+        HistoryDashboard.urls.getDictionaries = "<?php echo $View->Href('Dashboard', '') ?>";
+        HistoryDashboard.urls.updateStatus = "<?php echo $View->Href('Dashboard', '') ?>";
+        HistoryDashboard.urls.getPage = "<?php echo $View->Href('HistoryDashboard', 'GetPage') ?>";
+        HistoryDashboard.urls.getSavedFilter = "<?php echo $View->Href('HistoryDashboard', 'GetSavedFilter') ?>";
+        HistoryDashboard.urls.deleteFilter = "<?php echo $View->Href('HistoryDashboard', 'DeleteFilter') ?>";
+        HistoryDashboard.urls.saveFilter = "<?php echo $View->Href('HistoryDashboard', 'SaveFilter') ?>";
 
         // TODO: Refactor this
-        EquipmentDashboard.urls.projectAttachementsAPI = "<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>";
-        EquipmentDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>";
+//        HistoryDashboard.urls.projectAttachementsAPI = "<?php //echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>//";
+//        HistoryDashboard.urls.getCurrentProjectFiles = "<?php //echo $View->Href('HistoryDashboard', 'GetCurrentProjectFiles') ?>//";
+//        HistoryDashboard.urls.updateStatus = "<?php //echo $View->Href('HistoryDashboard', 'UpdateStatus') ?>//";
+
+        // TODO: Refactor this
+        HistoryDashboard.urls.projectAttachementsAPI = "<?php echo $View->Href('Dashboard', 'ProjectAttachementsAPI') ?>";
+        HistoryDashboard.urls.getCurrentProjectFiles = "<?php echo $View->Href('Dashboard', 'GetCurrentProjectFiles') ?>";
 
 
         // TODO: Convert FileManager in a Controll and put this on it
@@ -70,7 +69,7 @@
         App.urls.fileManager.uploadFile = "<?php echo $View->Href('FileManager', 'Upload') ?>";
         App.urls.fileManager.downloadFile = "<?php echo $View->Href('FileManager', 'Download') ?>";
 
-        EquipmentDashboard.init('<?php echo $FilterId ?>', '<?php echo json_encode($FieldDefinitions) ?>');
+        HistoryDashboard.init('<?php echo $FilterId ?>', '<?php echo json_encode($FieldDefinitions) ?>');
 
     }(window, jQuery, App));
 </script>
