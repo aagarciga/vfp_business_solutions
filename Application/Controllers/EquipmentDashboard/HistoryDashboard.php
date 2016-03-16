@@ -9,11 +9,11 @@
 
 namespace Dandelion\MVC\Application\Controllers;
 
-define('EQUIPMENT_FILTER_TREE', 'EquipmentDashboard_filterTree');
-define('EQUIPMENT_ITEM_PER_PAGE', 'EquipmentDashboard_itemperpages');
-define('EQUIPMENT_PAGE', 'EquipmentDashboard_page');
-define('EQUIPMENT_ORDERBY', 'EquipmentDashboard_orderby');
-define('EQUIPMENT_ORDER', 'EquipmentDashboard_order');
+define('EQUIPMENT_FILTER_TREE', 'HistoryDashboard_filterTree');
+define('EQUIPMENT_ITEM_PER_PAGE', 'HistoryDashboard_itemperpages');
+define('EQUIPMENT_PAGE', 'HistoryDashboard_page');
+define('EQUIPMENT_ORDERBY', 'HistoryDashboard_orderby');
+define('EQUIPMENT_ORDER', 'HistoryDashboard_order');
 
 define('DEFAULT_SESSION_FILTER_ID', 'SESSION_FILTER');
 
@@ -29,10 +29,10 @@ use Dandelion\TreeCreator;
 
 /**
  * Created by: Victor
- * Class EquipmentDashboard
+ * Class HistoryDashboard
  * @package Dandelion\MVC\Application\Controllers
  */
-class EquipmentDashboard extends DatActionsController
+class HistoryDashboard extends DatActionsController
 {
     protected function PreController(Request $request)
     {
