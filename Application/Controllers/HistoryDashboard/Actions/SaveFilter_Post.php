@@ -28,7 +28,7 @@ class SaveFilter_Post extends Action
      */
     public function Execute()
     {
-        $exportedBy = 'EQM';
+        $exportedBy = 'HTD';
         $filterName = filter_input(INPUT_POST, 'filterName');
         $jsonFilterTree = filter_input(INPUT_POST, 'jsonFilterTree');
 
