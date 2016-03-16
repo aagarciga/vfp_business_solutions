@@ -27,8 +27,8 @@ class Index extends Action
 {
     public function Execute()
     {
-        $exportedBy = 'EQM';
-        $this->Title = 'Equipment Dashboard | VFP Business Series';
+        $exportedBy = 'HTD';
+        $this->Title = 'History Dashboard | VFP Business Series';
 
         $this->FieldDefinitions = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
 
