@@ -28,7 +28,7 @@ class Application extends Core\Application
      */
     public function getDefaultDbManager()
     {
-        $this->getDBValue('Manager');
+        return $this->getDBValue('Manager');
 //        return $this->settings->DB[0]['Manager'];
     }
 
@@ -48,7 +48,7 @@ class Application extends Core\Application
      */
     public function getDefaultDbHost()
     {
-        $this->getDBValue('Host');
+        return $this->getDBValue('Host');
 //        return $this->settings->DB[0]['Host'];
     }
 
@@ -68,7 +68,7 @@ class Application extends Core\Application
      */
     public function getDefaultDbUser()
     {
-        $this->getDBValue('User');
+        return $this->getDBValue('User');
 //        return $this->settings->DB[0]['User'];
     }
 
@@ -88,7 +88,7 @@ class Application extends Core\Application
      */
     public function getDefaultDbPassword()
     {
-        $this->getDBValue('Password');
+        return $this->getDBValue('Password');
 //        return $this->settings->DB[0]['Password'];
     }
 
@@ -108,7 +108,7 @@ class Application extends Core\Application
      */
     public function getDefaultDbName()
     {
-        $this->getDBValue('Name');
+        return $this->getDBValue('Name');
 //        return $this->settings->DB[0]['Name'];
     }
 
