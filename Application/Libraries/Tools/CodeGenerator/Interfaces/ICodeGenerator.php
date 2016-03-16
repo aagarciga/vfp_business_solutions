@@ -20,4 +20,9 @@ interface ICodeGenerator extends IVirtualCode
      * @return ICodeGenerator
      */
     function InsertCode($virtualCode);
+
+    /**
+     * @return bool
+     */
+    function isEmpty();
 }

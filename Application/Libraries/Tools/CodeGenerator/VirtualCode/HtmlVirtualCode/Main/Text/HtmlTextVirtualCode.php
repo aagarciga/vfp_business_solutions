@@ -32,6 +32,6 @@ class HtmlTextVirtualCode extends HtmlVirtualCode
     }
 
     function getText(){
-        return $this->getText();
+        return $this->text;
     }
 }

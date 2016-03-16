@@ -10,7 +10,11 @@
 namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 
 
+use Dandelion\MVC\Application\Models\Entities\SYSEXPORT;
 use Dandelion\MVC\Core\Action;
+use Dandelion\Tools\CodeGenerator\CodeGenerator;
+use Dandelion\Tools\CodeGenerator\HtmlTagsGenerator;
+use Dandelion\TreeCreator;
 
 /**
  * Create by Victor
@@ -24,14 +28,27 @@ class GetSavedFilter_Post extends Action
         $result = array();
 
         $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : '';
-        $savedFilter = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetByFilterid($filterid);
 
-        $success = $savedFilter !== "";
-        $result['success'] = $success ? true : false ;
+        $savedFilterTree = $savedFilterTree = $this->controller->getSessionFilterTree();;
+        $savedFilter = new SYSEXPORT("", "", "", "", "", "", "", "", DEFAULT_SESSION_FILTER_ID);
+        $htmlCodeGenerator = new HtmlTagsGenerator();
+        if ($filterid !== DEFAULT_SESSION_FILTER_ID){
+            $savedFilter = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetByFilterid($filterid);
+            if ($savedFilter !== ''){
+                $jsonSaveFilter = $savedFilter->getExpfields();
+                $savedFilterTree = TreeCreator::createTree(json_decode($jsonSaveFilter));
+            }
+        }
+
+        $savedFilterTree->generateHtmlCode($htmlCodeGenerator);
+
+        $success = !is_null($savedFilter);
+        $result['success'] = false;
         if ($success) {
+            $result['success'] = true;
             $result['exportid'] = trim($savedFilter->getExportid()); // Filter Name
             $result['descrip'] = trim($savedFilter->getDescrip()); // Legacy
-            $result['expfields'] = $savedFilter->getExpfields() ; // HTML Filter fields
+            $result['expfields'] =  trim($htmlCodeGenerator->getCode()); // HTML Filter fields
             $result['expfrom'] = trim($savedFilter->getExpfrom()); // Legacy
             $result['expfilter'] = trim($savedFilter->getExpfilter()); // Filter String
             $result['explink'] = trim($savedFilter->getExplink()); //Legacy

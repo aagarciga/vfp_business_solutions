@@ -17,7 +17,6 @@ class PositiveNode extends LogicalUnaryOperatorNode
 {
     /**
      * PositiveNode constructor.
-     * @param IFilterNode $child
      */
     public function __construct()
     {
@@ -29,7 +28,9 @@ class PositiveNode extends LogicalUnaryOperatorNode
         // TODO: Implement checkSemantic() method.
     }
 
-    public function generateSqlCode($codeGenerator){}
+    public function generateSqlCode($codeGenerator){
+        $this->getUniqueChild()->generateSqlCode($codeGenerator);
+    }
 
     public function getCaption()
     {

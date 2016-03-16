@@ -68,6 +68,25 @@
         }
     };
 
+    DynamicFilter.functions.splitDate = function (date) {
+        var dateSplit = date.split('/');
+        if (dateSplit.length === 3){
+            return dateSplit;
+        }
+        return ["12", "30", "1899"];
+    };
+
+    DynamicFilter.functions.splitDateRange = function (dateRangeValue){
+        var dateRangeSplitValue = dateRangeValue.split('-');
+        if (dateRangeSplitValue.length === 2)
+        {
+            var inferiorDate = dateRangeSplitValue[0], superDate = dateRangeSplitValue[1];
+            var inferiorDateSplit = DynamicFilter.functions.splitDate(inferiorDate), superDateSplit = DynamicFilter.functions.splitDate(superDate);
+            return {inferiorLimit: inferiorDateSplit, superLimit: superDateSplit};
+        }
+        return {inferiorLimit: DynamicFilter.functions.splitDate(""), superLimit: DynamicFilter.functions.splitDate("")};
+    };
+
     DynamicFilter.functions.getFilterTree = function (){
         var $filterComponents = $(DynamicFilter.htmlBindings.filterFieldsContainer).children();
         var Node = (function() {
@@ -90,12 +109,11 @@
             var currentComponentControlValue;
             var currentComponentControlFieldName;
             var currentNode;
-
-            if ($currentComponent.hasClass('btn-group')){
+            if ($currentComponent.hasClass('btn-group unary-logical-operator')){
                 $currentComponentValue = $currentComponent.children('button').text();
-                if($currentComponentValue = " "){
+                if($currentComponentValue === ""){
                     currentNode = new Node('positive', '');
-                } else if ($currentComponentValue = "Not"){
+                } else if ($currentComponentValue === "Not"){
                     currentNode = new Node('not', '');
                 }
                 logicalNode = currentNode;
@@ -104,29 +122,38 @@
                 $currentComponentControl = $currentComponent.find('input, select');
                 currentComponentControlValue = $currentComponentControl.val();
                 currentComponentControlFieldName = $currentComponentControl.data('fieldname');
-                //if ($currentComponentControl.hasClass('daterangepicker')){
-                //    currentNode = new Node('dateRange', '');
-                //}
-                    var field = currentComponentControlFieldName;
-                    var tableField = DynamicFilter.status.fieldsDefinition[field]['table'];
-                    var captionField = DynamicFilter.status.fieldsDefinition[field]["displayName"];
 
-                    var fieldNode = new Node('field', [field, tableField, captionField], []);
+                var field = currentComponentControlFieldName;
+                var tableField = DynamicFilter.status.fieldsDefinition[field]['table'];
+                var captionField = DynamicFilter.status.fieldsDefinition[field]["displayName"];
 
-                    var valueNode = new Node('string', [currentComponentControlValue], []);
+                var fieldNode = new Node('field', [field, tableField, captionField], []);
+
+                if ($currentComponentControl.hasClass('daterangepicker')){
+                    var dateRange = DynamicFilter.functions.splitDateRange(currentComponentControlValue);
+                    var inferiorDateLimitNode = new Node('date', dateRange.inferiorLimit, []);
+                    var superDateLimitNode = new Node('date', dateRange.superLimit, []);
+
+                    currentNode = new Node('dateRange', '', [fieldNode, inferiorDateLimitNode, superDateLimitNode]);
+                }else{
+                    var valueNode = new Node('string', currentComponentControlValue, []);
 
                     currentNode = new Node('like', '', [fieldNode, valueNode]);
+                }
+                logicalNode.nodeChildren = [currentNode];
 
-                    logicalNode.children = [currentNode];
+                nodeChildren.push(logicalNode);
+            }
+            else if ($currentComponent.hasClass('binary-logical-operator')){
+                $currentComponentValue = $currentComponent.children('button').text();
 
-                    nodeChildren.push(logicalNode);
+                nodeValue.push($currentComponentValue);
             }
         });
 
         var filterTree = new Node('blockExpression', nodeValue, nodeChildren);
 
-        console.log(filterTree);
-
+        return filterTree;
     };
 
     DynamicFilter.functions.getPredicate = function () {
@@ -186,7 +213,7 @@
     DynamicFilter.functions.filter = function () {
         App.EquipmentDashboard.functions.paginate();
     };
-    DynamicFilter.functions.loadFilter = function (filterId) {
+    DynamicFilter.functions.loadFilter = function (filterId, filter) {
         $.ajax({
             data: {
                 filterid: filterId
@@ -198,23 +225,29 @@
             },
             success: function (response) {
                 var data = $.parseJSON(response),
-                    values,
+                    //values,
                     $filterFields;
                 if (data.success) {
-                    values = data.expfrom.split(", "); // Legacy data are saved with format value1, value2, ... valuenN
-                    $filterFields = $(DynamicFilter.htmlBindings.filterFieldsContainer);
-                    $filterFields.append(data.expfields);
-                    $filterFields.find('select, input')
-                        .each(function (index) {
-                            $(this).val(values[index]);
-                        });
-                    DynamicFilter.functions.bindOperatorGroupsEventHandlers();
-                    DynamicFilter.functions.bindFormGroupsEnventhandlers();
+                    if (data.expfields !== ''){
+                        //values = data.expfrom.split(", "); // Legacy data are saved with format value1, value2, ... valuenN
+                        $filterFields = $(DynamicFilter.htmlBindings.filterFieldsContainer);
+                        $filterFields.append(data.expfields);
+                        //$filterFields.find('select, input')
+                        //    .each(function (index) {
+                        //        $(this).val(values[index]);
+                        //    });
+                        DynamicFilter.functions.bindOperatorGroupsEventHandlers();
+                        DynamicFilter.functions.bindFormGroupsEnventhandlers();
 
-                    // Client request behavior (on filter load hide dynamic filter fields)
-                    $(DynamicFilter.htmlBindings.controls.btnToggleVisibility).click();
+                        // Client request behavior (on filter load hide dynamic filter fields)
+                        $(DynamicFilter.htmlBindings.controls.btnToggleVisibility).click();
 
-                    DynamicFilter.functions.filter();
+                        DynamicFilter.functions.enableControls();
+
+                        if (filter){
+                            DynamicFilter.functions.filter();
+                        }
+                    }
                 } else {
                     throw "Filter not loaded";
                 }
@@ -222,10 +255,15 @@
             }
         });
     };
-
+    DynamicFilter.functions.loadHtmlFilter = function(filterId){
+        DynamicFilter.functions.loadFilter(filterId, false);
+    };
+    DynamicFilter.functions.loadHtmlFilterAndFilter = function(filterId){
+        DynamicFilter.functions.loadFilter(filterId, true);
+    };
     DynamicFilter.functions.createOperatorGroup = function (first) {
-        var tmplFirstOperatorGroup = '<div class="btn-group"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
-            tmplOperatorGroup = '<div class="btn-group "><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">Or</a></li></ul></div>';
+        var tmplFirstOperatorGroup = '<div class="btn-group unary-logical-operator"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
+            tmplOperatorGroup = '<div class="btn-group binary-logical-operator"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">Or</a></li></ul></div>';
         if (first === true) {
             return $(tmplFirstOperatorGroup);
         }
@@ -378,8 +416,7 @@
          */
         var filterId = event.currentTarget.dataset.filterid;
         DynamicFilter.functions.reset(true);
-        DynamicFilter.functions.loadFilter(filterId);
-        DynamicFilter.functions.enableControls();
+        DynamicFilter.functions.loadHtmlFilterAndFilter(filterId);
     };
     DynamicFilter.eventHandlers.drpSavedFilterItem_btnDelete_onClick = function (event) {
         var $btnDelete = $(event.currentTarget),
@@ -415,7 +452,6 @@
             $operatorContainer = $operator.parent().parent(),
             $buttonGroup = $operatorContainer.parent(),
             $button = $buttonGroup.children(':first');
-
         if (value === "Clear Not") {
             value = "";
         }
@@ -464,7 +500,6 @@
             $nextOperator = $formGroup.next();
         if ($previousOperator.prev().length === 0) {
             if ($nextOperator.length === 0) {
-                $previousOperator.remove();
                 if (DynamicFilter.status.areControlsEnabled) {
                     DynamicFilter.functions.disableControls();
                 }
@@ -472,8 +507,13 @@
                 $nextOperator.remove();
             }
         } else {
-            $previousOperator.remove();
+            var $previousPreviousOperator = $previousOperator.prev();
+            if ($previousPreviousOperator.prev().length > 0)
+            {
+                $previousPreviousOperator.remove();
+            }
         }
+        $previousOperator.remove();
         $formGroup.remove();
         DynamicFilter.functions.filter();
     };
@@ -483,35 +523,14 @@
          */
         var $filterName = $(DynamicFilter.htmlBindings.modalSaveFilter_txtName),
             filterName = $filterName.val(),
-            $filterContainer = $(DynamicFilter.htmlBindings.filterFieldsContainer),
-            filterHtml = "",
-            filterValues = "",
+            jsonFilterTree = JSON.stringify(DynamicFilter.functions.getFilterTree()),
             $drpSavedFilters = $(DynamicFilter.htmlBindings.drpSavedFilters);
-
-        // Alex: In order to remove the select2 element to save the select clean
-        $filterContainer.find('select.select2-container').
-        each(function () {
-            $(this).select2('destroy');
-        });
-        // Saving html filter before select2 elements are destroyed
-        filterHtml = $filterContainer.html();
-
-        $filterContainer.find('select, input[type=text]')
-            .each(function (index) {
-                if (index === 0) {
-                    filterValues += $(this).val();
-                } else {
-                    filterValues += ", " + $(this).val();
-                }
-            });
 
         if (filterName !== "" && /\w/.test(filterName)) {
             $.ajax({
                 data: {
                     filterName      : filterName,
-                    filterString    : DynamicFilter.functions.getPredicate(),
-                    filterHtml      : filterHtml,
-                    filterValues    : filterValues
+                    jsonFilterTree  : jsonFilterTree,
                 },
                 url: App.EquipmentDashboard.urls.saveFilter,
                 type: 'post',
@@ -530,8 +549,6 @@
                     $drpSavedFilters.append(DynamicFilter.functions.createDropdownSavedFilterItem(data.filterid, filterName));
                     $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
 
-                    // Restauring select2 elements
-                    $filterContainer.find('select.select2-container').select2();
                     $('.loading').hide();
                 }
             });
@@ -547,13 +564,11 @@
 
     DynamicFilter.init = function (filterId, fieldsDefinition) {
         DynamicFilter.status.fieldsDefinition = fieldsDefinition;
+        DynamicFilter.functions.disableControls();
         if (filterId) {
             DynamicFilter.status.filterId = filterId;
             DynamicFilter.functions.reset(true);
-            DynamicFilter.functions.loadFilter(filterId);
-            DynamicFilter.functions.enableControls();
-        } else {
-            DynamicFilter.functions.disableControls();
+            DynamicFilter.functions.loadHtmlFilter(filterId);
         }
 
         $(DynamicFilter.htmlBindings.controls.btnFilter).on('click',

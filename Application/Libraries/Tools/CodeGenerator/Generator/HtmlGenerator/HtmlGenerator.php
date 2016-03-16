@@ -27,7 +27,7 @@ abstract class HtmlGenerator extends BaseCodeGenerator
     {
         $result = "";
         foreach($this->virtualCodes as $virtualCode){
-            $result .= $virtualCode->getCode() . "\n";
+            $result .= $virtualCode->getCode();
         }
         return $result;
     }

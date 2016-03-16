@@ -78,7 +78,7 @@ class DateRangeComparisonOperatorNode extends TernaryOperatorNode
         $fieldNode->generateHtmlCode($blockCodeGenerator);
 
         $fieldCaption = $fieldNode->getCaption();
-        $fullFieldName = $fieldNode->getFullField();
+        $fieldName = $fieldNode->getField();
         $tagDateRangeGenerator = new DivHtmlOpenTagVirtualCode();
         $tagDateRangeGenerator->InsertAttribute(new ClassHtmlAttribute("input-prepend input-group"));
         $tagDateRangeGenerator->InsertAttribute(new TitleHtmlAttribute($fieldCaption));
@@ -96,7 +96,14 @@ class DateRangeComparisonOperatorNode extends TernaryOperatorNode
 
         $divDateRangeCodeGenerator->InsertCode($spanAddOnCodeGenerator);
 
-        BinaryOperatorNode::generateValueHtmlCode($divDateRangeCodeGenerator, $fullFieldName, $fieldCaption, "daterangepicker");
+        $inferiorLimitNode = $this->getLeftLimitNode();
+        $superLimitNode = $this->getRightLimitNode();
+
+        $valueInferiorLimit = $inferiorLimitNode->getStrDate();
+        $valueSuperLimit = $superLimitNode->getStrDate();
+        $value = $valueInferiorLimit . " - " . $valueSuperLimit;
+
+        BinaryOperatorNode::generateValueHtmlCode($divDateRangeCodeGenerator, $fieldName, $fieldCaption, "daterangepicker", $value);
 
         $blockCodeGenerator->InsertCode($divDateRangeCodeGenerator);
 

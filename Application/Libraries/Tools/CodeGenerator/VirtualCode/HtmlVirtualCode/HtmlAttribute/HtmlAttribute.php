@@ -31,6 +31,4 @@ abstract class HtmlAttribute implements IHtmlAttribute
     {
         return $this->attributeName;
     }
-
-    abstract function getValue();
 }

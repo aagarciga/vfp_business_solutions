@@ -11,8 +11,7 @@
 
 namespace Dandelion;
 
-
-use Dandelion\Tools\Filter\BlockExpresionNode;
+use Dandelion\Tools\Filter\BlockExpressionNode;
 use Dandelion\Tools\Filter\DateNode;
 use Dandelion\Tools\Filter\DateRangeComparisonOperatorNode;
 use Dandelion\Tools\Filter\FieldNode;
@@ -22,33 +21,43 @@ use Dandelion\Tools\Filter\NotNode;
 use Dandelion\Tools\Filter\PositiveNode;
 use Dandelion\Tools\Filter\StringNode;
 
-define('TYPE_NAME', 'type');
+define('TYPE_NAME', 'nodeType');
 
-define('VALUE_NAME', 'value');
+define('VALUE_NAME', 'nodeValue');
 
-define('CHILDREN_NAME', 'children');
+define('CHILDREN_NAME', 'nodeChildren');
+
+define('NAMESPACE_PREFIX_CREATOR', "\\" . __NAMESPACE__ . "\\");
 
 class TreeCreator
 {
-    private static $types = array(
-        'blockExpresion' => 'blockExpresionCreator',
-        'field' => 'fieldCreator',
-        'string' => 'stringCreator',
-        'date' => 'dateCreator',
-        'like' => 'likeCreator',
-        'not' => 'notCreator',
-        'positive' => 'positiveCreator',
-        'dateRange' => 'dateRangeCreator'
-    );
+    private static $types;
+
+    public  static  function Init(){
+        self::$types  = array(
+            'blockExpression' => 'blockExpressionCreator',
+            'field' => 'fieldCreator',
+            'string' => 'stringCreator',
+            'date' => 'dateCreator',
+            'like' => 'likeCreator',
+            'not' => 'notCreator',
+            'positive' => 'positiveCreator',
+            'dateRange' => 'dateRangeCreator'
+        );
+    }
+
+    private static function getProperty($obj, $property){
+        return $obj->$property;
+    }
 
     /**
      * @param array $arrayTree
      * @return IFilterNode
      */
     public static function createTree($arrayTree){
-        $type = $arrayTree[TYPE_NAME];
-        $value = $arrayTree[VALUE_NAME];
-        $childrenArray = $arrayTree[CHILDREN_NAME];
+        $type = self::getProperty($arrayTree, TYPE_NAME);
+        $value = self::getProperty($arrayTree, VALUE_NAME);
+        $childrenArray = self::getProperty($arrayTree, CHILDREN_NAME);
 
         $node = self::createNodeByType($type);
 
@@ -69,21 +78,21 @@ class TreeCreator
     protected static function createNodeByType($type){
 
         if (array_key_exists($type, self::$types)) {
-            $creator = self::$types[$type];
+            $creator = NAMESPACE_PREFIX_CREATOR . self::$types[$type];
             return $creator();
         }
 
         return defaultCreator();
     }
 
-    public function treeToArray($tree){
+    public static function treeToArray($tree){
         $phpTypes = self::invertCreatorType();
 
         $result = array();
 
-        $nodePhpType = gettype($tree);
+        $nodePhpType = get_class($tree);
 
-        if (!array_key_exists($nodePhpType)){
+        if (!array_key_exists($nodePhpType, $phpTypes)){
             throw new \Exception("Unknown node");
         }
         $result[TYPE_NAME] = $phpTypes[$nodePhpType];
@@ -105,8 +114,9 @@ class TreeCreator
         $phpType = array();
 
         foreach (self::$types as $type => $creator){
+            $creator = NAMESPACE_PREFIX_CREATOR . $creator;
             $node = $creator();
-            $phpType[gettype($node)] = $type;
+            $phpType[get_class($node)] = $type;
         }
 
         return $phpType;
@@ -117,8 +127,8 @@ function defaultCreator(){
     throw new \Exception("Unknown node");
 }
 
-function blockExpresionCreator(){
-    return new BlockExpresionNode();
+function blockExpressionCreator(){
+    return new BlockExpressionNode();
 }
 
 function fieldCreator(){

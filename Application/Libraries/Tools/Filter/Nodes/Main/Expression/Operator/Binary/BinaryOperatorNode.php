@@ -14,6 +14,7 @@ namespace Dandelion\Tools\Filter;
 define("INTERN_LEVEL", 1);
 
 use Dandelion\Tools\CodeGenerator\TitleHtmlAttribute;
+use Dandelion\Tools\CodeGenerator\ValueHtmlAttribute;
 use Dandelion\Tools\Filter\OperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode, Dandelion\Tools\CodeGenerator\SqlRigthBarcketVirtualCode;
@@ -87,14 +88,15 @@ abstract class BinaryOperatorNode extends OperatorNode
         return $this->level;
     }
 
-    public static function generateValueHtmlCode($divDateRangeCodeGenerator, $fullFieldName, $fieldCaption, $inputAddCssClass=""){
+    public static function generateValueHtmlCode($divDateRangeCodeGenerator, $fieldName, $fieldCaption, $inputAddCssClass="", $value=""){
         $inputAddCssClass = ($inputAddCssClass !== "")? "form-control " . $inputAddCssClass : "form-control";
 
         $tagInputGenerator = new InputHtmlOpenTagVirtualCode();
         $tagInputGenerator->InsertAttribute(new TypeHtmlAttribute("text"));
         $tagInputGenerator->InsertAttribute(new ClassHtmlAttribute($inputAddCssClass));
-        $tagInputGenerator->InsertAttribute(new DataHtmlStrAttribute("fieldname", $fullFieldName));
+        $tagInputGenerator->InsertAttribute(new DataHtmlStrAttribute("fieldname", $fieldName));
         $tagInputGenerator->InsertAttribute(new PlaceholderHtmlAttribute($fieldCaption));
+        $tagInputGenerator->InsertAttribute(new ValueHtmlAttribute($value));
         $inputCodeGenerator = new HtmlBlockTagGenerator($tagInputGenerator);
 
         $divDateRangeCodeGenerator->InsertCode($inputCodeGenerator);

@@ -28,17 +28,12 @@ abstract class FilterNode extends BaseFilterNode implements IFilterNode, INodeCr
      */
     public function __construct()
     {
+        parent::__construct();
         $this->_isOk = false;
         $this->children = array();
-        $this->value = null;
+        $this->value = "";
         $this->_level = null;
     }
-
-    public abstract function checkSemantic($report);
-
-    public abstract function generateSqlCode($codeGenerator);
-
-    public abstract function generateHtmlCode($codeGenerator);
 
     protected function setIsOk($isOk){
         $this->_isOk = $isOk;

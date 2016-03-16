@@ -1,8 +1,8 @@
 <?php
 /**
  * User: Victor
- * Date: 25/02/2016
- * Time: 9:48
+ * Date: 20/02/2016
+ * Time: 16:00
  * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
  * @copyright 2011-2014 Alex Alvarez G?rciga / Dandelion (http://www.thedandelionproject.com)
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
@@ -11,15 +11,13 @@
 
 namespace Dandelion\Tools\Filter;
 
+use Dandelion\Tools\CodeGenerator\AndBlockConnectionHtmlVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlAndVirtualCode;
+use Dandelion\Tools\Filter\ConnectionChildBlockExpressionNode;
 
-use Dandelion\Tools\CodeGenerator\OrBlockConnectionHtmlVirtualCode;
-use Dandelion\Tools\CodeGenerator\SqlOrVirtualCode;
 
-class OrBlockExpresionNode extends ConnectionChildBlockExpresionNode
+class AndBlockExpressionNode extends ConnectionChildBlockExpressionNode
 {
-    /**
-     * OrBlockExpresionNode constructor.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -32,11 +30,11 @@ class OrBlockExpresionNode extends ConnectionChildBlockExpresionNode
 
     public function getSqlConnectionChildCode($leftIndex)
     {
-        return new SqlOrVirtualCode();
+        return new SqlAndVirtualCode();
     }
 
     public function getHtmlConnectionChildCode($leftIndex)
     {
-        return new OrBlockConnectionHtmlVirtualCode();
+        return new AndBlockConnectionHtmlVirtualCode();
     }
 }

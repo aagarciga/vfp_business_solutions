@@ -15,10 +15,10 @@ use Dandelion\Tools\CodeGenerator\DivHtmlOpenTagVirtualCode;
 use Dandelion\Tools\CodeGenerator\HtmlBlockTagGenerator;
 use Dandelion\Tools\CodeGenerator\IdHtmlAttribute;
 use Dandelion\Tools\CodeGenerator\IVirtualCode;
-use Dandelion\Tools\Filter\BaseBlockExpresionNode;
+use Dandelion\Tools\Filter\BaseBlockExpressionNode;
 
 
-abstract class ConnectionChildBlockExpresionNode extends BaseBlockExpresionNode
+abstract class ConnectionChildBlockExpressionNode extends BaseBlockExpressionNode
 {
     public function __construct(){
         parent::__construct();
@@ -52,31 +52,27 @@ abstract class ConnectionChildBlockExpresionNode extends BaseBlockExpresionNode
             $codeGenerator->InsertCode($this->getSqlConnectionChildCode($i));
         }
 
-        $child = $this->getChild($countChild - 1);
-        $child->generateSqlCode($codeGenerator);
+        if ($countChild > 0){
+            $child = $this->getChild($countChild - 1);
+            $child->generateSqlCode($codeGenerator);
+        }
     }
 
     public function generateHtmlCode($codeGenerator)
     {
-        $tag = new DivHtmlOpenTagVirtualCode();
-        $tag->InsertAttribute(new IdHtmlAttribute("dynamicFilter_filterFieldsContainer"));
-        $blockGenerator = new HtmlBlockTagGenerator($tag);
-
         $countChild = $this->getChildCount();
         for($i = 0; $i < $countChild - 1; $i++){
             $child = $this->getChild($i);
-            $child->generateHtmlCode($blockGenerator);
+            $child->generateHtmlCode($codeGenerator);
 
             $connectionVirtualCode = $this->getHtmlConnectionChildCode($i);
 
-            $blockGenerator->InsertCode($connectionVirtualCode);
+            $codeGenerator->InsertCode($connectionVirtualCode);
         }
 
         if ($countChild > 0){
             $child = $this->getChild($countChild - 1);
-            $child->generateHtmlCode($blockGenerator);
+            $child->generateHtmlCode($codeGenerator);
         }
-
-        $codeGenerator->InsertCode($blockGenerator);
     }
 }

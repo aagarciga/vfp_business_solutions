@@ -21,8 +21,9 @@ class SqlLikeValueVirtualCode extends SqlVirtualCode
        $stringValue = SqlLikeValueVirtualCode::escapeValue(array(
            '%' => '@%',
            '@' => '@@',
+           '\'' => '@\'',
        ), $stringValue);
-        $stringValue = "\"%$stringValue%\" ESCAPE '@'";
+        $stringValue = "'%$stringValue%' ESCAPE '@'";
         parent::__construct($stringValue);
     }
 

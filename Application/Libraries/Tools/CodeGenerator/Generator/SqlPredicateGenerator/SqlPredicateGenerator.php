@@ -28,7 +28,7 @@ class SqlPredicateGenerator extends BaseCodeGenerator
         $result = "";
         foreach ($this->virtualCodes as $virtualCode){
             $sqlCode = $virtualCode->getCode();
-            $result .= "$sqlCode ";
+            $result .= $sqlCode . " ";
         }
         $length = strlen($result);
         if ($length > 0){

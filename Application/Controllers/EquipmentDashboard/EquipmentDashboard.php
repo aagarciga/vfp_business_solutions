@@ -9,11 +9,23 @@
 
 namespace Dandelion\MVC\Application\Controllers;
 
+define('EQUIPMENT_FILTER_TREE', 'EquipmentDashboard_filterTree');
+define('EQUIPMENT_ITEM_PER_PAGE', 'EquipmentDashboard_itemperpages');
+define('EQUIPMENT_PAGE', 'EquipmentDashboard_page');
+define('EQUIPMENT_ORDERBY', 'EquipmentDashboard_orderby');
+define('EQUIPMENT_ORDER', 'EquipmentDashboard_order');
+
+define('DEFAULT_SESSION_FILTER_ID', 'SESSION_FILTER');
+
 use Dandelion\MVC\Application\Controllers\DatActionsController;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Core\Request;
 use Dandelion\MVC\Application\Tools;
 use Dandelion\MVC\Application\Tools\BootstrapPagerTest;
+use Dandelion\Tools\CodeGenerator\SqlPredicateGenerator;
+use Dandelion\Tools\Filter\BlockExpressionNode;
+use Dandelion\Tools\Filter\IFilterNode;
+use Dandelion\TreeCreator;
 
 /**
  * Created by: Victor
@@ -22,9 +34,16 @@ use Dandelion\MVC\Application\Tools\BootstrapPagerTest;
  */
 class EquipmentDashboard extends DatActionsController
 {
+    protected function PreController(Request $request)
+    {
+        parent::PreController($request);
+        TreeCreator::Init();
+    }
+
+
     /**
      *
-     * @param string $predicate
+     * @param IFilterNode $filterTree
      * @param int $itemsPerpage
      * @param int $middleRange
      * @param int $showPagerControlsIfMoreThan
@@ -34,10 +53,14 @@ class EquipmentDashboard extends DatActionsController
      *
      * @internal Because in the feature this will be an INNER JOIN
      */
-    public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5,
+    public function GetPager($filterTree, $itemsPerpage = 50, $middleRange = 5,
                              $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC")
     {
-        $predicate = $this->getComposedFilter($predicate);
+        $sqlCodeGenerator = new SqlPredicateGenerator();
+        $filterTree->generateSqlCode($sqlCodeGenerator);
+
+        //TODO: Me quede aqui
+        $predicate = $this->getComposedFilter($sqlCodeGenerator->getCode());
 
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
         $table = $this->getDashboardTable($companysuffix);
@@ -106,5 +129,58 @@ class EquipmentDashboard extends DatActionsController
             }
         }
         return $predicate;
+    }
+
+    public function getDefaultFilterTree(){
+        return new BlockExpressionNode();
+    }
+
+    public function getDefaultOrderByField(){
+        $companysuffix = $this->DatUnitOfWork->CompanySuffix;
+        $fieldsDefinition = $this->GetFieldsDefinition($companysuffix);
+        $arrayField = array_keys($fieldsDefinition);
+        return $arrayField[0];
+    }
+
+    public function getDefaultOrder(){
+        return "ASC";
+    }
+
+    public function getDefaultPage(){
+        return 0;
+    }
+
+    public function getDefaultItemPerPage($request=null){
+        if (is_null($request)){
+            return 50;
+        }
+        return (string) $request->Application->getDefaultPagerItermsPerPage();
+    }
+
+    public function getSessionFilterTree(){
+        $defaultJsonTree = json_encode(TreeCreator::treeToArray($this->getDefaultFilterTree()));
+        $josnFiletrTree = self::getSessionValue(EQUIPMENT_FILTER_TREE, $defaultJsonTree);
+        return TreeCreator::createTree(json_decode($josnFiletrTree));
+    }
+
+    /**
+     * @param string | IFilterNode $filterTree
+     * @return IFilterNode
+     */
+    public function setSessionFilterTree($filterTree){
+        if (!is_string($filterTree)){
+            $arrayFilterTree = TreeCreator::treeToArray($filterTree);
+            $filterTree = json_encode($arrayFilterTree);
+        }
+        $_SESSION[EQUIPMENT_FILTER_TREE] = $filterTree;
+        return $this->getSessionFilterTree();
+    }
+
+    private static function getSessionValue($key, $defaultValue){
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
+    }
+
+    public function getDefaultFilterId(){
+        return DEFAULT_SESSION_FILTER_ID;
     }
 }

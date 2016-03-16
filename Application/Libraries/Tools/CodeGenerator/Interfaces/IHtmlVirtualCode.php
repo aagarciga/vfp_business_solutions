@@ -13,7 +13,7 @@ namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\IVirtualCode;
 
-interface IHtmlVirtuaCode extends IVirtualCode
+interface IHtmlVirtualCode extends IVirtualCode
 {
     function getTagName();
 }
