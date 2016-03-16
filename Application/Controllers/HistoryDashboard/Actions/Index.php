@@ -7,21 +7,21 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Application\Tools;
 use Dandelion\Tools\Filter\BlockExpressionNode;
 
-define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\EquipmentDashboard\Models\EquipmentDashboardViewModel');
+define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\HistoryDashboard\Models\HistoryDashboardViewModel');
 
 
 
 /**
  * Created by: Victor
  * Class Index
- * @package Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions
+ * @package Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions
  */
 class Index extends Action
 {
@@ -35,12 +35,12 @@ class Index extends Action
         $defaultItemsPerPage = $this->controller->getDefaultItemPerPage($this->Request);
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
-        $this->ItemPerPage = self::getSessionValue(EQUIPMENT_ITEM_PER_PAGE, $defaultItemsPerPage);
+        $this->ItemPerPage = self::getSessionValue(HISTORY_ITEM_PER_PAGE, $defaultItemsPerPage);
         $this->FilterTree = $this->controller->getSessionFilterTree();
         $this->FilterId = $this->controller->getDefaultFilterId();
-        $this->Page = self::getSessionValue(EQUIPMENT_PAGE, $this->controller->getDefaultPage());
-        $this->OrderBy = self::getSessionValue(EQUIPMENT_ORDERBY, $this->controller->getDefaultOrderByField());
-        $this->Order = self::getSessionValue(EQUIPMENT_ORDER, $this->controller->getDefaultOrder());
+        $this->Page = self::getSessionValue(HISTORY_PAGE, $this->controller->getDefaultPage());
+        $this->OrderBy = self::getSessionValue(HISTORY_ORDERBY, $this->controller->getDefaultOrderByField());
+        $this->Order = self::getSessionValue(HISTORY_ORDER, $this->controller->getDefaultOrder());
 
         $this->Pager = $this->controller->GetPager($this->FilterTree, $this->ItemPerPage, 5, 10, $this->OrderBy, $this->Order);
         $this->Pager->Paginate();

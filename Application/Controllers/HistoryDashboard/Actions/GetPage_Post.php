@@ -7,7 +7,7 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Application\Tools;
@@ -16,7 +16,7 @@ use Dandelion\TreeCreator;
 /**
  * Created by: Victor
  * Class GetPage_Post
- * @package Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions
+ * @package Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions
  */
 class GetPage_Post extends Action
 {
@@ -31,10 +31,10 @@ class GetPage_Post extends Action
         $order = $this->Request->hasProperty('order') ? $this->Request->order : "ASC";
 
         $this->FilterPredicate = $this->controller->setSessionFilterTree($userJsonFilterTree);
-        $this->ItemPerPage = $_SESSION[EQUIPMENT_ITEM_PER_PAGE] = $itemsPerPage;
-        $this->Page = $_SESSION[EQUIPMENT_PAGE] = $page;
-        $this->Orderby = $_SESSION[EQUIPMENT_ORDERBY] = $orderby;
-        $this->Order = $_SESSION[EQUIPMENT_ORDER] = $order;
+        $this->ItemPerPage = $_SESSION[HISTORY_ITEM_PER_PAGE] = $itemsPerPage;
+        $this->Page = $_SESSION[HISTORY_PAGE] = $page;
+        $this->Orderby = $_SESSION[HISTORY_ORDERBY] = $orderby;
+        $this->Order = $_SESSION[HISTORY_ORDER] = $order;
 
         $result = array();
 

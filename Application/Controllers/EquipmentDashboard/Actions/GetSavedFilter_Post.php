@@ -7,7 +7,7 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 
 
 use Dandelion\MVC\Application\Models\Entities\SYSEXPORT;

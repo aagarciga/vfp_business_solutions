@@ -9,11 +9,11 @@
 
 namespace Dandelion\MVC\Application\Controllers;
 
-define('EQUIPMENT_FILTER_TREE', 'HistoryDashboard_filterTree');
-define('EQUIPMENT_ITEM_PER_PAGE', 'HistoryDashboard_itemperpages');
-define('EQUIPMENT_PAGE', 'HistoryDashboard_page');
-define('EQUIPMENT_ORDERBY', 'HistoryDashboard_orderby');
-define('EQUIPMENT_ORDER', 'HistoryDashboard_order');
+define('HISTORY_FILTER_TREE', 'HistoryDashboard_filterTree');
+define('HISTORY_ITEM_PER_PAGE', 'HistoryDashboard_itemperpages');
+define('HISTORY_PAGE', 'HistoryDashboard_page');
+define('HISTORY_ORDERBY', 'HistoryDashboard_orderby');
+define('HISTORY_ORDER', 'HistoryDashboard_order');
 
 define('DEFAULT_SESSION_FILTER_ID', 'SESSION_FILTER');
 
@@ -159,7 +159,7 @@ class HistoryDashboard extends DatActionsController
 
     public function getSessionFilterTree(){
         $defaultJsonTree = json_encode(TreeCreator::treeToArray($this->getDefaultFilterTree()));
-        $josnFiletrTree = self::getSessionValue(EQUIPMENT_FILTER_TREE, $defaultJsonTree);
+        $josnFiletrTree = self::getSessionValue(HISTORY_FILTER_TREE, $defaultJsonTree);
         return TreeCreator::createTree(json_decode($josnFiletrTree));
     }
 
@@ -172,7 +172,7 @@ class HistoryDashboard extends DatActionsController
             $arrayFilterTree = TreeCreator::treeToArray($filterTree);
             $filterTree = json_encode($arrayFilterTree);
         }
-        $_SESSION[EQUIPMENT_FILTER_TREE] = $filterTree;
+        $_SESSION[HISTORY_FILTER_TREE] = $filterTree;
         return $this->getSessionFilterTree();
     }
 

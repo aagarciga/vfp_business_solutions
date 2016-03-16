@@ -7,21 +7,21 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
-namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
+namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Application\Tools;
 use Dandelion\Tools\Filter\BlockExpressionNode;
 
-define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\HistoryDashboard\Models\HistoryDashboardViewModel');
+define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\EquipmentDashboard\Models\EquipmentDashboardViewModel');
 
 
 
 /**
  * Created by: Victor
  * Class Index
- * @package Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions
+ * @package Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions
  */
 class Index extends Action
 {
