@@ -12,10 +12,6 @@ namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Application\Tools;
-use Dandelion\Tools\Filter\AndNode;
-use Dandelion\Tools\Filter\BlockExpressionNode;
-use Dandelion\Tools\Filter\FieldNode;
-use Dandelion\Tools\Filter\StringNode;
 
 define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\HistoryDashboard\Models\HistoryDashboardViewModel');
 
