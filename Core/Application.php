@@ -109,6 +109,15 @@ class Application implements INameable
         return $this->settings[$key];
     }
 
+    public function SetValueProperty($key, $property, $propertyValue){
+        $this->settings[$key][$property] = $propertyValue;
+        $this->Flush();
+    }
+
+    public function GetValueProperty($key, $property){
+        return $this->settings[$key][$property];
+    }
+
     /**
      * Save in hard disk the application instance configuration data.
      *
@@ -172,7 +181,7 @@ class Application implements INameable
      * @param $value
      * @param int $index
      */
-    public function setDBValue($key, $value, $index = 0)
+    public function SetDBValue($key, $value, $index = 0)
     {
         $this->settings->DB[$index][$key] = $value;
         $this->Flush();
@@ -183,7 +192,7 @@ class Application implements INameable
      * @param int $index
      * @return mixed
      */
-    public function getDBValue($key, $index = 0)
+    public function GetDBValue($key, $index = 0)
     {
         return $this->settings->DB[$index][$key];
     }
