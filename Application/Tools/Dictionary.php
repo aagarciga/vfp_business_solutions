@@ -12,7 +12,7 @@ namespace Dandelion\MVC\Application\Tools;
 use Dandelion\MVC\Core\Interfaces\Dandelion;
 use Dandelion\MVC\Core\Interfaces\IDictionary;
 
-class Dictionary implements IDictionary
+abstract class Dictionary implements IDictionary
 {
     protected $_dictionary;
 

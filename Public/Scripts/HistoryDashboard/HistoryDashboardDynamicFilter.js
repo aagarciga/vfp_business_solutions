@@ -562,8 +562,9 @@
         $(DynamicFilter.htmlBindings.modalSaveFilter).modal('hide');
     };
 
-    DynamicFilter.init = function (filterId, fieldsDefinition) {
+    DynamicFilter.init = function (filterId, fieldsDefinition, equipid) {
         DynamicFilter.status.fieldsDefinition = fieldsDefinition;
+        DynamicFilter.status.equipid = equipid;
         DynamicFilter.functions.disableControls();
         if (filterId) {
             DynamicFilter.status.filterId = filterId;

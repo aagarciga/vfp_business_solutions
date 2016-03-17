@@ -86,95 +86,44 @@ use Dandelion\MVC\Application\Tools;
                             <?php foreach ($FieldsDefinitions as $field => $fieldDefinition): ?>
                                 <?php if (Tools\isFilterAble($fieldDefinition)): ?>
                                     <li><a href="#" class="filter-field" data-field="<?php echo $field ?>" data-field-type="<?php echo Tools\getJsType($fieldDefinition) ?>"><?php echo Tools\getDisplayName($fieldDefinition) ?></a></li>
-                                <?php endif ?>
+                                <?php endif; ?>
                             <?php endforeach ?>
                         </ul>
                     </div>
                 </div>
             </div>
 
-<!--TODO: Me quede aqui-->
             <div class="panel-table">
                 <table class="table table-striped" id="HistoryDashboardTable">
                     <colgroup>
-                        <col class="col-ordnum"/>
-                        <col class="col-equipid"/>
-                        <col class="col-itemno"/>
-                        <col class="col-descrip"/>
-                        <col class="col-make"/>
-                        <col class="col-model"/>
-                        <col class="col-serialno"/>
-                        <col class="col-Voltage"/>
-                        <col class="col-EquipType"/>
-                        <col class="col-installdte"/>
-                        <col class="col-expdtein"/>
-                        <col class="col-daterec"/>
-                        <col class="col-status"/>
-                        <col class="col-notes"/>
-                        <col class="col-picture_fi"/>
-                        <col class="col-assettag"/>
-                        <col class="col-Locno"/>
-                        <col class="col-Locno"/>
+                        <?php foreach ($FieldsDefinitions as $field => $fieldDefinition): ?>
+                            <?php if (Tools\visible($fieldDefinition)): ?>
+                                <col class="col-<?php echo $field ?>"/>
+                            <?php endif; ?>
+                        <?php endforeach ?>
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>Work Order <button data-field="ordnum" class="btn-table-sort"></button></th>
-                        <th>Equipment Id <button data-field="equipid" class="btn-table-sort"></button></th>
-                        <th>Part No. <button data-field="itemno" class="btn-table-sort"></button></th>
-                        <th>Item Description <button data-field="descrip" class="btn-table-sort"></button></th>
-                        <th>Brand <button data-field="make" class="btn-table-sort"></button></th>
-                        <th>Model <button data-field="model" class="btn-table-sort"></button></th>
-                        <th>Serial No <button data-field="serialno" class="btn-table-sort"></button></th>
-                        <th>Voltage <button data-field="Voltage" class="btn-table-sort"></button></th>
-                        <th>Type <button data-field="EquipType" class="btn-table-sort"></button></th>
-                        <th>Date Out <button data-field="installdte" class="btn-table-sort"></button></th>
-                        <th>Expected date In <button data-field="expdtein" class="btn-table-sort"></button></th>
-                        <th>Date Actually Received <button data-field="daterec" class="btn-table-sort"></button></th>
-                        <th>Status <button data-field="status" class="btn-table-sort"></button></th>
-                        <th>Notes </th>
-                        <th>Image </th>
-                        <th>Asset Tag <button data-field="assettag" class="btn-table-sort"></button></th>
-                        <th>Locno  <button data-field="Locno" class="btn-table-sort"></button></th>
-                        <th>Attached Files</th>
+                        <?php foreach ($FieldsDefinitions as $field => $fieldDefinition): ?>
+                            <?php if (Tools\visible($fieldDefinition)): ?>
+                                <th>
+                                    <?php echo Tools\getDisplayName($fieldDefinition) ?>
+                                    <?php if (Tools\isSortable($fieldDefinition)): ?>
+                                        <button data-field="<?php echo $field ?>" class="btn-table-sort"></button>
+                                    <?php endif; ?>
+                                </th>
+                            <?php endif; ?>
+                        <?php endforeach ?>
                     </tr>
                     </thead>
                     <body>
                     <?php foreach ($Items as $item): ?>
                         <tr>
-                            <td class="item-field"><?php echo $item->getOrdnum() ?></td>
-                            <td class="item-field"><?php echo $item->getEquipid() ?></td>
-                            <td class="item-field"><?php echo $item->getItemno() ?></td>
-                            <td class="item-field"><?php echo $item->getDescrip() ?></td>
-                            <td class="item-field"><?php echo $item->getMake() ?></td>
-                            <td class="item-field"><?php echo $item->getModel() ?></td>
-                            <td class="item-field"><?php echo $item->getSerialno() ?></td>
-                            <td class="item-field"><?php echo $item->getVoltage() ?></td>
-                            <td class="item-field"><?php echo $item->getEquipType() ?></td>
-                            <td class="item-field"><?php echo $item->getInstalldte() ?></td>
-                            <td class="item-field"><?php echo $item->getExpdtein() ?></td>
-                            <td class="item-field"><?php echo $item->getDaterec() ?></td>
-                            <td class="item-field">
-                                <select class="form-control update-dropdown status select2-nosearch" data-equipid="<?php echo $item->getEquipid() ?>">
-                                    <option>Empty</option>
-                                    <?php foreach ($FieldDefinitions['status']['values'] as $id => $descript): ?>
-                                        <option <?php echo ($item->getStatus() !== $id) ? '' : 'selected="selected"' ?>  value="<?php echo $id ?>" ><?php echo $descript ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </td>
-                            <td class="item-field"><?php echo $item->getNotes() ?></td>
-                            <td class="item-image">
-                                <?php $pictureHref = $item->getPictureFi() ?>
-                                <?php if ($pictureHref !== "#"):?>
-                                        <a href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getEquipid() ?>">
-                                            <span class="glyphicon glyphicon-eye-open"></span>
-                                        </a>
-                                <?php else: ?>
-                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                <?php endif ?>
-                            </td>
-                            <td class="item-field"><?php echo $item->getAssetTag() ?></td>
-                            <td class="item-field"><?php echo $item->getLocno() ?></td>
-                            <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>
+                            <?php foreach ($FieldsDefinitions as $field => $fieldDefinition): ?>
+                                <?php if (Tools\visible($fieldDefinition)): ?>
+                                    <td class="item-field"><?php echo $item->$field ?></td>
+                                <?php endif; ?>
+                            <?php endforeach ?>
                         </tr>
                     <?php endforeach ?>
                     </body>

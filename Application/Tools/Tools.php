@@ -21,9 +21,15 @@ define("SET_PREFIX", 'set');
 
 define("FILTER_ABLE_KEY", 'filter-able');
 
-define("DISPLAY_NAME", 'displayName');
+define("DISPLAY_NAME_KEY", 'displayName');
+
+define("VISIBLE_KEY", 'visible');
 
 define("TYPE_KEY", 'type');
+
+define("IS_SORTABLE_KEY", 'isSortable');
+
+define("TABLE_KEY", 'table');
 
 /**
  * BEGIN: Type definition
@@ -73,24 +79,9 @@ function fix_href($value){
 /**
  * @param string $viewModelClass type of return view model
  * @param object $item db item
- * @param array $fieldDefinition definition of the field "field => type"
+ * @param array $fieldDefinition definition of the field "field => field definition"
  * @return mixed view model object with field set
  */
-//function createViewModel($viewModelClass, $item, $fieldDefinition){
-//    $result = new $viewModelClass();
-//    foreach ($fieldDefinition as $field => $type){
-//        $arrayField = str_split($field);
-//        $arrayField[0] = strtoupper($arrayField[0]);
-//        $suffix = implode($arrayField);
-//        $setMethod = SET_PREFIX . $suffix;
-//        $fixMethod = createFixMethod($type);
-//        $value = $item->$field;
-//        $value = $fixMethod($value);
-//        $result->$setMethod($value);
-//    }
-//    return $result;
-//}
-
 function createViewModel($viewModelClass, $item, $fieldDefinition){
     $rc = new \ReflectionClass($viewModelClass);
     return $rc->newInstanceArgs(createArrayModel($item, $fieldDefinition));
@@ -223,9 +214,13 @@ function isFilterAble($fieldDefinition){
  * @return string
  */
 function getDisplayName($fieldDefinition){
-    return array_key_exists(DISPLAY_NAME, $fieldDefinition) ? $fieldDefinition[DISPLAY_NAME] : "";
+    return array_key_exists(DISPLAY_NAME_KEY, $fieldDefinition) ? $fieldDefinition[DISPLAY_NAME_KEY] : "";
 }
 
+/**
+ * @param array $fieldDefinition
+ * @return string
+ */
 function getJsType($fieldDefinition){
     $fieldType = array_key_exists(TYPE_KEY, $fieldDefinition) ? $fieldDefinition[TYPE_KEY] : DEFAULT_TYPE;
 
@@ -240,4 +235,43 @@ function getJsType($fieldDefinition){
     }
 
     return DEFAULT_TYPE;
+}
+
+/**
+ * @param array $fieldDefinition
+ * @return bool
+ */
+function visible($fieldDefinition){
+    return array_key_exists(VISIBLE_KEY, $fieldDefinition) ? $fieldDefinition[VISIBLE_KEY] : true;
+}
+
+/**
+ * @param array $fieldDefinition
+ * @return string
+ */
+function getType($fieldDefinition){
+    return array_key_exists(TYPE_KEY, $fieldDefinition) ? $fieldDefinition[TYPE_KEY] : DEFAULT_TYPE;
+}
+
+/**
+ * @param string $type Library type
+ * @return bool
+ */
+function isSortableType($type){
+    $nonSortableType = array(
+        TYPE_MEMO,
+    );
+    return !array_value_exist($type, $nonSortableType);
+}
+
+/**
+ * @param array $fieldDefinition
+ * @return bool
+ */
+function isSortable($fieldDefinition){
+    if (array_key_exists(IS_SORTABLE_KEY, $fieldDefinition)){
+        return $fieldDefinition[IS_SORTABLE_KEY];
+    }
+    $fieldType = getType($fieldDefinition);
+    return isSortableType($fieldType);
 }

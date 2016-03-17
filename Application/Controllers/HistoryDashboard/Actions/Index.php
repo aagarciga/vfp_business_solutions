@@ -12,11 +12,12 @@ namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Application\Tools;
+use Dandelion\Tools\Filter\AndNode;
 use Dandelion\Tools\Filter\BlockExpressionNode;
+use Dandelion\Tools\Filter\FieldNode;
+use Dandelion\Tools\Filter\StringNode;
 
 define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\HistoryDashboard\Models\HistoryDashboardViewModel');
-
-
 
 /**
  * Created by: Victor
@@ -30,6 +31,10 @@ class Index extends Action
         $exportedBy = 'HTD';
         $this->Title = 'History Dashboard | VFP Business Series';
 
+        $equipid = EQUIP_ID;
+
+        $this->EquipId = $this->Request->hasProperty($equipid) ? $this->Request->$equipid : "";
+
         $this->FieldsDefinitions = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
 
         $defaultItemsPerPage = $this->controller->getDefaultItemPerPage($this->Request);
@@ -42,7 +47,9 @@ class Index extends Action
         $this->OrderBy = self::getSessionValue(HISTORY_ORDERBY, $this->controller->getDefaultOrderByField());
         $this->Order = self::getSessionValue(HISTORY_ORDER, $this->controller->getDefaultOrder());
 
-        $this->Pager = $this->controller->GetPager($this->FilterTree, $this->ItemPerPage, 5, 10, $this->OrderBy, $this->Order);
+        $filterTree = $this->controller->getFilterIncludeEquipId($equipid, $this->EquipId, $this->FilterTree, $this->FieldsDefinitions);
+
+        $this->Pager = $this->controller->GetPager($filterTree, $this->ItemPerPage, 5, 10, $this->OrderBy, $this->Order);
         $this->Pager->Paginate();
         $itemCount = $this->Pager->getItemsCount();
         $items = $this->Pager->getCurrentPagedItems();

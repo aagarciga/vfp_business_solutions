@@ -17,6 +17,8 @@ define('HISTORY_ORDER', 'HistoryDashboard_order');
 
 define('DEFAULT_SESSION_FILTER_ID', 'SESSION_FILTER');
 
+define('EQUIP_ID', 'equipid');
+
 use Dandelion\MVC\Application\Controllers\DatActionsController;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Core\Request;
@@ -161,5 +163,29 @@ class HistoryDashboard extends DatActionsController
 
     public function getDefaultFilterId(){
         return DEFAULT_SESSION_FILTER_ID;
+    }
+
+    public function getFilterIncludeEquipId($equipid, $equipidValue, $filterTree, $fieldsDefinition){
+        $tableFromEquipId = $fieldsDefinition[$equipid][TABLE_KEY];
+        $diplayNameEquipId = $fieldsDefinition[$equipid][DISPLAY_NAME_KEY];
+        if ($equipidValue !== '')
+        {
+            $fieldNode = new FieldNode();
+            $fieldNode->setValue([$equipid,$tableFromEquipId, $diplayNameEquipId]);
+
+            $valueNode = new StringNode();
+            $valueNode->setValue($equipidValue);
+
+            $andFieldValue = new AndNode();
+            $andFieldValue->addChild($fieldNode);
+            $andFieldValue->addChild($valueNode);
+
+            $andNode = new AndNode();
+            $andNode->addChild($filterTree);
+            $andNode->addChild($andFieldValue);
+
+            return $andNode;
+        }
+        return $filterTree;
     }
 }

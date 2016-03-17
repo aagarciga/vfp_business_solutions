@@ -8,21 +8,15 @@
  */
 
 namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Models;
+use Dandelion\MVC\Application\Tools\Dictionary;
 
 /**
  * Created by: Victor
  * Class HistoryDashboardViewModel
  * @package Dandelion\MVC\Application\Controllers\OnSalesOrderDashboard\Models
  */
-class HistoryDashboardViewModel
+class HistoryDashboardViewModel extends Dictionary
 {
-    protected $_eduipid;
-    protected $_ordnum;
-    protected $_inspectno;
-    protected $_installdte;
-    protected $_expdtein;
-    protected $_daterec;
-
     /**
      * HistoryDashboardViewModel constructor.
      * @param $eduipid
@@ -32,31 +26,32 @@ class HistoryDashboardViewModel
      * @param $expdtein
      * @param $daterec
      */
-    public function __construct($eduipid, $ordnum, $inspectno, $installdte, $expdtein, $daterec)
+    public function __construct($equipid, $ordnum, $inspectno, $installdte, $expdtein, $daterec)
     {
-        $this->_eduipid = $eduipid;
-        $this->_ordnum = $ordnum;
-        $this->_inspectno = $inspectno;
-        $this->_installdte = $installdte;
-        $this->_expdtein = $expdtein;
-        $this->_daterec = $daterec;
+        parent::__construct();
+        $this->equipid = $equipid;
+        $this->ordnum = $ordnum;
+        $this->inspectno = $inspectno;
+        $this->installdte = $installdte;
+        $this->expdtein = $expdtein;
+        $this->daterec = $daterec;
     }
 
     /**
      * @return mixed
      */
-    public function getEduipid()
+    public function getEquipid()
     {
-        return $this->_eduipid;
+        return $this->equipid;
     }
 
     /**
      * @param mixed $eduipid
      * @return HistoryDashboardViewModel
      */
-    public function setEduipid($eduipid)
+    public function setEquipid($eduipid)
     {
-        $this->_eduipid = $eduipid;
+        $this->equipid = $eduipid;
         return $this;
     }
 
@@ -65,7 +60,7 @@ class HistoryDashboardViewModel
      */
     public function getOrdnum()
     {
-        return $this->_ordnum;
+        return $this->ordnum;
     }
 
     /**
@@ -74,7 +69,7 @@ class HistoryDashboardViewModel
      */
     public function setOrdnum($ordnum)
     {
-        $this->_ordnum = $ordnum;
+        $this->ordnum = $ordnum;
         return $this;
     }
 
@@ -83,7 +78,7 @@ class HistoryDashboardViewModel
      */
     public function getInspectno()
     {
-        return $this->_inspectno;
+        return $this->inspectno;
     }
 
     /**
@@ -92,7 +87,7 @@ class HistoryDashboardViewModel
      */
     public function setInspectno($inspectno)
     {
-        $this->_inspectno = $inspectno;
+        $this->inspectno = $inspectno;
         return $this;
     }
 
@@ -101,7 +96,7 @@ class HistoryDashboardViewModel
      */
     public function getInstalldte()
     {
-        return $this->_installdte;
+        return $this->installdte;
     }
 
     /**
@@ -110,7 +105,7 @@ class HistoryDashboardViewModel
      */
     public function setInstalldte($installdte)
     {
-        $this->_installdte = $installdte;
+        $this->installdte = $installdte;
         return $this;
     }
 
@@ -119,7 +114,7 @@ class HistoryDashboardViewModel
      */
     public function getExpdtein()
     {
-        return $this->_expdtein;
+        return $this->expdtein;
     }
 
     /**
@@ -128,7 +123,7 @@ class HistoryDashboardViewModel
      */
     public function setExpdtein($expdtein)
     {
-        $this->_expdtein = $expdtein;
+        $this->expdtein = $expdtein;
         return $this;
     }
 
@@ -137,7 +132,7 @@ class HistoryDashboardViewModel
      */
     public function getDaterec()
     {
-        return $this->_daterec;
+        return $this->daterec;
     }
 
     /**
@@ -146,7 +141,7 @@ class HistoryDashboardViewModel
      */
     public function setDaterec($daterec)
     {
-        $this->_daterec = $daterec;
+        $this->daterec = $daterec;
         return $this;
     }
 }

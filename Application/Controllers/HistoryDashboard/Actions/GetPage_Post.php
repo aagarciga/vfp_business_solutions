@@ -22,14 +22,18 @@ class GetPage_Post extends Action
 {
     public function Execute()
     {
+        $equipidName = EQUIP_ID;
+
         $userJsonFilterTree = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
-        $equipid = $this->Request->hasProperty('equipid') ? $this->Request->equipid : "";
+        $equipid = $this->Request->hasProperty($equipidName) ? $this->Request->$equipidName : "001";
 
         //todo: Set default value as global default value
         $page = $this->Request->hasProperty('page') ? $this->Request->page : $this->controller->getDefaultPage();
         $itemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : $this->controller->getDefaultItemPerPage($this->Request);
         $orderby = $this->Request->hasProperty('orderby') ? $this->Request->orderby : $this->controller->getDefaultOrderByField();
         $order = $this->Request->hasProperty('order') ? $this->Request->order : $this->controller->getDefaultOrder();
+
+        $this->FieldsDefinition = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
 
         $this->FilterPredicate = $this->controller->setSessionFilterTree($userJsonFilterTree);
         $this->ItemPerPage = $_SESSION[HISTORY_ITEM_PER_PAGE] = $itemsPerPage;
@@ -39,7 +43,9 @@ class GetPage_Post extends Action
 
         $result = array();
 
-        $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage, 5, 10, $orderby, $order);
+        $filterTree = $this->controller->getFilterIncludeEquipId($equipidName, $equipid, $this->FilterPredicate, $this->FieldsDefinition);
+
+        $this->Pager = $this->controller->GetPager($filterTree, $this->ItemPerPage, 5, 10, $orderby, $order);
         $pager = $this->Pager->PaginateForAjax($page);
         $itemCount = $this->Pager->getItemsCount();
         $queryResult = $this->Pager->getCurrentPagedItems();
@@ -47,7 +53,7 @@ class GetPage_Post extends Action
         if ($itemCount > 0)
         {
             foreach ($queryResult as $item) {
-                $current = Tools\createArrayModel($item, $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix));
+                $current = Tools\createArrayModel($item, $this->FieldsDefinition);
                 $result[] = $current;
             }
         }
