@@ -25,7 +25,7 @@ class GetPage_Post extends Action
         $equipidName = EQUIP_ID;
 
         $userJsonFilterTree = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
-        $equipid = $this->Request->hasProperty($equipidName) ? $this->Request->$equipidName : "";
+        $equipid = $this->Request->hasProperty($equipidName) ? base64_decode($this->Request->$equipidName) : "";
 
         //todo: Set default value as global default value
         $page = $this->Request->hasProperty('page') ? $this->Request->page : $this->controller->getDefaultPage();

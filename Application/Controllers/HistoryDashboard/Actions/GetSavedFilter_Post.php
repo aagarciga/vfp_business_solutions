@@ -31,7 +31,7 @@ class GetSavedFilter_Post extends Action
 
         $filterid = $this->Request->hasProperty('filterid') ? $this->Request->filterid : $defaultFilterId;
 
-        $savedFilterTree = $savedFilterTree = $this->controller->getSessionFilterTree();;
+        $savedFilterTree = $savedFilterTree = $this->controller->getDefaultFilterTree();;
         $savedFilter = new SYSEXPORT("", "", "", "", "", "", "", "", $defaultFilterId);
         $htmlCodeGenerator = new HtmlTagsGenerator();
         if ($filterid !== $defaultFilterId){

@@ -141,6 +141,29 @@ if (window.jQuery === 'undefined') {
         return td;
     };
 
+    App.Helpers.Href = function(controller, action, params){
+        var url = 'index.php?';
+        if (controller !== ''){
+            url += 'controller=' + controller;
+            if (action !== '' ){
+                url += '&action=' + action;
+            }
+        }
+        else{
+            if (action !== '' ){
+                url += 'action=' + action;
+            }
+        }
+        if (params != null){
+            for (var index in params){
+               if (params.hasOwnProperty(index)){
+                   url += "&" + index + "=" + params[index];
+               }
+            }
+        }
+        return url;
+    };
+
 }(window, window.jQuery));
 
 // Avoid 'console' errors in browsers that lack a console.

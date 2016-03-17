@@ -151,7 +151,11 @@
                     <?php foreach ($Items as $item): ?>
                         <tr>
                             <td class="item-field"><?php echo $item->getOrdnum() ?></td>
-                            <td class="item-field"><?php echo $item->getEquipid() ?></td>
+                            <td class="item-field">
+                                <a href="<?php echo $View->Href("HistoryDashboard", "Index", array('equipid' => base64_encode($item->getEquipid()))) ?>" class="btn-committed-form-link">
+                                    <?php echo $item->getEquipid() ?>
+                                </a>
+                            </td>
                             <td class="item-field"><?php echo $item->getItemno() ?></td>
                             <td class="item-field"><?php echo $item->getDescrip() ?></td>
                             <td class="item-field"><?php echo $item->getMake() ?></td>

@@ -94,7 +94,7 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdOrdnumBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.ordnum, '')
   tdEquipidBuilder = ->
-    App.Helpers.simpleTdBuilder(dataRow.equipid, '')
+    App.Helpers.withLinkTdBuilder(dataRow.equipid, '', '', App.Helpers.Href('HistoryDashboard', 'Index', {equipid: btoa(dataRow.equipid)}), {})
   tdItemnoBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.itemno, '')
   tdDescripBuilder = ->

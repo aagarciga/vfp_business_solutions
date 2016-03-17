@@ -29,16 +29,16 @@ class Index extends Action
 
         $equipid = EQUIP_ID;
 
-        $this->EquipId = $this->Request->hasProperty($equipid) ? $this->Request->$equipid : "";
+        $this->EquipId = $this->Request->hasProperty($equipid) ? base64_decode($this->Request->$equipid) : "";
 
         $this->FieldsDefinitions = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
 
         $defaultItemsPerPage = $this->controller->getDefaultItemPerPage($this->Request);
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
-        $this->ItemPerPage = self::getSessionValue(HISTORY_ITEM_PER_PAGE, $defaultItemsPerPage);
-        $this->FilterTree = $this->controller->getSessionFilterTree();
-        $this->FilterId = $this->controller->getDefaultFilterId();
+        $this->ItemPerPage = $defaultItemsPerPage;
+        $this->FilterTree = $this->controller->getDefaultFilterTree();
+        $this->FilterId = "";
         $this->Page = self::getSessionValue(HISTORY_PAGE, $this->controller->getDefaultPage());
         $this->OrderBy = self::getSessionValue(HISTORY_ORDERBY, $this->controller->getDefaultOrderByField());
         $this->Order = self::getSessionValue(HISTORY_ORDER, $this->controller->getDefaultOrder());
