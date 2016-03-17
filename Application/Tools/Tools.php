@@ -227,14 +227,8 @@ function getJsType($fieldDefinition){
     $typesConvert = array(
         TYPE_CHAR => "text",
     );
-
-    foreach ($typesConvert as $internalType => $jsType){
-        if ($internalType === $fieldType){
-            return $jsType;
-        }
-    }
-
-    return DEFAULT_TYPE;
+    
+    return array_key_exists($fieldType, $typesConvert) ? $typesConvert[$fieldType] : $fieldType;
 }
 
 /**
