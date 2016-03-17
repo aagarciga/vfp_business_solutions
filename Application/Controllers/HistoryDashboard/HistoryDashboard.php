@@ -26,6 +26,10 @@ use Dandelion\MVC\Application\Tools;
 use Dandelion\MVC\Application\Tools\BootstrapPagerTest;
 use Dandelion\Tools\CodeGenerator\SqlPredicateGenerator;
 use Dandelion\Tools\Filter\BlockExpressionNode;
+use Dandelion\Tools\Filter\FieldNode;
+use Dandelion\Tools\Filter\AndNode;
+use Dandelion\Tools\Filter\LikeNode;
+use Dandelion\Tools\Filter\StringNode;
 use Dandelion\Tools\Filter\IFilterNode;
 use Dandelion\TreeCreator;
 
@@ -87,7 +91,7 @@ class HistoryDashboard extends DatActionsController
             'inspectno' => array('type' => TYPE_CHAR, 'displayName' => 'Inpection No.', 'table' => $swequipdTable),
             'installdte' => array('type' => TYPE_DATE, 'displayName' => 'Date Out', 'table' => $swequipdTable),
             'expdtein' => array('type' => TYPE_DATE, 'displayName' => 'Expected date In', 'table' => $swequipdTable),
-            'daterec' => array('type' => TYPE_DATE, 'displayName' => 'Date Actually Received', 'table' => $swequipdTable),
+            'daterec' => array('type' => TYPE_DATE, 'displayName' => 'Date Actually Received', 'table' => $swequipdTable)
         );
     }
 
@@ -171,18 +175,26 @@ class HistoryDashboard extends DatActionsController
         if ($equipidValue !== '')
         {
             $fieldNode = new FieldNode();
-            $fieldNode->setValue([$equipid,$tableFromEquipId, $diplayNameEquipId]);
+            $fieldNode->setValue(array(
+                $equipid,
+                $tableFromEquipId,
+                $diplayNameEquipId
+            ));
 
             $valueNode = new StringNode();
             $valueNode->setValue($equipidValue);
 
-            $andFieldValue = new AndNode();
-            $andFieldValue->addChild($fieldNode);
-            $andFieldValue->addChild($valueNode);
+            $likeNode = new LikeNode();
+            $likeNode->addChild($fieldNode);
+            $likeNode->addChild($valueNode);
+
+            if ($filterTree instanceof BlockExpressionNode && $filterTree->getChildCount() < 1) {
+                return $likeNode;
+            }
 
             $andNode = new AndNode();
             $andNode->addChild($filterTree);
-            $andNode->addChild($andFieldValue);
+            $andNode->addChild($likeNode);
 
             return $andNode;
         }

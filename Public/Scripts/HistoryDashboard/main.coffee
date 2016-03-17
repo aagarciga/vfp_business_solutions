@@ -33,7 +33,6 @@ HistoryDashboard.htmlBindings.table = '#HistoryDashboardTable';
 HistoryDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
 HistoryDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link'
 HistoryDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
-HistoryDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
 HistoryDashboard.htmlBindings.pager_container = '.pager-wrapper';
 HistoryDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
 
@@ -46,7 +45,7 @@ HistoryDashboard.functions.paginate = ->
   jsonFilterTree = JSON.stringify(filterTree)
   $.ajax(
     data:
-      equipid : History.status.currentEquipid
+      equipid : HistoryDashboard.status.currentEquipid
       filterTree: jsonFilterTree,
       page: HistoryDashboard.status.currentPage,
       itemsPerPage: HistoryDashboard.status.itemsPerPage,
@@ -103,11 +102,6 @@ HistoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdDateRecBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.daterec, '')
 
-  tdAttachedFilesBuilder = () ->
-    spanGlyphIcon = doc.createElement('span')
-    spanGlyphIcon.className = 'glyphicon glyphicon-folder-close'
-    App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', HistoryDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {equipid: dataRow.equipid})
-
   result.className = trClass;
   result.appendChild(tdEquipIdBuilder());
   result.appendChild(tdOrdNumBuilder());
@@ -120,7 +114,6 @@ HistoryDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
 HistoryDashboard.functions.bindTableItemsEventHandlers = ->
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
-  $(HistoryDashboard.htmlBindings.table_body_btnAttach).on('click', HistoryDashboard.eventHandlers.table_body_btnAttach_onClick)
 
   @
 
@@ -132,8 +125,6 @@ HistoryDashboard.functions.bindEventHandlers = ->
   $(HistoryDashboard.htmlBindings.pager_btnPagerPages).on('click',
     HistoryDashboard.eventHandlers.pager_btnPagerPages_onClick)
   HistoryDashboard.functions.bindTableItemsEventHandlers();
-  $(HistoryDashboard.htmlBindings.table_body_btnAttach).on('click',
-    HistoryDashboard.eventHandlers.table_body_btnAttach_onClick)
   @
 
 # Event Handlers Declaration
@@ -181,19 +172,9 @@ HistoryDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   HistoryDashboard.functions.paginate()
   @
 
-HistoryDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
-  currentEquipid = $(@).data('equipid')
-  currentProjectRoot = currentEquipid + '_EQ';
-  HistoryDashboard.status.currentEquipid = currentProjectRoot;
-  ProjectFiles.functions.loadFileTree(currentProjectRoot);
-  $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
-
-  #  //QuoteDashboard.FileManagerWidget.loadFileTree(currentQutno);
-  #  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
-  @
-
 HistoryDashboard.init = (defaultUserFilter, fieldsDefinition, equipid) ->
   HistoryDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition)
+
   HistoryDashboard.status.currentEquipid = equipid
   HistoryDashboard.status.itemsPerPage = $(HistoryDashboard.htmlBindings.drpItemPerPageValue).text()
   DynamicFilter.init(defaultUserFilter, HistoryDashboard.status.fieldsDefinition, equipid)

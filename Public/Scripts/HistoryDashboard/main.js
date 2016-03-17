@@ -54,8 +54,6 @@
 
   HistoryDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link';
 
-  HistoryDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog';
-
   HistoryDashboard.htmlBindings.pager_container = '.pager-wrapper';
 
   HistoryDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
@@ -68,7 +66,7 @@
     jsonFilterTree = JSON.stringify(filterTree);
     $.ajax({
       data: {
-        equipid: History.status.currentEquipid,
+        equipid: HistoryDashboard.status.currentEquipid,
         filterTree: jsonFilterTree,
         page: HistoryDashboard.status.currentPage,
         itemsPerPage: HistoryDashboard.status.itemsPerPage,
@@ -110,7 +108,7 @@
   };
 
   HistoryDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, tdAttachedFilesBuilder, tdDateRecBuilder, tdEquipIdBuilder, tdExpDteInBuilder, tdInspectNoBuilder, tdInstallDteBuilder, tdOrdNumBuilder;
+    var doc, result, tdDateRecBuilder, tdEquipIdBuilder, tdExpDteInBuilder, tdInspectNoBuilder, tdInstallDteBuilder, tdOrdNumBuilder;
     doc = global.document;
     result = doc.createElement('tr');
     tdEquipIdBuilder = function() {
@@ -131,14 +129,6 @@
     tdDateRecBuilder = function() {
       return App.Helpers.simpleTdBuilder(dataRow.daterec, '');
     };
-    tdAttachedFilesBuilder = function() {
-      var spanGlyphIcon;
-      spanGlyphIcon = doc.createElement('span');
-      spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
-      return App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', HistoryDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {
-        equipid: dataRow.equipid
-      });
-    };
     result.className = trClass;
     result.appendChild(tdEquipIdBuilder());
     result.appendChild(tdOrdNumBuilder());
@@ -150,7 +140,6 @@
   };
 
   HistoryDashboard.functions.bindTableItemsEventHandlers = function() {
-    $(HistoryDashboard.htmlBindings.table_body_btnAttach).on('click', HistoryDashboard.eventHandlers.table_body_btnAttach_onClick);
     return this;
   };
 
@@ -159,7 +148,6 @@
     $(HistoryDashboard.htmlBindings.table_header_btnSort).on('click', HistoryDashboard.eventHandlers.table_body_btnSort_onClick);
     $(HistoryDashboard.htmlBindings.pager_btnPagerPages).on('click', HistoryDashboard.eventHandlers.pager_btnPagerPages_onClick);
     HistoryDashboard.functions.bindTableItemsEventHandlers();
-    $(HistoryDashboard.htmlBindings.table_body_btnAttach).on('click', HistoryDashboard.eventHandlers.table_body_btnAttach_onClick);
     return this;
   };
 
@@ -205,16 +193,6 @@
     }
     HistoryDashboard.status.table_header_sortLastButton = $target;
     HistoryDashboard.functions.paginate();
-    return this;
-  };
-
-  HistoryDashboard.eventHandlers.table_body_btnAttach_onClick = function(event) {
-    var currentEquipid, currentProjectRoot;
-    currentEquipid = $(this).data('equipid');
-    currentProjectRoot = currentEquipid + '_EQ';
-    HistoryDashboard.status.currentEquipid = currentProjectRoot;
-    ProjectFiles.functions.loadFileTree(currentProjectRoot);
-    $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
     return this;
   };
 

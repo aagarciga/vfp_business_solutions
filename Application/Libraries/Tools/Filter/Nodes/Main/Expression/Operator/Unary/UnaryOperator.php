@@ -33,7 +33,7 @@ abstract class UnaryOperator extends OperatorNode
     public function getLevel()
     {
         if (is_null($this->level)){
-            $this->level = $this->getChild()->getLevel() + 1;
+            $this->level = $this->getUniqueChild()->getLevel() + 1;
         }
         return $this->level;
     }
