@@ -12,6 +12,7 @@ namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Application\Tools;
+use Dandelion\MVC\Core\View;
 
 define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\HistoryDashboard\Models\HistoryDashboardViewModel');
 
@@ -30,6 +31,11 @@ class Index extends Action
         $equipid = EQUIP_ID;
 
         $this->EquipId = $this->Request->hasProperty($equipid) ? base64_decode($this->Request->$equipid) : "";
+        $this->JsonFilterTree = $this->Request->hasProperty('jsonFilterTree') ? $this->Request->jsonFilterTree : null;
+        $this->ItemPerPage = $this->Request->hasProperty('itemPerPage') ? $this->Request->itemPerPage : null;
+        $this->Page = $this->Request->hasProperty('page') ? $this->Request->page : null;
+        $this->OrderBy = $this->Request->hasProperty('orderBy') ? $this->Request->orderBy : null;
+        $this->Order = $this->Request->hasProperty('order') ? $this->Request->order : null;
 
         $this->FieldsDefinitions = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
 

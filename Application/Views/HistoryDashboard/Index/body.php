@@ -94,7 +94,24 @@ use Dandelion\MVC\Application\Tools;
             </div>
 
             <div class="panel-back">
-
+                <form action="<?php echo $View->Href("EquipmentDashboard", "UpdateDashboardStatus") ?>" method="post">
+                    <?php if(!is_null($JsonFilterTree)): ?>
+                        <input type="hidden" name="jsonFilterTree" value="<?php echo $JsonFilterTree ?>">
+                    <?php endif; ?>
+                    <?php if(!is_null($ItemPerPage)): ?>
+                        <input type="hidden" name="itemPerPage" value="<?php echo $ItemPerPage ?>">
+                    <?php endif; ?>
+                    <?php if(!is_null($Page)): ?>
+                        <input type="hidden" name="page" value="<?php echo $Page ?>">
+                    <?php endif; ?>
+                    <?php if(!is_null($OrderBy)): ?>
+                        <input type="hidden" name="orderBy" value="<?php echo $OrderBy ?>">
+                    <?php endif; ?>
+                    <?php if(!is_null($Order)): ?>
+                        <input type="hidden" name="order" value="<?php echo $Order ?>">
+                    <?php endif; ?>
+                    <input type="submit" value="Equipment Dashboard" class="button-back">
+                </form>
             </div>
 
             <div class="panel-table">

@@ -18,17 +18,17 @@ use Dandelion\TreeCreator;
  * Class GetPage_Post
  * @package Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions
  */
-class GetPage_Post extends Action
+class UpdateDashboardStatus_Post extends Action
 {
     public function Execute()
     {
-        $userJsonFilterTree = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
+        $userJsonFilterTree = $this->Request->hasProperty('jsonFilterTree') ? base64_decode($this->Request->jsonFilterTree) : "";
         $itemPerPage = $this->Request->hasProperty('itemPerPage') ? $this->Request->itemPerPage : $this->controller->getDefaultItemPerPage($this->Request);
         $page = $this->Request->hasProperty('page') ? $this->Request->page : $this->controller->getDefaultPage();
         $orderBy = $this->Request->hasProperty('orderBy') ? $this->Request->orderBy : $this->controller->getDefaultOrderByField();
         $order = $this->Request->hasProperty('order') ? $this->Request->order : $this->controller->getDefaultOrder();
 
-        $filterTree = TreeCreator::createTree($userJsonFilterTree);
+        $filterTree = TreeCreator::createTree(json_decode($userJsonFilterTree));
 
         $this->controller->setSessionFilterTree($filterTree);
         $_SESSION[HISTORY_ITEM_PER_PAGE] = $itemPerPage;

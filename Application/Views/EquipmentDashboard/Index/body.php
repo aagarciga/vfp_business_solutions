@@ -152,7 +152,14 @@
                         <tr>
                             <td class="item-field"><?php echo $item->getOrdnum() ?></td>
                             <td class="item-field">
-                                <a href="<?php echo $View->Href("HistoryDashboard", "Index", array('equipid' => base64_encode($item->getEquipid()))) ?>" class="btn-committed-form-link">
+                                <a href="<?php echo $View->Href("HistoryDashboard", "Index", array(
+                                    'equipid' => base64_encode($item->getEquipid()),
+                                    'jsonFilterTree' => base64_encode($JsonFilterTree),
+                                    'itemPerPage' => $ItemPerPage,
+                                    'page' => $Page,
+                                    'orderBy' => $OrderBy,
+                                    'order' => $Order
+                                    )) ?>" class="btn-committed-form-link">
                                     <?php echo $item->getEquipid() ?>
                                 </a>
                             </td>

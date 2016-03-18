@@ -121,7 +121,12 @@
     };
     tdEquipidBuilder = function() {
       return App.Helpers.withLinkTdBuilder(dataRow.equipid, '', '', App.Helpers.Href('HistoryDashboard', 'Index', {
-        equipid: btoa(dataRow.equipid)
+        equipid: btoa(dataRow.equipid),
+        jsonFilterTree: btoa(JSON.stringify(EquipmentDashboard.DynamicFilter.functions.getFilterTree())),
+        itemPerPage: EquipmentDashboard.status.itemsPerPage,
+        page: EquipmentDashboard.status.currentPage,
+        orderBy: EquipmentDashboard.status.table_header_sortField,
+        order: EquipmentDashboard.status.table_header_sortFieldOrder
       }), {});
     };
     tdItemnoBuilder = function() {

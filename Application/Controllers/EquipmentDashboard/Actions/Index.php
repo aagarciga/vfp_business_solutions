@@ -13,6 +13,7 @@ use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Application\Tools;
 use Dandelion\Tools\Filter\BlockExpressionNode;
+use Dandelion\TreeCreator;
 
 define("VIEW_MODEL_CLASS", 'Dandelion\MVC\Application\Controllers\EquipmentDashboard\Models\EquipmentDashboardViewModel');
 
@@ -37,6 +38,7 @@ class Index extends Action
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = self::getSessionValue(EQUIPMENT_ITEM_PER_PAGE, $defaultItemsPerPage);
         $this->FilterTree = $this->controller->getSessionFilterTree();
+        $this->JsonFilterTree = json_encode(TreeCreator::treeToArray($this->FilterTree));
         $this->FilterId = $this->controller->getDefaultFilterId();
         $this->Page = self::getSessionValue(EQUIPMENT_PAGE, $this->controller->getDefaultPage());
         $this->OrderBy = self::getSessionValue(EQUIPMENT_ORDERBY, $this->controller->getDefaultOrderByField());
