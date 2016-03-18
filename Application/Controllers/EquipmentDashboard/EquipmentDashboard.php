@@ -146,7 +146,7 @@ class EquipmentDashboard extends DatActionsController
     }
 
     public function getDefaultPage(){
-        return 0;
+        return 1;
     }
 
     public function getDefaultItemPerPage($request=null){

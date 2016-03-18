@@ -93,6 +93,10 @@ use Dandelion\MVC\Application\Tools;
                 </div>
             </div>
 
+            <div class="panel-back">
+
+            </div>
+
             <div class="panel-table">
                 <table class="table table-striped" id="HistoryDashboardTable">
                     <colgroup>
