@@ -9,8 +9,8 @@ namespace Dandelion\MVC\Application\Controllers;
 use Dandelion\Diana\Drivers\AdvantageODBC\AdvantageODBCDriver;
 use Dandelion\MVC\Application\Models\VfpDataUnitOfWork;
 use Dandelion\MVC\Core\ActionsController ;
-use Dandelion\MVC\Core\Application;
-
+//use Dandelion\MVC\Core\Application;
+use Dandelion\MVC\Application\Application;
 /**
  * VFP Business Series User Authentication Controller
  * @name User

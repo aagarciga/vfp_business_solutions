@@ -5,11 +5,12 @@
         <group>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Public/Styles/Dashboard/index.css</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Public/Styles/QuoteDashboard/index.css</file>
+            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Data/settings.dtd</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Public/Scripts/QuoteDashboard/quotedashboard.js</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Controllers/Dashboard/Actions/Index.php</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Controllers/QuoteDashboard/Actions/Index.php</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Views/Dashboard/Index/body.php</file>
-            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Public/Scripts/QuoteDashboard/quotedashboard.min.js</file>
+            <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Data/settings.xml</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Views/QuoteDashboard/Index/body.php</file>
             <file>file:/C:/inetpub/wwwroot/dandelionmvc/Application/Models/Repositories/SysexportRepository.php</file>
         </group>

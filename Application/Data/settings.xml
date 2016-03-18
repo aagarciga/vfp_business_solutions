@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
 <!DOCTYPE Application SYSTEM "settings.dtd">
-<Application Name="VFP Business Series" Controller="main" Action="index" State="Development" >
-    <Pager ItemsPerPage="50" />
-    <PickTicket ItemsPerPage="10" />
+<Application Name="VFP Business Series" Controller="main" Action="index" State="Development">
+    <Pager ItemsPerPage="50"/>
+    <PickTicket ItemsPerPage="10"/>
     <DB Name="vfpdata.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\" User="" Password="" ServerType="Local"/>
     <!--<DB Name="dat00.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\DAT00\" User="" Password="" ServerType="Local"/>-->
     <Company id="default">
         <Menu>
-            <MenuEntry Controller="Main"                Action="Index" ClassName="glyphicon glyphicon-home">Home</MenuEntry>
-            <MenuEntry Controller="QuoteDashboard"      Action="Index" ClassName="glyphicon glyphicon-th">Quote Dashboard</MenuEntry>
-            <MenuEntry Controller="Dashboard"           Action="Index" ClassName="glyphicon glyphicon-th">Work Order Dashboard</MenuEntry>
-            <MenuEntry Controller="InventoryDashboard"  Action="Index" ClassName="glyphicon glyphicon-th">Inventory Dashboard</MenuEntry>
-            <MenuEntry Controller="EquipmentDashboard"  Action="Index" ClassName="glyphicon glyphicon-th">Equipment Dashboard</MenuEntry>
-            <MenuEntry Controller="FinancialDashboard"  Action="Index" ClassName="glyphicon glyphicon-th"   VisibilityCondition="ShowFiancialDashboard" >Financial Dashboard</MenuEntry>
-            <MenuEntry Controller="WMS"                 Action="Index" ClassName="glyphicon glyphicon-th"   VisibilityCondition="$FullFeatures" >Warehouse Management</MenuEntry>
-            <MenuEntry Controller="WMS"                 Action="User"  ClassName="glyphicon glyphicon-th">Exit</MenuEntry>
+            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"></MenuEntry>
+            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard"></MenuEntry>
+            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard"></MenuEntry>
+            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard"></MenuEntry>
+            <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard"></MenuEntry>
+            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" VisibilityCondition="ShowFiancialDashboard"></MenuEntry>
+            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" VisibilityCondition="$FullFeatures"></MenuEntry>
+            <MenuEntry Controller="WMS" Action="User" ClassName="glyphicon glyphicon-th" DisplayName="Exit"></MenuEntry>
         </Menu>
         <Controller Name="default" Type="Dashboard">
             <Attachments>
@@ -38,7 +38,8 @@
         <Controller Name="InventoryDashboard" Type="Dashboard">
             <Predicate Id="default">
                 LOWER(TRIM(ITEMTYPE)) = 'inventory' OR LOWER(TRIM(ITEMTYPE)) = 'group' OR
-                LOWER(TRIM(ITEMTYPE)) = 'kit' OR LOWER(TRIM(ITEMTYPE)) = 'toplvlassy' OR LOWER(TRIM(ITEMTYPE)) = 'subassy' OR
+                LOWER(TRIM(ITEMTYPE)) = 'kit' OR LOWER(TRIM(ITEMTYPE)) = 'toplvlassy' OR LOWER(TRIM(ITEMTYPE)) =
+                'subassy' OR
                 LOWER(TRIM(ITEMTYPE)) = 'rawmatrl' OR LOWER(TRIM(ITEMTYPE)) = 'component'
             </Predicate>
         </Controller>

@@ -283,4 +283,5 @@ class Application extends Core\Application
         }
         return "";
     }
+
 }
