@@ -40,7 +40,7 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-contrib-clean')
-#  grunt.loadNpmTasks('grunt-contrib-compress')
+  grunt.loadNpmTasks('grunt-contrib-compress')
 
   # Default task(s).
-  grunt.registerTask('default', ['clean', 'copy'])
+  grunt.registerTask('default', ['clean', 'copy', 'compress'])

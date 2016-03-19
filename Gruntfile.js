@@ -37,7 +37,8 @@
     });
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    return grunt.registerTask('default', ['clean', 'copy']);
+    grunt.loadNpmTasks('grunt-contrib-compress');
+    return grunt.registerTask('default', ['clean', 'copy', 'compress']);
   };
 
 }).call(this);
