@@ -27,7 +27,7 @@ module.exports = (grunt) ->
     compress:
       main:
         options:
-          archive: 'build/vfpbs.<%= pkg.version %>.zip'
+          archive: 'vfpbs.<%= pkg.version %>.zip'
           mode: 'zip'
           level: 9
           pretty: true
@@ -40,7 +40,7 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-contrib-clean')
-#  grunt.loadNpmTasks('grunt-contrib-compress')
+  grunt.loadNpmTasks('grunt-contrib-compress')
 
   # Default task(s).
-  grunt.registerTask('default', ['clean', 'copy'])
+  grunt.registerTask('default', ['clean', 'copy', 'compress'])
