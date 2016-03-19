@@ -61,9 +61,10 @@
 <!ELEMENT Menu (MenuEntry)*>
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT MenuEntry (#PCDATA)>
+<!ELEMENT MenuEntry EMPTY>
 <!ATTLIST MenuEntry
     VisibilityCondition CDATA #IMPLIED
+    DisplayName CDATA #IMPLIED
     ClassName CDATA #IMPLIED
     Action CDATA #IMPLIED
     Controller CDATA #IMPLIED
