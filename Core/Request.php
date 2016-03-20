@@ -12,44 +12,45 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  * Dandelion MVC request definition.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright   2011-2015 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright   2011-2016 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  * @ignore
  */
-class Request implements Interfaces\IDictionary {
-    
+class Request implements Interfaces\IDictionary
+{
+
     /**
      * Contains the controller name.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $Controller;
-    
+
     /**
      * Contains the action name.
-     * 
+     *
      * @var string
      */
     public $Action;
-    
+
     /**
      *
-     * @var array 
+     * @var array
      */
     private $properties = array();
-    
+
     /**
      * Contains the MVC Application instance.
      *
      * @var \Dandelion\MVC\Core\Application
      */
     public $Application;
-    
+
     /**
-     * Contains the request method type. These values can be obtained 
+     * Contains the request method type. These values can be obtained
      * from Core\Nomenclatures\RequestMethod.
-     * 
+     *
      * @var string
      */
     public $RequestMethod;
@@ -61,7 +62,8 @@ class Request implements Interfaces\IDictionary {
      * @param null $application
      * @param null $method
      */
-    public final function __construct($controller, $action, $application = null, $method = null) {
+    public final function __construct($controller, $action, $application = null, $method = null)
+    {
         $this->Controller = $controller;
         $this->Action = $action;
         $this->Application = $application;
@@ -69,12 +71,13 @@ class Request implements Interfaces\IDictionary {
     }
 
     /**
-     * 
+     *
      * @param mixed $key
      * @param mixed $value
      * @ignore
      */
-    public final function __set($key, $value) {
+    public final function __set($key, $value)
+    {
         $this->properties[$key] = $value;
     }
 
@@ -85,8 +88,9 @@ class Request implements Interfaces\IDictionary {
      * @return mixed
      * @ignore
      */
-    public final function __get($key) {
-        if (array_key_exists($key, $this->properties)){
+    public final function __get($key)
+    {
+        if (array_key_exists($key, $this->properties)) {
             return $this->properties[$key];
         }
 //        $trace = debug_backtrace();
@@ -99,18 +103,20 @@ class Request implements Interfaces\IDictionary {
 
 //        throw new Exceptions\PropertyNotFoundException("Request", $key);
     }
-    
+
     /**
      * Secure method of get request properties (GET | POST)
      * @param type $key
      * @return property value. false otherwise.
      */
-    public final function hasProperty($key){
+    public final function hasProperty($key)
+    {
         return array_key_exists($key, $this->properties) ? true : false;
     }
-    
-    public function __isset($key) {
-        if (array_key_exists($key, $this->properties)){
+
+    public function __isset($key)
+    {
+        if (array_key_exists($key, $this->properties)) {
             return isset($this->properties[$key]);
         }
 //        $trace = debug_backtrace();
@@ -123,12 +129,13 @@ class Request implements Interfaces\IDictionary {
 //        throw new Exceptions\PropertyNotFoundException("Request", $key);
     }
 
-    
+
     //TODO: Gets the collection of form variables that were sent by the client.
-    function Form() {
+    function Form()
+    {
         if ($this->RequestMethod == Nomenclatures\RequestMethod::POST()) {
             //...
         }
     }
-    
+
 }

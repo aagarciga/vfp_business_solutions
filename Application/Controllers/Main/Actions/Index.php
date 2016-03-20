@@ -19,12 +19,6 @@ class Index extends Action {
      */
     public function Execute() {
         $this->Title = 'VFP Business Series';
-//        error_log(print_r($this->Request, true));
-//        error_log(print_r($this->Request->Application, true));
-
-
-
-
 
         $currentCompany = $this->Request->Application->getCompany($_SESSION['usercomp']);
         if($currentCompany == ''){
@@ -35,12 +29,6 @@ class Index extends Action {
         foreach ($companyMenuEntries as $menuEntry) {
             error_log("Menu ENtry:  >>> ".$menuEntry['DisplayName']);
         }
-
-
-//        error_log("User Company >>> ". print_r($_SESSION['usercomp'], true));
-//        error_log("COMPANY >>> ".print_r($currentCompany, true));
-//        error_log("COMPANY Menu >>> ".print_r($currentCompany->Menu->MenuEntry, true));
-//        error_log("COMPANY Menu >>> ".print_r(count($currentCompany->Menu->MenuEntry), true));
 
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->FullFeatures = (!isset($_SESSION['fullFeatures']))? false : $_SESSION['fullFeatures'];
