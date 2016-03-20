@@ -14,8 +14,8 @@
             <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard"></MenuEntry>
             <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard"></MenuEntry>
             <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" VisibilityCondition="ShowFiancialDashboard"></MenuEntry>
-            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" VisibilityCondition="$FullFeatures"></MenuEntry>
-            <MenuEntry Controller="WMS" Action="User" ClassName="glyphicon glyphicon-th" DisplayName="Exit"></MenuEntry>
+            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" VisibilityCondition="FullFeatures"></MenuEntry>
+            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"></MenuEntry>
         </Menu>
         <Controller Name="default" Type="Dashboard">
             <Attachments>
@@ -43,6 +43,19 @@
                 LOWER(TRIM(ITEMTYPE)) = 'rawmatrl' OR LOWER(TRIM(ITEMTYPE)) = 'component'
             </Predicate>
         </Controller>
+    </Company>
+
+    <Company id="05">
+        <Menu>
+            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"></MenuEntry>
+            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard"></MenuEntry>
+            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard"></MenuEntry>
+            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard"></MenuEntry>
+            <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard"></MenuEntry>
+            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" VisibilityCondition="ShowFiancialDashboard"></MenuEntry>
+            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" VisibilityCondition="FullFeatures"></MenuEntry>
+            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"></MenuEntry>
+        </Menu>
     </Company>
 
 
