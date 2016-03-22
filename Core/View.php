@@ -187,6 +187,47 @@ class View {
             include $context . $prefix . $fileName . $posfix;
         }
     }
+
+    /**
+     * Return the HTML LI collection of Menu entries from
+     * configuration settings.xml ready for put inside an HTML UL element.
+     * @return HTML string
+     */
+    public function MenuEntriesFromSettings(){
+        $result = "";
+        $application = $this->action->Request->Application;
+        $currentCompany = $application->getCompany($_SESSION['usercomp']);
+        if($currentCompany == ''){
+            // Default Company Configuration
+            $currentCompany = $application->getCompany();
+        }
+        $companyMenuEntries = $currentCompany->Menu->MenuEntry;
+        foreach ($companyMenuEntries as $menuEntry) {
+
+            $entryHref = $this->Href($menuEntry['Controller'], $menuEntry['Action']);
+            $entryClassName = $menuEntry['ClassName'];
+            $entryDisplayName = $menuEntry['DisplayName'];
+            $entryHTML = "<li><a href=\"$entryHref\" class=\"\" ><span class=\"$entryClassName\"></span> $entryDisplayName</a></li>\r";
+
+            // Visibility condition must correspond with session var name
+            // If menu entry contain a visibility condition
+            if(isset($menuEntry['VisibilityCondition'])){
+                $conditionName = lcfirst($menuEntry['VisibilityCondition']);
+                // Check visibility condition from session
+                if(isset($_SESSION[$conditionName])){
+                    if($_SESSION[$conditionName]){
+                        // And include in result for visualization
+                        $result .= $entryHTML;
+                    }
+                } else{
+                    error_log("$conditionName not found in SESSION: ". print_r($_SESSION,true));
+                }
+            } else{ // If menu entry NOT contain a visibility condition, just include in result for visualization
+                $result .= $entryHTML;
+            }
+        }
+        return $result;
+    }
     
     /**
      * Put an image in Dandelion MVC Public context for using it in markup.

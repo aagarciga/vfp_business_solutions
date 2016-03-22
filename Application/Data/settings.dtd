@@ -52,16 +52,29 @@
   >
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT Company (Dashboard|Controller)*>
+<!ELEMENT Company (Controller|Menu)*>
 <!ATTLIST Company
     id CDATA #IMPLIED
   >
 
 <!--- Put your DTDDoc comment here. -->
+<!ELEMENT Menu (MenuEntry)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT MenuEntry EMPTY>
+<!ATTLIST MenuEntry
+    VisibilityCondition CDATA #IMPLIED
+    DisplayName CDATA #IMPLIED
+    ClassName CDATA #IMPLIED
+    Action CDATA #IMPLIED
+    Controller CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
 <!ELEMENT Controller (Predicate|Attachments)*>
 <!ATTLIST Controller
-    type CDATA #IMPLIED
-    name CDATA #IMPLIED
+    Type CDATA #IMPLIED
+    Name CDATA #IMPLIED
   >
 
 <!--- Put your DTDDoc comment here. -->
@@ -73,17 +86,11 @@
 <!--- Put your DTDDoc comment here. -->
 <!ELEMENT Dir EMPTY>
 <!ATTLIST Dir
-    name CDATA #IMPLIED
+    Name CDATA #IMPLIED
   >
 
 <!--- Put your DTDDoc comment here. -->
 <!ELEMENT Predicate (#PCDATA)>
 <!ATTLIST Predicate
-    id CDATA #IMPLIED
-  >
-
-<!--- Put your DTDDoc comment here. -->
-<!ELEMENT Dashboard (Predicate)*>
-<!ATTLIST Dashboard
-    id CDATA #IMPLIED
+    Id CDATA #IMPLIED
   >

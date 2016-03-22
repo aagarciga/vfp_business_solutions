@@ -21,12 +21,18 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  */
 abstract class ActionsController extends Controller {
 
-    protected function Init(){}
+    /**
+     * @param \Dandelion\MVC\Core\Request $request
+     */
+    protected function Init(Request $request){}
 
-    public final function __construct($name) {
-        parent::__construct($name);
+    /**
+     * @param \Dandelion\MVC\Core\Request $request
+     */
+    public final function __construct(Request $request) {
+        parent::__construct($request->Controller);
         spl_autoload_register(array($this, 'ViewModelLoader'));
-        $this->Init();
+        $this->Init($request);
     }
     
     /**

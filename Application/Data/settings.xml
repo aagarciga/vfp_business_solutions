@@ -1,47 +1,61 @@
 <?xml version="1.0"?>
 
 <!DOCTYPE Application SYSTEM "settings.dtd">
-<Application Name="VFP Business Series" Controller="main" Action="index" State="Development" >
-    <Pager ItemsPerPage="50" />
-    <PickTicket ItemsPerPage="10" />
+<Application Name="VFP Business Series" Controller="main" Action="index" State="Development">
+    <Pager ItemsPerPage="50"/>
+    <PickTicket ItemsPerPage="10"/>
     <DB Name="vfpdata.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\" User="" Password="" ServerType="Local"/>
     <!--<DB Name="dat00.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\DAT00\" User="" Password="" ServerType="Local"/>-->
     <Company id="default">
         <Menu>
-            <MenuEntry controller="Main" action="Index" class="glyphicon glyphicon-home">Home</MenuEntry>
-            <MenuEntry controller="QuoteDashboard" action="Index" class="glyphicon glyphicon-th">Quote Dashboard</MenuEntry>
-            <MenuEntry controller="Dashboard" action="Index" class="glyphicon glyphicon-th">Work Order Dashboard</MenuEntry>
-            <MenuEntry controller="InventoryDashboard" action="Index" class="glyphicon glyphicon-th">Inventory Dashboard</MenuEntry>
-            <MenuEntry controller="EquipmentDashboard" action="Index" class="glyphicon glyphicon-th">Equipment Dashboard</MenuEntry>
-            <MenuEntry controller="FinancialDashboard" action="Index" VisibilityCondition="ShowFiancialDashboard" class="glyphicon glyphicon-th">Financial Dashboard</MenuEntry>
-            <MenuEntry controller="WMS" action="Index" VisibilityCondition="$FullFeatures" class="glyphicon glyphicon-th">Warehouse Management</MenuEntry>
-            <MenuEntry controller="WMS" action="User" class="glyphicon glyphicon-th">Exit</MenuEntry>
+            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"></MenuEntry>
+            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard"></MenuEntry>
+            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard"></MenuEntry>
+            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard"></MenuEntry>
+            <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard"></MenuEntry>
+            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" VisibilityCondition="ShowFiancialDashboard"></MenuEntry>
+            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" VisibilityCondition="FullFeatures"></MenuEntry>
+            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"></MenuEntry>
         </Menu>
-        <Controller name="default" type="Dashboard">
+        <Controller Name="default" Type="Dashboard">
             <Attachments>
                 <FileStructure>
-                    <Dir name="Freights"></Dir>
-                    <Dir name="Miscellaneous"></Dir>
-                    <Dir name="POs and Invoices from OMG"></Dir>
-                    <Dir name="POs and Invoices from WMS"></Dir>
-                    <Dir name="Quotation-PO-Invoice"></Dir>
-                    <Dir name="Reports and Files"></Dir>
-                    <Dir name="Time Sheets"></Dir>
-                    <Dir name="Tool Box"></Dir>
-                    <Dir name="Travel Expenses"></Dir>
+                    <Dir Name="Freights"></Dir>
+                    <Dir Name="Miscellaneous"></Dir>
+                    <Dir Name="POs and Invoices from OMG"></Dir>
+                    <Dir Name="POs and Invoices from WMS"></Dir>
+                    <Dir Name="Quotation-PO-Invoice"></Dir>
+                    <Dir Name="Reports and Files"></Dir>
+                    <Dir Name="Time Sheets"></Dir>
+                    <Dir Name="Tool Box"></Dir>
+                    <Dir Name="Travel Expenses"></Dir>
                 </FileStructure>
             </Attachments>
             <Predicate>
             </Predicate>
         </Controller>
 
-        <Controller id="InventoryDashboard" type="Dashboard">
-            <Predicate id="default">
+        <Controller Name="InventoryDashboard" Type="Dashboard">
+            <Predicate Id="default">
                 LOWER(TRIM(ITEMTYPE)) = 'inventory' OR LOWER(TRIM(ITEMTYPE)) = 'group' OR
-                LOWER(TRIM(ITEMTYPE)) = 'kit' OR LOWER(TRIM(ITEMTYPE)) = 'toplvlassy' OR LOWER(TRIM(ITEMTYPE)) = 'subassy' OR
+                LOWER(TRIM(ITEMTYPE)) = 'kit' OR LOWER(TRIM(ITEMTYPE)) = 'toplvlassy' OR LOWER(TRIM(ITEMTYPE)) =
+                'subassy' OR
                 LOWER(TRIM(ITEMTYPE)) = 'rawmatrl' OR LOWER(TRIM(ITEMTYPE)) = 'component'
             </Predicate>
         </Controller>
+    </Company>
+
+    <Company id="05">
+        <Menu>
+            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"></MenuEntry>
+            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard"></MenuEntry>
+            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard"></MenuEntry>
+            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard"></MenuEntry>
+            <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard"></MenuEntry>
+            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" VisibilityCondition="ShowFiancialDashboard"></MenuEntry>
+            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" VisibilityCondition="FullFeatures"></MenuEntry>
+            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"></MenuEntry>
+        </Menu>
     </Company>
 
 

@@ -19,7 +19,6 @@ class Application extends Core\Application
     public function setDefaultDbManager($dbManager)
     {
         $this->setDBValue('Manager', $dbManager);
-//        $this->settings->DB[0]['Manager'] = $dbManager;
     }
 
     /**
@@ -29,7 +28,6 @@ class Application extends Core\Application
     public function getDefaultDbManager()
     {
         return $this->getDBValue('Manager');
-//        return $this->settings->DB[0]['Manager'];
     }
 
     /**
@@ -39,7 +37,6 @@ class Application extends Core\Application
     public function setDefaultDbHost($dbHost)
     {
         $this->setDBValue('Host', $dbHost);
-//        $this->settings->DB[0]['Host'] = $dbHost;
     }
 
     /**
@@ -49,7 +46,6 @@ class Application extends Core\Application
     public function getDefaultDbHost()
     {
         return $this->getDBValue('Host');
-//        return $this->settings->DB[0]['Host'];
     }
 
     /**
@@ -59,7 +55,6 @@ class Application extends Core\Application
     public function setDefaultDbUser($dbUser)
     {
         $this->setDBValue('User', $dbUser);
-//        $this->settings->DB[0]['User'] = $dbUser;
     }
 
     /**
@@ -69,7 +64,6 @@ class Application extends Core\Application
     public function getDefaultDbUser()
     {
         return $this->getDBValue('User');
-//        return $this->settings->DB[0]['User'];
     }
 
     /**
@@ -79,7 +73,6 @@ class Application extends Core\Application
     public function setDefaultDbPassword($dbPassword)
     {
         $this->setDBValue('Password', $dbPassword);
-//        $this->settings->DB[0]['Password'] = $dbPassword;
     }
 
     /**
@@ -89,7 +82,6 @@ class Application extends Core\Application
     public function getDefaultDbPassword()
     {
         return $this->getDBValue('Password');
-//        return $this->settings->DB[0]['Password'];
     }
 
     /**
@@ -99,7 +91,6 @@ class Application extends Core\Application
     public function setDefaultDbName($dbName)
     {
         $this->setDBValue('Name', $dbName);
-//        $this->settings->DB[0]['Name'] = $dbName;
     }
 
     /**
@@ -109,7 +100,6 @@ class Application extends Core\Application
     public function getDefaultDbName()
     {
         return $this->getDBValue('Name');
-//        return $this->settings->DB[0]['Name'];
     }
 
     /**
@@ -120,7 +110,6 @@ class Application extends Core\Application
     {
         $serverType = $this->getDBValue('Name');
         return $serverType == null ? 'Remote' : $serverType;
-//        return isset($this->settings->DB[0]['ServerType']) ? $this->settings->DB[0]['ServerType'] : 'Remote';
     }
 
     /**
@@ -130,7 +119,7 @@ class Application extends Core\Application
      */
     public function setDbManager($dbManager, $index = 0)
     {
-        $this->settings->DB[$index]['Manager'] = $dbManager;
+        $this->setDBValue('Manager', $dbManager, $index);
     }
 
     /**
@@ -140,7 +129,7 @@ class Application extends Core\Application
      */
     public function getDbManager($index = 0)
     {
-        return $this->settings->DB[$index]['Manager'];
+        return $this->getDBValue('Manager', $index);
     }
 
     /**
@@ -150,7 +139,7 @@ class Application extends Core\Application
      */
     public function setDbHost($dbHost, $index = 0)
     {
-        $this->settings->DB[$index]['Host'] = $dbHost;
+        $this->setDBValue('Manager', $dbHost, $index);
     }
 
     /**
@@ -160,7 +149,7 @@ class Application extends Core\Application
      */
     public function getDbHost($index = 0)
     {
-        return $this->settings->DB[$index]['Host'];
+        return $this->getDBValue('Host', $index);
     }
 
     /**
@@ -170,7 +159,7 @@ class Application extends Core\Application
      */
     public function setDbUser($dbUser, $index = 0)
     {
-        $this->settings->DB[$index]['User'] = $dbUser;
+        $this->setDBValue('User', $dbUser, $index);
     }
 
     /**
@@ -180,7 +169,7 @@ class Application extends Core\Application
      */
     public function getDbUser($index = 0)
     {
-        return $this->settings->DB[$index]['User'];
+        return $this->getDBValue('User', $index);
     }
 
     /**
@@ -190,7 +179,7 @@ class Application extends Core\Application
      */
     public function setDbPassword($dbPassword, $index = 0)
     {
-        $this->settings->DB[$index]['Password'] = $dbPassword;
+        $this->setDBValue('Password', $dbPassword, $index);
     }
 
     /**
@@ -200,7 +189,7 @@ class Application extends Core\Application
      */
     public function getDbPassword($index = 0)
     {
-        return $this->settings->DB[$index]['Password'];
+        return $this->getDBValue('Password', $index);
     }
 
     /**
@@ -210,7 +199,7 @@ class Application extends Core\Application
      */
     public function setDbName($dbName, $index = 0)
     {
-        $this->settings->DB[$index]['Name'] = $dbName;
+        $this->setDBValue('Name', $dbName, $index);
     }
 
     /**
@@ -220,7 +209,7 @@ class Application extends Core\Application
      */
     public function getDbName($index = 0)
     {
-        return $this->settings->DB[$index]['Name'];
+        return $this->getDBValue('Name', $index);
     }
 
     /**
@@ -230,7 +219,8 @@ class Application extends Core\Application
      */
     public function getDbServerType($index = 0)
     {
-        return isset($this->settings->DB[$index]['ServerType']) ? $this->settings->DB[0]['ServerType'] : 'Remote';
+        $serverType = $this->getDBValue('Name', $index);
+        return $serverType == null ? 'Remote' : $serverType;
     }
 
     /**
@@ -239,7 +229,7 @@ class Application extends Core\Application
      */
     public function setState($state)
     {
-        $this->settings['State'] = $state;
+        $this->SetValue('State', $state);
     }
 
     /**
@@ -248,7 +238,7 @@ class Application extends Core\Application
      */
     public function getState()
     {
-        return $this->settings['State'];
+        return $this->GetValue('State');
     }
 
     /**
@@ -262,12 +252,16 @@ class Application extends Core\Application
 
     public function getDefaultPagerItermsPerPage()
     {
-        return isset($this->settings->Pager['ItemsPerPage']) ? $this->settings->Pager['ItemsPerPage'] : 10;
+        $pager = $this->GetValue('Pager');
+        $itemsPerPage = $pager['ItemsPerPage'];
+        $result = isset($itemsPerPage) ? $itemsPerPage : 10;
+        return $result;
     }
 
     public function setDefaultPagerItemsPerPage($value)
     {
-        $this->settings->Pager['ItemsPerPage'] = $value;
+        $this->SetValueProperty('Pager', 'ItemsPerPage', $value);
+//        $this->settings->Pager['ItemsPerPage'] = $value;
     }
 
     public function getCompany($companyId="default"){
@@ -289,4 +283,5 @@ class Application extends Core\Application
         }
         return "";
     }
+
 }

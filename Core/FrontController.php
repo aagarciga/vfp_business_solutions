@@ -6,7 +6,6 @@ use Dandelion\MVC\Core\Nomenclatures;
 use Dandelion\MVC\Application\Application;
 
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
-//require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Application.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
 
@@ -14,31 +13,35 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  * Dandelion MVC front controller.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright   2011-2015 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @copyright   2011-2016 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  * @ignore
  */
-class FrontController extends Controller {
+class FrontController extends Controller
+{
 
     /**
-     * 
+     *
      * @param string $name
      */
-    final function __construct($name = 'index') {
+    final function __construct($name = 'index')
+    {
         parent::__construct($name);
     }
-    
-    final function __clone() {
+
+    final function __clone()
+    {
         ;
     }
-  
+
     /**
-     * 
+     *
      * @param \Dandelion\MVC\Core\Request $request
      * @example index.php?controller=<controller>[&action=<action>][<request:&a=1[&b=2...]>]
      */
-    public function Dispatch(Request $request = null) {
+    public function Dispatch(Request $request = null)
+    {
 
         $application = new Application();
 
@@ -73,7 +76,6 @@ class FrontController extends Controller {
          */
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
             $request->RequestMethod = Nomenclatures\RequestMethod::GET();
-//            error_log(print_r($request , true));
         }
 
         /**
@@ -81,16 +83,13 @@ class FrontController extends Controller {
          * Adds to Request Object all GET and POST values
          */
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
             foreach ($_POST as $key => $value) {
                 if ($key == "controller" or $key == "action") {
                     continue;
                 }
                 $request->$key = filter_input(INPUT_POST, $key);
             }
-
             $request->RequestMethod = Nomenclatures\RequestMethod::POST();
-
         }
 
         /**
@@ -98,7 +97,6 @@ class FrontController extends Controller {
          * Adds to Request Object all GET Values
          */
         if ($_SERVER['REQUEST_METHOD'] === "PUT") {
-
             $request->RequestMethod = Nomenclatures\RequestMethod::PUT();
         }
 
@@ -107,7 +105,6 @@ class FrontController extends Controller {
          * Adds to Request Object all GET Values
          */
         if ($_SERVER['REQUEST_METHOD'] === "PATCH") {
-
             $request->RequestMethod = Nomenclatures\RequestMethod::PATCH();
         }
 
@@ -116,7 +113,6 @@ class FrontController extends Controller {
          * Adds to Request Object all POST Values
          */
         if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
-
             $request->RequestMethod = Nomenclatures\RequestMethod::DELETE();
         }
 

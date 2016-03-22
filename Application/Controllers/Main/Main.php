@@ -6,8 +6,6 @@
 
 namespace Dandelion\MVC\Application\Controllers;
 
-use Dandelion\MVC\Application\Controllers\DatActionsController;
-
 /**
  * VFP Business Series Default Controller
  * @name Main
