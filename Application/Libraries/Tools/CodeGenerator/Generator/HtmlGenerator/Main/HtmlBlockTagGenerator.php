@@ -24,6 +24,7 @@ class HtmlBlockTagGenerator extends HtmlGenerator
      */
     public function __construct($virtualTag=null)
     {
+        parent::__construct();
         $this->virtualTag = $virtualTag;
     }
 

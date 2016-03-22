@@ -26,6 +26,10 @@ abstract class HtmlGenerator extends BaseCodeGenerator
     function getCode()
     {
         $result = "";
+
+        if(!is_array($this->virtualCodes)){
+            error_log(">>>>>> Is'n an array!");
+        }
         foreach($this->virtualCodes as $virtualCode){
             $result .= $virtualCode->getCode();
         }
