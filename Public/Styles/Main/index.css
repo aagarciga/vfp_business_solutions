@@ -110,7 +110,7 @@ div.panel-body {
     background: transparent url('../../Images/Main/warehouse-management.jpg') no-repeat 50% 0px;
   }
   #main-panel .nav-pills > li#inventory-dashboard > a {
-    background: transparent url('../../Images/Main/inventory-dashboard.jpg') no-repeat 50% 0px;
+    background: transparent url('../../Images/Main/inventory-dashboard.png') no-repeat 50% 0;
   }
   #main-panel .nav-pills > li#equipment-dashboard > a {
     background: transparent url('../../Images/Main/equipment-dashboard.jpg') no-repeat 50% 0px;
