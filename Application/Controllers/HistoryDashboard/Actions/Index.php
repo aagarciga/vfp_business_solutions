@@ -45,9 +45,9 @@ class Index extends Action
         $this->ItemPerPage = $defaultItemsPerPage;
         $this->FilterTree = $this->controller->getDefaultFilterTree();
         $this->FilterId = "";
-        $this->Page = Tools\Session::getSessionValue(HISTORY_PAGE, $this->controller->getDefaultPage());
-        $this->OrderBy = Tools\Session::getSessionValue(HISTORY_ORDERBY, $this->controller->getDefaultOrderByField());
-        $this->Order = Tools\Session::getSessionValue(HISTORY_ORDER, $this->controller->getDefaultOrder());
+        $this->Page = Tools\Session::getSessionValue($this->controller->getSessionId(PAGE_SUFFIX), $this->controller->getDefaultPage());
+        $this->OrderBy = Tools\Session::getSessionValue($this->controller->getSessionId(ORDERBY_SUFFIX), $this->controller->getDefaultOrderByField());
+        $this->Order = Tools\Session::getSessionValue($this->controller->getSessionId(ORDER_SUFFIX), $this->controller->getDefaultOrder());
 
         $filterTree = $this->controller->getFilterIncludeEquipId($equipid, $this->EquipId, $this->FilterTree, $this->FieldsDefinitions);
 

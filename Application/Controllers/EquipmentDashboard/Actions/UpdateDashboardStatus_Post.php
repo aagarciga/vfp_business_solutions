@@ -31,10 +31,10 @@ class UpdateDashboardStatus_Post extends Action
         $filterTree = TreeCreator::createTree(json_decode($userJsonFilterTree));
 
         $this->controller->setSessionFilterTree($filterTree);
-        $_SESSION[HISTORY_ITEM_PER_PAGE] = $itemPerPage;
-        $_SESSION[HISTORY_PAGE] = $page;
-        $_SESSION[HISTORY_ORDERBY] = $orderBy;
-        $_SESSION[HISTORY_ORDER] = $order;
+        $_SESSION[$this->controller->getSessionId(ITEM_PER_PAGE_SUFFIX)] = $itemPerPage;
+        $_SESSION[$this->controller->getSessionId(PAGE_SUFFIX)] = $page;
+        $_SESSION[$this->controller->getSessionId(ORDERBY_SUFFIX)] = $orderBy;
+        $_SESSION[$this->controller->getSessionId(ORDER_SUFFIX)] = $order;
 
         $this->Request->previousController = $this->Request->hdnController;
         $this->Request->previousAction = $this->Request->hdnAction;

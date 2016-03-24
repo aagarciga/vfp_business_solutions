@@ -36,10 +36,10 @@ class GetPage_Post extends Action
         $this->FieldsDefinition = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
 
         $this->FilterPredicate = $this->controller->setSessionFilterTree($userJsonFilterTree);
-        $this->ItemPerPage = $_SESSION[HISTORY_ITEM_PER_PAGE] = $itemsPerPage;
-        $this->Page = $_SESSION[HISTORY_PAGE] = $page;
-        $this->Orderby = $_SESSION[HISTORY_ORDERBY] = $orderby;
-        $this->Order = $_SESSION[HISTORY_ORDER] = $order;
+        $this->ItemPerPage = $_SESSION[$this->controller->getSessionId(ITEM_PER_PAGE_SUFFIX)] = $itemsPerPage;
+        $this->Page = $_SESSION[$this->controller->getSessionId(PAGE_SUFFIX)] = $page;
+        $this->Orderby = $_SESSION[$this->controller->getSessionId(ORDERBY_SUFFIX)] = $orderby;
+        $this->Order = $_SESSION[$this->controller->getSessionId(ORDER_SUFFIX)] = $order;
 
         $result = array();
 

@@ -31,10 +31,10 @@ class GetPage_Post extends Action
         $order = $this->Request->hasProperty('order') ? $this->Request->order : "ASC";
 
         $this->FilterPredicate = $this->controller->setSessionFilterTree($userJsonFilterTree);
-        $this->ItemPerPage = $_SESSION[EQUIPMENT_ITEM_PER_PAGE] = $itemsPerPage;
-        $this->Page = $_SESSION[EQUIPMENT_PAGE] = $page;
-        $this->Orderby = $_SESSION[EQUIPMENT_ORDERBY] = $orderby;
-        $this->Order = $_SESSION[EQUIPMENT_ORDER] = $order;
+        $this->ItemPerPage = $_SESSION[$this->controller->getSessionId(ITEM_PER_PAGE_SUFFIX)] = $itemsPerPage;
+        $this->Page = $_SESSION[$this->controller->getSessionId(PAGE_SUFFIX)] = $page;
+        $this->Orderby = $_SESSION[$this->controller->getSessionId(ORDERBY_SUFFIX)] = $orderby;
+        $this->Order = $_SESSION[$this->controller->getSessionId(ORDER_SUFFIX)] = $order;
 
         $result = array();
 

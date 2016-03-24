@@ -36,13 +36,13 @@ class Index extends Action
         $defaultItemsPerPage = $this->controller->getDefaultItemPerPage($this->Request);
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
-        $this->ItemPerPage = self::getSessionValue(EQUIPMENT_ITEM_PER_PAGE, $defaultItemsPerPage);
+        $this->ItemPerPage = self::getSessionValue($this->controller->getSessionId(ITEM_PER_PAGE_SUFFIX), $defaultItemsPerPage);
         $this->FilterTree = $this->controller->getSessionFilterTree();
         $this->JsonFilterTree = json_encode(TreeCreator::treeToArray($this->FilterTree));
         $this->FilterId = $this->controller->getDefaultFilterId();
-        $this->Page = self::getSessionValue(EQUIPMENT_PAGE, $this->controller->getDefaultPage());
-        $this->OrderBy = self::getSessionValue(EQUIPMENT_ORDERBY, $this->controller->getDefaultOrderByField());
-        $this->Order = self::getSessionValue(EQUIPMENT_ORDER, $this->controller->getDefaultOrder());
+        $this->Page = self::getSessionValue($this->controller->getSessionId(PAGE_SUFFIX), $this->controller->getDefaultPage());
+        $this->OrderBy = self::getSessionValue($this->controller->getSessionId(ORDERBY_SUFFIX), $this->controller->getDefaultOrderByField());
+        $this->Order = self::getSessionValue($this->controller->getSessionId(ORDER_SUFFIX), $this->controller->getDefaultOrder());
 
         $this->Pager = $this->controller->GetPager($this->FilterTree, $this->ItemPerPage, 5, 10, $this->OrderBy, $this->Order);
         $this->Pager->Paginate();

@@ -42,40 +42,9 @@ use Dandelion\MVC\Application\Controllers\DashboardController;
 class HistoryDashboard extends DashboardController
 {
     /**
-     *
-     * @param IFilterNode $filterTree
-     * @param int $itemsPerpage
-     * @param int $middleRange
-     * @param int $showPagerControlsIfMoreThan
-     * @param string $orderby
-     * @param string $order (ASC | DESC)
-     * @return \Dandelion\Diana\BootstrapPager
-     *
-     * @internal Because in the feature this will be an INNER JOIN
+     * @param string $companySuffix
+     * @return array
      */
-    public function GetPager($filterTree, $itemsPerpage = 50, $middleRange = 5,
-                             $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC")
-    {
-        $sqlCodeGenerator = new SqlPredicateGenerator();
-        $filterTree->generateSqlCode($sqlCodeGenerator);
-
-        //TODO: Me quede aqui
-        $predicate = $this->getComposedFilter($sqlCodeGenerator->getCode());
-
-        $companysuffix = $this->DatUnitOfWork->CompanySuffix;
-        $table = $this->getDashboardTable($companysuffix);
-        $selectField = Tools\fetchSelectSQLFields($this->GetFieldsDefinition($companysuffix));
-
-        $sqlString = "SELECT "
-            . $selectField
-            . " FROM $table "
-            . "$predicate"
-            . " ORDER BY $orderby $order";
-
-        return new BootstrapPager($this->DatUnitOfWork->DBDriver,
-            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
-    }
-
     public function GetFieldsDefinition($companySuffix)
     {
         $swequipdTable = "SWEQUIPD" . $companySuffix;
