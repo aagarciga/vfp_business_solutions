@@ -10,6 +10,7 @@ namespace Dandelion\MVC\Application\Tools;
 use Dandelion\MVC\Core\View;
 
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'BootstrapPagerTest.php';
+require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'Session.php';
 
 define("DATE_NULL_VALUE", '1899-12-30');
 

@@ -32,21 +32,15 @@ use Dandelion\Tools\Filter\LikeNode;
 use Dandelion\Tools\Filter\StringNode;
 use Dandelion\Tools\Filter\IFilterNode;
 use Dandelion\TreeCreator;
+use Dandelion\MVC\Application\Controllers\DashboardController;
 
 /**
  * Created by: Victor
  * Class HistoryDashboard
  * @package Dandelion\MVC\Application\Controllers
  */
-class HistoryDashboard extends DatActionsController
+class HistoryDashboard extends DashboardController
 {
-    protected function PreController(Request $request)
-    {
-        parent::PreController($request);
-        TreeCreator::Init();
-    }
-
-
     /**
      *
      * @param IFilterNode $filterTree
@@ -100,75 +94,13 @@ class HistoryDashboard extends DatActionsController
         return "SWEQUIPD" . $companySuffix;
     }
 
-    protected function getComposedFilter($predicate){
-        if ($predicate !== "") {
-            $predicate = "WHERE " . $predicate;
-        }
-
-        if ($this->includeFilter !== ""){
-            if ($predicate !== ""){
-                $predicate .= "AND (" . $this->includeFilter . ")";
-            }
-            else{
-                $predicate = "WHERE " . $this->includeFilter;
-            }
-        }
-        return $predicate;
-    }
-
-    public function getDefaultFilterTree(){
-        return new BlockExpressionNode();
-    }
-
-    public function getDefaultOrderByField(){
-        $companysuffix = $this->DatUnitOfWork->CompanySuffix;
-        $fieldsDefinition = $this->GetFieldsDefinition($companysuffix);
-        $arrayField = array_keys($fieldsDefinition);
-        return $arrayField[0];
-    }
-
-    public function getDefaultOrder(){
-        return "ASC";
-    }
-
-    public function getDefaultPage(){
-        return 1;
-    }
-
-    public function getDefaultItemPerPage($request=null){
-        if (is_null($request)){
-            return 50;
-        }
-        return (string) $request->Application->getDefaultPagerItermsPerPage();
-    }
-
-    public function getSessionFilterTree(){
-        $defaultJsonTree = json_encode(TreeCreator::treeToArray($this->getDefaultFilterTree()));
-        $josnFiletrTree = self::getSessionValue(HISTORY_FILTER_TREE, $defaultJsonTree);
-        return TreeCreator::createTree(json_decode($josnFiletrTree));
-    }
-
     /**
-     * @param string | IFilterNode $filterTree
+     * @param string $equipid
+     * @param $equipidValue
+     * @param IFilterNode $filterTree
+     * @param array $fieldsDefinition
      * @return IFilterNode
      */
-    public function setSessionFilterTree($filterTree){
-        if (!is_string($filterTree)){
-            $arrayFilterTree = TreeCreator::treeToArray($filterTree);
-            $filterTree = json_encode($arrayFilterTree);
-        }
-        $_SESSION[HISTORY_FILTER_TREE] = $filterTree;
-        return $this->getSessionFilterTree();
-    }
-
-    private static function getSessionValue($key, $defaultValue){
-        return isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
-    }
-
-    public function getDefaultFilterId(){
-        return DEFAULT_SESSION_FILTER_ID;
-    }
-
     public function getFilterIncludeEquipId($equipid, $equipidValue, $filterTree, $fieldsDefinition){
         $tableFromEquipId = $fieldsDefinition[$equipid][TABLE_KEY];
         $diplayNameEquipId = $fieldsDefinition[$equipid][DISPLAY_NAME_KEY];

@@ -45,9 +45,9 @@ class Index extends Action
         $this->ItemPerPage = $defaultItemsPerPage;
         $this->FilterTree = $this->controller->getDefaultFilterTree();
         $this->FilterId = "";
-        $this->Page = self::getSessionValue(HISTORY_PAGE, $this->controller->getDefaultPage());
-        $this->OrderBy = self::getSessionValue(HISTORY_ORDERBY, $this->controller->getDefaultOrderByField());
-        $this->Order = self::getSessionValue(HISTORY_ORDER, $this->controller->getDefaultOrder());
+        $this->Page = Tools\Session::getSessionValue(HISTORY_PAGE, $this->controller->getDefaultPage());
+        $this->OrderBy = Tools\Session::getSessionValue(HISTORY_ORDERBY, $this->controller->getDefaultOrderByField());
+        $this->Order = Tools\Session::getSessionValue(HISTORY_ORDER, $this->controller->getDefaultOrder());
 
         $filterTree = $this->controller->getFilterIncludeEquipId($equipid, $this->EquipId, $this->FilterTree, $this->FieldsDefinitions);
 
@@ -76,9 +76,5 @@ class Index extends Action
         $this->ShowFiancialDashboard = (!isset($_SESSION['showFiancialDashboard'])) ? false : $_SESSION['showFiancialDashboard'];
 
         $this->JavascriptBootstrapPager = BootstrapPager::GetJavascriptBootstrapPager();
-    }
-
-    private static function getSessionValue($key, $defaultValue){
-        return isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
     }
 }
