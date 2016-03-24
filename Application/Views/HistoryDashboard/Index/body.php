@@ -32,10 +32,32 @@ use Dandelion\MVC\Application\Tools;
         <!-- Default panel contents -->
         <div class="panel-heading">
 
-                Projects
-                <span id="panelHeadingItemsCount" class="badge">
-                    <?php echo $Pager->getItemsCount(); ?>
-                </span>
+            <form action="<?php echo $View->Href("EquipmentDashboard", "UpdateDashboardStatus") ?>" method="post" class="btn-group">
+                <?php if(!is_null($JsonFilterTree)): ?>
+                    <input type="hidden" name="jsonFilterTree" value="<?php echo $JsonFilterTree ?>">
+                <?php endif; ?>
+                <?php if(!is_null($ItemPerPage)): ?>
+                    <input type="hidden" name="itemPerPage" value="<?php echo $ItemPerPage ?>">
+                <?php endif; ?>
+                <?php if(!is_null($Page)): ?>
+                    <input type="hidden" name="page" value="<?php echo $Page ?>">
+                <?php endif; ?>
+                <?php if(!is_null($OrderBy)): ?>
+                    <input type="hidden" name="orderBy" value="<?php echo $OrderBy ?>">
+                <?php endif; ?>
+                <?php if(!is_null($Order)): ?>
+                    <input type="hidden" name="order" value="<?php echo $Order ?>">
+                <?php endif; ?>
+                <button type="submit" class="btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    Back
+                </button>
+
+            </form>
+            Projects
+            <span id="panelHeadingItemsCount" class="badge">
+                <?php echo  $Pager->getItemsCount() > 0 ? $Pager->getItemsCount() : 0; ?>
+            </span>
             <div class="btn-group pull-right top-pager-itemmperpage-control">
                 <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="value"><?php echo $ItemPerPage ?></span>
@@ -94,24 +116,7 @@ use Dandelion\MVC\Application\Tools;
             </div>
 
             <div class="panel-back">
-                <form action="<?php echo $View->Href("EquipmentDashboard", "UpdateDashboardStatus") ?>" method="post">
-                    <?php if(!is_null($JsonFilterTree)): ?>
-                        <input type="hidden" name="jsonFilterTree" value="<?php echo $JsonFilterTree ?>">
-                    <?php endif; ?>
-                    <?php if(!is_null($ItemPerPage)): ?>
-                        <input type="hidden" name="itemPerPage" value="<?php echo $ItemPerPage ?>">
-                    <?php endif; ?>
-                    <?php if(!is_null($Page)): ?>
-                        <input type="hidden" name="page" value="<?php echo $Page ?>">
-                    <?php endif; ?>
-                    <?php if(!is_null($OrderBy)): ?>
-                        <input type="hidden" name="orderBy" value="<?php echo $OrderBy ?>">
-                    <?php endif; ?>
-                    <?php if(!is_null($Order)): ?>
-                        <input type="hidden" name="order" value="<?php echo $Order ?>">
-                    <?php endif; ?>
-                    <input type="submit" value="Equipment Dashboard" class="button-back">
-                </form>
+
             </div>
 
             <div class="panel-table">
