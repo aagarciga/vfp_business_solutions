@@ -141,10 +141,10 @@
                         <th>Date Actually Received <button data-field="daterec" class="btn-table-sort"></button></th>
                         <th>Status <button data-field="status" class="btn-table-sort"></button></th>
                         <th>Notes </th>
-                        <th>Image </th>
+<!--                        <th>Image </th>-->
                         <th>Asset Tag <button data-field="assettag" class="btn-table-sort"></button></th>
                         <th>Locno  <button data-field="Locno" class="btn-table-sort"></button></th>
-                        <th>Attached Files</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <body>
@@ -182,19 +182,34 @@
                                 </select>
                             </td>
                             <td class="item-field"><?php echo $item->getNotes() ?></td>
-                            <td class="item-image">
-                                <?php $pictureHref = $item->getPictureFi() ?>
-                                <?php if ($pictureHref !== "#"):?>
-                                        <a href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getEquipid() ?>">
-                                            <span class="glyphicon glyphicon-eye-open"></span>
-                                        </a>
-                                <?php else: ?>
-                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                <?php endif ?>
-                            </td>
+<!--                            <td class="item-image">-->
+<!--                                --><?php //$pictureHref = $item->getPictureFi() ?>
+<!--                                --><?php //if ($pictureHref !== "#"):?>
+<!--                                        <a href="--><?php //echo $pictureHref ?><!--" data-lightbox="--><?php //echo $item->getEquipid() ?><!--">-->
+<!--                                            <span class="glyphicon glyphicon-eye-open"></span>-->
+<!--                                        </a>-->
+<!--                                --><?php //else: ?>
+<!--                                        <span class="glyphicon glyphicon-eye-open"></span>-->
+<!--                                --><?php //endif ?>
+<!--                            </td>-->
                             <td class="item-field"><?php echo $item->getAssetTag() ?></td>
                             <td class="item-field"><?php echo $item->getLocno() ?></td>
-                            <td class="item-action item-files"><a href="#" class="btn-files-dialog" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a></td>
+                            <td class="item-action item-files">
+                                <a href="#" class="btn-files-dialog btn-action btn btn-default" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a>
+                                <?php $pictureHref = $item->getPictureFi() ?>
+
+                                <a href="#" class="btn-files-dialog btn-action btn btn-default" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                                <?php if ($pictureHref !== "#"):?>
+                                    <a class="btn-action"" href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getEquipid() ?>">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                    </a>
+                                <?php else: ?>
+                                <a class="btn btn-default">
+                                    <span class="glyphicon glyphicon-eye-open btn-action"></span>
+                                </a>
+
+                                <?php endif ?>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                     </body>
