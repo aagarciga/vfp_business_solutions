@@ -34,7 +34,7 @@ class SqlLikeValueVirtualCode extends SqlVirtualCode
         $length = strlen($stringValue);
         for ($i=0; $i < $length;){
             foreach ($pattern as $patternKey => $replacement){
-                if (strpos($patternKey, $stringValue, $i)){
+                if (strpos($stringValue, $patternKey, $i)){
                     $result .= $replacement;
                     $find = true;
                     $i += strlen($patternKey);

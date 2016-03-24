@@ -9,14 +9,6 @@
 
 namespace Dandelion\MVC\Application\Controllers;
 
-define('HISTORY_FILTER_TREE', 'HistoryDashboard_filterTree');
-define('HISTORY_ITEM_PER_PAGE', 'HistoryDashboard_itemperpages');
-define('HISTORY_PAGE', 'HistoryDashboard_page');
-define('HISTORY_ORDERBY', 'HistoryDashboard_orderby');
-define('HISTORY_ORDER', 'HistoryDashboard_order');
-
-define('DEFAULT_SESSION_FILTER_ID', 'SESSION_FILTER');
-
 define('EQUIP_ID', 'equipid');
 
 use Dandelion\MVC\Application\Controllers\DatActionsController;
