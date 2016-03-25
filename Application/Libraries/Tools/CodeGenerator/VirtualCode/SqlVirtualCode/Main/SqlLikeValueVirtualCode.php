@@ -1,7 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Princesa
+ * User: Victor
  * Date: 03/02/2016
  * Time: 19:23
  */
@@ -10,6 +9,11 @@ namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
+/**
+ * Created by: Victor
+ * Class SqlLikeValueVirtualCode
+ * @package Dandelion\Tools\CodeGenerator
+ */
 class SqlLikeValueVirtualCode extends SqlVirtualCode
 {
     /**
