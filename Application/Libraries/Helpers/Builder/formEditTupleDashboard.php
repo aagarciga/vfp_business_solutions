@@ -8,11 +8,21 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://www.thedandelionproject.com
  */
+
+use Dandelion\Tools\Helpers\Builder;
+use Dandelion\Tools\Helpers\FieldDefinition;
+use Dandelion\Tools\Helpers\DynamicInclude;
+
 ?>
 
 <form action="<?php echo $UrlSubmit ?>" method="<?php echo $HttpMethodType ?>" >
     <?php foreach ($FieldsDefinition as $field => $fieldDefinition): ?>
+        <?php if (FieldDefinition::isEditableField($fieldDefinition)): ?>
+            <label>
+                <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
+            </label>
 
+        <?php endif; ?>
     <?php endforeach; ?>
     <button type="submit" >
         Back

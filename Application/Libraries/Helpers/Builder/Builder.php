@@ -11,6 +11,8 @@
 
 namespace Dandelion\Tools\Helpers;
 
+define('HELPERS_DIR_FIELD_BUILDER', HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'FieldBuilder');
+
 /**
  * Created by: Victor
  * Class Builder
@@ -33,5 +35,9 @@ final class Builder
         );
 
         DynamicInclude::includeFile($includeFile, $data);
+    }
+
+    public static function buildFieldInput($fieldDefinition){
+        //TODO: Me quede aqui
     }
 }

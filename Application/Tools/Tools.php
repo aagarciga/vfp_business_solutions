@@ -8,6 +8,7 @@
 namespace Dandelion\MVC\Application\Tools;
 
 use Dandelion\MVC\Core\View;
+use Dandelion\Tools\Helpers\FieldDefinition;
 
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'BootstrapPagerTest.php';
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'Session.php';
@@ -187,7 +188,7 @@ function isSqlKeyword($name){
  */
 function fixKeywordsProblem($field){
     if (isSqlKeyword($field)){
-        return "[$field]";
+        return '[' . $field . ']';
     }
     return $field;
 }
@@ -207,7 +208,7 @@ function getClassName($classFullName){
  * @return bool
  */
 function isFilterAble($fieldDefinition){
-    return array_key_exists(FILTER_ABLE_KEY, $fieldDefinition) ? $fieldDefinition[FILTER_ABLE_KEY] : true;
+    return FieldDefinition::isFilterAble($fieldDefinition);
 }
 
 /**
@@ -215,7 +216,7 @@ function isFilterAble($fieldDefinition){
  * @return string
  */
 function getDisplayName($fieldDefinition){
-    return array_key_exists(DISPLAY_NAME_KEY, $fieldDefinition) ? $fieldDefinition[DISPLAY_NAME_KEY] : "";
+    return FieldDefinition::getDisplayName($fieldDefinition);
 }
 
 /**
@@ -223,13 +224,7 @@ function getDisplayName($fieldDefinition){
  * @return string
  */
 function getJsType($fieldDefinition){
-    $fieldType = array_key_exists(TYPE_KEY, $fieldDefinition) ? $fieldDefinition[TYPE_KEY] : DEFAULT_TYPE;
-
-    $typesConvert = array(
-        TYPE_CHAR => "text",
-    );
-    
-    return array_key_exists($fieldType, $typesConvert) ? $typesConvert[$fieldType] : $fieldType;
+   return FieldDefinition::getJsType($fieldDefinition);
 }
 
 /**
@@ -237,7 +232,7 @@ function getJsType($fieldDefinition){
  * @return bool
  */
 function visible($fieldDefinition){
-    return array_key_exists(VISIBLE_KEY, $fieldDefinition) ? $fieldDefinition[VISIBLE_KEY] : true;
+    return FieldDefinition::visible($fieldDefinition);
 }
 
 /**
@@ -245,7 +240,7 @@ function visible($fieldDefinition){
  * @return string
  */
 function getType($fieldDefinition){
-    return array_key_exists(TYPE_KEY, $fieldDefinition) ? $fieldDefinition[TYPE_KEY] : DEFAULT_TYPE;
+    return FieldDefinition::getType($fieldDefinition);
 }
 
 /**
@@ -253,10 +248,7 @@ function getType($fieldDefinition){
  * @return bool
  */
 function isSortableType($type){
-    $nonSortableType = array(
-        TYPE_MEMO,
-    );
-    return !array_value_exist($type, $nonSortableType);
+    return FieldDefinition::isSortableType($type);
 }
 
 /**
@@ -264,9 +256,5 @@ function isSortableType($type){
  * @return bool
  */
 function isSortable($fieldDefinition){
-    if (array_key_exists(IS_SORTABLE_KEY, $fieldDefinition)){
-        return $fieldDefinition[IS_SORTABLE_KEY];
-    }
-    $fieldType = getType($fieldDefinition);
-    return isSortableType($fieldType);
+    return FieldDefinition::isSortable($fieldDefinition);
 }
