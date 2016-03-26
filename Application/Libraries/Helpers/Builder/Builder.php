@@ -18,5 +18,21 @@ namespace Dandelion\Tools\Helpers;
  */
 final class Builder
 {
+    /**
+     * @param array $fieldsDefinition
+     * @param string $urlSubmit
+     * @param string $httpMethodType
+     */
+    public static function createFormEditTupleDashboard($fieldsDefinition, $urlSubmit, $httpMethodType){
+        $includeFile = HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'formEditTupleDashboard.php';
 
+        $data = array(
+            'FieldsDefinition' => $fieldsDefinition,
+            'UrlSubmit' => $urlSubmit,
+            'HttpMethodType' => $httpMethodType
+        );
+
+        extract($data);
+        include $includeFile;
+    }
 }

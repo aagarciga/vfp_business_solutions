@@ -24,6 +24,8 @@ define("HELPERS_VERSION", "1.0.0.0");
 
 define('HELPERS_DIR_ROOT', dirname(__FILE__));
 
+define('HELPERS_DIR_BUILDER', HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR. 'Builder');
+
 /**
  * Created by: Victor
  * Class Helpers
@@ -47,7 +49,8 @@ final class Helpers
     final function __construct(){
         $directoryHead = HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR;
         $rootDirectorys = array(
-
+            //Added folder Builder to auto load class.
+            HELPERS_DIR_BUILDER => false
         );
 
         $this->dirsFilter = \Dandelion\Tools\loadDirs($rootDirectorys);
