@@ -45,6 +45,8 @@ define('DATE_JS_TYPE', TYPE_DATE);
 
 define('EDITABLE_KEY', 'editable');
 
+define('VALUES_KEY', 'values');
+
 /**
  * Created by: Victor
  * Class FieldDefinition
@@ -129,5 +131,13 @@ final class FieldDefinition
 
         $fieldType = self::getType($fieldDefinition);
         return isSortableType($fieldType);
+    }
+
+    /**
+     * @param array $fieldDefinition
+     * @return array
+     */
+    public static function getValues($fieldDefinition){
+        return array_key_exists(VALUES_KEY, $fieldDefinition) ? $fieldDefinition[VALUES_KEY] : array();
     }
 }
