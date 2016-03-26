@@ -11,6 +11,38 @@
 
 namespace Dandelion\Tools\Helpers;
 
+/**
+ * BEGIN: Type definition
+ */
+
+define("TYPE_CHAR", 'char');
+
+define("DEFAULT_TYPE", TYPE_CHAR);
+
+define("TYPE_DATE", 'date');
+
+define("TYPE_DICTIONARY", 'dropdown');
+
+define("TYPE_MEMO", 'memo');
+
+define("TYPE_HREF", 'href');
+
+/**
+ * END: Type definition
+ */
+
+/**
+ * BEGIN: Type JS definition
+ */
+
+define('TEXT_JS_TYPE', 'text');
+
+define('DATE_JS_TYPE', TYPE_DATE);
+
+/**
+ * END: Type JS definition
+ */
+
 define('EDITABLE_KEY', 'editable');
 
 /**
@@ -52,7 +84,8 @@ final class FieldDefinition
         $fieldType = self::getType($fieldDefinition);
 
         $typesConvert = array(
-            TYPE_CHAR => "text",
+            TYPE_CHAR => TEXT_JS_TYPE,
+            TYPE_DATE => DATE_JS_TYPE,
         );
 
         return array_key_exists($fieldType, $typesConvert) ? $typesConvert[$fieldType] : $fieldType;

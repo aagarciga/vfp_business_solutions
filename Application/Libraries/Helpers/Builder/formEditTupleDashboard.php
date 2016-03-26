@@ -18,10 +18,12 @@ use Dandelion\Tools\Helpers\DynamicInclude;
 <form action="<?php echo $UrlSubmit ?>" method="<?php echo $HttpMethodType ?>" >
     <?php foreach ($FieldsDefinition as $field => $fieldDefinition): ?>
         <?php if (FieldDefinition::isEditableField($fieldDefinition)): ?>
-            <label>
-                <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
-            </label>
-
+            <div title="<?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>" class="form-group">
+                <label class="control-label">
+                    <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
+                </label>
+                <?php Builder::buildFieldInput($field, $fieldDefinition) ?>
+            </div>
         <?php endif; ?>
     <?php endforeach; ?>
     <button type="submit" >

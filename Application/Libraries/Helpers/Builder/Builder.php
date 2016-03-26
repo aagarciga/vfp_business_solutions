@@ -37,7 +37,28 @@ final class Builder
         DynamicInclude::includeFile($includeFile, $data);
     }
 
-    public static function buildFieldInput($fieldDefinition){
-        //TODO: Me quede aqui
+    /**
+     * @param string $field
+     * @param array $fieldDefinition
+     * @throws \Exception
+     */
+    public static function buildFieldInput($field, $fieldDefinition){
+        $data = array(
+            'Field' => $field,
+            'FieldDefinition' => $fieldDefinition,
+        );
+
+        $pathHead = HELPERS_DIR_FIELD_BUILDER . DIRECTORY_SEPARATOR;
+        $fieldTypeBuilderDictionary = array(
+            TEXT_JS_TYPE => $pathHead . 'textFieldBuilder.php',
+            DATE_JS_TYPE => $pathHead . 'dateRangeFieldBuilder.php',
+        );
+
+        $jsType = FieldDefinition::getJsType($fieldDefinition);
+        if (array_key_exists($jsType, $fieldTypeBuilderDictionary)){
+            DynamicInclude::includeFile($fieldTypeBuilderDictionary[$jsType], $data);
+        }
+
+        throw new \Exception('Js type not contain a builder field.');
     }
 }

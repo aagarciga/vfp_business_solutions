@@ -33,26 +33,6 @@ define("IS_SORTABLE_KEY", 'isSortable');
 
 define("TABLE_KEY", 'table');
 
-/**
- * BEGIN: Type definition
-*/
-
-define("TYPE_CHAR", 'char');
-
-define("DEFAULT_TYPE", TYPE_CHAR);
-
-define("TYPE_DATE", 'date');
-
-define("TYPE_DICTIONARY", 'dropdown');
-
-define("TYPE_MEMO", 'memo');
-
-define("TYPE_HREF", 'href');
-
-/**
- * END: Type definition
- */
-
 function fix_default($value){
     if (is_null($value))
     {
