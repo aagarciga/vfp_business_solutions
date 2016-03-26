@@ -9,7 +9,7 @@
  * @link      http://www.thedandelionproject.com
  */
 
-namespace Dandelion\Tools\Filter;
+namespace Dandelion\Tools\Helpers;
 
 define("HELPERS_VERSION", "1.0.0.0");
 
@@ -24,6 +24,11 @@ define("HELPERS_VERSION", "1.0.0.0");
 
 define('HELPERS_DIR_ROOT', dirname(__FILE__));
 
+/**
+ * Created by: Victor
+ * Class Helpers
+ * @package Dandelion\Tools\Helpers
+ */
 final class Helpers
 {
     static private $instance = null;
@@ -32,7 +37,7 @@ final class Helpers
 
     public static function Init(){
         if (self::$instance == null){
-            self::$instance = new Filter();
+            self::$instance = new Helpers();
         }
         spl_autoload_register(array(self::$instance, 'classLoader'));
 
