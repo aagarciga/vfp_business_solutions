@@ -10,4 +10,11 @@
  */
 ?>
 
+<form action="<?php echo $UrlSubmit ?>" method="<?php echo $HttpMethodType ?>" >
+    <?php foreach ($FieldsDefinition as $field => $fieldDefinition): ?>
 
+    <?php endforeach; ?>
+    <button type="submit" >
+        Back
+    </button>
+</form>

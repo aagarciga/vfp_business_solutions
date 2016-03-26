@@ -26,6 +26,10 @@ define('HELPERS_DIR_ROOT', dirname(__FILE__));
 
 define('HELPERS_DIR_BUILDER', HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR. 'Builder');
 
+define('HELPERS_DIR_DYNAMIC_INCLUDE', HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR . 'DynamicInclude');
+
+define('HELPERS_DIR_FIELD_DEFINITION', HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR . 'FieldDefinition');
+
 /**
  * Created by: Victor
  * Class Helpers
@@ -50,7 +54,11 @@ final class Helpers
         $directoryHead = HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR;
         $rootDirectorys = array(
             //Added folder Builder to auto load class.
-            HELPERS_DIR_BUILDER => false
+            HELPERS_DIR_BUILDER => false,
+            //Added DynamicInclude to auto load class.
+            HELPERS_DIR_DYNAMIC_INCLUDE => false,
+            //Added FieldDefinition to auto load class.
+            HELPERS_DIR_FIELD_DEFINITION => false,
         );
 
         $this->dirsFilter = \Dandelion\Tools\loadDirs($rootDirectorys);
