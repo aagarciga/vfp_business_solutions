@@ -16,7 +16,14 @@ namespace Dandelion\Tools\Helpers;
  * Class DynamicInclude
  * @package Dandelion\Tools\Helpers
  */
-class DynamicInclude
+final class DynamicInclude
 {
-
+    /**
+     * @param string $fileName, file path
+     * @param array $data, variable that see in the include file. Format variable => value.
+     */
+    public static function includeFile($fileName, $data){
+        extract($data);
+        include $fileName;
+    }
 }

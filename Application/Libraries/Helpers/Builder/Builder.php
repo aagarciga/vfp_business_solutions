@@ -32,7 +32,6 @@ final class Builder
             'HttpMethodType' => $httpMethodType
         );
 
-        extract($data);
-        include $includeFile;
+        DynamicInclude::includeFile($includeFile, $data);
     }
 }
