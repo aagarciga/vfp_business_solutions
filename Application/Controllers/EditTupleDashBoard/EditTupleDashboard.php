@@ -1,5 +1,4 @@
 <?php
-
 /**
  * User: Victor
  * Date: 25/03/2016
@@ -7,6 +6,7 @@
  */
 
 namespace Dandelion\MVC\Application\Controllers;
+
 use Dandelion\MVC\Core\Request;
 
 /**

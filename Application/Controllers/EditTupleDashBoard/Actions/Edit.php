@@ -32,12 +32,6 @@ class Edit extends Action
             throw new ControllerNotFoundException($this->ControllerName);
         }
 
-        if (!$this->Request->hasProperty('id')){
-            throw new \Exception('Param "Id" not found');
-        }
-
-        $this->Id = $this->Request->id;
-
         $this->Values = $this->Request->hasProperty('values') ? json_decode($this->Request->values) : new \stdClass();
 
         $companySuffix = $this->controller->DatUnitOfWork->CompanySuffix;
