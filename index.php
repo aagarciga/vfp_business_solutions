@@ -92,6 +92,8 @@ require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Diana' . DIRECTORY_S
 //Tools libraries loader
 require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Tools' . DIRECTORY_SEPARATOR . 'Index.php';
 
+require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . 'Helpers' . DIRECTORY_SEPARATOR . 'Index.php';
+
 //END: Add by Victor
 
 /**
@@ -136,6 +138,8 @@ final class index extends Core\FrontController {
         //BEGIN: Add by Victor
 
         \Dandelion\Tools\Tools::Init();
+
+        \Dandelion\Tools\Helpers\Helpers::Init();
         //END: Add by Victor
 
         
