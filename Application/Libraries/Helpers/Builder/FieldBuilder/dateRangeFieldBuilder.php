@@ -18,5 +18,5 @@ use Dandelion\Tools\Helpers\FieldDefinition;
         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
     </span>
     <input class="form-control daterangepicker" type="text" placeholder="<?php echo FieldDefinition::getDisplayName($FieldDefinition); ?>"
-           data-fieldname="<?php echo $Field; ?>">
+           data-fieldname="<?php echo $Field; ?>" value="<?php echo $Value; ?>">
 </div>

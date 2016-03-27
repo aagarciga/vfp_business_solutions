@@ -18,7 +18,12 @@ $statusValue = FieldDefinition::getValues($FieldDefinition);
 <div title="<?php echo FieldDefinition::getDisplayName($FieldDefinition); ?>" class="input-group select2-bootstrap-append">
     <select class="form-control select2-container" style="display: none;" data-fieldname="<?php echo $Field; ?>">
         <?php foreach ($statusValue as $idValue => $displayValue): ?>
-            <option value="<?php echo $idValue; ?>">
+            <option
+                value="<?php echo $idValue; ?>"
+                <?php if ($Value === $idValue): ?>
+                    selected="selected"
+                <?php endif; ?>
+            >
                 <?php echo $displayValue; ?>
             </option>
         <?php endforeach; ?>

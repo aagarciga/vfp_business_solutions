@@ -22,7 +22,10 @@ use Dandelion\Tools\Helpers\DynamicInclude;
                 <label class="control-label">
                     <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
                 </label>
-                <?php Builder::buildFieldInput($field, $fieldDefinition) ?>
+                <?php
+                $value = FieldDefinition::getValueFromStdClass($Values, $field, $fieldDefinition);
+                Builder::buildFieldInput($field, $fieldDefinition, $value);
+                ?>
             </div>
         <?php endif; ?>
     <?php endforeach; ?>

@@ -152,7 +152,7 @@ final class FieldDefinition
      * @param array $fieldDefinition
      * @return mixed
      */
-    public static function getValueStdClass($stdClass, $field, $fieldDefinition){
+    public static function getValueFromStdClass($stdClass, $field, $fieldDefinition){
         $defaultValueByType = array(
             TYPE_CHAR => '',
             TYPE_DATE => DATE_NULL_VALUE,
