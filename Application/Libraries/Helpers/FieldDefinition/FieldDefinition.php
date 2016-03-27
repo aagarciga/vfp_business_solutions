@@ -11,46 +11,6 @@
 
 namespace Dandelion\Tools\Helpers;
 
-define("DATE_NULL_VALUE", '1899-12-30');
-
-/**
- * BEGIN: Type definition
- */
-
-define("TYPE_CHAR", 'char');
-
-define("DEFAULT_TYPE", TYPE_CHAR);
-
-define("TYPE_DATE", 'date');
-
-define("TYPE_DICTIONARY", 'dropdown');
-
-define("TYPE_MEMO", 'memo');
-
-define("TYPE_HREF", 'href');
-
-/**
- * END: Type definition
- */
-
-/**
- * BEGIN: Type JS definition
- */
-
-define('TEXT_JS_TYPE', 'text');
-
-define('DATE_JS_TYPE', TYPE_DATE);
-
-define('DROPDOWN_JS_TYPE', TYPE_DICTIONARY);
-
-/**
- * END: Type JS definition
- */
-
-define('EDITABLE_KEY', 'editable');
-
-define('VALUES_KEY', 'values');
-
 /**
  * Created by: Victor
  * Class FieldDefinition
@@ -63,7 +23,7 @@ final class FieldDefinition
      * @return bool
      */
     public static function isEditableField($fieldDefinition){
-        return array_key_exists(EDITABLE_KEY, $fieldDefinition) ? $fieldDefinition[EDITABLE_KEY] : false;
+        return array_key_exists(EDITABLE_KEY, $fieldDefinition) ? $fieldDefinition[EDITABLE_KEY] : true;
     }
 
     /**
@@ -122,7 +82,21 @@ final class FieldDefinition
         $nonSortableType = array(
             TYPE_MEMO,
         );
-        return !array_value_exist($type, $nonSortableType);
+        return !self::array_value_exist($type, $nonSortableType);
+    }
+
+    /**
+     * @param mixed $valueExist search value into array
+     * @param array $array collection used in the search
+     * @return bool true if value exist into array, false other wise
+     */
+    public static function array_value_exist($valueExist, $array){
+        foreach ($array as $key => $value){
+            if ($valueExist === $value){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -135,7 +109,7 @@ final class FieldDefinition
         }
 
         $fieldType = self::getType($fieldDefinition);
-        return isSortableType($fieldType);
+        return self::isSortableType($fieldType);
     }
 
     /**

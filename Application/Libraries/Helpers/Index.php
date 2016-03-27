@@ -30,6 +30,8 @@ define('HELPERS_DIR_DYNAMIC_INCLUDE', HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR . '
 
 define('HELPERS_DIR_FIELD_DEFINITION', HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR . 'FieldDefinition');
 
+require_once HELPERS_DIR_ROOT . DIRECTORY_SEPARATOR . 'defineConstant.php';
+
 /**
  * Created by: Victor
  * Class Helpers

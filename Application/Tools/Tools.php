@@ -140,12 +140,7 @@ function fetchSQLFields($fieldsDefinition){
  * @return bool true if value exist into array, false other wise
  */
 function array_value_exist($valueExist, $array){
-    foreach ($array as $key => $value){
-        if ($valueExist === $value){
-            return true;
-        }
-    }
-    return false;
+    FieldDefinition::array_value_exist($valueExist, $array);
 }
 
 /**
