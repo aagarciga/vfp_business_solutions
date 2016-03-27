@@ -141,4 +141,19 @@ final class FieldDefinition
 
         return array_key_exists($fieldType, $defaultValueByType) ? $defaultValueByType[$fieldType] : '';
     }
+
+    /**
+     * @param mixed $modelObject
+     * @param array $fieldsDefinition
+     * @return array
+     */
+    public static function modelToArray($modelObject, $fieldsDefinition){
+        $result = array();
+
+        foreach ($fieldsDefinition as $field => $fieldDefinition){
+            $result[$field] = $modelObject->$field;
+        }
+
+        return $result;
+    }
 }

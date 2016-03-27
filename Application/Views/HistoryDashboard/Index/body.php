@@ -6,6 +6,8 @@
  */
 
 use Dandelion\MVC\Application\Tools;
+use Dandelion\Tools\Helpers\FieldDefinition;
+
 ?>
 
 <div class="container">
@@ -150,6 +152,12 @@ use Dandelion\MVC\Application\Tools;
                                     <td class="item-field"><?php echo $item->$field ?></td>
                                 <?php endif; ?>
                             <?php endforeach ?>
+                            <td class="item-action item-files">
+                                <a href="<?php echo $View->Href('EditTupleDashboard', 'Edit', array('Values' => base64_encode(json_encode(FieldDefinition::modelToArray($item, $FieldsDefinitions))))); ?>"
+                                   class="btn-files-dialog btn-action btn btn-default">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                     </body>
