@@ -11,6 +11,8 @@
 
 namespace Dandelion\Tools\Helpers;
 
+define("DATE_NULL_VALUE", '1899-12-30');
+
 /**
  * BEGIN: Type definition
  */
@@ -142,5 +144,27 @@ final class FieldDefinition
      */
     public static function getValues($fieldDefinition){
         return array_key_exists(VALUES_KEY, $fieldDefinition) ? $fieldDefinition[VALUES_KEY] : array();
+    }
+
+    /**
+     * @param \stdClass $stdClass
+     * @param string $field
+     * @param array $fieldDefinition
+     * @return mixed
+     */
+    public static function getValueStdClass($stdClass, $field, $fieldDefinition){
+        $defaultValueByType = array(
+            TYPE_CHAR => '',
+            TYPE_DATE => DATE_NULL_VALUE,
+            TYPE_DICTIONARY => null
+        );
+
+        $fieldType = self::getType($fieldDefinition);
+
+        if (isset($stdClass->$field)){
+            return $stdClass->$field;
+        }
+
+        return array_key_exists($fieldType, $defaultValueByType) ? $defaultValueByType[$fieldType] : '';
     }
 }

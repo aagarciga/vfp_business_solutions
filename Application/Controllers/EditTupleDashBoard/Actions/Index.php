@@ -22,10 +22,10 @@ class Index extends Action
      */
     public function Execute()
     {
-        if (!$this->Request->hasProperty('controller')){
+        if (!$this->Request->hasProperty('dashboard')){
             throw new ControllerNotFoundException('');
         }
-        $this->ControllerName = $this->Request->controller;
+        $this->ControllerName = $this->Request->dashboard;
 
         $dashboardController = $this->controller->getDashboardController($this->ControllerName);
         if (is_null($dashboardController)){
@@ -37,6 +37,8 @@ class Index extends Action
         }
 
         $this->Id = $this->Request->id;
+
+        $this->Values = $this->Request->hasProperty('values') ? json_decode($this->Request->values) : new \stdClass();
 
         $companySuffix = $this->controller->DatUnitOfWork->CompanySuffix;
         $this->FieldsDefinition = $dashboardController->GetFieldsDefinition($companySuffix);

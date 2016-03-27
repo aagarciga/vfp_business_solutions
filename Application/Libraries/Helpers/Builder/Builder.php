@@ -22,14 +22,16 @@ final class Builder
 {
     /**
      * @param array $fieldsDefinition
+     * @param \stdClass $values
      * @param string $urlSubmit
      * @param string $httpMethodType
      */
-    public static function createFormEditTupleDashboard($fieldsDefinition, $urlSubmit, $httpMethodType){
+    public static function createFormEditTupleDashboard($fieldsDefinition, $values, $urlSubmit, $httpMethodType){
         $includeFile = HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'formEditTupleDashboard.php';
 
         $data = array(
             'FieldsDefinition' => $fieldsDefinition,
+            'Values' => $values,
             'UrlSubmit' => $urlSubmit,
             'HttpMethodType' => $httpMethodType
         );
@@ -40,12 +42,14 @@ final class Builder
     /**
      * @param string $field
      * @param array $fieldDefinition
+     * @param string|null $value
      * @throws \Exception
      */
-    public static function buildFieldInput($field, $fieldDefinition){
+    public static function buildFieldInput($field, $fieldDefinition, $value){
         $data = array(
             'Field' => $field,
             'FieldDefinition' => $fieldDefinition,
+            'Value' => $value,
         );
 
         $pathHead = HELPERS_DIR_FIELD_BUILDER . DIRECTORY_SEPARATOR;
