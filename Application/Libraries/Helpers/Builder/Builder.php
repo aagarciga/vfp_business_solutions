@@ -52,6 +52,7 @@ final class Builder
         $fieldTypeBuilderDictionary = array(
             TEXT_JS_TYPE => $pathHead . 'textFieldBuilder.php',
             DATE_JS_TYPE => $pathHead . 'dateRangeFieldBuilder.php',
+            DROPDOWN_JS_TYPE => $pathHead . 'dropdownFieldBuilder.php',
         );
 
         $jsType = FieldDefinition::getJsType($fieldDefinition);

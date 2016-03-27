@@ -39,6 +39,8 @@ define('TEXT_JS_TYPE', 'text');
 
 define('DATE_JS_TYPE', TYPE_DATE);
 
+define('DROPDOWN_JS_TYPE', TYPE_DICTIONARY);
+
 /**
  * END: Type JS definition
  */
@@ -88,6 +90,7 @@ final class FieldDefinition
         $typesConvert = array(
             TYPE_CHAR => TEXT_JS_TYPE,
             TYPE_DATE => DATE_JS_TYPE,
+            TYPE_DICTIONARY => DROPDOWN_JS_TYPE,
         );
 
         return array_key_exists($fieldType, $typesConvert) ? $typesConvert[$fieldType] : $fieldType;
