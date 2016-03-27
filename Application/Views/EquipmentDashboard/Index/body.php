@@ -208,7 +208,7 @@
                                     <span class="glyphicon glyphicon-eye-open btn-action"></span>
                                 </a>
 
-                                <?php endif ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach ?>

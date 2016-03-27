@@ -12,10 +12,10 @@ use Dandelion\MVC\Core\Exceptions\ControllerNotFoundException;
 
 /**
  * Created by: Victor
- * Class Index
+ * Class Edit
  * @package Dandelion\MVC\Application\Controllers\EditTupleDashboard\Actions
  */
-class Index extends Action
+class Edit extends Action
 {
     /**
      * When the action is called method 'Execute' is called
