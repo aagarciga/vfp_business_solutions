@@ -8,6 +8,7 @@
 namespace Dandelion\MVC\Application\Controllers\EditTupleDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
+use Dandelion\MVC\Core\Exceptions\ControllerNotFoundException;
 
 /**
  * Created by: Victor
@@ -21,7 +22,24 @@ class Index extends Action
      */
     public function Execute()
     {
-        // TODO: Implement Execute() method.
+        if (!$this->Request->hasProperty('controller')){
+            throw new ControllerNotFoundException('');
+        }
+        $this->ControllerName = $this->Request->controller;
+
+        $dashboardController = $this->controller->getDashboardController($this->ControllerName);
+        if (is_null($dashboardController)){
+            throw new ControllerNotFoundException($this->ControllerName);
+        }
+
+        if (!$this->Request->hasProperty('id')){
+            throw new \Exception('Param "Id" not found');
+        }
+
+        $this->Id = $this->Request->id;
+
+        $companySuffix = $this->controller->DatUnitOfWork->CompanySuffix;
+        $this->FieldsDefinition = $dashboardController->GetFieldsDefinition($companySuffix);
     }
 
 }

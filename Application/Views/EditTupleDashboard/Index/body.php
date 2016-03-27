@@ -3,7 +3,14 @@
  * User: Victor
  * Date: 12/01/2016
  * Time: 15:01
+ * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
+ * @copyright 2011-2014 Alex Alvarez G�rciga / Dandelion (http://www.thedandelionproject.com)
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ * @link      http://www.thedandelionproject.com
  */
+
+use Dandelion\Tools\Helpers\Builder;
+
 ?>
 
 <div class="container">
@@ -27,7 +34,9 @@
     </nav>
 
     <div class="panel panel-default">
-
+        <div id="form-editTupleDashboard">
+            <?php Builder::createFormEditTupleDashboard($FieldsDefinition, $View->Href($ControllerName, 'EditTuple', array('id' => $Id)), 'post'); ?>
+        </div>
     </div><!-- /.panel -->
 
     <!--    Controls Here ...-->

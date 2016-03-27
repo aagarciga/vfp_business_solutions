@@ -24,7 +24,7 @@ class EditTupleDashboard extends DatActionsController
             if ($constructor->getNumberOfParameters() === 1){
                 $request = new Request($dashboardName, 'index');
                 $dashboardControllerObject = $constructor->invoke(null, array($request));
-                return $dashboardControllerObject;
+                return ($dashboardControllerObject instanceof DashboardController) ? $dashboardControllerObject : null;
             }
         }
 
