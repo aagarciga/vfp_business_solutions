@@ -30,11 +30,8 @@ final class Controller
             $classFullName = $controllerNamespace . '\\' . $controllerName;
             if (class_exists($classFullName)){
                 $rc = new \ReflectionClass($classFullName);
-                $constructor = $rc->getConstructor();
-                if ($constructor->getNumberOfParameters() === 1){
-                    $request = new Request($controllerName, 'index');
-                    return $constructor->invoke(null, array($request));
-                }
+                $request = new Request($controllerName, 'index');
+                return $rc->newInstanceArgs(array($request));
             }
         }
 
