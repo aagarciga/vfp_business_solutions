@@ -64,6 +64,7 @@
 <!ELEMENT MenuEntry EMPTY>
 <!ATTLIST MenuEntry
     VisibilityCondition CDATA #IMPLIED
+    IdName CDATA #IMPLIED
     DisplayName CDATA #IMPLIED
     ClassName CDATA #IMPLIED
     Action CDATA #IMPLIED
