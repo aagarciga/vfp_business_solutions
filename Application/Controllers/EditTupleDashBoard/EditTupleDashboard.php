@@ -3,10 +3,15 @@
  * User: Victor
  * Date: 25/03/2016
  * Time: 18:14
+ * @author    Victor Luis Aguado Leon <victorluisaguadoleon@gmail.com>
+ * @copyright 2011-2014 Alex Alvarez G�rciga / Dandelion (http://www.thedandelionproject.com)
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ * @link      http://www.thedandelionproject.com
  */
 
 namespace Dandelion\MVC\Application\Controllers;
 
+use Dandelion\MVC\Application\Tools\Controller;
 use Dandelion\MVC\Core\Request;
 
 /**
@@ -17,17 +22,8 @@ use Dandelion\MVC\Core\Request;
 class EditTupleDashboard extends DatActionsController
 {
     public function getDashboardController($dashboardName){
-        $classFullName = __NAMESPACE__ . '\\' . $dashboardName;
-        if (class_exists($classFullName)){
-            $rc = new \ReflectionClass($classFullName);
-            $constructor = $rc->getConstructor();
-            if ($constructor->getNumberOfParameters() === 1){
-                $request = new Request($dashboardName, 'index');
-                $dashboardControllerObject = $constructor->invoke(null, array($request));
-                return ($dashboardControllerObject instanceof DashboardController) ? $dashboardControllerObject : null;
-            }
-        }
+        $dashboardControllerObject = Controller::loadController($dashboardName, __NAMESPACE__);
 
-        return null;
+        return ($dashboardControllerObject instanceof DashboardController) ? $dashboardControllerObject : null;
     }
 }

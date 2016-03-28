@@ -12,6 +12,7 @@ use Dandelion\Tools\Helpers\FieldDefinition;
 
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'BootstrapPagerTest.php';
 require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'Session.php';
+require_once MVC_DIR_APP_TOOLS . DIRECTORY_SEPARATOR . 'Controller.php';
 
 define("FIX_PREFIX", __NAMESPACE__ . '\fix_');
 
