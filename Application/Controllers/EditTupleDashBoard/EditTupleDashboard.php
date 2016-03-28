@@ -21,8 +21,13 @@ use Dandelion\MVC\Core\Request;
  */
 class EditTupleDashboard extends DatActionsController
 {
-    public function getDashboardController($dashboardName){
-        $dashboardControllerObject = Controller::loadController($dashboardName, __NAMESPACE__);
+    /**
+     * @param string $dashboardName
+     * @param Request $request
+     * @return DashboardController|null
+     */
+    public function getDashboardController($dashboardName, $request){
+        $dashboardControllerObject = Controller::loadController(__NAMESPACE__ . '\\' . $dashboardName, $request);
 
         return ($dashboardControllerObject instanceof DashboardController) ? $dashboardControllerObject : null;
     }

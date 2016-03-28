@@ -154,7 +154,7 @@ use Dandelion\Tools\Helpers\FieldDefinition;
                             <?php endforeach ?>
                             <td class="item-action item-files">
                                 <a href="<?php echo $View->Href('EditTupleDashboard', 'Edit', array(
-                                    'Values' => base64_encode(json_encode(FieldDefinition::modelToArray($item, $FieldsDefinitions))),
+                                    'values' => base64_encode(json_encode(FieldDefinition::modelToArray($item, $FieldsDefinitions))),
                                     'dashboard' => 'HistoryDashboard'
                                     )); ?>"
                                    class="btn-files-dialog btn-action btn btn-default">

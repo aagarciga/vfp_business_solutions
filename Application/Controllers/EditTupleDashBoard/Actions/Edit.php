@@ -26,20 +26,32 @@ class Edit extends Action
      */
     public function Execute()
     {
+        $this->Title = 'Details Dashboard | VFP Business Series';
+
         if (!$this->Request->hasProperty('dashboard')){
             throw new ControllerNotFoundException('');
         }
         $this->ControllerName = $this->Request->dashboard;
 
-        $dashboardController = $this->controller->getDashboardController($this->ControllerName);
+        $dashboardController = $this->controller->getDashboardController($this->ControllerName, $this->Request);
         if (is_null($dashboardController)){
             throw new ControllerNotFoundException($this->ControllerName);
         }
 
-        $this->Values = $this->Request->hasProperty('values') ? json_decode($this->Request->values) : new \stdClass();
+        $this->Values = $this->Request->hasProperty('values') ? json_decode(base64_decode($this->Request->values)) : new \stdClass();
+
+        $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
 
         $companySuffix = $this->controller->DatUnitOfWork->CompanySuffix;
         $this->FieldsDefinition = $dashboardController->GetFieldsDefinition($companySuffix);
+
+        $this->FieldIdName = 'Juan';
+        $this->FieldIdValue = 001;
+
+        $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
+
+        $this->FullFeatures = isset($_SESSION['fullFeatures']) ? $_SESSION['fullFeatures'] : false;
+        $this->ShowFiancialDashboard = (!isset($_SESSION['showFiancialDashboard'])) ? false : $_SESSION['showFiancialDashboard'];
     }
 
 }
