@@ -18,9 +18,6 @@
 .dropdown-menu li.current {
   display: none;
 }
-.top-pager-itemmperpage-control {
-  margin: -7px 12px 0px 12px;
-}
 .form-inline {
   margin-bottom: 15px;
 }
@@ -48,6 +45,16 @@ ul.pagination {
     margin-bottom: 15px;
   }
 }
+.panel-heading .btn-group,
+.panel-heading .btn-group-vertical {
+  display: inline-block;
+}
+@media (min-width: 768px) {
+  .panel-heading .btn-group,
+  .panel-heading .btn-group-vertical {
+    margin-bottom: 0;
+  }
+}
 .currency,
 .number {
   text-align: right;
@@ -55,4 +62,17 @@ ul.pagination {
 }
 .form-control.update-dropdown.status.select2-nosearch {
   width: 120px;
+}
+label[for=top-pager-itemmperpage-control-btn] {
+  font-weight: normal;
+  margin-right: 1em;
+  margin-top: 6px;
+}
+.panel-title {
+  margin-left: 1em;
+  font-size: 1em;
+}
+.panel-heading {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }

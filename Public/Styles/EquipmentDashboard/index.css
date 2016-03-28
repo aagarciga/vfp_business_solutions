@@ -56,3 +56,6 @@ ul.pagination {
 .form-control.update-dropdown.status.select2-nosearch {
   width: 120px;
 }
+.panel-title {
+  font-size: 1em;
+}
