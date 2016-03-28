@@ -24,14 +24,11 @@ use Dandelion\MVC\Application\Tools;
                 History Dashboard
             </a>
         </div>
-
         <?php $View->Control('MainMenu'); ?>
     </nav>
 
     <div class="panel panel-default">
-        <!-- Default panel contents -->
         <div class="panel-heading">
-
             <form action="<?php echo $View->Href("EquipmentDashboard", "UpdateDashboardStatus") ?>" method="post">
                 <?php if(!is_null($JsonFilterTree)): ?>
                     <input type="hidden" name="jsonFilterTree" value="<?php echo $JsonFilterTree ?>">
@@ -81,6 +78,7 @@ use Dandelion\MVC\Application\Tools;
             </form>
         </div>
         <div class="panel-body">
+            <?php if (count($Items) > 0):?>
             <div id="filterForm" class="form-inline" role="form">
                 <div id="dynamicFilter_filterFieldsContainer">
 
@@ -149,6 +147,7 @@ use Dandelion\MVC\Application\Tools;
                     </tr>
                     </thead>
                     <body>
+
                     <?php foreach ($Items as $item): ?>
                         <tr>
                             <?php foreach ($FieldsDefinitions as $field => $fieldDefinition): ?>
@@ -161,7 +160,13 @@ use Dandelion\MVC\Application\Tools;
                     </body>
                 </table>
 
+
             </div><!-- /.panel-table -->
+            <?php else: ?>
+                <div class="alert alert-info text-center">
+                    No <strong>items</strong> founds.
+                </div>
+            <?php endif ?>
         </div>
         <div class="panel-footer">
             <div class="text-center pager-wrapper">
