@@ -26,6 +26,9 @@ use Dandelion\Tools\Helpers\DynamicInclude;
                 $value = FieldDefinition::getValueFromStdClass($Values, $field, $fieldDefinition);
                 Builder::buildFieldInput($field, $fieldDefinition, $value);
                 ?>
+                <?php if ($Add): ?>
+                    <input type="hidden" value="<?php echo $value; ?>" name="old-<?php echo $field; ?>">
+                <?php endif; ?>
             </div>
         <?php endif; ?>
     <?php endforeach; ?>

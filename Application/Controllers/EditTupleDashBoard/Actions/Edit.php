@@ -39,6 +39,7 @@ class Edit extends Action
         }
 
         $this->Values = $this->Request->hasProperty('values') ? json_decode(base64_decode($this->Request->values)) : new \stdClass();
+        $this->RedirectUrl = $this->Request->hasProperty('redirect') ? $this->Request->redirect : '';
 
         $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
 

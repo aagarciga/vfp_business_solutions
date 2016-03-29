@@ -14,6 +14,6 @@ use Dandelion\Tools\Helpers\FieldDefinition;
 ?>
 
 <div class="input-group">
-    <input class="form-control" type="text" placeholder="<?php echo FieldDefinition::getDisplayName($FieldDefinition); ?>"
+    <input class="form-control" type="text" name="<?php echo $Field; ?>" placeholder="<?php echo FieldDefinition::getDisplayName($FieldDefinition); ?>"
            data-fieldname="<?php echo $Field; ?>" value="<?php echo $Value; ?>">
 </div>

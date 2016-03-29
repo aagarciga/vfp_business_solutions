@@ -33,7 +33,8 @@ final class Builder
             'FieldsDefinition' => $fieldsDefinition,
             'Values' => $values,
             'UrlSubmit' => $urlSubmit,
-            'HttpMethodType' => $httpMethodType
+            'HttpMethodType' => $httpMethodType,
+            'Add' => true,
         );
 
         DynamicInclude::includeFile($includeFile, $data);
@@ -63,7 +64,8 @@ final class Builder
         if (array_key_exists($jsType, $fieldTypeBuilderDictionary)){
             DynamicInclude::includeFile($fieldTypeBuilderDictionary[$jsType], $data);
         }
-
-        throw new \Exception('Js type not contain a builder field.');
+        else{
+            throw new \Exception('Js type not contain a builder field.');
+        }
     }
 }
