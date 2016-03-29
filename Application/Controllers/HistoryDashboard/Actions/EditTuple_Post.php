@@ -11,13 +11,22 @@
 
 namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 
-use Dandelion\MVC\Core\Action;
+define('OLD_PREFIX', 'old-');
+define('NEW_PREFIX', 'new-');
 
-class EditTuple_Post extends Action
+use Dandelion\MVC\Application\Controllers\EditTupleAction;
+use Dandelion\Tools\Helpers\FieldDefinition;
+
+class EditTuple_Post extends EditTupleAction
 {
     public function Execute()
     {
-        // TODO: Implement Execute() method.
+        $requestParam = $this->processRequest();
+        $id = $requestParam['id'];
+        $redirect = $requestParam['redirect'];
+        $values = $requestParam['values'];
+
+
     }
 
 }

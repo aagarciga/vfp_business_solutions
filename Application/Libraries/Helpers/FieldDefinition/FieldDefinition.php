@@ -120,6 +120,16 @@ final class FieldDefinition
         return array_key_exists(VALUES_KEY, $fieldDefinition) ? $fieldDefinition[VALUES_KEY] : array();
     }
 
+    public static function getDefaultValueByType($dataType){
+        $defaultValueByType = array(
+            TYPE_CHAR => '',
+            TYPE_DATE => DATE_NULL_VALUE,
+            TYPE_DICTIONARY => null
+        );
+
+        return isset($defaultValueByType[$dataType]) ? $defaultValueByType[$dataType] : '';
+    }
+
     /**
      * @param \stdClass $stdClass
      * @param string $field
@@ -127,19 +137,13 @@ final class FieldDefinition
      * @return mixed
      */
     public static function getValueFromStdClass($stdClass, $field, $fieldDefinition){
-        $defaultValueByType = array(
-            TYPE_CHAR => '',
-            TYPE_DATE => DATE_NULL_VALUE,
-            TYPE_DICTIONARY => null
-        );
-
         $fieldType = self::getType($fieldDefinition);
 
         if (isset($stdClass->$field)){
             return $stdClass->$field;
         }
 
-        return array_key_exists($fieldType, $defaultValueByType) ? $defaultValueByType[$fieldType] : '';
+        return self::getDefaultValueByType($fieldType);
     }
 
     /**
