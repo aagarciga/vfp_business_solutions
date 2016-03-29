@@ -58,7 +58,8 @@ class EquipmentDashboard extends DashboardController
             'notes' => array('type' => TYPE_MEMO, 'displayName' => 'Notes', 'table' => $swequipTable),
             'picture_fi' => array('type' => TYPE_HREF, 'displayName' => 'Image', 'table' => $icparmTable),
             'assettag' => array('type' => TYPE_CHAR, 'displayName' => 'Asset Tag', 'table' => $swequipTable),
-            'Locno' => array('type' => TYPE_CHAR, 'displayName' => 'Locno', 'table' => $swequipTable)
+            'Locno' => array('type' => TYPE_CHAR, 'displayName' => 'Locno', 'table' => $swequipTable),
+            'qbtxlineid' => array('type' => TYPE_CHAR, 'displayName' => 'Last History Id', 'table' => $swequipTable, EDITABLE_KEY => false, VISIBLE_KEY => false)
         );
     }
 
