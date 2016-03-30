@@ -221,6 +221,7 @@
     $(EquipmentDashboard.htmlBindings.pager_btnPagerPages).on('click', EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick);
     EquipmentDashboard.functions.bindTableItemsEventHandlers();
     $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick);
+    $(EquipmentDashboard.htmlBindings.table_body_field_btn_edit).on('click', EquipmentDashboard.eventHandlers.table_body_field_edit_onClick);
     return this;
   };
 
@@ -271,11 +272,15 @@
 
   EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = function(event) {
     var currentEquipid, currentProjectRoot;
-    currentEquipid = $(this).data('equipid');
-    currentProjectRoot = currentEquipid + '_EQ';
-    EquipmentDashboard.status.currentEquipid = currentProjectRoot;
-    ProjectFiles.functions.loadFileTree(currentProjectRoot);
-    $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
+    if ($(this).data('qbtxlineid') !== void 0) {
+      EquipmentDashboard.eventHandlers.table_body_field_edit_onClick(event);
+    } else {
+      currentEquipid = $(this).data('equipid');
+      currentProjectRoot = currentEquipid + '_EQ';
+      EquipmentDashboard.status.currentEquipid = currentProjectRoot;
+      ProjectFiles.functions.loadFileTree(currentProjectRoot);
+      $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
+    }
     return this;
   };
 
@@ -308,16 +313,17 @@
   };
 
   EquipmentDashboard.eventHandlers.table_body_field_edit_onClick = function(event) {
-    var $target, qbtxlineid;
-    $target = $(event.target);
+    var $target, href, qbtxlineid;
+    $target = $(this);
     qbtxlineid = $target.data('qbtxlineid');
-    global.location = App.Helpers.Href('EditTupleDashboard', 'Edit', {
-      id: atob(qbtxlineid),
-      redirect: atob(JSON.stringify({
+    href = App.Helpers.Href('EditTupleDashboard', 'Edit', {
+      id: btoa(qbtxlineid),
+      redirect: btoa(JSON.stringify({
         controller: 'EquipmentDashboard',
         action: 'Index'
       }))
     });
+    global.location = href;
     return this;
   };
 

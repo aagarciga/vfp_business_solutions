@@ -172,6 +172,8 @@ EquipmentDashboard.functions.bindEventHandlers = ->
   EquipmentDashboard.functions.bindTableItemsEventHandlers();
   $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click',
     EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
+  $(EquipmentDashboard.htmlBindings.table_body_field_btn_edit).on('click',
+    EquipmentDashboard.eventHandlers.table_body_field_edit_onClick)
   @
 
 # Event Handlers Declaration
@@ -220,14 +222,17 @@ EquipmentDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   @
 
 EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
-  currentEquipid = $(@).data('equipid')
-  currentProjectRoot = currentEquipid + '_EQ';
-  EquipmentDashboard.status.currentEquipid = currentProjectRoot;
-  ProjectFiles.functions.loadFileTree(currentProjectRoot);
-  $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
+  if $(@).data('qbtxlineid') != undefined
+    EquipmentDashboard.eventHandlers.table_body_field_edit_onClick(event)
+  else
+    currentEquipid = $(@).data('equipid')
+    currentProjectRoot = currentEquipid + '_EQ';
+    EquipmentDashboard.status.currentEquipid = currentProjectRoot;
+    ProjectFiles.functions.loadFileTree(currentProjectRoot);
+    $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
 
-  #  //QuoteDashboard.FileManagerWidget.loadFileTree(currentQutno);
-  #  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
+    #  //QuoteDashboard.FileManagerWidget.loadFileTree(currentQutno);
+    #  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
   @
 
 EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
@@ -252,10 +257,11 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
   @
 
 EquipmentDashboard.eventHandlers.table_body_field_edit_onClick = (event) ->
-  $target = $(event.target)
+  $target = $(@)
   qbtxlineid = $target.data('qbtxlineid')
 
-  global.location = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: atob(qbtxlineid), redirect: atob(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'}))})
+  href = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: btoa(qbtxlineid), redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'}))})
+  global.location = href
   @
 
 EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->
