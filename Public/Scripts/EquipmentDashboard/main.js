@@ -312,7 +312,11 @@
     $target = $(event.target);
     qbtxlineid = $target.data('qbtxlineid');
     global.location = App.Helpers.Href('EditTupleDashboard', 'Edit', {
-      id: qbtxlineid
+      id: atob(qbtxlineid),
+      redirect: atob(JSON.stringify({
+        controller: 'EquipmentDashboard',
+        action: 'Index'
+      }))
     });
     return this;
   };

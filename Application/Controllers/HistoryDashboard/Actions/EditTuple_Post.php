@@ -25,8 +25,11 @@ class EditTuple_Post extends EditTupleAction
         $id = $requestParam['id'];
         $redirect = $requestParam['redirect'];
         $values = $requestParam['values'];
+        $oldValues = $requestParam['oldValues'];
 
+        $this->controller->UpdateEntity($id, $values, $oldValues);
 
+        $this->Redirect($redirect->controller, $redirect->action);
     }
 
 }

@@ -33,13 +33,15 @@ abstract class EditTupleAction extends Action
         }
 
         //TODO: Convert Id on base64.
-        $id = $this->Request->id;
-        $redirect = ($this->Request->hasProperty('redirect')) ? base64_decode($this->Request->redirect) : '';
+        $id = base64_decode($this->Request->id);
+        $redirect = ($this->Request->hasProperty('redirect')) ? json_decode(base64_decode($this->Request->redirect))
+            : array('HistoryDashboard', 'Index');
 
         return array(
             'id' => $id,
             'redirect' => $redirect,
-            'values' => $values
+            'values' => $values,
+            'oldValues' => $oldValues,
         );
     }
 }

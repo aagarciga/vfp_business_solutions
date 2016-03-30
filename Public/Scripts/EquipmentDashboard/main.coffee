@@ -255,7 +255,7 @@ EquipmentDashboard.eventHandlers.table_body_field_edit_onClick = (event) ->
   $target = $(event.target)
   qbtxlineid = $target.data('qbtxlineid')
 
-  global.location = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: qbtxlineid})
+  global.location = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: atob(qbtxlineid), redirect: atob(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'}))})
   @
 
 EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->
