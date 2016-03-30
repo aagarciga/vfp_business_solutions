@@ -16,8 +16,10 @@ use Dandelion\Diana\BootstrapPager;
 use Dandelion\MVC\Core\Request;
 use Dandelion\MVC\Application\Tools;
 use Dandelion\MVC\Application\Tools\BootstrapPagerTest;
+use Dandelion\Tools\CodeGenerator\CodeGenerator;
 use Dandelion\Tools\CodeGenerator\SqlPredicateGenerator;
 use Dandelion\Tools\Filter\BlockExpressionNode;
+use Dandelion\Tools\Filter\EqualNode;
 use Dandelion\Tools\Filter\FieldNode;
 use Dandelion\Tools\Filter\AndNode;
 use Dandelion\Tools\Filter\LikeNode;
@@ -92,5 +94,49 @@ class HistoryDashboard extends DashboardController
             return $andNode;
         }
         return $filterTree;
+    }
+
+    /**
+     * @param string $id qbtxlineid field
+     * @param array $values
+     * @param array $oldValues
+     */
+    public function UpdateEntity($id, $values, $oldValues){
+        $tableName = 'swequipd' . $this->DatUnitOfWork->CompanySuffix;
+
+        $sqlString = 'UPDATE ' . $tableName . ' SET ';
+
+        $execute = false;
+        foreach($values as $field => $fieldValue){
+            $oldFieldValue = $oldValues[$field];
+            if ($oldFieldValue !== $fieldValue){
+                $sqlString .= self::getSqlEqual($field, $fieldValue) . ' ';
+                $execute = true;
+            }
+        }
+
+        if ($execute){
+            $sqlString .= 'WHERE ' . self::getSqlEqual('qbtxlineid', $id);
+
+            $query = $this->DatUnitOfWork->DBDriver->GetQuery();
+            $query->Execute($sqlString);
+        }
+    }
+
+    public static function getSqlEqual($field, $fieldValue){
+        $fieldNode = new FieldNode();
+        $fieldNode->setValue(array($field, null, null));
+
+        $stringNode = new StringNode();
+        $stringNode->setValue($fieldValue);
+
+        $equalNode = new EqualNode();
+        $equalNode->addChild($fieldNode);
+        $equalNode->addChild($stringNode);
+
+        $codeGenerator = new SqlPredicateGenerator();
+        $equalNode->generateSqlCode($codeGenerator);
+
+        return $codeGenerator->getCode();
     }
 }

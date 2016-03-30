@@ -32,7 +32,8 @@ abstract class EditTupleAction extends Action
             throw new \HttpInvalidParamException('"Id" not found.');
         }
 
-        $id = base64_decode($this->Request->id);
+        //TODO: Convert Id on base64.
+        $id = $this->Request->id;
         $redirect = ($this->Request->hasProperty('redirect')) ? base64_decode($this->Request->redirect) : '';
 
         return array(

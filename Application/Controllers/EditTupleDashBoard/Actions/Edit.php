@@ -38,6 +38,13 @@ class Edit extends Action
             throw new ControllerNotFoundException($this->ControllerName);
         }
 
+
+        if (!$this->Request->hasProperty('id')){
+            throw new \HttpInvalidParamException('Request "Id" param not found.');
+        }
+
+        $this->Id = $this->Request->Id;
+
         $this->Values = $this->Request->hasProperty('values') ? json_decode(base64_decode($this->Request->values)) : new \stdClass();
         $this->RedirectUrl = $this->Request->hasProperty('redirect') ? $this->Request->redirect : '';
 

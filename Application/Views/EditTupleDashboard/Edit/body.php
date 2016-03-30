@@ -35,7 +35,10 @@ use Dandelion\Tools\Helpers\Builder;
 
     <div class="panel panel-default">
         <div id="form-editTupleDashboard">
-            <?php Builder::createFormEditTupleDashboard($FieldsDefinition, $Values, $View->Href($ControllerName, 'EditTuple', array('redirect' => $RedirectUrl)), 'post'); ?>
+            <?php Builder::createFormEditTupleDashboard($FieldsDefinition, $Values, $View->Href($ControllerName, 'EditTuple', array(
+                'id' => $Id,
+                'redirect' => $RedirectUrl)
+            ), 'post'); ?>
         </div>
     </div><!-- /.panel -->
 
