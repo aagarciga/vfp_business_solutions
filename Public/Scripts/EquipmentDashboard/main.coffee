@@ -38,6 +38,7 @@ EquipmentDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
 EquipmentDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown '
 EquipmentDashboard.htmlBindings.pager_container = '.pager-wrapper';
 EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
+EquipmentDashboard.htmlBindings.table_body_field_btn_edit = '#btn-edit';
 
 # Functions Declaration
 #-----------------------------------------------------------------------------------------------------------------------
@@ -157,6 +158,7 @@ EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
   $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
   $(EquipmentDashboard.htmlBindings.table_body_drpStatus).on('change', EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange)
+  $(EquipmentDashboard.htmlBindings.table_body_field_btn_edit).on('click', EquipmentDashboard.eventHandlers.table_body_field_edit_onClick)
 
   @
 
@@ -247,6 +249,13 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
       else
         throw data
   )
+  @
+
+EquipmentDashboard.eventHandlers.table_body_field_edit_onClick = (event) ->
+  $target = $(event.target)
+  qbtxlineid = $target.data('qbtxlineid')
+
+  global.location = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: qbtxlineid})
   @
 
 EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->

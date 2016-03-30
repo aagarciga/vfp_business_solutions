@@ -64,6 +64,8 @@
 
   EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
 
+  EquipmentDashboard.htmlBindings.table_body_field_btn_edit = '#btn-edit';
+
   EquipmentDashboard.functions = {};
 
   EquipmentDashboard.functions.paginate = function() {
@@ -209,6 +211,7 @@
   EquipmentDashboard.functions.bindTableItemsEventHandlers = function() {
     $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick);
     $(EquipmentDashboard.htmlBindings.table_body_drpStatus).on('change', EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange);
+    $(EquipmentDashboard.htmlBindings.table_body_field_btn_edit).on('click', EquipmentDashboard.eventHandlers.table_body_field_edit_onClick);
     return this;
   };
 
@@ -300,6 +303,16 @@
           throw data;
         }
       }
+    });
+    return this;
+  };
+
+  EquipmentDashboard.eventHandlers.table_body_field_edit_onClick = function(event) {
+    var $target, qbtxlineid;
+    $target = $(event.target);
+    qbtxlineid = $target.data('qbtxlineid');
+    global.location = App.Helpers.Href('EditTupleDashboard', 'Edit', {
+      id: qbtxlineid
     });
     return this;
   };

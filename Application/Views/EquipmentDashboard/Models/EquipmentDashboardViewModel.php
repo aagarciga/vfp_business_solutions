@@ -33,6 +33,7 @@ class EquipmentDashboardViewModel
     protected $picture_fi;
     protected $assettag;
     protected $locno;
+    protected $qbtxlineid;
 
     /**
      * EquipmentDashboardViewModel constructor.
@@ -51,10 +52,13 @@ class EquipmentDashboardViewModel
      * @param $status
      * @param $notes
      * @param $picture_fi
-     * @param $assetDesc
+     * @param $assettag
      * @param $locno
+     * @param $qbtxlineid
      */
-    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi, $assettag, $locno)
+    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage,
+                                $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi, $assettag,
+                                $locno, $qbtxlineid)
     {
         $this->ordnum = $ordnum;
         $this->equipid = $equipid;
@@ -73,6 +77,7 @@ class EquipmentDashboardViewModel
         $this->picture_fi = $picture_fi;
         $this->assettag = $assettag;
         $this->locno = $locno;
+        $this->qbtxlineid = $qbtxlineid;
     }
 
     /**
@@ -381,5 +386,21 @@ class EquipmentDashboardViewModel
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getQbtxlineid()
+    {
+        return $this->qbtxlineid;
+    }
 
+    /**
+     * @param mixed $qbtxlineid
+     * @return EquipmentDashboardViewModel
+     */
+    public function setQbtxlineid($qbtxlineid)
+    {
+        $this->qbtxlineid = $qbtxlineid;
+        return $this;
+    }
 }
