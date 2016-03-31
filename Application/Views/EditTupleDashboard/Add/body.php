@@ -26,7 +26,7 @@ use Dandelion\Tools\Helpers\Builder;
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                Edit Tuple on <?php echo $ControllerName; ?>: <?php echo base64_decode($Id); ?>
+                Add Tuple on <?php echo $ControllerName; ?>: <?php echo base64_decode($Id); ?>
             </a>
         </div>
 
@@ -35,9 +35,9 @@ use Dandelion\Tools\Helpers\Builder;
 
     <div class="panel panel-default">
         <div id="form-editTupleDashboard">
-            <?php Builder::createFormEditTupleDashboard($FieldsDefinition, $Values, $View->Href($ControllerName, 'EditTuple', array(
-                'id' => $Id,
-                'redirect' => $RedirectUrl)
+            <?php Builder::createFormAddTupleDashboard($FieldsDefinition, $View->Href($ControllerName, 'SaveTuple', array(
+                    'id' => $Id,
+                    'redirect' => $RedirectUrl)
             ), 'post'); ?>
         </div>
     </div><!-- /.panel -->

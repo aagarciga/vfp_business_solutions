@@ -33,6 +33,6 @@ use Dandelion\Tools\Helpers\DynamicInclude;
         <?php endif; ?>
     <?php endforeach; ?>
     <button type="submit" >
-        Back
+        <?php echo $ButtonName; ?>
     </button>
 </form>

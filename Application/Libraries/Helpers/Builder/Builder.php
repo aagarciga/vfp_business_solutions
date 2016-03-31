@@ -25,8 +25,9 @@ final class Builder
      * @param \stdClass $values
      * @param string $urlSubmit
      * @param string $httpMethodType
+     * @param string $buttonName
      */
-    public static function createFormEditTupleDashboard($fieldsDefinition, $values, $urlSubmit, $httpMethodType){
+    public static function createFormEditTupleDashboard($fieldsDefinition, $values, $urlSubmit, $httpMethodType, $buttonName='Save'){
         $includeFile = HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'formEditTupleDashboard.php';
 
         $data = array(
@@ -35,6 +36,7 @@ final class Builder
             'UrlSubmit' => $urlSubmit,
             'HttpMethodType' => $httpMethodType,
             'Add' => fasle,
+            'ButtonName' => $buttonName,
         );
 
         DynamicInclude::includeFile($includeFile, $data);
@@ -44,8 +46,9 @@ final class Builder
      * @param array $fieldsDefinition
      * @param string $urlSubmit
      * @param string $httpMethodType
+     * @param string $buttonName
      */
-    public static function createFormAddTupleDashboard($fieldsDefinition, $urlSubmit, $httpMethodType){
+    public static function createFormAddTupleDashboard($fieldsDefinition, $urlSubmit, $httpMethodType, $buttonName='Add'){
         $includeFile = HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'formEditTupleDashboard.php';
 
         $data = array(
@@ -54,6 +57,7 @@ final class Builder
             'UrlSubmit' => $urlSubmit,
             'HttpMethodType' => $httpMethodType,
             'Add' => true,
+            'ButtonName' => $buttonName,
         );
 
         DynamicInclude::includeFile($includeFile, $data);

@@ -11,6 +11,8 @@
 
 namespace Dandelion\MVC\Application\Tools;
 
+use Dandelion\MVC\Application\Controllers\DashboardController;
+use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Core\Request;
 
 final class Controller
@@ -35,5 +37,25 @@ final class Controller
         }
 
         return null;
+    }
+
+    /**
+     * @param Action $action
+     * @param Controller $controller
+     * @return DashboardController
+     * @throws ControllerNotFoundException
+     */
+    public static function getDashboardControllerFromRequest($controller, $action){
+        if (!$action->Request->hasProperty('dashboard')){
+            throw new ControllerNotFoundException('');
+        }
+        $action->ControllerName = base64_decode($action->Request->dashboard);
+
+        $dashboardController = $controller->getDashboardController($action->ControllerName, $action->Request);
+        if (is_null($dashboardController)){
+            throw new ControllerNotFoundException($action->ControllerName);
+        }
+
+        return $dashboardController;
     }
 }
