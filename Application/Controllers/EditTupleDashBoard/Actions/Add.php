@@ -27,6 +27,7 @@ class Add extends Action
         $dashboardController = Controller::getDashboardControllerFromRequest($this);
 
         $this->RedirectUrl = $this->Request->hasProperty('redirect') ? $this->Request->redirect : '';
+        $this->Values = $this->Request->hasProperty('values') ? $this->Request->values : null;
 
         $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
 
@@ -34,7 +35,5 @@ class Add extends Action
         $this->FieldsDefinition = $dashboardController->GetFieldsDefinition($companySuffix);
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
-
-        $this->Id = base64_encode(GUIDGenerator::getGUID());
     }
 }
