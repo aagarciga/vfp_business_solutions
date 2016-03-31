@@ -34,6 +34,25 @@ final class Builder
             'Values' => $values,
             'UrlSubmit' => $urlSubmit,
             'HttpMethodType' => $httpMethodType,
+            'Add' => fasle,
+        );
+
+        DynamicInclude::includeFile($includeFile, $data);
+    }
+
+    /**
+     * @param array $fieldsDefinition
+     * @param string $urlSubmit
+     * @param string $httpMethodType
+     */
+    public static function createFormAddTupleDashboard($fieldsDefinition, $urlSubmit, $httpMethodType){
+        $includeFile = HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'formEditTupleDashboard.php';
+
+        $data = array(
+            'FieldsDefinition' => $fieldsDefinition,
+            'Values' => array(),
+            'UrlSubmit' => $urlSubmit,
+            'HttpMethodType' => $httpMethodType,
             'Add' => true,
         );
 
