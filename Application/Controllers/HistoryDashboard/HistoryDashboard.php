@@ -124,6 +124,10 @@ class HistoryDashboard extends DashboardController
         }
     }
 
+    public function AddEntity($id, $values){
+        //TODO: Implement Here.
+    }
+
     public static function getSqlEqual($field, $fieldValue){
         $fieldNode = new FieldNode();
         $fieldNode->setValue(array($field, null, null));

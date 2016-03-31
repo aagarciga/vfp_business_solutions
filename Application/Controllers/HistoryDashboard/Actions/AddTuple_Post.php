@@ -11,8 +11,13 @@
 
 namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 
+use Dandelion\GUIDGenerator;
 use Dandelion\MVC\Application\Controllers\TupleAction;
 
+/**
+ * Class AddTuple_Post
+ * @package Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions
+ */
 class AddTuple_Post extends TupleAction
 {
     public function Execute()
@@ -20,6 +25,10 @@ class AddTuple_Post extends TupleAction
         $redirect = $this->getRedirectRequestParam();
         $values = $this->getValuesRequestParam();
 
+        $id = GUIDGenerator::getGUID();
+        $this->controller->AddEntity($id, $values);
 
+        $this->Request->id = $id;
+        $this->Redirect($redirect->controller, $redirect->action, $this->Request);
     }
 }
