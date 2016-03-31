@@ -125,9 +125,30 @@ class HistoryDashboard extends DashboardController
     }
 
     public function AddEntity($id, $values){
-        //TODO: Implement Here.
+        $tableName = 'swequipd' . $this->DatUnitOfWork->CompanySuffix;
+        $sqlString = 'INSERT INTO ' . $tableName . ' ([qbtxlineid], ';
+        $sqlValues = '(' . self::getSqlStringValue($id) . ', ';
+
+        foreach($values as $field => $fieldValue){
+            $sqlString .= '[' . $field .'], ';
+            $sqlValues .= self::getSqlStringValue($fieldValue) . ', ';
+        }
+
+        if (count($values) > 0){
+            $sqlString = substr($sqlString, 0, strlen($sqlString) - 2) . ')';
+            $sqlValues = substr($sqlValues, 0, strlen($sqlValues) - 2) . ')';
+            $sqlString .= ' VALUES ' . $sqlValues;
+
+            $query = $this->DatUnitOfWork->DBDriver->GetQuery();
+            $query->Execute($sqlString);
+        }
     }
 
+    /**
+     * @param string $field
+     * @param mixed $fieldValue
+     * @return string
+     */
     public static function getSqlEqual($field, $fieldValue){
         $fieldNode = new FieldNode();
         $fieldNode->setValue(array($field, null, null));
@@ -143,5 +164,19 @@ class HistoryDashboard extends DashboardController
         $equalNode->generateSqlCode($codeGenerator);
 
         return $codeGenerator->getCode();
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    public static function getSqlStringValue($value){
+        $node = new StringNode();
+        $node->setValue($value);
+
+        $sqlCodeGenerator = new SqlPredicateGenerator();
+        $node->generateSqlCode($sqlCodeGenerator);
+
+        return $sqlCodeGenerator->getCode();
     }
 }
