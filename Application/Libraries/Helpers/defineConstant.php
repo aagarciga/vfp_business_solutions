@@ -47,4 +47,6 @@ define('DROPDOWN_JS_TYPE', TYPE_DICTIONARY);
 
 define('EDITABLE_KEY', 'editable');
 
+define('AddAble_KEY', 'addAble');
+
 define('VALUES_KEY', 'values');

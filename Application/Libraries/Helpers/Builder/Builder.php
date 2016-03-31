@@ -35,7 +35,7 @@ final class Builder
             'Values' => $values,
             'UrlSubmit' => $urlSubmit,
             'HttpMethodType' => $httpMethodType,
-            'Add' => fasle,
+            'Add' => false,
             'ButtonName' => $buttonName,
         );
 

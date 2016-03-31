@@ -26,6 +26,10 @@ final class FieldDefinition
         return array_key_exists(EDITABLE_KEY, $fieldDefinition) ? $fieldDefinition[EDITABLE_KEY] : true;
     }
 
+    public static function isAddAbleField($fieldDefinition){
+        return array_key_exists(AddAble_KEY, $fieldDefinition) ? $fieldDefinition[AddAble_KEY] : true;
+    }
+
     /**
      * @param array $fieldDefinition
      * @return bool
