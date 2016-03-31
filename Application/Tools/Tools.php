@@ -32,6 +32,10 @@ define("IS_SORTABLE_KEY", 'isSortable');
 
 define("TABLE_KEY", 'table');
 
+define('OLD_PREFIX', 'old-');
+
+define('NEW_PREFIX', 'new-');
+
 function fix_default($value){
     if (is_null($value))
     {

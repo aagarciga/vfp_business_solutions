@@ -31,7 +31,7 @@ class Edit extends Action
         if (!$this->Request->hasProperty('dashboard')){
             throw new ControllerNotFoundException('');
         }
-        $this->ControllerName = $this->Request->dashboard;
+        $this->ControllerName = base64_decode($this->Request->dashboard);
 
         $dashboardController = $this->controller->getDashboardController($this->ControllerName, $this->Request);
         if (is_null($dashboardController)){
@@ -43,7 +43,7 @@ class Edit extends Action
             throw new \HttpInvalidParamException('Request "Id" param not found.');
         }
 
-        $this->Id = $this->Request->Id;
+        $this->Id = $this->Request->id;
 
         $this->Values = $this->Request->hasProperty('values') ? json_decode(base64_decode($this->Request->values)) : new \stdClass();
         $this->RedirectUrl = $this->Request->hasProperty('redirect') ? $this->Request->redirect : '';
@@ -52,9 +52,6 @@ class Edit extends Action
 
         $companySuffix = $this->controller->DatUnitOfWork->CompanySuffix;
         $this->FieldsDefinition = $dashboardController->GetFieldsDefinition($companySuffix);
-
-        $this->FieldIdName = 'Juan';
-        $this->FieldIdValue = 001;
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
 

@@ -11,9 +11,6 @@
 
 namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 
-define('OLD_PREFIX', 'old-');
-define('NEW_PREFIX', 'new-');
-
 use Dandelion\MVC\Application\Controllers\EditTupleAction;
 use Dandelion\Tools\Helpers\FieldDefinition;
 

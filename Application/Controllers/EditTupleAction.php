@@ -8,6 +8,7 @@
 namespace Dandelion\MVC\Application\Controllers;
 
 use Dandelion\MVC\Core\Action;
+use Dandelion\Tools\Helpers\FieldDefinition;
 
 abstract class EditTupleAction extends Action
 {

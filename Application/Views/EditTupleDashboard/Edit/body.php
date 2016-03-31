@@ -26,7 +26,7 @@ use Dandelion\Tools\Helpers\Builder;
             </button>
             <a class="navbar-brand" href="#">
                 <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
-                Edit Tuple <?php echo $FieldIdName ?>: <?php echo $FieldIdValue ?>
+                Edit Tuple on <?php echo $ControllerName; ?>: <?php echo $Id; ?>
             </a>
         </div>
 

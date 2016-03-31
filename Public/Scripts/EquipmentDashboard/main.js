@@ -208,6 +208,20 @@
     return result;
   };
 
+  EquipmentDashboard.functions.executeEditLink = function(dataValue) {
+    var href, qbtxlineid;
+    qbtxlineid = dataValue;
+    href = App.Helpers.Href('EditTupleDashboard', 'Edit', {
+      id: btoa(qbtxlineid),
+      redirect: btoa(JSON.stringify({
+        controller: 'EquipmentDashboard',
+        action: 'Index'
+      })),
+      dashboard: btoa('HistoryDashboard')
+    });
+    return global.location = href;
+  };
+
   EquipmentDashboard.functions.bindTableItemsEventHandlers = function() {
     $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick);
     $(EquipmentDashboard.htmlBindings.table_body_drpStatus).on('change', EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange);
@@ -271,9 +285,10 @@
   };
 
   EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = function(event) {
-    var currentEquipid, currentProjectRoot;
+    var currentEquipid, currentProjectRoot, dataValue;
     if ($(this).data('qbtxlineid') !== void 0) {
-      EquipmentDashboard.eventHandlers.table_body_field_edit_onClick(event);
+      dataValue = $(this).data('qbtxlineid');
+      EquipmentDashboard.functions.executeEditLink(dataValue);
     } else {
       currentEquipid = $(this).data('equipid');
       currentProjectRoot = currentEquipid + '_EQ';
@@ -313,17 +328,6 @@
   };
 
   EquipmentDashboard.eventHandlers.table_body_field_edit_onClick = function(event) {
-    var $target, href, qbtxlineid;
-    $target = $(this);
-    qbtxlineid = $target.data('qbtxlineid');
-    href = App.Helpers.Href('EditTupleDashboard', 'Edit', {
-      id: btoa(qbtxlineid),
-      redirect: btoa(JSON.stringify({
-        controller: 'EquipmentDashboard',
-        action: 'Index'
-      }))
-    });
-    global.location = href;
     return this;
   };
 

@@ -110,13 +110,14 @@ class HistoryDashboard extends DashboardController
         foreach($values as $field => $fieldValue){
             $oldFieldValue = $oldValues[$field];
             if ($oldFieldValue !== $fieldValue){
-                $sqlString .= self::getSqlEqual($field, $fieldValue) . ' ';
+                $sqlString .= self::getSqlEqual($field, $fieldValue) . ', ';
                 $execute = true;
             }
         }
 
         if ($execute){
-            $sqlString .= 'WHERE ' . self::getSqlEqual('qbtxlineid', $id);
+            $sqlString = substr($sqlString, 0, strlen($sqlString) - 2);
+            $sqlString .= ' WHERE ' . self::getSqlEqual('qbtxlineid', $id);
 
             $query = $this->DatUnitOfWork->DBDriver->GetQuery();
             $query->Execute($sqlString);
