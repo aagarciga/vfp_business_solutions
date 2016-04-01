@@ -45,15 +45,17 @@ final class Builder
      * @param array $fieldsDefinition
      * @param string $urlSubmit
      * @param string $httpMethodType
+     * @param \stdClass $values
      * @param string $buttonName
      */
-    public static function createFormAddTupleDashboard($fieldsDefinition, $urlSubmit, $httpMethodType, $buttonName='Add'){
+    public static function createFormAddTupleDashboard($fieldsDefinition, $urlSubmit, $httpMethodType, $values, $buttonName='Add'){
         $includeFile = HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'formAddTupleDashboard.php';
 
         $data = array(
             'FieldsDefinition' => $fieldsDefinition,
             'UrlSubmit' => $urlSubmit,
             'HttpMethodType' => $httpMethodType,
+            'Values' => $values,
             'ButtonName' => $buttonName,
         );
 

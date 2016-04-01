@@ -16,7 +16,17 @@ use Dandelion\Tools\Helpers\FieldDefinition;
 
 <form action="<?php echo $UrlSubmit ?>" method="<?php echo $HttpMethodType ?>" >
     <?php foreach ($FieldsDefinition as $field => $fieldDefinition): ?>
-        <?php if (FieldDefinition::isAddAbleField($fieldDefinition)): ?>
+        <?php
+        $isAddAbleField = null;
+        if (isset($Values->$field)){
+            $value = $Values->$field;
+            $isAddAbleField = FieldDefinition::isAddAbleFieldIfNullValue($fieldDefinition, $value);
+        }
+        else{
+            $isAddAbleField = FieldDefinition::isAddAbleField($fieldDefinition);
+        }
+        ?>
+        <?php if ($isAddAbleField): ?>
             <div title="<?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>" class="form-group">
                 <label class="control-label">
                     <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
