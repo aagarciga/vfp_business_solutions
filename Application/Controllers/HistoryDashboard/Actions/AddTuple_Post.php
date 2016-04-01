@@ -24,9 +24,10 @@ class AddTuple_Post extends TupleAction
     {
         $redirect = $this->getRedirectRequestParam();
         $values = $this->getValuesRequestParam();
+        $valuesRequest = $this->Request->hasProperty('values') ? json_decode(base64_decode($this->Request->values)) : new \stdClass();
 
         $id = GUIDGenerator::getGUID();
-        $this->controller->AddEntity($id, $values);
+        $this->controller->AddEntity($id, $values, $valuesRequest);
 
         $this->Request->id = $id;
         $this->Redirect($redirect->controller, $redirect->action, $this->Request);

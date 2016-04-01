@@ -153,11 +153,12 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result.appendChild(tdAttachedFilesBuilder());
   result
 
-EquipmentDashboard.functions.executeEditLink = (dataValue) ->
+EquipmentDashboard.functions.executeEditLink = (dataValue, currentEquipid, currentOrdnum) ->
   qbtxlineid = dataValue
 
   href = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: btoa(qbtxlineid), redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'})), dashboard: btoa('HistoryDashboard')})
   global.location = href
+  #for add button , values: btoa(JSON.stringify({equipid: currentEquipid, ordnum: currentOrdnum}))
 
 EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
@@ -228,11 +229,12 @@ EquipmentDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   @
 
 EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
+  currentEquipid = $(@).data('equipid')
   if $(@).data('qbtxlineid') != undefined
     dataValue = $(@).data('qbtxlineid')
-    EquipmentDashboard.functions.executeEditLink(dataValue)
+    currentOrdnum = currentEquipid = $(@).data('ordnum')
+    EquipmentDashboard.functions.executeEditLink(dataValue, currentEquipid, currentOrdnum)
   else
-    currentEquipid = $(@).data('equipid')
     currentProjectRoot = currentEquipid + '_EQ';
     EquipmentDashboard.status.currentEquipid = currentProjectRoot;
     ProjectFiles.functions.loadFileTree(currentProjectRoot);

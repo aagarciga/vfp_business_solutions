@@ -198,7 +198,9 @@
                                 <a href="#" class="btn-files-dialog btn-action btn btn-default" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a>
                                 <?php $pictureHref = $item->getPictureFi() ?>
 
-                                <a href="#" class="btn-files-dialog btn-action btn btn-default" data-qbtxlineid="<?php echo $item->getQbtxlineid() ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="#" class="btn-files-dialog btn-action btn btn-default" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-equipid="<?php echo $item->getEquipid(); ?>" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
                                 <?php if ($pictureHref !== "#"):?>
                                     <a class="btn-action"" href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getEquipid() ?>">
                                         <span class="glyphicon glyphicon-eye-open"></span>

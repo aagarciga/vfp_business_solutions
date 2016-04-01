@@ -124,14 +124,28 @@ class HistoryDashboard extends DashboardController
         }
     }
 
-    public function AddEntity($id, $values){
-        $tableName = 'swequipd' . $this->DatUnitOfWork->CompanySuffix;
+    /**
+     * @param string $id
+     * @param array $values
+     * @param \stdClass $valuesRequest
+     */
+    public function AddEntity($id, $values, $valuesRequest){
+        $companySuffix = $this->DatUnitOfWork->CompanySuffix;
+        $tableName = 'swequipd' . $companySuffix;
+        $fieldsDefinition = $this->GetFieldsDefinition($companySuffix);
         $sqlString = 'INSERT INTO ' . $tableName . ' ([qbtxlineid], ';
         $sqlValues = '(' . self::getSqlStringValue($id) . ', ';
 
         foreach($values as $field => $fieldValue){
-            $sqlString .= '[' . $field .'], ';
+            $sqlString .= '[' . $field . '], ';
             $sqlValues .= self::getSqlStringValue($fieldValue) . ', ';
+        }
+
+        foreach($fieldsDefinition as $field => $fieldDefinition){
+            if (isset($valuesRequest->$field)){
+                $sqlString .= '[' . $field . '], ';
+                $sqlValues .= self::getSqlStringValue($valuesRequest->$field) . ', ';
+            }
         }
 
         if (count($values) > 0){
