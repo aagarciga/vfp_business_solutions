@@ -63,6 +63,11 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         // TODO: Implement Delete() method.
     }
 
+    /**
+     * @param string $equipid
+     * @param string $status
+     * @return mixed
+     */
     public function UpdateStatus($equipid, $status) {
         $tableName = $this->entityName . $this->companySuffix;
 
@@ -72,5 +77,9 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
 
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
+    }
+
+    public function UpdateHistoryId($equipmentId, $id){
+        //TODO: Implement here.
     }
 }
