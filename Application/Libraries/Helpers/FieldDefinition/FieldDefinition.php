@@ -27,7 +27,7 @@ final class FieldDefinition
     }
 
     public static function isAddAbleField($fieldDefinition){
-        return array_key_exists(AddAble_KEY, $fieldDefinition) ? $fieldDefinition[AddAble_KEY] : true;
+        return array_key_exists(ADD_ABLE_KEY, $fieldDefinition) ? $fieldDefinition[ADD_ABLE_KEY] : true;
     }
 
     public static function isAddAbleFieldIfNullValue($fieldDefinition, $value){
