@@ -43,8 +43,8 @@ class HistoryDashboard extends DashboardController
     {
         $swequipdTable = "SWEQUIPD" . $companySuffix;
         return array(
-            'equipid' => array('type' => TYPE_CHAR, 'displayName' => 'Equipment Id', 'table' => $swequipdTable, EDITABLE_KEY => false),
-            'ordnum' => array('type' => TYPE_CHAR, 'displayName' => 'Work Order', 'table' => $swequipdTable, EDITABLE_KEY => false),
+            'equipid' => array('type' => TYPE_CHAR, 'displayName' => 'Equipment Id', 'table' => $swequipdTable, EDITABLE_KEY => false, ADD_ABLE_KEY => false),
+            'ordnum' => array('type' => TYPE_CHAR, 'displayName' => 'Work Order', 'table' => $swequipdTable, EDITABLE_KEY => false, ADD_ABLE_KEY => false, ADD_ABLE_IF_NULL_KEY => true),
             'inspectno' => array('type' => TYPE_CHAR, 'displayName' => 'Inpection No.', 'table' => $swequipdTable),
             'installdte' => array('type' => TYPE_DATE, 'displayName' => 'Date Out', 'table' => $swequipdTable),
             'expdtein' => array('type' => TYPE_DATE, 'displayName' => 'Expected date In', 'table' => $swequipdTable),

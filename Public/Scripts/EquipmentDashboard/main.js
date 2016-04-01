@@ -337,18 +337,17 @@
   EquipmentDashboard.eventHandlers.table_body_btnAdd_onClick = function(event) {
     var currentEquipid, currentOrdnum, href;
     currentEquipid = $(this).data('equipid');
-    currentOrdnum = currentEquipid = $(this).data('ordnum');
+    currentOrdnum = $(this).data('ordnum');
     href = App.Helpers.Href('EditTupleDashboard', 'Add', {
       redirect: btoa(JSON.stringify({
         controller: 'EquipmentDashboard',
         action: 'UpdateHistoryId'
       })),
-      dashboard: btoa('HistoryDashboard')
-    }, {
       values: btoa(JSON.stringify({
         equipid: currentEquipid,
         ordnum: currentOrdnum
-      }))
+      })),
+      dashboard: btoa('HistoryDashboard')
     });
     global.location = href;
     return this;
@@ -356,7 +355,6 @@
 
   EquipmentDashboard.init = function(defaultUserFilter, fieldsDefinition) {
     var key, statusArray, statusValue, value;
-    console.log("init");
     EquipmentDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition);
     statusValue = [];
     statusArray = EquipmentDashboard.status.fieldsDefinition['status']['values'];

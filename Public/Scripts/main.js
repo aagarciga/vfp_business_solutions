@@ -156,9 +156,7 @@ if (window.jQuery === 'undefined') {
         }
         if (params != null){
             for (var index in params){
-               if (params.hasOwnProperty(index)){
-                   url += "&" + index + "=" + params[index];
-               }
+                url += "&" + index + "=" + params[index];
             }
         }
         return url;

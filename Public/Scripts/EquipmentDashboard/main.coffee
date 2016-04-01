@@ -269,13 +269,12 @@ EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick = (event) ->
 
 EquipmentDashboard.eventHandlers.table_body_btnAdd_onClick = (event) ->
   currentEquipid = $(@).data('equipid')
-  currentOrdnum = currentEquipid = $(@).data('ordnum')
-  href = App.Helpers.Href('EditTupleDashboard', 'Add', {redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'UpdateHistoryId'})), dashboard: btoa('HistoryDashboard')}, values: btoa(JSON.stringify({equipid: currentEquipid, ordnum: currentOrdnum})))
+  currentOrdnum = $(@).data('ordnum')
+  href = App.Helpers.Href('EditTupleDashboard', 'Add', {redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'UpdateHistoryId'})), values: btoa(JSON.stringify({equipid: currentEquipid, ordnum: currentOrdnum})), dashboard: btoa('HistoryDashboard')})
   global.location = href
   @
 
 EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->
-  console.log "init"
   EquipmentDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition)
   statusValue = []
   statusArray = EquipmentDashboard.status.fieldsDefinition['status']['values']

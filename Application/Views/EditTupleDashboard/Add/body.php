@@ -41,8 +41,12 @@ use Dandelion\Tools\Helpers\Builder;
             );
             if (!is_null($Values)){
                 $query['values'] = $Values;
+                $values = json_decode(base64_decode($Values));
+            }
+            else{
+                $values = array();
             }?>
-            <?php Builder::createFormAddTupleDashboard($FieldsDefinition, $View->Href($ControllerName, 'SaveTuple', $query), 'post'); ?>
+            <?php Builder::createFormAddTupleDashboard($FieldsDefinition, $View->Href($ControllerName, 'SaveTuple', $query), 'post', $values); ?>
         </div>
     </div><!-- /.panel -->
 
