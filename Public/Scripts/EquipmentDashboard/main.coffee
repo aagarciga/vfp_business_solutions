@@ -35,10 +35,11 @@ EquipmentDashboard.htmlBindings.table_header_btnSort = '.btn-table-sort';
 EquipmentDashboard.htmlBindings.table_body_btnCommitted = '.btn-committed-form-link'
 EquipmentDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
 EquipmentDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
+EquipmentDashboard.htmlBindings.table_body_btnEdit = '.btn-edit'
+EquipmentDashboard.htmlBindings.table_body_btnAdd = '.btn-add'
 EquipmentDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown '
 EquipmentDashboard.htmlBindings.pager_container = '.pager-wrapper';
 EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
-EquipmentDashboard.htmlBindings.table_body_field_btn_edit = '#btn-edit';
 
 # Functions Declaration
 #-----------------------------------------------------------------------------------------------------------------------
@@ -155,32 +156,30 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
 
 EquipmentDashboard.functions.executeEditLink = (dataValue, currentEquipid, currentOrdnum) ->
   qbtxlineid = dataValue
-
   href = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: btoa(qbtxlineid), redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'})), dashboard: btoa('HistoryDashboard')})
   global.location = href
   #for add button , values: btoa(JSON.stringify({equipid: currentEquipid, ordnum: currentOrdnum}))
 
 EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
+  console.log "bingin event tables"
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
   $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
   $(EquipmentDashboard.htmlBindings.table_body_drpStatus).on('change', EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange)
-  $(EquipmentDashboard.htmlBindings.table_body_field_btn_edit).on('click', EquipmentDashboard.eventHandlers.table_body_field_edit_onClick)
-
+  $(EquipmentDashboard.htmlBindings.table_body_btnEdit).on('click', EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick)
+  $(EquipmentDashboard.htmlBindings.table_body_btnAdd).on('click', EquipmentDashboard.eventHandlers.table_body_btnAdd_onClick)
   @
 
 EquipmentDashboard.functions.bindEventHandlers = ->
+  EquipmentDashboard.functions.bindTableItemsEventHandlers()
+
   $(EquipmentDashboard.htmlBindings.drpItemPerPage).on('click',
     EquipmentDashboard.eventHandlers.drpItemPerPage_onClick)
   $(EquipmentDashboard.htmlBindings.table_header_btnSort).on('click',
     EquipmentDashboard.eventHandlers.table_body_btnSort_onClick);
   $(EquipmentDashboard.htmlBindings.pager_btnPagerPages).on('click',
     EquipmentDashboard.eventHandlers.pager_btnPagerPages_onClick)
-  EquipmentDashboard.functions.bindTableItemsEventHandlers();
-  $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click',
-    EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
-  $(EquipmentDashboard.htmlBindings.table_body_field_btn_edit).on('click',
-    EquipmentDashboard.eventHandlers.table_body_field_edit_onClick)
+
   @
 
 # Event Handlers Declaration
@@ -229,16 +228,12 @@ EquipmentDashboard.eventHandlers.table_body_btnSort_onClick = (event) ->
   @
 
 EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick = (event) ->
+  console.log 'attach on click'
   currentEquipid = $(@).data('equipid')
-  if $(@).data('qbtxlineid') != undefined
-    dataValue = $(@).data('qbtxlineid')
-    currentOrdnum = currentEquipid = $(@).data('ordnum')
-    EquipmentDashboard.functions.executeEditLink(dataValue, currentEquipid, currentOrdnum)
-  else
-    currentProjectRoot = currentEquipid + '_EQ';
-    EquipmentDashboard.status.currentEquipid = currentProjectRoot;
-    ProjectFiles.functions.loadFileTree(currentProjectRoot);
-    $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
+  currentProjectRoot = currentEquipid + '_EQ';
+  EquipmentDashboard.status.currentEquipid = currentProjectRoot;
+  ProjectFiles.functions.loadFileTree(currentProjectRoot);
+  $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
 
     #  //QuoteDashboard.FileManagerWidget.loadFileTree(currentQutno);
     #  //$(QuoteDashboard.FileManagerWidget.htmlBindings.modal_ProjectFiles).modal('show');
@@ -265,11 +260,20 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
   )
   @
 
-EquipmentDashboard.eventHandlers.table_body_field_edit_onClick = (event) ->
+EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick = (event) ->
+  console.log 'edit on click'
+  currentEquipid = $(@).data('equipid')
+  dataValue = $(@).data('qbtxlineid')
+  currentOrdnum = currentEquipid = $(@).data('ordnum')
+  EquipmentDashboard.functions.executeEditLink(dataValue, currentEquipid, currentOrdnum)
+  @
 
+EquipmentDashboard.eventHandlers.table_body_btnAdd_onClick = (event) ->
+  console.log "TODO: Implement this"
   @
 
 EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->
+  console.log "init"
   EquipmentDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition)
   statusValue = []
   statusArray = EquipmentDashboard.status.fieldsDefinition['status']['values']
