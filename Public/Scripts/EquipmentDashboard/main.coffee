@@ -159,9 +159,9 @@ EquipmentDashboard.functions.executeEditLink = (dataValue, currentEquipid, curre
   href = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: btoa(qbtxlineid), redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'})), dashboard: btoa('HistoryDashboard')})
   global.location = href
   #for add button , values: btoa(JSON.stringify({equipid: currentEquipid, ordnum: currentOrdnum}))
+  @
 
 EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
-  console.log "bingin event tables"
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
   $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick)
@@ -261,7 +261,6 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
   @
 
 EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick = (event) ->
-  console.log 'edit on click'
   currentEquipid = $(@).data('equipid')
   dataValue = $(@).data('qbtxlineid')
   currentOrdnum = currentEquipid = $(@).data('ordnum')
@@ -269,7 +268,10 @@ EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick = (event) ->
   @
 
 EquipmentDashboard.eventHandlers.table_body_btnAdd_onClick = (event) ->
-  console.log "TODO: Implement this"
+  currentEquipid = $(@).data('equipid')
+  currentOrdnum = currentEquipid = $(@).data('ordnum')
+  href = App.Helpers.Href('EditTupleDashboard', 'Add', {redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'UpdateHistoryId'})), dashboard: btoa('HistoryDashboard')}, values: btoa(JSON.stringify({equipid: currentEquipid, ordnum: currentOrdnum})))
+  global.location = href
   @
 
 EquipmentDashboard.init = (defaultUserFilter, fieldsDefinition) ->
