@@ -27,7 +27,6 @@ EditTupleDashboard.functions.bindEventHandlers = ->
 EditTupleDashboard.eventHandlers = {}
 
 
-EditTupleDashboard.init = (fieldsDefinition) ->
-  EditTupleDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition)
+EditTupleDashboard.init = () ->
   EditTupleDashboard.functions.bindEventHandlers()
   @

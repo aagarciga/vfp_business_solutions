@@ -72,8 +72,9 @@ abstract class TupleAction extends Action
 
         $values = array();
         foreach ($fieldsDefinition as $field => $fieldDefinition){
+            $newField = NEW_PREFIX . $field;
             $fieldType = FieldDefinition::getType($fieldDefinition);
-            $values[$field] = $this->Request->hasProperty($field) ? $this->Request->$field : FieldDefinition::getDefaultValueByType($fieldType);
+            $values[$field] = $this->Request->hasProperty($newField) ? $this->Request->$newField : FieldDefinition::getDefaultValueByType($fieldType);
         }
 
         return $values;

@@ -13,6 +13,7 @@ namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Actions;
 
 use Dandelion\GUIDGenerator;
 use Dandelion\MVC\Application\Controllers\TupleAction;
+use Dandelion\Tools\Helpers\FieldDefinition;
 
 /**
  * Class AddTuple_Post
@@ -26,10 +27,28 @@ class AddTuple_Post extends TupleAction
         $values = $this->getValuesRequestParam();
         $valuesRequest = $this->Request->hasProperty('values') ? json_decode(base64_decode($this->Request->values)) : new \stdClass();
 
+        $fieldsDefinition = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
+        foreach ($fieldsDefinition as $field => $fieldDefinition){
+            $isAddAbleField = null;
+            if (isset($valuesRequest->$field)){
+                $value = $valuesRequest->$field;
+                $isAddAbleField = FieldDefinition::isAddAbleFieldIfNullValue($fieldDefinition, $value);
+            }
+            else{
+                $isAddAbleField = FieldDefinition::isAddAbleField($fieldDefinition);
+            }
+            if (!$isAddAbleField && isset($valuesRequest->$field)){
+                unset($values[$field]);
+            }
+            else if (isset($valuesRequest->$field)){
+                unset($valuesRequest->$field);
+            }
+        }
+
         $id = GUIDGenerator::getGUID();
         $this->controller->AddEntity($id, $values, $valuesRequest);
 
-        $this->Request->id = $id;
+        $this->Request->id = base64_encode($id);
         $this->Redirect($redirect->controller, $redirect->action, $this->Request);
     }
 }

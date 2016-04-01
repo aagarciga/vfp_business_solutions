@@ -26,8 +26,7 @@
 
   EditTupleDashboard.eventHandlers = {};
 
-  EditTupleDashboard.init = function(fieldsDefinition) {
-    EditTupleDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition);
+  EditTupleDashboard.init = function() {
     EditTupleDashboard.functions.bindEventHandlers();
     return this;
   };

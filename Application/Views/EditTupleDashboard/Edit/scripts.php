@@ -41,7 +41,7 @@
         // TODO: Convert FileManager in a Controll and put this on it
         App.urls = {};
 
-        EditTupleDashboard.init('<?php echo json_encode($FieldDefinitions) ?>');
+        EditTupleDashboard.init();
 
     }(window, jQuery, App));
 </script>

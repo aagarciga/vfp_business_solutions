@@ -33,6 +33,7 @@ class EquipmentDashboard extends DashboardController
      */
     public function GetFieldsDefinition($companySuffix)
     {
+        $companySuffix = $this->DatUnitOfWork->CompanySuffix;
         $swequipTable = "SWEQUIP$companySuffix";
         $icparmTable = "ICPARM$companySuffix";
         return array(

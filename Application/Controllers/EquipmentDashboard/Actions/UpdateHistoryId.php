@@ -14,7 +14,7 @@ namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Actions;
 use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Core\Exceptions\PropertyNotFoundException;
 
-class UpdateHistoryId_Post extends Action
+class UpdateHistoryId extends Action
 {
     public function Execute()
     {

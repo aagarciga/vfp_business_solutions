@@ -34,9 +34,8 @@ use Dandelion\Tools\Helpers\Builder;
     </nav>
 
     <div class="panel panel-default">
-        <div id="form-editTupleDashboard">
+        <div id="form-addTupleDashboard">
             <?php $query = array(
-                'id' => $Id,
                 'redirect' => $RedirectUrl
             );
             if (!is_null($Values)){
@@ -46,7 +45,7 @@ use Dandelion\Tools\Helpers\Builder;
             else{
                 $values = array();
             }?>
-            <?php Builder::createFormAddTupleDashboard($FieldsDefinition, $View->Href($ControllerName, 'SaveTuple', $query), 'post', $values); ?>
+            <?php Builder::createFormAddTupleDashboard($FieldsDefinition, $View->Href($ControllerName, 'AddTuple', $query), 'post', $values); ?>
         </div>
     </div><!-- /.panel -->
 
