@@ -35,7 +35,6 @@ final class Builder
             'Values' => $values,
             'UrlSubmit' => $urlSubmit,
             'HttpMethodType' => $httpMethodType,
-            'Add' => false,
             'ButtonName' => $buttonName,
         );
 
@@ -49,14 +48,12 @@ final class Builder
      * @param string $buttonName
      */
     public static function createFormAddTupleDashboard($fieldsDefinition, $urlSubmit, $httpMethodType, $buttonName='Add'){
-        $includeFile = HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'formEditTupleDashboard.php';
+        $includeFile = HELPERS_DIR_BUILDER . DIRECTORY_SEPARATOR . 'formAddTupleDashboard.php';
 
         $data = array(
             'FieldsDefinition' => $fieldsDefinition,
-            'Values' => array(),
             'UrlSubmit' => $urlSubmit,
             'HttpMethodType' => $httpMethodType,
-            'Add' => true,
             'ButtonName' => $buttonName,
         );
 

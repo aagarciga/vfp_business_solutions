@@ -14,6 +14,7 @@ namespace Dandelion\MVC\Application\Controllers\EditTupleDashboard\Actions;
 
 use Dandelion\GUIDGenerator;
 use Dandelion\MVC\Core\Action;
+use Dandelion\MVC\Application\Tools\Controller;
 
 class Add extends Action
 {
@@ -24,7 +25,7 @@ class Add extends Action
     {
         $this->Title = 'Add Tuple Dashboard | VFP Business Series';
 
-        $dashboardController = Controller::getDashboardControllerFromRequest($this);
+        $dashboardController = Controller::getDashboardControllerFromRequest($this->controller, $this);
 
         $this->RedirectUrl = $this->Request->hasProperty('redirect') ? $this->Request->redirect : '';
         $this->Values = $this->Request->hasProperty('values') ? $this->Request->values : null;

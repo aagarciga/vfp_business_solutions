@@ -30,6 +30,17 @@ final class FieldDefinition
         return array_key_exists(AddAble_KEY, $fieldDefinition) ? $fieldDefinition[AddAble_KEY] : true;
     }
 
+    public static function isAddAbleFieldIfNullValue($fieldDefinition, $value){
+        $addAbleIfNull = array_key_exists(ADD_ABLE_IF_NULL_KEY, $fieldDefinition) ? $fieldDefinition[ADD_ABLE_IF_NULL_KEY] : false;
+        if (!self::isAddAbleField($fieldDefinition)){
+            $fieldType = self::getType($fieldDefinition);
+            $defaultValue = self::getDefaultValueByType($fieldType);
+            return $addAbleIfNull && $defaultValue === $value;
+        }
+
+        return true;
+    }
+
     /**
      * @param array $fieldDefinition
      * @return bool
