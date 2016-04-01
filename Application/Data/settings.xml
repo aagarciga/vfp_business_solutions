@@ -17,6 +17,51 @@
             <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" IdName="warehouse-management" VisibilityCondition="FullFeatures"/>
             <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"/>
         </Menu>
+        <Controllers>
+            <Controller Name="default" Type="Dashboard">
+                <Attachments>
+                    <FileStructure>
+                        <Dir Name="Freights"></Dir>
+                        <Dir Name="Miscellaneous"></Dir>
+                        <Dir Name="POs and Invoices from OMG"></Dir>
+                        <Dir Name="POs and Invoices from WMS"></Dir>
+                        <Dir Name="Quotation-PO-Invoice"></Dir>
+                        <Dir Name="Reports and Files"></Dir>
+                        <Dir Name="Time Sheets"></Dir>
+                        <Dir Name="Tool Box"></Dir>
+                        <Dir Name="Travel Expenses"></Dir>
+                    </FileStructure>
+                </Attachments>
+                <Predicate>
+                </Predicate>
+            </Controller>
+            <Controller Name="EquipmentDashboard" Type="Dashboard">
+                <Attachments>
+                    <FileStructure>
+                        <Dir Name="Freights"></Dir>
+                        <Dir Name="Miscellaneous"></Dir>
+                        <Dir Name="POs and Invoices from OMG"></Dir>
+                        <Dir Name="POs and Invoices from WMS"></Dir>
+                        <Dir Name="Quotation-PO-Invoice"></Dir>
+                        <Dir Name="Reports and Files"></Dir>
+                        <Dir Name="Time Sheets"></Dir>
+                        <Dir Name="Tool Box"></Dir>
+                        <Dir Name="Travel Expenses"></Dir>
+                    </FileStructure>
+                </Attachments>
+                <Predicate>
+                </Predicate>
+            </Controller>
+            <Controller Name="InventoryDashboard" Type="Dashboard">
+                <Predicate Id="default">
+                    LOWER(TRIM(ITEMTYPE)) = 'inventory' OR LOWER(TRIM(ITEMTYPE)) = 'group' OR
+                    LOWER(TRIM(ITEMTYPE)) = 'kit' OR LOWER(TRIM(ITEMTYPE)) = 'toplvlassy' OR LOWER(TRIM(ITEMTYPE)) =
+                    'subassy' OR
+                    LOWER(TRIM(ITEMTYPE)) = 'rawmatrl' OR LOWER(TRIM(ITEMTYPE)) = 'component'
+                </Predicate>
+            </Controller>
+        </Controllers>
+
         <Controller Name="default" Type="Dashboard">
             <Attachments>
                 <FileStructure>
@@ -34,7 +79,23 @@
             <Predicate>
             </Predicate>
         </Controller>
-
+        <Controller Name="EquipmentDashboard" Type="Dashboard">
+            <Attachments>
+                <FileStructure>
+                    <Dir Name="Freights"></Dir>
+                    <Dir Name="Miscellaneous"></Dir>
+                    <Dir Name="POs and Invoices from OMG"></Dir>
+                    <Dir Name="POs and Invoices from WMS"></Dir>
+                    <Dir Name="Quotation-PO-Invoice"></Dir>
+                    <Dir Name="Reports and Files"></Dir>
+                    <Dir Name="Time Sheets"></Dir>
+                    <Dir Name="Tool Box"></Dir>
+                    <Dir Name="Travel Expenses"></Dir>
+                </FileStructure>
+            </Attachments>
+            <Predicate>
+            </Predicate>
+        </Controller>
         <Controller Name="InventoryDashboard" Type="Dashboard">
             <Predicate Id="default">
                 LOWER(TRIM(ITEMTYPE)) = 'inventory' OR LOWER(TRIM(ITEMTYPE)) = 'group' OR

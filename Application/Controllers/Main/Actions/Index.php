@@ -33,11 +33,14 @@ class Index extends Action {
     private function getMainPanelEntries(){
         $result = "";
         $application = $this->Request->Application;
+
+        // Get Current Company or Default instead
         $currentCompany = $application->getCompany($_SESSION['usercomp']);
         if($currentCompany == ''){
             // Default Company Configuration
             $currentCompany = $application->getCompany();
         }
+
         $companyMenuEntries = $currentCompany->Menu->MenuEntry;
         foreach ($companyMenuEntries as $menuEntry) {
 

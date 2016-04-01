@@ -7,8 +7,7 @@
 namespace Dandelion\MVC\Application\Controllers;
 
 use Dandelion\MVC\Core\ActionsController ;
-use Dandelion\MVC\Core\Application;
-use Dandelion\MVC\Core\Request;
+use Dandelion\MVC\Application\Application;
 
 /**
  * VFP Business Series File Manager Controller
@@ -41,10 +40,37 @@ class TreeViewManager extends ActionsController {
      * Default Folder Structure
      * @param string $rootDir
      */
-    public function CreateDefaultFolderStructure($rootDir) {
+    public function CreateDefaultFolderStructure($rootDir, $controllerName = 'default') {
         if (!is_dir($rootDir)) {
             mkdir($rootDir);
         }
+
+        $application = new Application();
+
+        // Get Current Company or Default instead
+        $defaultCompany = $application->getCompany();
+        $currentCompany = $application->getCompany($_SESSION['usercomp']);
+
+        $controllers = $currentCompany->Controllers;
+        if($controllers == ''){
+            $controllers = $defaultCompany->Controllers;
+        }
+
+        $controller = Application::getXmlObjectByAttribute($controllers->Controller, 'Name', $controllerName);
+
+
+
+//
+//
+//
+//        foreach($controllers as $controller){
+//
+//        }
+
+        error_log('Controllers >>>>'. print_r($controller, true));
+
+
+
 
         // /[ROOTDIR]/Freights
         $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Freights';
