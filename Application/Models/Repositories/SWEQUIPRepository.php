@@ -80,6 +80,13 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
     }
 
     public function UpdateHistoryId($equipmentId, $id){
-        //TODO: Implement here.
+        $tableName = $this->entityName . $this->companySuffix;
+
+        $sqlString = "UPDATE $tableName SET " .
+            "[qbtxlineid] = '$id' " .
+            "WHERE [equipid] = '$equipmentId'";
+
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
     }
 }

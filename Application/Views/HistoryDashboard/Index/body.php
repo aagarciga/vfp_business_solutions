@@ -156,15 +156,6 @@ use Dandelion\Tools\Helpers\FieldDefinition;
                                     <td class="item-field"><?php echo $item->$field ?></td>
                                 <?php endif; ?>
                             <?php endforeach ?>
-                            <td class="item-action item-files">
-                                <a href="<?php echo $View->Href('EditTupleDashboard', 'Edit', array(
-                                    'values' => base64_encode(json_encode(FieldDefinition::modelToArray($item, $FieldsDefinitions))),
-                                    'dashboard' => 'HistoryDashboard'
-                                    )); ?>"
-                                   class="btn-files-dialog btn-action btn btn-default">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </a>
-                            </td>
                         </tr>
                     <?php endforeach ?>
                     </body>
