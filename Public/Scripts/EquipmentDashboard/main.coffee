@@ -154,13 +154,6 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result.appendChild(tdAttachedFilesBuilder());
   result
 
-EquipmentDashboard.functions.executeEditLink = (dataValue, currentEquipid, currentOrdnum) ->
-  qbtxlineid = dataValue
-  href = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: btoa(qbtxlineid), redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'})), dashboard: btoa('HistoryDashboard')})
-  global.location = href
-  #for add button , values: btoa(JSON.stringify({equipid: currentEquipid, ordnum: currentOrdnum}))
-  @
-
 EquipmentDashboard.functions.bindTableItemsEventHandlers = ->
 #  $(ARDashboard.htmlBindings.table_body_btnCustNo).on('click', ARDashboard.eventHandlers.table_body_btnCustNo_onClick)
 #  $('select.select2-nosearch').select2({minimumResultsForSearch: Infinity})
@@ -261,10 +254,12 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
   @
 
 EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick = (event) ->
-  currentEquipid = $(@).data('equipid')
   dataValue = $(@).data('qbtxlineid')
-  currentOrdnum = currentEquipid = $(@).data('ordnum')
-  EquipmentDashboard.functions.executeEditLink(dataValue, currentEquipid, currentOrdnum)
+  console.log(dataValue)
+  if (dataValue != undefined && dataValue != '')
+    qbtxlineid = dataValue
+    href = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: btoa(qbtxlineid), redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'})), dashboard: btoa('HistoryDashboard')})
+    global.location = href
   @
 
 EquipmentDashboard.eventHandlers.table_body_btnAdd_onClick = (event) ->

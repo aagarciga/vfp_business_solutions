@@ -210,21 +210,6 @@
     return result;
   };
 
-  EquipmentDashboard.functions.executeEditLink = function(dataValue, currentEquipid, currentOrdnum) {
-    var href, qbtxlineid;
-    qbtxlineid = dataValue;
-    href = App.Helpers.Href('EditTupleDashboard', 'Edit', {
-      id: btoa(qbtxlineid),
-      redirect: btoa(JSON.stringify({
-        controller: 'EquipmentDashboard',
-        action: 'Index'
-      })),
-      dashboard: btoa('HistoryDashboard')
-    });
-    global.location = href;
-    return this;
-  };
-
   EquipmentDashboard.functions.bindTableItemsEventHandlers = function() {
     $(EquipmentDashboard.htmlBindings.table_body_btnAttach).on('click', EquipmentDashboard.eventHandlers.table_body_btnAttach_onClick);
     $(EquipmentDashboard.htmlBindings.table_body_drpStatus).on('change', EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange);
@@ -326,11 +311,21 @@
   };
 
   EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick = function(event) {
-    var currentEquipid, currentOrdnum, dataValue;
-    currentEquipid = $(this).data('equipid');
+    var dataValue, href, qbtxlineid;
     dataValue = $(this).data('qbtxlineid');
-    currentOrdnum = currentEquipid = $(this).data('ordnum');
-    EquipmentDashboard.functions.executeEditLink(dataValue, currentEquipid, currentOrdnum);
+    console.log(dataValue);
+    if (dataValue !== void 0 && dataValue !== '') {
+      qbtxlineid = dataValue;
+      href = App.Helpers.Href('EditTupleDashboard', 'Edit', {
+        id: btoa(qbtxlineid),
+        redirect: btoa(JSON.stringify({
+          controller: 'EquipmentDashboard',
+          action: 'Index'
+        })),
+        dashboard: btoa('HistoryDashboard')
+      });
+      global.location = href;
+    }
     return this;
   };
 
