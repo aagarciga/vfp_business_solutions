@@ -24,9 +24,10 @@ class GetNode extends Action {
 
         $rootDir = $this->Request->hasProperty('rootDir') ? $this->Request->rootDir : '';
         $id = $this->Request->hasProperty('id') ? $this->Request->id : '';
+        $controllerName = $this->Request->hasProperty('controllerName') ? $this->Request->controllerName : '';
 
         $filePath = $this->controller->BuildPath($rootDir);
-        $this->controller->CreateDefaultFolderStructure($filePath);
+        $this->controller->CreateDefaultFolderStructure($filePath, $controllerName);
         $fileSystem = new FileSystem($filePath);
         $result = null;
         try{

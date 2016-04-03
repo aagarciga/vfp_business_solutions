@@ -30,7 +30,8 @@
         <!-- Default panel contents -->
         <div class="panel-heading">
 
-                Projects
+                <span class="panel-title">Equipments</span>
+
                 <span id="panelHeadingItemsCount" class="badge">
                     <?php echo $Pager->getItemsCount(); ?>
                 </span>

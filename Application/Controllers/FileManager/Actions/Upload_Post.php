@@ -25,7 +25,6 @@ class Upload_Post extends Action {
         $selectedDir  = $this->Request->hasProperty('selectedDir') ? $this->Request->selectedDir : '';
 
         $filePath = $this->controller->BuildPath($rootDir, $selectedDir);
-        $result = json_encode('{success: false}');
 
         if(!empty($_FILES)){
             if (!is_dir($filePath)) {

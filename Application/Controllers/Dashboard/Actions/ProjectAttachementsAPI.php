@@ -9,6 +9,7 @@ namespace Dandelion\MVC\Application\Controllers\Dashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\FileSystem;
+use Dandelion\MVC\Application\Application;
 
 class ProjectAttachementsAPI extends Action {
 
@@ -33,7 +34,7 @@ class ProjectAttachementsAPI extends Action {
                 DIRECTORY_SEPARATOR . "Uploads" .
                 DIRECTORY_SEPARATOR . $salesorder;
         
-        $this->createDefaultFolderStructure($rootDir);
+        $this->createDefaultFolderStructure($rootDir, $this->Request->Controller);
 
         $fs = new FileSystem($rootDir);
         try {
@@ -80,60 +81,41 @@ class ProjectAttachementsAPI extends Action {
             return $e->getMessage();
         }
     }
-    
+
     /**
-     * Default Sales Order Folder Structure
-     * @param string $rootDir
+     * Create Folder Structure by settings
+     *
+     * @param $rootDir
+     * @param string $controllerName
      */
-    private function createDefaultFolderStructure($rootDir) {
+    private function createDefaultFolderStructure($rootDir, $controllerName = 'default') {
+        // TODO: Refactor this: same code @ TreeViewManager
         if (!is_dir($rootDir)) { // mkdir(path, mode, recursive = bool)
             mkdir($rootDir);
         }
+        $application = new Application();
+        // Get Current Company or Default instead
+        $defaultCompany = $application->getCompany();
+        $currentCompany = $application->getCompany($_SESSION['usercomp']);
+        $controllers = $currentCompany->Controllers;
+        if($controllers == ''){
+            $controllers = $defaultCompany->Controllers;
+        }
 
-        // /[SALESORDER]/Freights
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Freights'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
+        // Get current Controller configuration or default instead
+        $controllerArray = array();
+        foreach ($controllers->Controller as $xmlObject){
+            $controllerArray []= $xmlObject;
         }
-        // /[SALESORDER]/Miscellaneous
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Miscellaneous'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
+        $controller = Application::getXmlObjectByAttribute($controllerArray, 'Name', $controllerName);
+        if($controller == ''){
+            $controller = Application::getXmlObjectByAttribute($controllerArray, 'Name', 'default');
         }
-        // /[SALESORDER]/POs and Invoices from OMG
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'POs and Invoices from OMG'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[SALESORDER]/POs and Invoices from WMS
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'POs and Invoices from WMS'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[SALESORDER]/Quotation-PO-Invoice
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Quotation-PO-Invoice'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[SALESORDER]/Reports and Files
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Reports and Files'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[SALESORDER]/Time Sheets
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Time Sheets'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[SALESORDER]/Tool Box
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Tool Box'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[SALESORDER]/Travel Expenses
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Travel Expenses'; 
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
+        foreach($controller->Attachments->FileStructure->Dir as $directory){
+            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.$directory['Name'];
+            if (!is_dir($currentStructureDir)) {
+                mkdir($currentStructureDir);
+            }
         }
     }
 

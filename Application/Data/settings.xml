@@ -8,15 +8,62 @@
     <!--<DB Name="dat00.add" Manager="AdvantageODBC" Host="\Fermen\VFPAcct\DAT00\" User="" Password="" ServerType="Local"/>-->
     <Company id="default">
         <Menu>
-            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"></MenuEntry>
-            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard"></MenuEntry>
-            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard"></MenuEntry>
-            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard"></MenuEntry>
-            <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard"></MenuEntry>
-            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" VisibilityCondition="ShowFiancialDashboard"></MenuEntry>
-            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" VisibilityCondition="FullFeatures"></MenuEntry>
-            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"></MenuEntry>
+            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"/>
+            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard" IdName="quote-dashboard"/>
+            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard" IdName="sales-order-dashboard"/>
+            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard" IdName="inventory-dashboard"/>
+            <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard" IdName="equipment-dashboard"/>
+            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" IdName="financial-dashboard" VisibilityCondition="ShowFiancialDashboard"/>
+            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" IdName="warehouse-management" VisibilityCondition="FullFeatures"/>
+            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"/>
         </Menu>
+        <Controllers>
+            <Controller Name="default" Type="Dashboard">
+                <Attachments>
+                    <FileStructure>
+                        <Dir Name="Default Dashboard Attachments"></Dir>
+                        <Dir Name="Freights"></Dir>
+                        <Dir Name="Miscellaneous"></Dir>
+                        <Dir Name="POs and Invoices from OMG"></Dir>
+                        <Dir Name="POs and Invoices from WMS"></Dir>
+                        <Dir Name="Quotation-PO-Invoice"></Dir>
+                        <Dir Name="Reports and Files"></Dir>
+                        <Dir Name="Time Sheets"></Dir>
+                        <Dir Name="Tool Box"></Dir>
+                        <Dir Name="Travel Expenses"></Dir>
+                    </FileStructure>
+                </Attachments>
+                <Predicate>
+                </Predicate>
+            </Controller>
+            <Controller Name="EquipmentDashboard" Type="Dashboard">
+                <Attachments>
+                    <FileStructure>
+                        <Dir Name="Equipment Dashboard"></Dir>
+                        <Dir Name="Freights"></Dir>
+                        <Dir Name="Miscellaneous"></Dir>
+                        <Dir Name="POs and Invoices from OMG"></Dir>
+                        <Dir Name="POs and Invoices from WMS"></Dir>
+                        <Dir Name="Quotation-PO-Invoice"></Dir>
+                        <Dir Name="Reports and Files"></Dir>
+                        <Dir Name="Time Sheets"></Dir>
+                        <Dir Name="Tool Box"></Dir>
+                        <Dir Name="Travel Expenses"></Dir>
+                    </FileStructure>
+                </Attachments>
+                <Predicate>
+                </Predicate>
+            </Controller>
+            <Controller Name="InventoryDashboard" Type="Dashboard">
+                <Predicate Id="default">
+                    LOWER(TRIM(ITEMTYPE)) = 'inventory' OR LOWER(TRIM(ITEMTYPE)) = 'group' OR
+                    LOWER(TRIM(ITEMTYPE)) = 'kit' OR LOWER(TRIM(ITEMTYPE)) = 'toplvlassy' OR LOWER(TRIM(ITEMTYPE)) =
+                    'subassy' OR
+                    LOWER(TRIM(ITEMTYPE)) = 'rawmatrl' OR LOWER(TRIM(ITEMTYPE)) = 'component'
+                </Predicate>
+            </Controller>
+        </Controllers>
+        <!-- Refactoring here... -->
         <Controller Name="default" Type="Dashboard">
             <Attachments>
                 <FileStructure>
@@ -34,7 +81,23 @@
             <Predicate>
             </Predicate>
         </Controller>
-
+        <Controller Name="EquipmentDashboard" Type="Dashboard">
+            <Attachments>
+                <FileStructure>
+                    <Dir Name="Freights"></Dir>
+                    <Dir Name="Miscellaneous"></Dir>
+                    <Dir Name="POs and Invoices from OMG"></Dir>
+                    <Dir Name="POs and Invoices from WMS"></Dir>
+                    <Dir Name="Quotation-PO-Invoice"></Dir>
+                    <Dir Name="Reports and Files"></Dir>
+                    <Dir Name="Time Sheets"></Dir>
+                    <Dir Name="Tool Box"></Dir>
+                    <Dir Name="Travel Expenses"></Dir>
+                </FileStructure>
+            </Attachments>
+            <Predicate>
+            </Predicate>
+        </Controller>
         <Controller Name="InventoryDashboard" Type="Dashboard">
             <Predicate Id="default">
                 LOWER(TRIM(ITEMTYPE)) = 'inventory' OR LOWER(TRIM(ITEMTYPE)) = 'group' OR
@@ -47,15 +110,37 @@
 
     <Company id="05">
         <Menu>
-            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"></MenuEntry>
-            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard"></MenuEntry>
-            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard"></MenuEntry>
-            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard"></MenuEntry>
-            <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard"></MenuEntry>
-            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" VisibilityCondition="ShowFiancialDashboard"></MenuEntry>
-            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" VisibilityCondition="FullFeatures"></MenuEntry>
-            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"></MenuEntry>
+            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"/>
+            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard" IdName="quote-dashboard"/>
+            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard" IdName="sales-order-dashboard"/>
+            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard" IdName="inventory-dashboard"/>
+            <MenuEntry Controller="EquipmentDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard" IdName="equipment-dashboard"/>
+            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" IdName="financial-dashboard" VisibilityCondition="ShowFiancialDashboard"/>
+            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" IdName="warehouse-management" VisibilityCondition="FullFeatures"/>
+            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"/>
         </Menu>
+        <!-- HERE YOU CAN DECLARE SPECIFIC SETTINGS FOR COMPANY'S CONTROLLERS -->
+        <!--<Controllers>-->
+            <!--<Controller Name="EquipmentDashboard" Type="Dashboard">-->
+                <!--<Attachments>-->
+                    <!--<FileStructure>-->
+                        <!--<Dir Name="Equipment Dashboard"></Dir>-->
+                        <!--<Dir Name="Freights"></Dir>-->
+                        <!--<Dir Name="Miscellaneous"></Dir>-->
+                        <!--<Dir Name="POs and Invoices from OMG"></Dir>-->
+                        <!--<Dir Name="POs and Invoices from WMS"></Dir>-->
+                        <!--<Dir Name="Quotation-PO-Invoice"></Dir>-->
+                        <!--<Dir Name="Reports and Files"></Dir>-->
+                        <!--<Dir Name="Time Sheets"></Dir>-->
+                        <!--<Dir Name="Tool Box"></Dir>-->
+                        <!--<Dir Name="Travel Expenses"></Dir>-->
+                    <!--</FileStructure>-->
+                <!--</Attachments>-->
+                <!--<Predicate>-->
+                <!--</Predicate>-->
+            <!--</Controller>-->
+        <!--</Controllers>-->
+
     </Company>
 
 
