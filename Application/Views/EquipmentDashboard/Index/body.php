@@ -196,21 +196,21 @@
                             <td class="item-field"><?php echo $item->getAssetTag() ?></td>
                             <td class="item-field"><?php echo $item->getLocno() ?></td>
                             <td class="item-action item-files">
-                                <a href="#" class="btn-files-dialog btn-action btn btn-default" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a>
+                                <a href="#" class="btn-files-dialog btn-action btn btn-default btn-sm" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a>
                                 <?php $pictureHref = $item->getPictureFi() ?>
 
-                                <a href="#" class="btn-edit btn-action btn btn-default" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-equipid="<?php echo $item->getEquipid(); ?>" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                <a href="#" class="btn-edit btn-action btn btn-default btn-sm" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-equipid="<?php echo $item->getEquipid(); ?>" data-ordnum="<?php echo $item->getOrdnum() ?>">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>
-                                <a href="#" class="btn-add btn-action btn btn-default" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-equipid="<?php echo $item->getEquipid(); ?>" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                <a href="#" class="btn-add btn-action btn btn-default btn-sm" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-equipid="<?php echo $item->getEquipid(); ?>" data-ordnum="<?php echo $item->getOrdnum() ?>">
                                     <span class="glyphicon glyphicon-plus-sign"></span>
                                 </a>
                                 <?php if ($pictureHref !== "#"):?>
-                                    <a class="btn-action"" href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getEquipid() ?>">
+                                    <a class="btn btn-default btn-action btn-sm" href="<?php echo $pictureHref ?>" data-lightbox="<?php echo $item->getEquipid() ?>">
                                         <span class="glyphicon glyphicon-eye-open"></span>
                                     </a>
                                 <?php else: ?>
-                                <a class="btn btn-default">
+                                <a class="btn btn-default btn-action btn-sm">
                                     <span class="glyphicon glyphicon-eye-open btn-action"></span>
                                 </a>
 
