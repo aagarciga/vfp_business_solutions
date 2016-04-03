@@ -52,7 +52,7 @@
   >
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT Company (Controller|Menu)*>
+<!ELEMENT Company (Controllers|Menu)*>
 <!ATTLIST Company
     id CDATA #IMPLIED
   >
@@ -70,6 +70,9 @@
     Action CDATA #IMPLIED
     Controller CDATA #IMPLIED
   >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Controllers (Controller)*>
 
 <!--- Put your DTDDoc comment here. -->
 <!ELEMENT Controller (Predicate|Attachments)*>

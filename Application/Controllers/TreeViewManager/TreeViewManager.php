@@ -37,85 +37,39 @@ class TreeViewManager extends ActionsController {
     }
 
     /**
-     * Default Folder Structure
-     * @param string $rootDir
+     * Create Folder Structure by settings
+     *
+     * @param $rootDir
+     * @param string $controllerName
      */
     public function CreateDefaultFolderStructure($rootDir, $controllerName = 'default') {
-        if (!is_dir($rootDir)) {
+        // TODO: Refactor this: same code @ ProjectAttachmentsApi
+        if (!is_dir($rootDir)) { // mkdir(path, mode, recursive = bool)
             mkdir($rootDir);
         }
-
         $application = new Application();
-
         // Get Current Company or Default instead
         $defaultCompany = $application->getCompany();
         $currentCompany = $application->getCompany($_SESSION['usercomp']);
-
         $controllers = $currentCompany->Controllers;
         if($controllers == ''){
             $controllers = $defaultCompany->Controllers;
         }
 
-        $controller = Application::getXmlObjectByAttribute($controllers->Controller, 'Name', $controllerName);
-
-
-
-//
-//
-//
-//        foreach($controllers as $controller){
-//
-//        }
-
-        error_log('Controllers >>>>'. print_r($controller, true));
-
-
-
-
-        // /[ROOTDIR]/Freights
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Freights';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
+        // Get current Controller configuration or default instead
+        $controllerArray = array();
+        foreach ($controllers->Controller as $xmlObject){
+            $controllerArray []= $xmlObject;
         }
-        // /[ROOTDIR]/Miscellaneous
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Miscellaneous';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
+        $controller = Application::getXmlObjectByAttribute($controllerArray, 'Name', $controllerName);
+        if($controller == ''){
+            $controller = Application::getXmlObjectByAttribute($controllerArray, 'Name', 'default');
         }
-        // /[ROOTDIR]/POs and Invoices from OMG
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'POs and Invoices from OMG';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[ROOTDIR]/POs and Invoices from WMS
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'POs and Invoices from WMS';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[ROOTDIR]/Quotation-PO-Invoice
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Quotation-PO-Invoice';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[ROOTDIR]/Reports and Files
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Reports and Files';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[ROOTDIR]/Time Sheets
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Time Sheets';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[ROOTDIR]/Tool Box
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Tool Box';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
-        }
-        // /[ROOTDIR]/Travel Expenses
-        $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.'Travel Expenses';
-        if (!is_dir($currentStructureDir)) {
-            mkdir($currentStructureDir);
+        foreach($controller->Attachments->FileStructure->Dir as $directory){
+            $currentStructureDir = $rootDir.DIRECTORY_SEPARATOR.$directory['Name'];
+            if (!is_dir($currentStructureDir)) {
+                mkdir($currentStructureDir);
+            }
         }
     }
 

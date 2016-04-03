@@ -12,6 +12,7 @@
     var dandelion = global.dandelion,
         ProjectFiles = dandelion.namespace('App.EquipmentDashboard.ProjectFiles', global);
 
+    ProjectFiles.controllerName = "EquipmentDashboard";
     ProjectFiles.status = {};
     ProjectFiles.status.dropzone = null;
     ProjectFiles.status.jsTree = null;
@@ -67,7 +68,7 @@
                 },
                 data : {
                     //url : App.Dashboard.urls.projectAttachementsAPI + '&salesorder=' + currentSalesOrder + '&operation=get_node',
-                    url: App.urls.treeViewManager.getNode + '&rootDir=' + rootDir,
+                    url: App.urls.treeViewManager.getNode + '&rootDir=' + rootDir + '&controllerName=' + ProjectFiles.controllerName,
                     data : function (node) {
                         return { 'id' : node.id };
                     }
@@ -126,7 +127,8 @@
                 var params = {
                     rootDir: rootDir,
                     operation: event.type,
-                    'id' : data.node.id
+                    'id' : data.node.id,
+                    controllerName: ProjectFiles.controllerName
                 };
 
                 $('.loading').show();
@@ -145,7 +147,8 @@
                     operation: event.type,
                     'type' : data.node.type,
                     'id' : data.node.parent,
-                    'text' : data.node.text
+                    'text' : data.node.text,
+                    controllerName: ProjectFiles.controllerName
                 };
 
                 $('.loading').show();
@@ -164,7 +167,8 @@
                     rootDir: rootDir,
                     operation: event.type,
                     'id' : data.node.id,
-                    'text' : data.text
+                    'text' : data.text,
+                    controllerName: ProjectFiles.controllerName
                 };
 
                 $('.loading').show();
@@ -183,7 +187,8 @@
                     rootDir: rootDir,
                     operation: event.type,
                     'id' : data.node.id,
-                    'parent' : data.parent
+                    'parent' : data.parent,
+                    controllerName: ProjectFiles.controllerName
                 };
 
                 $('.loading').show();
@@ -202,7 +207,8 @@
                     rootDir: rootDir,
                     operation: event.type,
                     'id' : data.original.id,
-                    'parent' : data.parent
+                    'parent' : data.parent,
+                    controllerName: ProjectFiles.controllerName
                 };
 
                 $('.loading').show();

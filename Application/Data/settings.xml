@@ -21,6 +21,7 @@
             <Controller Name="default" Type="Dashboard">
                 <Attachments>
                     <FileStructure>
+                        <Dir Name="Default Dashboard Attachments"></Dir>
                         <Dir Name="Freights"></Dir>
                         <Dir Name="Miscellaneous"></Dir>
                         <Dir Name="POs and Invoices from OMG"></Dir>
@@ -38,6 +39,7 @@
             <Controller Name="EquipmentDashboard" Type="Dashboard">
                 <Attachments>
                     <FileStructure>
+                        <Dir Name="Equipment Dashboard"></Dir>
                         <Dir Name="Freights"></Dir>
                         <Dir Name="Miscellaneous"></Dir>
                         <Dir Name="POs and Invoices from OMG"></Dir>
@@ -61,7 +63,7 @@
                 </Predicate>
             </Controller>
         </Controllers>
-
+        <!-- Refactoring here... -->
         <Controller Name="default" Type="Dashboard">
             <Attachments>
                 <FileStructure>
@@ -117,6 +119,28 @@
             <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" IdName="warehouse-management" VisibilityCondition="FullFeatures"/>
             <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"/>
         </Menu>
+        <!-- HERE YOU CAN DECLARE SPECIFIC SETTINGS FOR COMPANY'S CONTROLLERS -->
+        <!--<Controllers>-->
+            <!--<Controller Name="EquipmentDashboard" Type="Dashboard">-->
+                <!--<Attachments>-->
+                    <!--<FileStructure>-->
+                        <!--<Dir Name="Equipment Dashboard"></Dir>-->
+                        <!--<Dir Name="Freights"></Dir>-->
+                        <!--<Dir Name="Miscellaneous"></Dir>-->
+                        <!--<Dir Name="POs and Invoices from OMG"></Dir>-->
+                        <!--<Dir Name="POs and Invoices from WMS"></Dir>-->
+                        <!--<Dir Name="Quotation-PO-Invoice"></Dir>-->
+                        <!--<Dir Name="Reports and Files"></Dir>-->
+                        <!--<Dir Name="Time Sheets"></Dir>-->
+                        <!--<Dir Name="Tool Box"></Dir>-->
+                        <!--<Dir Name="Travel Expenses"></Dir>-->
+                    <!--</FileStructure>-->
+                <!--</Attachments>-->
+                <!--<Predicate>-->
+                <!--</Predicate>-->
+            <!--</Controller>-->
+        <!--</Controllers>-->
+
     </Company>
 
 
