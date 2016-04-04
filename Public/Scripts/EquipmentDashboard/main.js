@@ -357,9 +357,8 @@
   };
 
   EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick = function(event) {
-    var dataValue, href, oldValues, qbtxlineid;
+    var dataValue, href, qbtxlineid;
     dataValue = $(this).data('qbtxlineid');
-    oldValues = $(this).data('old_values');
     if (dataValue !== void 0 && dataValue !== '') {
       qbtxlineid = dataValue;
       href = App.Helpers.Href('EditTupleDashboard', 'Edit', {
@@ -368,8 +367,7 @@
           controller: 'EquipmentDashboard',
           action: 'Index'
         })),
-        dashboard: btoa('HistoryDashboard'),
-        values: oldValues
+        dashboard: btoa('HistoryDashboard')
       });
       global.location = href;
     }

@@ -199,12 +199,7 @@
                                 <div class="btn-group">
                                     <a href="#" class="btn-files-dialog btn-action btn btn-default btn-sm" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a>
                                     <?php $pictureHref = $item->getPictureFi() ?>
-
-                                    <?php
-                                    $values = \Dandelion\Tools\Helpers\FieldDefinition::modelToArray($item, $FieldsDefinition);
-                                    $strValue = base64_encode(json_encode($values));
-                                    ?>
-                                    <a href="#" class="btn-edit btn-action btn btn-default btn-sm" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-old_values="<?php echo $strValue; ?>">
+                                    <a href="#" class="btn-edit btn-action btn btn-default btn-sm" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
                                     <a href="#" class="btn-add btn-action btn btn-default btn-sm" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-equipid="<?php echo $item->getEquipid(); ?>" data-ordnum="<?php echo $item->getOrdnum() ?>">

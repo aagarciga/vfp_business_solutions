@@ -8,6 +8,8 @@
  */
 
 namespace Dandelion\MVC\Application\Controllers\HistoryDashboard\Models;
+
+
 use Dandelion\MVC\Application\Tools\Dictionary;
 
 /**
