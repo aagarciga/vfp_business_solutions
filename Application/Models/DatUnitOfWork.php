@@ -216,6 +216,14 @@ class DatUnitOfWork extends UnitOfWork {
     public $SWEQUIPRepository;
 
     /**
+     *
+     * @var SWEQUIPDRepository
+     */
+    public $SWEQUIPDRepository;
+
+
+
+    /**
      * 
      * @param Interfaces\IDBDriver $dbDriver
      */
@@ -255,7 +263,6 @@ class DatUnitOfWork extends UnitOfWork {
         $this->ARCUSTRepository = new Repositories\ARCUSTRepository($dbDriver, Entities\ARCUST::toString(), $companySuffix);
         $this->APVENDRepository = new Repositories\APVENDRepository($dbDriver, Entities\APVEND::toString(), $companySuffix);
         $this->SWEQUIPRepository = new Repositories\SWEQUIPRepository($dbDriver, Entities\SWEQUIP::toString(), $companySuffix);
-
+        $this->SWEQUIPDRepository = new Repositories\SWEQUIPDRepository($dbDriver, Entities\SWEQUIPD::toString(), $companySuffix);
     }
-
 }
