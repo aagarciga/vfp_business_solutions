@@ -177,7 +177,7 @@
                             <td class="item-field">
                                 <select class="form-control update-dropdown status select2-nosearch" data-equipid="<?php echo $item->getEquipid() ?>">
                                     <option>Empty</option>
-                                    <?php foreach ($FieldDefinitions['status']['values'] as $id => $descript): ?>
+                                    <?php foreach ($FieldsDefinition['status']['values'] as $id => $descript): ?>
                                         <option <?php echo ($item->getStatus() !== $id) ? '' : 'selected="selected"' ?>  value="<?php echo $id ?>" ><?php echo $descript ?></option>
                                     <?php endforeach ?>
                                 </select>
@@ -200,7 +200,11 @@
                                     <a href="#" class="btn-files-dialog btn-action btn btn-default btn-sm" data-equipid="<?php echo $item->getEquipid() ?>"><span class="glyphicon glyphicon-folder-close"></span></a>
                                     <?php $pictureHref = $item->getPictureFi() ?>
 
-                                    <a href="#" class="btn-edit btn-action btn btn-default btn-sm" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-equipid="<?php echo $item->getEquipid(); ?>" data-ordnum="<?php echo $item->getOrdnum() ?>">
+                                    <?php
+                                    $values = \Dandelion\Tools\Helpers\FieldDefinition::modelToArray($item, $FieldsDefinition);
+                                    $strValue = base64_encode(json_encode($values));
+                                    ?>
+                                    <a href="#" class="btn-edit btn-action btn btn-default btn-sm" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-old_values="<?php echo $strValue; ?>">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
                                     <a href="#" class="btn-add btn-action btn btn-default btn-sm" data-qbtxlineid="<?php echo $item->getQbtxlineid(); ?>" data-equipid="<?php echo $item->getEquipid(); ?>" data-ordnum="<?php echo $item->getOrdnum() ?>">

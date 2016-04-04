@@ -295,10 +295,10 @@ EquipmentDashboard.eventHandlers.table_body_dprStatus_onChange = (event) ->
 
 EquipmentDashboard.eventHandlers.table_body_btnEdit_onClick = (event) ->
   dataValue = $(@).data('qbtxlineid')
-  console.log(dataValue)
+  oldValues = $(@).data('old_values')
   if (dataValue != undefined && dataValue != '')
     qbtxlineid = dataValue
-    href = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: btoa(qbtxlineid), redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'})), dashboard: btoa('HistoryDashboard')})
+    href = App.Helpers.Href('EditTupleDashboard', 'Edit', {id: btoa(qbtxlineid), redirect: btoa(JSON.stringify({controller: 'EquipmentDashboard', action: 'Index'})), dashboard: btoa('HistoryDashboard'), values: oldValues})
     global.location = href
   @
 
