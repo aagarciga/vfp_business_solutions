@@ -1,8 +1,7 @@
 <?php
 /**
- * User: Victor
- * Date: 24/03/2016
- * Time: 18:06
+ * Project:  VFP Business Series
+ * Copyright: 2014. VFP Business Solutions, LLC
  */
 
 namespace Dandelion\MVC\Application\Controllers;

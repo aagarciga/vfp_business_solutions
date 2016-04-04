@@ -20,6 +20,7 @@ define("TYPE_CHAR", 'char');
 define("DEFAULT_TYPE", TYPE_CHAR);
 
 define("TYPE_DATE", 'date');
+define("TYPE_DATE_RANGE", 'daterange');
 
 define("TYPE_DICTIONARY", 'dropdown');
 
@@ -38,6 +39,7 @@ define("TYPE_HREF", 'href');
 define('TEXT_JS_TYPE', 'text');
 
 define('DATE_JS_TYPE', TYPE_DATE);
+define('DATE_RANGE_JS_TYPE', TYPE_DATE_RANGE);
 
 define('DROPDOWN_JS_TYPE', TYPE_DICTIONARY);
 

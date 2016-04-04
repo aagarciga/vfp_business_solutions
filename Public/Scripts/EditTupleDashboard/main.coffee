@@ -29,4 +29,17 @@ EditTupleDashboard.eventHandlers = {}
 
 EditTupleDashboard.init = () ->
   EditTupleDashboard.functions.bindEventHandlers()
+
+  $('input.daterangepicker').daterangepicker(
+    singleDatePicker: false
+    format: 'MM/DD/YYYY'
+    startDate: global.moment()
+    endDate: global.moment()
+  )
+  $('input.daterangepicker-single').daterangepicker(
+    singleDatePicker: true
+    format: 'MM/DD/YYYY'
+    startDate: global.moment()
+    endDate: global.moment()
+  )
   @

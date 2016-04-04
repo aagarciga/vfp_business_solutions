@@ -23,14 +23,20 @@ class Application implements INameable
      */
     protected $settings;
 
-    protected static function equalAttributeValue($xmlObj, $attributeName, $attributeValue){
+    public static function equalAttributeValue($xmlObj, $attributeName, $attributeValue){
         if (isset($xmlObj[$attributeName])){
             return ((string) $xmlObj[$attributeName]) == $attributeValue;
         }
         return false;
     }
 
-    protected static function getXmlObjectByAttribute($xmlObj, $attributeName, $attributeValue){
+    /**
+     * @param array $xmlObj
+     * @param string $attributeName
+     * @param string $attributeValue
+     * @return null | \SimpleXMLElement | mixed
+     */
+    public static function getXmlObjectByAttribute($xmlObj, $attributeName, $attributeValue){
         if (!is_array($xmlObj)){
             if (self::equalAttributeValue($xmlObj, $attributeName, $attributeValue)){
                 return $xmlObj;
@@ -47,7 +53,7 @@ class Application implements INameable
 
     }
 
-    protected static function getXmlObjectsByAttribute($xmlObj, $attributeName, $attributeValue){
+    public static function getXmlObjectsByAttribute($xmlObj, $attributeName, $attributeValue){
         $result = array();
         if (is_array($xmlObj)){
             foreach ($xmlObj as $obj){
@@ -59,7 +65,7 @@ class Application implements INameable
         return $result;
     }
 
-    protected static function getChildrenXmlObject($xmlObj, $childrenName){
+    public static function getChildrenXmlObject($xmlObj, $childrenName){
         $result = array();
 
         foreach ($xmlObj->children() as $child){

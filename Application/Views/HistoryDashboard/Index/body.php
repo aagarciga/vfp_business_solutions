@@ -30,15 +30,12 @@ use Dandelion\Tools\Helpers\FieldDefinition;
                 History Dashboard
             </a>
         </div>
-
         <?php $View->Control('MainMenu'); ?>
     </nav>
 
     <div class="panel panel-default">
-        <!-- Default panel contents -->
         <div class="panel-heading">
-
-            <form action="<?php echo $View->Href("EquipmentDashboard", "UpdateDashboardStatus") ?>" method="post" class="btn-group">
+            <form action="<?php echo $View->Href("EquipmentDashboard", "UpdateDashboardStatus") ?>" method="post">
                 <?php if(!is_null($JsonFilterTree)): ?>
                     <input type="hidden" name="jsonFilterTree" value="<?php echo $JsonFilterTree ?>">
                 <?php endif; ?>
@@ -54,33 +51,40 @@ use Dandelion\Tools\Helpers\FieldDefinition;
                 <?php if(!is_null($Order)): ?>
                     <input type="hidden" name="order" value="<?php echo $Order ?>">
                 <?php endif; ?>
-                <button type="submit" class="btn btn-default" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    Back
-                </button>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        Back
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <span class="panel-title">Equipments</span>
+                    <span id="panelHeadingItemsCount" class="badge">
+                        <?php echo  $Pager->getItemsCount() > 0 ? $Pager->getItemsCount() : 0; ?>
+                    </span>
+                </div>
 
+                <div class="pull-right">
+                    <label for="top-pager-itemmperpage-control-btn" class="control-label">Paged by</label>
+                    <div class="btn-group pull-right top-pager-itemmperpage-control">
+                        <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="value"><?php echo $ItemPerPage ?></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">10</a></li>
+                            <li><a href="#">15</a></li>
+                            <li><a href="#">20</a></li>
+                            <li><a href="#">50</a></li>
+                            <li><a href="#">100</a></li>
+                        </ul>
+                    </div>
+                </div>
             </form>
-            Projects
-            <span id="panelHeadingItemsCount" class="badge">
-                <?php echo  $Pager->getItemsCount() > 0 ? $Pager->getItemsCount() : 0; ?>
-            </span>
-            <div class="btn-group pull-right top-pager-itemmperpage-control">
-                <button id="top-pager-itemmperpage-control-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="value"><?php echo $ItemPerPage ?></span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">10</a></li>
-                    <li><a href="#">15</a></li>
-                    <li><a href="#">20</a></li>
-                    <li><a href="#">50</a></li>
-                    <li><a href="#">100</a></li>
-                </ul>
-            </div>
-            <span class="pull-right">paged by </span>
         </div>
         <div class="panel-body">
+            <?php if (count($Items) > 0):?>
             <div id="filterForm" class="form-inline" role="form">
                 <div id="dynamicFilter_filterFieldsContainer">
 
@@ -149,6 +153,7 @@ use Dandelion\Tools\Helpers\FieldDefinition;
                     </tr>
                     </thead>
                     <body>
+
                     <?php foreach ($Items as $item): ?>
                         <tr>
                             <?php foreach ($FieldsDefinitions as $field => $fieldDefinition): ?>
@@ -161,7 +166,13 @@ use Dandelion\Tools\Helpers\FieldDefinition;
                     </body>
                 </table>
 
+
             </div><!-- /.panel-table -->
+            <?php else: ?>
+                <div class="alert alert-info text-center">
+                    No <strong>items</strong> founds.
+                </div>
+            <?php endif ?>
         </div>
         <div class="panel-footer">
             <div class="text-center pager-wrapper">

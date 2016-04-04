@@ -26,9 +26,11 @@ class Create extends Action {
         $id = $this->Request->hasProperty('id') ? $this->Request->id : '';
         $text = $this->Request->hasProperty('text') ? $this->Request->text : '';
         $type = $this->Request->hasProperty('type') ? $this->Request->type : '';
+        $controllerName = $this->Request->hasProperty('controllerName') ? $this->Request->controllerName : '';
+
 
         $filePath = $this->controller->BuildPath($rootDir);
-        $this->controller->CreateDefaultFolderStructure($filePath);
+        $this->controller->CreateDefaultFolderStructure($filePath, $controllerName);
         $fileSystem = new FileSystem($filePath);
         $result = null;
         try{

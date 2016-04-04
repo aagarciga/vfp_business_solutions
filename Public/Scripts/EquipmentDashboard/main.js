@@ -62,6 +62,8 @@
 
   EquipmentDashboard.htmlBindings.table_body_btnAdd = '.btn-add';
 
+  EquipmentDashboard.htmlBindings.table_body_btnView = '.btn-view';
+
   EquipmentDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown ';
 
   EquipmentDashboard.htmlBindings.pager_container = '.pager-wrapper';
@@ -117,7 +119,7 @@
   };
 
   EquipmentDashboard.functions.buildTableItem = function(dataRow, trClass, tdClass) {
-    var doc, result, tdAssetTagBuilder, tdAttachedFilesBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder;
+    var addButtonBuilder, attachedFilesButtonBuilder, doc, editButtonBuilder, result, tdActionsTagBuilder, tdAssetTagBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder, viewButtonBuilder;
     doc = global.document;
     result = doc.createElement('tr');
     tdOrdnumBuilder = function() {
@@ -180,11 +182,56 @@
     tdLocnoBuilder = function() {
       return App.Helpers.simpleTdBuilder(dataRow.Locno, '');
     };
-    tdAttachedFilesBuilder = function() {
-      var spanGlyphIcon;
+    tdActionsTagBuilder = function() {
+      var btnGroup, elements;
+      elements = [];
+      elements.push(viewButtonBuilder());
+      elements.push(addButtonBuilder());
+      elements.push(editButtonBuilder());
+      elements.push(attachedFilesButtonBuilder());
+      btnGroup = window.document.createElement('div');
+      btnGroup.className = 'btn-group';
+      return App.Helpers.complexTdBuilder(elements, 'item-action item-files', btnGroup);
+    };
+    attachedFilesButtonBuilder = function() {
+      var anchorClassName, spanGlyphIcon;
       spanGlyphIcon = doc.createElement('span');
       spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
-      return App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', EquipmentDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {
+      anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnAttach.slice(1) + ' btn-action btn btn-default btn-sm';
+      return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {
+        equipid: dataRow.equipid
+      });
+    };
+    editButtonBuilder = function() {
+      var anchorClassName, dataset, spanGlyphIcon;
+      spanGlyphIcon = doc.createElement('span');
+      spanGlyphIcon.className = 'glyphicon glyphicon-edit';
+      anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnEdit.slice(1) + ' btn-action btn btn-default btn-sm';
+      dataset = {
+        equipid: dataRow.equipid,
+        qbtxlineid: '',
+        ordnum: ''
+      };
+      return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset);
+    };
+    addButtonBuilder = function() {
+      var anchorClassName, dataset, spanGlyphIcon;
+      spanGlyphIcon = doc.createElement('span');
+      spanGlyphIcon.className = 'glyphicon glyphicon-plus-sign';
+      anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnAdd.slice(1) + ' btn-action btn btn-default btn-sm';
+      dataset = {
+        equipid: dataRow.equipid,
+        qbtxlineid: '',
+        ordnum: ''
+      };
+      return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset);
+    };
+    viewButtonBuilder = function() {
+      var anchorClassName, spanGlyphIcon;
+      spanGlyphIcon = doc.createElement('span');
+      spanGlyphIcon.className = 'glyphicon glyphicon-eye-open';
+      anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnView.slice(1) + ' btn-action btn btn-default btn-sm';
+      return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {
         equipid: dataRow.equipid
       });
     };
@@ -203,10 +250,9 @@
     result.appendChild(tdDaterecBuilder());
     result.appendChild(tdStatusBuilder());
     result.appendChild(tdNotesBuilder());
-    result.appendChild(tdPicture_fiBuilder());
     result.appendChild(tdAssetTagBuilder());
     result.appendChild(tdLocnoBuilder());
-    result.appendChild(tdAttachedFilesBuilder());
+    result.appendChild(tdActionsTagBuilder());
     return result;
   };
 

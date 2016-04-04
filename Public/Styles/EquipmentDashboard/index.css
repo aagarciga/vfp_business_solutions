@@ -57,5 +57,8 @@ ul.pagination {
   width: 120px;
 }
 .item-action {
-  min-width: 190px;
+  min-width: 168px;
+}
+.panel-title {
+  font-size: 1em;
 }

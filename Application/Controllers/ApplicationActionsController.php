@@ -16,7 +16,6 @@ use Dandelion\MVC\Core\Request;
  */
 abstract class ApplicationActionsController extends ActionsController {
 
-
     /**
      * Controller initialization method
      * @param \Dandelion\MVC\Core\Request $request

@@ -1,8 +1,5 @@
 <?php
 /**
- * User: Victor
- * Date: 04/12/2016
- * Time: 8:15
  * Project:  VFP Business Series
  * Copyright: 2014. VFP Business Solutions, LLC
  */

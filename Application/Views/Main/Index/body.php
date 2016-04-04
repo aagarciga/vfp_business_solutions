@@ -18,22 +18,7 @@
     <div class="panel panel-default">
         <div id="main-panel" class="panel-body">
             <ul class="nav nav-pills nav-stacked">
-                <li id="quote-dashboard"><a href="<?php echo $View->Href("QuoteDashboard", "Index") ?>" class="exit">
-                        <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Quote Dashboard</span></a></li>
-                <li id="sales-order-dashboard"><a href="<?php echo $View->Href("Dashboard", "Index") ?>" class="exit">
-                        <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Work Order Dashboard</span></a></li>
-                <li id="inventory-dashboard"><a href="<?php echo $View->Href("InventoryDashboard", "Index") ?>" class="exit">
-                        <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Inventory Dashboard</span></a></li>
-                <li id="equipment-dashboard"><a href="<?php echo $View->Href("EquipmentDashboard", "Index") ?>" class="exit">
-                        <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Equipment Dashboard</span></a></li>
-                <?php if ($ShowFiancialDashboard === true):?>
-                <li id="financial-dashboard"><a href="<?php echo $View->Href("FinancialDashboard", "Index") ?>" class="exit">
-                        <span class="glyphicon glyphicon-th-list"></span><span class="main-panel-caption">Financial Dashboard</span></a></li>
-                <?php endif ?>
-                <?php if ($FullFeatures === true):?>
-                <li id="warehouse-management"><a href="<?php echo $View->Href("WMS", "Index") ?>">
-                        <span class="glyphicon glyphicon-th"></span><span class="main-panel-caption">Warehouse Management<span></a></li>
-                <?php endif ?>
+                <?php echo $HTMLMainPanelEntries; ?>
             </ul>
         </div>
     </div>
@@ -50,4 +35,8 @@
     </div>
 
 </div>
+<!-- TODO: Review with Victor -->
+<?php echo Helpers::HelperMethod1()?>
+<br/>
+<?php echo ViewHelpers::ViewHelperMethod1()?>
 
