@@ -37,6 +37,7 @@ EquipmentDashboard.htmlBindings.table_body_btnOnorder = '.btn-onorder-form-link'
 EquipmentDashboard.htmlBindings.table_body_btnAttach = '.btn-files-dialog'
 EquipmentDashboard.htmlBindings.table_body_btnEdit = '.btn-edit'
 EquipmentDashboard.htmlBindings.table_body_btnAdd = '.btn-add'
+EquipmentDashboard.htmlBindings.table_body_btnView = '.btn-view'
 EquipmentDashboard.htmlBindings.table_body_drpStatus = '.status.update-dropdown '
 EquipmentDashboard.htmlBindings.pager_container = '.pager-wrapper';
 EquipmentDashboard.htmlBindings.pager_btnPagerPages = '.pager-btn';
@@ -128,10 +129,49 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdLocnoBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.Locno, '')
 
-  tdAttachedFilesBuilder = () ->
+  tdActionsTagBuilder = ->
+    elements = [];
+    elements.push(viewButtonBuilder())
+    elements.push(addButtonBuilder())
+    elements.push(editButtonBuilder())
+    elements.push(attachedFilesButtonBuilder())
+    btnGroup = window.document.createElement('div')
+    btnGroup.className = 'btn-group'
+    App.Helpers.complexTdBuilder(elements, 'item-action item-files', btnGroup)
+
+  attachedFilesButtonBuilder = () ->
     spanGlyphIcon = doc.createElement('span')
     spanGlyphIcon.className = 'glyphicon glyphicon-folder-close'
-    App.Helpers.withLinkTdBuilder(spanGlyphIcon, 'item-action item-files', EquipmentDashboard.htmlBindings.table_body_btnAttach.slice(1), "#", {equipid: dataRow.equipid})
+    anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnAttach.slice(1) + ' btn-action btn btn-default btn-sm'
+    App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {equipid: dataRow.equipid})
+
+  editButtonBuilder = () ->
+    spanGlyphIcon = doc.createElement('span')
+    spanGlyphIcon.className = 'glyphicon glyphicon-edit'
+    anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnEdit.slice(1) + ' btn-action btn btn-default btn-sm'
+    dataset = {
+      equipid: dataRow.equipid
+      qbtxlineid: ''
+      ordnum: ''
+    }
+    App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset)
+
+  addButtonBuilder = () ->
+    spanGlyphIcon = doc.createElement('span')
+    spanGlyphIcon.className = 'glyphicon glyphicon-plus-sign'
+    anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnAdd.slice(1) + ' btn-action btn btn-default btn-sm'
+    dataset = {
+      equipid: dataRow.equipid
+      qbtxlineid: ''
+      ordnum: ''
+    }
+    App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset)
+
+  viewButtonBuilder = () ->
+    spanGlyphIcon = doc.createElement('span')
+    spanGlyphIcon.className = 'glyphicon glyphicon-eye-open'
+    anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnView.slice(1) + ' btn-action btn btn-default btn-sm'
+    App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {equipid: dataRow.equipid})
 
   result.className = trClass;
   result.appendChild(tdOrdnumBuilder());
@@ -148,10 +188,10 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result.appendChild(tdDaterecBuilder());
   result.appendChild(tdStatusBuilder());
   result.appendChild(tdNotesBuilder());
-  result.appendChild(tdPicture_fiBuilder());
+#  result.appendChild(tdPicture_fiBuilder());
   result.appendChild(tdAssetTagBuilder());
   result.appendChild(tdLocnoBuilder());
-  result.appendChild(tdAttachedFilesBuilder());
+  result.appendChild(tdActionsTagBuilder());
   result
 
 EquipmentDashboard.functions.executeEditLink = (dataValue, currentEquipid, currentOrdnum) ->
