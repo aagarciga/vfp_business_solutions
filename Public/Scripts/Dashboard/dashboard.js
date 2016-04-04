@@ -1241,7 +1241,6 @@ if (window.Backbone === 'undefined') {
     Dashboard.htmlBindings.table_header_btnSort             = '.btn-table-sort';
     Dashboard.htmlBindings.table_body_btnSalesOrder         = '.salesorder-form-link';
     Dashboard.htmlBindings.table_body_btnVessel             = '.vessel-form-link';
-//    Dashboard.htmlBindings.table_body_drpUpdatable          = '.update-dropdown';
     Dashboard.htmlBindings.table_body_drpMaterialStatus     = '.update-dropdown.material-status';
     Dashboard.htmlBindings.table_body_drpJobStatus          = '.update-dropdown.job-status';
     Dashboard.htmlBindings.table_body_btnAttach             = '.btn-files-dialog';
@@ -1254,7 +1253,6 @@ if (window.Backbone === 'undefined') {
 
     Dashboard.functions = {};
     Dashboard.functions.paginate = function () {
-
         $.ajax({
             data: {
                 predicate: Dashboard.DynamicFilter.functions.getPredicate(),
@@ -1285,7 +1283,6 @@ if (window.Backbone === 'undefined') {
         });
 
     };
-
     Dashboard.functions.getDictionaries = function () {
         $.ajax({
             data: {},
@@ -1313,7 +1310,6 @@ if (window.Backbone === 'undefined') {
         }
         Dashboard.functions.bindTableItemsEventHandlers();
     };
-
     Dashboard.functions.buildTableItem = function (dataRow, trClass, tdClass) {
         var doc = global.document,
             result = doc.createElement('tr'),
@@ -1445,7 +1441,6 @@ if (window.Backbone === 'undefined') {
 
         return result;
     };
-
     Dashboard.functions.bindTableItemsEventHandlers = function () {
 
         $(Dashboard.htmlBindings.table_body_btnSalesOrder).on('click',

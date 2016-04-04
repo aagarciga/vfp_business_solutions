@@ -1,10 +1,14 @@
 <?php
+/**
+ * Project:  VFP Business Series
+ * Copyright: 2014. VFP Business Solutions, LLC
+ */
 
 namespace Dandelion\MVC\Application;
 
 use Dandelion\MVC\Core;
 
-/* Dandelion MVC application definition object for manage it's instance
+/** Dandelion MVC application definition object for manage it's instance
  * configuration data.
  *
  * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>

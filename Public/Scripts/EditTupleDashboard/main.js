@@ -29,6 +29,18 @@
   EditTupleDashboard.init = function(fieldsDefinition) {
     EditTupleDashboard.status.fieldsDefinition = $.parseJSON(fieldsDefinition);
     EditTupleDashboard.functions.bindEventHandlers();
+    $('input.daterangepicker').daterangepicker({
+      singleDatePicker: false,
+      format: 'MM/DD/YYYY',
+      startDate: global.moment(),
+      endDate: global.moment()
+    });
+    $('input.daterangepicker-single').daterangepicker({
+      singleDatePicker: true,
+      format: 'MM/DD/YYYY',
+      startDate: global.moment(),
+      endDate: global.moment()
+    });
     return this;
   };
 

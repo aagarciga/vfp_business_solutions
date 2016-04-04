@@ -15,28 +15,30 @@ use Dandelion\Tools\Helpers\DynamicInclude;
 
 ?>
 
-<form action="<?php echo $UrlSubmit ?>" method="<?php echo $HttpMethodType ?>" >
-    <?php foreach ($FieldsDefinition as $field => $fieldDefinition): ?>
-        <?php
-        $isEditable = FieldDefinition::isEditableField($fieldDefinition) && !$Add;
-        $isAddAble = FieldDefinition::isAddAbleField($fieldDefinition) && $Add;
-        ?>
-        <?php if ($isEditable || $isAddAble): ?>
-            <div title="<?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>" class="form-group">
-                <label class="control-label">
-                    <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
-                </label>
-                <?php
-                $value = FieldDefinition::getValueFromStdClass($Values, $field, $fieldDefinition);
-                Builder::buildFieldInput($field, $fieldDefinition, $value);
-                ?>
-                <?php if (!$Add): ?>
-                    <input type="hidden" value="<?php echo $value; ?>" name="old-<?php echo $field; ?>">
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-    <button type="submit" >
-        <?php echo $ButtonName; ?>
-    </button>
+<form action="<?php echo $UrlSubmit ?>" method="<?php echo $HttpMethodType ?>">
+    <div class="container">
+        <?php foreach ($FieldsDefinition as $field => $fieldDefinition): ?>
+            <?php
+            $isEditable = FieldDefinition::isEditableField($fieldDefinition) && !$Add;
+            $isAddAble = FieldDefinition::isAddAbleField($fieldDefinition) && $Add;
+            ?>
+            <?php if ($isEditable || $isAddAble): ?>
+                <div title="<?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>" class="form-group">
+                    <!--                <label class="control-label">-->
+                    <!--                    --><?php //echo FieldDefinition::getDisplayName($fieldDefinition) ?>
+                    <!--                </label>-->
+                    <?php
+                    $value = FieldDefinition::getValueFromStdClass($Values, $field, $fieldDefinition);
+                    Builder::buildFieldInput($field, $fieldDefinition, $value);
+                    ?>
+                    <?php if (!$Add): ?>
+                        <input type="hidden" value="<?php echo $value; ?>" name="old-<?php echo $field; ?>">
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <button type="submit" class="btn btn-primary">
+            <?php echo $ButtonName; ?>
+        </button>
+    </div>
 </form>

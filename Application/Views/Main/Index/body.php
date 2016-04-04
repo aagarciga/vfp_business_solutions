@@ -35,4 +35,8 @@
     </div>
 
 </div>
+<!-- TODO: Review with Victor -->
+<?php echo Helpers::HelperMethod1()?>
+<br/>
+<?php echo ViewHelpers::ViewHelperMethod1()?>
 

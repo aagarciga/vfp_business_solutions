@@ -5,11 +5,11 @@
  */
 
 /**
- * Class Utils for static helpers methods
+ * Class View Helpers for static view helpers methods
  */
-class Utils
+class ViewHelpers
 {
-    static function HelperMethod1(){
-        return "I'm a Helper method";
+    static function ViewHelperMethod1(){
+        return "I'm a View Helper method";
     }
 }

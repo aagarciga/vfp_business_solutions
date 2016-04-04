@@ -52,6 +52,7 @@ define('MVC_DIR_APP_DATA', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Data');
 define('MVC_DIR_APP_LIBRARIES', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Libraries');
 define('MVC_DIR_APP_MODELS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Models');
 define('MVC_DIR_APP_VIEWS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Views');
+define('MVC_DIR_APP_HELPERS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Helpers');
 
 //Add by Victor
 define('MVC_DIR_APP_TOOLS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Tools');
@@ -187,6 +188,8 @@ final class index extends Core\FrontController {
             require_once MVC_DIR_APP_LIBRARIES . DIRECTORY_SEPARATOR . $className . '.php';
         else if (is_file(MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php'))
             require_once MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_APP_HELPERS . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_APP_HELPERS . DIRECTORY_SEPARATOR . $className . '.php';
 
         if (is_file(MVC_DIR_APP . DIRECTORY_SEPARATOR . $className . '.php'))
             require_once MVC_DIR_APP . DIRECTORY_SEPARATOR . $className . '.php';

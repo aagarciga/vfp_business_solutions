@@ -79,7 +79,8 @@ final class Builder
         $pathHead = HELPERS_DIR_FIELD_BUILDER . DIRECTORY_SEPARATOR;
         $fieldTypeBuilderDictionary = array(
             TEXT_JS_TYPE => $pathHead . 'textFieldBuilder.php',
-            DATE_JS_TYPE => $pathHead . 'dateRangeFieldBuilder.php',
+            DATE_JS_TYPE => $pathHead . 'dateFieldBuilder.php',
+            DATE_RANGE_JS_TYPE => $pathHead . 'dateRangeFieldBuilder.php',
             DROPDOWN_JS_TYPE => $pathHead . 'dropdownFieldBuilder.php',
         );
 

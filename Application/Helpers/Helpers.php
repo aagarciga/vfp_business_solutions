@@ -5,9 +5,9 @@
  */
 
 /**
- * Class Utils for static helpers methods
+ * Class Helpers for static helpers methods
  */
-class Utils
+class Helpers
 {
     static function HelperMethod1(){
         return "I'm a Helper method";
