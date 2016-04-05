@@ -63,4 +63,15 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
     {
         // TODO: Implement Delete() method.
     }
+
+    public function UpdateWorkOrder($equipmentId, $workOrder){
+        $tableName = $this->entityName . $this->companySuffix;
+
+        $assing = $this->getSqlEqual('ordnum', $workOrder);
+        $predicate = $this->getSqlEqual('equipid', $equipmentId);
+        $sqlString = 'UPDATE ' . $tableName . ' SET ' . $assing . ' WHERE ' . $predicate;
+
+        $query = $this->DatUnitOfWork->DBDriver->GetQuery();
+        $query->Execute($sqlString);
+    }
 }

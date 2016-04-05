@@ -176,9 +176,7 @@ function fixKeywordsProblem($field){
  * @return string
  */
 function getClassName($classFullName){
-    $className = explode("\\", $classFullName);
-    $className = $className[count($className)-1];
-    return $className;
+    return FieldDefinition::getClassName($classFullName);
 }
 
 /**

@@ -26,16 +26,34 @@ final class FieldDefinition
         return array_key_exists(EDITABLE_KEY, $fieldDefinition) ? $fieldDefinition[EDITABLE_KEY] : true;
     }
 
+    /**
+     * @param array $fieldDefinition
+     * @return bool
+     */
     public static function isAddAbleField($fieldDefinition){
         return array_key_exists(ADD_ABLE_KEY, $fieldDefinition) ? $fieldDefinition[ADD_ABLE_KEY] : true;
     }
 
+    /**
+     * @param array $fieldDefinition
+     * @param mixed $value
+     * @return bool
+     */
     public static function isAddAbleFieldIfNullValue($fieldDefinition, $value){
-        $addAbleIfNull = array_key_exists(ADD_ABLE_IF_NULL_KEY, $fieldDefinition) ? $fieldDefinition[ADD_ABLE_IF_NULL_KEY] : false;
-        if (!self::isAddAbleField($fieldDefinition)){
+        return self::isAbleFieldIfNullValue($fieldDefinition, $value, ADD_ABLE_KEY, ADD_ABLE_IF_NULL_KEY);
+    }
+
+    public static function isEditableFieldIfNullValue($fieldDefinition, $value){
+        return self::isAbleFieldIfNullValue($fieldDefinition, $value, EDITABLE_KEY, EDITABLE_IF_NULL_KEY);
+    }
+
+    private static function isAbleFieldIfNullValue($fieldDefinition, $value, $key, $ableKey){
+        $ableIfNull = array_key_exists($ableKey, $fieldDefinition) ? $fieldDefinition[$ableKey] : false;
+        $able = array_key_exists($key, $fieldDefinition) ? $fieldDefinition[$key] : true;
+        if (!$able){
             $fieldType = self::getType($fieldDefinition);
             $defaultValue = self::getDefaultValueByType($fieldType);
-            return $addAbleIfNull && $defaultValue === $value;
+            return $ableIfNull && $defaultValue === $value;
         }
 
         return true;
@@ -184,5 +202,15 @@ final class FieldDefinition
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $classFullName
+     * @return string
+     */
+    public static function getClassName($classFullName){
+        $className = explode("\\", $classFullName);
+        $className = $className[count($className)-1];
+        return $className;
     }
 }

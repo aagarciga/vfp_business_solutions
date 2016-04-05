@@ -160,6 +160,10 @@ class HistoryDashboard extends DashboardController
         }
     }
 
+    public function UpdateWorkOrder($equipmentId, $workOrder, $id){
+        //TODO: Implement here
+    }
+
     /**
      * @param string $field
      * @param mixed $fieldValue
