@@ -15,4 +15,5 @@
 <link rel="stylesheet" href="<?php echo $View->PublicVendorContext('dropzone/css/dropzone.min.css'); ?>">
 <link rel="stylesheet" href="<?php echo $View->PublicVendorContext('jstree/themes/default/style.min.css'); ?>">
 <link rel="stylesheet" href="<?php echo $View->PublicVendorContext('responsive-tables/responsive-tables.css'); ?>">
+<link rel="stylesheet" href="<?php echo $View->PublicVendorContext('select2/css/select2-bootstrap.css'); ?>">
 <link rel="stylesheet" href="<?php echo $View->StylesContext('EditTupleDashboard/index.min.css'); ?>">
