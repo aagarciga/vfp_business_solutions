@@ -25,9 +25,9 @@ abstract class TupleAction extends Action
             $oldField = OLD_PREFIX . $field;
             $fieldType = FieldDefinition::getType($fieldDefinition);
 
-            if (FieldDefinition::isEditableField($fieldDefinition) && $this->Request->hasProperty($newField)){
+            $oldValues[$field] = ($this->Request->hasProperty($oldField)) ? $this->Request->$oldField : FieldDefinition::getDefaultValueByType($fieldType);
+            if (FieldDefinition::isEditableFieldIfNullValue($fieldDefinition, $oldValues[$field]) && $this->Request->hasProperty($newField)){
                 $values[$field] = $this->Request->$newField;
-                $oldValues[$field] = ($this->Request->hasProperty($oldField)) ? $this->Request->$oldField : FieldDefinition::getDefaultValueByType($fieldType);
             }
         }
 

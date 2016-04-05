@@ -23,9 +23,9 @@ use Dandelion\Tools\Helpers\FieldDefinition;
                     <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
                 </label>
                 <?php Builder::buildFieldInput($field, $fieldDefinition, $value); ?>
-                <input type="hidden" value="<?php echo $value; ?>" name="old-<?php echo $field; ?>">
             </div>
         <?php endif; ?>
+        <input type="hidden" value="<?php echo $value; ?>" name="old-<?php echo $field; ?>">
     <?php endforeach; ?>
     <button type="submit" class="btn btn-primary">
         <?php echo $ButtonName; ?>

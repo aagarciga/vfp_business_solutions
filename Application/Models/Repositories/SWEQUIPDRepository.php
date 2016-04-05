@@ -67,11 +67,11 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
     public function UpdateWorkOrder($equipmentId, $workOrder){
         $tableName = $this->entityName . $this->companySuffix;
 
-        $assing = $this->getSqlEqual('ordnum', $workOrder);
-        $predicate = $this->getSqlEqual('equipid', $equipmentId);
+        $assing = '[ordnum] = \'' . $workOrder . '\'';
+        $predicate = '[equipid] = \'' . $equipmentId . '\'';
         $sqlString = 'UPDATE ' . $tableName . ' SET ' . $assing . ' WHERE ' . $predicate;
 
-        $query = $this->DatUnitOfWork->DBDriver->GetQuery();
+        $query = $this->dbDriver->GetQuery();
         $query->Execute($sqlString);
     }
 }

@@ -26,6 +26,13 @@ class EditTuple_Post extends TupleAction
 
         $this->controller->UpdateEntity($id, $values, $oldValues);
 
+        $equipmentId = array_key_exists('equipid', $oldValues) ? $oldValues['equipid'] : null;
+        $workOrder = array_key_exists('ordnum', $values) ? $values['ordnum'] : null;
+        $oldWorkOrder = array_key_exists('ordnum', $oldValues) ? $oldValues['ordnum'] : null;
+        if (!is_null($equipmentId) && !is_null($workOrder) && !is_null($oldWorkOrder) && ($workOrder !== $oldWorkOrder)){
+            $this->controller->UpdateWorkOrder($equipmentId, $workOrder, $id);
+        }
+
         $this->Redirect($redirect->controller, $redirect->action);
     }
 
