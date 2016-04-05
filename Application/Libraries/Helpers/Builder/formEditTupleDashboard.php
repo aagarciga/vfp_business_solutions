@@ -16,7 +16,7 @@ use Dandelion\Tools\Helpers\FieldDefinition;
 
 <form action="<?php echo $UrlSubmit ?>" method="<?php echo $HttpMethodType ?>" >
     <?php foreach ($FieldsDefinition as $field => $fieldDefinition): ?>
-        <?php $value = FieldDefinition::getValueFromStdClass($Values, $field, $fieldDefinition); ?>
+        <?php $value = FieldDefinition::getValueFromArray($Values, $field, $fieldDefinition); ?>
         <?php if (FieldDefinition::isEditableFieldIfNullValue($fieldDefinition, $value)): ?>
             <div title="<?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>" class="form-group">
                 <label class="control-label">
