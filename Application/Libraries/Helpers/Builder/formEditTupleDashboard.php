@@ -16,15 +16,15 @@ use Dandelion\Tools\Helpers\FieldDefinition;
 
 <form action="<?php echo $UrlSubmit ?>" method="<?php echo $HttpMethodType ?>" >
     <?php foreach ($FieldsDefinition as $field => $fieldDefinition): ?>
-        <?php if (FieldDefinition::isEditableField($fieldDefinition)): ?>
+        <?php
+        $value = FieldDefinition::getValueFromStdClass($Values, $field, $fieldDefinition);
+        Builder::buildFieldInput($field, $fieldDefinition, $value);
+        ?>
+        <?php if (FieldDefinition::isEditableFieldIfNullValue($fieldDefinition, $value)): ?>
             <div title="<?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>" class="form-group">
                 <label class="control-label">
                     <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
                 </label>
-                <?php
-                $value = FieldDefinition::getValueFromStdClass($Values, $field, $fieldDefinition);
-                Builder::buildFieldInput($field, $fieldDefinition, $value);
-                ?>
                 <input type="hidden" value="<?php echo $value; ?>" name="old-<?php echo $field; ?>">
             </div>
         <?php endif; ?>
