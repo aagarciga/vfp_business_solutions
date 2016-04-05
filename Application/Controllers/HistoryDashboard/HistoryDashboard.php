@@ -203,11 +203,20 @@ class HistoryDashboard extends DashboardController
      */
     public function getModel($id, $datUnitOfWork)
     {
-        $repository = $datUnitOfWork->SWEQUIPDRepository;
-        $dataModels = $repository->Get('WHERE ' . $this->getSqlEqual('qbtxlineid', $id));
+        $dbDriver = $datUnitOfWork->DBDriver;
+        $companySuffix = $datUnitOfWork->CompanySuffix;
+        $tableName = 'swequipd' . $companySuffix;
+        $fieldsDefinition = $this->GetFieldsDefinition($companySuffix);
+
+        $selectFields = Tools\fetchSelectSQLFields($fieldsDefinition);
+
+        $sqlString = 'SELECT ' . $selectFields . ' FROM ' . $tableName . ' WHERE ' . $this->getSqlEqual('qbtxlineid', $id);
+
+        $query = $dbDriver->GetQuery();
+        $dataModels = $query->Execute($sqlString);
 
         if (count($dataModels) > 0){
-            $model = Tools\createViewModel(VIEW_MODEL_HISTORY_CLASS, $dataModels[0], $this->GetFieldsDefinition());
+            $model = Tools\createViewModel(VIEW_MODEL_HISTORY_CLASS, $dataModels[0], $fieldsDefinition);
             return $model;
         }
 

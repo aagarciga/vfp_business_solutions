@@ -161,6 +161,16 @@ final class FieldDefinition
         return self::getDefaultValueByType($fieldType);
     }
 
+    public static function getValueFromArray($arrayModel, $field, $fieldDefinition){
+        $fieldType = self::getType($fieldDefinition);
+
+        if (array_key_exists($field, $arrayModel)){
+            return $arrayModel[$field];
+        }
+
+        return self::getDefaultValueByType($fieldType);
+    }
+
     /**
      * @param mixed $modelObject
      * @param array $fieldsDefinition

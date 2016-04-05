@@ -31,4 +31,11 @@ class VFPRepository extends BaseRepository  {
         $this->companySuffix = $companySuffix;
     }
 
+    /**
+     * Created by: Victor.
+     */
+    public function getEntityWhitCompanySuffix(){
+        return $this->entityName . $this->companySuffix;
+    }
+
 }

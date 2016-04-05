@@ -22,7 +22,7 @@ final class Builder
 {
     /**
      * @param array $fieldsDefinition
-     * @param \stdClass $values
+     * @param array $values
      * @param string $urlSubmit
      * @param string $httpMethodType
      * @param string $buttonName
