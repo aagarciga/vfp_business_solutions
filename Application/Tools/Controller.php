@@ -23,7 +23,9 @@ final class Controller
      * @return object|null
      */
     public static function loadController($controllerFullName, $request){
+        $tempName = $request->Controller;
         $controllerName = getClassName($controllerFullName);
+        $request->Controller = $controllerName;
         //e.g. Application/Controller/Default/Default.Controller.php
         $classFile = MVC_DIR_APP_CONTROLLERS . DIRECTORY_SEPARATOR . $controllerName . DIRECTORY_SEPARATOR . $controllerName . '.php';
         if (is_file($classFile)){
@@ -32,10 +34,13 @@ final class Controller
             $classFullName = $controllerFullName;
             if (class_exists($classFullName)){
                 $rc = new \ReflectionClass($classFullName);
-                return $rc->newInstanceArgs(array($request));
+                $dashboardObject = $rc->newInstanceArgs(array($request));
+                $request->Controller = $tempName;
+                return $dashboardObject;
             }
         }
 
+        $request->Controller = $tempName;
         return null;
     }
 

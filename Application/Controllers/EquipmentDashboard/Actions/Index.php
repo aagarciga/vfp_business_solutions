@@ -31,7 +31,7 @@ class Index extends Action
         $exportedBy = 'EQM';
         $this->Title = 'Equipment Dashboard | VFP Business Series';
 
-        $this->FieldDefinitions = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
+        $this->FieldsDefinition = $this->controller->GetFieldsDefinition($this->controller->DatUnitOfWork->CompanySuffix);
 
         $defaultItemsPerPage = $this->controller->getDefaultItemPerPage($this->Request);
 

@@ -14,6 +14,7 @@ namespace Dandelion\MVC\Application\Controllers\EditTupleDashboard\Actions;
 use Dandelion\MVC\Application\Tools\Controller;
 use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Core\Exceptions\ControllerNotFoundException;
+use Dandelion\Tools\Helpers\FieldDefinition;
 
 /**
  * Created by: Victor
@@ -36,8 +37,6 @@ class Edit extends Action
         }
 
         $this->Id = $this->Request->id;
-
-        $this->Values = $this->Request->hasProperty('values') ? json_decode(base64_decode($this->Request->values)) : new \stdClass();
         $this->RedirectUrl = $this->Request->hasProperty('redirect') ? $this->Request->redirect : '';
 
         $this->CompanyLogo = $this->controller->DatUnitOfWork->ARCOMPRepository->GetCompanyLogo();
@@ -46,6 +45,10 @@ class Edit extends Action
         $this->FieldsDefinition = $dashboardController->GetFieldsDefinition($companySuffix);
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
+
+        $model = $dashboardController->getModel(base64_decode($this->Id), $this->controller->DatUnitOfWork);
+        $arrayModel = FieldDefinition::modelToArray($model, $this->FieldsDefinition);
+        $this->Values = $arrayModel;
     }
 
 }

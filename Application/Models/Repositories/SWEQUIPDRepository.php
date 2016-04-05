@@ -35,7 +35,8 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
      */
     public function Get($predicate)
     {
-        $sqlString = "SELECT * FROM $this->entityName";
+        $entityName = $this->getEntityWhitCompanySuffix();
+        $sqlString = "SELECT * FROM $entityName";
         $sqlString .= ' ' . $predicate;
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);

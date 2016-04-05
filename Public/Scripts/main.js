@@ -252,6 +252,17 @@ if (window.jQuery === 'undefined') {
         return url;
     };
 
+    App.Helpers.createdObjectValues = function (item, fieldsDefinition){
+        var result = {};
+        for (var index in fieldsDefinition){
+            if (item.hasOwnProperty(index)){
+                result[index] = item[index];
+            }
+        }
+
+        return result;
+    }
+
 }(window, window.jQuery));
 
 // Avoid 'console' errors in browsers that lack a console.

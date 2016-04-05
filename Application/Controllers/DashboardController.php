@@ -64,6 +64,15 @@ abstract class DashboardController extends DatActionsController
             $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 
+    /**
+     * @param string $id
+     * @param DatUnitOfWork $datUnitOfWork
+     * @return null|object
+     */
+    public function getModel($id, $datUnitOfWork){
+        return null;
+    }
+
     protected function PreController(Request $request)
     {
         parent::PreController($request);

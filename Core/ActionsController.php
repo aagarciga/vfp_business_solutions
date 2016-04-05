@@ -142,9 +142,10 @@ abstract class ActionsController extends Controller {
         
         $className = explode("\\", $className);
         $className = $className[count($className)-1];
-        
-        if (is_file(MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php')){
-            require_once MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php';   
+
+        $require_file = MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . $this . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . $className . '.php';
+        if (is_file($require_file)){
+            require_once $require_file;
         }   
     }
     

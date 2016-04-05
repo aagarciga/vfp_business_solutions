@@ -16,24 +16,24 @@ namespace Dandelion\MVC\Application\Controllers\EquipmentDashboard\Models;
  */
 class EquipmentDashboardViewModel
 {
-    protected $ordnum;
-    protected $equipid;
-    protected $itemno;
-    protected $descrip;
-    protected $make;
-    protected $model;
-    protected $serialno;
-    protected $Voltage;
-    protected $EquipType ;
-    protected $installdte;
-    protected $expdtein;
-    protected $daterec;
-    protected $status;
-    protected $notes;
-    protected $picture_fi;
-    protected $assettag;
-    protected $locno;
-    protected $qbtxlineid;
+    public $ordnum;
+    public $equipid;
+    public $itemno;
+    public $descrip;
+    public $make;
+    public $model;
+    public $serialno;
+    public $Voltage;
+    public $EquipType ;
+    public $installdte;
+    public $expdtein;
+    public $daterec;
+    public $status;
+    public $notes;
+    public $picture_fi;
+    public $assettag;
+    public $locno;
+    public $qbtxlineid;
 
     /**
      * EquipmentDashboardViewModel constructor.

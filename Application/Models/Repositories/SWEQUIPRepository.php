@@ -89,4 +89,15 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
+
+    public function UpdateOrdNum($ordnum, $id){
+        $tableName = $this->entityName . $this->companySuffix;
+
+        $sqlString = "UPDATE $tableName SET " .
+            "[ordnum] = '$ordnum' " .
+            "WHERE [qbtxlineid] = '$id'";
+
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
 }

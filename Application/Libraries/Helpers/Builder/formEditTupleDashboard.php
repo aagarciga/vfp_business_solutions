@@ -22,7 +22,7 @@ use Dandelion\Tools\Helpers\FieldDefinition;
                     <?php echo FieldDefinition::getDisplayName($fieldDefinition) ?>:
                 </label>
                 <?php
-                $value = FieldDefinition::getValueFromStdClass($Values, $field, $fieldDefinition);
+                $value = FieldDefinition::getValueFromArray($Values, $field, $fieldDefinition);
                 Builder::buildFieldInput($field, $fieldDefinition, $value);
                 ?>
                 <input type="hidden" value="<?php echo $value; ?>" name="old-<?php echo $field; ?>">

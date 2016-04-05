@@ -7,9 +7,11 @@
 namespace Dandelion\MVC\Application\Controllers;
 
 define('EQUIP_ID', 'equipid');
+define('VIEW_MODEL_HISTORY_CLASS', '\\Dandelion\\MVC\Application\\Controllers\\HistoryDashboard\\Models\\HistoryDashboardViewModel');
 
 use Dandelion\MVC\Application\Controllers\DatActionsController;
 use Dandelion\Diana\BootstrapPager;
+use Dandelion\MVC\Application\Models\DatUnitOfWork;
 use Dandelion\MVC\Core\Request;
 use Dandelion\MVC\Application\Tools;
 use Dandelion\MVC\Application\Tools\BootstrapPagerTest;
@@ -36,8 +38,11 @@ class HistoryDashboard extends DashboardController
      * @param string $companySuffix
      * @return array
      */
-    public function GetFieldsDefinition($companySuffix)
+    public function GetFieldsDefinition($companySuffix=null)
     {
+        if (is_null($companySuffix)){
+            $companySuffix = $this->DatUnitOfWork->CompanySuffix;
+        }
         $swequipdTable = "SWEQUIPD" . $companySuffix;
         return array(
             'equipid' => array('type' => TYPE_CHAR, 'displayName' => 'Equipment Id', 'table' => $swequipdTable, EDITABLE_KEY => false, ADD_ABLE_KEY => false),
@@ -189,5 +194,32 @@ class HistoryDashboard extends DashboardController
         $node->generateSqlCode($sqlCodeGenerator);
 
         return $sqlCodeGenerator->getCode();
+    }
+
+    /**
+     * @param string $id
+     * @param DatUnitOfWork $datUnitOfWork
+     * @return null|object
+     */
+    public function getModel($id, $datUnitOfWork)
+    {
+        $dbDriver = $datUnitOfWork->DBDriver;
+        $companySuffix = $datUnitOfWork->CompanySuffix;
+        $tableName = 'swequipd' . $companySuffix;
+        $fieldsDefinition = $this->GetFieldsDefinition($companySuffix);
+
+        $selectFields = Tools\fetchSelectSQLFields($fieldsDefinition);
+
+        $sqlString = 'SELECT ' . $selectFields . ' FROM ' . $tableName . ' WHERE ' . $this->getSqlEqual('qbtxlineid', $id);
+
+        $query = $dbDriver->GetQuery();
+        $dataModels = $query->Execute($sqlString);
+
+        if (count($dataModels) > 0){
+            $model = Tools\createViewModel(VIEW_MODEL_HISTORY_CLASS, $dataModels[0], $fieldsDefinition);
+            return $model;
+        }
+
+        return null;
     }
 }
