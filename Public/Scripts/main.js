@@ -128,7 +128,7 @@ if (window.jQuery === 'undefined') {
      * @param dataset
      * @returns {Element|*}
      */
-    App.Helpers.linkBuilder = function(data, aClass, href, dataset) {
+    App.Helpers.linkBuilder = function(data, aClass, href, dataset, props) {
         var a, doc = global.document;
         if (href == null) {
             href = '#';
@@ -138,6 +138,9 @@ if (window.jQuery === 'undefined') {
         a.className = aClass;
         for (var key in dataset){
             a.dataset[key] = dataset[key];
+        }
+        for (var key in props){
+            a.setAttribute(key, props[key]);
         }
         if (typeof data === "string") {
             a.appendChild(doc.createTextNode(data));

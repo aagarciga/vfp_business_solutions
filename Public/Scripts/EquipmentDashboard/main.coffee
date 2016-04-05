@@ -127,7 +127,7 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   tdAssetTagBuilder = ->
     App.Helpers.simpleTdBuilder(dataRow.assettag, '')
   tdLocnoBuilder = ->
-    App.Helpers.simpleTdBuilder(dataRow.Locno, '')
+    App.Helpers.simpleTdBuilder(dataRow.locno, '')
 
   tdActionsTagBuilder = ->
     elements = [];
@@ -151,10 +151,14 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnEdit.slice(1) + ' btn-action btn btn-default btn-sm'
     dataset = {
       equipid: dataRow.equipid
-      qbtxlineid: ''
-      ordnum: ''
+      qbtxlineid: dataRow.qbtxlineid
+      ordnum: dataRow.ordnum
     }
-    App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset)
+    unless dataRow.qbtxlineid
+      props = {
+        'disabled': "disabled"
+      }
+    App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset, props)
 
   addButtonBuilder = () ->
     spanGlyphIcon = doc.createElement('span')
@@ -162,8 +166,8 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
     anchorClassName = EquipmentDashboard.htmlBindings.table_body_btnAdd.slice(1) + ' btn-action btn btn-default btn-sm'
     dataset = {
       equipid: dataRow.equipid
-      qbtxlineid: ''
-      ordnum: ''
+      qbtxlineid: dataRow.qbtxlineid
+      ordnum: dataRow.ordnum
     }
     App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset)
 
@@ -188,7 +192,6 @@ EquipmentDashboard.functions.buildTableItem = (dataRow, trClass, tdClass) ->
   result.appendChild(tdDaterecBuilder());
   result.appendChild(tdStatusBuilder());
   result.appendChild(tdNotesBuilder());
-#  result.appendChild(tdPicture_fiBuilder());
   result.appendChild(tdAssetTagBuilder());
   result.appendChild(tdLocnoBuilder());
   result.appendChild(tdActionsTagBuilder());
