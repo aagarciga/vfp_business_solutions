@@ -48,6 +48,12 @@ class AddTuple_Post extends TupleAction
         $id = GUIDGenerator::getGUID();
         $this->controller->AddEntity($id, $values, $valuesRequest);
 
+        $equipmentId = array_key_exists('equipid', $values) ? $values['equipid'] : null;
+        $workOrder = array_key_exists('ordnum', $values) ? $values['ordnum'] : null;
+        if (!is_null($equipmentId) && !is_null($workOrder) && ($workOrder !== '')){
+            $this->controller->UpdateWorkOrder($equipmentId, $workOrder, $id);
+        }
+
         $this->Request->id = base64_encode($id);
         $this->Redirect($redirect->controller, $redirect->action, $this->Request);
     }

@@ -50,11 +50,29 @@ class TreeCreator
         return $obj->$property;
     }
 
+    private static function isSetProperty($obj, $property){
+        return isset($obj->$property);
+    }
+
     /**
-     * @param array $arrayTree
+     * @param \stdClass $stdTree
      * @return IFilterNode
      */
-    public static function createTree($arrayTree){
+    public static function createTree($stdTree){
+        $result = self::createTreePrivate($stdTree);
+
+        if (is_null($result)){
+            return new BlockExpressionNode();
+        }
+
+        return $result;
+    }
+
+    private static function createTreePrivate($arrayTree){
+        if (is_null($arrayTree) || !self::isSetProperty($arrayTree, TYPE_NAME)|| !self::isSetProperty($arrayTree, VALUE_NAME) || !self::isSetProperty($arrayTree, CHILDREN_NAME)){
+            return null;
+        }
+
         $type = self::getProperty($arrayTree, TYPE_NAME);
         $value = self::getProperty($arrayTree, VALUE_NAME);
         $childrenArray = self::getProperty($arrayTree, CHILDREN_NAME);
@@ -63,6 +81,10 @@ class TreeCreator
 
         foreach($childrenArray as $childArray){
             $child = self::createTree($childArray);
+            if (is_null($child)){
+                return null;
+            }
+
             $node->addChild($child);
         }
 
@@ -124,7 +146,7 @@ class TreeCreator
 }
 
 function defaultCreator(){
-    throw new \Exception("Unknown node");
+    return null;
 }
 
 function blockExpressionCreator(){
