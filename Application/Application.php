@@ -19,6 +19,17 @@ use Dandelion\MVC\Core;
  */
 class Application extends Core\Application
 {
+    /**
+     *
+     * @param string $settingsFile settings
+     * @internal param string $configurationFile
+     */
+    public function __construct($settingsFile = 'settings')
+    {
+        require_once MVC_DIR_APP_LOGIC . DIRECTORY_SEPARATOR . 'Constants.php';
+        parent::__construct($settingsFile);
+    }
+
 
     public function setDefaultDbManager($dbManager)
     {

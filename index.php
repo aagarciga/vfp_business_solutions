@@ -47,12 +47,13 @@ define('MVC_DIR_CORE_NOMENCLATURES', MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Nomen
  * 
  * APPLICATION DEFINITIONS
  */
-define('MVC_DIR_APP_CONTROLLERS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Controllers');
-define('MVC_DIR_APP_DATA', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Data');
-define('MVC_DIR_APP_LIBRARIES', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Libraries');
-define('MVC_DIR_APP_MODELS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Models');
-define('MVC_DIR_APP_VIEWS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Views');
-define('MVC_DIR_APP_HELPERS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Helpers');
+define('MVC_DIR_APP_CONTROLLERS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Controllers');   // Application Controllers
+define('MVC_DIR_APP_DATA', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Data');                 // Application Configurations
+define('MVC_DIR_APP_LIBRARIES', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Libraries');       // 3th Party Libraries
+define('MVC_DIR_APP_MODELS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Models');             // Application Models
+define('MVC_DIR_APP_VIEWS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Views');               // Application Views
+define('MVC_DIR_APP_HELPERS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Helpers');           // Helpers & View Helpers
+define('MVC_DIR_APP_LOGIC', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Logic');               // Business Logic
 
 //Add by Victor
 define('MVC_DIR_APP_TOOLS', MVC_DIR_APP . DIRECTORY_SEPARATOR . 'Tools');
@@ -190,6 +191,8 @@ final class index extends Core\FrontController {
             require_once MVC_DIR_APP_MODELS . DIRECTORY_SEPARATOR . $className . '.php';
         else if (is_file(MVC_DIR_APP_HELPERS . DIRECTORY_SEPARATOR . $className . '.php'))
             require_once MVC_DIR_APP_HELPERS . DIRECTORY_SEPARATOR . $className . '.php';
+        else if (is_file(MVC_DIR_APP_LOGIC . DIRECTORY_SEPARATOR . $className . '.php'))
+            require_once MVC_DIR_APP_LOGIC . DIRECTORY_SEPARATOR . $className . '.php';
 
         if (is_file(MVC_DIR_APP . DIRECTORY_SEPARATOR . $className . '.php'))
             require_once MVC_DIR_APP . DIRECTORY_SEPARATOR . $className . '.php';

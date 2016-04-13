@@ -9,6 +9,37 @@
 
 namespace Dandelion\Diana\Drivers\AdvantageODBC;
 
+/**
+ * Advantage Data Types
+ */
+
+define("ADVANTAGE_TYPE_SHORTINT", 'ShortInt');
+define("ADVANTAGE_TYPE_INTEGER", 'Integer');
+define("ADVANTAGE_TYPE_DOUBLE", 'Double');
+define("ADVANTAGE_TYPE_CURDOUBLE", 'CurDouble');
+define("ADVANTAGE_TYPE_LOGICAL", 'Logical');
+define("ADVANTAGE_TYPE_AUTOINCREMENT", 'AutoIncrement');
+define("ADVANTAGE_TYPE_BINARY", 'Binary');
+define("ADVANTAGE_TYPE_IMAGE", 'Image');
+define("ADVANTAGE_TYPE_RAW", 'Raw');
+define("ADVANTAGE_TYPE_CHARACTER", 'Character');
+define("ADVANTAGE_TYPE_CICHARACTER", 'CICharacter');
+define("ADVANTAGE_TYPE_MEMO", 'Memo');
+define("ADVANTAGE_TYPE_NUMERIC", 'Numeric');
+define("ADVANTAGE_TYPE_DATE", 'Date');
+define("ADVANTAGE_TYPE_SHORTDATE", 'ShortDate');
+define("ADVANTAGE_TYPE_TIME", 'Time');
+define("ADVANTAGE_TYPE_TIMESTAMP", 'TimeStamp');
+define("ADVANTAGE_TYPE_MONEY", 'Money');
+define("ADVANTAGE_TYPE_ROWVERSION", 'RowVersion');
+define("ADVANTAGE_TYPE_MODTIME", 'ModTime');
+define("ADVANTAGE_TYPE_VARCHAR", 'VarChar');
+define("ADVANTAGE_TYPE_VARBINARY", 'VarBinary');
+
+/**
+ * Advantage Default Value Data Types
+ */
+define("ADVANTAGE_TYPE_DATE_DEFAULT", '1899-12-30');
 
 use Dandelion\Diana\Interfaces\IDBDriver;
 

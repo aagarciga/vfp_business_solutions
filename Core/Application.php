@@ -82,7 +82,7 @@ class Application implements INameable
      * @param string $settingsFile settings
      * @internal param string $configurationFile
      */
-    public final function __construct($settingsFile = 'settings')
+    public function __construct($settingsFile = 'settings')
     {
         $xmlFilePath = MVC_DIR_APP_DATA . DIRECTORY_SEPARATOR . $settingsFile . '.xml';
         $this->settings = simplexml_load_file($xmlFilePath);
