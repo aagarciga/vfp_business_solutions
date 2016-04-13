@@ -8,6 +8,7 @@ use Dandelion\MVC\Application\Application;
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Controller.php';
 require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Request.php';
 require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.php';
+require_once MVC_DIR_CORE . DIRECTORY_SEPARATOR . 'Session.php';
 
 /**
  * Dandelion MVC front controller.
@@ -44,6 +45,7 @@ class FrontController extends Controller
     {
 
         $application = new Application();
+        $session = new Session();
 
         $action = null;
 
@@ -69,6 +71,7 @@ class FrontController extends Controller
         }
 
         $request->Application = $application;
+        $request->Session = $session;
 
         /**
          * HTTP GET Request Handler

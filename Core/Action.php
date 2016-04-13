@@ -60,6 +60,7 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
         $this->data['Controller'] = $request->Controller;
         $this->data['Action'] = $request->Action;
         $this->data['Application'] = $request->Application;
+        $this->data['Session'] = $request->Session;
         $this->data['Request'] = $request;
         $this->controller = $controller;
     }

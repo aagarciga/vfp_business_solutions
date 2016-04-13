@@ -48,6 +48,13 @@ class Request implements Interfaces\IDictionary
     public $Application;
 
     /**
+     * Contains the MVC Session instance.
+     *
+     * @var \Dandelion\MVC\Core\Session
+     */
+    public $Session;
+
+    /**
      * Contains the request method type. These values can be obtained
      * from Core\Nomenclatures\RequestMethod.
      *
@@ -62,12 +69,13 @@ class Request implements Interfaces\IDictionary
      * @param null $application
      * @param null $method
      */
-    public final function __construct($controller, $action, $application = null, $method = null)
+    public final function __construct($controller, $action, $application = null, $method = null, $session = null)
     {
         $this->Controller = $controller;
         $this->Action = $action;
         $this->Application = $application;
         $this->RequestMethod = $method;
+        $this->Session = $session;
     }
 
     /**

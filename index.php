@@ -120,8 +120,6 @@ final class index extends Core\FrontController {
         header('HTTP User Agent: Dandelion MVC');
         header('Author: Alex Alvarez Garciga');
 
-        session_start();
-        
         // For Development Application Mode
         // Reporting E_NOTICE can be good too (to report uninitialized
         // variables or catch variable name misspellings ...)

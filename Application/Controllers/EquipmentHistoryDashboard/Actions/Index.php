@@ -18,5 +18,6 @@ class Index extends Action
     public function Execute()
     {
         // TODO: Implement Execute() method.
+        $this->Title = "Equipment Dashboard | VFP Business Series";
     }
 }
