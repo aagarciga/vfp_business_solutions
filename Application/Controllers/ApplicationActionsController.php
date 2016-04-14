@@ -22,8 +22,9 @@ abstract class ApplicationActionsController extends ActionsController {
      */
     protected function Init(Request $request)
     {
-        ;
+        parent::Init($request);
     }
+
 
     /**
      * Pre controller method

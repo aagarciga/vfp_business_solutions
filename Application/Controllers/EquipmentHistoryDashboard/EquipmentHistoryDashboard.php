@@ -10,7 +10,7 @@ namespace Dandelion\MVC\Application\Controllers;
  * Class EquipmentHistoryDashboard
  * @package Dandelion\MVC\Application\Controllers
  */
-class EquipmentHistoryDashboard extends DatActionsController
+class EquipmentHistoryDashboard extends DatDashboardController
 {
 
 }

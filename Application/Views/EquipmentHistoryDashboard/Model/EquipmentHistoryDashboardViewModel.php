@@ -506,4 +506,14 @@ class EquipmentHistoryDashboardViewModel
             ),
         );
     }
+
+    public static function getTableFor($companyID){
+        $swequipTable =  'SWEQUIP' . $companyID;
+        $icparmTable = 'ICPARM' . $companyID;
+        return "($swequipTable INNER JOIN $icparmTable ON $swequipTable.itemno = $icparmTable.itemno)";
+    }
+
+    public static function getName(){
+        return 'Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Models\EquipmentHistoryDashboardViewModel';
+    }
 }

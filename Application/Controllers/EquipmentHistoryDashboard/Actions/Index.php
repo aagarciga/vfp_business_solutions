@@ -7,6 +7,7 @@
 namespace Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Actions;
 
 use Dandelion\MVC\Core\Action;
+use Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Models\EquipmentHistoryDashboardViewModel;
 
 /**
  * Class Index
@@ -19,5 +20,7 @@ class Index extends Action
     {
         // TODO: Implement Execute() method.
         $this->Title = "Equipment Dashboard | VFP Business Series";
+
+        $this->Pager = $this->controller->GetPager(EquipmentHistoryDashboardViewModel::getName());
     }
 }

@@ -21,10 +21,17 @@ require_once MVC_DIR_CORE_NOMENCLATURES . DIRECTORY_SEPARATOR . 'RequestMethod.p
  */
 abstract class ActionsController extends Controller {
 
+    /**'
+     * @type \Dandelion\MVC\Application\Application
+     */
+    protected $Application;
+
     /**
      * @param \Dandelion\MVC\Core\Request $request
      */
-    protected function Init(Request $request){}
+    protected function Init(Request $request){
+        $this->Application = $request->Application;
+    }
 
     /**
      * @param \Dandelion\MVC\Core\Request $request
