@@ -30,6 +30,7 @@ class Signin_Post extends Action{
 
                 $userGroup = $user->getGroup();
                 $userFdview = $user->getFdview();
+                // TODO: Change showFinancialDashboard instead showFiancialDashboard to correct typo and review ussages in all project
                 $_SESSION['showFiancialDashboard'] = ($userGroup === 'ADMIN' && $userFdview);
                 $_SESSION['usercomp'] = $userCompany;
                 $_SESSION['userwhsdef'] = $user->getWhsdef();

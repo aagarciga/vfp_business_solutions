@@ -25,7 +25,7 @@ class DatDashboardController extends DatActionsController
      * @throws \Dandelion\MVC\Core\Exceptions\ClassNotFoundException
      */
     public function GetPager($viewModelName, $predicate, $orderby, $order = "ASC",
-                             $itemsPerpage = 10, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
+                             $itemsPerPage = 10, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
         $this->checkForViewModel($viewModelName);
 
@@ -40,7 +40,7 @@ class DatDashboardController extends DatActionsController
             . " ORDER BY $orderby $order";
 
         return new BootstrapPager($this->DatUnitOfWork->DBDriver,
-            $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
+            $sqlString, $itemsPerPage, $middleRange, $showPagerControlsIfMoreThan);
     }
 
     /**

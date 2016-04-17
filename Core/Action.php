@@ -14,11 +14,12 @@ use Dandelion\MVC\Core\Exceptions;
  * @link        http://www.thedandelionproject.com
  * @ignore
  */
-abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
+abstract class Action implements Interfaces\IDictionary, Interfaces\INameable
+{
 
     /**
      *
-     * @var string 
+     * @var string
      */
     private $name;
 
@@ -31,11 +32,21 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @var View
      */
     protected $view;
-    
+
     /**
      * @var Request
      */
     public $Request;
+
+    /**
+     * @var Session
+     */
+    public $Session;
+
+    /**
+     * @var Application
+     */
+    public $Application;
 
     /**
      * @var ActionsController
@@ -43,31 +54,30 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
     protected $controller;
 
     /**
-     * @var Session
-     */
-    protected $session;
-
-    /**
      * Constructor for Action object.
      *
-     * @param Request           $request
+     * @param Request $request
      * @param ActionsController $controller
      */
 
-    public final function __construct(Request $request, ActionsController $controller) {
-        $this->Request = $request;        
+    public final function __construct(Request $request, ActionsController $controller)
+    {
+        $this->Request = $request;
         $this->name = ucfirst($request->Action);
         if ($request->RequestMethod == Nomenclatures\RequestMethod::POST()) {
             $this->name .= '_Post';
         }
         $this->view = new View($this);
         $this->data['View'] = $this->view;
+        // TODO: Change ControllerName instead Controller for correct String/Object differentiation and move assignation below
         $this->data['Controller'] = $request->Controller; //For Object Name?
         $this->data['Action'] = $request->Action;
-        $this->data['Application'] = $request->Application;
         $this->data['Request'] = $request;
         $this->controller = $controller; // For Object Instance
-        $this->data['Session'] = $this->session = $request->Session;
+
+        // Whit this way of assignation Actions Objects can be used in both actions and actions views
+        $this->Session = $this->data['Session'] = $request->Session;
+        $this->Application = $this->data['Application'] = $request->Application;
     }
 
     /**
@@ -75,7 +85,8 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @param mixed $key
      * @param mixed $value
      */
-    public final function __set($key, $value) {
+    public final function __set($key, $value)
+    {
         $this->data[$key] = $value;
     }
 
@@ -85,7 +96,8 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
      * @throws Exceptions\PropertyNotFoundException
      * @return mixed
      */
-    public final function __get($key) {
+    public final function __get($key)
+    {
         if (array_key_exists($key, $this->data)) {
             return $this->data[$key];
         };
@@ -94,42 +106,49 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
 
     /**
      * Return the Action's name.
-     * 
+     *
      * @return string
      * @ignore
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->name;
     }
-    
+
     /**
-     * 
-     * 
+     *
+     *
      * @return Array
      */
-    public function Data(){
+    public function Data()
+    {
         return $this->data;
     }
 
-    public function PreAction() {}
+    public function PreAction()
+    {
+    }
 
     public abstract function Execute();
 
-    public function PostAction() {}
+    public function PostAction()
+    {
+    }
 
     /**
      *
      *
      * @param string $controller Controller name
-     * @param string $action     Action name
+     * @param string $action Action name
      * @param string $requestMethod
      */
-    public final function Redirect($controller, $action = 'index', $requestMethod = 'GET') {
-        
+    public final function Redirect($controller, $action = 'index', $requestMethod = 'GET')
+    {
+
         $this->Request->Controller = $controller;
         $this->Request->Action = $action;
         $this->Request->RequestMethod = $requestMethod;
-        
+
         $controller = new FrontController();
         $controller->Redirect($this->Request);
         unset($controller);
