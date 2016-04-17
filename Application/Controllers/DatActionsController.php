@@ -62,7 +62,6 @@ abstract class DatActionsController extends ApplicationActionsController {
 
         $driver = $this->BuildDatConnection( $_SESSION['usercomp']);
         $this->DatUnitOfWork = new DatUnitOfWork($driver, $_SESSION['usercomp']);
-
         $currentCompanyEntity = $this->VfpDataUnitOfWork->SyscompRepository->GetByActcomp($_SESSION['usercomp']);
 
         $socompEntity = $this->DatUnitOfWork->SOCOMPRepository->GetFirst();

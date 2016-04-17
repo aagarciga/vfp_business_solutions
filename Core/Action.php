@@ -43,6 +43,11 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
     protected $controller;
 
     /**
+     * @var Session
+     */
+    protected $session;
+
+    /**
      * Constructor for Action object.
      *
      * @param Request           $request
@@ -57,12 +62,12 @@ abstract class Action implements Interfaces\IDictionary, Interfaces\INameable {
         }
         $this->view = new View($this);
         $this->data['View'] = $this->view;
-        $this->data['Controller'] = $request->Controller;
+        $this->data['Controller'] = $request->Controller; //For Object Name?
         $this->data['Action'] = $request->Action;
         $this->data['Application'] = $request->Application;
-        $this->data['Session'] = $request->Session;
         $this->data['Request'] = $request;
-        $this->controller = $controller;
+        $this->controller = $controller; // For Object Instance
+        $this->data['Session'] = $this->session = $request->Session;
     }
 
     /**

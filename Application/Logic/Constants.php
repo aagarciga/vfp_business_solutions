@@ -23,3 +23,10 @@ define("MODEL_TYPE_DEFAULT", MODEL_TYPE_STRING);
  */
 define('HTML_DATA_ATTR_EDITABLE', 'editable');
 define("HTML_DATA_ATTR_VISIBLE", 'visible');
+
+/**
+ * Dashboard request params definition
+ */
+define('DASHBOARD_REQUEST_PARAM_PAGE', 'page');
+define('DASHBOARD_REQUEST_PARAM_ORDERBY', 'orderby');
+define('DASHBOARD_REQUEST_PARAM_ORDER', 'order');
