@@ -264,7 +264,7 @@ class Application extends Core\Application
     {
         return $this->settings->DB;
     }
-
+//                    getDefaultPagerItermsPerPage
     public function getDefaultPagerItemsPerPage()
     {
         $pager = $this->GetSimpleXMLElement('Pager');

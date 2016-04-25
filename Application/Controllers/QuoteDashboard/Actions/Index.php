@@ -21,7 +21,7 @@ class Index extends Action {
     public function Execute() {
         $exportedBy = 'QU';
         $this->Title = 'Quote Dashboard | VFP Business Series';
-        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
+        $defaultItemsPerPage = $this->Application->getDefaultPagerItemsPerPage();
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? $defaultItemsPerPage : $_SESSION['itemperpages'];
