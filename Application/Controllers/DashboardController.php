@@ -150,7 +150,7 @@ abstract class DashboardController extends DatActionsController
         if (is_null($request)){
             return "50";
         }
-        return (string) $request->Application->getDefaultPagerItermsPerPage();
+        return (string) $request->Application->getDefaultPagerItemsPerPage();
     }
 
     /**

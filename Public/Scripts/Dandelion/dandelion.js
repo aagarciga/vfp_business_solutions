@@ -27,7 +27,7 @@
     // dandelion Namespace
     var dandelion = {};
     global.dandelion = global.Dandelion = dandelion;
-    dandelion.namespace = function(nsString, root) {
+    dandelion.namespace = function (nsString, root) {
         var i, len, parent, part, parts;
         parts = nsString.split('.');
         parent = root != null ? root : dandelion;

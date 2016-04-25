@@ -31,7 +31,7 @@ class DatDashboardController extends DatActionsController
 
         $companyID = $this->DatUnitOfWork->CompanySuffix;
         $sqlTableSnippet = $viewModelName::getTableFor($companyID);
-        $sqlSelectSnippet = $this->buildSQLSelectSnippet($viewModelName::getFieldDefinitionFor($companyID));
+        $sqlSelectSnippet = $this->buildSQLSelectSnippet($viewModelName::getFieldsDefinitionFor($companyID));
 
         $sqlString = "SELECT "
             . $sqlSelectSnippet
@@ -98,7 +98,7 @@ class DatDashboardController extends DatActionsController
         $this->checkForViewModel($viewModelName);
 
         $companyID = $this->DatUnitOfWork->CompanySuffix;
-        $fieldsDefinition = $viewModelName::getFieldDefinitionFor($companyID);
+        $fieldsDefinition = $viewModelName::getFieldsDefinitionFor($companyID);
         $arrayField = array_keys($fieldsDefinition);
         return $arrayField[0];
     }

@@ -115,6 +115,15 @@ class Application implements INameable
         return $this->settings[$key];
     }
 
+    /**
+     * @param $key
+     * @return \SimpleXMLElement[]
+     */
+    public function GetSimpleXMLElement($key)
+    {
+        return $this->settings->$key;
+    }
+
     public function SetValueProperty($key, $property, $propertyValue){
         $this->settings[$key][$property] = $propertyValue;
         $this->Flush();

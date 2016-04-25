@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <img src="<?php echo $View->UploadsContext($CompanyLogo) ?>"/>
+                <img src="<?php echo trim($View->UploadsContext($CompanyLogo))  ?>"/>
                 Equipment Dashboard
             </a>
         </div>

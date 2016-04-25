@@ -40,7 +40,7 @@ class ARCOMPRepository extends VFPRepository implements IRepository {
         $queryResult = $query->Execute($sqlString);
         
         if (count($queryResult)) {
-            return $queryResult[0]->LOGO;
+            return  trim($queryResult[0]->LOGO);
         }
         return "";        
     }

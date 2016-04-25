@@ -35,14 +35,93 @@
   display: inline-block;
   width: 21px;
   height: 9px;
-  background: transparent url('../images/table-sort.gif') no-repeat 50% 50%;
+  background: transparent url('../Images/table-sort.gif') no-repeat 50% 50%;
 }
 .btn-table-sort.asc {
-  background: transparent url('../images/table-sort-asc.gif') no-repeat 50% 60%;
+  background: transparent url('../Images/table-sort-asc.gif') no-repeat 50% 60%;
 }
 .btn-table-sort.desc {
-  background: transparent url('../images/table-sort-desc.gif') no-repeat 50% 40%;
+  background: transparent url('../Images/table-sort-desc.gif') no-repeat 50% 40%;
 }
 .filter-button button {
   padding: 4px 9px;
+}
+/**
+ * Dashboard Style
+ */
+.dashboard-container {
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+@media only screen and(min-width:  768px ) {
+  .dashboard-container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+.dashboard-container nav.navbar > div.navbar-header > a.navbar-brand > img {
+  margin-right: 1em;
+}
+.dashboard-container div.panel .panel-heading .panel-title {
+  font-size: 1em;
+  color: #747474;
+}
+.dashboard-container div.panel .panel-heading .items-per-page-selector {
+  float: right;
+  position: relative;
+  top: -7px;
+  margin: 0;
+}
+.dashboard-container div.panel .panel-heading .items-per-page-selector + span {
+  float: right;
+  position: relative;
+  margin-right: 1em;
+  color: #747474;
+}
+.dashboard-container div.panel .panel-heading .items-per-page-selector > ul.dropdown-menu {
+  right: 0;
+  left: auto;
+  min-width: 130px;
+}
+.dashboard-container div.panel .panel-heading .items-per-page-selector > ul.dropdown-menu li a:hover {
+  background: #e8e8e8 none;
+}
+.dashboard-container div.panel .panel-body .alert {
+  padding: 10px 15px;
+  text-align: center;
+}
+.dashboard-container div.panel .panel-body .form-filter .form-filter-actions .form-filter-action {
+  padding: 4px 10px;
+}
+.dashboard-container div.panel .panel-body .form-filter .form-filter-actions .dropdown-toggle {
+  padding: 4px 10px;
+}
+.dashboard-container div.panel .panel-body .panel-table {
+  margin-top: 10px;
+}
+.dashboard-container div.panel .panel-body .panel-table .pinned {
+  margin-top: -1px;
+}
+.dashboard-container div.panel .panel-body .panel-table .dropdown .value {
+  display: inline-block;
+  min-width: 60px;
+  text-align: left;
+  font-size: 12px;
+}
+.dashboard-container div.panel .panel-body .panel-table table.table {
+  font-size: 12px;
+}
+.dashboard-container div.panel .panel-body .panel-table table.table thead tr th {
+  padding: 8px 4px;
+  font-size: 12px;
+}
+.dashboard-container div.panel .panel-body .panel-table table.table thead tr th .btn-table-sort {
+  padding: 1px 4px;
+}
+.dashboard-container div.panel .panel-body .panel-table table.table tbody tr td {
+  vertical-align: middle;
+}
+.dashboard-container div.panel .panel-footer .pager-wrapper {
+  min-height: 80px;
 }

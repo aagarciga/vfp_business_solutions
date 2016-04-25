@@ -1,0 +1,144 @@
+@import "bootstrap-mixins";
+
+@smallwidth: ~"only screen and(min-width: "@screen-sm-min~")";
+@mediumwidth: ~"only screen and (max-width: "@screen-md-min~")";
+@largewidth: ~"only screen and (max-width: "@screen-lg-min~")";
+
+@media @smallwidth {
+
+}
+@media @mediumwidth {
+
+}
+@media @largewidth {
+
+}
+
+.dashboard-container(){
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    @media @smallwidth {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    @media @mediumwidth {
+
+    }
+    @media @largewidth {
+
+    }
+    nav.navbar{
+        > div.navbar-header{
+            > button.navbar-toggle{
+
+            }
+            > a.navbar-brand{
+                > img{
+                    margin-right: 1em;
+                }
+            }
+        }
+
+    }
+    div.panel{
+        .panel-heading{
+            .panel-title{
+                font-size: 1em;
+                color: #747474;
+            }
+            .badge{
+
+            }
+            .items-per-page-selector{
+                float: right;
+                position: relative;
+                top: -7px;
+                margin: 0;
+                & + span{
+                    float: right;
+                    position: relative;
+                    margin-right: 1em;
+                    color: #747474;
+                }
+                > ul.dropdown-menu{
+                    right: 0;
+                    left: auto;
+                    min-width: 130px;
+                    li{
+                        a:hover{
+                            background: #e8e8e8 none;
+                        }
+                    }
+                }
+            }
+        }
+        .panel-body{
+            .alert{
+                padding: 10px 15px;
+                text-align: center;
+            }
+            .form-filter{
+                .form-filter-container{
+
+                }
+                .form-filter-actions{
+                    .form-filter-action{
+                        padding: 4px 10px;
+                    }
+                    .dropdown-toggle{
+                        padding: 4px 10px;
+                    }
+                }
+            }
+            .panel-table{
+                margin-top: 10px;
+                //overflow: auto;
+                //overflow-x: auto;
+                .pinned{
+                    margin-top: -1px;
+                }
+                .dropdown{
+                    .value{
+                        display: inline-block;
+                        min-width: 60px;
+                        text-align: left;
+                        font-size: 12px;
+                    }
+                }
+                table.table{
+                    font-size: 12px;
+                    colgroup{
+                        col{}
+                    }
+                    thead{
+                        tr{
+                            th{
+                                padding: 8px 4px;
+                                font-size: 12px;
+                                .btn-table-sort{
+                                    padding: 1px 4px;
+                                }
+                            }
+                        }
+                    }
+                    tbody{
+                        tr{
+                            td{
+                                vertical-align: middle;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        .panel-footer{
+            .pager-wrapper{
+                min-height: 80px;
+            }
+        }
+    }
+
+
+}

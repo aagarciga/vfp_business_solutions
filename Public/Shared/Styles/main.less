@@ -1,9 +1,7 @@
+@import "lesshat";
 @import "bootstrap-mixins";
 @import "mixins";
-
-//body *{
-//    .transition(all .5s ease);
-//}
+@import "dashboard";
 
 .navbar.navbar-default{
     border-radius: 0px 0px 4px 4px;
@@ -53,17 +51,24 @@
     display: inline-block;
     width: 21px;
     height: 9px;
-    background: transparent url('../images/table-sort.gif') no-repeat 50% 50%;
+    background: transparent url('../Images/table-sort.gif') no-repeat 50% 50%;
 }
 
 .btn-table-sort.asc{
-    background: transparent url('../images/table-sort-asc.gif') no-repeat 50% 60%;
+    background: transparent url('../Images/table-sort-asc.gif') no-repeat 50% 60%;
 }
 
 .btn-table-sort.desc{
-    background: transparent url('../images/table-sort-desc.gif') no-repeat 50% 40%;
+    background: transparent url('../Images/table-sort-desc.gif') no-repeat 50% 40%;
 }
 
 .filter-button button{
     padding: 4px 9px;
+}
+
+/**
+ * Dashboard Style
+ */
+.dashboard-container{
+    .dashboard-container();
 }

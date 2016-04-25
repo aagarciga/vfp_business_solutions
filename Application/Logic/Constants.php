@@ -7,11 +7,9 @@
 /**
  * Model Types Definitions
  */
-//define("MODEL_TYPE_STRING", strtolower(ADVANTAGE_TYPE_CHARACTER));
 define("MODEL_TYPE_STRING", 'character');
-//define("MODEL_TYPE_DATE", strtolower(ADVANTAGE_TYPE_DATE));
 define("MODEL_TYPE_DATE", 'date');
-//define("MODEL_TYPE_MEMO", strtolower(ADVANTAGE_TYPE_MEMO));
+define("MODEL_TYPE_DATE_DEFAULT", '1899-12-30');
 define("MODEL_TYPE_MEMO", 'memo');
 define("MODEL_TYPE_DATE_RANGE", 'daterange');
 define("MODEL_TYPE_DICTIONARY", 'dropdown');
@@ -19,10 +17,25 @@ define("MODEL_TYPE_LINK", 'link'); // TODO: Instead href preventing issues
 define("MODEL_TYPE_DEFAULT", MODEL_TYPE_STRING);
 
 /**
- * HTML Elements data attributes definition
+ * JavaScript Types Definitions
  */
-define('HTML_DATA_ATTR_EDITABLE', 'editable');
-define("HTML_DATA_ATTR_VISIBLE", 'visible');
+define("JS_TYPE_STRING", 'text');
+define("JS_TYPE_DATE", MODEL_TYPE_DATE);
+define("JS_TYPE_DATE_RANGE", MODEL_TYPE_DATE_RANGE);
+define("JS_TYPE_DICTIONARY", MODEL_TYPE_DICTIONARY);
+
+/**
+ * ViewModel's Field Definition Attributes
+ */
+define("FIELD_ATTR_TYPE", 'type');
+define("FIELD_ATTR_NAME", 'name');
+define("FIELD_ATTR_DISPLAY_NAME", 'displayName');
+define("FIELD_ATTR_VALUES", 'values');
+define("FIELD_ATTR_HAVE_VALUES", 'haveValues');
+define('FIELD_ATTR_EDITABLE', 'editable');
+define('FIELD_ATTR_FILTERABLE', 'filterable');
+define("FIELD_ATTR_VISIBLE", 'visible');
+define("FIELD_ATTR_SORTABLE", 'sortable');
 
 /**
  * Dashboard request params definition

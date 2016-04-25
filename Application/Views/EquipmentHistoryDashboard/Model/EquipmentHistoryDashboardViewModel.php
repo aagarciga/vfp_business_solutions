@@ -51,24 +51,24 @@ class EquipmentHistoryDashboardViewModel
      */
     public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi, $assettag, $locno, $qbtxlineid)
     {
-        $this->ordnum = $ordnum;
-        $this->equipid = $equipid;
-        $this->itemno = $itemno;
-        $this->descrip = $descrip;
-        $this->make = $make;
-        $this->model = $model;
-        $this->serialno = $serialno;
-        $this->Voltage = $Voltage;
-        $this->EquipType = $EquipType;
-        $this->installdte = $installdte;
-        $this->expdtein = $expdtein;
-        $this->daterec = $daterec;
-        $this->status = $status;
-        $this->notes = $notes;
-        $this->picture_fi = $picture_fi;
-        $this->assettag = $assettag;
-        $this->locno = $locno;
-        $this->qbtxlineid = $qbtxlineid;
+        $this->ordnum = trim($ordnum);
+        $this->equipid = trim($equipid);
+        $this->itemno = trim($itemno);
+        $this->descrip = trim($descrip);
+        $this->make = trim($make);
+        $this->model = trim($model);
+        $this->serialno = trim($serialno);
+        $this->Voltage = trim($Voltage);
+        $this->EquipType = trim($EquipType);
+        $this->installdte = trim($installdte);
+        $this->expdtein = trim($expdtein);
+        $this->daterec = trim($daterec);
+        $this->status = trim($status);
+        $this->notes = trim($notes);
+        $this->picture_fi = trim($picture_fi);
+        $this->assettag = trim($assettag);
+        $this->locno = trim($locno);
+        $this->qbtxlineid = trim($qbtxlineid);
     }
 
     /**
@@ -238,7 +238,9 @@ class EquipmentHistoryDashboardViewModel
      */
     public function getInstalldte()
     {
-        return $this->installdte;
+
+
+        return  $this->installdte !== MODEL_TYPE_DATE_DEFAULT ? $this->installdte :'';
     }
 
     /**
@@ -256,7 +258,7 @@ class EquipmentHistoryDashboardViewModel
      */
     public function getExpdtein()
     {
-        return $this->expdtein;
+        return $this->expdtein !== MODEL_TYPE_DATE_DEFAULT ? $this->expdtein :'';
     }
 
     /**
@@ -274,7 +276,7 @@ class EquipmentHistoryDashboardViewModel
      */
     public function getDaterec()
     {
-        return $this->daterec;
+        return $this->daterec !== MODEL_TYPE_DATE_DEFAULT ? $this->daterec :'';
     }
 
     /**
@@ -326,7 +328,7 @@ class EquipmentHistoryDashboardViewModel
     /**
      * @return mixed
      */
-    public function getPictureFi()
+    public function getPicture_fi()
     {
         return $this->picture_fi;
     }
@@ -335,7 +337,7 @@ class EquipmentHistoryDashboardViewModel
      * @param mixed $picture_fi
      * @return EquipmentHistoryDashboardViewModel
      */
-    public function setPictureFi($picture_fi)
+    public function setPicture_fi($picture_fi)
     {
         $this->picture_fi = $picture_fi;
         return $this;
@@ -399,76 +401,119 @@ class EquipmentHistoryDashboardViewModel
      * @param $companyID
      * @return array
      */
-    public static function getFieldDefinitionFor($companyID)
+    public static function getFieldsDefinitionFor($companyID)
     {
         $swequipTable =  'SWEQUIP' . $companyID;
         $icparmTable = 'ICPARM' . $companyID;
 
         return array(
             'ordnum' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Work Order',
+                FIELD_ATTR_NAME => 'ordnum',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Work Order',
                 'table' => $swequipTable
             ),
             'equipid' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Equipment Id',
+                FIELD_ATTR_NAME => 'equipid',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Id',
                 'table' => $swequipTable
             ),
             'itemno' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Part No',
+                FIELD_ATTR_NAME => 'itemno',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Part No',
                 'table' => $swequipTable
             ),
             'descrip' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Item Description',
+                FIELD_ATTR_NAME => 'descrip',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Description',
                 'table' => $swequipTable
             ),
             'make' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Brand',
+                FIELD_ATTR_NAME => 'make',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Brand',
                 'table' => $swequipTable
             ),
             'model' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Model',
+                FIELD_ATTR_NAME => 'model',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Model',
                 'table' => $swequipTable
             ),
             'serialno' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Serial No',
+                FIELD_ATTR_NAME => 'serialno',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Serial No',
                 'table' => $swequipTable
             ),
             'Voltage' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Voltage',
+                FIELD_ATTR_NAME => 'Voltage',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Voltage',
                 'table' => $swequipTable
             ),
             'EquipType' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Type',
+                FIELD_ATTR_NAME => 'EquipType',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Type',
                 'table' => $swequipTable
             ),
             'installdte' => array(
-                'type' => MODEL_TYPE_DATE,
-                'displayName' => 'Date Out',
+                FIELD_ATTR_NAME => 'installdte',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DATE,
+                FIELD_ATTR_DISPLAY_NAME => 'Date Out',
                 'table' => $swequipTable
             ),
             'expdtein' => array(
-                'type' => MODEL_TYPE_DATE,
-                'displayName' => 'Expected date In',
+                FIELD_ATTR_NAME => 'expdtein',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DATE,
+                FIELD_ATTR_DISPLAY_NAME => 'Expacted In',
                 'table' => $swequipTable
             ),
             'daterec' => array(
-                'type' => MODEL_TYPE_DATE,
-                'displayName' => 'Date Actually Received',
+                FIELD_ATTR_NAME => 'daterec',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DATE,
+                FIELD_ATTR_DISPLAY_NAME => 'Received',
+                'table' => $swequipTable
+            ),
+
+            'notes' => array(
+                FIELD_ATTR_NAME => 'notes',
+                FIELD_ATTR_TYPE => MODEL_TYPE_MEMO,
+                FIELD_ATTR_DISPLAY_NAME => 'Notes',
+                'table' => $swequipTable
+            ),
+            'picture_fi' => array(
+                FIELD_ATTR_NAME => 'picture_fi',
+                FIELD_ATTR_TYPE => MODEL_TYPE_LINK,
+                FIELD_ATTR_DISPLAY_NAME => 'Image',
+                'table' => $icparmTable,
+                FIELD_ATTR_FILTERABLE => false,
+                FIELD_ATTR_SORTABLE => false,
+                FIELD_ATTR_VISIBLE => false
+
+            ),
+            'assettag' => array(
+                FIELD_ATTR_NAME => 'assettag',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Asset Tag',
+                'table' => $swequipTable
+            ),
+            'locno' => array(
+                FIELD_ATTR_NAME => 'locno',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Locno',
                 'table' => $swequipTable
             ),
             'status' => array(
-                'type' => MODEL_TYPE_DICTIONARY,
-                'displayName' => 'Status',
-                'values' => array(
+                FIELD_ATTR_NAME => 'status',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DICTIONARY,
+                FIELD_ATTR_DISPLAY_NAME => 'Status',
+                FIELD_ATTR_HAVE_VALUES => true,
+                FIELD_ATTR_VALUES => array(
                     'Available' => 'Available',
                     'Assigned' => 'Assigned',
                     'Broken' => 'Broken',
@@ -477,32 +522,14 @@ class EquipmentHistoryDashboardViewModel
                 ),
                 'table' => $swequipTable
             ),
-            'notes' => array(
-                'type' => MODEL_TYPE_MEMO,
-                'displayName' => 'Notes',
-                'table' => $swequipTable
-            ),
-            'picture_fi' => array(
-                'type' => MODEL_TYPE_LINK,
-                'displayName' => 'Image',
-                'table' => $icparmTable
-            ),
-            'assettag' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Asset Tag',
-                'table' => $swequipTable
-            ),
-            'locno' => array(
-                'type' => MODEL_TYPE_DEFAULT,
-                'displayName' => 'Locno',
-                'table' => $swequipTable
-            ),
             'qbtxlineid' => array(
-                'type' => TYPE_CHAR,
-                'displayName' => 'Last History Id',
+                FIELD_ATTR_NAME => 'qbtxlineid',
+                FIELD_ATTR_TYPE => TYPE_CHAR,
+                FIELD_ATTR_DISPLAY_NAME => 'Last History Id',
                 'table' => $swequipTable,
-                HTML_DATA_ATTR_EDITABLE => false,
-                HTML_DATA_ATTR_VISIBLE => false
+                FIELD_ATTR_EDITABLE => false,
+                FIELD_ATTR_VISIBLE => false,
+                FIELD_ATTR_FILTERABLE => false
             ),
         );
     }
@@ -514,6 +541,89 @@ class EquipmentHistoryDashboardViewModel
     }
 
     public static function getName(){
-        return 'Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Models\EquipmentHistoryDashboardViewModel';
+        return __CLASS__;
+    }
+
+    /**
+     * @param array $fieldDefinition
+     * @return bool
+     */
+    public static function isFilterable($fieldDefinition){
+        return array_key_exists(FIELD_ATTR_FILTERABLE, $fieldDefinition) ? $fieldDefinition[FIELD_ATTR_FILTERABLE] : true;
+    }
+
+    /**
+     * @param array $fieldDefinition
+     * @return bool
+     */
+    public static function isVisible($fieldDefinition){
+        return array_key_exists(FIELD_ATTR_VISIBLE, $fieldDefinition) ? $fieldDefinition[FIELD_ATTR_VISIBLE] : true;
+    }
+
+    /**
+     * @param array $fieldDefinition
+     * @return bool
+     */
+    public static function isSortable($fieldDefinition){
+        return array_key_exists(FIELD_ATTR_SORTABLE, $fieldDefinition) ? $fieldDefinition[FIELD_ATTR_SORTABLE] : true;
+    }
+
+    /**
+     * @param array $fieldDefinition
+     * @return string
+     */
+    public static function getTypeFor($fieldDefinition){
+        return array_key_exists(FIELD_ATTR_TYPE, $fieldDefinition) ? $fieldDefinition[FIELD_ATTR_TYPE] : MODEL_TYPE_DEFAULT;
+    }
+
+    /**
+     * @param array $fieldDefinition
+     * @return string
+     */
+    public static function getJSTypeFor($fieldDefinition){
+        $typeMapping = array(
+            MODEL_TYPE_STRING => JS_TYPE_STRING,
+            MODEL_TYPE_DATE => JS_TYPE_DATE,
+            MODEL_TYPE_DATE_RANGE => JS_TYPE_DATE_RANGE
+        );
+
+        $fieldType = self::getTypeFor($fieldDefinition);
+        return array_key_exists($fieldType, $typeMapping) ? $typeMapping[$fieldType] : $fieldType;
+    }
+
+    /**
+     * @param array $fieldDefinition
+     * @return string
+     */
+    public static function getDisplayNameFor($fieldDefinition){
+        return array_key_exists(FIELD_ATTR_DISPLAY_NAME, $fieldDefinition) ? $fieldDefinition[FIELD_ATTR_DISPLAY_NAME] : 'unnamed';
+    }
+
+    /**
+     * @param array $fieldDefinition
+     * @return string
+     */
+    public static function hasValues($fieldDefinition){
+        return array_key_exists(FIELD_ATTR_HAVE_VALUES, $fieldDefinition) ? $fieldDefinition[FIELD_ATTR_HAVE_VALUES] : false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getStatusDictionary(){
+        $fieldsDefinition = self::getFieldsDefinitionFor('');
+        return $fieldsDefinition['status']['values'];
+    }
+
+    /**
+     * Returns if fieldDefinition is Equipid
+     * @param $fieldDefinition
+     * @return bool
+     */
+    public static function isEquipid($fieldDefinition){
+        if (array_key_exists(FIELD_ATTR_NAME, $fieldDefinition)){
+            return 'equipid' === $fieldDefinition[FIELD_ATTR_NAME];
+        }
+        return false;
     }
 }

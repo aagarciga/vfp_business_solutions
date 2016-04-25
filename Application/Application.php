@@ -265,9 +265,9 @@ class Application extends Core\Application
         return $this->settings->DB;
     }
 
-    public function getDefaultPagerItermsPerPage()
+    public function getDefaultPagerItemsPerPage()
     {
-        $pager = $this->GetValue('Pager');
+        $pager = $this->GetSimpleXMLElement('Pager');
         $itemsPerPage = $pager['ItemsPerPage'];
         $result = isset($itemsPerPage) ? $itemsPerPage : 10;
         return $result;

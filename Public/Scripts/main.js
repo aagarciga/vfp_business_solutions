@@ -1,4 +1,3 @@
-
 if (window.jQuery === 'undefined') {
     throw new Error('VFP Business Series\'s JavaScript requires jQuery');
 }
@@ -38,13 +37,16 @@ if (window.jQuery === 'undefined') {
         $parent.removeClass('has-success').addClass('has-error');
     };
 
+    // Application Namespaces Declaration
+    dandelion.namespace('App.Foundation', global);
+
     /**
      * TD Element with TextNode inside
      * @param data
      * @param tdClass
      * @returns {Element|*}
      */
-    App.Helpers.simpleTdBuilder = function(data, tdClass) {
+    App.Helpers.simpleTdBuilder = function (data, tdClass) {
         var td, doc = global.document;
         td = doc.createElement('td');
         td.className = tdClass;
@@ -59,30 +61,28 @@ if (window.jQuery === 'undefined') {
      * @param wrapperElement
      * @returns {Element|*}
      */
-    App.Helpers.complexTdBuilder = function(elements, tdClass, wrapperElement) {
+    App.Helpers.complexTdBuilder = function (elements, tdClass, wrapperElement) {
         var td, index, doc = global.document;
         td = doc.createElement('td');
         td.className = tdClass;
 
-        if(wrapperElement){
-            if(Array.isArray(elements)){
+        if (wrapperElement) {
+            if (Array.isArray(elements)) {
                 index = elements.length;
-                while(index--)
-                {
+                while (index--) {
                     wrapperElement.appendChild(elements[index]);
                 }
-            }else{
+            } else {
                 wrapperElement.appendChild(elements); // Append only one element
             }
             td.appendChild(wrapperElement);
-        }else{
-            if(Array.isArray(elements)){
+        } else {
+            if (Array.isArray(elements)) {
                 index = elements.length;
-                while(index--)
-                {
+                while (index--) {
                     td.appendChild(elements[index]);
                 }
-            }else{
+            } else {
                 td.appendChild(elements); // Append only one element
             }
         }
@@ -98,7 +98,7 @@ if (window.jQuery === 'undefined') {
      * @param dataset
      * @returns {Element|*}
      */
-    App.Helpers.withLinkTdBuilder = function(data, tdClass, aClass, href, dataset) {
+    App.Helpers.withLinkTdBuilder = function (data, tdClass, aClass, href, dataset) {
         var a, td, doc = global.document;
         if (href == null) {
             href = '#';
@@ -107,7 +107,7 @@ if (window.jQuery === 'undefined') {
         a = doc.createElement('a');
         a.href = href;
         a.className = aClass;
-        for (var key in dataset){
+        for (var key in dataset) {
             a.dataset[key] = dataset[key];
         }
         if (typeof data === "string") {
@@ -128,7 +128,7 @@ if (window.jQuery === 'undefined') {
      * @param dataset
      * @returns {Element|*}
      */
-    App.Helpers.linkBuilder = function(data, aClass, href, dataset, props) {
+    App.Helpers.linkBuilder = function (data, aClass, href, dataset, props) {
         var a, doc = global.document;
         if (href == null) {
             href = '#';
@@ -136,10 +136,10 @@ if (window.jQuery === 'undefined') {
         a = doc.createElement('a');
         a.href = href;
         a.className = aClass;
-        for (var key in dataset){
+        for (var key in dataset) {
             a.dataset[key] = dataset[key];
         }
-        for (var key in props){
+        for (var key in props) {
             a.setAttribute(key, props[key]);
         }
         if (typeof data === "string") {
@@ -151,7 +151,7 @@ if (window.jQuery === 'undefined') {
     };
 
     /**
-     * 
+     *
      * @param data
      * @param tdClass
      * @param aClass
@@ -161,7 +161,7 @@ if (window.jQuery === 'undefined') {
      * @param dataset
      * @returns {Element|*}
      */
-    App.Helpers.withLightboxLinkPictureBuilder = function(data, tdClass, aClass, href, spanClass, spanChild, dataset) {
+    App.Helpers.withLightboxLinkPictureBuilder = function (data, tdClass, aClass, href, spanClass, spanChild, dataset) {
         var a, td, span, doc = global.document;
         var tdChild;
         if (href == null) {
@@ -182,13 +182,13 @@ if (window.jQuery === 'undefined') {
         }
 
         span.className = spanClass;
-        if (spanChild != null){
+        if (spanChild != null) {
             span.appendChild(spanChild);
         }
 
         td.className = tdClass;
 
-        if (href !== '#'){
+        if (href !== '#') {
             a.appendChild(span);
             td.appendChild(a);
         }
@@ -198,7 +198,7 @@ if (window.jQuery === 'undefined') {
         return td;
     };
 
-    App.Helpers.selectBuilder = function(data, selectClass, values, dataset) {
+    App.Helpers.selectBuilder = function (data, selectClass, values, dataset) {
         var currentId, currentValue, index, option, select, doc = global.document;
         select = doc.createElement('select');
         select.className = selectClass;
@@ -219,13 +219,13 @@ if (window.jQuery === 'undefined') {
             }
         }
         select.className += ' form-control update-dropdown select2-nosearch';
-        for (var key in dataset){
+        for (var key in dataset) {
             select.dataset[key] = dataset[key];
         }
         return select;
     };
 
-    App.Helpers.withSelectBuilder = function(data, tdClass, selectClass, values, dataset) {
+    App.Helpers.withSelectBuilder = function (data, tdClass, selectClass, values, dataset) {
         var select, td, doc = global.document;
         td = doc.createElement('td');
         td.className = tdClass;
@@ -234,37 +234,37 @@ if (window.jQuery === 'undefined') {
         return td;
     };
 
-    App.Helpers.Href = function(controller, action, params){
+    App.Helpers.Href = function (controller, action, params) {
         var url = 'index.php?';
-        if (controller !== ''){
+        if (controller !== '') {
             url += 'controller=' + controller;
-            if (action !== '' ){
+            if (action !== '') {
                 url += '&action=' + action;
             }
         }
-        else{
-            if (action !== '' ){
+        else {
+            if (action !== '') {
                 url += 'action=' + action;
             }
         }
-        if (params != null){
-            for (var index in params){
+        if (params != null) {
+            for (var index in params) {
                 url += "&" + index + "=" + params[index];
             }
         }
         return url;
     };
 
-    App.Helpers.createdObjectValues = function (item, fieldsDefinition){
+    App.Helpers.createdObjectValues = function (item, fieldsDefinition) {
         var result = {};
-        for (var index in fieldsDefinition){
-            if (item.hasOwnProperty(index)){
+        for (var index in fieldsDefinition) {
+            if (item.hasOwnProperty(index)) {
                 result[index] = item[index];
             }
         }
 
         return result;
-    }
+    };
 
 }(window, window.jQuery));
 
@@ -273,7 +273,8 @@ if (window.jQuery === 'undefined') {
     'use strict';
 
     var method,
-        noop = function () {},
+        noop = function () {
+        },
         methods = [
             'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
             'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
