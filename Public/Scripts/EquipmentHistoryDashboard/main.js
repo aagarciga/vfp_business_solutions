@@ -28,7 +28,13 @@
         _htmlBindings = {
             dropdown: '.dropdown',
             itemsPerPageSelector: '.items-per-page-selector',
-            statusSelector: '.status-selector'
+            statusSelector: '.status-selector',
+            btnActionFilesDialog: '.btn-action-files-dialog',
+            btnActionAdd: '.btn-action-add',
+            btnActionEdit: '.btn-action-edit',
+            btnActionView: '.btn-action-view',
+            modalEquipmentHistoryFormAdd: '#modal-equipment-history-form-add',
+            modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
         /**
          * Event Handlers
@@ -45,11 +51,25 @@
                 status = $(this).html();
                 throw 'Exception: Not implemented yet. Do something with status: ' + status;
             },
-            dropdown_OnClinck: function (event) {
+            dropdown_OnClick: function (event) {
                 var $anchor, value;
                 $anchor = $(this);
                 value = $anchor.html();
                 $anchor.parents(_htmlBindings.dropdown).find('.value').text(value);
+            },
+            btnActionFilesDialog_OnClick: function (event) {
+                throw 'Exception: Not implemented yet';
+            },
+            btnActionAdd_OnClick: function (event) {
+                $(_htmlBindings.modalEquipmentHistoryFormAdd).modal('show');
+                throw 'Exception: Not implemented yet';
+            },
+            btnActionEdit_OnClick: function (event) {
+                $(_htmlBindings.modalEquipmentHistoryFormEdit).modal('show');
+                throw 'Exception: Not implemented yet';
+            },
+            btnActionView_OnClick: function (event) {
+                throw 'Exception: Not implemented yet';
             }
         };
         /**
@@ -57,9 +77,13 @@
          */
         _functions = {
             bindEventHandlers: function () {
-                $(_htmlBindings.dropdown).on('click', 'a', _eventHandlers.dropdown_OnClinck);
+                $(_htmlBindings.dropdown).on('click', 'a', _eventHandlers.dropdown_OnClick);
                 $(_htmlBindings.itemsPerPageSelector).on('click', 'a', _eventHandlers.itemsPerPageSelector_OnClick);
                 $(_htmlBindings.statusSelector).on('click', 'a', _eventHandlers.statusSelector_OnClick);
+                $(_htmlBindings.btnActionFilesDialog).on('click', _eventHandlers.btnActionFilesDialog_OnClick);
+                $(_htmlBindings.btnActionAdd).on('click', _eventHandlers.btnActionAdd_OnClick);
+                $(_htmlBindings.btnActionEdit).on('click', _eventHandlers.btnActionEdit_OnClick);
+                $(_htmlBindings.btnActionView).on('click', _eventHandlers.btnActionView_OnClick);
             },
             paginate: function () {
                 //TODO: Implement

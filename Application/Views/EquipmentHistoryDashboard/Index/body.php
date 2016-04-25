@@ -169,13 +169,13 @@
                                         <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="">
                                             <span class="glyphicon glyphicon-folder-close"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-edit" data-equipid="">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" data-equipid="">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-add" data-equipid="">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" data-equipid="">
                                             <span class="glyphicon glyphicon-plus-sign"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-view" data-equipid="">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-view" data-equipid="">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </a>
                                     </div>
@@ -206,5 +206,41 @@
 <!--Container ends-->
 
 <!--Modal Section-->
+
+<div id="modal-equipment-history-form-add" class="modal fade" role="dialog" tabindex="-1" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Equipment History</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add History</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modal-equipment-history-form-edit" class="modal fade" role="dialog" tabindex="-1" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Update Last Equipment History</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!--Modal Section ends-->

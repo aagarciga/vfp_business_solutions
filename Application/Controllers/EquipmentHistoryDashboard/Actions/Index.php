@@ -42,6 +42,8 @@ class Index extends Action
 
         $this->StatusDictionary = EquipmentHistoryDashboardViewModel::getStatusDictionary();
 
+        $this->JsonFilterTree = ''; //TODO: Implement this...
+
         $this->Page = $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_PAGE, $this->controller->getDefaultPage());
         $this->OrderBy = $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDERBY, $this->controller->getDefaultOrderBy($this->EquipmentHistoryDashboardViewModelName));
         $this->Order = $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDER, $this->controller->getDefaultOrder());
