@@ -34,12 +34,20 @@
             btnActionEdit: '.btn-action-edit',
             btnActionView: '.btn-action-view',
             modalEquipmentHistoryFormAdd: '#modal-equipment-history-form-add',
+            projectManagerSelector: '.project-manager-selector',
+            workOrderSelector: '.work-order-selector',
             modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
         /**
          * Event Handlers
          */
         _eventHandlers = {
+            dropdown_OnClick: function (event) {
+                var $anchor, value;
+                $anchor = $(this);
+                value = $anchor.html();
+                $anchor.parents(_htmlBindings.dropdown).find('.value').text(value);
+            },
             itemsPerPageSelector_OnClick: function (event) {
                 _status.itemsPerPage = $(this).html();
                 // Reset Current Page
@@ -51,18 +59,12 @@
                 status = $(this).html();
                 throw 'Exception: Not implemented yet. Do something with status: ' + status;
             },
-            dropdown_OnClick: function (event) {
-                var $anchor, value;
-                $anchor = $(this);
-                value = $anchor.html();
-                $anchor.parents(_htmlBindings.dropdown).find('.value').text(value);
-            },
             btnActionFilesDialog_OnClick: function (event) {
                 throw 'Exception: Not implemented yet';
             },
             btnActionAdd_OnClick: function (event) {
                 $(_htmlBindings.modalEquipmentHistoryFormAdd).modal('show');
-                throw 'Exception: Not implemented yet';
+                //throw 'Exception: Not implemented yet';
             },
             btnActionEdit_OnClick: function (event) {
                 $(_htmlBindings.modalEquipmentHistoryFormEdit).modal('show');
@@ -100,24 +102,82 @@
         function addDictionary(name, dictionary) {
             _dictionaries[name] = dictionary;
         }
+        function addUrl(name, url) {
+            _urls[name] = url;
+        }
         function init(filter) {
             global.console.log('filter: ', filter);
 
             global.console.log('HTML Bindings');
-            global.console.log('itemsPerPageSelector: ', _htmlBindings.itemsPerPageSelector);
+            for (var index in _htmlBindings){
+                if (_htmlBindings.hasOwnProperty(index)){
+                    global.console.log('\t',index, ':',_htmlBindings[index]);
+                }
+            }
 
             global.console.log('Binding Event Handlers');
             _functions.bindEventHandlers();
+
+            //var data = [
+            //    { id: 0, text: 'enhancement' },
+            //    { id: 1, text: 'bug' },
+            //    { id: 2, text: 'duplicate' },
+            //    { id: 3, text: 'invalid' },
+            //    { id: 4, text: 'wontfix' }
+            //];
+            //$(_htmlBindings.projectManagerSelector).select2({
+            //    data: data,
+            //    theme: "bootstrap"
+            //});
+
+            $(_htmlBindings.workOrderSelector).select2({
+                theme: "bootstrap",
+                ajax: {
+                    url: _urls.workOrderSelectorAjaxUrl,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function (data, params){
+                        global.console.log('data: ', data);
+                        global.console.log('params: ', params);
+                        params.page = params.page || 1;
+                        return{
+                            results: data.items,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 1
+            });
+
+            $(_htmlBindings.projectManagerSelector).select2({
+                theme: "bootstrap",
+                ajax: {
+                    url: _urls.projectManagerSelectorAjaxUrl,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function (data){
+                        global.console.log('data: ', data);
+                      return{
+                        results: data.items
+                      };
+                    },
+                    cache: true
+                },
+            });
+
 
             global.console.log('Dictionaries:');
             global.console.log(_dictionaries);
         }
         return {
-            urls: _urls,
             init: init,
             setItemsPerPageSelector: setItemsPerPageSelector,
             setStatusSelector: setStatusSelector,
-            addDictionary: addDictionary
+            addDictionary: addDictionary,
+            addUrl: addUrl
         };
     }());
 }(window, window.jQuery));

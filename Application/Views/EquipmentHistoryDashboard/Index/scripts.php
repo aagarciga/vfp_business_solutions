@@ -3,7 +3,6 @@
 <!--<script src="--><?php //echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?><!--"></script>-->
 <!--<script src="--><?php //echo $View->PublicVendorContext('jstree/jstree.min.js'); ?><!--"></script>-->
 <!--<script src="--><?php //echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?><!--"></script>-->
-<!--<script src="--><?php //echo $View->PublicVendorContext('select2/js/select2.full.min.js'); ?><!--"></script>-->
 <script src="<?php echo $View->PublicVendorContext('responsive-tables/responsive-tables.js'); ?>"></script>
 
 <!--<script src="--><?php //echo $View->ScriptsContext('InventoryDashboard/InventoryDashboardDynamicFilter.min.js'); ?><!--"></script>-->
@@ -29,6 +28,10 @@
 //    EquipmentHistoryDashboard.setItemsPerPageSelector('.items-per-page-selector');
 //    EquipmentHistoryDashboard.setStatusSelector('.status-selector');
     EquipmentHistoryDashboard.addDictionary('status', <?php echo json_encode($StatusDictionary)?>);
+
+    EquipmentHistoryDashboard.addUrl('workOrderSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'WorkOrderSearch')?>');
+    EquipmentHistoryDashboard.addUrl('projectManagerSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'ProjectManagerSearch')?>');
+
 
     EquipmentHistoryDashboard.init();
 

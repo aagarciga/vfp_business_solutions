@@ -104,6 +104,7 @@
                 <!--    End Filter-->
                 <!--    Table-->
                 <div class="panel-table">
+
                     <table id="equipmentHistoryDashboardTable" class="table table-striped responsive">
                         <colgroup>
                             <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
@@ -207,7 +208,7 @@
 
 <!--Modal Section-->
 
-<div id="modal-equipment-history-form-add" class="modal fade" role="dialog" tabindex="-1" >
+<div id="modal-equipment-history-form-add" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -215,7 +216,26 @@
                 <h4 class="modal-title">Add Equipment History</h4>
             </div>
             <div class="modal-body">
-                <p>One fine body&hellip;</p>
+
+                <div class="row">
+                    <form action="?" class="">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label"><span class="glyphicon glyphicon-log-list"></span> Work Order</label>
+                                <select class="form-control work-order-selector" style="width: 100%" data-bind="value: ordnum">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label"><span class="glyphicon glyphicon-log-list"></span> Project Manager</label>
+                                <select class="form-control project-manager-selector" style="width: 100%" data-bind="value: inspectno">
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -233,7 +253,7 @@
                 <h4 class="modal-title">Update Last Equipment History</h4>
             </div>
             <div class="modal-body">
-                <p>One fine body&hellip;</p>
+<!--                TODO: Fill Form -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
