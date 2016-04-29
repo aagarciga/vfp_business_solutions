@@ -32,8 +32,8 @@ class WorkOrderSearch extends Action {
             $current['text'] = '(' . trim($row->getOrdnum()) . ') - ' . trim($row->getCustno()) . ' (' . trim($row->getPodate()). ')';
             $result['items'][] = $current;
         }
-        $workOrderCollection = $this->controller->DatUnitOfWork->SOHEADRepository->GetLike($this->query);
-        $result['totalCount'] = count($workOrderCollection);
+        $result['totalCount'] = $this->controller->DatUnitOfWork->SOHEADRepository->GetLikeCount($this->query);
+
         return json_encode($result);
     }
 }

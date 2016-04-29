@@ -71,6 +71,20 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         }
         return $result;
     }
+
+    /**
+     * @param $query
+     * @return int
+     */
+    public function GetActivesLikeCount($query){
+        $lowerQuery = strtolower($query);
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT COUNT(INSPECTNO) FROM $tableName";
+        $sqlString .= " WHERE ACTIVE = True AND TECHPM = True AND LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        return intval($queryResult[0]->EXPR);
+    }
     
     public function Get($predicate) {
         $tableName = $this->entityName . $this->companySuffix;

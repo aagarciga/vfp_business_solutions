@@ -92,6 +92,20 @@ class SOHEADRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
+    /**
+     * @param $query
+     * @return int
+     */
+    public function GetLikeCount($query){
+        $lowerQuery = strtolower($query);
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT COUNT(ORDNUM) FROM $tableName";
+        $sqlString .= " WHERE LOWER(ORDNUM) LIKE '%$lowerQuery%' OR LOWER(CUSTNO) LIKE '%$lowerQuery%'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        return intval($queryResult[0]->EXPR);
+    }
+
     public function Add($entity) {
         // TODO: Implement Add() method.
     }

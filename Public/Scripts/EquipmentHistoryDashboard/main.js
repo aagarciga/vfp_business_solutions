@@ -95,7 +95,7 @@
                     ajax: {
                         url: _urls.workOrderSelectorAjaxUrl,
                         dataType: 'json',
-                        delay: 500,
+                        delay: 250,
                         processResults: function (data, params) {
                             //global.console.log('data: ', data);
                             //global.console.log('params: ', params);
@@ -118,7 +118,7 @@
                     ajax: {
                         url: _urls.projectManagerSelectorAjaxUrl,
                         dataType: 'json',
-                        delay: 500,
+                        delay: 250,
                         processResults: function (data, params) {
                             //global.console.log('data: ', data);
                             //global.console.log('params: ', params);
@@ -126,7 +126,7 @@
                             return {
                                 results: data.items,
                                 pagination: {
-                                    more: (params.page * 30) < data.total_count
+                                    more: (params.page * 30) < data.totalCount
                                 }
                             };
                         },
@@ -168,11 +168,6 @@
 
             global.console.log('Use Plugins');
             _functions.usePlugins();
-
-
-
-
-
 
             global.console.log('Dictionaries:');
             global.console.log(_dictionaries);
