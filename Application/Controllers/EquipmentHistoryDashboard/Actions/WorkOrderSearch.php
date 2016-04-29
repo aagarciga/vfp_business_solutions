@@ -21,8 +21,7 @@ class WorkOrderSearch extends Action {
      */
     public function Execute() {
         $this->query = $this->Request->hasProperty('q') ? $this->Request->q : '';
-        $this->page = $this->Request->hasProperty('page') ? $this->Request->page : '';
-
+        $this->page = $this->Request->hasProperty('page') ? $this->Request->page : '0';
         $result = array('items' =>
             array()
         );
@@ -34,8 +33,7 @@ class WorkOrderSearch extends Action {
             $result['items'][] = $current;
         }
         $workOrderCollection = $this->controller->DatUnitOfWork->SOHEADRepository->GetLike($this->query);
-
-        $result['total_count'] = count($workOrderCollection);
+        $result['totalCount'] = count($workOrderCollection);
         return json_encode($result);
     }
 }

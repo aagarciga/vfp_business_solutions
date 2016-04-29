@@ -52,19 +52,23 @@ class SWINSPRepository extends VFPRepository implements IRepository {
      * @param string $predicate SQL Query Where clause
      * @return \Dandelion\MVC\Application\Models\Entities\SWINSP
      */
-    public function GetActivesLike($name) {
-        $lowerName = strtolower($name);
+    public function GetActivesLike($query, $page = 0, $limit = 0) {
+        $lowerQuery = strtolower($query);
+        $startAt = 0;
+        if (intval($page) > 0)
+            $startAt = ((intval($page) - 1) * intval($limit)) + 1;
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
-        $sqlString .= " WHERE ACTIVE = True AND TECHPM = True AND LOWER(INSPECTNO) LIKE '%$lowerName%' OR LOWER(INSPECTNM) LIKE '%$lowerName%' ORDER BY INSPECTNO";
+        if(intval($limit) > 0){
+            $sqlString = "SELECT TOP $limit START AT $startAt * FROM $tableName";
+        }
+        $sqlString .= " WHERE ACTIVE = True AND TECHPM = True AND LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%' ORDER BY INSPECTNO";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
-
         foreach ($queryResult as $row) {
             $result [] = new SWINSP(trim($row->INSPECTNO), trim($row->INSPECTNM), trim($row->NOTES), trim($row->NFLG0), trim($row->TRUCKCODE), trim($row->DTEHIRE), trim($row->DTERAISE), trim($row->LABORCODE), trim($row->PAYRATE), trim($row->ACTIVE), trim($row->WHSNO), trim($row->SCHEDULE), trim($row->INSURANCE), trim($row->DRIVERLIC), trim($row->WORKCOMP), trim($row->TECHEMAIL), trim($row->WOEMAILDEL), trim($row->PICTURE), trim($row->ITEMNOLAB), trim($row->ITEMNOTRV), trim($row->ITEMNOOFC), trim($row->ITEMNOSTD), trim($row->ITEMNOGEN), trim($row->PAYTRAVEL), trim($row->PAYOFFICE), trim($row->PAYSTANDB), trim($row->PAYGENERAL), trim($row->BILLTRAVEL), trim($row->BILLOFFICE), trim($row->BILLSTANDB), trim($row->BILLGENERL), trim($row->HUWTRAVEL), trim($row->HUWOFFICE), trim($row->HUWSTANDBY), trim($row->HUWGENERAL), trim($row->BILLRATE), trim($row->HUWRATE), trim($row->PASSPORTNO), trim($row->VENDNO), trim($row->VENDOR), trim($row->TECHDOB), trim($row->PPISSUE), trim($row->PPEXPIRE), trim($row->VISANO), trim($row->VSAISSUE), trim($row->VSAEXPIRE), trim($row->QBLISTID), trim($row->TECHIM));
         }
-
         return $result;
     }
     

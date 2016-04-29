@@ -21,17 +21,19 @@ class ProjectManagerSearch extends Action {
      */
     public function Execute() {
         $this->query = $this->Request->hasProperty('q') ? $this->Request->q : '';
-
+        $this->page = $this->Request->hasProperty('page') ? $this->Request->page : '0';
         $result = array('items' =>
             array()
         );
-        $projectManagerCollection = $this->controller->DatUnitOfWork->SWINSPRepository->GetActivesLike($this->query);
+        $projectManagerCollection = $this->controller->DatUnitOfWork->SWINSPRepository->GetActivesLike($this->query, $this->page, 30);
         foreach ($projectManagerCollection as $row){
             $current = array();
             $current['id'] = trim($row->getInspectno());
             $current['text'] = trim($row->getInspectnm());
             $result['items'][] = $current;
         }
+        $projectManagerCollection = $this->controller->DatUnitOfWork->SWINSPRepository->GetActivesLike($this->query);
+        $result['total_count'] = count($projectManagerCollection);
         return json_encode($result);
     }
 }

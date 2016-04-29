@@ -72,17 +72,17 @@ class SOHEADRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
-    public function GetLike($ordnum, $page = 1, $limit = 0){
-        $lowerOrdnum = strtolower($ordnum);
-        $startAt = intval($limit) * intval($page);
+    public function GetLike($query, $page = 0, $limit = 0){
+        $lowerQuery = strtolower($query);
+        $startAt = 0;
+        if (intval($page) > 0)
+            $startAt = ((intval($page) - 1) * intval($limit)) + 1;
         $tableName = $this->entityName . $this->companySuffix;
-        if(intval($limit) === 0){
-            $sqlString = "SELECT * FROM $tableName";
-        }
-        else{
+        $sqlString = "SELECT * FROM $tableName";
+        if(intval($limit) > 0){
             $sqlString = "SELECT TOP $limit START AT $startAt * FROM $tableName";
         }
-        $sqlString .= " WHERE LOWER(ORDNUM) LIKE '%$lowerOrdnum%'";
+        $sqlString .= " WHERE LOWER(ORDNUM) LIKE '%$lowerQuery%' OR LOWER(CUSTNO) LIKE '%$lowerQuery%'";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
