@@ -216,24 +216,55 @@
                 <h4 class="modal-title">Add Equipment History</h4>
             </div>
             <div class="modal-body">
-
                 <div class="row">
                     <form action="?" class="">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="control-label"><span class="glyphicon glyphicon-log-list"></span> Work Order</label>
+                                <label class="control-label">Work Order</label>
                                 <select class="form-control work-order-selector" style="width: 100%" data-bind="value: ordnum">
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="control-label"><span class="glyphicon glyphicon-log-list"></span> Project Manager</label>
+                                <label class="control-label">Project Manager</label>
                                 <select class="form-control project-manager-selector" style="width: 100%" data-bind="value: inspectno">
                                 </select>
                             </div>
                         </div>
-
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">Date Out</label>
+                                <div class="input-prepend input-group">
+                                    <span class="add-on input-group-addon">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                    </span>
+                                    <input class="form-control daterangepicker-single " type="text" data-bind="value: installdte"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">Expacted In</label>
+                                <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        </span>
+                                    <input class="form-control daterangepicker-single" type="text" data-bind="value: expdtein"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">Received</label>
+                                <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        </span>
+                                    <input class="form-control daterangepicker-single" type="text" data-bind="value: daterec"/>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

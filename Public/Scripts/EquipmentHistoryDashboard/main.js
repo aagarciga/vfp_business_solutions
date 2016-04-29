@@ -36,6 +36,7 @@
             modalEquipmentHistoryFormAdd: '#modal-equipment-history-form-add',
             projectManagerSelector: '.project-manager-selector',
             workOrderSelector: '.work-order-selector',
+            dateRangePickerSingle: '.daterangepicker-single',
             modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
         /**
@@ -133,6 +134,13 @@
                         cache: true
                     }
                 });
+
+                $(_htmlBindings.dateRangePickerSingle).daterangepicker({
+                    singleDatePicker: true,
+                    format: 'YYYY-MM-DD',
+                    startDate: global.moment(),
+                    endDate: global.moment()
+                })
             },
             paginate: function () {
                 //TODO: Implement
