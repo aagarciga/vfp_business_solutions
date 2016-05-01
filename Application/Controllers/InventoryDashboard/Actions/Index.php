@@ -21,7 +21,7 @@ class Index extends Action {
     public function Execute() {
         $exportedBy = 'IN';
         $this->Title = 'Inventory Dashboard | VFP Business Series';
-        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
+        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItemsPerPage();
         
         $this->UserName = (!isset($_SESSION['username']))? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = (!isset($_SESSION['itemperpages']))? $defaultItemsPerPage : $_SESSION['itemperpages'];

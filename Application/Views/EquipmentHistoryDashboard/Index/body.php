@@ -221,14 +221,14 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="control-label">Work Order</label>
-                                <select class="form-control work-order-selector" style="width: 100%" data-bind="value: ordnum">
+                                <select class="form-control control-work-order" style="width: 100%" data-bind="value: ordnum">
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="control-label">Project Manager</label>
-                                <select class="form-control project-manager-selector" style="width: 100%" data-bind="value: inspectno">
+                                <select class="form-control control-project-manager" style="width: 100%" data-bind="value: inspectno">
                                 </select>
                             </div>
                         </div>
@@ -239,7 +239,7 @@
                                     <span class="add-on input-group-addon">
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                     </span>
-                                    <input class="form-control daterangepicker-single " type="text" data-bind="value: installdte"/>
+                                    <input class="form-control daterangepicker-single control-installdte" type="text" data-bind="value: installdte"/>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +250,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                         </span>
-                                    <input class="form-control daterangepicker-single" type="text" data-bind="value: expdtein"/>
+                                    <input class="form-control daterangepicker-single control-expdtein" type="text" data-bind="value: expdtein"/>
                                 </div>
                             </div>
                         </div>
@@ -261,7 +261,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                         </span>
-                                    <input class="form-control daterangepicker-single" type="text" data-bind="value: daterec"/>
+                                    <input class="form-control daterangepicker-single control-daterec" type="text" data-bind="value: daterec"/>
                                 </div>
                             </div>
                         </div>
@@ -270,7 +270,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add History</button>
+                <button type="button" class="btn btn-primary" data-bind="click: saveHistory">Add History</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

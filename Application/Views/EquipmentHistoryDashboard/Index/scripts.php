@@ -1,5 +1,6 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.min.js'); ?>"></script>
+<script src="<?php echo $View->PublicVendorContext('knockout/knockout.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?><!--"></script>-->
 <!--<script src="--><?php //echo $View->PublicVendorContext('jstree/jstree.min.js'); ?><!--"></script>-->
 <!--<script src="--><?php //echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?><!--"></script>-->
@@ -31,6 +32,7 @@
 
     EquipmentHistoryDashboard.addUrl('workOrderSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'WorkOrderSearch')?>');
     EquipmentHistoryDashboard.addUrl('projectManagerSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'ProjectManagerSearch')?>');
+    EquipmentHistoryDashboard.addUrl('addEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'AddEquipmentHistory')?>');
 
 
     EquipmentHistoryDashboard.init();
