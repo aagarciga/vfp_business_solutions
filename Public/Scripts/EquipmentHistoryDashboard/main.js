@@ -41,7 +41,7 @@
         };
 
         _mvvm = {
-            modalEquipmentHistoryFormAdd: (function (global, $, knockout) {
+            modalEquipmentHistoryFormAdd: (function (global, $, knockBack, knockout, backbone) {
                 var _htmlBindings, _functions, _eventHandlers,
                     EquipmentHistoryModel, EquipmentHistoryViewModel,
                     equipmentHistoryModel, equipmentHistoryViewModel;
@@ -130,61 +130,53 @@
                     }
                 };
 
-                EquipmentHistoryModel = function () {
-                    this.equipid = '';
-                    this.ordnum = '';
-                    this.inspectno = '';
-                    this.installdte = '';
-                    this.expdtein = '';
-                    this.daterec = '';
-                };
+                EquipmentHistoryModel = backbone.Model.extend({
+                    defaults: {
+                        "equipid": '',
+                        "ordnum": '',
+                        "inspectno": '',
+                        "installdte": '',
+                        "expdtein": '',
+                        "daterec": ''
+                    }
+                });
 
                 EquipmentHistoryViewModel = function (model) {
                     var self = this;
-                    self.equipid = knockout.observable(model.equipid);
-                    self.ordnum = knockout.observable(model.ordnum);
-                    self.inspectno = knockout.observable(model.inspectno);
-                    self.installdte = knockout.observable(model.installdte);
-                    self.expdtein = knockout.observable(model.expdtein);
-                    self.daterec = knockout.observable(model.daterec);
+                    self.equipid = knockBack.observable(model, 'equipid');
+                    self.ordnum = knockBack.observable(model, 'ordnum');
+                    self.inspectno = knockBack.observable(model, 'inspectno');
+                    self.installdte = knockBack.observable(model, 'installdte');
+                    self.expdtein = knockBack.observable(model, 'expdtein');
+                    self.daterec = knockBack.observable(model, 'daterec');
 
-                    self.saveHistory = function () {
+                    self.saveHistory = function (view_model) {
                         self.installdte($(_htmlBindings.controlDateOut).val());
                         self.expdtein($(_htmlBindings.controlExpactedIn).val());
                         self.daterec($(_htmlBindings.controlReceived).val());
 
-                        //global.console.log('Equipid: ', self.equipid());
-                        //global.console.log('Ordnum: ', self.ordnum());
-                        //global.console.log('inspectno: ', self.inspectno());
-                        //global.console.log('installdte: ', self.installdte());
-                        //global.console.log('expdtein: ', self.expdtein());
-                        //global.console.log('daterec: ', self.daterec());
-
                         $.post(
                             _urls.addEquipmentHistoryUrl,
                             {
-                                equipid: self.equipid(),
-                                ordnum: self.ordnum(),
-                                inspectno: self.inspectno(),
-                                installdte: self.installdte(),
-                                expdtein: self.expdtein(),
-                                daterec: self.daterec()
+                                equipid: view_model.equipid(),
+                                ordnum: view_model.ordnum(),
+                                inspectno: view_model.inspectno(),
+                                installdte: view_model.installdte(),
+                                expdtein: view_model.expdtein(),
+                                daterec: view_model.daterec()
                             }
-                        )
-                            .done(_eventHandlers.saveHistory_OnDone)
-                            .fail(function onFail(response) {
-                                throw 'POST Fail with :' + response;
-                            });
+                        ).done(_eventHandlers.saveHistory_OnDone).fail(function onFail(response) {
+                            throw 'POST Fail with :' + response;
+                        });
                     };
 
                     self.reset = function () {
-                        global.console.dir(self);
-                        self.equipid = knockout.observable('');
-                        self.ordnum = knockout.observable('');
-                        self.inspectno = knockout.observable('');
-                        self.installdte = knockout.observable('');
-                        self.expdtein = knockout.observable('');
-                        self.daterec = knockout.observable('');
+                        self.equipid('');
+                        self.ordnum('');
+                        self.inspectno('');
+                        self.installdte('');
+                        self.expdtein('');
+                        self.daterec('');
                     };
                 };
 
@@ -194,7 +186,7 @@
                 function init() {
                     var view;
                     view = global.document.getElementById(_htmlBindings.koViewElement);
-                    equipmentHistoryModel = new EquipmentHistoryModel();
+                    equipmentHistoryModel = new EquipmentHistoryModel({});
                     equipmentHistoryViewModel = new EquipmentHistoryViewModel(equipmentHistoryModel);
                     knockout.applyBindings(equipmentHistoryViewModel, view);
                     _functions.usePlugins();
@@ -227,7 +219,7 @@
                     setSaveHistoryCallback: setSaveHistoryCallback
                 };
 
-            }(global, $, knockout))
+            }(global, $, knockBack, knockout, backbone))
         };
         /**
          * Event Handlers
@@ -290,7 +282,6 @@
                 throw 'Exception: Not implemented yet';
             },
             updateEquip: function (equipID, workOrder, status) {
-                global.console.log("Udating Equip with: ", equipID, status, workOrder);
                 var $row = $(_htmlBindings.tableMain).find('tr[data-equipid=' + equipID + ']');
                 // Updating the Work Order (ordnum) field
                 $row.find(_htmlBindings.tableMainFieldWorkOrder).text(workOrder);

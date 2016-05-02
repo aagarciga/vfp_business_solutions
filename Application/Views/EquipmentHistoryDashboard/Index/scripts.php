@@ -1,7 +1,7 @@
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/moment.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('bootstrap-3/js/daterangepicker.min.js'); ?>"></script>
-<script src="<?php echo $View->PublicVendorContext('knockout/knockout.min.js'); ?>"></script>
-<!--<script src="--><?php //echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?><!--"></script>-->
+<!--<script src="--><?php //echo $View->PublicVendorContext('knockout/knockout.min.js'); ?><!--"></script>-->
+<script src="<?php echo $View->SharedScriptsContext('knockback-full-stack.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->PublicVendorContext('jstree/jstree.min.js'); ?><!--"></script>-->
 <!--<script src="--><?php //echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?><!--"></script>-->
 <script src="<?php echo $View->PublicVendorContext('responsive-tables/responsive-tables.js'); ?>"></script>
