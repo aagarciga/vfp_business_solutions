@@ -74,8 +74,8 @@
                                 },
                                 cache: true
                             },
-                            placeholder: 'Select One ...',
-                            allowClear: true
+                            /*placeholder: 'Select One ...',*/
+                            //allowClear: true
                         });
 
                         // [Project Manager] control
@@ -98,12 +98,11 @@
                                 },
                                 cache: true
                             },
-                            placeholder: 'Select One ...',
-                            allowClear: true
+                            /*placeholder: 'Select One ...',*/
+                            //allowClear: true
                         });
                     },
                     reset: function () {
-                        global.console.log('reseting...');
                         equipmentHistoryViewModel.reset();
                         // Reseting Select2 Controls
                         $(_htmlBindings.controlWorkOrder).val(null).trigger('change');
@@ -117,12 +116,12 @@
 
                 _eventHandlers = {
                     saveHistory_OnDone: function (response) {
-                        _functions.reset();
                         hide();
                     }
                 };
 
                 EquipmentHistoryModel = function () {
+                    this.equipid = '';
                     this.ordnum = '';
                     this.inspectno = '';
                     this.installdte = '';
@@ -132,6 +131,7 @@
 
                 EquipmentHistoryViewModel = function (model) {
                     var self = this;
+                    self.equipid = knockout.observable(model.equipid);
                     self.ordnum = knockout.observable(model.ordnum);
                     self.inspectno = knockout.observable(model.inspectno);
                     self.installdte = knockout.observable(model.installdte);
@@ -139,9 +139,21 @@
                     self.daterec = knockout.observable(model.daterec);
 
                     self.saveHistory = function () {
+                        self.installdte($(_htmlBindings.controlDateOut).val());
+                        self.expdtein($(_htmlBindings.controlExpactedIn).val());
+                        self.daterec($(_htmlBindings.controlReceived).val());
+
+                        //global.console.log('Equipid: ', self.equipid());
+                        //global.console.log('Ordnum: ', self.ordnum());
+                        //global.console.log('inspectno: ', self.inspectno());
+                        //global.console.log('installdte: ', self.installdte());
+                        //global.console.log('expdtein: ', self.expdtein());
+                        //global.console.log('daterec: ', self.daterec());
+
                         $.post(
                             _urls.addEquipmentHistoryUrl,
                             {
+                                equipid: self.equipid(),
                                 ordnum: self.ordnum(),
                                 inspectno: self.inspectno(),
                                 installdte: self.installdte(),
@@ -156,6 +168,8 @@
                     };
 
                     self.reset = function () {
+                        global.console.dir(self);
+                        self.equipid = knockout.observable('');
                         self.ordnum = knockout.observable('');
                         self.inspectno = knockout.observable('');
                         self.installdte = knockout.observable('');
@@ -179,7 +193,9 @@
                 /**
                  * Show Add Equipment History Modal Window
                  */
-                function show() {
+                function show(equipid) {
+                    _functions.reset();
+                    equipmentHistoryViewModel.equipid(equipid);
                     $(_htmlBindings.modalViewElement).modal('show');
                 }
 
@@ -192,7 +208,7 @@
 
                 return {
                     init: init,
-                    show: show,
+                    showFor: show,
                     hide: hide
                 };
 
@@ -223,7 +239,7 @@
                 throw 'Exception: Not implemented yet';
             },
             btnActionAdd_OnClick: function (event) {
-                _mvvm.modalEquipmentHistoryFormAdd.show();
+                _mvvm.modalEquipmentHistoryFormAdd.showFor($(this).data('equipid'));
             },
             btnActionEdit_OnClick: function (event) {
                 $(_htmlBindings.modalEquipmentHistoryFormEdit).modal('show');

@@ -167,16 +167,16 @@
                                 <?php endforeach ?>
                                 <td class="item-actions">
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-folder-close"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" data-equipid="">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" data-equipid="">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-plus-sign"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-view" data-equipid="">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-view" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </a>
                                     </div>
@@ -239,7 +239,7 @@
                                     <span class="add-on input-group-addon">
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                     </span>
-                                    <input class="form-control daterangepicker-single control-installdte" type="text" data-bind="value: installdte"/>
+                                    <input class="form-control daterangepicker-single control-installdte" type="text" placeholder="" data-bind="value: installdte"/>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +250,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                         </span>
-                                    <input class="form-control daterangepicker-single control-expdtein" type="text" data-bind="value: expdtein"/>
+                                    <input class="form-control daterangepicker-single control-expdtein" type="text" placeholder="" data-bind="text: expdtein"/>
                                 </div>
                             </div>
                         </div>
@@ -261,7 +261,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                         </span>
-                                    <input class="form-control daterangepicker-single control-daterec" type="text" data-bind="value: daterec"/>
+                                    <input class="form-control daterangepicker-single control-daterec" type="text" placeholder="" data-bind="value: daterec"/>
                                 </div>
                             </div>
                         </div>

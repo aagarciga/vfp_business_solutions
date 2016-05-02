@@ -29,7 +29,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         return $result;
     }
 
-		/**
+    /**
      * @param string $predicate SQL Query Where clause
      * @return \Dandelion\MVC\Application\Models\Entities\SWEQUIPD
      */
@@ -48,10 +48,32 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
 
         return $result;
     }
-	
+
+    /**
+     * @param \Dandelion\MVC\Application\Models\Entities\SWEQUIPD $entity
+     * @return mixed | bool
+     */
     public function Add($entity)
     {
-        // TODO: Implement Add() method.
+        $equipid = $entity->getEquipid();
+        $ordnum = $entity->getOrdnum();
+        $inspectno = $entity->getInspectno();
+        $installdte = $entity->getInstalldte();
+        $expdtein = $entity->getExpdtein();
+        $daterec = $entity->getDaterec();
+        $fupdtime = $entity->getFupdtime();
+        $fupddate = $entity->getFupddate();
+        $fstation = $entity->getFstation();
+        $fuserid = $entity->getFuserid();
+        $qblistid = $entity->getQblistid();
+        $qbtxlineid = $entity->getQbtxlineid();
+        $nflg0 = $entity->getNflg0() ? "True" : "False";
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = 'INSERT INTO ' . $tableName
+            . ' ([EQUIPID], [ORDNUM], [INSPECTNO], [INSTALLDTE], [EXPDTEIN], [DATEREC], [FUPDTIME], [FUPDDATE], [FSTATION], [FUSERID], [QBLISTID], [QBTXLINEID], [NFLG0])'
+            . " VALUES ('$equipid', '$ordnum', '$inspectno', '$installdte', '$expdtein', '$daterec', '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0)";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
     }
 
     public function Update($entity)

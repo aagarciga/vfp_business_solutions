@@ -323,7 +323,7 @@ class BaseSWEQUIPD
         $this->_fuserid = $fuserid;
         $this->_qblistid = $qblistid;
         $this->_qbtxlineid = $qbtxlineid;
-        $this->_nflg0 = $nflg0;
+        $this->_nflg0 = ($nflg0 === null || $nflg0 === '')? false : $nflg0 ;
 
     }
 
