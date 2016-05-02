@@ -626,4 +626,28 @@ class EquipmentHistoryDashboardViewModel
         }
         return false;
     }
+
+    /**
+     * Returns if fieldDefinition is Ordnum (Work Order)
+     * @param $fieldDefinition
+     * @return bool
+     */
+    public static function isWorkorder($fieldDefinition){
+        if (array_key_exists(FIELD_ATTR_NAME, $fieldDefinition)){
+            return 'ordnum' === $fieldDefinition[FIELD_ATTR_NAME];
+        }
+        return false;
+    }
+
+    /**
+     * Returns if fieldDefinition is Status
+     * @param $fieldDefinition
+     * @return bool
+     */
+    public static function isStatus($fieldDefinition){
+        if (array_key_exists(FIELD_ATTR_NAME, $fieldDefinition)){
+            return 'status' === $fieldDefinition[FIELD_ATTR_NAME];
+        }
+        return false;
+    }
 }

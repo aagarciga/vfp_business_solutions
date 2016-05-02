@@ -34,6 +34,9 @@
             btnActionEdit: '.btn-action-edit',
             btnActionView: '.btn-action-view',
             dateRangePickerSingle: '.daterangepicker-single',
+            tableMain: '#equipmentHistoryDashboardTable',
+            tableMainFieldWorkOrder: '.field-workorder',
+            tableMainFieldStatus: '.field-status',
             modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
 
@@ -111,11 +114,18 @@
                         $(_htmlBindings.controlDateOut).val('');
                         $(_htmlBindings.controlExpactedIn).val('');
                         $(_htmlBindings.controlReceived).val('');
+                    },
+                    saveHistoryCallback : function () {
+                        throw 'Exception: Not implemented yet';
                     }
                 };
 
                 _eventHandlers = {
                     saveHistory_OnDone: function (response) {
+                        global.console.log(response);
+                        var data = $.parseJSON(response);
+                        global.console.log(data);
+                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status);
                         hide();
                     }
                 };
@@ -206,10 +216,15 @@
                     $(_htmlBindings.modalViewElement).modal('hide');
                 }
 
+                function setSaveHistoryCallback(callback) {
+                    _functions.saveHistoryCallback = callback;
+                }
+
                 return {
                     init: init,
                     showFor: show,
-                    hide: hide
+                    hide: hide,
+                    setSaveHistoryCallback: setSaveHistoryCallback
                 };
 
             }(global, $, knockout))
@@ -273,6 +288,14 @@
             paginate: function () {
                 //TODO: Implement
                 throw 'Exception: Not implemented yet';
+            },
+            updateEquip: function (equipID, workOrder, status) {
+                global.console.log("Udating Equip with: ", equipID, status, workOrder);
+                var $row = $(_htmlBindings.tableMain).find('tr[data-equipid=' + equipID + ']');
+                // Updating the Work Order (ordnum) field
+                $row.find(_htmlBindings.tableMainFieldWorkOrder).text(workOrder);
+                // Updating the status value from current equipment row on the view
+                $row.find(_htmlBindings.tableMainFieldStatus).find('.value').text(status);
             }
         };
 
@@ -319,6 +342,7 @@
                     _mvvm[index].init();
                 }
             }
+            _mvvm.modalEquipmentHistoryFormAdd.setSaveHistoryCallback(_functions.updateEquip);
         }
 
         return {

@@ -34,24 +34,23 @@ class AddEquipmentHistory_Post extends Action {
         $this->UserName = $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_USERNAME, DASHBOARD_SESSION_PARAM_USERNAME_DEFAULT);
         $this->User = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
         $this->userID = $this->User->getUserid();
-        $now = new \DateTime();
-        $this->fupdate = $now->format('Y-m-d');
 
-        error_log($this->fupdate);
+        $this->status = 'Assigned';
+
+        $now = new \DateTime();
+        $this->fupdate = $now->format(GLOBAL_DEFAULT_DATE_FORMAT);
 
         $result = array('success' => false);
-        error_log($this->equipid);
-        error_log($this->ordnum);
-        error_log($this->inspectno);
-        error_log($this->installdte);
-        error_log($this->expdtein);
-        error_log($this->daterec);
 
         $entity = new SWEQUIPD($this->equipid, $this->ordnum, $this->inspectno, $this->installdte, $this->expdtein, $this->daterec, '', $this->fupdate, '', $this->userID, '', $this->historyId, '');
 
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Add($entity);
+        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateWorkOrderFor($this->equipid, $this->ordnum, $this->status);
         if ($isSuccess) {
             $result['success'] = true;
+            $result['equipid'] = $this->equipid;
+            $result['ordnum'] = $this->ordnum;
+            $result['status'] = $this->status;
         }
         return json_encode($result);
     }

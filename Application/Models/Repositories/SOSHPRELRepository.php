@@ -146,12 +146,8 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         if ($location !== '') {
             $sqlString .= "LOCNO = '$location', ";
         }
-//        $sqlString .= "QTYPICK = (QTYPICK + $value) " .
         $sqlString .= "QTYPICK = $value " .
-        //"WHERE LOWER(ITEMNO) = '$itemLower' AND LOWER(QBLISTID) = '$qblistidLower'";
         "WHERE QBTXLINEID = '$qbtxlineid'";
-
-        error_log("UpdateItemByQbtxlineid Value from SOSHPREL SQL: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

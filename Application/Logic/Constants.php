@@ -5,6 +5,11 @@
  */
 
 /**
+ * Global Definitions
+ */
+define("GLOBAL_DEFAULT_DATE_FORMAT", 'Y-m-d');
+
+/**
  * Model Types Definitions
  */
 define("MODEL_TYPE_STRING", 'character');

@@ -131,35 +131,37 @@
                         </thead>
                         <tbody>
                         <?php foreach ($Items as $item): ?>
-                            <tr>
+                            <tr data-equipid="<?php echo $item->getEquipid()?>">
                                 <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
                                     <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
                                         <?php $method = 'get' . ucfirst($field) ?>
                                         <?php if ($EquipmentHistoryDashboardViewModelName::hasValues($fieldDefinition)): ?>
-                                        <td class="item-field">
-                                            <div class="btn-group dropdown status-selector">
+                                        <td class="item-field <?php echo ($EquipmentHistoryDashboardViewModelName::isStatus($fieldDefinition))? 'field-status' : '' ?>">
+                                            <div class="btn-group dropdown">
                                                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                                                     <span class="value"><?php echo $item->$method() ?></span>
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <?php foreach ($StatusDictionary as $key => $value): ?>
-                                                        <li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="$key"><?php echo $value ?></a></li>
+                                                        <li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="<?php echo $key ?>"><?php echo $value ?></a></li>
                                                     <?php endforeach ?>
                                                 </ul>
                                             </div>
                                         </td>
+                                        <?php elseif($EquipmentHistoryDashboardViewModelName::isWorkorder($fieldDefinition)): ?>
+                                        <td class="item-field field-workorder"><?php echo $item->$method() ?></td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isEquipid($fieldDefinition)): ?>
-                                            <td class="item-field">
-                                                <a href="<?php echo $View->Href("HistoryDashboard", "Index", array(
-                                                    'equipid' => base64_encode($item->$method()),
-                                                    'jsonFilterTree' => base64_encode($JsonFilterTree),
-                                                    'itemsPerPage' => $ItemsPerPage,
-                                                    'page' => $Page,
-                                                    'orderBy' => $OrderBy,
-                                                    'order' => $Order
-                                                )) ?>"><?php echo $item->$method() ?></a>
-                                            </td>
+                                        <td class="item-field">
+                                            <a href="<?php echo $View->Href("HistoryDashboard", "Index", array(
+                                                'equipid' => base64_encode($item->$method()),
+                                                'jsonFilterTree' => base64_encode($JsonFilterTree),
+                                                'itemsPerPage' => $ItemsPerPage,
+                                                'page' => $Page,
+                                                'orderBy' => $OrderBy,
+                                                'order' => $Order
+                                            )) ?>"><?php echo $item->$method() ?></a>
+                                        </td>
                                         <?php else: ?>
                                         <td class="item-field"><?php echo $item->$method() ?></td>
                                         <?php endif ?>
