@@ -11,7 +11,7 @@
 <!--<script src="--><?php //echo $View->ScriptsContext('InventoryDashboard/main.min.js'); ?><!--"></script>-->
 <!--<script src="--><?php //echo $View->PublicVendorContext('lightbox2-master/dist/js/lightbox.min.js')?><!--"></script>-->
 
-<script src="<?php echo $View->ScriptsContext('EquipmentHistoryDashboard/main.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('EquipmentHistoryDashboard/main.min.js'); ?>"></script>
 <script>
 /**
  * @author Alex
@@ -34,9 +34,9 @@
     EquipmentHistoryDashboard.addUrl('projectManagerSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'ProjectManagerSearch')?>');
     EquipmentHistoryDashboard.addUrl('addEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'AddEquipmentHistory')?>');
     // WorkOrder equals SalesOrder
-    EquipmentHistoryDashboard.addUrl('getWorkOrder', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetWorkOrder')?>');
-    EquipmentHistoryDashboard.addUrl('updateWorkOrderNotes', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateWorkOrderNotes')?>');
-
+    EquipmentHistoryDashboard.addUrl('getWorkOrderUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetWorkOrder')?>');
+    EquipmentHistoryDashboard.addUrl('updateWorkOrderNotesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateWorkOrderNotes')?>');
+    EquipmentHistoryDashboard.addUrl('updateStatusUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateStatus')?>');
 
     EquipmentHistoryDashboard.init();
 

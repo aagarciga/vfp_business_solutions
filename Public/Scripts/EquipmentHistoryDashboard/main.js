@@ -394,7 +394,7 @@
                          * @param {object} event Event related object
                          * @return {view_model} Knockback viewmodel
                          */
-                        $.post(urls.updateWorkOrderNotes,
+                        $.post(urls.updateWorkOrderNotesUrl,
                             {
                                 ordnum: view_model.ordnum(),
                                 notes: view_model.notes()
@@ -484,7 +484,7 @@
                     _functions.reset();
 
                     $.post(
-                        urls.getWorkOrder,
+                        urls.getWorkOrderUrl,
                         {
                             ordnum : ordnum
                         }
@@ -534,7 +534,6 @@
 
                 equipID = $(this).parents('tr').data('equipid');
                 _status = $(this).html();
-                global.console.log('Changing to status: ', _status);
 
                 if (_status === 'Available') {
                     functions.enableRowActionAdd(equipID);
@@ -543,8 +542,7 @@
                     functions.enableRowActionEdit(equipID);
                     functions.disableRowActionAdd(equipID);
                 }
-
-                //throw 'Exception: Not implemented yet. Do something with status: ' + status;
+                functions.updateStatus(equipID, _status);
             },
             btnActionFilesDialog_OnClick: function (event) {
                 throw 'Exception: Not implemented yet';
@@ -611,6 +609,22 @@
             disableRowActionEdit: function (equipID) {
                 var $row = functions.getRowByEquipID(equipID);
                 $row.find(htmlBindings.btnActionEdit).attr({disabled: true});
+            },
+            updateStatus: function (equipID, status) {
+                $.post(
+                    urls.updateStatusUrl,
+                    {
+                        equipid: equipID,
+                        status: status
+                    }
+                ).done(function onDone(response) {
+                    var data = $.parseJSON(response);
+                    //if (data.success) {
+                    //    TODO: UI Success Feedback
+                    //}
+                }).fail(function onFail(response) {
+                    throw 'POST Fail with :' + response;
+                });
             }
         };
 
