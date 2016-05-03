@@ -193,7 +193,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            <?php echo ($currentStatus)?>
                         <?php endforeach ?>
                         </tbody>
                     </table>

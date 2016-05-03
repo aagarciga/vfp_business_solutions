@@ -29,7 +29,7 @@
             dashboardContainer: '.dashboard-container',
             dropdown: '.dropdown',
             itemsPerPageSelector: '.items-per-page-selector',
-            statusSelector: '.status-selector',
+            statusSelector: '.field-status',
             btnActionFilesDialog: '.btn-action-files-dialog',
             btnActionAdd: '.btn-action-add',
             btnActionEdit: '.btn-action-edit',
@@ -41,7 +41,6 @@
             tableMainFieldWorkOrderLink: '.field-workorder-link',
             tableMainFieldStatus: '.field-status',
             modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
-            //screenWorkOrderDetails: '#salesOrderForm'
         };
 
         mvvm = {
@@ -510,7 +509,6 @@
                 };
 
             }(global, $, knockBack, knockout, backbone))
-
         };
         /**
          * Event Handlers
@@ -532,9 +530,21 @@
                 mvvm.screenWorkOrderDetails.showFor($(this).data('workorder'));
             },
             statusSelector_OnClick: function (event) {
-                var status;
-                status = $(this).html();
-                throw 'Exception: Not implemented yet. Do something with status: ' + status;
+                var _status, equipID;
+
+                equipID = $(this).parents('tr').data('equipid');
+                _status = $(this).html();
+                global.console.log('Changing to status: ', _status);
+
+                if (_status === 'Available') {
+                    functions.enableRowActionAdd(equipID);
+                    functions.disableRowActionEdit(equipID);
+                } else {
+                    functions.enableRowActionEdit(equipID);
+                    functions.disableRowActionAdd(equipID);
+                }
+
+                //throw 'Exception: Not implemented yet. Do something with status: ' + status;
             },
             btnActionFilesDialog_OnClick: function (event) {
                 throw 'Exception: Not implemented yet';
@@ -576,12 +586,31 @@
                 //TODO: Implement
                 throw 'Exception: Not implemented yet';
             },
-            updateEquip: function (equipID, workOrder, status) {
-                var $row = $(htmlBindings.tableMainFieldEquipId).filter(function doFilter(index) {
+            getRowByEquipID: function (equipID) {
+                return $(htmlBindings.tableMainFieldEquipId).filter(function doFilter(index) {
                     return $(this).find('a').text() === equipID;
-                });
+                }).parent();
+            },
+            updateEquip: function (equipID, workOrder, status) {
+                var $row = functions.getRowByEquipID(equipID);
                 $row.find(htmlBindings.tableMainFieldWorkOrder).text(workOrder);
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
+            },
+            enableRowActionAdd: function (equipID) {
+                var $row = functions.getRowByEquipID(equipID);
+                $row.find(htmlBindings.btnActionAdd).attr({disabled: false});
+            },
+            disableRowActionAdd: function (equipID) {
+                var $row = functions.getRowByEquipID(equipID);
+                $row.find(htmlBindings.btnActionAdd).attr({disabled: true});
+            },
+            enableRowActionEdit: function (equipID) {
+                var $row = functions.getRowByEquipID(equipID);
+                $row.find(htmlBindings.btnActionEdit).attr({disabled: false});
+            },
+            disableRowActionEdit: function (equipID) {
+                var $row = functions.getRowByEquipID(equipID);
+                $row.find(htmlBindings.btnActionEdit).attr({disabled: true});
             }
         };
 
