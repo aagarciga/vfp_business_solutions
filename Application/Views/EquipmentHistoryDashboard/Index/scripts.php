@@ -35,6 +35,7 @@
     EquipmentHistoryDashboard.addUrl('addEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'AddEquipmentHistory')?>');
     // WorkOrder equals SalesOrder
     EquipmentHistoryDashboard.addUrl('getWorkOrder', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetWorkOrder')?>');
+    EquipmentHistoryDashboard.addUrl('updateWorkOrderNotes', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateWorkOrderNotes')?>');
 
 
     EquipmentHistoryDashboard.init();

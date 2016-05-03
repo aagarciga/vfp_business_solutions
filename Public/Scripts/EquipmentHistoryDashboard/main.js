@@ -389,40 +389,30 @@
                         return view_model;
                     };
                     self.onSaveNotesModal = function (view_model) {
-                        throw 'Exception: Not implemented yet.';
                         /**
                          * @param {object} view_model Knockback viewmodel
                          * @param {object} event Event related object
                          * @return {view_model} Knockback viewmodel
                          */
-                        //$.post(App.Dashboard.urls.updateSalesOrderNotes,
-                        //    {ordnum: view_model.ordnum(), notes: view_model.notes()})
-                        //    .done(function () {
-                        //        /**
-                        //         * @param {object} response Ajax response object
-                        //         */
-                        //        $(SalesOrderForm.htmlBindings.modalSaveNotes).modal('hide');
-                        //    })
-                        //    .fail(function (response) {
-                        //        /**
-                        //         * @param {object} response Ajax response object
-                        //         */
-                        //        throw response;
-                        //    });
-                        //return view_model;
+                        $.post(urls.updateWorkOrderNotes,
+                            {
+                                ordnum: view_model.ordnum(),
+                                notes: view_model.notes()
+                            }
+                        ).done(function onDone() {
+                                /**
+                                 * @param {object} response Ajax response object
+                                 */
+                                $(_htmlBindings.modalSaveNotes).modal('hide');
+                            })
+                            .fail(function onFail(response) {
+                                /**
+                                 * @param {object} response Ajax response object
+                                 */
+                                throw response;
+                            });
+                        return view_model;
                     };
-
-                    //self.eventhandler = function (view_model) {
-                    //
-                    //    $.post(
-                    //        _urls.__URL,
-                    //        {
-                    //            ordnum: view_model.ordnum()
-                    //        }
-                    //    ).done(_eventHandlers.saveHistory_OnDone).fail(function onFail(response) {
-                    //        throw 'POST Fail with :' + response;
-                    //    });
-                    //};
 
                     self.reset = function () {
                         self.modelType('');
@@ -512,15 +502,10 @@
                     $(htmlBindings.screenWorkOrderDetails).hide();
                 }
 
-                function setSaveHistoryCallback(callback) {
-                    _functions.saveHistoryCallback = callback;
-                }
-
                 return {
                     init: init,
                     showFor: show,
                     hide: hide,
-                    setSaveHistoryCallback: setSaveHistoryCallback
                 };
 
             }(global, $, knockBack, knockout, backbone))
