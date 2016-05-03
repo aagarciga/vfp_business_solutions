@@ -150,7 +150,9 @@
                                             </div>
                                         </td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isWorkorder($fieldDefinition)): ?>
-                                        <td class="item-field field-workorder"><?php echo $item->$method() ?></td>
+                                        <td class="item-field field-workorder">
+                                            <a href="#" class="field-workorder-link" data-workorder="<?php echo $item->getOrdnum()?>"><?php echo $item->$method() ?></a>
+                                        </td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isEquipid($fieldDefinition)): ?>
                                         <td class="item-field">
                                             <a href="<?php echo $View->Href("HistoryDashboard", "Index", array(
@@ -205,6 +207,7 @@
         <!--    End Panel Footer-->
     </div>
     <!--    End Main panel-->
+    <?php $View->Control('SalesOrder'); ?>
 </div>
 <!--Container ends-->
 

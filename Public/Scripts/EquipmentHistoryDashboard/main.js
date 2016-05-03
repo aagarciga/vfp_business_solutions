@@ -5,27 +5,28 @@
 
     App.EquipmentHistoryDashboard = (function () {
 
-        var _urls, _status, _functions, _dictionaries, _htmlBindings, _eventHandlers, _mvvm;
+        var urls, status, functions, dictionaries, htmlBindings, eventHandlers, mvvm;
 
         /**
          * Urls
          */
-        _urls = {};
+        urls = {};
         /**
          * Statuses
          */
-        _status = {
+        status = {
             itemsPerPage: 0,
             currentPage: 0
         };
         /**
          * Dictionaries
          */
-        _dictionaries = {};
+        dictionaries = {};
         /**
          * HTML Bindings
          */
-        _htmlBindings = {
+        htmlBindings = {
+            dashboardContainer: '.dashboard-container',
             dropdown: '.dropdown',
             itemsPerPageSelector: '.items-per-page-selector',
             statusSelector: '.status-selector',
@@ -36,11 +37,13 @@
             dateRangePickerSingle: '.daterangepicker-single',
             tableMain: '#equipmentHistoryDashboardTable',
             tableMainFieldWorkOrder: '.field-workorder',
+            tableMainFieldWorkOrderLink: '.field-workorder-link',
             tableMainFieldStatus: '.field-status',
             modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
+            //screenWorkOrderDetails: '#salesOrderForm'
         };
 
-        _mvvm = {
+        mvvm = {
             modalEquipmentHistoryFormAdd: (function (global, $, knockBack, knockout, backbone) {
                 var _htmlBindings, _functions, _eventHandlers,
                     EquipmentHistoryModel, EquipmentHistoryViewModel,
@@ -61,7 +64,7 @@
                         $(_htmlBindings.controlWorkOrder).select2({
                             theme: "bootstrap",
                             ajax: {
-                                url: _urls.workOrderSelectorAjaxUrl,
+                                url: urls.workOrderSelectorAjaxUrl,
                                 dataType: 'json',
                                 delay: 250,
                                 processResults: function (data, params) {
@@ -76,7 +79,7 @@
                                     };
                                 },
                                 cache: true
-                            },
+                            }
                             /*placeholder: 'Select One ...',*/
                             //allowClear: true
                         });
@@ -85,7 +88,7 @@
                         $(_htmlBindings.controlProjectManager).select2({
                             theme: "bootstrap",
                             ajax: {
-                                url: _urls.projectManagerSelectorAjaxUrl,
+                                url: urls.projectManagerSelectorAjaxUrl,
                                 dataType: 'json',
                                 delay: 250,
                                 processResults: function (data, params) {
@@ -100,7 +103,7 @@
                                     };
                                 },
                                 cache: true
-                            },
+                            }
                             /*placeholder: 'Select One ...',*/
                             //allowClear: true
                         });
@@ -122,9 +125,7 @@
 
                 _eventHandlers = {
                     saveHistory_OnDone: function (response) {
-                        global.console.log(response);
                         var data = $.parseJSON(response);
-                        global.console.log(data);
                         _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status);
                         hide();
                     }
@@ -156,7 +157,7 @@
                         self.daterec($(_htmlBindings.controlReceived).val());
 
                         $.post(
-                            _urls.addEquipmentHistoryUrl,
+                            urls.addEquipmentHistoryUrl,
                             {
                                 equipid: view_model.equipid(),
                                 ordnum: view_model.ordnum(),
@@ -185,7 +186,7 @@
                  */
                 function init() {
                     var view;
-                    view = global.document.getElementById(_htmlBindings.koViewElement);
+                    view = global.document.getElementById((_htmlBindings.modalViewElement).slice(1));
                     equipmentHistoryModel = new EquipmentHistoryModel({});
                     equipmentHistoryViewModel = new EquipmentHistoryViewModel(equipmentHistoryModel);
                     knockout.applyBindings(equipmentHistoryViewModel, view);
@@ -219,23 +220,330 @@
                     setSaveHistoryCallback: setSaveHistoryCallback
                 };
 
+            }(global, $, knockBack, knockout, backbone)),
+            screenWorkOrderDetails: (function (global, $, knockBack, knockout, backbone) {
+
+                var _htmlBindings, _functions, _eventHandlers,
+                    Model, ViewModel,
+                    model, viewModel;
+
+                _htmlBindings = {
+                    screenViewElement: '#kb-view-salesorder',
+                    modalSaveNotes: '#salesOrderForm_modal_saveNotes',
+                    salesOrderForm_btnClose: '#salesOrderForm_btnClose'
+                };
+
+                _functions = {
+                    reset: function () {
+                        viewModel.reset();
+                    }
+                };
+
+                _eventHandlers = {
+                    salesOrderForm_btnClose_onClick: function (event) {
+                        $(_htmlBindings.screenViewElement).hide();
+                    },
+                    getWorkOrder_OnDone: function (response) {
+                        var data, modelType;
+                        data = $.parseJSON(response);
+                        modelType = data.formType;
+
+                        if (data.success) {
+                            viewModel.modelType(modelType);
+
+                            viewModel.ordnum(data.salesOrderObject.ordnum);
+                            viewModel.date(data.salesOrderObject.date);
+                            viewModel.custno(data.salesOrderObject.custno);
+                            viewModel.projectLocation(data.salesOrderObject.projectLocation);
+                            viewModel.notes(data.salesOrderObject.notes);
+                            viewModel.companyName(data.salesOrderObject.companyName);
+                            viewModel.address(data.salesOrderObject.address);
+                            viewModel.city(data.salesOrderObject.city);
+                            viewModel.state(data.salesOrderObject.state);
+                            viewModel.zip(data.salesOrderObject.zip);
+                            viewModel.phone(data.salesOrderObject.phone);
+                            viewModel.subtotal(data.salesOrderObject.subtotal);
+                            viewModel.discount(data.salesOrderObject.discount);
+                            viewModel.tax(data.salesOrderObject.tax);
+                            viewModel.shipping(data.salesOrderObject.shipping);
+                            viewModel.total(data.salesOrderObject.total);
+
+                            if (modelType === 'B' || modelType === 'C') {
+                                viewModel.ponum(data.salesOrderObject.ponum);
+                                viewModel.company(data.salesOrderObject.company);
+                                viewModel.destino(data.salesOrderObject.destino);
+                                viewModel.prostartdt(data.salesOrderObject.prostartdt);
+                                viewModel.proenddt(data.salesOrderObject.proenddt);
+                                viewModel.sotypecode(data.salesOrderObject.sotypecode);
+                                viewModel.mtrlstatus(data.salesOrderObject.mtrlstatus);
+                                viewModel.jobstatus(data.salesOrderObject.jobstatus);
+                                viewModel.technam1(data.salesOrderObject.technam1);
+                                viewModel.technam2(data.salesOrderObject.technam2);
+                                viewModel.qutno(data.salesOrderObject.qutno);
+                                viewModel.cstctid(data.salesOrderObject.cstctid);
+                                viewModel.jobdescrip(data.salesOrderObject.jobdescrip);
+                            }
+                            viewModel.items(data.salesOrderObject.itemsCollection);
+                        }
+                    }
+                };
+
+                Model = backbone.Model.extend({
+                    defaults: {
+                        'ordnum': '',
+                        'date': '',
+                        'custno': '',
+                        'projectLocation': '',
+                        'notes': '',
+                        'companyName': '',
+                        'address': '',
+                        'city': '',
+                        'state': '',
+                        'zip': '',
+                        'phone': '',
+                        'subtotal': '',
+                        'discount': '',
+                        'tax': '',
+                        'shipping': '',
+                        'total': '',
+                        'items': new backbone.Collection([]),
+                        'modelType': '',
+                        'ponum': '',
+                        'company': '',
+                        'destino': '',
+                        'prostartdt': '',
+                        'proenddt': '',
+                        'sotypecode': '',
+                        'mtrlstatus': '',
+                        'jobstatus': '',
+                        'technam1': '',
+                        'technam2': '',
+                        'qutno': '',
+                        'cstctid': '',
+                        'jobdescrip': '',
+                    }
+                });
+
+                ViewModel = function (model) {
+                    var self = this;
+
+                    self.modelType          = knockBack.observable(model, 'modelType');
+                    self.ordnum             = knockBack.observable(model, 'ordnum');
+                    self.date               = knockBack.observable(model, 'date');
+                    self.custno             = knockBack.observable(model, 'custno');
+                    self.projectLocation    = knockBack.observable(model, 'projectLocation');
+                    self.notes              = knockBack.observable(model, 'notes');
+                    self.companyName        = knockBack.observable(model, 'companyName');
+                    self.address            = knockBack.observable(model, 'address');
+                    self.city               = knockBack.observable(model, 'city');
+                    self.state              = knockBack.observable(model, 'state');
+                    self.zip                = knockBack.observable(model, 'zip');
+                    self.phone              = knockBack.observable(model, 'phone');
+                    self.subtotal           = knockBack.observable(model, 'subtotal');
+                    self.discount           = knockBack.observable(model, 'discount');
+                    self.tax                = knockBack.observable(model, 'tax');
+                    self.shipping           = knockBack.observable(model, 'shipping');
+                    self.total              = knockBack.observable(model, 'total');
+
+                    // Related to B and C
+                    self.ponum              = knockBack.observable(model, 'ponum');
+                    self.company            = knockBack.observable(model, 'company');
+                    self.destino            = knockBack.observable(model, 'destino');
+                    self.prostartdt         = knockBack.observable(model, 'prostartdt');
+                    self.proenddt           = knockBack.observable(model, 'proenddt');
+                    self.sotypecode         = knockBack.observable(model, 'sotypecode');
+                    self.mtrlstatus         = knockBack.observable(model, 'mtrlstatus');
+                    self.jobstatus          = knockBack.observable(model, 'jobstatus');
+                    self.technam1           = knockBack.observable(model, 'technam1');
+                    self.technam2           = knockBack.observable(model, 'technam2');
+                    self.qutno              = knockBack.observable(model, 'qutno');
+                    self.cstctid            = knockBack.observable(model, 'cstctid');
+                    self.jobdescrip         = knockBack.observable(model, 'jobdescrip');
+                    self.items              = knockBack.collectionObservable(model.items);
+
+                    self.showTable = knockout.computed(function () {
+                        return self.items().length > 0;
+                    });
+                    self.showControlIFBOrC = knockout.computed(function () {
+                        /**
+                         *
+                         * @returns {Boolean}
+                         */
+                        return self.modelType() === 'B' || self.modelType() === 'C';
+                    });
+                    self.showControlIfNotC = knockout.computed(function () {
+                        /**
+                         *
+                         * @returns {Boolean}
+                         */
+                        return (self.modelType() !== 'C');
+                    });
+
+                    self.onShowNotesModal = function (view_model) {
+                        /**
+                         * @param {object} view_model Knockback viewmodel
+                         * @param {object} event Event related object
+                         * @return {view_model} Knockback viewmodel
+                         */
+                        $(_htmlBindings.modalSaveNotes).modal('show');
+                        return view_model;
+                    };
+                    self.onSaveNotesModal = function (view_model) {
+                        throw 'Exception: Not implemented yet.';
+                        /**
+                         * @param {object} view_model Knockback viewmodel
+                         * @param {object} event Event related object
+                         * @return {view_model} Knockback viewmodel
+                         */
+                        //$.post(App.Dashboard.urls.updateSalesOrderNotes,
+                        //    {ordnum: view_model.ordnum(), notes: view_model.notes()})
+                        //    .done(function () {
+                        //        /**
+                        //         * @param {object} response Ajax response object
+                        //         */
+                        //        $(SalesOrderForm.htmlBindings.modalSaveNotes).modal('hide');
+                        //    })
+                        //    .fail(function (response) {
+                        //        /**
+                        //         * @param {object} response Ajax response object
+                        //         */
+                        //        throw response;
+                        //    });
+                        //return view_model;
+                    };
+
+                    //self.eventhandler = function (view_model) {
+                    //
+                    //    $.post(
+                    //        _urls.__URL,
+                    //        {
+                    //            ordnum: view_model.ordnum()
+                    //        }
+                    //    ).done(_eventHandlers.saveHistory_OnDone).fail(function onFail(response) {
+                    //        throw 'POST Fail with :' + response;
+                    //    });
+                    //};
+
+                    self.reset = function () {
+                        self.modelType('');
+                        self.ordnum('');
+                        self.date('');
+                        self.custno('');
+                        self.projectLocation('');
+                        self.notes('');
+                        self.companyName('');
+                        self.address('');
+                        self.city('');
+                        self.state('');
+                        self.zip('');
+                        self.phone('');
+                        self.subtotal('');
+                        self.discount('');
+                        self.tax('');
+                        self.shipping('');
+                        self.total('');
+                        // Related to B and C
+                        self.company('');
+                        self.destino('');
+                        self.prostartdt('');
+                        self.proenddt('');
+                        self.sotypecode('');
+                        self.mtrlstatus('');
+                        self.jobstatus('');
+                        self.technam1('');
+                        self.technam2('');
+                        self.qutno('');
+                        self.cstctid('');
+                        self.jobdescrip('');
+                        self.items([]);
+                    };
+                };
+
+                /**
+                 * Work Order Details Screen MVVM logic initialization
+                 */
+                function init() {
+                    var view;
+                    view = global.document.getElementById((_htmlBindings.screenViewElement).slice(1));
+                    model = new Model({});
+                    viewModel = new ViewModel(model);
+                    knockout.applyBindings(viewModel, view);
+
+                    //TODO: Refactor this (use knockout click binding instead in all ussage places (dashboard, etc...))
+                    $(_htmlBindings.salesOrderForm_btnClose).on('click', _eventHandlers.salesOrderForm_btnClose_onClick);
+                }
+
+                /**
+                 * Show Add Work Order Screen
+                 */
+                function show(ordnum) {
+                    var radix,
+                        dashboardContainerHeight,
+                        screenWorkOrderDetailsHeight,
+                        $dashboardContainer,
+                        $screenWorkOrderDetails;
+
+                    radix = 10;
+                    $dashboardContainer = $(htmlBindings.dashboardContainer);
+                    $screenWorkOrderDetails = $(_htmlBindings.screenViewElement);
+                    dashboardContainerHeight = parseInt($dashboardContainer.css('height'), radix);
+                    screenWorkOrderDetailsHeight = parseInt($screenWorkOrderDetails.css('height'), radix);
+                    if (dashboardContainerHeight > screenWorkOrderDetailsHeight) {
+                        $screenWorkOrderDetails.css('height', dashboardContainerHeight);
+                    }
+                    _functions.reset();
+
+                    $.post(
+                        urls.getWorkOrder,
+                        {
+                            ordnum : ordnum
+                        }
+                    ).done(_eventHandlers.getWorkOrder_OnDone).fail(function onFail(response) {
+                        throw 'POST Fail with :' + response;
+                    });
+
+                    $screenWorkOrderDetails.show();
+                }
+
+                /**
+                 * Hide Add Equipment History Modal Window
+                 */
+                function hide() {
+                    $(htmlBindings.screenWorkOrderDetails).hide();
+                }
+
+                function setSaveHistoryCallback(callback) {
+                    _functions.saveHistoryCallback = callback;
+                }
+
+                return {
+                    init: init,
+                    showFor: show,
+                    hide: hide,
+                    setSaveHistoryCallback: setSaveHistoryCallback
+                };
+
             }(global, $, knockBack, knockout, backbone))
+
         };
         /**
          * Event Handlers
          */
-        _eventHandlers = {
+        eventHandlers = {
             dropdown_OnClick: function (event) {
                 var $anchor, value;
                 $anchor = $(this);
                 value = $anchor.html();
-                $anchor.parents(_htmlBindings.dropdown).find('.value').text(value);
+                $anchor.parents(htmlBindings.dropdown).find('.value').text(value);
             },
             itemsPerPageSelector_OnClick: function (event) {
-                _status.itemsPerPage = $(this).html();
+                status.itemsPerPage = $(this).html();
                 // Reset Current Page
-                _status.currentPage = 1;
-                _functions.paginate();
+                status.currentPage = 1;
+                functions.paginate();
+            },
+            tableMainFieldWorkOrderLink_OnClick: function (event) {
+                mvvm.screenWorkOrderDetails.showFor($(this).data('workorder'));
             },
             statusSelector_OnClick: function (event) {
                 var status;
@@ -246,10 +554,10 @@
                 throw 'Exception: Not implemented yet';
             },
             btnActionAdd_OnClick: function (event) {
-                _mvvm.modalEquipmentHistoryFormAdd.showFor($(this).data('equipid'));
+                mvvm.modalEquipmentHistoryFormAdd.showFor($(this).data('equipid'));
             },
             btnActionEdit_OnClick: function (event) {
-                $(_htmlBindings.modalEquipmentHistoryFormEdit).modal('show');
+                $(htmlBindings.modalEquipmentHistoryFormEdit).modal('show');
                 throw 'Exception: Not implemented yet';
             },
             btnActionView_OnClick: function (event) {
@@ -259,18 +567,21 @@
         /**
          * Functions
          */
-        _functions = {
+        functions = {
             bindEventHandlers: function () {
-                $(_htmlBindings.dropdown).on('click', 'a', _eventHandlers.dropdown_OnClick);
-                $(_htmlBindings.itemsPerPageSelector).on('click', 'a', _eventHandlers.itemsPerPageSelector_OnClick);
-                $(_htmlBindings.statusSelector).on('click', 'a', _eventHandlers.statusSelector_OnClick);
-                $(_htmlBindings.btnActionFilesDialog).on('click', _eventHandlers.btnActionFilesDialog_OnClick);
-                $(_htmlBindings.btnActionAdd).on('click', _eventHandlers.btnActionAdd_OnClick);
-                $(_htmlBindings.btnActionEdit).on('click', _eventHandlers.btnActionEdit_OnClick);
-                $(_htmlBindings.btnActionView).on('click', _eventHandlers.btnActionView_OnClick);
+                $(htmlBindings.dropdown).on('click', 'a', eventHandlers.dropdown_OnClick);
+                $(htmlBindings.itemsPerPageSelector).on('click', 'a', eventHandlers.itemsPerPageSelector_OnClick);
+
+                $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
+
+                $(htmlBindings.statusSelector).on('click', 'a', eventHandlers.statusSelector_OnClick);
+                $(htmlBindings.btnActionFilesDialog).on('click', eventHandlers.btnActionFilesDialog_OnClick);
+                $(htmlBindings.btnActionAdd).on('click', eventHandlers.btnActionAdd_OnClick);
+                $(htmlBindings.btnActionEdit).on('click', eventHandlers.btnActionEdit_OnClick);
+                $(htmlBindings.btnActionView).on('click', eventHandlers.btnActionView_OnClick);
             },
             usePlugins: function () {
-                $(_htmlBindings.dateRangePickerSingle).daterangepicker({
+                $(htmlBindings.dateRangePickerSingle).daterangepicker({
                     singleDatePicker: true,
                     format: 'YYYY-MM-DD',
                     startDate: global.moment(),
@@ -282,28 +593,28 @@
                 throw 'Exception: Not implemented yet';
             },
             updateEquip: function (equipID, workOrder, status) {
-                var $row = $(_htmlBindings.tableMain).find('tr[data-equipid=' + equipID + ']');
+                var $row = $(htmlBindings.tableMain).find('tr[data-equipid=' + equipID + ']');
                 // Updating the Work Order (ordnum) field
-                $row.find(_htmlBindings.tableMainFieldWorkOrder).text(workOrder);
+                $row.find(htmlBindings.tableMainFieldWorkOrder).text(workOrder);
                 // Updating the status value from current equipment row on the view
-                $row.find(_htmlBindings.tableMainFieldStatus).find('.value').text(status);
+                $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
             }
         };
 
         function setItemsPerPageSelector(selector) {
-            _htmlBindings.itemsPerPageSelector = selector;
+            htmlBindings.itemsPerPageSelector = selector;
         }
 
         function setStatusSelector(selector) {
-            _htmlBindings.statusSelector = selector;
+            htmlBindings.statusSelector = selector;
         }
 
         function addDictionary(name, dictionary) {
-            _dictionaries[name] = dictionary;
+            dictionaries[name] = dictionary;
         }
 
         function addUrl(name, url) {
-            _urls[name] = url;
+            urls[name] = url;
         }
 
         function init(filter) {
@@ -311,29 +622,29 @@
             global.console.log('filter: ', filter);
 
             global.console.log('HTML Bindings');
-            for (index in _htmlBindings) {
-                if (_htmlBindings.hasOwnProperty(index)) {
-                    global.console.log('\t', index, ':', _htmlBindings[index]);
+            for (index in htmlBindings) {
+                if (htmlBindings.hasOwnProperty(index)) {
+                    global.console.log('\t', index, ':', htmlBindings[index]);
                 }
             }
 
             global.console.log('Binding Event Handlers');
-            _functions.bindEventHandlers();
+            functions.bindEventHandlers();
 
             global.console.log('Use Plugins');
-            _functions.usePlugins();
+            functions.usePlugins();
 
             global.console.log('Dictionaries:');
-            global.console.log(_dictionaries);
+            global.console.log(dictionaries);
 
             global.console.log('Initializing MVVM related logic:');
-            for (index in _mvvm) {
-                if (_mvvm.hasOwnProperty(index)) {
-                    global.console.log('\t', index, ':', _mvvm[index]);
-                    _mvvm[index].init();
+            for (index in mvvm) {
+                if (mvvm.hasOwnProperty(index)) {
+                    global.console.log('\t', index, ':', mvvm[index]);
+                    mvvm[index].init();
                 }
             }
-            _mvvm.modalEquipmentHistoryFormAdd.setSaveHistoryCallback(_functions.updateEquip);
+            mvvm.modalEquipmentHistoryFormAdd.setSaveHistoryCallback(functions.updateEquip);
         }
 
         return {

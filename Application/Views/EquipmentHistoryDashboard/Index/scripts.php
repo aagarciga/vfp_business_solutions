@@ -33,6 +33,8 @@
     EquipmentHistoryDashboard.addUrl('workOrderSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'WorkOrderSearch')?>');
     EquipmentHistoryDashboard.addUrl('projectManagerSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'ProjectManagerSearch')?>');
     EquipmentHistoryDashboard.addUrl('addEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'AddEquipmentHistory')?>');
+    // WorkOrder equals SalesOrder
+    EquipmentHistoryDashboard.addUrl('getWorkOrder', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetWorkOrder')?>');
 
 
     EquipmentHistoryDashboard.init();
