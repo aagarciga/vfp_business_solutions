@@ -37,6 +37,7 @@
             dateRangePickerSingle: '.daterangepicker-single',
             tableMain: '#equipmentHistoryDashboardTable',
             tableMainFieldWorkOrder: '.field-workorder',
+            tableMainFieldEquipId: '.field-equipid',
             tableMainFieldWorkOrderLink: '.field-workorder-link',
             tableMainFieldStatus: '.field-status',
             modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
@@ -556,9 +557,7 @@
             bindEventHandlers: function () {
                 $(htmlBindings.dropdown).on('click', 'a', eventHandlers.dropdown_OnClick);
                 $(htmlBindings.itemsPerPageSelector).on('click', 'a', eventHandlers.itemsPerPageSelector_OnClick);
-
                 $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
-
                 $(htmlBindings.statusSelector).on('click', 'a', eventHandlers.statusSelector_OnClick);
                 $(htmlBindings.btnActionFilesDialog).on('click', eventHandlers.btnActionFilesDialog_OnClick);
                 $(htmlBindings.btnActionAdd).on('click', eventHandlers.btnActionAdd_OnClick);
@@ -578,10 +577,10 @@
                 throw 'Exception: Not implemented yet';
             },
             updateEquip: function (equipID, workOrder, status) {
-                var $row = $(htmlBindings.tableMain).find('tr[data-equipid=' + equipID + ']');
-                // Updating the Work Order (ordnum) field
+                var $row = $(htmlBindings.tableMainFieldEquipId).filter(function doFilter(index) {
+                    return $(this).find('a').text() === equipID;
+                });
                 $row.find(htmlBindings.tableMainFieldWorkOrder).text(workOrder);
-                // Updating the status value from current equipment row on the view
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
             }
         };

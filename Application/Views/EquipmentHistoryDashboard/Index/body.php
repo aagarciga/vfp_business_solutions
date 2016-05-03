@@ -131,11 +131,18 @@
                         </thead>
                         <tbody>
                         <?php foreach ($Items as $item): ?>
-                            <tr data-equipid="<?php echo $item->getEquipid()?>">
+                            <?php $currentStatus = ''; ?>
+                            <tr data-equipid="<?php echo $item->getEquipid() ?>">
                                 <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
+
                                     <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
                                         <?php $method = 'get' . ucfirst($field) ?>
                                         <?php if ($EquipmentHistoryDashboardViewModelName::hasValues($fieldDefinition)): ?>
+                                            <?php
+                                                if($EquipmentHistoryDashboardViewModelName::isStatus($fieldDefinition)){
+                                                    $currentStatus = $item->$method();
+                                                }
+                                            ?>
                                         <td class="item-field <?php echo ($EquipmentHistoryDashboardViewModelName::isStatus($fieldDefinition))? 'field-status' : '' ?>">
                                             <div class="btn-group dropdown">
                                                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
@@ -154,7 +161,7 @@
                                             <a href="#" class="field-workorder-link" data-workorder="<?php echo $item->getOrdnum()?>"><?php echo $item->$method() ?></a>
                                         </td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isEquipid($fieldDefinition)): ?>
-                                        <td class="item-field">
+                                        <td class="item-field field-equipid">
                                             <a href="<?php echo $View->Href("HistoryDashboard", "Index", array(
                                                 'equipid' => base64_encode($item->$method()),
                                                 'jsonFilterTree' => base64_encode($JsonFilterTree),
@@ -174,10 +181,10 @@
                                         <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-folder-close"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" data-equipid="<?php echo $item->getEquipid()?>">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" <?php echo ($currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" data-equipid="<?php echo $item->getEquipid()?>">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" <?php echo ($currentStatus !== 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-plus-sign"></span>
                                         </a>
                                         <a href="#" class="btn btn-default btn-sm btn-action btn-action-view" data-equipid="<?php echo $item->getEquipid()?>">
@@ -186,6 +193,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            <?php echo ($currentStatus)?>
                         <?php endforeach ?>
                         </tbody>
                     </table>
