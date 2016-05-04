@@ -181,7 +181,7 @@
                                         <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-folder-close"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" <?php echo ($currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" <?php echo ($currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-qbtxlineid="<?php echo $item->getQbtxlineid()?>">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>
                                         <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" <?php echo ($currentStatus !== 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">
@@ -282,7 +282,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bind="click: saveHistory">Add History</button>
+                <button type="button" class="btn btn-primary" data-bind="click: saveHistory">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -296,11 +296,55 @@
                 <h4 class="modal-title">Update Last Equipment History</h4>
             </div>
             <div class="modal-body">
-<!--                TODO: Fill Form -->
+                <div class="row">
+                    <form action="?" class="">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Project Manager</label>
+                                <select class="form-control control-project-manager" style="width: 100%" data-bind="value: inspectno">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Date Out</label>
+                                <div class="input-prepend input-group">
+                                    <span class="add-on input-group-addon">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                    </span>
+                                    <input class="form-control daterangepicker-single control-installdte" type="text" placeholder="" data-bind="value: installdte"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Expacted In</label>
+                                <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        </span>
+                                    <input class="form-control daterangepicker-single control-expdtein" type="text" placeholder="" data-bind="text: expdtein"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Received</label>
+                                <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        </span>
+                                    <input class="form-control daterangepicker-single control-daterec" type="text" placeholder="" data-bind="value: daterec"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-danger" data-bind="click: deleteHistory">Delete</button>
+                <button type="button" class="btn btn-primary" data-bind="click: updateHistory">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

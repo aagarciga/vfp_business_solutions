@@ -119,7 +119,7 @@
                         $(_htmlBindings.controlReceived).val('');
                     },
                     saveHistoryCallback : function () {
-                        throw 'Exception: Not implemented yet';
+                        throw 'Exception: Not implemented yet. Must be set by SetUpdateHistoryCallback function.';
                     }
                 };
 
@@ -218,6 +218,190 @@
                     showFor: show,
                     hide: hide,
                     setSaveHistoryCallback: setSaveHistoryCallback
+                };
+
+            }(global, $, knockBack, knockout, backbone)),
+            modalEquipmentHistoryFormEdit: (function (global, $, knockBack, knockout, backbone) {
+                var _htmlBindings, _functions, _eventHandlers,
+                    EquipmentHistoryModel, EquipmentHistoryViewModel,
+                    equipmentHistoryModel, equipmentHistoryViewModel;
+
+                _htmlBindings = {
+                    modalViewElement: '#modal-equipment-history-form-edit',
+                    controlProjectManager: '.control-project-manager',
+                    controlDateOut: '.control-installdte',
+                    controlExpactedIn: '.control-expdtein',
+                    controlReceived: '.control-daterec'
+                };
+
+                _functions = {
+                    usePlugins: function () {
+
+                        // [Project Manager] control
+                        $(_htmlBindings.controlProjectManager).select2({
+                            theme: "bootstrap",
+                            ajax: {
+                                url: urls.projectManagerSelectorAjaxUrl,
+                                dataType: 'json',
+                                delay: 250,
+                                processResults: function (data, params) {
+                                    //global.console.log('data: ', data);
+                                    //global.console.log('params: ', params);
+                                    params.page = params.page || 1;
+                                    return {
+                                        results: data.items,
+                                        pagination: {
+                                            more: (params.page * 30) < data.totalCount
+                                        }
+                                    };
+                                },
+                                cache: true
+                            }
+                            /*placeholder: 'Select One ...',*/
+                            //allowClear: true
+                        });
+                    },
+                    reset: function () {
+                        equipmentHistoryViewModel.reset();
+                        // Reseting Select2 Controls
+                        $(_htmlBindings.controlProjectManager).val(null).trigger('change');
+                        // Reseting Date Range Picker Single Controls
+                        $(_htmlBindings.controlDateOut).val('');
+                        $(_htmlBindings.controlExpactedIn).val('');
+                        $(_htmlBindings.controlReceived).val('');
+                    },
+                    updateHistoryCallback : function () {
+                        throw 'Exception: Not implemented yet. Must be set by SetUpdateHistoryCallback function.';
+                    }
+                };
+
+                _eventHandlers = {
+                    updateHistory_OnDone: function (response) {
+                        var data = $.parseJSON(response);
+                        _functions.updateHistoryCallback(data.equipid, data.status);
+                        hide();
+                    },
+                    getEquipmentHistory_OnDone: function (response) {
+                        console.log(response);
+                        var data;
+                        data = $.parseJSON(response);
+
+                        if (data.success) {
+                            equipmentHistoryViewModel.equipid(data.equipmentHistoryObject.equipid);
+                            equipmentHistoryViewModel.qbtxlineid(data.equipmentHistoryObject.qbtxlineid);
+                            equipmentHistoryViewModel.inspectno(data.equipmentHistoryObject.inspectno);
+                            equipmentHistoryViewModel.installdte(data.equipmentHistoryObject.installdte);
+                            equipmentHistoryViewModel.expdtein(data.equipmentHistoryObject.expdtein);
+                            equipmentHistoryViewModel.daterec(data.equipmentHistoryObject.daterec);
+                        }
+                    }
+                };
+
+                EquipmentHistoryModel = backbone.Model.extend({
+                    defaults: {
+                        "equipid": '',
+                        "qbtxlineid": '',
+                        "inspectno": '',
+                        "installdte": '',
+                        "expdtein": '',
+                        "daterec": ''
+                    }
+                });
+
+                EquipmentHistoryViewModel = function (model) {
+                    var self = this;
+                    self.qbtxlineid = knockBack.observable(model, 'qbtxlineid');
+                    self.equipid = knockBack.observable(model, 'equipid');
+                    self.inspectno = knockBack.observable(model, 'inspectno');
+                    self.installdte = knockBack.observable(model, 'installdte');
+                    self.expdtein = knockBack.observable(model, 'expdtein');
+                    self.daterec = knockBack.observable(model, 'daterec');
+
+                    self.updateHistory = function (view_model) {
+                        self.installdte($(_htmlBindings.controlDateOut).val());
+                        self.expdtein($(_htmlBindings.controlExpactedIn).val());
+                        self.daterec($(_htmlBindings.controlReceived).val());
+
+                        $.post(
+                            urls.updateEquipmentHistoryUrl,
+                            {
+                                qbtxlineid: view_model.qbtxlineid(),
+                                equipid: view_model.equipid(),
+                                inspectno: view_model.inspectno(),
+                                installdte: view_model.installdte(),
+                                expdtein: view_model.expdtein(),
+                                daterec: view_model.daterec()
+                            }
+                        ).done(_eventHandlers.updateHistory_OnDone).fail(function onFail(response) {
+                            throw 'POST Fail with :' + response;
+                        });
+                    };
+                    self.deleteHistory = function (view_model) {
+
+                        $.post(
+                            urls.deleteEquipmentHistoryUrl,
+                            {
+                                qbtxlineid: view_model.qbtxlineid()
+                            }
+                        ).done(_eventHandlers.updateHistory_OnDone).fail(function onFail(response) {
+                            throw 'POST Fail with :' + response;
+                        });
+                    };
+                    self.reset = function () {
+                        self.equipid('');
+                        self.inspectno('');
+                        self.installdte('');
+                        self.expdtein('');
+                        self.daterec('');
+                    };
+                };
+
+                /**
+                 * Update/Delete equipment history modal form MVVM logic initialization
+                 */
+                function init() {
+                    var view;
+                    view = global.document.getElementById((_htmlBindings.modalViewElement).slice(1));
+                    equipmentHistoryModel = new EquipmentHistoryModel({});
+                    equipmentHistoryViewModel = new EquipmentHistoryViewModel(equipmentHistoryModel);
+                    knockout.applyBindings(equipmentHistoryViewModel, view);
+                    _functions.usePlugins();
+                }
+
+                /**
+                 * Show Update/Delete Equipment History Modal Window
+                 */
+                function show(qbtxlineid) {
+                    _functions.reset();
+
+                    $.post(
+                        urls.getEquipmentHistoryUrl,
+                        {
+                            qbtxlineid : qbtxlineid
+                        }
+                    ).done(_eventHandlers.getEquipmentHistory_OnDone).fail(function onFail(response) {
+                        throw 'POST Fail with :' + response;
+                    });
+
+                    $(_htmlBindings.modalViewElement).modal('show');
+                }
+
+                /**
+                 * Hide Update/Delete Equipment History Modal Window
+                 */
+                function hide() {
+                    $(_htmlBindings.modalViewElement).modal('hide');
+                }
+
+                function setUpdateHistoryCallback(callback) {
+                    _functions.updateHistoryCallback = callback;
+                }
+
+                return {
+                    init: init,
+                    showFor: show,
+                    hide: hide,
+                    setUpdateHistoryCallback: setUpdateHistoryCallback
                 };
 
             }(global, $, knockBack, knockout, backbone)),
@@ -551,8 +735,7 @@
                 mvvm.modalEquipmentHistoryFormAdd.showFor($(this).data('equipid'));
             },
             btnActionEdit_OnClick: function (event) {
-                $(htmlBindings.modalEquipmentHistoryFormEdit).modal('show');
-                throw 'Exception: Not implemented yet';
+                mvvm.modalEquipmentHistoryFormEdit.showFor($(this).data('qbtxlineid'));
             },
             btnActionView_OnClick: function (event) {
                 throw 'Exception: Not implemented yet';
