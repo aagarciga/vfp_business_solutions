@@ -224,11 +224,12 @@
             modalEquipmentHistoryFormEdit: (function (global, $, knockBack, knockout, backbone) {
                 var _htmlBindings, _functions, _eventHandlers,
                     EquipmentHistoryModel, EquipmentHistoryViewModel,
-                    equipmentHistoryModel, equipmentHistoryViewModel;
+                    equipmentHistoryModel, equipmentHistoryViewModel,
+                    $controlProjectManager;
 
                 _htmlBindings = {
                     modalViewElement: '#modal-equipment-history-form-edit',
-                    controlProjectManager: '.control-project-manager',
+                    controlProjectManager: '.control-project-manager-edit',
                     controlDateOut: '.control-installdte',
                     controlExpactedIn: '.control-expdtein',
                     controlReceived: '.control-daterec'
@@ -238,28 +239,28 @@
                     usePlugins: function () {
 
                         // [Project Manager] control
-                        $(_htmlBindings.controlProjectManager).select2({
-                            theme: "bootstrap",
-                            ajax: {
-                                url: urls.projectManagerSelectorAjaxUrl,
-                                dataType: 'json',
-                                delay: 250,
-                                processResults: function (data, params) {
-                                    //global.console.log('data: ', data);
-                                    //global.console.log('params: ', params);
-                                    params.page = params.page || 1;
-                                    return {
-                                        results: data.items,
-                                        pagination: {
-                                            more: (params.page * 30) < data.totalCount
-                                        }
-                                    };
-                                },
-                                cache: true
-                            }
-                            /*placeholder: 'Select One ...',*/
-                            //allowClear: true
-                        });
+                        //$controlProjectManager = $(_htmlBindings.controlProjectManager).select2({
+                        //    theme: "bootstrap",
+                        //    ajax: {
+                        //        url: urls.projectManagerSelectorAjaxUrl,
+                        //        dataType: 'json',
+                        //        delay: 250,
+                        //        processResults: function (data, params) {
+                        //            //global.console.log('data: ', data);
+                        //            //global.console.log('params: ', params);
+                        //            params.page = params.page || 1;
+                        //            return {
+                        //                results: data.items,
+                        //                pagination: {
+                        //                    more: (params.page * 30) < data.totalCount
+                        //                }
+                        //            };
+                        //        },
+                        //        cache: true
+                        //    }
+                        //    /*placeholder: 'Select One ...',*/
+                        //    //allowClear: true
+                        //});
                     },
                     reset: function () {
                         equipmentHistoryViewModel.reset();
@@ -282,10 +283,8 @@
                         hide();
                     },
                     getEquipmentHistory_OnDone: function (response) {
-                        console.log(response);
                         var data;
                         data = $.parseJSON(response);
-
                         if (data.success) {
                             equipmentHistoryViewModel.equipid(data.equipmentHistoryObject.equipid);
                             equipmentHistoryViewModel.qbtxlineid(data.equipmentHistoryObject.qbtxlineid);
@@ -293,7 +292,33 @@
                             equipmentHistoryViewModel.installdte(data.equipmentHistoryObject.installdte);
                             equipmentHistoryViewModel.expdtein(data.equipmentHistoryObject.expdtein);
                             equipmentHistoryViewModel.daterec(data.equipmentHistoryObject.daterec);
+
+                            $(_htmlBindings.controlProjectManager).append('<option value="' + data.equipmentHistoryObject.inspectno + '">' + data.equipmentHistoryObject.inspectnoName + '</option>')
+                            $(_htmlBindings.controlProjectManager).select2({
+                                theme: "bootstrap",
+                                ajax: {
+                                    url: urls.projectManagerSelectorAjaxUrl,
+                                    dataType: 'json',
+                                    delay: 250,
+                                    processResults: function (data, params) {
+                                        //global.console.log('data: ', data);
+                                        //global.console.log('params: ', params);
+                                        params.page = params.page || 1;
+                                        return {
+                                            results: data.items,
+                                            pagination: {
+                                                more: (params.page * 30) < data.totalCount
+                                            }
+                                        };
+                                    },
+                                    cache: true
+                                }
+                                /*placeholder: 'Select One ...',*/
+                                //allowClear: true
+                            }).val(data.equipmentHistoryObject.inspectno).trigger('change');
                         }
+
+
                     }
                 };
 

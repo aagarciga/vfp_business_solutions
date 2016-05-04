@@ -301,7 +301,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="control-label">Project Manager</label>
-                                <select class="form-control control-project-manager" style="width: 100%" data-bind="value: inspectno">
+                                <select class="form-control control-project-manager-edit" style="width: 100%" data-bind="value: inspectno">
                                 </select>
                             </div>
                         </div>
@@ -323,7 +323,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                         </span>
-                                    <input class="form-control daterangepicker-single control-expdtein" type="text" placeholder="" data-bind="text: expdtein"/>
+                                    <input class="form-control daterangepicker-single control-expdtein" type="text" placeholder="" data-bind="value: expdtein"/>
                                 </div>
                             </div>
                         </div>

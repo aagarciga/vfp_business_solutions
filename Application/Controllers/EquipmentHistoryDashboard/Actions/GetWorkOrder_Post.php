@@ -11,17 +11,16 @@ use Dandelion\MVC\Core\Action;
 use Dandelion\Diana\BootstrapPager;
 
 /**
- * Ajax Endpoint for GetSalesOrder
+ * Ajax Endpoint for GetWorkOrder
  * @name GetSalesOrder_Post
  */
 class GetWorkOrder_Post extends Action {
 
     /**
-     * Returns SalesOrderObject with Associated Items Collection from Soitem
+     * Returns WorkOrder
      * @return JSON
      */
     public function Execute() {
-
 
         $result = array('success' => false);
         $salesOrder = $this->Request->hasProperty('ordnum') ? $this->Request->ordnum : '';

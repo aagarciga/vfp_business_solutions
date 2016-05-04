@@ -48,10 +48,10 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
-    public function UpdateWorkOrderFor($equipid, $workorder, $status){
+    public function UpdateWorkOrderFor($equipid, $workorder, $status, $qbtxlineid){
         $tableName = $this->entityName . $this->companySuffix;
         $equipid = strtolower($equipid);
-        $sqlString = "UPDATE $tableName  SET [ORDNUM] = '$workorder', [STATUS] = '$status' WHERE LOWER([EQUIPID]) = '$equipid'";
+        $sqlString = "UPDATE $tableName  SET [ORDNUM] = '$workorder', [STATUS] = '$status', [QBTXLINEID] = '$qbtxlineid' WHERE LOWER([EQUIPID]) = '$equipid'";
         error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);

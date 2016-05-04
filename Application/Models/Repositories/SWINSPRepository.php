@@ -36,7 +36,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
     public function GetActives() {
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT * FROM $tableName";
-        $sqlString .= ' WHERE ACTIVE = True AND TECHPM = True ORDER BY INSPECTNO';
+        $sqlString .= ' WHERE [ACTIVE] = True AND [TECHPM] = True ORDER BY INSPECTNO';
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -46,6 +46,23 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         }
 
         return $result;
+    }
+
+    public function GetActiveBy($inspectno) {
+        error_log($inspectno);
+        $tableName = $this->entityName . $this->companySuffix;
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND [INSPECTNO] = '$inspectno'";
+        error_log($sqlString);
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = array();
+
+        foreach ($queryResult as $row) {
+            $result [] = new SWINSP(trim($row->INSPECTNO), trim($row->INSPECTNM), trim($row->NOTES), trim($row->NFLG0), trim($row->TRUCKCODE), trim($row->DTEHIRE), trim($row->DTERAISE), trim($row->LABORCODE), trim($row->PAYRATE), trim($row->ACTIVE), trim($row->WHSNO), trim($row->SCHEDULE), trim($row->INSURANCE), trim($row->DRIVERLIC), trim($row->WORKCOMP), trim($row->TECHEMAIL), trim($row->WOEMAILDEL), trim($row->PICTURE), trim($row->ITEMNOLAB), trim($row->ITEMNOTRV), trim($row->ITEMNOOFC), trim($row->ITEMNOSTD), trim($row->ITEMNOGEN), trim($row->PAYTRAVEL), trim($row->PAYOFFICE), trim($row->PAYSTANDB), trim($row->PAYGENERAL), trim($row->BILLTRAVEL), trim($row->BILLOFFICE), trim($row->BILLSTANDB), trim($row->BILLGENERL), trim($row->HUWTRAVEL), trim($row->HUWOFFICE), trim($row->HUWSTANDBY), trim($row->HUWGENERAL), trim($row->BILLRATE), trim($row->HUWRATE), trim($row->PASSPORTNO), trim($row->VENDNO), trim($row->VENDOR), trim($row->TECHDOB), trim($row->PPISSUE), trim($row->PPEXPIRE), trim($row->VISANO), trim($row->VSAISSUE), trim($row->VSAEXPIRE), trim($row->QBLISTID), trim($row->TECHIM));
+        }
+
+        return $result[0];
     }
 
     /**
@@ -62,7 +79,8 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         if(intval($limit) > 0){
             $sqlString = "SELECT TOP $limit START AT $startAt * FROM $tableName";
         }
-        $sqlString .= " WHERE ACTIVE = True AND TECHPM = True AND LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%' ORDER BY INSPECTNO";
+        $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND (LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%') ORDER BY INSPECTNO";
+error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -80,7 +98,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         $lowerQuery = strtolower($query);
         $tableName = $this->entityName . $this->companySuffix;
         $sqlString = "SELECT COUNT(INSPECTNO) FROM $tableName";
-        $sqlString .= " WHERE ACTIVE = True AND TECHPM = True AND LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%'";
+        $sqlString .= " WHERE ACTIVE = True AND TECHPM = True AND (LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%')";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         return intval($queryResult[0]->EXPR);

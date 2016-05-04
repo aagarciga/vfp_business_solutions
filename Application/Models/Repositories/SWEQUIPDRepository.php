@@ -50,6 +50,26 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
     }
 
     /**
+     * @param $qbtxlineid
+     * @return \Dandelion\MVC\Application\Models\Entities\SWEQUIPD
+     */
+    public function GetByQbtxlineid($qbtxlineid)
+    {
+        $entityName = $this->getEntityWhitCompanySuffix();
+        $sqlString = "SELECT * FROM $entityName";
+        $sqlString .= " WHERE [QBTXLINEID] = '$qbtxlineid'";
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = array();
+
+        foreach($queryResult as $row){
+            $result []= new SWEQUIPD(trim($row->EQUIPID), trim($row->ORDNUM), trim($row->INSPECTNO), trim($row->INSTALLDTE), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->QBLISTID), trim($row->QBTXLINEID), trim($row->NFLG0));
+        }
+
+        return $result[0];
+    }
+
+    /**
      * @param \Dandelion\MVC\Application\Models\Entities\SWEQUIPD $entity
      * @return mixed | bool
      */

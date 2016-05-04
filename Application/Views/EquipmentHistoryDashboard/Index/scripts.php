@@ -32,7 +32,7 @@
 
     EquipmentHistoryDashboard.addUrl('workOrderSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'WorkOrderSearch')?>');
     EquipmentHistoryDashboard.addUrl('projectManagerSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'ProjectManagerSearch')?>');
-    EquipmentHistoryDashboard.addUrl('getEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetEquipmentHistoryUrl')?>');
+    EquipmentHistoryDashboard.addUrl('getEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetEquipmentHistory')?>');
     EquipmentHistoryDashboard.addUrl('addEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'AddEquipmentHistory')?>');
     EquipmentHistoryDashboard.addUrl('updateEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateEquipmentHistory')?>');
     EquipmentHistoryDashboard.addUrl('deleteEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'DeleteEquipmentHistory')?>');
