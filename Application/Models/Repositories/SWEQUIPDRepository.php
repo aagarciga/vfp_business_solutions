@@ -79,9 +79,9 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $equipid = $entity->getEquipid();
         $ordnum = $entity->getOrdnum();
         $inspectno = $entity->getInspectno();
-        $installdte = $entity->getInstalldte();
-        $expdtein = $entity->getExpdtein();
-        $daterec = $entity->getDaterec();
+        $installdte = $entity->getInstalldte(); $installdte = $installdte === '' ? 'NULL' : "'$installdte'";
+        $expdtein = $entity->getExpdtein(); $expdtein = $expdtein === '' ? 'NULL' : "'$expdtein'";
+        $daterec = $entity->getDaterec(); $daterec = $daterec === '' ? 'NULL' : "'$daterec'";
         $fupdtime = $entity->getFupdtime();
         $fupddate = $entity->getFupddate();
         $fstation = $entity->getFstation();
@@ -93,7 +93,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = 'INSERT INTO ' . $tableName
             . ' ([EQUIPID], [ORDNUM], [INSPECTNO], [INSTALLDTE], [EXPDTEIN], [DATEREC], [FUPDTIME], [FUPDDATE], [FSTATION], [FUSERID], [QBLISTID], [QBTXLINEID], [NFLG0])'
-            . " VALUES ('$equipid', '$ordnum', '$inspectno', '$installdte', '$expdtein', '$daterec', '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0)";
+            . " VALUES ('$equipid', '$ordnum', '$inspectno', $installdte, $expdtein, $daterec, '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0)";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -103,8 +103,8 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $equipid = $entity->getEquipid();
         $ordnum = $entity->getOrdnum();
         $inspectno = $entity->getInspectno();
-        $installdte = $entity->getInstalldte();
-        $expdtein = $entity->getExpdtein();
+        $installdte = $entity->getInstalldte(); $installdte = $installdte === '' ? 'NULL' : "'$installdte'";
+        $expdtein = $entity->getExpdtein(); $expdtein = $expdtein === '' ? 'NULL' : "'$expdtein'";
         $daterec = $entity->getDaterec(); $daterec = $daterec === '' ? 'NULL' : "'$daterec'";
         $fupdtime = $entity->getFupdtime();
         $fupddate = $entity->getFupddate();
@@ -119,8 +119,8 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
             "[EQUIPID] = '$equipid', " .
             "[ORDNUM] = '$ordnum', " .
             "[INSPECTNO] = '$inspectno', " .
-            "[INSTALLDTE] = '$installdte', " .
-            "[EXPDTEIN] = '$expdtein', " .
+            "[INSTALLDTE] = $installdte, " .
+            "[EXPDTEIN] = $expdtein, " .
             "[DATEREC] = $daterec, " .
             "[FUPDTIME] = '$fupdtime', " .
             "[FUPDDATE] = '$fupddate', " .
