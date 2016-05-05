@@ -25,6 +25,11 @@ class UpdateStatus_Post extends Action
 
         $result = array('success' => false);
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($equipid, $status);
+
+        if (status === EQUIPMENT_HISTORY_DASHBORD_STATUS_AVAILABLE){
+            $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastHistoryReference($equipid);
+        }
+
         if ($isSuccess) {
             $result['success'] = true;
         }
