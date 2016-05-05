@@ -125,8 +125,9 @@
 
                 _eventHandlers = {
                     saveHistory_OnDone: function (response) {
+                        console.log('On Add:', response);
                         var data = $.parseJSON(response);
-                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status);
+                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid);
                         hide();
                     }
                 };
@@ -231,7 +232,8 @@
                     controlProjectManager: '.control-project-manager-edit',
                     controlDateOut: '.control-installdte-edit',
                     controlExpactedIn: '.control-expdtein-edit',
-                    controlReceived: '.control-daterec-edit'
+                    controlReceived: '.control-daterec-edit',
+                    alertDelete: '.alert-delete'
                 };
 
                 _functions = {
@@ -257,16 +259,18 @@
 
                 _eventHandlers = {
                     updateHistory_OnDone: function (response) {
+                        console.log('On Update:', response);
                         var data = $.parseJSON(response);
                         if (data.success) {
-                            _functions.updateHistoryCallback(data.equipid, data.status);
+                            _functions.updateHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid);
                         }
                         hide();
                     },
                     deleteHistory_OnDone: function (response) {
+                        console.log('On Delete:', response);
                         var data = $.parseJSON(response);
                         if (data.success) {
-                            _functions.deleteHistoryCallback(data.equipid, data.status);
+                            _functions.deleteHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid);
                         }
                         hide();
                     },
@@ -349,7 +353,7 @@
                         });
                     };
                     self.deleteHistory = function (view_model) {
-
+                        //$(_htmlBindings.alertDelete).show();
                         $.post(
                             urls.deleteEquipmentHistoryUrl,
                             {
@@ -386,6 +390,7 @@
                  */
                 function show(qbtxlineid) {
                     _functions.reset();
+                    $(_htmlBindings.alertDelete).hide();
 
                     $.post(
                         urls.getEquipmentHistoryUrl,
@@ -736,15 +741,8 @@
 
                 equipID = $(this).parents('tr').data('equipid');
                 _status = $(this).html();
-
-                if (_status === 'Available') {
-                    functions.enableRowActionAdd(equipID);
-                    functions.disableRowActionEdit(equipID);
-                } else {
-                    functions.enableRowActionEdit(equipID);
-                    functions.disableRowActionAdd(equipID);
-                }
                 functions.updateStatus(equipID, _status);
+                functions.setActionsState(equipID, status);
             },
             btnActionFilesDialog_OnClick: function (event) {
                 throw 'Exception: Not implemented yet';
@@ -790,14 +788,31 @@
                     return $(this).find('a').text() === equipID;
                 }).parent();
             },
-            updateEquip: function (equipID, workOrder, status) {
+            updateEquip: function (equipID, workOrder, status, historyID) {
+                global.console.log("equipID", equipID);
+                global.console.log("workOrder", workOrder);
+                global.console.log("status", status);
+                global.console.log("historyID", historyID);
                 var $row = functions.getRowByEquipID(equipID);
-                $row.find(htmlBindings.tableMainFieldWorkOrder).text(workOrder);
+                //$row.find(htmlBindings.tableMainFieldWorkOrder).text(workOrder);
+                $row.find(htmlBindings.tableMainFieldWorkOrder).html('<a href="#" class="field-workorder-link" data-workorder="' + workOrder + '">' + workOrder + '</a>');
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
+                $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyID);
+                functions.setActionsState(equipID, status);
             },
             updateEquipStatus: function (equipID, status) {
                 var $row = functions.getRowByEquipID(equipID);
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
+                functions.setActionsState(equipID, status);
+            },
+            setActionsState: function(equipID, status) {
+                if (status === 'Available') {
+                    functions.enableRowActionAdd(equipID);
+                    functions.disableRowActionEdit(equipID);
+                } else {
+                    functions.enableRowActionEdit(equipID);
+                    functions.disableRowActionAdd(equipID);
+                }
             },
             enableRowActionAdd: function (equipID) {
                 var $row = functions.getRowByEquipID(equipID);
@@ -877,8 +892,8 @@
                 }
             }
             mvvm.modalEquipmentHistoryFormAdd.setSaveHistoryCallback(functions.updateEquip);
-            mvvm.modalEquipmentHistoryFormEdit.setUpdateHistoryCallback(functions.updateEquipStatus);
-            mvvm.modalEquipmentHistoryFormEdit.setDeleteHistoryCallback(functions.updateEquipStatus);
+            mvvm.modalEquipmentHistoryFormEdit.setUpdateHistoryCallback(functions.updateEquip);
+            mvvm.modalEquipmentHistoryFormEdit.setDeleteHistoryCallback(functions.updateEquip);
         }
 
         return {

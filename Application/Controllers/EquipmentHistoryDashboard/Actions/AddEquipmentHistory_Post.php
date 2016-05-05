@@ -51,6 +51,7 @@ class AddEquipmentHistory_Post extends Action {
             $result['equipid'] = $this->equipid;
             $result['ordnum'] = $this->ordnum;
             $result['status'] = $this->status;
+            $result['qbtxlineid'] = $this->historyId;
         }
         return json_encode($result);
     }

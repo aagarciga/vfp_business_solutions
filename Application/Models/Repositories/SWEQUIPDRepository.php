@@ -55,6 +55,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
      */
     public function GetByQbtxlineid($qbtxlineid)
     {
+
         $entityName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $entityName";
         $sqlString .= " WHERE [QBTXLINEID] = '$qbtxlineid'";
@@ -129,7 +130,6 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
             "[NFLG0] = $nflg0 " .
             " WHERE [QBTXLINEID] = '$qbtxlineid'";
         $query = $this->dbDriver->GetQuery();
-        error_log($sqlString);
         return $query->Execute($sqlString);
     }
 
@@ -142,7 +142,6 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $tableName = $this->getEntityWhitCompanySuffix();
         $qbtxlineid = $entity->getQbtxlineid();
         $sqlString = "DELETE FROM $tableName WHERE [QBTXLINEID] = '$qbtxlineid'";
-        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -163,9 +162,8 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
     public function UpdateWorkOrder($equipmentId, $workOrder){
         $tableName = $this->getEntityWhitCompanySuffix();
 
-
         $assing = '[ordnum] = \'' . $workOrder . '\'';
-        $predicate = '[equipid] = \'' . $equipmentId . '\'';
+        $predicate = '[EQUIPID] = \'' . $equipmentId . '\'';
         $sqlString = 'UPDATE ' . $tableName . ' SET ' . $assing . ' WHERE ' . $predicate;
 
         $query = $this->dbDriver->GetQuery();

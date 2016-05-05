@@ -340,6 +340,13 @@
                         </div>
                     </form>
                 </div>
+<!--                <div class="alert alert-danger fade in alert-delete" role="alert">-->
+<!--                    Are you sure?-->
+<!--                    <div class="btn-group pull-right">-->
+<!--                        <a href="#" class="btn btn-success btn-sm">Yes, I am.</a>-->
+<!--                        <a href="#" class="btn btn-danger btn-sm">Not, I am not.</a>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -27,16 +27,22 @@ class DeleteEquipmentHistory_Post extends Action {
         $this->qbtxlineid = $this->Request->hasProperty('qbtxlineid') ? $this->Request->qbtxlineid : '';
         $this->equipid = $this->Request->hasProperty('equipid') ? $this->Request->equipid : '';
 
+
         $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_AVAILABLE;
 
         $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($this->qbtxlineid);
+        $this->ordnum = $entity->getOrdnum();
 
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Delete($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
+        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastHistoryReference($this->equipid);
+
         if ($isSuccess) {
             $result['success'] = true;
             $result['equipid'] = $this->equipid; // For equipmnet status update
+            $result['ordnum'] = $this->ordnum;
             $result['status'] = $this->status;
+            $result['qbtxlineid'] = $this->qbtxlineid;
         }
         return json_encode($result);
     }

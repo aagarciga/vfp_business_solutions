@@ -52,12 +52,16 @@ class UpdateEquipmentHistory_Post extends Action {
         $entity->setFupddate($this->fupddate);
         $entity->setFuserid($this->userID);
 
+        $this->ordnum = $entity->getOrdnum();
+
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Update($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
         if ($isSuccess) {
             $result['success'] = true;
-            $result['equipid'] = $this->equipid; // For equipmnet status update
+            $result['equipid'] = $this->equipid;
+            $result['ordnum'] = $this->ordnum;
             $result['status'] = $this->status;
+            $result['qbtxlineid'] = $this->qbtxlineid;
         }
         return json_encode($result);
     }

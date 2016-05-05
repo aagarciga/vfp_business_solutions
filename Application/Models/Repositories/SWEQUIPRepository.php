@@ -52,7 +52,6 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $equipid = strtolower($equipid);
         $sqlString = "UPDATE $tableName  SET [ORDNUM] = '$workorder', [STATUS] = '$status', [QBTXLINEID] = '$qbtxlineid' WHERE LOWER([EQUIPID]) = '$equipid'";
-        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -83,6 +82,17 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $sqlString = "UPDATE $tableName SET " .
             "[STATUS] = '$status' " .
             "WHERE equipid = '$equipid'";
+
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
+    public function RemoveLastHistoryReference($equipid) {
+        $tableName = $this->getEntityWhitCompanySuffix();
+
+        $sqlString = "UPDATE $tableName SET " .
+            "[QBTXLINEID] = '' " .
+            "WHERE [EQUIPID] = '$equipid'";
 
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
