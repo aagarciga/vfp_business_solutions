@@ -19,14 +19,24 @@ class Signin extends Action {
      */
     public function Execute()
     {
-        session_unset();
-        $this->Title = 'Sign In | VFP Business Series - Warehouse Management System';
-        
-        $this->PreviousController = ($this->Request->hasProperty('previousController')) 
-                ? $this->Request->previousController 
+        $userName = isset($_SESSION[DASHBOARD_SESSION_PARAM_USERNAME]) ? $_SESSION[DASHBOARD_SESSION_PARAM_USERNAME] : DASHBOARD_SESSION_PARAM_USERNAME_DEFAULT;
+        if ($userName !== DASHBOARD_SESSION_PARAM_USERNAME_DEFAULT){
+            $this->Redirect('Main', 'Index');
+        } else {
+            session_unset();
+            $this->Title = 'Sign In | VFP Business Series - Warehouse Management System';
+
+
+            $this->PreviousController = ($this->Request->hasProperty('previousController'))
+                ? $this->Request->previousController
                 : $this->Request->Application->getDefaultController();
-        $this->PreviousAction = ($this->Request->hasProperty('previousAction')) 
-                ? $this->Request->previousAction 
+            $this->PreviousAction = ($this->Request->hasProperty('previousAction'))
+                ? $this->Request->previousAction
                 : $this->Request->Application->getDefaultAction();
+
+        }
+
+
+
     }
 }
