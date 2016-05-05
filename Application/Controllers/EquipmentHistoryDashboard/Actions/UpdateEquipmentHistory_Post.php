@@ -18,7 +18,7 @@ use Dandelion\MVC\Application\Models\Entities\SWEQUIPD;
 class UpdateEquipmentHistory_Post extends Action {
 
     /**
-     * Returns Job Status Items
+     * Returns JSON with success, equipment id and equipment new status for equipment update
      * @return JSON
      */
     public function Execute() {
@@ -30,8 +30,6 @@ class UpdateEquipmentHistory_Post extends Action {
         $this->installdte = $this->Request->hasProperty('installdte') ? $this->Request->installdte : '';
         $this->expdtein = $this->Request->hasProperty('expdtein') ? $this->Request->expdtein : '';
         $this->daterec = $this->Request->hasProperty('daterec') ? $this->Request->daterec : '';
-
-        error_log("Controller daterec: ". $this->daterec);
 
         $this->UserName = $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_USERNAME, DASHBOARD_SESSION_PARAM_USERNAME_DEFAULT);
         $this->User = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
@@ -58,7 +56,7 @@ class UpdateEquipmentHistory_Post extends Action {
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
         if ($isSuccess) {
             $result['success'] = true;
-            $result['equipid'] = $this->equipid;
+            $result['equipid'] = $this->equipid; // For equipmnet status update
             $result['status'] = $this->status;
         }
         return json_encode($result);

@@ -133,9 +133,31 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         return $query->Execute($sqlString);
     }
 
+    /**
+     * @param $entity
+     * @return mixed
+     */
     public function Delete($entity)
     {
-        // TODO: Implement Delete() method.
+        $tableName = $this->getEntityWhitCompanySuffix();
+        $qbtxlineid = $entity->getQbtxlineid();
+        $sqlString = "DELETE FROM $tableName WHERE [QBTXLINEID] = '$qbtxlineid'";
+        error_log($sqlString);
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
+    /**
+     * @param GUID $qbtxlineid
+     * @return mixed
+     */
+    public function DeleteBy($qbtxlineid)
+    {
+        $tableName = $this->getEntityWhitCompanySuffix();
+        $qbtxlineid = $qbtxlineid;
+        $sqlString = "DELETE FROM $tableName WHERE [QBTXLINEID] = '$qbtxlineid'";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
     }
 
     public function UpdateWorkOrder($equipmentId, $workOrder){

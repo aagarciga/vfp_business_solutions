@@ -236,30 +236,7 @@
 
                 _functions = {
                     usePlugins: function () {
-
-                        // [Project Manager] control
-                        //$controlProjectManager = $(_htmlBindings.controlProjectManager).select2({
-                        //    theme: "bootstrap",
-                        //    ajax: {
-                        //        url: urls.projectManagerSelectorAjaxUrl,
-                        //        dataType: 'json',
-                        //        delay: 250,
-                        //        processResults: function (data, params) {
-                        //            //global.console.log('data: ', data);
-                        //            //global.console.log('params: ', params);
-                        //            params.page = params.page || 1;
-                        //            return {
-                        //                results: data.items,
-                        //                pagination: {
-                        //                    more: (params.page * 30) < data.totalCount
-                        //                }
-                        //            };
-                        //        },
-                        //        cache: true
-                        //    }
-                        //    /*placeholder: 'Select One ...',*/
-                        //    //allowClear: true
-                        //});
+                        // Third party component initialization here...
                     },
                     reset: function () {
                         equipmentHistoryViewModel.reset();
@@ -272,6 +249,9 @@
                     },
                     updateHistoryCallback : function () {
                         throw 'Exception: Not implemented yet. Must be set by SetUpdateHistoryCallback function.';
+                    },
+                    deleteHistoryCallback : function () {
+                        throw 'Exception: Not implemented yet. Must be set by SetDeleteHistoryCallback function.';
                     }
                 };
 
@@ -280,6 +260,13 @@
                         var data = $.parseJSON(response);
                         if (data.success) {
                             _functions.updateHistoryCallback(data.equipid, data.status);
+                        }
+                        hide();
+                    },
+                    deleteHistory_OnDone: function (response) {
+                        var data = $.parseJSON(response);
+                        if (data.success) {
+                            _functions.deleteHistoryCallback(data.equipid, data.status);
                         }
                         hide();
                     },
@@ -347,7 +334,6 @@
                         installdte = $(_htmlBindings.controlDateOut).val();
                         expdtein = $(_htmlBindings.controlExpactedIn).val();
                         daterec = $(_htmlBindings.controlReceived).val();
-                        console.log($(_htmlBindings.controlDateOut).val());
                         $.post(
                             urls.updateEquipmentHistoryUrl,
                             {
@@ -367,9 +353,10 @@
                         $.post(
                             urls.deleteEquipmentHistoryUrl,
                             {
-                                qbtxlineid: view_model.qbtxlineid()
+                                qbtxlineid: view_model.qbtxlineid(),
+                                equipid: view_model.equipid()
                             }
-                        ).done(_eventHandlers.updateHistory_OnDone).fail(function onFail(response) {
+                        ).done(_eventHandlers.deleteHistory_OnDone).fail(function onFail(response) {
                             throw 'POST Fail with :' + response;
                         });
                     };
@@ -423,11 +410,16 @@
                     _functions.updateHistoryCallback = callback;
                 }
 
+                function setDeleteHistoryCallback(callback) {
+                    _functions.deleteHistoryCallback = callback;
+                }
+
                 return {
                     init: init,
                     showFor: show,
                     hide: hide,
-                    setUpdateHistoryCallback: setUpdateHistoryCallback
+                    setUpdateHistoryCallback: setUpdateHistoryCallback,
+                    setDeleteHistoryCallback: setDeleteHistoryCallback
                 };
 
             }(global, $, knockBack, knockout, backbone)),
@@ -886,6 +878,7 @@
             }
             mvvm.modalEquipmentHistoryFormAdd.setSaveHistoryCallback(functions.updateEquip);
             mvvm.modalEquipmentHistoryFormEdit.setUpdateHistoryCallback(functions.updateEquipStatus);
+            mvvm.modalEquipmentHistoryFormEdit.setDeleteHistoryCallback(functions.updateEquipStatus);
         }
 
         return {
