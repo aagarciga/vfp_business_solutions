@@ -224,15 +224,14 @@
             modalEquipmentHistoryFormEdit: (function (global, $, knockBack, knockout, backbone) {
                 var _htmlBindings, _functions, _eventHandlers,
                     EquipmentHistoryModel, EquipmentHistoryViewModel,
-                    equipmentHistoryModel, equipmentHistoryViewModel,
-                    $controlProjectManager;
+                    equipmentHistoryModel, equipmentHistoryViewModel;
 
                 _htmlBindings = {
                     modalViewElement: '#modal-equipment-history-form-edit',
                     controlProjectManager: '.control-project-manager-edit',
-                    controlDateOut: '.control-installdte',
-                    controlExpactedIn: '.control-expdtein',
-                    controlReceived: '.control-daterec'
+                    controlDateOut: '.control-installdte-edit',
+                    controlExpactedIn: '.control-expdtein-edit',
+                    controlReceived: '.control-daterec-edit'
                 };
 
                 _functions = {
@@ -279,7 +278,9 @@
                 _eventHandlers = {
                     updateHistory_OnDone: function (response) {
                         var data = $.parseJSON(response);
-                        _functions.updateHistoryCallback(data.equipid, data.status);
+                        if (data.success) {
+                            _functions.updateHistoryCallback(data.equipid, data.status);
+                        }
                         hide();
                     },
                     getEquipmentHistory_OnDone: function (response) {
@@ -313,8 +314,6 @@
                                     },
                                     cache: true
                                 }
-                                /*placeholder: 'Select One ...',*/
-                                //allowClear: true
                             }).val(data.equipmentHistoryObject.inspectno).trigger('change');
                         }
 
@@ -324,8 +323,8 @@
 
                 EquipmentHistoryModel = backbone.Model.extend({
                     defaults: {
-                        "equipid": '',
                         "qbtxlineid": '',
+                        "equipid": '',
                         "inspectno": '',
                         "installdte": '',
                         "expdtein": '',
@@ -342,20 +341,22 @@
                     self.expdtein = knockBack.observable(model, 'expdtein');
                     self.daterec = knockBack.observable(model, 'daterec');
 
-                    self.updateHistory = function (view_model) {
-                        self.installdte($(_htmlBindings.controlDateOut).val());
-                        self.expdtein($(_htmlBindings.controlExpactedIn).val());
-                        self.daterec($(_htmlBindings.controlReceived).val());
-
+                    self.updateHistory = function () {
+                        var projectManager, installdte, expdtein, daterec;
+                        projectManager = $(_htmlBindings.controlProjectManager).val();
+                        installdte = $(_htmlBindings.controlDateOut).val();
+                        expdtein = $(_htmlBindings.controlExpactedIn).val();
+                        daterec = $(_htmlBindings.controlReceived).val();
+                        console.log($(_htmlBindings.controlDateOut).val());
                         $.post(
                             urls.updateEquipmentHistoryUrl,
                             {
-                                qbtxlineid: view_model.qbtxlineid(),
-                                equipid: view_model.equipid(),
-                                inspectno: view_model.inspectno(),
-                                installdte: view_model.installdte(),
-                                expdtein: view_model.expdtein(),
-                                daterec: view_model.daterec()
+                                qbtxlineid: self.qbtxlineid(),
+                                equipid: self.equipid(),
+                                inspectno: projectManager, // Because knockout can't do binding with this control
+                                installdte: installdte,
+                                expdtein: expdtein,
+                                daterec: daterec
                             }
                         ).done(_eventHandlers.updateHistory_OnDone).fail(function onFail(response) {
                             throw 'POST Fail with :' + response;
@@ -802,6 +803,10 @@
                 $row.find(htmlBindings.tableMainFieldWorkOrder).text(workOrder);
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
             },
+            updateEquipStatus: function (equipID, status) {
+                var $row = functions.getRowByEquipID(equipID);
+                $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
+            },
             enableRowActionAdd: function (equipID) {
                 var $row = functions.getRowByEquipID(equipID);
                 $row.find(htmlBindings.btnActionAdd).attr({disabled: false});
@@ -880,6 +885,7 @@
                 }
             }
             mvvm.modalEquipmentHistoryFormAdd.setSaveHistoryCallback(functions.updateEquip);
+            mvvm.modalEquipmentHistoryFormEdit.setUpdateHistoryCallback(functions.updateEquipStatus);
         }
 
         return {

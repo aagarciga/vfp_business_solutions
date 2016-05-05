@@ -88,7 +88,8 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $qblistid = $entity->getQblistid();
         $qbtxlineid = $entity->getQbtxlineid();
         $nflg0 = $entity->getNflg0() ? "True" : "False";
-        $tableName = $this->entityName . $this->companySuffix;
+
+        $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = 'INSERT INTO ' . $tableName
             . ' ([EQUIPID], [ORDNUM], [INSPECTNO], [INSTALLDTE], [EXPDTEIN], [DATEREC], [FUPDTIME], [FUPDDATE], [FSTATION], [FUSERID], [QBLISTID], [QBTXLINEID], [NFLG0])'
             . " VALUES ('$equipid', '$ordnum', '$inspectno', '$installdte', '$expdtein', '$daterec', '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0)";
@@ -98,7 +99,38 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
 
     public function Update($entity)
     {
-        // TODO: Implement Update() method.
+        $equipid = $entity->getEquipid();
+        $ordnum = $entity->getOrdnum();
+        $inspectno = $entity->getInspectno();
+        $installdte = $entity->getInstalldte();
+        $expdtein = $entity->getExpdtein();
+        $daterec = $entity->getDaterec(); $daterec = $daterec === '' ? 'NULL' : "'$daterec'";
+        $fupdtime = $entity->getFupdtime();
+        $fupddate = $entity->getFupddate();
+        $fstation = $entity->getFstation();
+        $fuserid = $entity->getFuserid();
+        $qblistid = $entity->getQblistid();
+        $qbtxlineid = $entity->getQbtxlineid();
+        $nflg0 = $entity->getNflg0() ? "True" : "False";
+
+        $tableName = $this->getEntityWhitCompanySuffix();
+        $sqlString = "UPDATE $tableName SET " .
+            "[EQUIPID] = '$equipid', " .
+            "[ORDNUM] = '$ordnum', " .
+            "[INSPECTNO] = '$inspectno', " .
+            "[INSTALLDTE] = '$installdte', " .
+            "[EXPDTEIN] = '$expdtein', " .
+            "[DATEREC] = $daterec, " .
+            "[FUPDTIME] = '$fupdtime', " .
+            "[FUPDDATE] = '$fupddate', " .
+            "[FSTATION] = '$fstation', " .
+            "[FUSERID] = '$fuserid', " .
+            "[QBLISTID] = '$qblistid', " .
+            "[NFLG0] = $nflg0 " .
+            " WHERE [QBTXLINEID] = '$qbtxlineid'";
+        $query = $this->dbDriver->GetQuery();
+        error_log($sqlString);
+        return $query->Execute($sqlString);
     }
 
     public function Delete($entity)
@@ -107,13 +139,14 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
     }
 
     public function UpdateWorkOrder($equipmentId, $workOrder){
-        $tableName = $this->entityName . $this->companySuffix;
+        $tableName = $this->getEntityWhitCompanySuffix();
+
 
         $assing = '[ordnum] = \'' . $workOrder . '\'';
         $predicate = '[equipid] = \'' . $equipmentId . '\'';
         $sqlString = 'UPDATE ' . $tableName . ' SET ' . $assing . ' WHERE ' . $predicate;
 
         $query = $this->dbDriver->GetQuery();
-        $query->Execute($sqlString);
+        return $query->Execute($sqlString);
     }
 }

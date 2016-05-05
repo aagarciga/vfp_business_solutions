@@ -312,7 +312,7 @@
                                     <span class="add-on input-group-addon">
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                     </span>
-                                    <input class="form-control daterangepicker-single control-installdte" type="text" placeholder="" data-bind="value: installdte"/>
+                                    <input class="form-control daterangepicker-single control-installdte-edit" type="text" placeholder="" data-bind="value: installdte"/>
                                 </div>
                             </div>
                         </div>
@@ -323,7 +323,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                         </span>
-                                    <input class="form-control daterangepicker-single control-expdtein" type="text" placeholder="" data-bind="value: expdtein"/>
+                                    <input class="form-control daterangepicker-single control-expdtein-edit" type="text" placeholder="" data-bind="value: expdtein"/>
                                 </div>
                             </div>
                         </div>
@@ -334,7 +334,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                         </span>
-                                    <input class="form-control daterangepicker-single control-daterec" type="text" placeholder="" data-bind="value: daterec"/>
+                                    <input class="form-control daterangepicker-single control-daterec-edit" type="text" placeholder="" data-bind="value: daterec"/>
                                 </div>
                             </div>
                         </div>

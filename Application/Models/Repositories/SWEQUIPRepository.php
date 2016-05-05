@@ -81,7 +81,7 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
 
         $sqlString = "UPDATE $tableName SET " .
-            "STATUS = '$status' " .
+            "[STATUS] = '$status' " .
             "WHERE equipid = '$equipid'";
 
         $query = $this->dbDriver->GetQuery();

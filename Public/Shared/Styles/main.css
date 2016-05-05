@@ -105,7 +105,7 @@
 }
 .dashboard-container div.panel .panel-body .panel-table .dropdown .value {
   display: inline-block;
-  min-width: 60px;
+  min-width: 72px;
   text-align: left;
   font-size: 12px;
 }

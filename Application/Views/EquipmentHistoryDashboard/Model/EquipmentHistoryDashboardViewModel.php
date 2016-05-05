@@ -515,7 +515,7 @@ class EquipmentHistoryDashboardViewModel
                 FIELD_ATTR_HAVE_VALUES => true,
                 FIELD_ATTR_VALUES => array(
                     'Available' => 'Available',
-                    'Assigned' => 'Assigned',
+                    'Not Returned' => 'Not Returned',
                     'Broken' => 'Broken',
                     'Lost' => 'Lost',
                     'Received' => 'Received'

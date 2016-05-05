@@ -16,7 +16,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
      * @return array of all SWINSP objects from DB
      */
     public function GetAll() {
-        $tableName = $this->entityName . $this->companySuffix;
+        $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
@@ -34,7 +34,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
      * @return \Dandelion\MVC\Application\Models\Entities\SWINSP
      */
     public function GetActives() {
-        $tableName = $this->entityName . $this->companySuffix;
+        $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
         $sqlString .= ' WHERE [ACTIVE] = True AND [TECHPM] = True ORDER BY INSPECTNO';
         $query = $this->dbDriver->GetQuery();
@@ -49,11 +49,9 @@ class SWINSPRepository extends VFPRepository implements IRepository {
     }
 
     public function GetActiveBy($inspectno) {
-        error_log($inspectno);
-        $tableName = $this->entityName . $this->companySuffix;
+        $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
         $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND [INSPECTNO] = '$inspectno'";
-        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -74,13 +72,12 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         $startAt = 0;
         if (intval($page) > 0)
             $startAt = ((intval($page) - 1) * intval($limit)) + 1;
-        $tableName = $this->entityName . $this->companySuffix;
+        $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
         if(intval($limit) > 0){
             $sqlString = "SELECT TOP $limit START AT $startAt * FROM $tableName";
         }
         $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND (LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%') ORDER BY INSPECTNO";
-error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -96,7 +93,7 @@ error_log($sqlString);
      */
     public function GetActivesLikeCount($query){
         $lowerQuery = strtolower($query);
-        $tableName = $this->entityName . $this->companySuffix;
+        $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT COUNT(INSPECTNO) FROM $tableName";
         $sqlString .= " WHERE ACTIVE = True AND TECHPM = True AND (LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%')";
         $query = $this->dbDriver->GetQuery();
@@ -105,7 +102,7 @@ error_log($sqlString);
     }
     
     public function Get($predicate) {
-        $tableName = $this->entityName . $this->companySuffix;
+        $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
         $sqlString .= ' ' . $predicate;
         $query = $this->dbDriver->GetQuery();
