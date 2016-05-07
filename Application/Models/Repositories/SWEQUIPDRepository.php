@@ -59,6 +59,8 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $entityName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $entityName";
         $sqlString .= " WHERE [QBTXLINEID] = '$qbtxlineid'";
+
+        error_log("SWEQUIPDRepository->GetByQbtxlineid: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -94,6 +96,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $sqlString = 'INSERT INTO ' . $tableName
             . ' ([EQUIPID], [ORDNUM], [INSPECTNO], [INSTALLDTE], [EXPDTEIN], [DATEREC], [FUPDTIME], [FUPDDATE], [FSTATION], [FUSERID], [QBLISTID], [QBTXLINEID], [NFLG0])'
             . " VALUES ('$equipid', '$ordnum', '$inspectno', $installdte, $expdtein, $daterec, '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0)";
+        error_log("SWEQUIPDRepository->Add: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -129,6 +132,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
             "[QBLISTID] = '$qblistid', " .
             "[NFLG0] = $nflg0 " .
             " WHERE [QBTXLINEID] = '$qbtxlineid'";
+        error_log("SWEQUIPDRepository->Edit: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -142,6 +146,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $tableName = $this->getEntityWhitCompanySuffix();
         $qbtxlineid = $entity->getQbtxlineid();
         $sqlString = "DELETE FROM $tableName WHERE [QBTXLINEID] = '$qbtxlineid'";
+        error_log("SWEQUIPDRepository->Delete: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -155,7 +160,9 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $tableName = $this->getEntityWhitCompanySuffix();
         $qbtxlineid = $qbtxlineid;
         $sqlString = "DELETE FROM $tableName WHERE [QBTXLINEID] = '$qbtxlineid'";
+        error_log("SWEQUIPDRepository->DeleteBy: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
+
         return $query->Execute($sqlString);
     }
 
@@ -165,7 +172,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $assing = '[ordnum] = \'' . $workOrder . '\'';
         $predicate = '[EQUIPID] = \'' . $equipmentId . '\'';
         $sqlString = 'UPDATE ' . $tableName . ' SET ' . $assing . ' WHERE ' . $predicate;
-
+        error_log("SWEQUIPDRepository->UpdateWorkOrder: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

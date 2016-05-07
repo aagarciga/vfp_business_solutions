@@ -470,7 +470,7 @@ class EquipmentHistoryDashboardViewModel
             'expdtein' => array(
                 FIELD_ATTR_NAME => 'expdtein',
                 FIELD_ATTR_TYPE => MODEL_TYPE_DATE,
-                FIELD_ATTR_DISPLAY_NAME => 'Expacted In',
+                FIELD_ATTR_DISPLAY_NAME => 'Expected In',
                 'table' => $swequipTable
             ),
             'daterec' => array(
