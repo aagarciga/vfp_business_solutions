@@ -36,8 +36,8 @@
             btnActionView: '.btn-action-view',
             dateRangePickerSingle: '.daterangepicker-single',
             tableMain: '#equipmentHistoryDashboardTable',
-            tableMainFieldWorkOrder: '.field-workorder',
-            tableMainFieldEquipId: '.field-equipid',
+            tableMainFieldWorkOrder: '.field-work-order',
+            tableMainFieldEquipId: '.field-id',
             tableMainFieldWorkOrderLink: '.field-workorder-link',
             tableMainFieldStatus: '.field-status',
             modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
@@ -741,8 +741,9 @@
 
                 equipID = $(this).parents('tr').data('equipid');
                 _status = $(this).html();
+                functions.updateEquipStatus(equipID, _status);
                 functions.updateStatus(equipID, _status);
-                functions.setActionsState(equipID, status);
+                functions.setActionsState(equipID, _status);
             },
             btnActionFilesDialog_OnClick: function (event) {
                 throw 'Exception: Not implemented yet';
@@ -771,6 +772,9 @@
                 $(htmlBindings.btnActionEdit).on('click', eventHandlers.btnActionEdit_OnClick);
                 $(htmlBindings.btnActionView).on('click', eventHandlers.btnActionView_OnClick);
             },
+            buildClassBy: function (value) {
+                return value.toLowerCase().replace(' ', '-');
+            },
             usePlugins: function () {
                 $(htmlBindings.dateRangePickerSingle).daterangepicker({
                     singleDatePicker: true,
@@ -789,23 +793,29 @@
                 }).parent();
             },
             updateEquip: function (equipID, workOrder, status, historyID) {
+                var statusClass, $row;
                 global.console.log("equipID", equipID);
                 global.console.log("workOrder", workOrder);
                 global.console.log("status", status);
                 global.console.log("historyID", historyID);
-                var $row = functions.getRowByEquipID(equipID);
+
+                statusClass = functions.buildClassBy(status);
+                $row = functions.getRowByEquipID(equipID);
                 //$row.find(htmlBindings.tableMainFieldWorkOrder).text(workOrder);
-                $row.find(htmlBindings.tableMainFieldWorkOrder).html('<a href="#" class="field-workorder-link" data-workorder="' + workOrder + '">' + workOrder + '</a>');
+                $row.find(htmlBindings.tableMainFieldWorkOrder).html('<a href="#" class="' + (htmlBindings.tableMainFieldWorkOrderLink).slice(1) + '" data-workorder="' + workOrder + '">' + workOrder + '</a>');
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
+                $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
                 $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyID);
                 functions.setActionsState(equipID, status);
             },
             updateEquipStatus: function (equipID, status) {
-                var $row = functions.getRowByEquipID(equipID);
-                $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
+                var statusClass, $row;
+                statusClass = functions.buildClassBy(status);
+                $row = functions.getRowByEquipID(equipID);
+                $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
                 functions.setActionsState(equipID, status);
             },
-            setActionsState: function(equipID, status) {
+            setActionsState: function (equipID, status) {
                 if (status === 'Available') {
                     functions.enableRowActionAdd(equipID);
                     functions.disableRowActionEdit(equipID);
@@ -839,9 +849,9 @@
                     }
                 ).done(function onDone(response) {
                     var data = $.parseJSON(response);
-                    //if (data.success) {
-                    //    TODO: UI Success Feedback
-                    //}
+                    if (data.success) {
+                        //functions.updateEquipStatus(equipID, status);
+                    }
                 }).fail(function onFail(response) {
                     throw 'POST Fail with :' + response;
                 });

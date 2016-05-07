@@ -484,6 +484,8 @@ class EquipmentHistoryDashboardViewModel
                 FIELD_ATTR_NAME => 'notes',
                 FIELD_ATTR_TYPE => MODEL_TYPE_MEMO,
                 FIELD_ATTR_DISPLAY_NAME => 'Notes',
+                FIELD_ATTR_FILTERABLE => false,
+                FIELD_ATTR_SORTABLE => false,
                 'table' => $swequipTable
             ),
             'picture_fi' => array(

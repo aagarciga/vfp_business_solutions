@@ -108,8 +108,9 @@
                     <table id="equipmentHistoryDashboardTable" class="table table-striped responsive">
                         <colgroup>
                             <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
+                                <?php $displayName = $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition)?>
                                 <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
-                                    <col class="col-<?php echo $field ?>"/>
+                                    <col class="<?php echo ViewHelpers::BuildClassBy($displayName)?>"/>
                                 <?php endif ?>
                             <?php endforeach ?>
                             <col class="col-actions"/>
@@ -117,9 +118,10 @@
                         <thead>
                         <tr>
                             <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
+                                <?php $displayName = $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition)?>
                                 <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
-                                    <th>
-                                        <?php echo $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition) ?>
+                                    <th class="<?php echo ViewHelpers::BuildClassBy($displayName)?>">
+                                        <?php echo $displayName ?>
                                         <?php if ($EquipmentHistoryDashboardViewModelName::isSortable($fieldDefinition)): ?>
                                             <button data-field="<?php echo $field ?>" class="btn-table-sort"></button>
                                         <?php endif ?>
@@ -134,7 +136,7 @@
                             <?php $currentStatus = ''; ?>
                             <tr data-equipid="<?php echo $item->getEquipid() ?>">
                                 <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
-
+                                    <?php $displayName = $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition)?>
                                     <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
                                         <?php $method = 'get' . ucfirst($field) ?>
                                         <?php if ($EquipmentHistoryDashboardViewModelName::hasValues($fieldDefinition)): ?>
@@ -143,10 +145,10 @@
                                                     $currentStatus = $item->$method();
                                                 }
                                             ?>
-                                        <td class="item-field <?php echo ($EquipmentHistoryDashboardViewModelName::isStatus($fieldDefinition))? 'field-status' : '' ?>">
+                                        <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
                                             <div class="btn-group dropdown">
                                                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                                                    <span class="value"><?php echo $item->$method() ?></span>
+                                                    <span class="value <?php echo ViewHelpers::BuildClassBy($item->$method())?>"><?php echo $item->$method() ?></span>
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
@@ -157,11 +159,11 @@
                                             </div>
                                         </td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isWorkorder($fieldDefinition)): ?>
-                                        <td class="item-field field-workorder">
+                                        <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
                                             <a href="#" class="field-workorder-link" data-workorder="<?php echo $item->getOrdnum()?>"><?php echo $item->$method() ?></a>
                                         </td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isEquipid($fieldDefinition)): ?>
-                                        <td class="item-field field-equipid">
+                                        <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
                                             <a href="<?php echo $View->Href("HistoryDashboard", "Index", array(
                                                 'equipid' => base64_encode($item->$method()),
                                                 'jsonFilterTree' => base64_encode($JsonFilterTree),
@@ -172,7 +174,7 @@
                                             )) ?>"><?php echo $item->$method() ?></a>
                                         </td>
                                         <?php else: ?>
-                                        <td class="item-field"><?php echo $item->$method() ?></td>
+                                        <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>"><?php echo $item->$method() ?></td>
                                         <?php endif ?>
                                     <?php endif ?>
                                 <?php endforeach ?>

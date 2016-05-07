@@ -24,3 +24,54 @@
     width: 100%;
   }
 }
+
+
+
+#equipmentHistoryDashboardTable{
+
+  th.work-order{
+    min-width: 99px;
+  }
+  th.description{
+    min-width: 100px;
+    font-size: 12px;
+  }
+  th.voltage{
+    min-width: 76px;
+  }
+  th.date-out{
+    min-width: 83px;
+  }
+  th.expected-in{
+    min-width: 100px;
+  }
+  th.received{
+    min-width: 86px;
+  }
+  th.asset-tag{
+    min-width: 91px;
+  }
+  th.locno{
+    min-width: 68px;
+  }
+
+  td.field-description{
+
+    font-weight: bold;
+  }
+
+  td.field-status{
+    .value{
+
+      &.not-returned{
+        //font-weight: bold;
+        //color: #0083A9;
+        color: #00811F;
+      }
+      &.available{
+        //font-weight: bold;
+        //color: #00811F;
+      }
+    }
+  }
+}
