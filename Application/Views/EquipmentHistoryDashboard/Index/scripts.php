@@ -28,6 +28,8 @@
         EquipmentHistoryDashboard       = dandelion.namespace('App.EquipmentHistoryDashboard', global);
 //    EquipmentHistoryDashboard.setItemsPerPageSelector('.items-per-page-selector');
 //    EquipmentHistoryDashboard.setStatusSelector('.status-selector');
+
+    EquipmentHistoryDashboard.setItemsPerPage(<?php echo $ItemsPerPage?>);
     EquipmentHistoryDashboard.addDictionary('status', <?php echo json_encode($StatusDictionary)?>);
 
     EquipmentHistoryDashboard.addUrl('workOrderSelectorAjaxUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'WorkOrderSearch')?>');
@@ -40,6 +42,7 @@
     EquipmentHistoryDashboard.addUrl('getWorkOrderUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetWorkOrder')?>');
     EquipmentHistoryDashboard.addUrl('updateWorkOrderNotesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateWorkOrderNotes')?>');
     EquipmentHistoryDashboard.addUrl('updateStatusUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateStatus')?>');
+    EquipmentHistoryDashboard.addUrl('getEquipmentPage', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetEquipmentPage')?>');
 
     EquipmentHistoryDashboard.init();
 

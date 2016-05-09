@@ -125,6 +125,7 @@ class DatDashboardController extends DatActionsController
         $companyID = $this->DatUnitOfWork->CompanySuffix;
         $fieldsDefinition = $viewModelName::getFieldsDefinitionFor($companyID);
         $arrayField = array_keys($fieldsDefinition);
+        error_log("Order by default: ". $arrayField[0]);
         return $arrayField[0];
     }
 

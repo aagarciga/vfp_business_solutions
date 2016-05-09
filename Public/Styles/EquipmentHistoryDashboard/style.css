@@ -17,7 +17,13 @@
 #kb-view-salesorder .container {
   width: 100%;
 }
+#equipmentHistoryDashboardTable th.id {
+  min-width: 73px;
+}
 #equipmentHistoryDashboardTable th.work-order {
+  min-width: 76px;
+}
+#equipmentHistoryDashboardTable th.part-no {
   min-width: 99px;
 }
 #equipmentHistoryDashboardTable th.description {

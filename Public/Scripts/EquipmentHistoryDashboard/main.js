@@ -16,7 +16,9 @@
          */
         status = {
             itemsPerPage: 0,
-            currentPage: 0
+            currentPage: 0,
+            sortField: 'ordnum',
+            sortFieldOrder: 'ASC'
         };
         /**
          * Dictionaries
@@ -36,11 +38,13 @@
             btnActionView: '.btn-action-view',
             dateRangePickerSingle: '.daterangepicker-single',
             tableMain: '#equipmentHistoryDashboardTable',
+            pagerContainer: '.pager-wrapper',
+            pagerButton: '.pager-btn',
             tableMainFieldWorkOrder: '.field-work-order',
             tableMainFieldEquipId: '.field-id',
             tableMainFieldWorkOrderLink: '.field-workorder-link',
-            tableMainFieldStatus: '.field-status',
-            modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
+            tableMainFieldStatus: '.field-status'
+            //modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
 
         mvvm = {
@@ -756,7 +760,29 @@
             },
             btnActionView_OnClick: function (event) {
                 throw 'Exception: Not implemented yet';
-            }
+            },
+            pagerButton_OnClick: function (event) {
+                var page = $(this).data('page');
+                status.currentPage = page;
+                functions.paginate();
+            },
+            paginate_OnBeforeSend: function (response) {
+                $('.loading').show();
+            },
+            paginate_OnSuccess: function (response) {
+                var data, pager, items, pagerControl;
+                data = $.parseJSON(response);
+                pager = new BootstrapPager(data, eventHandlers.pagerButton_OnClick);
+
+                pagerControl = pager.getPagerControl();
+                $(htmlBindings.pagerContainer).empty().append(pagerControl);
+                $(htmlBindings.itemCounter).html(pager.itemsCount);
+
+                items = pager.getCurrentPagedItems();
+                functions.updateTable(items);
+
+                $('.loading').hide();
+            },
         };
         /**
          * Functions
@@ -771,6 +797,10 @@
                 $(htmlBindings.btnActionAdd).on('click', eventHandlers.btnActionAdd_OnClick);
                 $(htmlBindings.btnActionEdit).on('click', eventHandlers.btnActionEdit_OnClick);
                 $(htmlBindings.btnActionView).on('click', eventHandlers.btnActionView_OnClick);
+                $(htmlBindings.pagerButton).on('click', eventHandlers.pagerButton_OnClick);
+            },
+            bindTableItemsEventHandlers: function () {
+                throw 'Exception: Not implemented yet';
             },
             buildClassBy: function (value) {
                 return value.toLowerCase().replace(' ', '-');
@@ -784,8 +814,19 @@
                 });
             },
             paginate: function () {
-                //TODO: Implement
-                throw 'Exception: Not implemented yet';
+                $.ajax({
+                    data: {
+                        predicate: '', // TODO: implement with filter
+                        page: status.currentPage,
+                        itemsPerPage: status.itemsPerPage,
+                        orderBy: status.sortField,
+                        order: status.sortFieldOrder
+                    },
+                    url: urls.getEquipmentPage,
+                    type: 'post',
+                    beforeSend: eventHandlers.paginate_OnBeforeSend,
+                    success: eventHandlers.paginate_OnSuccess
+                });
             },
             getRowByEquipID: function (equipID) {
                 return $(htmlBindings.tableMainFieldEquipId).filter(function doFilter(index) {
@@ -855,11 +896,237 @@
                 }).fail(function onFail(response) {
                     throw 'POST Fail with :' + response;
                 });
+            },
+            buildTableItem: function (item, trClass, tdClass) {
+                var addButtonBuilder, attachedFilesButtonBuilder, doc, editButtonBuilder, result, tdActionsTagBuilder, tdAssetTagBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder, viewButtonBuilder;
+
+                doc = global.document;
+                result = doc.createElement('tr');
+
+                tdOrdnumBuilder = function (tdClass) {
+                    tdClass += ' field-work-order';
+                    return App.Helpers.withLinkTdBuilder(item.ordnum, tdClass, 'field-work-order-link');
+                };
+                tdEquipidBuilder = function (tdClass) {
+                    tdClass += ' field-id';
+                    return App.Helpers.withLinkTdBuilder(item.equipid, tdClass, '', App.Helpers.Href('EquipmentHistoryDashboard', 'EquipmentHistories', {
+                        equipid: btoa(item.equipid),
+                        jsonFilterTree: '', // TODO implement
+                        itemPerPage: status.itemsPerPage,
+                        page: status.currentPage,
+                        orderBy: status.sortField,
+                        order: status.sortFieldOrder
+                    }), {});
+                };
+                tdItemnoBuilder = function (tdClass) {
+                    tdClass += ' field-part-no';
+                    return App.Helpers.simpleTdBuilder(item.itemno, tdClass);
+                };
+                tdDescripBuilder = function (tdClass) {
+                    tdClass += ' field-description';
+                    return App.Helpers.simpleTdBuilder(item.descrip, tdClass);
+                };
+                tdMakeBuilder = function (tdClass) {
+                    tdClass += ' field-brand';
+                    return App.Helpers.simpleTdBuilder(item.make, '');
+                };
+                tdModelBuilder = function (tdClass) {
+                    tdClass += ' field-model';
+                    return App.Helpers.simpleTdBuilder(item.model, tdClass);
+                };
+                tdSerialnoBuilder = function (tdClass) {
+                    tdClass += ' field-serial-no';
+                    return App.Helpers.simpleTdBuilder(item.serialno, tdClass);
+                };
+                tdVoltageBuilder = function (tdClass) {
+                    tdClass += ' field-voltage';
+                    return App.Helpers.simpleTdBuilder(item.Voltage, tdClass);
+                };
+                tdEquipTypeBuilder = function (tdClass) {
+                    tdClass += ' field-type';
+                    return App.Helpers.simpleTdBuilder(item.EquipType, tdClass);
+                };
+                tdInstalldteBuilder = function (tdClass) {
+                    tdClass += ' field-date-out';
+                    return App.Helpers.simpleTdBuilder(item.installdte, tdClass);
+                };
+                tdExpdteinBuilder = function (tdClass) {
+                    tdClass += ' field-expected-in';
+                    return App.Helpers.simpleTdBuilder(item.expdtein, tdClass);
+                };
+                tdDaterecBuilder = function (tdClass) {
+                    tdClass += ' field-received';
+                    return App.Helpers.simpleTdBuilder(item.daterec, tdClass);
+                };
+                tdNotesBuilder = function (tdClass) {
+                    tdClass += ' field-notes';
+                    return App.Helpers.simpleTdBuilder(item.notes, tdClass);
+                };
+                tdAssetTagBuilder = function (tdClass) {
+                    tdClass += ' field-asset-tag';
+                    return App.Helpers.simpleTdBuilder(item.assettag, tdClass);
+                };
+                tdLocnoBuilder = function (tdClass) {
+                    tdClass += ' field-locno';
+                    return App.Helpers.simpleTdBuilder(item.locno, tdClass);
+                };
+
+                //tdStatusBuilder = function (tdClass) {
+                //    tdClass += ' field-status';
+                //    return App.Helpers.withSelectBuilder(item.status, tdClass, 'form-control update-dropdown status select2-nosearch', status.statusValue, {
+                //        equipid: item.equipid
+                //    });
+                //};
+
+
+                tdStatusBuilder = function () {
+                    var dictionary, _status, $td, $btnGroup, $button, $value, $caret, $ul;
+
+                    $td = $('<td class="item-field field-status">');
+                    $btnGroup = $('<div class="btn-group dropdown">');
+                    $button = $('<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">');
+                    $value = $('<span class="value ' + item.status.toLowerCase() + '">' + item.status + '</span>');
+                    $caret = $('<span class="caret"></span>');
+                    $button.append($value);
+                    $button.append($caret);
+                    $ul = $('<ul class="dropdown-menu">');
+                    dictionary = ['Available', 'Not Returned', 'Broken', 'Lost', 'Received'];
+                    for (_status in dictionary) {
+                        if (dictionary.hasOwnProperty(_status)) {
+                            $ul.append($('<li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="' + _status + '">' + _status + '</a></li>'));
+                        }
+                    }
+                    $btnGroup.append($button);
+                    $btnGroup.append($ul);
+                    $td.append($btnGroup);
+
+                    return $td[0];
+                };
+
+                //tdPicture_fiBuilder = function (tdClass) {
+                //    return App.Helpers.withLightboxLinkPictureBuilder(item.equipid, 'item-image', '', item.picture_fi, "glyphicon glyphicon-eye-open", null, {});
+                //};
+
+                tdActionsTagBuilder = function () {
+                    var btnGroup, elements;
+                    elements = [];
+                    elements.push(viewButtonBuilder());
+                    elements.push(addButtonBuilder());
+                    elements.push(editButtonBuilder());
+                    elements.push(attachedFilesButtonBuilder());
+                    btnGroup = window.document.createElement('div');
+                    btnGroup.className = 'btn-group';
+                    return App.Helpers.complexTdBuilder(elements, 'item-actions', btnGroup);
+                };
+                attachedFilesButtonBuilder = function () {
+                    var anchorClassName, spanGlyphIcon;
+                    spanGlyphIcon = doc.createElement('span');
+                    spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
+                    anchorClassName = htmlBindings.btnActionFilesDialog.slice(1) + ' btn-action btn btn-default btn-sm';
+                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {
+                        equipid: item.equipid
+                    });
+                };
+                editButtonBuilder = function () {
+                    var anchorClassName, dataset, props, spanGlyphIcon;
+                    spanGlyphIcon = doc.createElement('span');
+                    spanGlyphIcon.className = 'glyphicon glyphicon-edit';
+                    anchorClassName = htmlBindings.btnActionEdit.slice(1) + ' btn-action btn btn-default btn-sm';
+                    dataset = {
+                        equipid: item.equipid,
+                        qbtxlineid: item.qbtxlineid,
+                        ordnum: item.ordnum
+                    };
+                    if (!item.qbtxlineid) {
+                        props = {
+                            'disabled': "disabled"
+                        };
+                    }
+                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset, props);
+                };
+                addButtonBuilder = function () {
+                    var anchorClassName, dataset, spanGlyphIcon;
+                    spanGlyphIcon = doc.createElement('span');
+                    spanGlyphIcon.className = 'glyphicon glyphicon-plus-sign';
+                    anchorClassName = htmlBindings.btnActionAdd.slice(1) + ' btn-action btn btn-default btn-sm';
+                    dataset = {
+                        equipid: item.equipid,
+                        qbtxlineid: item.qbtxlineid,
+                        ordnum: item.ordnum
+                    };
+                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset);
+                };
+                viewButtonBuilder = function () {
+                    var anchorClassName, spanGlyphIcon;
+                    spanGlyphIcon = doc.createElement('span');
+                    spanGlyphIcon.className = 'glyphicon glyphicon-eye-open';
+                    anchorClassName = htmlBindings.btnActionView.slice(1) + ' btn-action btn btn-default btn-sm';
+                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {
+                        equipid: item.equipid
+                    });
+                };
+                result.className = trClass;
+                result.dataset.equipid = item.equipid;
+
+                //Work Order
+                result.appendChild(tdOrdnumBuilder(tdClass));
+                //Id
+                result.appendChild(tdEquipidBuilder(tdClass));
+                //Part No
+                result.appendChild(tdItemnoBuilder(tdClass));
+                //Description
+                result.appendChild(tdDescripBuilder(tdClass));
+                //Brand
+                result.appendChild(tdMakeBuilder(tdClass));
+                //Model
+                result.appendChild(tdModelBuilder(tdClass));
+                //Serial No
+                result.appendChild(tdSerialnoBuilder(tdClass));
+                //Voltage
+                result.appendChild(tdVoltageBuilder(tdClass));
+                //Type
+                result.appendChild(tdEquipTypeBuilder(tdClass));
+                //Date Out
+                result.appendChild(tdInstalldteBuilder(tdClass));
+                //Expected In
+                result.appendChild(tdExpdteinBuilder(tdClass));
+                //Received
+                result.appendChild(tdDaterecBuilder(tdClass));
+                //Notes
+                result.appendChild(tdNotesBuilder(tdClass));
+                //Asset Tag
+                result.appendChild(tdAssetTagBuilder(tdClass));
+                //Locno
+                result.appendChild(tdLocnoBuilder(tdClass));
+                //Status
+                result.appendChild(tdStatusBuilder(tdClass));
+                //Actions
+                result.appendChild(tdActionsTagBuilder());
+
+                return result;
+
+            },
+            updateTable: function (items) {
+                var $table, $tableBody, index;
+                $table = $(htmlBindings.tableMain);
+                $tableBody = $table.children('tbody');
+                $tableBody.empty();
+
+                for (index in items) {
+                    if (items.hasOwnProperty(index)) {
+                        $tableBody.append(functions.buildTableItem(items[index], '', 'item-field'));
+                    }
+                }
+                //functions.bindTableItemsEventHandlers();
             }
         };
 
         function setItemsPerPageSelector(selector) {
             htmlBindings.itemsPerPageSelector = selector;
+        }
+
+        function setItemsPerPage(value) {
+            status.itemsPerPage = value;
         }
 
         function setStatusSelector(selector) {
@@ -894,6 +1161,8 @@
             global.console.log('Dictionaries:');
             global.console.log(dictionaries);
 
+
+
             global.console.log('Initializing MVVM related logic:');
             for (index in mvvm) {
                 if (mvvm.hasOwnProperty(index)) {
@@ -908,6 +1177,7 @@
 
         return {
             init: init,
+            setItemsPerPage: setItemsPerPage,
             setItemsPerPageSelector: setItemsPerPageSelector,
             setStatusSelector: setStatusSelector,
             addDictionary: addDictionary,

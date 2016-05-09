@@ -234,6 +234,8 @@ if (window.jQuery === 'undefined') {
         return td;
     };
 
+
+
     App.Helpers.Href = function (controller, action, params) {
         var url = 'index.php?';
         if (controller !== '') {
