@@ -18,7 +18,7 @@ class DatDashboardController extends DatActionsController
      * @param $predicate
      * @param $orderby
      * @param string $order
-     * @param int $itemsPerpage
+     * @param int $itemsPerPage
      * @param int $middleRange
      * @param int $showPagerControlsIfMoreThan
      * @return \Dandelion\MVC\Application\Controllers\BootstrapPager
@@ -38,7 +38,32 @@ class DatDashboardController extends DatActionsController
             . " FROM $sqlTableSnippet "
             . "$predicate"
             . " ORDER BY $orderby $order";
+        error_log('DatDashboardController->GetPager: '.$sqlString);
+        return new BootstrapPager($this->DatUnitOfWork->DBDriver,
+            $sqlString, $itemsPerPage, $middleRange, $showPagerControlsIfMoreThan);
+    }
 
+    public function GetPagerBy($field, $value ,$viewModelName, $predicate, $orderby, $order = "ASC",
+                             $itemsPerPage = 10, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
+    {
+        $this->checkForViewModel($viewModelName);
+
+        $companyID = $this->DatUnitOfWork->CompanySuffix;
+        $sqlTableSnippet = $viewModelName::getTableFor($companyID);
+        $sqlSelectSnippet = $this->buildSQLSelectSnippet($viewModelName::getFieldsDefinitionFor($companyID));
+        $value = strtolower($value);
+        if ($predicate === ''){
+            $predicate = " WHERE LOWER([$field]) = '$value'";
+        } else{
+            $predicate . " AND LOWER([$field]) = '$value'";
+        }
+
+        $sqlString = "SELECT "
+            . $sqlSelectSnippet
+            . " FROM $sqlTableSnippet "
+            . "$predicate"
+            . " ORDER BY $orderby $order";
+        error_log('DatDashboardController->GetPager: '.$sqlString);
         return new BootstrapPager($this->DatUnitOfWork->DBDriver,
             $sqlString, $itemsPerPage, $middleRange, $showPagerControlsIfMoreThan);
     }

@@ -72,7 +72,7 @@ class EquipmentHistoryDashboardViewModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getOrdnum()
     {
@@ -80,7 +80,7 @@ class EquipmentHistoryDashboardViewModel
     }
 
     /**
-     * @param mixed $ordnum
+     * @param string $ordnum
      * @return EquipmentHistoryDashboardViewModel
      */
     public function setOrdnum($ordnum)
@@ -90,7 +90,7 @@ class EquipmentHistoryDashboardViewModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEquipid()
     {
@@ -98,7 +98,7 @@ class EquipmentHistoryDashboardViewModel
     }
 
     /**
-     * @param mixed $equipid
+     * @param string $equipid
      * @return EquipmentHistoryDashboardViewModel
      */
     public function setEquipid($equipid)
@@ -380,7 +380,7 @@ class EquipmentHistoryDashboardViewModel
     }
 
     /**
-     * @return mixed
+     * @return GUID
      */
     public function getQbtxlineid()
     {
@@ -388,7 +388,7 @@ class EquipmentHistoryDashboardViewModel
     }
 
     /**
-     * @param mixed $qbtxlineid
+     * @param GUID $qbtxlineid
      * @return EquipmentHistoryDashboardViewModel
      */
     public function setQbtxlineid($qbtxlineid)

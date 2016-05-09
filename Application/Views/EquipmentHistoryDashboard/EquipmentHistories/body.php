@@ -88,11 +88,11 @@
                                     class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu">
                                 <li role="presentation" class="dropdown-header">By</li>
-                                <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
-                                    <?php if ($EquipmentHistoryDashboardViewModelName::isFilterAble($fieldDefinition)): ?>
+                                <?php foreach ($EquipmentHistoryFieldsDefinition as $field => $fieldDefinition): ?>
+                                    <?php if ($EquipmentHistoryViewModelName::isFilterAble($fieldDefinition)): ?>
                                         <li>
                                             <a href="#" class="filter-field" data-field="<?php echo $field ?>"
-                                               data-field-type="<?php echo $EquipmentHistoryDashboardViewModelName::getJSTypeFor($fieldDefinition) ?>" <?php echo $EquipmentHistoryDashboardViewModelName::hasValues($fieldDefinition) ? 'data-field-values="' . FIELD_ATTR_VALUES . '"' : '' ?> ><?php echo $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition) ?></a>
+                                               data-field-type="<?php echo $EquipmentHistoryViewModelName::getJSTypeFor($fieldDefinition) ?>" <?php echo $EquipmentHistoryViewModelName::hasValues($fieldDefinition) ? 'data-field-values="' . FIELD_ATTR_VALUES . '"' : '' ?> ><?php echo $EquipmentHistoryViewModelName::getDisplayNameFor($fieldDefinition) ?></a>
                                         </li>
                                     <?php endif ?>
                                 <?php endforeach ?>
@@ -107,9 +107,9 @@
 
                     <table id="equipmentHistoryDashboardTable" class="table table-striped responsive">
                         <colgroup>
-                            <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
-                                <?php $displayName = $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition)?>
-                                <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
+                            <?php foreach ($EquipmentHistoryFieldsDefinition as $field => $fieldDefinition): ?>
+                                <?php $displayName = $EquipmentHistoryViewModelName::getDisplayNameFor($fieldDefinition)?>
+                                <?php if ($EquipmentHistoryViewModelName::isVisible($fieldDefinition)): ?>
                                     <col class="<?php echo ViewHelpers::BuildClassBy($displayName)?>"/>
                                 <?php endif ?>
                             <?php endforeach ?>
@@ -117,83 +117,46 @@
                         </colgroup>
                         <thead>
                         <tr>
-                            <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
-                                <?php $displayName = $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition)?>
-                                <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
+                            <?php foreach ($EquipmentHistoryFieldsDefinition as $field => $fieldDefinition): ?>
+                                <?php $displayName = $EquipmentHistoryViewModelName::getDisplayNameFor($fieldDefinition)?>
+                                <?php if ($EquipmentHistoryViewModelName::isVisible($fieldDefinition)): ?>
                                     <th class="<?php echo ViewHelpers::BuildClassBy($displayName)?>">
                                         <?php echo $displayName ?>
-                                        <?php if ($EquipmentHistoryDashboardViewModelName::isSortable($fieldDefinition)): ?>
+                                        <?php if ($EquipmentHistoryViewModelName::isSortable($fieldDefinition)): ?>
                                             <button data-field="<?php echo $field ?>" class="btn-table-sort"></button>
                                         <?php endif ?>
                                     </th>
                                 <?php endif ?>
                             <?php endforeach ?>
-                            <th>Actions</th>
+<!--                            <th>Actions</th>-->
                         </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($Items as $item): ?>
-                            <?php $currentStatus = ''; ?>
-                            <tr data-equipid="<?php echo $item->getEquipid() ?>">
-                                <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
-                                    <?php $displayName = $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition)?>
-                                    <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
+                            <tr data-qbtxlineid="<?php echo $item->getQbtxlineid() ?>">
+                                <?php foreach ($EquipmentHistoryFieldsDefinition as $field => $fieldDefinition): ?>
+                                    <?php $displayName = $EquipmentHistoryViewModelName::getDisplayNameFor($fieldDefinition)?>
+                                    <?php if ($EquipmentHistoryViewModelName::isVisible($fieldDefinition)): ?>
                                         <?php $method = 'get' . ucfirst($field) ?>
-                                        <?php if ($EquipmentHistoryDashboardViewModelName::hasValues($fieldDefinition)): ?>
-                                            <?php
-                                                if($EquipmentHistoryDashboardViewModelName::isStatus($fieldDefinition)){
-                                                    $currentStatus = $item->$method();
-                                                }
-                                            ?>
-                                        <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
-                                            <div class="btn-group dropdown">
-                                                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                                                    <span class="value <?php echo ViewHelpers::BuildClassBy($item->$method())?>"><?php echo $item->$method() ?></span>
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <?php foreach ($StatusDictionary as $key => $value): ?>
-                                                        <li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="<?php echo $key ?>"><?php echo $value ?></a></li>
-                                                    <?php endforeach ?>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <?php elseif($EquipmentHistoryDashboardViewModelName::isWorkorder($fieldDefinition)): ?>
-                                        <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
-                                            <a href="#" class="field-workorder-link" data-workorder="<?php echo $item->getOrdnum()?>"><?php echo $item->$method() ?></a>
-                                        </td>
-                                        <?php elseif($EquipmentHistoryDashboardViewModelName::isEquipid($fieldDefinition)): ?>
-                                        <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
-                                            <a href="<?php echo $View->Href("EquipmentHistoryDashboard", "EquipmentHistories", array(
-                                                'equipid' => base64_encode($item->$method()),
-                                                'jsonFilterTree' => base64_encode($JsonFilterTree),
-                                                'itemsPerPage' => $ItemsPerPage,
-                                                'page' => $Page,
-                                                'orderBy' => $OrderBy,
-                                                'order' => $Order
-                                            )) ?>"><?php echo $item->$method() ?></a>
-                                        </td>
-                                        <?php else: ?>
                                         <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>"><?php echo $item->$method() ?></td>
-                                        <?php endif ?>
                                     <?php endif ?>
                                 <?php endforeach ?>
-                                <td class="item-actions">
-                                    <div class="btn-group">
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="<?php echo $item->getEquipid()?>">
-                                            <span class="glyphicon glyphicon-folder-close"></span>
-                                        </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" <?php echo ($currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-qbtxlineid="<?php echo $item->getQbtxlineid()?>">
-                                            <span class="glyphicon glyphicon-edit"></span>
-                                        </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" <?php echo ($currentStatus !== 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">
-                                            <span class="glyphicon glyphicon-plus-sign"></span>
-                                        </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-view" data-equipid="<?php echo $item->getEquipid()?>">
-                                            <span class="glyphicon glyphicon-eye-open"></span>
-                                        </a>
-                                    </div>
-                                </td>
+<!--                                <td class="item-actions">-->
+<!--                                    <div class="btn-group">-->
+<!--                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="--><?php //echo $item->getEquipid()?><!--">-->
+<!--                                            <span class="glyphicon glyphicon-folder-close"></span>-->
+<!--                                        </a>-->
+<!--                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit">-->
+<!--                                            <span class="glyphicon glyphicon-edit"></span>-->
+<!--                                        </a>-->
+<!--                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-add">-->
+<!--                                            <span class="glyphicon glyphicon-plus-sign"></span>-->
+<!--                                        </a>-->
+<!--                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-view">-->
+<!--                                            <span class="glyphicon glyphicon-eye-open"></span>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                </td>-->
                             </tr>
                         <?php endforeach ?>
                         </tbody>
