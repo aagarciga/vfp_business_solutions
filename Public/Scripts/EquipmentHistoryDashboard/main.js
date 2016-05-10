@@ -971,22 +971,13 @@
                     tdClass += ' field-locno';
                     return App.Helpers.simpleTdBuilder(item.locno, tdClass);
                 };
-
-                //tdStatusBuilder = function (tdClass) {
-                //    tdClass += ' field-status';
-                //    return App.Helpers.withSelectBuilder(item.status, tdClass, 'form-control update-dropdown status select2-nosearch', status.statusValue, {
-                //        equipid: item.equipid
-                //    });
-                //};
-
-
                 tdStatusBuilder = function () {
                     var dictionary, _status, $td, $btnGroup, $button, $value, $caret, $ul;
 
                     $td = $('<td class="item-field field-status">');
                     $btnGroup = $('<div class="btn-group dropdown">');
                     $button = $('<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">');
-                    $value = $('<span class="value ' + item.status.toLowerCase() + '">' + item.status + '</span>');
+                    $value = $('<span class="value ' + functions.buildClassBy(item.status) + '">' + item.status + ' </span>');
                     $caret = $('<span class="caret"></span>');
                     $button.append($value);
                     $button.append($caret);
@@ -1003,10 +994,6 @@
 
                     return $td[0];
                 };
-
-                //tdPicture_fiBuilder = function (tdClass) {
-                //    return App.Helpers.withLightboxLinkPictureBuilder(item.equipid, 'item-image', '', item.picture_fi, "glyphicon glyphicon-eye-open", null, {});
-                //};
 
                 tdActionsTagBuilder = function () {
                     var btnGroup, elements;
