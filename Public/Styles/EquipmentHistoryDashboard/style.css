@@ -51,6 +51,9 @@
 #equipmentHistoryDashboardTable td.field-description {
   font-weight: bold;
 }
+#equipmentHistoryDashboardTable td.field-status .value {
+  margin-right: 3px;
+}
 #equipmentHistoryDashboardTable td.field-status .value.not-returned {
   color: #00811F;
 }

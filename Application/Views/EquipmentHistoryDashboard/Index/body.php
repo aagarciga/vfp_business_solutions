@@ -148,8 +148,7 @@
                                         <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
                                             <div class="btn-group dropdown">
                                                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                                                    <span class="value <?php echo ViewHelpers::BuildClassBy($item->$method())?>"><?php echo $item->$method() ?></span>
-                                                    <span class="caret"></span>
+                                                    <span class="value <?php echo ViewHelpers::BuildClassBy($item->$method())?>"><?php echo $item->$method() ?></span><span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <?php foreach ($StatusDictionary as $key => $value): ?>
