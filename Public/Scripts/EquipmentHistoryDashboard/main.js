@@ -18,7 +18,9 @@
             itemsPerPage: 0,
             currentPage: 0,
             sortField: 'equipid',
-            sortFieldOrder: 'ASC'
+            sortFieldOrder: 'ASC',
+            sortLastButton: null,
+
         };
         /**
          * Dictionaries
@@ -38,6 +40,7 @@
             btnActionView: '.btn-action-view',
             dateRangePickerSingle: '.daterangepicker-single',
             tableMain: '#equipmentHistoryDashboardTable',
+            sortButtons: '.btn-table-sort',
             pagerContainer: '.pager-wrapper',
             pagerButton: '.pager-btn',
             tableMainFieldWorkOrder: '.field-work-order',
@@ -740,6 +743,27 @@
             tableMainFieldWorkOrderLink_OnClick: function (event) {
                 mvvm.screenWorkOrderDetails.showFor($(this).data('workorder'));
             },
+            sortButtons_OnClick: function (event) {
+                var $sortButton, sortingField;
+                $sortButton = $(this);
+                sortingField = $sortButton.data('field');
+                if (status.sortLastButton !== null) {
+                    status.sortLastButton.removeClass('asc desc');
+                }
+                if (status.sortField !== sortingField) {
+                    status.sortFieldOrder = '';
+                }
+                status.sortField = sortingField;
+                if (status.sortFieldOrder === 'ASC') {
+                    status.sortFieldOrder = 'DESC';
+                    $sortButton.addClass('asc').removeClass('desc');
+                } else {
+                    status.sortFieldOrder = 'ASC';
+                    $sortButton.addClass('desc').removeClass('asc');
+                }
+                status.sortLastButton = $sortButton;
+                functions.paginate();
+            },
             statusSelector_OnClick: function (event) {
                 var _status, equipID;
 
@@ -792,6 +816,7 @@
             bindEventHandlers: function () {
                 $(htmlBindings.dropdown).on('click', 'a', eventHandlers.dropdown_OnClick);
                 $(htmlBindings.itemsPerPageSelector).on('click', 'a', eventHandlers.itemsPerPageSelector_OnClick);
+                $(htmlBindings.sortButtons).on('click', eventHandlers.sortButtons_OnClick);
 
                 $(htmlBindings.pagerButton).on('click', eventHandlers.pagerButton_OnClick);
                 functions.bindTableItemsEventHandlers();
