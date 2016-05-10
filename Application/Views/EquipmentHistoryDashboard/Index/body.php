@@ -183,7 +183,7 @@
                                         <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-folder-close"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" <?php echo ($currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-qbtxlineid="<?php echo $item->getQbtxlineid()?>">
+                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" <?php echo (!$item->getQbtxlineid() && $currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-qbtxlineid="<?php echo $item->getQbtxlineid()?>">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>
                                         <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" <?php echo ($currentStatus !== 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">

@@ -1026,7 +1026,7 @@
                         qbtxlineid: item.qbtxlineid,
                         ordnum: item.ordnum
                     };
-                    if (!item.qbtxlineid) {
+                    if (!item.qbtxlineid && item.status === 'Available') {
                         props = {
                             'disabled': "disabled"
                         };
@@ -1043,7 +1043,7 @@
                         qbtxlineid: item.qbtxlineid,
                         ordnum: item.ordnum
                     };
-                    if (item.status === 'Not Returned') {
+                    if (item.status !== 'Available') {
                         props = {
                             'disabled': "disabled"
                         };
