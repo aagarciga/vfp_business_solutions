@@ -17,7 +17,7 @@
         status = {
             itemsPerPage: 0,
             currentPage: 0,
-            sortField: 'ordnum',
+            sortField: 'equipid',
             sortFieldOrder: 'ASC'
         };
         /**
@@ -1068,10 +1068,10 @@
                 result.className = trClass;
                 result.dataset.equipid = item.equipid;
 
-                //Work Order
-                result.appendChild(tdOrdnumBuilder(tdClass));
                 //Id
                 result.appendChild(tdEquipidBuilder(tdClass));
+                //Work Order
+                result.appendChild(tdOrdnumBuilder(tdClass));
                 //Part No
                 result.appendChild(tdItemnoBuilder(tdClass));
                 //Description

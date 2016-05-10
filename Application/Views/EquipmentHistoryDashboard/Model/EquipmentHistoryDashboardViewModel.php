@@ -407,16 +407,16 @@ class EquipmentHistoryDashboardViewModel
         $icparmTable = 'ICPARM' . $companyID;
 
         return array(
-            'ordnum' => array(
-                FIELD_ATTR_NAME => 'ordnum',
-                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
-                FIELD_ATTR_DISPLAY_NAME => 'Work Order',
-                'table' => $swequipTable
-            ),
             'equipid' => array(
                 FIELD_ATTR_NAME => 'equipid',
                 FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
                 FIELD_ATTR_DISPLAY_NAME => 'Id',
+                'table' => $swequipTable
+            ),
+            'ordnum' => array(
+                FIELD_ATTR_NAME => 'ordnum',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Work Order',
                 'table' => $swequipTable
             ),
             'itemno' => array(
