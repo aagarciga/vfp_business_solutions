@@ -216,7 +216,6 @@
     currentItemno = $(this).data('itemno');
     currentProjectRoot = currentItemno + '_IN';
     InventoryDashboard.status.currentItemno = currentProjectRoot;
-    console.log(ProjectFiles);
     ProjectFiles.functions.loadFileTree(currentProjectRoot);
     $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
     return this;

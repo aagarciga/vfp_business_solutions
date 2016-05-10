@@ -5,8 +5,9 @@
 
     App.EquipmentHistoryDashboard = (function () {
 
-        var urls, status, functions, dictionaries, htmlBindings, eventHandlers, mvvm;
+        var urls, status, functions, dictionaries, htmlBindings, eventHandlers, mvvm, ProjectFiles;
 
+        ProjectFiles = App.EquipmentHistoryDashboard.ProjectFiles;
         /**
          * Urls
          */
@@ -20,7 +21,7 @@
             sortField: 'equipid',
             sortFieldOrder: 'ASC',
             sortLastButton: null,
-
+            currentID: null
         };
         /**
          * Dictionaries
@@ -774,7 +775,15 @@
                 functions.setActionsState(equipID, _status);
             },
             btnActionFilesDialog_OnClick: function (event) {
-                throw 'Exception: Not implemented yet';
+
+                // TODO: refactor here...
+                var currentID, currentProjectRoot;
+                currentID = $(this).data('equipid');
+                currentProjectRoot = currentID + '_EQM';
+                status.currentID = currentProjectRoot;
+
+                ProjectFiles.functions.loadFileTree(currentProjectRoot);
+                $(ProjectFiles.htmlBindings.modal_ProjectFiles).modal('show');
             },
             btnActionAdd_OnClick: function (event) {
                 mvvm.modalEquipmentHistoryFormAdd.showFor($(this).data('equipid'));
@@ -1160,6 +1169,10 @@
             urls[name] = url;
         }
 
+        function getCurrentID() {
+            return status.currentID;
+        }
+
         function init(filter) {
             var index;
             global.console.log('filter: ', filter);
@@ -1192,6 +1205,8 @@
             mvvm.modalEquipmentHistoryFormAdd.setSaveHistoryCallback(functions.updateEquip);
             mvvm.modalEquipmentHistoryFormEdit.setUpdateHistoryCallback(functions.updateEquip);
             mvvm.modalEquipmentHistoryFormEdit.setDeleteHistoryCallback(functions.updateEquip);
+
+            ProjectFiles.init();
         }
 
         return {
@@ -1200,7 +1215,8 @@
             setItemsPerPageSelector: setItemsPerPageSelector,
             setStatusSelector: setStatusSelector,
             addDictionary: addDictionary,
-            addUrl: addUrl
+            addUrl: addUrl,
+            getCurrentID: getCurrentID
         };
     }());
 }(window, window.jQuery, window.kb, window.ko, window.Backbone));
