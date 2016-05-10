@@ -42,7 +42,7 @@
             pagerButton: '.pager-btn',
             tableMainFieldWorkOrder: '.field-work-order',
             tableMainFieldEquipId: '.field-id',
-            tableMainFieldWorkOrderLink: '.field-workorder-link',
+            tableMainFieldWorkOrderLink: '.field-work-order-link',
             tableMainFieldStatus: '.field-status'
             //modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
@@ -792,16 +792,17 @@
             bindEventHandlers: function () {
                 $(htmlBindings.dropdown).on('click', 'a', eventHandlers.dropdown_OnClick);
                 $(htmlBindings.itemsPerPageSelector).on('click', 'a', eventHandlers.itemsPerPageSelector_OnClick);
+
+                $(htmlBindings.pagerButton).on('click', eventHandlers.pagerButton_OnClick);
+                functions.bindTableItemsEventHandlers();
+            },
+            bindTableItemsEventHandlers: function () {
                 $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
                 $(htmlBindings.statusSelector).on('click', 'a', eventHandlers.statusSelector_OnClick);
                 $(htmlBindings.btnActionFilesDialog).on('click', eventHandlers.btnActionFilesDialog_OnClick);
                 $(htmlBindings.btnActionAdd).on('click', eventHandlers.btnActionAdd_OnClick);
                 $(htmlBindings.btnActionEdit).on('click', eventHandlers.btnActionEdit_OnClick);
                 $(htmlBindings.btnActionView).on('click', eventHandlers.btnActionView_OnClick);
-                $(htmlBindings.pagerButton).on('click', eventHandlers.pagerButton_OnClick);
-            },
-            bindTableItemsEventHandlers: function () {
-                throw 'Exception: Not implemented yet';
             },
             buildClassBy: function (value) {
                 return value.toLowerCase().replace(' ', '-');
@@ -906,7 +907,7 @@
 
                 tdOrdnumBuilder = function (tdClass) {
                     tdClass += ' field-work-order';
-                    return App.Helpers.withLinkTdBuilder(item.ordnum, tdClass, 'field-work-order-link');
+                    return App.Helpers.withLinkTdBuilder(item.ordnum, tdClass, 'field-work-order-link', '#', {workorder: item.ordnum});
                 };
                 tdEquipidBuilder = function (tdClass) {
                     tdClass += ' field-id';
@@ -972,7 +973,7 @@
                     return App.Helpers.simpleTdBuilder(item.locno, tdClass);
                 };
                 tdStatusBuilder = function () {
-                    var dictionary, _status, $td, $btnGroup, $button, $value, $caret, $ul;
+                    var dictionary, index, $td, $btnGroup, $button, $value, $caret, $ul;
 
                     $td = $('<td class="item-field field-status">');
                     $btnGroup = $('<div class="btn-group dropdown">');
@@ -983,9 +984,9 @@
                     $button.append($caret);
                     $ul = $('<ul class="dropdown-menu">');
                     dictionary = ['Available', 'Not Returned', 'Broken', 'Lost', 'Received'];
-                    for (_status in dictionary) {
-                        if (dictionary.hasOwnProperty(_status)) {
-                            $ul.append($('<li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="' + _status + '">' + _status + '</a></li>'));
+                    for (index in dictionary) {
+                        if (dictionary.hasOwnProperty(index)) {
+                            $ul.append($('<li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="' + dictionary[index] + '">' + dictionary[index] + '</a></li>'));
                         }
                     }
                     $btnGroup.append($button);
@@ -1033,7 +1034,7 @@
                     return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset, props);
                 };
                 addButtonBuilder = function () {
-                    var anchorClassName, dataset, spanGlyphIcon;
+                    var anchorClassName, dataset, spanGlyphIcon, props;
                     spanGlyphIcon = doc.createElement('span');
                     spanGlyphIcon.className = 'glyphicon glyphicon-plus-sign';
                     anchorClassName = htmlBindings.btnActionAdd.slice(1) + ' btn-action btn btn-default btn-sm';
@@ -1042,7 +1043,12 @@
                         qbtxlineid: item.qbtxlineid,
                         ordnum: item.ordnum
                     };
-                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset);
+                    if (item.status === 'Not Returned') {
+                        props = {
+                            'disabled': "disabled"
+                        };
+                    }
+                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset, props);
                 };
                 viewButtonBuilder = function () {
                     var anchorClassName, spanGlyphIcon;
@@ -1105,7 +1111,7 @@
                         $tableBody.append(functions.buildTableItem(items[index], '', 'item-field'));
                     }
                 }
-                //functions.bindTableItemsEventHandlers();
+                functions.bindTableItemsEventHandlers();
             }
         };
 

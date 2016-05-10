@@ -160,7 +160,7 @@
                                         </td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isWorkorder($fieldDefinition)): ?>
                                         <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
-                                            <a href="#" class="field-workorder-link" data-workorder="<?php echo $item->getOrdnum()?>"><?php echo $item->$method() ?></a>
+                                            <a href="#" class="field-work-order-link" data-workorder="<?php echo $item->getOrdnum()?>"><?php echo $item->$method() ?></a>
                                         </td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isEquipid($fieldDefinition)): ?>
                                         <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
