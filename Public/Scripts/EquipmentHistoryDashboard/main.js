@@ -770,6 +770,7 @@
                 $('.loading').show();
             },
             paginate_OnSuccess: function (response) {
+                console.log(response);
                 var data, pager, items, pagerControl;
                 data = $.parseJSON(response);
                 pager = new BootstrapPager(data, eventHandlers.pagerButton_OnClick);

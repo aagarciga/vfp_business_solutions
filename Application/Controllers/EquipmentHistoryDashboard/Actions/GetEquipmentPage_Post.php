@@ -68,17 +68,18 @@ class GetEquipmentPage_Post extends Action
             if (array_key_exists('type', $definition)){
                 $type = $definition['type'];
             }
-            $sanitizeFunc = $this->createSanitizeFunc($type);
+            $sanitizeFunc = $this->createSanitizeMethod($type);
             $value = $this->$sanitizeFunc($item->$field);
             $result[$field] = $value;
         }
         return $result;
     }
 
-    private function createSanitizeFunc ($type) {
+    private function createSanitizeMethod ($type) {
         $functionName = 'sanitize' . ucfirst($type);
-        if (!function_exists($functionName))
+        if (!method_exists($this, $functionName)){
             $functionName = 'sanitizeDefault';
+        }
         return $functionName;
     }
 
