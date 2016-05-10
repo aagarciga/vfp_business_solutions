@@ -53,7 +53,6 @@ class GLHSTRepository extends VFPRepository implements IRepository {
         $sqlString = "SELECT SUM(AMOUNT) AS VALUE FROM $tableName";
 //        $sqlString .= ' WHERE OPENBAL > 0' ;
         $query = $this->dbDriver->GetQuery();
-        error_log($sqlString);
         $queryResult = $query->Execute($sqlString);
         return $queryResult[0];
     }

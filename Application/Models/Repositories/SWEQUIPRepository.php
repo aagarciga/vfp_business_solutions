@@ -52,7 +52,6 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $equipid = strtolower($equipid);
         $sqlString = "UPDATE $tableName  SET [ORDNUM] = '$workorder', [STATUS] = '$status', [QBTXLINEID] = '$qbtxlineid' WHERE LOWER([EQUIPID]) = '$equipid'";
-        error_log("SWEQUIPRepository->UpdateWorkOrderFor: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -84,8 +83,6 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
             "[STATUS] = '$status' " .
             "WHERE equipid = '$equipid'";
 
-        error_log("SWEQUIPRepository->UpdateStatus: ".$sqlString);
-
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -97,8 +94,6 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
             "[QBTXLINEID] = '' " .
             "WHERE [EQUIPID] = '$equipid'";
 
-        error_log("SWEQUIPRepository->RemoveLastHistoryReference: ".$sqlString);
-
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -109,8 +104,6 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $sqlString = "UPDATE $tableName SET " .
             "[qbtxlineid] = '$id' " .
             "WHERE [equipid] = '$equipmentId'";
-        error_log("SWEQUIPRepository->UpdateHistoryId: ".$sqlString);
-
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -121,8 +114,6 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $sqlString = "UPDATE $tableName SET " .
             "[ordnum] = '$ordnum' " .
             "WHERE [qbtxlineid] = '$id'";
-
-        error_log("SWEQUIPRepository->UpdateOrdNum: ".$sqlString);
 
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);

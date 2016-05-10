@@ -65,7 +65,6 @@ class ICPARMRepository extends VFPRepository implements IRepository {
         $sqlString = "UPDATE $tablename SET COMTOSHIP = $value"
                 . " WHERE lower(ITEMNO) = '$lowerBarcode'";
         
-        error_log("UpdateCOMTOSHIP Value from ICPARM SQL: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -77,7 +76,6 @@ class ICPARMRepository extends VFPRepository implements IRepository {
                 
         $sqlString = "SELECT COMTOSHIP FROM $tablename"
                 . " WHERE lower(ITEMNO) = '$lowerBarcode'";
-        error_log("GetCOMTOSHIP Value from ICPARM SQL: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

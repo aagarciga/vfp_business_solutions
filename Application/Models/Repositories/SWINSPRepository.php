@@ -37,7 +37,6 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
         $sqlString .= ' WHERE NOT([ACTIVE] = True) ORDER BY [INSPECTNO]';
-        error_log("SWINSPRepository->GetActives: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -53,7 +52,6 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
         $sqlString .= " WHERE NOT([ACTIVE] = True) AND [INSPECTNO] = '$inspectno'";
-        error_log("SWINSPRepository->GetActiveBy: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -81,7 +79,6 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         }
 //        $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND (LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%') ORDER BY INSPECTNO";
         $sqlString .= " WHERE NOT([ACTIVE] = True) AND (LOWER([INSPECTNO]) LIKE '%$lowerQuery%' OR LOWER([INSPECTNM]) LIKE '%$lowerQuery%') ORDER BY [INSPECTNO]";
-        error_log("SWINSPRepository->GetActivesLike: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();

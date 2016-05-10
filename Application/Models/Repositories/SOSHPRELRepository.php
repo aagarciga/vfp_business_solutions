@@ -133,7 +133,6 @@ class SOSHPRELRepository extends VFPRepository implements IRepository {
         // From Vivian's: UPDATE SOSHPREL00 SET 
         // WMSTATUS = 'P', QTYPICK = QTYPICK + 'valor del qtyform' WHERE ITEMNO = 'item'  
         // ( aqui tienes que agregar la condicion que sea ese ticket number o usar el qblistid para update el record correcto)
-        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

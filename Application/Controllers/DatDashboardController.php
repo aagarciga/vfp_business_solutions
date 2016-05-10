@@ -38,7 +38,6 @@ class DatDashboardController extends DatActionsController
             . " FROM $sqlTableSnippet "
             . "$predicate"
             . " ORDER BY $orderby $order";
-        error_log('DatDashboardController->GetPager: '.$sqlString);
         return new BootstrapPager($this->DatUnitOfWork->DBDriver,
             $sqlString, $itemsPerPage, $middleRange, $showPagerControlsIfMoreThan);
     }
@@ -63,7 +62,6 @@ class DatDashboardController extends DatActionsController
             . " FROM $sqlTableSnippet "
             . "$predicate"
             . " ORDER BY $orderby $order";
-        error_log('DatDashboardController->GetPager: '.$sqlString);
         return new BootstrapPager($this->DatUnitOfWork->DBDriver,
             $sqlString, $itemsPerPage, $middleRange, $showPagerControlsIfMoreThan);
     }
@@ -95,7 +93,6 @@ class DatDashboardController extends DatActionsController
     protected function checkForViewModel($viewModelName){
         if (!class_exists($viewModelName)) {
             $exception = new Exceptions\ClassNotFoundException($viewModelName);
-            error_log($exception->getMessage());
             if ($this->Application->getState() == ApplicationState::Development()) {
                 throw $exception;
             } else {
@@ -125,7 +122,6 @@ class DatDashboardController extends DatActionsController
         $companyID = $this->DatUnitOfWork->CompanySuffix;
         $fieldsDefinition = $viewModelName::getFieldsDefinitionFor($companyID);
         $arrayField = array_keys($fieldsDefinition);
-        error_log("Order by default: ". $arrayField[0]);
         return $arrayField[0];
     }
 
