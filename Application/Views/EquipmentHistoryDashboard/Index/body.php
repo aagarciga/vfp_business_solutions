@@ -92,7 +92,7 @@
                                     <?php if ($EquipmentHistoryDashboardViewModelName::isFilterAble($fieldDefinition)): ?>
                                         <li>
                                             <a href="#" class="filter-field" data-field="<?php echo $field ?>"
-                                               data-field-type="<?php echo $EquipmentHistoryDashboardViewModelName::getJSTypeFor($fieldDefinition) ?>" <?php echo $EquipmentHistoryDashboardViewModelName::hasValues($fieldDefinition) ? 'data-field-values="' . FIELD_ATTR_VALUES . '"' : '' ?> ><?php echo $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition) ?></a>
+                                               data-field-type="<?php echo $EquipmentHistoryDashboardViewModelName::getJSTypeFor($fieldDefinition) ?>" <?php echo $EquipmentHistoryDashboardViewModelName::hasValues($fieldDefinition) ? 'data-field-collection="' . $field . '"' : '' ?> ><?php echo $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition) ?></a>
                                         </li>
                                     <?php endif ?>
                                 <?php endforeach ?>

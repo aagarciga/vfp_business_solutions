@@ -881,7 +881,8 @@
 
                                     currentNode = new Node('dateRange', '', [fieldNode, inferiorDateLimitNode, superDateLimitNode]);
                                 }else{
-                                    var valueNode = new Node('string', currentComponentControlValue.toLowerCase(), []);
+                                    // var valueNode = new Node('string', currentComponentControlValue.toLowerCase(), []);
+                                    var valueNode = new Node('string', currentComponentControlValue, []);
 
                                     currentNode = new Node('like', '', [fieldNode, valueNode]);
                                 }
@@ -923,12 +924,19 @@
                             $select = $formGroup.find('select'),
                             index, current;
 
+                        // Two format supported: id, descript or key, value
                         for (index in options) {
+
                             if (options.hasOwnProperty(index)) {
                                 current = options[index];
-                                $select.append($('<option value="' + current.id + '">' + current.descrip + '</option>'));
+                                if(current.id === undefined){
+                                    $select.append($('<option value="' + index + '">' + options[index] + '</option>'));
+                                } else {
+                                    $select.append($('<option value="' + current.id + '">' + current.descrip + '</option>'));
+                                }
                             }
                         }
+
                         return $formGroup;
                     },
                     createDateField: function (field, caption, ranged){
@@ -994,7 +1002,7 @@
                                 endDate: global.moment()
                             });
                         $formGroup.find('select')
-                            .select2();
+                            .select2({theme: "bootstrap"});
                     },
                     bindFormGroupsEventHandlers: function () {
                         $(_htmlBindings.filterFieldsContainer)
@@ -1134,6 +1142,8 @@
                             $formGroup = _functions.createDateField($button.data('field'), $button.text(), isDateRanged);
                         } else if (fieldType === 'dropdown') {
                             dropdownValues = dictionaries[$button.data('field-collection')];
+                            console.log('>>>>',dictionaries, $button.data('field-collection'), dropdownValues);
+                            // dropdownValues = dictionaries[$button.data('field')];
                             $formGroup = _functions.createDropdownField($button.data('field'), $button.text(), dropdownValues, $button.data('field-value-type'));
                         }
                         $filterFieldsContainer.append($formGroup);
@@ -1378,7 +1388,6 @@
             paginate: function () {
                 var filterTree, jsonFilterTree;
                 filterTree = modules.filter.getFilterTree();
-                console.log("filterTree", filterTree);
                 jsonFilterTree = JSON.stringify(filterTree);
                 $.ajax({
                     data: {
@@ -1532,10 +1541,10 @@
                     tdClass += ' field-received';
                     return App.Helpers.simpleTdBuilder(item.daterec, tdClass);
                 };
-                tdNotesBuilder = function (tdClass) {
-                    tdClass += ' field-notes';
-                    return App.Helpers.simpleTdBuilder(item.notes, tdClass);
-                };
+                // tdNotesBuilder = function (tdClass) {
+                //     tdClass += ' field-notes';
+                //     return App.Helpers.simpleTdBuilder(item.notes, tdClass);
+                // };
                 tdAssetTagBuilder = function (tdClass) {
                     tdClass += ' field-asset-tag';
                     return App.Helpers.simpleTdBuilder(item.assettag, tdClass);
@@ -1555,7 +1564,8 @@
                     $button.append($value);
                     $button.append($caret);
                     $ul = $('<ul class="dropdown-menu">');
-                    dictionary = ['Available', 'Not Returned', 'Broken', 'Lost', 'Received'];
+                    // dictionary = ['Available', 'Not Returned', 'Broken', 'Lost', 'Received'];
+                    dictionary = ['Available', 'Not Returned', 'Broken', 'Lost'];
                     for (index in dictionary) {
                         if (dictionary.hasOwnProperty(index)) {
                             $ul.append($('<li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="' + dictionary[index] + '">' + dictionary[index] + '</a></li>'));
@@ -1659,7 +1669,7 @@
                 //Received
                 result.appendChild(tdDaterecBuilder(tdClass));
                 //Notes
-                result.appendChild(tdNotesBuilder(tdClass));
+                // result.appendChild(tdNotesBuilder(tdClass));
                 //Asset Tag
                 result.appendChild(tdAssetTagBuilder(tdClass));
                 //Locno

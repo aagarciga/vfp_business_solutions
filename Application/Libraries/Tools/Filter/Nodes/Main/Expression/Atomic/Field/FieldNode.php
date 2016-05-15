@@ -36,7 +36,9 @@ class FieldNode extends ConstantNode
     public function getFullField(){
         $table = $this->getTable();
         $field = $this->getField();
-        return (is_null($table)) ? "LOWER([$field])" : "LOWER([$table].[$field])";
+        //TODO: Alex: Changed for filtering without case sensity
+//        return (is_null($table)) ? "LOWER([$field])" : "LOWER([$table].[$field])";
+        return (is_null($table)) ? "[$field]" : "[$table].[$field]";
     }
 
     public function generateSqlCode($codeGenerator)
