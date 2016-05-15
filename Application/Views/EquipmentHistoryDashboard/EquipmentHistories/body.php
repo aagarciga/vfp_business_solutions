@@ -21,7 +21,7 @@
         <!--    Panel Heading-->
         <div class="panel-heading">
             <span class="panel-title"><?php echo $Caption; ?></span>
-            <span class="badge"><?php echo $ItemCount; ?></span>
+            <span class="items-counter badge"><?php echo $ItemCount; ?></span>
 
             <div class="btn-group dropdown items-per-page-selector">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">

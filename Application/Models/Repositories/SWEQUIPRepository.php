@@ -11,8 +11,7 @@ use Dandelion\Diana\Interfaces\IRepository;
 use Dandelion\MVC\Application\Models\Entities\SWEQUIP;
 
 class SWEQUIPRepository extends VFPRepository implements IRepository {
-
-		/**
+    /**
      * @return array of all SWEQUIP objects from DB
      */
     public function GetAll()
@@ -28,8 +27,7 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
 
         return $result;
     }
-
-		/**
+    /**
      * @param string $predicate SQL Query Where clause
      * @return \Dandelion\MVC\Application\Models\Entities\SWEQUIP
      */
@@ -52,6 +50,22 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $equipid = strtolower($equipid);
         $sqlString = "UPDATE $tableName  SET [ORDNUM] = '$workorder', [STATUS] = '$status', [QBTXLINEID] = '$qbtxlineid' WHERE LOWER([EQUIPID]) = '$equipid'";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
+    /**
+     * Update Equip Dates
+     * @param $equipid
+     * @param $installdte
+     * @param $expdtein
+     * @param $daterec
+     * @return mixed
+     */
+    public function UpdateDates($equipid, $installdte, $expdtein, $daterec){
+        $tableName = $this->entityName . $this->companySuffix;
+        $equipid = strtolower($equipid);
+        $sqlString = "UPDATE $tableName  SET [INSTALLDTE] = '$installdte', [EXPDTEIN] = '$expdtein', [DATEREC] = '$daterec' WHERE LOWER([EQUIPID]) = '$equipid'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -92,6 +106,17 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
 
         $sqlString = "UPDATE $tableName SET " .
             "[QBTXLINEID] = '' " .
+            "WHERE [EQUIPID] = '$equipid'";
+
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
+    public function RemoveLastWorkOrder($equipid) {
+        $tableName = $this->getEntityWhitCompanySuffix();
+
+        $sqlString = "UPDATE $tableName SET " .
+            "[ORDNUM] = '' " .
             "WHERE [EQUIPID] = '$equipid'";
 
         $query = $this->dbDriver->GetQuery();

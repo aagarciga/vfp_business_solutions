@@ -32,7 +32,6 @@ class ProjectManagerSearch extends Action {
             $current['text'] = trim($row->getInspectnm());
             $result['items'][] = $current;
         }
-//        $projectManagerCollection = $this->controller->DatUnitOfWork->SWINSPRepository->GetActivesLike($this->query);
         $result['totalCount'] = $this->controller->DatUnitOfWork->SWINSPRepository->GetActivesLikeCount($this->query);
         return json_encode($result);
     }

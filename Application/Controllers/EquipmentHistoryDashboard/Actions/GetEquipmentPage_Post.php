@@ -25,14 +25,16 @@ class GetEquipmentPage_Post extends Action
         $this->EquipmentHistoryDashboardViewModelName = EquipmentHistoryDashboardViewModel::getName();
         $this->EquipmentHistoryDashboardFieldsDefinition = EquipmentHistoryDashboardViewModel::getFieldsDefinitionFor($this->CompanyID);
 
-        $this->JsonFilterTree = ''; //TODO: Implement this...
+        $this->JsonFilterTree = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
+//        error_log("JSON FIlter tree". print_r($this->JsonFilterTree, true));
 
+        $this->FilterPredicate = $this->controller->setSessionFilterTree($this->JsonFilterTree);
         $this->Page = $this->Request->hasProperty('page') ? $this->Request->page : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_PAGE, $this->controller->getDefaultPage());
         $this->OrderBy = $this->Request->hasProperty('orderBy') ? $this->Request->orderBy : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDERBY, $this->controller->getDefaultOrderBy($this->EquipmentHistoryViewModelName));
         $this->Order = $this->Request->hasProperty('order') ? $this->Request->order : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDER, $this->controller->getDefaultOrder());
         $this->ItemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ITEMSPERPAGE, $this->Application->getDefaultPagerItemsPerPage());
 
-        $this->Pager = $this->controller->GetPager($this->EquipmentHistoryDashboardViewModelName, $predicate, $this->OrderBy, $this->Order, $this->ItemsPerPage);
+        $this->Pager = $this->controller->GetPager($this->EquipmentHistoryDashboardViewModelName, $this->FilterPredicate, $this->OrderBy, $this->Order, $this->ItemsPerPage);
 
         $this->ItemCount = $this->Pager->getItemsCount();
         if(!($this->ItemCount > 0)){

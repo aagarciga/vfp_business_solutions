@@ -97,6 +97,24 @@
   padding: 10px 15px;
   text-align: center;
 }
+.dashboard-container div.panel .panel-body .form-filter .form-filter-container .btn-filter-modifier {
+  display: inline-block;
+  width: 80px;
+  min-height: 34px;
+}
+.dashboard-container div.panel .panel-body .form-filter .form-filter-container .btn-group,
+.dashboard-container div.panel .panel-body .form-filter .form-filter-container .btn-group-vertical {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+.dashboard-container div.panel .panel-body .form-filter .form-filter-container .dropdown-menu li.current {
+  display: none;
+}
+.dashboard-container div.panel .panel-body .form-filter .form-filter-container .form-group {
+  margin-bottom: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 .dashboard-container div.panel .panel-body .form-filter .form-filter-actions .form-filter-action {
   padding: 4px 10px;
 }

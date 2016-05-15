@@ -3,17 +3,23 @@
     var dandelionjs = global.dandelion,
         App = dandelionjs.namespace('App', global);
 
+    /**
+     * Equipment Dashboard
+     * @type {{init, setItemsPerPage, setItemsPerPageSelector, setStatusSelector, addDictionary, addUrl, getCurrentID}}
+     */
     App.EquipmentHistoryDashboard = (function () {
-
-        var urls, status, functions, dictionaries, htmlBindings, eventHandlers, mvvm, ProjectFiles;
+        var urls, status, functions, dictionaries, htmlBindings, eventHandlers, mvvm, modules, ProjectFiles, DynamicFilter;
 
         ProjectFiles = App.EquipmentHistoryDashboard.ProjectFiles;
+        // DynamicFilter = App.EquipmentHistoryDashboard.DynamicFilter;
         /**
          * Urls
          */
         urls = {};
+
         /**
-         * Statuses
+         * Status
+         * @type {{itemsPerPage: number, currentPage: number, sortField: string, sortFieldOrder: string, sortLastButton: null, currentID: null}}
          */
         status = {
             itemsPerPage: 0,
@@ -23,16 +29,20 @@
             sortLastButton: null,
             currentID: null
         };
+
         /**
          * Dictionaries
          */
         dictionaries = {};
+
         /**
          * HTML Bindings
+         * @type {{dashboardContainer: string, dropdown: string, itemsPerPageSelector: string, statusSelector: string, btnActionFilesDialog: string, btnActionAdd: string, btnActionEdit: string, btnActionView: string, dateRangePickerSingle: string, tableMain: string, sortButtons: string, pagerContainer: string, pagerButton: string, tableMainFieldWorkOrder: string, tableMainFieldEquipId: string, tableMainFieldWorkOrderLink: string, tableMainFieldStatus: string}}
          */
         htmlBindings = {
             dashboardContainer: '.dashboard-container',
             dropdown: '.dropdown',
+            itemCounter: '.items-counter',
             itemsPerPageSelector: '.items-per-page-selector',
             statusSelector: '.field-status',
             btnActionFilesDialog: '.btn-action-files-dialog',
@@ -47,10 +57,18 @@
             tableMainFieldWorkOrder: '.field-work-order',
             tableMainFieldEquipId: '.field-id',
             tableMainFieldWorkOrderLink: '.field-work-order-link',
-            tableMainFieldStatus: '.field-status'
+            tableMainFieldStatus: '.field-status',
+            tableMainFiledDateOut: '.field-date-out',
+            tableMainFiledExpectedIn: '.field-expected-in',
+            tableMainFiledReceived: '.field-received',
+
             //modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
 
+        /**
+         * Model View ViewModels
+         * @type {{modalEquipmentHistoryFormAdd: {init, showFor, hide, setSaveHistoryCallback}, modalEquipmentHistoryFormEdit: {init, showFor, hide, setUpdateHistoryCallback, setDeleteHistoryCallback}, screenWorkOrderDetails: {init, showFor, hide}}}
+         */
         mvvm = {
             modalEquipmentHistoryFormAdd: (function (global, $, knockBack, knockout, backbone) {
                 var _htmlBindings, _functions, _eventHandlers,
@@ -135,7 +153,7 @@
                     saveHistory_OnDone: function (response) {
                         console.log('On Add:', response);
                         var data = $.parseJSON(response);
-                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid);
+                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec);
                         hide();
                     }
                 };
@@ -270,7 +288,7 @@
                         console.log('On Update:', response);
                         var data = $.parseJSON(response);
                         if (data.success) {
-                            _functions.updateHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid);
+                            _functions.updateHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec);
                         }
                         hide();
                     },
@@ -725,8 +743,512 @@
 
             }(global, $, knockBack, knockout, backbone))
         };
+
+        /**
+         *
+         * @type {{filter: {init, setFieldsDefinition, getFilterTree}}}
+         */
+        modules = {
+            filter: (function (global, $) {
+                var _status, _htmlBindings, _functions, _eventHandlers;
+
+                _status = {
+                    id: '',
+                    predicate: '',
+                    areControlsEnabled: false
+                };
+
+                _htmlBindings = {
+
+                    filterFieldsContainer           : '.form-filter-container',
+                    filterFields_btnAdd             : '.filter-field',
+                    filterField_btnRemove           : '.input-group-btn button',
+                    filterFieldsControls: {
+                        all: '.form-filter-action',
+                        btnToggleVisibility    : '.form-filter-action-toggle-visibility',
+                        btnReset               : '.form-filter-action-reset',
+                        btnSave                : '.form-filter-action-save',
+                        btnFilter              : '.form-filter-action-filter'
+                    },
+                    drpSavedFilters                 : '#dynamicFilter_drpSavedFilters',
+                    drpSavedFilterItems             : '.saved-filter-list-item',
+                    drpSavedFilterItems_btnDelete   : '#dynamicFilter_drpSavedFilters li .close',
+                    modalSaveFilter                 : '#dynamicFilter_modal_saveFilter',
+                    modalSaveFilter_txtName         : '#dynamicFilter_modal_txtFilterName',
+                    modalSaveFilter_btnSave         : '#dynamicFilter_modal_btnSaveFilter'
+                };
+
+                _functions = {
+                    /**
+                     * Disable all filter action controls
+                     * @returns {undefined}
+                     */
+                    disableControls: function () {
+                        $(_htmlBindings.filterFieldsControls.all).addClass('disabled');
+                        _status.areControlsEnabled = false;
+                    },
+                    /**
+                     * Enable all filter action controls
+                     * @returns {undefined}
+                     */
+                    enableControls: function () {
+                        $(_htmlBindings.filterFieldsControls.all).removeClass('disabled');
+                        _status.areControlsEnabled = true;
+                    },
+                    /**
+                     * Do filter
+                     * @returns {undefined}
+                     */
+                    filter: function () {
+                        functions.paginate();
+                    },
+                    /**
+                     * Reset Filter.
+                     * @param {boolean} doFilter
+                     * @returns {undefined}
+                     */
+                    reset: function (doFilter) {
+                        $(_htmlBindings.filterField).empty();
+                        _functions.disableControls();
+                        $(_htmlBindings.filterFieldsControls.btnFilter).next().focus();
+                        if (doFilter !== false) {
+                            _functions.filter();
+                        }
+                    },
+
+                    splitDate: function (date) {
+                        var dateSplit = date.split('/');
+                        if (dateSplit.length === 3){
+                            return dateSplit;
+                        }
+                        return ["12", "30", "1899"];
+                    },
+                    splitDateRange: function (dateRangeValue) {
+                        var dateRangeSplitValue = dateRangeValue.split('-');
+                        if (dateRangeSplitValue.length === 2) {
+                            var inferiorDate = dateRangeSplitValue[0], superDate = dateRangeSplitValue[1];
+                            var inferiorDateSplit = _functions.splitDate(inferiorDate), superDateSplit = _functions.splitDate(superDate);
+                            return {inferiorLimit: inferiorDateSplit, superLimit: superDateSplit};
+                        }
+                        return {inferiorLimit: _functions.splitDate(""), superLimit: _functions.splitDate("")};
+                    },
+                    getFilterTree: function () {
+                        var $filterComponents = $(_htmlBindings.filterFieldsContainer).children();
+                        var Node = (function() {
+                            function Node(nodeType, nodeValue, nodeChildren) {
+                                this.nodeType = nodeType;
+                                this.nodeValue = nodeValue;
+                                this.nodeChildren = nodeChildren;
+                            }
+                            return Node;
+                        })();
+                        var nodeChildren = [];
+                        var nodeValue = [];
+                        var logicalNode = null;
+
+
+                        $filterComponents.each( function () {
+                            var $currentComponent = $(this);
+                            var $currentComponentValue;
+                            var $currentComponentControl;
+                            var currentComponentControlValue;
+                            var currentComponentControlFieldName;
+                            var currentNode;
+                            if ($currentComponent.hasClass('btn-group unary-logical-operator')){
+                                $currentComponentValue = $currentComponent.children('button').text();
+                                if($currentComponentValue === ""){
+                                    currentNode = new Node('positive', '');
+                                } else if ($currentComponentValue === "Not"){
+                                    currentNode = new Node('not', '');
+                                }
+                                logicalNode = currentNode;
+
+                            } else if ($currentComponent.hasClass('form-group')){
+                                $currentComponentControl = $currentComponent.find('input, select');
+                                currentComponentControlValue = $currentComponentControl.val();
+                                currentComponentControlFieldName = $currentComponentControl.data('fieldname');
+
+                                var field = currentComponentControlFieldName;
+                                var tableField = _status.fieldsDefinition[field]['table'];
+                                var captionField = _status.fieldsDefinition[field]["displayName"];
+
+                                var fieldNode = new Node('field', [field, tableField, captionField], []);
+
+                                if ($currentComponentControl.hasClass('daterangepicker')){
+                                    var dateRange = _functions.splitDateRange(currentComponentControlValue);
+                                    var inferiorDateLimitNode = new Node('date', dateRange.inferiorLimit, []);
+                                    var superDateLimitNode = new Node('date', dateRange.superLimit, []);
+
+                                    currentNode = new Node('dateRange', '', [fieldNode, inferiorDateLimitNode, superDateLimitNode]);
+                                }else{
+                                    var valueNode = new Node('string', currentComponentControlValue.toLowerCase(), []);
+
+                                    currentNode = new Node('like', '', [fieldNode, valueNode]);
+                                }
+                                logicalNode.nodeChildren = [currentNode];
+
+                                nodeChildren.push(logicalNode);
+                            }
+                            else if ($currentComponent.hasClass('binary-logical-operator')){
+                                $currentComponentValue = $currentComponent.children('button').text();
+
+                                nodeValue.push($currentComponentValue);
+                            }
+                        });
+
+                        var filterTree = new Node('blockExpression', nodeValue, nodeChildren);
+
+                        return filterTree;
+                    },
+                    createOperatorGroup: function (first) {
+                        var tmplFirstOperatorGroup = '<div class="btn-group unary-logical-operator"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1"></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#" style="display: inline-block; height: 26px; width: 100%;">Clear Not</a></li><li><a href="#">Not</a></li></ul></div>',
+                            tmplOperatorGroup = '<div class="btn-group binary-logical-operator"><button type="button" class="btn btn-default btn-filter-modifier disabled" style="opacity:1">And</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu"><li class="current"><a href="#">And</a></li><li><a href="#">Or</a></li></ul></div>';
+                        if (first === true) {
+                            return $(tmplFirstOperatorGroup);
+                        }
+                        return $(tmplOperatorGroup);
+                    },
+                    createTextField: function (field, caption, valueType) {
+                        return $('<div class="form-group" title="' + caption +
+                            '"><label class="control-label">' + caption +
+                            '</label><div class="input-group"><input type="text" class="form-control" data-value-type="' + valueType + '" data-fieldname="' + field +
+                            '" placeholder="' + caption +
+                            '"><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>');
+                    },
+                    createDropdownField: function (field, caption, options, valueType) {
+                        var $formGroup = $('<div class="form-group" title="' + caption +
+                                '"><label class="control-label">' + caption +
+                                '</label><div class="input-group select2-bootstrap-append"><select class="form-control select2-container" data-value-type="' + valueType + '" data-fieldname="' + field +
+                                '"></select><span class="input-group-btn"><button class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field" title="Delete Filter Field" type="button"></button></span></div></div>'),
+                            $select = $formGroup.find('select'),
+                            index, current;
+
+                        for (index in options) {
+                            if (options.hasOwnProperty(index)) {
+                                current = options[index];
+                                $select.append($('<option value="' + current.id + '">' + current.descrip + '</option>'));
+                            }
+                        }
+                        return $formGroup;
+                    },
+                    createDateField: function (field, caption, ranged){
+                        var daterangepickerType = ranged ? 'daterangepicker' : 'daterangepicker-single';
+                        return $('<div class="form-group"><label class="control-label">' + caption +
+                            '</label><div class="input-prepend input-group" title="' + caption +
+                            '"><span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" class="form-control ' + daterangepickerType +
+                            '" data-fieldname="' + field +
+                            '" placeholder="' + caption +
+                            '"><span class="input-group-btn"><button type="button" class="btn btn-default glyphicon-action-button glyphicon-minus btn-delete-filter-field"></button></span></div></div>');
+
+                    },
+                    createDropdownSavedFilters: function (htmlElementId, caption) {
+                        var tmpl = '<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+                        tmpl += '<ul id="' + htmlElementId.slice(1) +
+                            '" class="dropdown-menu" role="menu"><li role="presentation" class="dropdown-header">' + caption +
+                            '</li></ul>';
+                        return $(tmpl);
+                    },
+                    createDropdownSavedFilterItem: function (filterId, caption) {
+                        var tmpl = '<li><a href="#" class="saved-filter-list-item" data-filterid="' + filterId +
+                                '">' + caption +
+                                '</a><button type="button" class="close" aria-hidden="true">&times;</button></li>',
+                            $control = $(tmpl);
+                        $control.children('a')
+                            .on('click',
+                                _eventHandlers.drpSavedFilterItem_onClick);
+
+                        $control.find('button.close')
+                            .on('click',
+                                _eventHandlers.drpSavedFilterItem_btnDelete_onClick);
+                        return $control;
+                    },
+                    bindOperatorGroupEventHandler: function ($operatorGroup) {
+                        $operatorGroup
+                            .find('li')
+                            .on('click', _eventHandlers.filterOperator_onClick);
+                    },
+                    bindOperatorGroupsEventHandlers: function () {
+                        $(_htmlBindings.filterFieldsContainer)
+                            .find('.btn-group')
+                            .each(function () {
+                                _functions.bindOperatorGroupEventHandler($(this));
+                            });
+                    },
+                    bindFormGroupEventHandlers: function ($formGroup) {
+                        $formGroup.find(_htmlBindings.filterField_btnRemove)
+                            .on('click', _eventHandlers.filterField_btnRemove_onClick);
+                        $formGroup.find('input')
+                            .on('keypress', _eventHandlers.input_onKeyPress);
+                        $formGroup.find('input.daterangepicker')
+                            .daterangepicker({
+                                singleDatePicker: false,
+                                format: 'MM/DD/YYYY',
+                                startDate: global.moment(),
+                                endDate: global.moment()
+                            });
+                        $formGroup.find('input.daterangepicker-single')
+                            .daterangepicker({
+                                singleDatePicker: true,
+                                format: 'MM/DD/YYYY',
+                                startDate: global.moment(),
+                                endDate: global.moment()
+                            });
+                        $formGroup.find('select')
+                            .select2();
+                    },
+                    bindFormGroupsEventHandlers: function () {
+                        $(_htmlBindings.filterFieldsContainer)
+                            .find('.form-group')
+                            .each(function () {
+                                _functions.bindFormGroupEventHandlers($(this));
+                            });
+                    },
+                    bindEventHandlers: function () {
+                        $(_htmlBindings.filterFieldsControls.btnFilter).on('click',
+                            _eventHandlers.btnFilter_onClick);
+
+                        $(_htmlBindings.filterFieldsControls.btnToggleVisibility).on('click',
+                            _eventHandlers.btnToggleVisibility_onClick);
+
+                        $(_htmlBindings.filterFieldsControls.btnReset).on('click',
+                            _eventHandlers.btnReset_onClick);
+
+                        $(_htmlBindings.filterFieldsControls.btnSave).on('click',
+                            _eventHandlers.btnSave_onClick);
+
+                        $(_htmlBindings.filterFields_btnAdd).on('click',
+                            _eventHandlers.filterFields_btnAdd_onClick);
+
+                        $(_htmlBindings.modalSaveFilter_btnSave).on('click',
+                            _eventHandlers.modalSaveFilter_btnSave_onClick);
+
+                        $(_htmlBindings.drpSavedFilterItems).on('click',
+                            _eventHandlers.drpSavedFilterItem_onClick);
+
+                        $(_htmlBindings.drpSavedFilterItems_btnDelete).on('click',
+                            _eventHandlers.drpSavedFilterItem_btnDelete_onClick);
+                    }
+                };
+
+                _eventHandlers = {
+                    input_onKeyPress: function (event) {
+                        if (event.keyCode === 13) {
+                            _functions.filter();
+                        }
+                    },
+                    btnFilter_onClick: function (event) {
+                        _functions.filter();
+                    },
+                    btnToggleVisibility_onClick: function (event) {
+                        var $button = $(event.target),
+                            caption = $button.html();
+
+                        if (caption === "Hide") {
+                            $(_htmlBindings.filterFieldsContainer).hide('slow');
+                            $button.html("Show");
+                        } else {
+                            $(_htmlBindings.filterFieldsContainer).show('slow');
+                            $button.html("Hide");
+                        }
+                    },
+                    btnReset_onClick: function (event) {
+                        _functions.reset();
+                    },
+                    btnSave_onClick: function (event) {
+                        var $filterName = $(_htmlBindings.modalSaveFilter_txtName);
+                        $filterName.val('');
+                        $filterName.popover('hide')
+                            .focus()
+                            .parent()
+                            .removeClass('has-error');
+                        $(_htmlBindings.modalSaveFilter).modal('show');
+                    },
+                    drpSavedFilterItem_onClick: function (event) {
+                        var filterId = event.currentTarget.dataset.filterid;
+                        _functions.reset(true);
+                        _functions.loadHtmlFilterAndFilter(filterId);
+                    },
+                    drpSavedFilterItem_btnDelete_onClick: function (event) {
+                        var $btnDelete = $(event.currentTarget),
+                            $btnSavedFilter = $btnDelete.prev(),
+                            filterId = $btnSavedFilter.data('filterid');
+
+                        $.ajax({
+                            data: {
+                                filterId: filterId
+                            },
+                            url: urls.deleteFilter,
+                            type: 'post',
+                            beforeSend: function () {
+                                $('.loading').show();
+                            },
+                            success: function (response) {
+                                var data = $.parseJSON(response),
+                                    $drpSavedFilters = $(_htmlBindings.drpSavedFilters);
+
+                                if ($drpSavedFilters.children().length > 2) {
+                                    $('[data-filterid="' + data.filterid + '"]').parent().remove();
+                                } else {
+                                    $drpSavedFilters.prev('button').remove();
+                                    $drpSavedFilters.remove();
+                                }
+                                $('.loading').hide();
+                            }
+                        });
+                    },
+                    filterOperator_onClick: function (event) {
+                        var $operator = $(event.target),
+                            value = $operator.html(),
+                            $operatorContainer = $operator.parent().parent(),
+                            $buttonGroup = $operatorContainer.parent(),
+                            $button = $buttonGroup.children(':first');
+                        if (value === "Clear Not") {
+                            value = "";
+                        }
+                        $button.html(value);
+                        $operatorContainer.find('li.current').removeClass('current');
+                        $operator.parent().addClass('current');
+                        _functions.filter();
+                    },
+                    filterFields_btnAdd_onClick: function (event) {
+                        var $button = $(event.target),
+                            fieldType = $button.data('field-type'),
+                            $filterFieldsContainer = $(_htmlBindings.filterFieldsContainer),
+                            isFirstField = $filterFieldsContainer.children().length === 0,
+                            isDateRanged = fieldType === 'date',
+                            dropdownValues = [],
+                            $operandGroup = _functions.createOperatorGroup(isFirstField),
+                            $secondOperandGroup,
+                            $formGroup;
+                        $filterFieldsContainer.append($operandGroup);
+                        _functions.bindOperatorGroupEventHandler($operandGroup);
+                        if(!isFirstField){
+                            $secondOperandGroup = _functions.createOperatorGroup(true);
+                            $filterFieldsContainer.append($secondOperandGroup);
+                            _functions.bindOperatorGroupEventHandler($secondOperandGroup);
+                        }
+
+                        if (fieldType === 'text') {
+                            $formGroup = _functions.createTextField($button.data('field'), $button.text(), $button.data('field-value-type'));
+                        } else if (fieldType === 'date' || fieldType === 'date-single') {
+                            $formGroup = _functions.createDateField($button.data('field'), $button.text(), isDateRanged);
+                        } else if (fieldType === 'dropdown') {
+                            dropdownValues = dictionaries[$button.data('field-collection')];
+                            $formGroup = _functions.createDropdownField($button.data('field'), $button.text(), dropdownValues, $button.data('field-value-type'));
+                        }
+                        $filterFieldsContainer.append($formGroup);
+                        _functions.bindFormGroupEventHandlers($formGroup);
+
+                        if (_status.areControlsEnabled !== true) {
+                            _functions.enableControls();
+                        }
+                    },
+                    filterField_btnRemove_onClick: function (event) {
+                        var $button = $(event.target),
+                            $formGroup = $button.parent().parent().parent(),
+                            $previousOperator = $formGroup.prev(),
+                            $nextOperator = $formGroup.next();
+                        if ($previousOperator.prev().length === 0) {
+                            if ($nextOperator.length === 0) {
+                                if (_status.areControlsEnabled) {
+                                    _functions.disableControls();
+                                }
+                            } else {
+                                $nextOperator.remove();
+                            }
+                        } else {
+                            var $previousPreviousOperator = $previousOperator.prev();
+                            if ($previousPreviousOperator.prev().length > 0)
+                            {
+                                $previousPreviousOperator.remove();
+                            }
+                        }
+                        $previousOperator.remove();
+                        $formGroup.remove();
+                        _functions.filter();
+                    },
+                    modalSaveFilter_btnSave_onClick: function (event) {
+                        var $filterName = $(_htmlBindings.modalSaveFilter_txtName),
+                            filterName = $filterName.val(),
+                            jsonFilterTree = JSON.stringify(_functions.getFilterTree()),
+                            $drpSavedFilters = $(_htmlBindings.drpSavedFilters);
+
+                        if (filterName !== "" && /\w/.test(filterName)) {
+                            $.ajax({
+                                data: {
+                                    filterName      : filterName,
+                                    jsonFilterTree  : jsonFilterTree,
+                                },
+                                url: urls.saveFilter,
+                                type: 'post',
+                                beforeSend: function () {
+                                    $('.loading').show();
+                                },
+                                success: function (response) {
+                                    console.log(response);
+                                    var data = $.parseJSON(response),
+                                        $dropdown;
+                                    if ($drpSavedFilters.length === 0) {
+                                        $dropdown = _functions.createDropdownSavedFilters(_htmlBindings.drpSavedFilters, "Load Saved Filter");
+                                        $(_htmlBindings.filterFieldsControls.btnSave).after($dropdown);
+                                        $drpSavedFilters = $(_htmlBindings.drpSavedFilters);
+                                    }
+                                    $drpSavedFilters.append(_functions.createDropdownSavedFilterItem(data.filterid, filterName));
+                                    $(_htmlBindings.modalSaveFilter).modal('hide');
+
+                                    $('.loading').hide();
+                                }
+                            });
+
+                        } else {
+                            $filterName.popover('show')
+                                .focus()
+                                .parent()
+                                .addClass('has-error');
+                        }
+                        $(_htmlBindings.modalSaveFilter).modal('hide');
+                    },
+
+                };
+
+                /**
+                 * Initialization method
+                 */
+                function init() {
+                    console.log('Not implemented yet.');
+                    _functions.disableControls();
+                    // if (filterId) {
+                    //     _status.filterId = filterId;
+                    //     _functions.reset(true);
+                    //     _functions.loadHtmlFilter(filterId);
+                    // }
+                    _functions.bindEventHandlers();
+                }
+
+                // function setFilterId(value) {
+                //     _status.filterId = value;
+                // }
+
+                function setFieldsDefinition(value) {
+                    _status.fieldsDefinition = value;
+                }
+
+                function getFilterTree() {
+                    return _functions.getFilterTree();
+                }
+
+                return {
+                    init: init,
+                    // setFilterId: setFilterId,
+                    setFieldsDefinition: setFieldsDefinition,
+                    getFilterTree: getFilterTree,
+                };
+            }(global, $))
+        };
+
         /**
          * Event Handlers
+         * @type {{dropdown_OnClick: eventHandlers.dropdown_OnClick, itemsPerPageSelector_OnClick: eventHandlers.itemsPerPageSelector_OnClick, tableMainFieldWorkOrderLink_OnClick: eventHandlers.tableMainFieldWorkOrderLink_OnClick, sortButtons_OnClick: eventHandlers.sortButtons_OnClick, statusSelector_OnClick: eventHandlers.statusSelector_OnClick, btnActionFilesDialog_OnClick: eventHandlers.btnActionFilesDialog_OnClick, btnActionAdd_OnClick: eventHandlers.btnActionAdd_OnClick, btnActionEdit_OnClick: eventHandlers.btnActionEdit_OnClick, btnActionView_OnClick: eventHandlers.btnActionView_OnClick, pagerButton_OnClick: eventHandlers.pagerButton_OnClick, paginate_OnBeforeSend: eventHandlers.paginate_OnBeforeSend, paginate_OnSuccess: eventHandlers.paginate_OnSuccess}}
          */
         eventHandlers = {
             dropdown_OnClick: function (event) {
@@ -803,7 +1325,9 @@
                 $('.loading').show();
             },
             paginate_OnSuccess: function (response) {
-                console.log(response);
+
+                global.console.log(response);
+
                 var data, pager, items, pagerControl;
                 data = $.parseJSON(response);
                 pager = new BootstrapPager(data, eventHandlers.pagerButton_OnClick);
@@ -818,8 +1342,10 @@
                 $('.loading').hide();
             },
         };
+
         /**
          * Functions
+         * @type {{bindEventHandlers: functions.bindEventHandlers, bindTableItemsEventHandlers: functions.bindTableItemsEventHandlers, buildClassBy: functions.buildClassBy, usePlugins: functions.usePlugins, paginate: functions.paginate, getRowByEquipID: functions.getRowByEquipID, updateEquip: functions.updateEquip, updateEquipStatus: functions.updateEquipStatus, setActionsState: functions.setActionsState, enableRowActionAdd: functions.enableRowActionAdd, disableRowActionAdd: functions.disableRowActionAdd, enableRowActionEdit: functions.enableRowActionEdit, disableRowActionEdit: functions.disableRowActionEdit, updateStatus: functions.updateStatus, buildTableItem: functions.buildTableItem, updateTable: functions.updateTable}}
          */
         functions = {
             bindEventHandlers: function () {
@@ -850,9 +1376,13 @@
                 });
             },
             paginate: function () {
+                var filterTree, jsonFilterTree;
+                filterTree = modules.filter.getFilterTree();
+                console.log("filterTree", filterTree);
+                jsonFilterTree = JSON.stringify(filterTree);
                 $.ajax({
                     data: {
-                        predicate: '', // TODO: implement with filter
+                        filterTree: jsonFilterTree,
                         page: status.currentPage,
                         itemsPerPage: status.itemsPerPage,
                         orderBy: status.sortField,
@@ -869,12 +1399,15 @@
                     return $(this).find('a').text() === equipID;
                 }).parent();
             },
-            updateEquip: function (equipID, workOrder, status, historyID) {
+            updateEquip: function (equipID, workOrder, status, historyID, dateOut, expectedIn, received) {
                 var statusClass, $row;
                 global.console.log("equipID", equipID);
                 global.console.log("workOrder", workOrder);
                 global.console.log("status", status);
                 global.console.log("historyID", historyID);
+                global.console.log("DateOut", dateOut);
+                global.console.log("ExpectedIn", expectedIn);
+                global.console.log("Received", received);
 
                 statusClass = functions.buildClassBy(status);
                 $row = functions.getRowByEquipID(equipID);
@@ -883,6 +1416,11 @@
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
                 $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyID);
+
+                $row.find(htmlBindings.tableMainFiledDateOut).html(dateOut);
+                $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
+                $row.find(htmlBindings.tableMainFiledReceived).html(received);
+
                 functions.setActionsState(equipID, status);
             },
             updateEquipStatus: function (equipID, status) {
@@ -1149,33 +1687,65 @@
             }
         };
 
+        /**
+         *
+         * @param {string} selector
+         */
         function setItemsPerPageSelector(selector) {
             htmlBindings.itemsPerPageSelector = selector;
         }
 
+        /**
+         *
+         * @param {Number} value
+         */
         function setItemsPerPage(value) {
             status.itemsPerPage = value;
         }
 
+        /**
+         *
+         * @param {string} selector
+         */
         function setStatusSelector(selector) {
             htmlBindings.statusSelector = selector;
         }
 
+        /**
+         *
+         * @param {string} name
+         * @param {Object} dictionary
+         */
         function addDictionary(name, dictionary) {
             dictionaries[name] = dictionary;
         }
 
+        /**
+         *
+         * @param {string} name
+         * @param {string} url
+         */
         function addUrl(name, url) {
             urls[name] = url;
         }
 
+        /**
+         * 
+         * @returns {string|null}
+         */
         function getCurrentID() {
             return status.currentID;
         }
 
-        function init(filter) {
+        /**
+         * 
+         * @param {string} filterID
+         * @param fieldsDefinition
+         */
+        function init(filterID, fieldsDefinition) {
             var index;
-            global.console.log('filter: ', filter);
+            global.console.log('filterID: ', filterID);
+            global.console.log('fieldsDefinition: ', fieldsDefinition);
 
             global.console.log('HTML Bindings');
             for (index in htmlBindings) {
@@ -1206,7 +1776,18 @@
             mvvm.modalEquipmentHistoryFormEdit.setUpdateHistoryCallback(functions.updateEquip);
             mvvm.modalEquipmentHistoryFormEdit.setDeleteHistoryCallback(functions.updateEquip);
 
+            global.console.log('Initializing Modules related logic:');
+            for (index in modules) {
+                if (modules.hasOwnProperty(index)) {
+                    global.console.log('\t', index, ':', modules[index]);
+                    modules[index].init();
+                }
+            }
+
             ProjectFiles.init();
+            // DynamicFilter.init(filter, fieldsDefinition); //TODO:  pasar field definition.
+
+            modules.filter.setFieldsDefinition(fieldsDefinition);
         }
 
         return {

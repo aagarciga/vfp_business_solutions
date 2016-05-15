@@ -486,6 +486,7 @@ class EquipmentHistoryDashboardViewModel
                 FIELD_ATTR_DISPLAY_NAME => 'Notes',
                 FIELD_ATTR_FILTERABLE => false,
                 FIELD_ATTR_SORTABLE => false,
+                FIELD_ATTR_VISIBLE => false,
                 'table' => $swequipTable
             ),
             'picture_fi' => array(
@@ -507,7 +508,7 @@ class EquipmentHistoryDashboardViewModel
             'locno' => array(
                 FIELD_ATTR_NAME => 'locno',
                 FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
-                FIELD_ATTR_DISPLAY_NAME => 'Locno',
+                FIELD_ATTR_DISPLAY_NAME => 'Loc',
                 'table' => $swequipTable
             ),
             'status' => array(
@@ -520,7 +521,7 @@ class EquipmentHistoryDashboardViewModel
                     'Not Returned' => 'Not Returned',
                     'Broken' => 'Broken',
                     'Lost' => 'Lost',
-                    'Received' => 'Received'
+//                    'Received' => 'Received'
                 ),
                 'table' => $swequipTable
             ),

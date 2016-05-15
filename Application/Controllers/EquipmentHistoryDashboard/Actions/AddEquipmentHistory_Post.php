@@ -46,12 +46,17 @@ class AddEquipmentHistory_Post extends Action {
 
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Add($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateWorkOrderFor($this->equipid, $this->ordnum, $this->status, $this->historyId);
+        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateDates($this->equipid, $this->installdte, $this->expdtein, $this->daterec);
+
         if ($isSuccess) {
             $result['success'] = true;
             $result['equipid'] = $this->equipid;
             $result['ordnum'] = $this->ordnum;
             $result['status'] = $this->status;
             $result['qbtxlineid'] = $this->historyId;
+            $result['installdte'] = $this->installdte;
+            $result['expdtein'] = $this->expdtein;
+            $result['daterec'] = $this->daterec;
         }
         return json_encode($result);
     }

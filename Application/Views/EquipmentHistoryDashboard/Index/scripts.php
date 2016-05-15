@@ -5,12 +5,12 @@
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('responsive-tables/responsive-tables.js'); ?>"></script>
 
-<!--<script src="--><?php //echo $View->ScriptsContext('InventoryDashboard/InventoryDashboardDynamicFilter.min.js'); ?><!--"></script>-->
+<!--<script src="--><?php //echo $View->ScriptsContext('EquipmentHistoryDashboard/EquipmentHistoryDashboardDynamicFilter.min.js'); ?><!--"></script>-->
 <script src="<?php echo $View->ScriptsContext('EquipmentHistoryDashboard/ProjectFiles.min.js'); ?>"></script>
 <!--<script src="--><?php //echo $View->ScriptsContext('InventoryDashboard/main.min.js'); ?><!--"></script>-->
 <!--<script src="--><?php //echo $View->PublicVendorContext('lightbox2-master/dist/js/lightbox.min.js')?><!--"></script>-->
 
-<script src="<?php echo $View->ScriptsContext('EquipmentHistoryDashboard/main.min.js'); ?>"></script>
+<script src="<?php echo $View->ScriptsContext('EquipmentHistoryDashboard/main.js'); ?>"></script>
 <script>
 /**
  * @author Alex
@@ -59,8 +59,10 @@
     EquipmentHistoryDashboard.addUrl('updateWorkOrderNotesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateWorkOrderNotes')?>');
     EquipmentHistoryDashboard.addUrl('updateStatusUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateStatus')?>');
     EquipmentHistoryDashboard.addUrl('getEquipmentPage', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetEquipmentPage')?>');
+    EquipmentHistoryDashboard.addUrl('getSavedFilter', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetSavedFilter')?>');
+    EquipmentHistoryDashboard.addUrl('deleteFilter', '<?php echo $View->Href('EquipmentHistoryDashboard', 'DeleteFilter')?>');
 
-    EquipmentHistoryDashboard.init();
+    EquipmentHistoryDashboard.init('<?php echo $FilterId ?>' , <?php echo json_encode($EquipmentHistoryDashboardFieldsDefinition) ?>);
 
 }(window, jQuery, App));
 </script>

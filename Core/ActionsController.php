@@ -27,6 +27,11 @@ abstract class ActionsController extends Controller {
     protected $Application;
 
     /**
+     * @var Session
+     */
+    public $Session;
+
+    /**
      * @param \Dandelion\MVC\Core\Request $request
      */
     protected function Init(Request $request){
@@ -38,6 +43,7 @@ abstract class ActionsController extends Controller {
      */
     public final function __construct(Request $request) {
         parent::__construct($request->Controller);
+        $this->Session = $this->data['Session'] = $request->Session;
         spl_autoload_register(array($this, 'ViewModelLoader'));
         $this->Init($request);
     }

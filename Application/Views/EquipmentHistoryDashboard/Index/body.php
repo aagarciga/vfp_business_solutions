@@ -21,7 +21,7 @@
         <!--    Panel Heading-->
         <div class="panel-heading">
             <span class="panel-title"><?php echo $Caption; ?></span>
-            <span class="badge"><?php echo $ItemCount; ?></span>
+            <span class="items-counter badge"><?php echo $ItemCount; ?></span>
 
             <div class="btn-group dropdown items-per-page-selector">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
@@ -86,7 +86,7 @@
                             </button>
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span
                                     class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu">
+                            <ul class="dropdown-menu form-filter-action-filter-by" role="menu">
                                 <li role="presentation" class="dropdown-header">By</li>
                                 <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
                                     <?php if ($EquipmentHistoryDashboardViewModelName::isFilterAble($fieldDefinition)): ?>
@@ -392,4 +392,25 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal modal-input fade" id="dynamicFilter_modal_saveFilter">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Filter Name</h4>
+            </div>
+            <div class="modal-body row">
+                <div class="form-group col-xs-12">
+                    <input type="text" class="form-control" value="" id="dynamicFilter_modal_txtFilterName" maxlength="20" placeholder="Filter Name" data-content="Please enter a valid filter name. Only letters and numbers are permitted and can't be empty." data-placement="top"/>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="dynamicFilter_modal_btnSaveFilter">Save Filter</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!--Modal Section ends-->

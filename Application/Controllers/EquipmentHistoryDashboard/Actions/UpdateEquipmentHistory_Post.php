@@ -37,7 +37,7 @@ class UpdateEquipmentHistory_Post extends Action {
 
         $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_NOTRETURNED;
         if ($this->daterec) {
-            $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_RECEIVED;
+            $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_AVAILABLE;
         }
 
         $now = new \DateTime();
@@ -56,12 +56,17 @@ class UpdateEquipmentHistory_Post extends Action {
 
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Update($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
+        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateDates($this->equipid, $this->installdte, $this->expdtein, $this->daterec);
+
         if ($isSuccess) {
             $result['success'] = true;
             $result['equipid'] = $this->equipid;
             $result['ordnum'] = $this->ordnum;
             $result['status'] = $this->status;
             $result['qbtxlineid'] = $this->qbtxlineid;
+            $result['installdte'] = $this->installdte;
+            $result['expdtein'] = $this->expdtein;
+            $result['daterec'] = $this->daterec;
         }
         return json_encode($result);
     }

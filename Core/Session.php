@@ -15,8 +15,8 @@ require_once MVC_DIR_CORE_INTERFACES . DIRECTORY_SEPARATOR . 'IDictionary.php';
 /**
  * Dandelion MVC request definition.
  *
- * @author      Alex Alvarez Gárciga <aagarciga@gmail.com>
- * @copyright   2011-2016 Alex Alvarez Gárciga / Dandelion (http://www.thedandelionproject.com)
+ * @author      Alex Alvarez Gï¿½rciga <aagarciga@gmail.com>
+ * @copyright   2011-2016 Alex Alvarez GÃ¡rciga / Dandelion (http://www.thedandelionproject.com)
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  * @link        http://www.thedandelionproject.com
  * @ignore

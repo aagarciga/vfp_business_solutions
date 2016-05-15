@@ -28,7 +28,7 @@ class Index extends Action
 
         $this->Title = 'On Sales Order Dashboard | VFP Business Series';
 
-        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
+        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItemsPerPage();
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = isset($_SESSION['itemperpages']) ? $_SESSION['itemperpages'] : $defaultItemsPerPage;

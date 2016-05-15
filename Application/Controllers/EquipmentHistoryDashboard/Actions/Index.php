@@ -8,6 +8,7 @@ namespace Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Action
 
 use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Models\EquipmentHistoryDashboardViewModel;
+use Dandelion\TreeCreator;
 
 require_once MVC_DIR_APP_VIEWS . DIRECTORY_SEPARATOR . 'EquipmentHistoryDashboard' . DIRECTORY_SEPARATOR . 'Model' . DIRECTORY_SEPARATOR . 'EquipmentHistoryDashboardViewModel.php';
 
@@ -30,6 +31,7 @@ class Index extends Action
         $this->UserName = $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_USERNAME, DASHBOARD_SESSION_PARAM_USERNAME_DEFAULT);
         $this->User = $this->controller->VfpDataUnitOfWork->SysuserRepository->GetByUsername($this->UserName);
         $this->SavedUserFilters = $this->controller->VfpDataUnitOfWork->SysexportRepository->GetSavedFiltersByUserName($this->User->getUsername(), $this->Signature);
+            
     }
 
     public function Execute()
@@ -42,7 +44,9 @@ class Index extends Action
 
         $this->StatusDictionary = EquipmentHistoryDashboardViewModel::getStatusDictionary();
 
-        $this->JsonFilterTree = ''; //TODO: Implement this...
+        $this->FilterId = ''; // TODO: Fetch Saved filter ID for Current User.
+        $this->FilterTree = $this->controller->getSessionFilterTree();
+        $this->JsonFilterTree = json_encode(TreeCreator::treeToArray($this->FilterTree));
 
         $this->Page = $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_PAGE, $this->controller->getDefaultPage());
         $this->OrderBy = $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDERBY, $this->controller->getDefaultOrderBy($this->EquipmentHistoryDashboardViewModelName));

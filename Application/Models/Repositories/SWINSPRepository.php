@@ -36,7 +36,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
     public function GetActives() {
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
-        $sqlString .= ' WHERE NOT([ACTIVE] = True) ORDER BY [INSPECTNO]';
+        $sqlString .= ' WHERE [ACTIVE] = True AND [TECHPM] = True ORDER BY [INSPECTNO]';
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -51,7 +51,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
     public function GetActiveBy($inspectno) {
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $tableName";
-        $sqlString .= " WHERE NOT([ACTIVE] = True) AND [INSPECTNO] = '$inspectno'";
+        $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND [INSPECTNO] = '$inspectno'";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -77,8 +77,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         if(intval($limit) > 0){
             $sqlString = "SELECT TOP $limit START AT $startAt * FROM $tableName";
         }
-//        $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND (LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%') ORDER BY INSPECTNO";
-        $sqlString .= " WHERE NOT([ACTIVE] = True) AND (LOWER([INSPECTNO]) LIKE '%$lowerQuery%' OR LOWER([INSPECTNM]) LIKE '%$lowerQuery%') ORDER BY [INSPECTNO]";
+        $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND (LOWER([INSPECTNO]) LIKE '%$lowerQuery%' OR LOWER([INSPECTNM]) LIKE '%$lowerQuery%') ORDER BY [INSPECTNO]";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
@@ -96,8 +95,7 @@ class SWINSPRepository extends VFPRepository implements IRepository {
         $lowerQuery = strtolower($query);
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT COUNT(INSPECTNO) FROM $tableName";
-//        $sqlString .= " WHERE ACTIVE = True AND TECHPM = True AND (LOWER(INSPECTNO) LIKE '%$lowerQuery%' OR LOWER(INSPECTNM) LIKE '%$lowerQuery%')";
-        $sqlString .= " WHERE NOT([ACTIVE] = True) AND (LOWER([INSPECTNO]) LIKE '%$lowerQuery%' OR LOWER([INSPECTNM]) LIKE '%$lowerQuery%')";
+        $sqlString .= " WHERE [ACTIVE] = True AND [TECHPM] = True AND (LOWER([INSPECTNO]) LIKE '%$lowerQuery%' OR LOWER([INSPECTNM]) LIKE '%$lowerQuery%')";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         return intval($queryResult[0]->EXPR);

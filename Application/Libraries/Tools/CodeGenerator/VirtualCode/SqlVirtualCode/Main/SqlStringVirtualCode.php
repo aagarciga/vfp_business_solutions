@@ -21,6 +21,7 @@ class SqlStringVirtualCode extends SqlVirtualCode
      */
     public function __construct($stringValue)
     {
+        $stringValue = strtolower($stringValue); // TODO: Modified by Alex. In order to do comparisons without match case.
         parent::__construct("'" . $stringValue . "'");
     }
 }

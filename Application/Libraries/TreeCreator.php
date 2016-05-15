@@ -35,7 +35,7 @@ class TreeCreator
 
     public  static  function Init(){
         self::$types  = array(
-            'blockExpression' => 'blockExpressionCreator',
+            'blockExpression' => 'blockExpressionCreator', // un tipo para llamar un una funcion. callback creator. nodo principal. Root que es block Expression
             'field' => 'fieldCreator',
             'string' => 'stringCreator',
             'date' => 'dateCreator',
@@ -108,14 +108,13 @@ class TreeCreator
     }
 
     public static function treeToArray($tree){
-        $phpTypes = self::invertCreatorType();
+        $phpTypes = self::invertCreatorType(); // pone los key como values y viceversa.
 
         $result = array();
 
         $nodePhpType = get_class($tree);
-
         if (!array_key_exists($nodePhpType, $phpTypes)){
-            throw new \Exception("Unknown node");
+            throw new \Exception("Pal, firts at all: You must do TreeCreator Init. If not... Find the error place."); //TODO: Papa
         }
         $result[TYPE_NAME] = $phpTypes[$nodePhpType];
 

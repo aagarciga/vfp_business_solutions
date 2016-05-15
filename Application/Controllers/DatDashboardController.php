@@ -11,11 +11,15 @@ use Dandelion\MVC\Core\Exceptions;
 use Dandelion\MVC\Core\Request;
 use Dandelion\Diana\BootstrapPager;
 
+use Dandelion\Tools\CodeGenerator\SqlPredicateGenerator;
+use Dandelion\TreeCreator;
+use Dandelion\Tools\Filter\IFilterNode;
+
 class DatDashboardController extends DatActionsController
 {
     /**
      * @param $viewModelName
-     * @param $predicate
+     * @param $filterTree
      * @param $orderby
      * @param string $order
      * @param int $itemsPerPage
@@ -24,9 +28,16 @@ class DatDashboardController extends DatActionsController
      * @return \Dandelion\MVC\Application\Controllers\BootstrapPager
      * @throws \Dandelion\MVC\Core\Exceptions\ClassNotFoundException
      */
-    public function GetPager($viewModelName, $predicate, $orderby, $order = "ASC",
+    public function GetPager($viewModelName, $filterTree, $orderby, $order = "ASC",
                              $itemsPerPage = 10, $middleRange = 5, $showPagerControlsIfMoreThan = 10)
     {
+        $predicate = '';
+        if ($filterTree instanceof IFilterNode){
+            $sqlCodeGenerator = new SqlPredicateGenerator();
+            $filterTree->generateSqlCode($sqlCodeGenerator);
+            $predicate = $this->getComposedFilter($sqlCodeGenerator->getCode());
+        }
+
         $this->checkForViewModel($viewModelName);
 
         $companyID = $this->DatUnitOfWork->CompanySuffix;
@@ -130,5 +141,27 @@ class DatDashboardController extends DatActionsController
      */
     public function getDefaultOrder(){
         return "ASC";
+    }
+
+    // TODO: Clean and refactor. (Preguntar a victor para que es esto?)
+    /**
+     * by Victor.
+     * @param string $predicate
+     * @return string
+     */
+    protected function getComposedFilter($predicate){
+        if ($predicate !== "") {
+            $predicate = "WHERE " . $predicate;
+        }
+
+        if ($this->includeFilter !== ""){
+            if ($predicate !== ""){
+                $predicate .= "AND (" . $this->includeFilter . ")";
+            }
+            else{
+                $predicate = "WHERE " . $this->includeFilter;
+            }
+        }
+        return $predicate;
     }
 }

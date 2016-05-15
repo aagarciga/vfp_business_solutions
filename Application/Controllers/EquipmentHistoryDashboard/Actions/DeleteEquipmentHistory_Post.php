@@ -36,6 +36,7 @@ class DeleteEquipmentHistory_Post extends Action {
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Delete($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastHistoryReference($this->equipid);
+        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastWorkOrder($this->equipid);
 
         if ($isSuccess) {
             $result['success'] = true;

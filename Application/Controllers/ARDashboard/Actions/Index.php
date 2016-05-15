@@ -24,7 +24,7 @@ class Index extends Action
     {
         $exportedBy = 'AR';
         $this->Title = 'Account Receivable Dashboard | VFP Business Series';
-        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
+        $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItemsPerPage();
 
         $this->UserName = (!isset($_SESSION['username'])) ? 'Anonimous' : $_SESSION['username'];
         $this->ItemPerPage = (!isset($_SESSION['itemperpages'])) ? $defaultItemsPerPage : $_SESSION['itemperpages'];
