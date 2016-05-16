@@ -990,14 +990,16 @@
                         $formGroup.find('input.daterangepicker')
                             .daterangepicker({
                                 singleDatePicker: false,
-                                format: 'MM/DD/YYYY',
+                                format: 'YYYY-MM-DD',
+                                // format: 'MM/DD/YYYY',
                                 startDate: global.moment(),
                                 endDate: global.moment()
                             });
                         $formGroup.find('input.daterangepicker-single')
                             .daterangepicker({
                                 singleDatePicker: true,
-                                format: 'MM/DD/YYYY',
+                                format: 'YYYY-MM-DD',
+                                // format: 'MM/DD/YYYY',
                                 startDate: global.moment(),
                                 endDate: global.moment()
                             });
