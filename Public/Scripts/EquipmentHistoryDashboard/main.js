@@ -61,7 +61,8 @@
             tableMainFiledDateOut: '.field-date-out',
             tableMainFiledExpectedIn: '.field-expected-in',
             tableMainFiledReceived: '.field-received',
-
+            
+            formFilterSavedFilters: '.form-filter-saved-filters',
             //modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
 
@@ -754,8 +755,8 @@
 
                 _status = {
                     id: '',
-                    predicate: '',
-                    areControlsEnabled: false
+                    predicate: '',// DEPRECATED
+                    areControlsEnabled: false,
                 };
 
                 _htmlBindings = {
@@ -770,9 +771,9 @@
                         btnSave                : '.form-filter-action-save',
                         btnFilter              : '.form-filter-action-filter'
                     },
-                    drpSavedFilters                 : '#dynamicFilter_drpSavedFilters',
-                    drpSavedFilterItems             : '.saved-filter-list-item',
-                    drpSavedFilterItems_btnDelete   : '#dynamicFilter_drpSavedFilters li .close',
+                    drpSavedFilters                 : '.form-filter-saved-filters',
+                    drpSavedFilterItems             : '.form-filter-saved-filters-item',
+                    drpSavedFilterItems_btnDelete   : '.form-filter-saved-filters-item-delete',
                     modalSaveFilter                 : '#dynamicFilter_modal_saveFilter',
                     modalSaveFilter_txtName         : '#dynamicFilter_modal_txtFilterName',
                     modalSaveFilter_btnSave         : '#dynamicFilter_modal_btnSaveFilter'
@@ -808,17 +809,16 @@
                      * @returns {undefined}
                      */
                     reset: function (doFilter) {
-                        $(_htmlBindings.filterField).empty();
+                        $(_htmlBindings.filterFieldsContainer).empty();
                         _functions.disableControls();
                         $(_htmlBindings.filterFieldsControls.btnFilter).next().focus();
                         if (doFilter !== false) {
                             _functions.filter();
                         }
                     },
-
                     splitDate: function (date) {
                         var dateSplit = date.split('/');
-                        if (dateSplit.length === 3){
+                        if (dateSplit.length === 3) {
                             return dateSplit;
                         }
                         return ["12", "30", "1899"];
@@ -957,9 +957,9 @@
                         return $(tmpl);
                     },
                     createDropdownSavedFilterItem: function (filterId, caption) {
-                        var tmpl = '<li><a href="#" class="saved-filter-list-item" data-filterid="' + filterId +
+                        var tmpl = '<li><a href="#" class="' + _htmlBindings.drpSavedFilterItems + '" data-filterid="' + filterId +
                                 '">' + caption +
-                                '</a><button type="button" class="close" aria-hidden="true">&times;</button></li>',
+                                '</a><button type="button" class="close ' + _htmlBindings.drpSavedFilterItems_btnDelete + '" aria-hidden="true">&times;</button></li>',
                             $control = $(tmpl);
                         $control.children('a')
                             .on('click',
@@ -1037,6 +1037,48 @@
 
                         $(_htmlBindings.drpSavedFilterItems_btnDelete).on('click',
                             _eventHandlers.drpSavedFilterItem_btnDelete_onClick);
+                    },
+                    loadFilter: function (filterId, doFilter) {
+                        $.ajax({
+                            data: {
+                                filterid: filterId
+                            },
+                            url: urls.getSavedFilter,
+                            type: 'post',
+                            beforeSend: function () {
+                                $('.loading').show();
+                            },
+                            success: function (response) {
+                                var data = $.parseJSON(response),
+                                    $filterFields;
+                                if (data.success) {
+                                    if (data.expfields !== ''){
+                                        $filterFields = $(_htmlBindings.filterFieldsContainer);
+                                        $filterFields.append(data.expfields);
+                                        _functions.bindOperatorGroupsEventHandlers();
+                                        _functions.bindFormGroupsEventHandlers();
+
+                                        // Client request behavior (on filter load hide dynamic filter fields)
+                                        $(_htmlBindings.filterFieldsControls.btnToggleVisibility).click();
+
+                                        _functions.enableControls();
+
+                                        if (doFilter){
+                                            _functions.filter();
+                                        }
+                                    }
+                                } else {
+                                    throw "Filter not loaded";
+                                }
+                                $('.loading').hide();
+                            }
+                        });
+                    },
+                    loadHtmlFilter: function (filterId) {
+                        _functions.loadFilter(filterId, false);
+                    },
+                    loadHtmlFilterAndFilter: function (filterId) {
+                        _functions.loadFilter(filterId, true);
                     }
                 };
 
@@ -1053,7 +1095,7 @@
                         var $button = $(event.target),
                             caption = $button.html();
 
-                        if (caption === "Hide") {
+                        if (caption.trim() === "Hide") {
                             $(_htmlBindings.filterFieldsContainer).hide('slow');
                             $button.html("Show");
                         } else {
@@ -1093,6 +1135,7 @@
                                 $('.loading').show();
                             },
                             success: function (response) {
+                                console.log(response);
                                 var data = $.parseJSON(response),
                                     $drpSavedFilters = $(_htmlBindings.drpSavedFilters);
 
@@ -1249,11 +1292,15 @@
                     return _functions.getFilterTree();
                 }
 
+                function getFilterPredicate() {
+                    return _functions.getPredicate();
+                }
+
                 return {
                     init: init,
                     // setFilterId: setFilterId,
                     setFieldsDefinition: setFieldsDefinition,
-                    getFilterTree: getFilterTree,
+                    getFilterTree: getFilterTree
                 };
             }(global, $))
         };

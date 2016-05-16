@@ -17,7 +17,6 @@ use Dandelion\Tools\CodeGenerator\HtmlTagsGenerator;
 use Dandelion\TreeCreator;
 
 /**
- * Create by Victor
  * Returns Load and populate the DynamicFilter instance with a saved filter
  * @return JSON
  */

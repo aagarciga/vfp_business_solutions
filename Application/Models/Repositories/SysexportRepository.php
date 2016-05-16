@@ -67,7 +67,7 @@ class SysexportRepository extends BaseRepository implements IRepository {
     /**
      * 
      * @param type $username
-     * @param type $from By default 'SO'. Possible values are: 'SO', 'QU', 'FI'
+     * @param type $from By default 'SO'. Possible values are: 'SO', 'QU', 'FI',
      * @param type $limit
      * @return \Dandelion\MVC\Application\Models\Entities\SYSEXPORT
      */
@@ -75,9 +75,10 @@ class SysexportRepository extends BaseRepository implements IRepository {
         // SO : Sales Order Dashboard
         // QU : Quote Dashboard
         // FI : Financial Dashboard
+        // EQM : Equipment Dashboard
         
         $countSqlString = "SELECT COUNT(*) AS LENGHT FROM $this->entityName";
-        $countSqlString .= " WHERE FUSERID = '$username'";
+        $countSqlString .= " WHERE [FUSERID] = '$username' AND [EXPORDERBY] = '$from'";
         $countQuery = $this->dbDriver->GetQuery();
         $countQueryResult = $countQuery->Execute($countSqlString);
         $count = intval($countQueryResult[0]->LENGHT);
@@ -85,7 +86,7 @@ class SysexportRepository extends BaseRepository implements IRepository {
         $startAt = ($count < $limit)? 0 : $count - $limit + 1;     
         
         $sqlString = "SELECT TOP $limit START AT $startAt * FROM $this->entityName";
-        $sqlString .= " WHERE FUSERID = '$username' and EXPORDERBY = '$from'";
+        $sqlString .= " WHERE [FUSERID] = '$username' AND [EXPORDERBY] = '$from'";
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array(); 

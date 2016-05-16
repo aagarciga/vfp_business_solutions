@@ -67,12 +67,12 @@
                             <?php if (count($SavedUserFilters)): ?>
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                                     <span class="caret"></span></button>
-                                <ul class="dropdown-menu" role="menu">
+                                <ul class="dropdown-menu form-filter-saved-filters" role="menu">
                                     <li role="presentation" class="dropdown-header">Load Saved Filter</li>
                                     <?php foreach ($SavedUserFilters as $filter): ?>
-                                        <li><a href="#" class="dropdown-item"
+                                        <li><a href="#" class="dropdown-item form-filter-saved-filters-item"
                                                data-filterid="<?php echo $filter->getFilterid() ?>"><?php echo $filter->getExportid() ?></a>
-                                            <button type="button" class="close" aria-hidden="true">&times;</button>
+                                            <button type="button" class="close form-filter-saved-filters-item-delete" aria-hidden="true">&times;</button>
                                         </li>
                                     <?php endforeach ?>
                                 </ul>

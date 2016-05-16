@@ -61,6 +61,7 @@
     EquipmentHistoryDashboard.addUrl('getEquipmentPage', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetEquipmentPage')?>');
     EquipmentHistoryDashboard.addUrl('getSavedFilter', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetSavedFilter')?>');
     EquipmentHistoryDashboard.addUrl('deleteFilter', '<?php echo $View->Href('EquipmentHistoryDashboard', 'DeleteFilter')?>');
+    EquipmentHistoryDashboard.addUrl('saveFilter', '<?php echo $View->Href('EquipmentHistoryDashboard', 'SaveFilter')?>');
 
     EquipmentHistoryDashboard.init('<?php echo $FilterId ?>' , <?php echo json_encode($EquipmentHistoryDashboardFieldsDefinition) ?>);
 

@@ -121,6 +121,12 @@
 .dashboard-container div.panel .panel-body .form-filter .form-filter-actions .dropdown-toggle {
   padding: 4px 10px;
 }
+.dashboard-container div.panel .panel-body .form-filter .form-filter-actions .form-filter-saved-filters .close {
+  display: inline-block;
+  position: relative;
+  margin-top: -23px;
+  left: -5px;
+}
 .dashboard-container div.panel .panel-body .panel-table {
   margin-top: 10px;
 }
