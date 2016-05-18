@@ -41,11 +41,11 @@ class AddEquipmentHistory_Post extends Action {
         $this->fupdate = $now->format(GLOBAL_DEFAULT_DATE_FORMAT);
 
         $result = array('success' => false);
-
-        $entity = new SWEQUIPD($this->equipid, $this->ordnum, $this->inspectno, $this->installdte, $this->expdtein, $this->daterec, '', $this->fupdate, '', $this->userID, '', $this->historyId, '');
-
         $salesOrderEntity = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($this->ordnum);
         $this->vesselid = $salesOrderEntity->getVessel();
+        $entity = new SWEQUIPD($this->equipid, $this->ordnum, $this->inspectno, $this->installdte, $this->expdtein, $this->daterec, '', $this->fupdate, '', $this->userID, '', $this->historyId, '', $this->vesselid);
+
+
 
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Add($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateWorkOrderFor($this->equipid, $this->ordnum, $this->status, $this->historyId);
@@ -61,6 +61,7 @@ class AddEquipmentHistory_Post extends Action {
             $result['installdte'] = $this->installdte;
             $result['expdtein'] = $this->expdtein;
             $result['daterec'] = $this->daterec;
+            $result['vesselid'] = $this->vesselid;
         }
         return json_encode($result);
     }

@@ -155,7 +155,7 @@
                     saveHistory_OnDone: function (response) {
                         console.log('On Add:', response);
                         var data = $.parseJSON(response);
-                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec, data.vsselid);
+                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec, data.vesselid);
                         hide();
                     }
                 };
@@ -298,7 +298,7 @@
                         console.log('On Delete:', response);
                         var data = $.parseJSON(response);
                         if (data.success) {
-                            _functions.deleteHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid);
+                            _functions.deleteHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec, data.vesselid);
                         }
                         hide();
                     },

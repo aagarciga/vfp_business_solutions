@@ -108,6 +108,19 @@
         </Controller>
     </Company>
 
+    <Company id="01">
+        <Menu>
+            <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"/>
+            <MenuEntry Controller="QuoteDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Quote Dashboard" IdName="quote-dashboard"/>
+            <MenuEntry Controller="Dashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Work Order Dashboard" IdName="sales-order-dashboard"/>
+            <MenuEntry Controller="InventoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Inventory Dashboard" IdName="inventory-dashboard"/>
+            <MenuEntry Controller="EquipmentHistoryDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Equipment Dashboard" IdName="equipment-dashboard"/>
+            <MenuEntry Controller="FinancialDashboard" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Financial Dashboard" IdName="financial-dashboard" VisibilityCondition="ShowFiancialDashboard"/>
+            <MenuEntry Controller="WMS" Action="Index" ClassName="glyphicon glyphicon-th" DisplayName="Warehouse Management" IdName="warehouse-management" VisibilityCondition="FullFeatures"/>
+            <MenuEntry Controller="User" Action="Signout" ClassName="glyphicon glyphicon-th" DisplayName="Exit"/>
+        </Menu>
+    </Company>
+
     <Company id="05">
         <Menu>
             <MenuEntry Controller="Main" Action="Index" ClassName="glyphicon glyphicon-home" DisplayName="Home"/>

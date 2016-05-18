@@ -76,7 +76,7 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $installdte = $installdte === '' ? 'NULL' : "'$installdte'";
         $expdtein = $expdtein === '' ? 'NULL' : "'$expdtein'";
         $daterec = $daterec === '' ? 'NULL' : "'$daterec'";
-        $sqlString = "UPDATE $tableName  SET [INSTALLDTE] = '$installdte', [EXPDTEIN] = '$expdtein', [DATEREC] = '$daterec' WHERE LOWER([EQUIPID]) = '$equipid'";
+        $sqlString = "UPDATE $tableName  SET [INSTALLDTE] = $installdte, [EXPDTEIN] = $expdtein, [DATEREC] = $daterec WHERE LOWER([EQUIPID]) = '$equipid'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

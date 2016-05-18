@@ -95,7 +95,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = 'INSERT INTO ' . $tableName
             . ' ([EQUIPID], [ORDNUM], [INSPECTNO], [INSTALLDTE], [EXPDTEIN], [DATEREC], [FUPDTIME], [FUPDDATE], [FSTATION], [FUSERID], [QBLISTID], [QBTXLINEID], [NFLG0], [VESSELID])'
-            . " VALUES ('$equipid', '$ordnum', '$inspectno', $installdte, $expdtein, $daterec, '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0, $vesselid)";
+            . " VALUES ('$equipid', '$ordnum', '$inspectno', $installdte, $expdtein, $daterec, '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0, '$vesselid')";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
