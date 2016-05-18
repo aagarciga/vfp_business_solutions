@@ -258,7 +258,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label class="control-label">Expacted In</label>
+                                <label class="control-label">Expected In</label>
                                 <div class="input-prepend input-group">
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
@@ -319,7 +319,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="control-label">Expacted In</label>
+                                <label class="control-label">Expected In</label>
                                 <div class="input-prepend input-group">
                                         <span class="add-on input-group-addon">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>

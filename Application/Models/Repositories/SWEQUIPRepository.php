@@ -65,6 +65,9 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
     public function UpdateDates($equipid, $installdte, $expdtein, $daterec){
         $tableName = $this->entityName . $this->companySuffix;
         $equipid = strtolower($equipid);
+        $installdte = $installdte === '' ? 'NULL' : "'$installdte'";
+        $expdtein = $expdtein === '' ? 'NULL' : "'$expdtein'";
+        $daterec = $daterec === '' ? 'NULL' : "'$daterec'";
         $sqlString = "UPDATE $tableName  SET [INSTALLDTE] = '$installdte', [EXPDTEIN] = '$expdtein', [DATEREC] = '$daterec' WHERE LOWER([EQUIPID]) = '$equipid'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);

@@ -477,6 +477,9 @@ class EquipmentHistoryDashboardViewModel
                 FIELD_ATTR_NAME => 'daterec',
                 FIELD_ATTR_TYPE => MODEL_TYPE_DATE,
                 FIELD_ATTR_DISPLAY_NAME => 'Received',
+                FIELD_ATTR_VISIBLE => false,
+                FIELD_ATTR_FILTERABLE => false,
+                FIELD_ATTR_SORTABLE => false,
                 'table' => $swequipTable
             ),
 
@@ -503,6 +506,9 @@ class EquipmentHistoryDashboardViewModel
                 FIELD_ATTR_NAME => 'assettag',
                 FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
                 FIELD_ATTR_DISPLAY_NAME => 'Asset Tag',
+                FIELD_ATTR_FILTERABLE => false,
+                FIELD_ATTR_SORTABLE => false,
+                FIELD_ATTR_VISIBLE => false,
                 'table' => $swequipTable
             ),
             'locno' => array(

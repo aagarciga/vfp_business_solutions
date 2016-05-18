@@ -756,7 +756,7 @@
                 _status = {
                     id: '',
                     predicate: '',// DEPRECATED
-                    areControlsEnabled: false,
+                    areControlsEnabled: false
                 };
 
                 _htmlBindings = {
@@ -1477,7 +1477,8 @@
 
                 $row.find(htmlBindings.tableMainFiledDateOut).html(dateOut);
                 $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
-                $row.find(htmlBindings.tableMainFiledReceived).html(received);
+                // Received Date Field removed by request (vivian)
+                // $row.find(htmlBindings.tableMainFiledReceived).html(received);
 
                 functions.setActionsState(equipID, status);
             },

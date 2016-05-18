@@ -96,7 +96,6 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $sqlString = 'INSERT INTO ' . $tableName
             . ' ([EQUIPID], [ORDNUM], [INSPECTNO], [INSTALLDTE], [EXPDTEIN], [DATEREC], [FUPDTIME], [FUPDDATE], [FSTATION], [FUSERID], [QBLISTID], [QBTXLINEID], [NFLG0])'
             . " VALUES ('$equipid', '$ordnum', '$inspectno', $installdte, $expdtein, $daterec, '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0)";
-        error_log("SWEQUIPDRepository->Add: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -132,7 +131,6 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
             "[QBLISTID] = '$qblistid', " .
             "[NFLG0] = $nflg0 " .
             " WHERE [QBTXLINEID] = '$qbtxlineid'";
-        error_log("SWEQUIPDRepository->Edit: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

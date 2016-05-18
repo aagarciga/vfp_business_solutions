@@ -36,9 +36,6 @@ class UpdateEquipmentHistory_Post extends Action {
         $this->userID = $this->User->getUserid();
 
         $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_NOTRETURNED;
-        if ($this->daterec) {
-            $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_AVAILABLE;
-        }
 
         $now = new \DateTime();
         $this->fupddate = $now->format(GLOBAL_DEFAULT_DATE_FORMAT);
@@ -57,6 +54,11 @@ class UpdateEquipmentHistory_Post extends Action {
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Update($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateDates($this->equipid, $this->installdte, $this->expdtein, $this->daterec);
+        if ($this->daterec) {
+            $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_AVAILABLE;
+            $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastWorkOrder($this->equipid);
+            $this->ordnum = '';
+        }
 
         if ($isSuccess) {
             $result['success'] = true;
