@@ -55,13 +55,14 @@
             pagerContainer: '.pager-wrapper',
             pagerButton: '.pager-btn',
             tableMainFieldWorkOrder: '.field-work-order',
+            tableMainFieldVessel: '.field-vessel',
             tableMainFieldEquipId: '.field-id',
             tableMainFieldWorkOrderLink: '.field-work-order-link',
+            tableMainFieldVesselLink: '.field-vessel-link',
             tableMainFieldStatus: '.field-status',
             tableMainFiledDateOut: '.field-date-out',
             tableMainFiledExpectedIn: '.field-expected-in',
             tableMainFiledReceived: '.field-received',
-            
             formFilterSavedFilters: '.form-filter-saved-filters',
             //modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
         };
@@ -154,7 +155,7 @@
                     saveHistory_OnDone: function (response) {
                         console.log('On Add:', response);
                         var data = $.parseJSON(response);
-                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec);
+                        _functions.saveHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec, data.vsselid);
                         hide();
                     }
                 };
@@ -289,7 +290,7 @@
                         console.log('On Update:', response);
                         var data = $.parseJSON(response);
                         if (data.success) {
-                            _functions.updateHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec);
+                            _functions.updateHistoryCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec, data.vesselid);
                         }
                         hide();
                     },
@@ -1457,7 +1458,7 @@
                     return $(this).find('a').text() === equipID;
                 }).parent();
             },
-            updateEquip: function (equipID, workOrder, status, historyID, dateOut, expectedIn, received) {
+            updateEquip: function (equipID, workOrder, status, historyID, dateOut, expectedIn, received, vesselid) {
                 var statusClass, $row;
                 global.console.log("equipID", equipID);
                 global.console.log("workOrder", workOrder);
@@ -1466,11 +1467,13 @@
                 global.console.log("DateOut", dateOut);
                 global.console.log("ExpectedIn", expectedIn);
                 global.console.log("Received", received);
+                global.console.log("Vessel", vesselid);
 
                 statusClass = functions.buildClassBy(status);
                 $row = functions.getRowByEquipID(equipID);
                 //$row.find(htmlBindings.tableMainFieldWorkOrder).text(workOrder);
                 $row.find(htmlBindings.tableMainFieldWorkOrder).html('<a href="#" class="' + (htmlBindings.tableMainFieldWorkOrderLink).slice(1) + '" data-workorder="' + workOrder + '">' + workOrder + '</a>');
+                $row.find(htmlBindings.tableMainFieldVessel).html('<a href="#" class="' + (htmlBindings.tableMainFieldVesselLink).slice(1) + '" data-vessel="' + vesselid + '">' + vesselid + '</a>');
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
                 $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyID);
@@ -1531,7 +1534,7 @@
                 });
             },
             buildTableItem: function (item, trClass, tdClass) {
-                var addButtonBuilder, attachedFilesButtonBuilder, doc, editButtonBuilder, result, tdActionsTagBuilder, tdAssetTagBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder, viewButtonBuilder;
+                var addButtonBuilder, attachedFilesButtonBuilder, doc, editButtonBuilder, result, tdActionsTagBuilder, tdAssetTagBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdVesselidBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder, viewButtonBuilder;
 
                 doc = global.document;
                 result = doc.createElement('tr');
@@ -1539,6 +1542,10 @@
                 tdOrdnumBuilder = function (tdClass) {
                     tdClass += ' field-work-order';
                     return App.Helpers.withLinkTdBuilder(item.ordnum, tdClass, 'field-work-order-link', '#', {workorder: item.ordnum});
+                };
+                tdVesselidBuilder = function (tdClass) {
+                    tdClass += ' field-vesselid';
+                    return App.Helpers.withLinkTdBuilder(item.vesselid, tdClass, 'field-vesselid-link', '#', {vesselid: item.vesselid});
                 };
                 tdEquipidBuilder = function (tdClass) {
                     tdClass += ' field-id';
@@ -1587,18 +1594,18 @@
                     tdClass += ' field-expected-in';
                     return App.Helpers.simpleTdBuilder(item.expdtein, tdClass);
                 };
-                tdDaterecBuilder = function (tdClass) {
-                    tdClass += ' field-received';
-                    return App.Helpers.simpleTdBuilder(item.daterec, tdClass);
-                };
+                // tdDaterecBuilder = function (tdClass) {
+                //     tdClass += ' field-received';
+                //     return App.Helpers.simpleTdBuilder(item.daterec, tdClass);
+                // };
                 // tdNotesBuilder = function (tdClass) {
                 //     tdClass += ' field-notes';
                 //     return App.Helpers.simpleTdBuilder(item.notes, tdClass);
                 // };
-                tdAssetTagBuilder = function (tdClass) {
-                    tdClass += ' field-asset-tag';
-                    return App.Helpers.simpleTdBuilder(item.assettag, tdClass);
-                };
+                // tdAssetTagBuilder = function (tdClass) {
+                //     tdClass += ' field-asset-tag';
+                //     return App.Helpers.simpleTdBuilder(item.assettag, tdClass);
+                // };
                 tdLocnoBuilder = function (tdClass) {
                     tdClass += ' field-locno';
                     return App.Helpers.simpleTdBuilder(item.locno, tdClass);
@@ -1698,6 +1705,8 @@
                 result.appendChild(tdEquipidBuilder(tdClass));
                 //Work Order
                 result.appendChild(tdOrdnumBuilder(tdClass));
+                //Vessel
+                result.appendChild(tdVesselidBuilder(tdClass));
                 //Part No
                 result.appendChild(tdItemnoBuilder(tdClass));
                 //Description
@@ -1717,11 +1726,11 @@
                 //Expected In
                 result.appendChild(tdExpdteinBuilder(tdClass));
                 //Received
-                result.appendChild(tdDaterecBuilder(tdClass));
+                // result.appendChild(tdDaterecBuilder(tdClass));
                 //Notes
                 // result.appendChild(tdNotesBuilder(tdClass));
                 //Asset Tag
-                result.appendChild(tdAssetTagBuilder(tdClass));
+                // result.appendChild(tdAssetTagBuilder(tdClass));
                 //Locno
                 result.appendChild(tdLocnoBuilder(tdClass));
                 //Status

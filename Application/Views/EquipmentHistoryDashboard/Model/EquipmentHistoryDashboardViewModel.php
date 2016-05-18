@@ -27,6 +27,7 @@ class EquipmentHistoryDashboardViewModel
     private $assettag;
     private $locno;
     private $qbtxlineid;
+    private $vesselid;
 
     /**
      * EquipmentHistoryDashboardViewModel constructor.
@@ -48,8 +49,9 @@ class EquipmentHistoryDashboardViewModel
      * @param $assettag
      * @param $locno
      * @param $qbtxlineid
+     * @param $vesselid
      */
-    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi, $assettag, $locno, $qbtxlineid)
+    public function __construct($ordnum, $equipid, $itemno, $descrip, $make, $model, $serialno, $Voltage, $EquipType, $installdte, $expdtein, $daterec, $status, $notes, $picture_fi, $assettag, $locno, $qbtxlineid, $vesselid)
     {
         $this->ordnum = trim($ordnum);
         $this->equipid = trim($equipid);
@@ -69,6 +71,7 @@ class EquipmentHistoryDashboardViewModel
         $this->assettag = trim($assettag);
         $this->locno = trim($locno);
         $this->qbtxlineid = trim($qbtxlineid);
+        $this->vesselid = trim($vesselid);
     }
 
     /**
@@ -398,6 +401,24 @@ class EquipmentHistoryDashboardViewModel
     }
 
     /**
+     * @return mixed
+     */
+    public function getVesselid()
+    {
+        return $this->vesselid;
+    }
+
+    /**
+     * @param mixed $locno
+     * @return EquipmentHistoryDashboardViewModel
+     */
+    public function setVesselid($vesselid)
+    {
+        $this->vesselid = $vesselid;
+        return $this;
+    }
+
+    /**
      * @param $companyID
      * @return array
      */
@@ -417,6 +438,12 @@ class EquipmentHistoryDashboardViewModel
                 FIELD_ATTR_NAME => 'ordnum',
                 FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
                 FIELD_ATTR_DISPLAY_NAME => 'Work Order',
+                'table' => $swequipTable
+            ),
+            'vesselid' => array(
+                FIELD_ATTR_NAME => 'vesselid',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Vessel',
                 'table' => $swequipTable
             ),
             'itemno' => array(
@@ -644,6 +671,18 @@ class EquipmentHistoryDashboardViewModel
     public static function isWorkorder($fieldDefinition){
         if (array_key_exists(FIELD_ATTR_NAME, $fieldDefinition)){
             return 'ordnum' === $fieldDefinition[FIELD_ATTR_NAME];
+        }
+        return false;
+    }
+
+    /**
+     * Returns if fieldDefinition is Vesselid
+     * @param $fieldDefinition
+     * @return bool
+     */
+    public static function isVesselid($fieldDefinition){
+        if (array_key_exists(FIELD_ATTR_NAME, $fieldDefinition)){
+            return 'vesselid' === $fieldDefinition[FIELD_ATTR_NAME];
         }
         return false;
     }

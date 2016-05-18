@@ -63,7 +63,7 @@ class Index extends Action
 
         $viewModels = array();
         foreach ($this->Items as $item) {
-            $viewModels [] = new EquipmentHistoryDashboardViewModel($item->ordnum, $item->equipid, $item->itemno, $item->descrip, $item->make, $item->model, $item->serialno, $item->Voltage, $item->EquipType, $item->installdte, $item->expdtein, $item->daterec, $item->status, $item->notes, $item->picture_fi, $item->assettag, $item->locno, $item->qbtxlineid);
+            $viewModels [] = new EquipmentHistoryDashboardViewModel($item->ordnum, $item->equipid, $item->itemno, $item->descrip, $item->make, $item->model, $item->serialno, $item->Voltage, $item->EquipType, $item->installdte, $item->expdtein, $item->daterec, $item->status, $item->notes, $item->picture_fi, $item->assettag, $item->locno, $item->qbtxlineid, $item->vesselid);
         }
         $this->Items = $viewModels;
     }

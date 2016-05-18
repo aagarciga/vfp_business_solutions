@@ -36,6 +36,7 @@ class GetEquipmentHistory_Post extends Action {
             $result['equipmentHistoryObject']['installdte'] = $equipmentHistory->getInstalldte();
             $result['equipmentHistoryObject']['expdtein'] = $equipmentHistory->getExpdtein();
             $result['equipmentHistoryObject']['daterec'] = $equipmentHistory->getDaterec();
+            $result['equipmentHistoryObject']['vesselid'] = $equipmentHistory->getVesselid();
         }
         return json_encode($result);
     }

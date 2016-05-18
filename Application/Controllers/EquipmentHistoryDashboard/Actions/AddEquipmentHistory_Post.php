@@ -44,8 +44,12 @@ class AddEquipmentHistory_Post extends Action {
 
         $entity = new SWEQUIPD($this->equipid, $this->ordnum, $this->inspectno, $this->installdte, $this->expdtein, $this->daterec, '', $this->fupdate, '', $this->userID, '', $this->historyId, '');
 
+        $salesOrderEntity = $this->controller->DatUnitOfWork->SOHEADRepository->GetByOrdnum($this->ordnum);
+        $this->vesselid = $salesOrderEntity->getVessel();
+
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Add($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateWorkOrderFor($this->equipid, $this->ordnum, $this->status, $this->historyId);
+        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateVesselFor($this->equipid, $this->vesselid);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateDates($this->equipid, $this->installdte, $this->expdtein, $this->daterec);
 
         if ($isSuccess) {

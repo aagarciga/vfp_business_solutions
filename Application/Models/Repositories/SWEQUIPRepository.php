@@ -22,7 +22,7 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $result = array();
 
         foreach($queryResult as $row){
-            $result []= new SWEQUIP(trim($row->EQUIPID), trim($row->DESCRIP), trim($row->ITEMNO), trim($row->MODEL), trim($row->MAN_CODE), trim($row->VENDNO), trim($row->SERIALNO), trim($row->NOTES), trim($row->SRVAGRENO), trim($row->INSTALLDTE), trim($row->WARRANTDTE), trim($row->PRTYPCODE), trim($row->CUSTNO), trim($row->SHIPTONO), trim($row->NFLG0), trim($row->MANWAREXP), trim($row->CUSTWAREXP), trim($row->MAKE), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->WARRANTY), trim($row->QBLISTID), trim($row->TOOLBOXID), trim($row->ORDNUM), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->STATUS), trim($row->ORDER), trim($row->ASSETTAG), trim($row->VOLTAGE), trim($row->EQUIPTYPE), trim($row->EQUIPIMAGE), trim($row->AssetDesc), trim($row->Locno));
+            $result []= new SWEQUIP(trim($row->EQUIPID), trim($row->DESCRIP), trim($row->ITEMNO), trim($row->MODEL), trim($row->MAN_CODE), trim($row->VENDNO), trim($row->SERIALNO), trim($row->NOTES), trim($row->SRVAGRENO), trim($row->INSTALLDTE), trim($row->WARRANTDTE), trim($row->PRTYPCODE), trim($row->CUSTNO), trim($row->SHIPTONO), trim($row->NFLG0), trim($row->MANWAREXP), trim($row->CUSTWAREXP), trim($row->MAKE), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->WARRANTY), trim($row->QBLISTID), trim($row->TOOLBOXID), trim($row->ORDNUM), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->STATUS), trim($row->ORDER), trim($row->ASSETTAG), trim($row->VOLTAGE), trim($row->EQUIPTYPE), trim($row->EQUIPIMAGE), trim($row->AssetDesc), trim($row->Locno), trim($row->VESSELID));
         }
 
         return $result;
@@ -40,7 +40,7 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $result = array();
 
         foreach($queryResult as $row){
-            $result []= new SWEQUIP(trim($row->EQUIPID), trim($row->DESCRIP), trim($row->ITEMNO), trim($row->MODEL), trim($row->MAN_CODE), trim($row->VENDNO), trim($row->SERIALNO), trim($row->NOTES), trim($row->SRVAGRENO), trim($row->INSTALLDTE), trim($row->WARRANTDTE), trim($row->PRTYPCODE), trim($row->CUSTNO), trim($row->SHIPTONO), trim($row->NFLG0), trim($row->MANWAREXP), trim($row->CUSTWAREXP), trim($row->MAKE), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->WARRANTY), trim($row->QBLISTID), trim($row->TOOLBOXID), trim($row->ORDNUM), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->STATUS), trim($row->ORDER), trim($row->ASSETTAG), trim($row->VOLTAGE), trim($row->EQUIPTYPE), trim($row->EQUIPIMAGE), trim($row->AssetDesc), trim($row->Locno));
+            $result []= new SWEQUIP(trim($row->EQUIPID), trim($row->DESCRIP), trim($row->ITEMNO), trim($row->MODEL), trim($row->MAN_CODE), trim($row->VENDNO), trim($row->SERIALNO), trim($row->NOTES), trim($row->SRVAGRENO), trim($row->INSTALLDTE), trim($row->WARRANTDTE), trim($row->PRTYPCODE), trim($row->CUSTNO), trim($row->SHIPTONO), trim($row->NFLG0), trim($row->MANWAREXP), trim($row->CUSTWAREXP), trim($row->MAKE), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->WARRANTY), trim($row->QBLISTID), trim($row->TOOLBOXID), trim($row->ORDNUM), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->STATUS), trim($row->ORDER), trim($row->ASSETTAG), trim($row->VOLTAGE), trim($row->EQUIPTYPE), trim($row->EQUIPIMAGE), trim($row->AssetDesc), trim($row->Locno), trim($row->VESSELID));
         }
 
         return $result;
@@ -50,6 +50,14 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $tableName = $this->entityName . $this->companySuffix;
         $equipid = strtolower($equipid);
         $sqlString = "UPDATE $tableName  SET [ORDNUM] = '$workorder', [STATUS] = '$status', [QBTXLINEID] = '$qbtxlineid' WHERE LOWER([EQUIPID]) = '$equipid'";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
+    public function UpdateVesselFor($equipid, $vesselid){
+        $tableName = $this->entityName . $this->companySuffix;
+        $equipid = strtolower($equipid);
+        $sqlString = "UPDATE $tableName  SET [VESSELID] = '$vesselid' WHERE LOWER([EQUIPID]) = '$equipid'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -120,6 +128,17 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
 
         $sqlString = "UPDATE $tableName SET " .
             "[ORDNUM] = '' " .
+            "WHERE [EQUIPID] = '$equipid'";
+
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
+    public function RemoveLastVesselid($equipid) {
+        $tableName = $this->getEntityWhitCompanySuffix();
+
+        $sqlString = "UPDATE $tableName SET " .
+            "[VESSELID] = '' " .
             "WHERE [EQUIPID] = '$equipid'";
 
         $query = $this->dbDriver->GetQuery();

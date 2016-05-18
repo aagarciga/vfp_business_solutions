@@ -87,6 +87,10 @@ class BaseSWEQUIPD
      */
     protected $_nflg0;
 
+    /**
+     * @var Char
+     */
+    protected $_vesselid;
 
     /**
      * Getters
@@ -194,6 +198,14 @@ class BaseSWEQUIPD
     public function getNflg0()
     {
         return $this->_nflg0;
+    }
+
+    /**
+     * @return Char
+     */
+    public function getVesselid()
+    {
+        return $this->_vesselid;
     }
 
 
@@ -305,11 +317,18 @@ class BaseSWEQUIPD
         $this->_nflg0 = $value;
     }
 
+    /**
+     * @param Char
+     */
+    public function setVesselid($value)
+    {
+        $this->_vesselid = $value;
+    }
 
     /**
      * Constructor
      */
-    public function __construct($equipid, $ordnum, $inspectno, $installdte, $expdtein, $daterec, $fupdtime, $fupddate, $fstation, $fuserid, $qblistid, $qbtxlineid, $nflg0)
+    public function __construct($equipid, $ordnum, $inspectno, $installdte, $expdtein, $daterec, $fupdtime, $fupddate, $fstation, $fuserid, $qblistid, $qbtxlineid, $nflg0, $vesselid)
     {
         $this->_equipid = $equipid;
         $this->_ordnum = $ordnum;
@@ -323,7 +342,9 @@ class BaseSWEQUIPD
         $this->_fuserid = $fuserid;
         $this->_qblistid = $qblistid;
         $this->_qbtxlineid = $qbtxlineid;
+
         $this->_nflg0 = ($nflg0 === null || $nflg0 === '')? false : $nflg0 ;
+        $this->_vesselid = $vesselid;
 
     }
 

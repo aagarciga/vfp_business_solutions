@@ -32,16 +32,19 @@ class DeleteEquipmentHistory_Post extends Action {
 
         $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($this->qbtxlineid);
         $this->ordnum = $entity->getOrdnum();
+        $this->vesselid = $entity->getVesselid();
 
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Delete($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastHistoryReference($this->equipid);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastWorkOrder($this->equipid);
+        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastVesselid($this->equipid);
 
         if ($isSuccess) {
             $result['success'] = true;
             $result['equipid'] = $this->equipid; // For equipmnet status update
             $result['ordnum'] = $this->ordnum;
+            $result['vesselid'] = $this->vesselid;
             $result['status'] = $this->status;
             $result['qbtxlineid'] = $this->qbtxlineid;
         }

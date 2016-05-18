@@ -17,6 +17,7 @@ class EquipmentHistoryViewModel
     private $installdte;
     private $expdtein;
     private $daterec;
+    private $vesselid;
 
     /**
      * EquipmentHistoryViewModel constructor.
@@ -28,8 +29,9 @@ class EquipmentHistoryViewModel
      * @param date $installdte
      * @param date $expdtein
      * @param date $daterec
+     * @param string $vesselid
      */
-    public function __construct($qbtxlineid, $equipid, $ordnum, $inspectno, $inspectnm, $installdte, $expdtein, $daterec)
+    public function __construct($qbtxlineid, $equipid, $ordnum, $inspectno, $inspectnm, $installdte, $expdtein, $daterec, $vesselid)
     {
         $this->qbtxlineid = trim($qbtxlineid);
         $this->equipid = trim($equipid);
@@ -39,6 +41,7 @@ class EquipmentHistoryViewModel
         $this->installdte = trim($installdte);
         $this->expdtein = trim($expdtein);
         $this->daterec = trim($daterec);
+        $this->vesselid = trim($vesselid);
     }
 
     /**
@@ -186,6 +189,24 @@ class EquipmentHistoryViewModel
     }
 
     /**
+     * @param string $vesselid
+     * @return EquipmentHistoryViewModel
+     */
+    public function setVesselid($vesselid)
+    {
+        $this->vesselid = $vesselid;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVesselid()
+    {
+        return $this->vesselid;
+    }
+
+    /**
      * @param $companyID
      * @return array
      */
@@ -214,6 +235,12 @@ class EquipmentHistoryViewModel
                 FIELD_ATTR_NAME => 'ordnum',
                 FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
                 FIELD_ATTR_DISPLAY_NAME => 'Work Order',
+                'table' => $swequipdTable
+            ),
+            'vesselid' => array(
+                FIELD_ATTR_NAME => 'vesselid',
+                FIELD_ATTR_TYPE => MODEL_TYPE_DEFAULT,
+                FIELD_ATTR_DISPLAY_NAME => 'Vessel',
                 'table' => $swequipdTable
             ),
             'inspectno' => array(

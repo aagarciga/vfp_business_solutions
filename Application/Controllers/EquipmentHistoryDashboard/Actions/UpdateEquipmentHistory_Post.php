@@ -50,6 +50,7 @@ class UpdateEquipmentHistory_Post extends Action {
         $entity->setFuserid($this->userID);
 
         $this->ordnum = $entity->getOrdnum();
+        $this->vesselid = $entity->getVesselid();
 
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Update($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
@@ -57,7 +58,9 @@ class UpdateEquipmentHistory_Post extends Action {
         if ($this->daterec) {
             $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_AVAILABLE;
             $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastWorkOrder($this->equipid);
+            $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastVesselid($this->equipid);
             $this->ordnum = '';
+            $this->vesselid = '';
         }
 
         if ($isSuccess) {
@@ -69,6 +72,7 @@ class UpdateEquipmentHistory_Post extends Action {
             $result['installdte'] = $this->installdte;
             $result['expdtein'] = $this->expdtein;
             $result['daterec'] = $this->daterec;
+            $result['vesselid'] = $this->vesselid;
         }
         return json_encode($result);
     }

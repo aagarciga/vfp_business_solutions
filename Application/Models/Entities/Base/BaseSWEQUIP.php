@@ -201,6 +201,11 @@ class BaseSWEQUIP {
      */
 	protected $_locno;
 
+	/**
+	 * @var Char
+	 */
+	protected $_vesselid;
+
 
 	/**
 	 * Getters
@@ -456,6 +461,13 @@ class BaseSWEQUIP {
      */
 	public function getLocno(){
 		return $this->_locno;
+	}
+
+	/**
+	 * @return Char
+	 */
+	public function getVesselid(){
+		return $this->_vesselid;
 	}
 
 
@@ -715,11 +727,18 @@ class BaseSWEQUIP {
 		$this->_locno = $value;
 	}
 
+	/**
+	 * @param Char
+	 */
+	public function setVesselid($value){
+		$this->_vesselid= $value;
+	}
+
 
 	/**
 	 * Constructor
 	 */
-	public function __construct( $equipid, $descrip, $itemno, $model, $man_code, $vendno, $serialno, $notes, $srvagreno, $installdte, $warrantdte, $prtypcode, $custno, $shiptono, $nflg0, $manwarexp, $custwarexp, $make, $fupdtime, $fupddate, $fstation, $fuserid, $warranty, $qblistid, $toolboxid, $ordnum, $expdtein, $daterec, $status, $order, $assettag, $voltage, $equiptype, $equipimage, $assetdesc, $locno ){
+	public function __construct( $equipid, $descrip, $itemno, $model, $man_code, $vendno, $serialno, $notes, $srvagreno, $installdte, $warrantdte, $prtypcode, $custno, $shiptono, $nflg0, $manwarexp, $custwarexp, $make, $fupdtime, $fupddate, $fstation, $fuserid, $warranty, $qblistid, $toolboxid, $ordnum, $expdtein, $daterec, $status, $order, $assettag, $voltage, $equiptype, $equipimage, $assetdesc, $locno, $vesselid ){
 		$this->_equipid = $equipid;
 		$this->_descrip = $descrip;
 		$this->_itemno = $itemno;
@@ -756,7 +775,7 @@ class BaseSWEQUIP {
 		$this->_equipimage = $equipimage;
 		$this->_assetdesc = $assetdesc;
 		$this->_locno = $locno;
-		
+		$this->_vesselid = $vesselid;
     }
 
 	public static function toString(){

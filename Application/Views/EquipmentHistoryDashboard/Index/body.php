@@ -157,6 +157,10 @@
                                                 </ul>
                                             </div>
                                         </td>
+                                        <?php elseif($EquipmentHistoryDashboardViewModelName::isVesselid($fieldDefinition)): ?>
+                                            <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
+                                                <a href="#" class="field-vessel-link" data-vesselid="<?php echo $item->getVesselid()?>"><?php echo $item->$method() ?></a>
+                                            </td>
                                         <?php elseif($EquipmentHistoryDashboardViewModelName::isWorkorder($fieldDefinition)): ?>
                                         <td class="item-field field-<?php echo ViewHelpers::BuildClassBy($displayName)?>">
                                             <a href="#" class="field-work-order-link" data-workorder="<?php echo $item->getOrdnum()?>"><?php echo $item->$method() ?></a>

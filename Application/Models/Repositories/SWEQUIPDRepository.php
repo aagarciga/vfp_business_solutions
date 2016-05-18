@@ -23,7 +23,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $result = array();
 
         foreach($queryResult as $row){
-            $result []= new SWEQUIPD(trim($row->EQUIPID), trim($row->ORDNUM), trim($row->INSPECTNO), trim($row->INSTALLDTE), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->QBLISTID), trim($row->QBTXLINEID), trim($row->NFLG0));
+            $result []= new SWEQUIPD(trim($row->EQUIPID), trim($row->ORDNUM), trim($row->INSPECTNO), trim($row->INSTALLDTE), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->QBLISTID), trim($row->QBTXLINEID), trim($row->NFLG0), trim($row->VESSELID));
         }
 
         return $result;
@@ -43,7 +43,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $result = array();
 
         foreach($queryResult as $row){
-            $result []= new SWEQUIPD(trim($row->EQUIPID), trim($row->ORDNUM), trim($row->INSPECTNO), trim($row->INSTALLDTE), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->QBLISTID), trim($row->QBTXLINEID), trim($row->NFLG0));
+            $result []= new SWEQUIPD(trim($row->EQUIPID), trim($row->ORDNUM), trim($row->INSPECTNO), trim($row->INSTALLDTE), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->QBLISTID), trim($row->QBTXLINEID), trim($row->NFLG0), trim($row->VESSELID));
         }
 
         return $result;
@@ -60,13 +60,12 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $sqlString = "SELECT * FROM $entityName";
         $sqlString .= " WHERE [QBTXLINEID] = '$qbtxlineid'";
 
-        error_log("SWEQUIPDRepository->GetByQbtxlineid: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();
 
         foreach($queryResult as $row){
-            $result []= new SWEQUIPD(trim($row->EQUIPID), trim($row->ORDNUM), trim($row->INSPECTNO), trim($row->INSTALLDTE), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->QBLISTID), trim($row->QBTXLINEID), trim($row->NFLG0));
+            $result []= new SWEQUIPD(trim($row->EQUIPID), trim($row->ORDNUM), trim($row->INSPECTNO), trim($row->INSTALLDTE), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->QBLISTID), trim($row->QBTXLINEID), trim($row->NFLG0), trim($row->VESSELID));
         }
 
         return $result[0];
@@ -91,11 +90,12 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $qblistid = $entity->getQblistid();
         $qbtxlineid = $entity->getQbtxlineid();
         $nflg0 = $entity->getNflg0() ? "True" : "False";
+        $vesselid = $entity->getVesselid();
 
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = 'INSERT INTO ' . $tableName
-            . ' ([EQUIPID], [ORDNUM], [INSPECTNO], [INSTALLDTE], [EXPDTEIN], [DATEREC], [FUPDTIME], [FUPDDATE], [FSTATION], [FUSERID], [QBLISTID], [QBTXLINEID], [NFLG0])'
-            . " VALUES ('$equipid', '$ordnum', '$inspectno', $installdte, $expdtein, $daterec, '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0)";
+            . ' ([EQUIPID], [ORDNUM], [INSPECTNO], [INSTALLDTE], [EXPDTEIN], [DATEREC], [FUPDTIME], [FUPDDATE], [FSTATION], [FUSERID], [QBLISTID], [QBTXLINEID], [NFLG0], [VESSELID])'
+            . " VALUES ('$equipid', '$ordnum', '$inspectno', $installdte, $expdtein, $daterec, '$fupdtime', '$fupddate', '$fstation', '$fuserid', '$qblistid', '$qbtxlineid', $nflg0, $vesselid)";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -115,6 +115,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $qblistid = $entity->getQblistid();
         $qbtxlineid = $entity->getQbtxlineid();
         $nflg0 = $entity->getNflg0() ? "True" : "False";
+        $vesselid = $entity->getVesselid();
 
         $tableName = $this->getEntityWhitCompanySuffix();
         $sqlString = "UPDATE $tableName SET " .
@@ -130,6 +131,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
             "[FUSERID] = '$fuserid', " .
             "[QBLISTID] = '$qblistid', " .
             "[NFLG0] = $nflg0 " .
+            "[VESSELID] = $vesselid " .
             " WHERE [QBTXLINEID] = '$qbtxlineid'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
@@ -144,7 +146,6 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $tableName = $this->getEntityWhitCompanySuffix();
         $qbtxlineid = $entity->getQbtxlineid();
         $sqlString = "DELETE FROM $tableName WHERE [QBTXLINEID] = '$qbtxlineid'";
-        error_log("SWEQUIPDRepository->Delete: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
@@ -158,7 +159,6 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $tableName = $this->getEntityWhitCompanySuffix();
         $qbtxlineid = $qbtxlineid;
         $sqlString = "DELETE FROM $tableName WHERE [QBTXLINEID] = '$qbtxlineid'";
-        error_log("SWEQUIPDRepository->DeleteBy: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
 
         return $query->Execute($sqlString);
@@ -170,7 +170,6 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $assing = '[ordnum] = \'' . $workOrder . '\'';
         $predicate = '[EQUIPID] = \'' . $equipmentId . '\'';
         $sqlString = 'UPDATE ' . $tableName . ' SET ' . $assing . ' WHERE ' . $predicate;
-        error_log("SWEQUIPDRepository->UpdateWorkOrder: ".$sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

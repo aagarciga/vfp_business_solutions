@@ -69,7 +69,7 @@ class EquipmentHistories extends Action
 
         $viewModels = array();
         foreach ($this->Items as $item) {
-            $viewModels [] = new EquipmentHistoryViewModel($item->qbtxlineid, $item->equipid, $item->ordnum, $item->inspectno, $item->inspectnm, $item->installdte, $item->expdtein, $item->daterec);
+            $viewModels [] = new EquipmentHistoryViewModel($item->qbtxlineid, $item->equipid, $item->ordnum, $item->inspectno, $item->inspectnm, $item->installdte, $item->expdtein, $item->daterec, $item->vesselid);
         }
         $this->Items = $viewModels;
 
