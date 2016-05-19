@@ -50,7 +50,6 @@ class DatDashboardController extends DatActionsController
             . "$predicate"
             . " ORDER BY $orderby $order";
 
-        error_log($sqlString);
         return new BootstrapPager($this->DatUnitOfWork->DBDriver,
             $sqlString, $itemsPerPage, $middleRange, $showPagerControlsIfMoreThan);
     }

@@ -1386,7 +1386,7 @@
             },
             paginate_OnSuccess: function (response) {
 
-                global.console.log(response);
+                global.console.log("Pagination Success with items: ", response.itemsCount);
 
                 var data, pager, items, pagerControl;
                 data = $.parseJSON(response);
@@ -1482,6 +1482,9 @@
                 $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
                 // Received Date Field removed by request (vivian)
                 // $row.find(htmlBindings.tableMainFiledReceived).html(received);
+
+                // taked from bindTableItemsEventHandlers
+                $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
 
                 functions.setActionsState(equipID, status);
             },
