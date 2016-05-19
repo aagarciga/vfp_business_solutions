@@ -31,11 +31,15 @@ class DeleteEquipmentHistory_Post extends Action {
         $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_AVAILABLE;
 
         $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($this->qbtxlineid);
-        $this->ordnum = $entity->getOrdnum();
-        $this->vesselid = $entity->getVesselid();
+        $this->ordnum = '';
+        $this->vesselid = '';
+        $this->installdte = '';
+        $this->expdtein = '';
+        $this->daterec = '';
 
         $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Delete($entity);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
+        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateDates($this->equipid, $this->installdte, $this->expdtein, $this->daterec);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastHistoryReference($this->equipid);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastWorkOrder($this->equipid);
         $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastVesselid($this->equipid);
@@ -47,6 +51,9 @@ class DeleteEquipmentHistory_Post extends Action {
             $result['vesselid'] = $this->vesselid;
             $result['status'] = $this->status;
             $result['qbtxlineid'] = $this->qbtxlineid;
+            $result['installdte'] = $this->installdte;
+            $result['expdtein'] = $this->expdtein;
+            $result['daterec'] = $this->daterec;
         }
         return json_encode($result);
     }

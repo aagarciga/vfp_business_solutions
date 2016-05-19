@@ -54,12 +54,12 @@ class EquipmentHistories extends Action
         $this->Order = 'DESC';
         $this->ItemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ITEMSPERPAGE, $this->Application->getDefaultPagerItemsPerPage());
 
-        error_log('$this->EquipId :'. $this->EquipId);
-        error_log('$this->JsonFilterTree :'. $this->JsonFilterTree);
-        error_log('$this->ItemsPerPage :'. $this->ItemsPerPage);
-        error_log('$this->Page :'. $this->Page);
-        error_log('$this->OrderBy :'. $this->OrderBy);
-        error_log('$this->Order :'. $this->Order);
+//        error_log('$this->EquipId :'. $this->EquipId);
+//        error_log('$this->JsonFilterTree :'. $this->JsonFilterTree);
+//        error_log('$this->ItemsPerPage :'. $this->ItemsPerPage);
+//        error_log('$this->Page :'. $this->Page);
+//        error_log('$this->OrderBy :'. $this->OrderBy);
+//        error_log('$this->Order :'. $this->Order);
 
         $this->Pager = $this->controller->GetPagerBy( 'equipid', $this->EquipId, $this->EquipmentHistoryViewModelName, $predicate, $this->OrderBy, $this->Order, $this->ItemsPerPage);
         $this->Pager->Paginate();
