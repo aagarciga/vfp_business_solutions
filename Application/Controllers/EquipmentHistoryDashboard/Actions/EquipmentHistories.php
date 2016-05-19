@@ -48,8 +48,10 @@ class EquipmentHistories extends Action
         $this->JsonFilterTree = ''; //TODO: Implement this...
 
         $this->Page = $this->Request->hasProperty('page') ? $this->Request->page : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_PAGE, $this->controller->getDefaultPage());
-        $this->OrderBy = $this->Request->hasProperty('orderBy') ? $this->Request->orderBy : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDERBY, $this->controller->getDefaultOrderBy($this->EquipmentHistoryViewModelName));
-        $this->Order = $this->Request->hasProperty('order') ? $this->Request->order : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDER, $this->controller->getDefaultOrder());
+//        $this->OrderBy = $this->Request->hasProperty('orderBy') ? $this->Request->orderBy : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDERBY, $this->controller->getDefaultOrderBy($this->EquipmentHistoryViewModelName));
+        $this->OrderBy = 'FUPDDATE'; // In order to show the histories ordered by entry time.
+//        $this->Order = $this->Request->hasProperty('order') ? $this->Request->order : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ORDER, $this->controller->getDefaultOrder());
+        $this->Order = 'DESC';
         $this->ItemsPerPage = $this->Request->hasProperty('itemsPerPage') ? $this->Request->itemsPerPage : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_ITEMSPERPAGE, $this->Application->getDefaultPagerItemsPerPage());
 
         error_log('$this->EquipId :'. $this->EquipId);
