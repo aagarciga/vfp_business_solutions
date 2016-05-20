@@ -12,7 +12,7 @@
 namespace Dandelion\Tools\Filter;
 
 use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode;
-use Dandelion\Tools\CodeGenerator\SqlRigthBarcketVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlRigthBracketVirtualCode;
 use Dandelion\Tools\Filter\LogicalUnaryOperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlNotVirtualCode;
 
@@ -38,7 +38,7 @@ class NotNode extends LogicalUnaryOperatorNode
 
         $codeGenerator->InsertCode(new SqlLeftBracketVirtualCode());
         $this->getUniqueChild()->generateSqlCode($codeGenerator);
-        $codeGenerator->InsertCode(new SqlRigthBarcketVirtualCode());
+        $codeGenerator->InsertCode(new SqlRigthBracketVirtualCode());
     }
 
     public function getCaption()

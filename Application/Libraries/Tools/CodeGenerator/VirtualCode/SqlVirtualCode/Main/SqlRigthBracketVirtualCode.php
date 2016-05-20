@@ -14,10 +14,10 @@ namespace Dandelion\Tools\CodeGenerator;
 
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
 
-class SqlRigthBarcketVirtualCode extends SqlVirtualCode
+class SqlRigthBracketVirtualCode extends SqlVirtualCode
 {
     /**
-     * SqlRigthBarcketVirtualCode constructor.
+     * SqlRigthBracketVirtualCode constructor.
      */
     public function __construct()
     {

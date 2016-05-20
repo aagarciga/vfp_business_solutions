@@ -27,7 +27,7 @@ use Dandelion\Tools\CodeGenerator\TypeHtmlAttribute;
 use Dandelion\Tools\Filter\TernaryOperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlStringVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode;
-use Dandelion\Tools\CodeGenerator\SqlRigthBarcketVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlRigthBracketVirtualCode;
 use Dandelion\Tools\CodeGenerator\SqlLessEqualThanVirtualCode;
 
 class DateRangeComparisonOperatorNode extends TernaryOperatorNode
@@ -48,7 +48,7 @@ class DateRangeComparisonOperatorNode extends TernaryOperatorNode
     public function generateSqlCode($codeGenerator)
     {
         $leftBracketVirtualCode = new SqlLeftBracketVirtualCode();
-        $rightBracketVirtualCode = new SqlRigthBarcketVirtualCode();
+        $rightBracketVirtualCode = new SqlRigthBracketVirtualCode();
         $lessEqualThanVirtualCode = new SqlLessEqualThanVirtualCode();
         $rightEqualThanVirtualCode = new SqlGreaterEqualThanVirtualCode();
         $andVirtualCode = new SqlAndVirtualCode();

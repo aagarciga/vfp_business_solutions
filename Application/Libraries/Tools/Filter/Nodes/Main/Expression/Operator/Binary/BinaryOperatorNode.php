@@ -17,7 +17,7 @@ use Dandelion\Tools\CodeGenerator\TitleHtmlAttribute;
 use Dandelion\Tools\CodeGenerator\ValueHtmlAttribute;
 use Dandelion\Tools\Filter\OperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlVirtualCode;
-use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode, Dandelion\Tools\CodeGenerator\SqlRigthBarcketVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode, Dandelion\Tools\CodeGenerator\SqlRigthBracketVirtualCode;
 use Dandelion\Tools\CodeGenerator\SpanHtmlOpenTagVirtualCode;
 use Dandelion\Tools\CodeGenerator\InputHtmlOpenTagVirtualCode;
 use Dandelion\Tools\CodeGenerator\TypeHtmlAttribute;
@@ -42,7 +42,7 @@ abstract class BinaryOperatorNode extends OperatorNode
     {
         if ($this->getLeftChild()->getLevel() > INTERN_LEVEL){
             $leftBracketVirtualCode = new SqlLeftBracketVirtualCode();
-            $rightBracketVirtualCode = new SqlRigthBarcketVirtualCode();
+            $rightBracketVirtualCode = new SqlRigthBracketVirtualCode();
 
             $codeGenerator->InsertCode($leftBracketVirtualCode);
 

@@ -11,6 +11,9 @@
 
 namespace Dandelion\Tools\Filter;
 
+use Dandelion\Tools\CodeGenerator\SqlLeftBracketVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlLowerVirtualCode;
+use Dandelion\Tools\CodeGenerator\SqlRigthBracketVirtualCode;
 use Dandelion\Tools\CodeGenerator\TitleHtmlAttribute;
 use Dandelion\Tools\Filter\ComparisonBinaryOperatorNode;
 use Dandelion\Tools\CodeGenerator\SqlLikeValueVirtualCode;
@@ -41,14 +44,21 @@ class LikeNode extends ComparisonBinaryOperatorNode
 
     public function generateSqlCode($codeGenerator)
     {
+        $lowerVirtualCode = new SqlLowerVirtualCode();
+
+        $codeGenerator->InsertCode($lowerVirtualCode);
+
+        $codeGenerator->InsertCode(new SqlLeftBracketVirtualCode());
+
         $this->getLeftChild()->generateSqlCode($codeGenerator);
+        $codeGenerator->InsertCode(new SqlRigthBracketVirtualCode());
 
         $virtualCode = new SqlVirtualCode($this->getStringOperator());
         $codeGenerator->InsertCode($virtualCode);
 
         $rigthChild = $this->getRightChild();
         $stringValue = $rigthChild->getValue();
-        $virtualCode = new SqlLikeValueVirtualCode($stringValue);
+        $virtualCode = new SqlLikeValueVirtualCode(strtolower($stringValue));
         $codeGenerator->InsertCode($virtualCode);
     }
 
