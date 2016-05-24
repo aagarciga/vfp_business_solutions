@@ -183,16 +183,16 @@
                                 <?php endforeach ?>
                                 <td class="item-actions">
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-files-dialog" data-equipid="<?php echo $item->getEquipid()?>">
+                                        <a href="#" class="btn btn-primary btn-sm btn-action btn-action-files-dialog" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-folder-close"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-edit" <?php echo (!$item->getQbtxlineid() && $currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-qbtxlineid="<?php echo $item->getQbtxlineid()?>">
+                                        <a href="#" class="btn btn-primary btn-sm btn-action btn-action-edit" <?php echo (!$item->getQbtxlineid() && $currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-qbtxlineid="<?php echo $item->getQbtxlineid()?>">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-add" <?php echo ($currentStatus !== 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">
+                                        <a href="#" class="btn btn-primary btn-sm btn-action btn-action-add" <?php echo ($currentStatus !== 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-plus-sign"></span>
                                         </a>
-                                        <a href="#" class="btn btn-default btn-sm btn-action btn-action-view" data-equipid="<?php echo $item->getEquipid()?>">
+                                        <a href="#" class="btn btn-primary btn-sm btn-action btn-action-view" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </a>
                                     </div>

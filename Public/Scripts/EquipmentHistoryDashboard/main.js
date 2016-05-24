@@ -1653,7 +1653,7 @@
                     var anchorClassName, spanGlyphIcon;
                     spanGlyphIcon = doc.createElement('span');
                     spanGlyphIcon.className = 'glyphicon glyphicon-folder-close';
-                    anchorClassName = htmlBindings.btnActionFilesDialog.slice(1) + ' btn-action btn btn-default btn-sm';
+                    anchorClassName = htmlBindings.btnActionFilesDialog.slice(1) + ' btn-action btn btn-primary btn-sm';
                     return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {
                         equipid: item.equipid
                     });
@@ -1662,7 +1662,7 @@
                     var anchorClassName, dataset, props, spanGlyphIcon;
                     spanGlyphIcon = doc.createElement('span');
                     spanGlyphIcon.className = 'glyphicon glyphicon-edit';
-                    anchorClassName = htmlBindings.btnActionEdit.slice(1) + ' btn-action btn btn-default btn-sm';
+                    anchorClassName = htmlBindings.btnActionEdit.slice(1) + ' btn-action btn btn-primary btn-sm';
                     dataset = {
                         equipid: item.equipid,
                         qbtxlineid: item.qbtxlineid,
@@ -1679,7 +1679,7 @@
                     var anchorClassName, dataset, spanGlyphIcon, props;
                     spanGlyphIcon = doc.createElement('span');
                     spanGlyphIcon.className = 'glyphicon glyphicon-plus-sign';
-                    anchorClassName = htmlBindings.btnActionAdd.slice(1) + ' btn-action btn btn-default btn-sm';
+                    anchorClassName = htmlBindings.btnActionAdd.slice(1) + ' btn-action btn btn-primary btn-sm';
                     dataset = {
                         equipid: item.equipid,
                         qbtxlineid: item.qbtxlineid,
@@ -1696,7 +1696,7 @@
                     var anchorClassName, spanGlyphIcon;
                     spanGlyphIcon = doc.createElement('span');
                     spanGlyphIcon.className = 'glyphicon glyphicon-eye-open';
-                    anchorClassName = htmlBindings.btnActionView.slice(1) + ' btn-action btn btn-default btn-sm';
+                    anchorClassName = htmlBindings.btnActionView.slice(1) + ' btn-action btn btn-primary btn-sm';
                     return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {
                         equipid: item.equipid
                     });
