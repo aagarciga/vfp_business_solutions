@@ -151,7 +151,7 @@
                                                     <span class="value <?php echo ViewHelpers::BuildClassBy($item->$method())?>"><?php echo $item->$method() ?></span><span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <?php foreach ($StatusDictionary as $key => $value): ?>
+                                                    <?php foreach ($StatusDictionaryForUpdate as $key => $value): ?>
                                                         <li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="<?php echo $key ?>"><?php echo $value ?></a></li>
                                                     <?php endforeach ?>
                                                 </ul>

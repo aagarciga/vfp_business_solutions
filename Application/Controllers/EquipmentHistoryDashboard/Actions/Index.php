@@ -43,6 +43,9 @@ class Index extends Action
         $this->EquipmentHistoryDashboardFieldsDefinition = EquipmentHistoryDashboardViewModel::getFieldsDefinitionFor($this->CompanyID);
 
         $this->StatusDictionary = EquipmentHistoryDashboardViewModel::getStatusDictionary();
+        $this->StatusDictionaryForUpdate = array(
+            'Broken' => 'Broken',
+            'Lost' => 'Lost');
 
         $this->FilterId = ''; // TODO: Fetch Saved filter ID for Current User.
         $this->FilterTree = $this->controller->getSessionFilterTree();

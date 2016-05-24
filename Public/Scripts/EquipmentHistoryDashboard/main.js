@@ -1625,7 +1625,7 @@
                     $button.append($caret);
                     $ul = $('<ul class="dropdown-menu">');
                     // dictionary = ['Available', 'Not Returned', 'Broken', 'Lost', 'Received'];
-                    dictionary = ['Available', 'Not Returned', 'Broken', 'Lost'];
+                    dictionary = ['Broken', 'Lost'];
                     for (index in dictionary) {
                         if (dictionary.hasOwnProperty(index)) {
                             $ul.append($('<li role="presentation"> <a role="menuitem" tabindex="-1" href="#" data-value="' + dictionary[index] + '">' + dictionary[index] + '</a></li>'));
