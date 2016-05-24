@@ -287,7 +287,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bind="click: saveHistory">Proceed</button>
+                <button type="button" class="btn btn-primary" data-bind="click: saveHistory">Save</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -356,7 +356,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-danger" data-bind="click: deleteHistory">Delete</button>
-                <button type="button" class="btn btn-primary" data-bind="click: updateHistory">Proceed</button>
+                <button type="button" class="btn btn-primary" data-bind="click: updateHistory">Update</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
