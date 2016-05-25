@@ -187,10 +187,13 @@
                                             <span class="glyphicon glyphicon-folder-close"></span>
                                         </a>
                                         <a href="#" class="btn btn-primary btn-sm btn-action btn-action-edit" <?php echo (!$item->getQbtxlineid() && $currentStatus === 'Available')? 'disabled=disabled' : '' ?> data-qbtxlineid="<?php echo $item->getQbtxlineid()?>">
-                                            <span class="glyphicon glyphicon-edit"></span>
+                                            <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <a href="#" class="btn btn-primary btn-sm btn-action btn-action-add" <?php echo ($currentStatus !== 'Available')? 'disabled=disabled' : '' ?> data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-plus-sign"></span>
+                                        </a>
+                                        <a href="#" class="btn btn-primary btn-sm btn-action btn-action-note" data-equipid="<?php echo $item->getEquipid()?>">
+                                            <span class="glyphicon glyphicon-file"></span>
                                         </a>
                                         <a href="#" class="btn btn-primary btn-sm btn-action btn-action-view" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-eye-open"></span>
@@ -412,6 +415,27 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="dynamicFilter_modal_btnSaveFilter">Save Filter</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modal-equipment-history-form-note" class="modal modal-input fade" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Equipment (<span data-bind="text: equipid"></span>) Notes</h4>
+            </div>
+            <div class="modal-body row">
+                <div class="form-group col-xs-12">
+                    <textarea id="notesSaveModalnotes" class="form-control"  rows="10" style="max-width: 558px;" placeholder="Write notes here" data-bind="value: notes"></textarea>
+                   
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bind="click: onSaveNotesModal">Save Notes</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

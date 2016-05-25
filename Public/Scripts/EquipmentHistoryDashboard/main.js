@@ -11,7 +11,6 @@
         var urls, status, functions, dictionaries, htmlBindings, eventHandlers, mvvm, modules, ProjectFiles, DynamicFilter;
 
         ProjectFiles = App.EquipmentHistoryDashboard.ProjectFiles;
-        // DynamicFilter = App.EquipmentHistoryDashboard.DynamicFilter;
         /**
          * Urls
          */
@@ -48,6 +47,7 @@
             btnActionFilesDialog: '.btn-action-files-dialog',
             btnActionAdd: '.btn-action-add',
             btnActionEdit: '.btn-action-edit',
+            btnActionNote: '.btn-action-note',
             btnActionView: '.btn-action-view',
             dateRangePickerSingle: '.daterangepicker-single',
             tableMain: '#equipmentHistoryDashboardTable',
@@ -453,6 +453,121 @@
                     hide: hide,
                     setUpdateHistoryCallback: setUpdateHistoryCallback,
                     setDeleteHistoryCallback: setDeleteHistoryCallback
+                };
+
+            }(global, $, knockBack, knockout, backbone)),
+            modalEquipmentHistoryFormNote: (function (global, $, knockBack, knockout, backbone) {
+                var _htmlBindings, _functions, _eventHandlers,
+                    EquipmentNotesModel, EquipmentNotesViewModel,
+                    equipmentNotesModel, equipmentNotesViewModel;
+
+                _htmlBindings = {
+                    modalViewElement: '#modal-equipment-history-form-note',
+                    // controlProjectManager: '.control-project-manager-edit',
+                    // controlDateOut: '.control-installdte-edit',
+                    // controlExpactedIn: '.control-expdtein-edit',
+                    // controlReceived: '.control-daterec-edit',
+                    // alertDelete: '.alert-delete'
+                };
+
+                _functions = {
+                    usePlugins: function () {
+                        // Third party component initialization here...
+                    },
+                    reset: function () {
+                        equipmentNotesViewModel.reset();
+                    }
+
+                };
+
+                _eventHandlers = {
+                    updateEquipmentNotes_OnDone: function (response) {
+                        var data = $.parseJSON(response);
+                        // if (data.success) {
+                        //     throw 'Hola';
+                        // }
+                        hide();
+                    },
+                    getEquipmentNotes_OnDone: function (response) {
+                        var data;
+                        data = $.parseJSON(response);
+                        if (data.success) {
+                            equipmentNotesViewModel.equipid(data.equipmentNotesObject.equipid);
+                            equipmentNotesViewModel.notes(data.equipmentNotesObject.notes);
+                        }
+                    }
+                };
+
+                EquipmentNotesModel = backbone.Model.extend({
+                    defaults: {
+                        "equipid": '',
+                        "notes": ''
+                    }
+                });
+
+                EquipmentNotesViewModel = function (model) {
+                    var self = this;
+                    self.notes = knockBack.observable(model, 'notes');
+                    self.equipid = knockBack.observable(model, 'equipid');
+
+                    self.onSaveNotesModal = function () {
+                        $.post(
+                            urls.updateEquipmentNotesUrl,
+                            {
+                                equipid: self.equipid(),
+                                notes: self.notes()
+                            }
+                        ).done(_eventHandlers.updateEquipmentNotes_OnDone).fail(function onFail(response) {
+                            throw 'POST Fail with :' + response;
+                        });
+                    };
+
+                    self.reset = function () {
+                        self.equipid('');
+                        self.notes('');
+                    };
+                };
+
+                /**
+                 * Update/Delete equipment history modal form MVVM logic initialization
+                 */
+                function init() {
+                    var view;
+                    view = global.document.getElementById((_htmlBindings.modalViewElement).slice(1));
+                    equipmentNotesModel = new EquipmentNotesModel({});
+                    equipmentNotesViewModel = new EquipmentNotesViewModel(equipmentNotesModel);
+                    knockout.applyBindings(equipmentNotesViewModel, view);
+                    _functions.usePlugins();
+                }
+
+                /**
+                 * Show Update Note Modal Window
+                 */
+                function show(equipid) {
+                    _functions.reset();
+                    $.post(
+                        urls.getEquipmentNotesUrl,
+                        {
+                            equipid : equipid
+                        }
+                    ).done(_eventHandlers.getEquipmentNotes_OnDone).fail(function onFail(response) {
+                        throw 'POST Fail with :' + response;
+                    });
+
+                    $(_htmlBindings.modalViewElement).modal('show');
+                }
+
+                /**
+                 * Hide Update Note Modal Window
+                 */
+                function hide() {
+                    $(_htmlBindings.modalViewElement).modal('hide');
+                }
+
+                return {
+                    init: init,
+                    showFor: show,
+                    hide: hide
                 };
 
             }(global, $, knockBack, knockout, backbone)),
@@ -1373,6 +1488,9 @@
             btnActionEdit_OnClick: function (event) {
                 mvvm.modalEquipmentHistoryFormEdit.showFor($(this).data('qbtxlineid'));
             },
+            btnActionNote_OnClick: function (event) {
+                mvvm.modalEquipmentHistoryFormNote.showFor($(this).data('equipid'));
+            },
             btnActionView_OnClick: function (event) {
                 throw 'Exception: Not implemented yet';
             },
@@ -1422,6 +1540,7 @@
                 $(htmlBindings.btnActionFilesDialog).on('click', eventHandlers.btnActionFilesDialog_OnClick);
                 $(htmlBindings.btnActionAdd).on('click', eventHandlers.btnActionAdd_OnClick);
                 $(htmlBindings.btnActionEdit).on('click', eventHandlers.btnActionEdit_OnClick);
+                $(htmlBindings.btnActionNote).on('click', eventHandlers.btnActionNote_OnClick);
                 $(htmlBindings.btnActionView).on('click', eventHandlers.btnActionView_OnClick);
             },
             buildClassBy: function (value) {
@@ -1537,7 +1656,7 @@
                 });
             },
             buildTableItem: function (item, trClass, tdClass) {
-                var addButtonBuilder, attachedFilesButtonBuilder, doc, editButtonBuilder, result, tdActionsTagBuilder, tdAssetTagBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdVesselidBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder, viewButtonBuilder;
+                var addButtonBuilder, attachedFilesButtonBuilder, doc, editButtonBuilder, result, tdActionsTagBuilder, tdAssetTagBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdVesselidBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder, viewButtonBuilder, noteButtonBuilder;
 
                 doc = global.document;
                 result = doc.createElement('tr');
@@ -1642,6 +1761,7 @@
                     var btnGroup, elements;
                     elements = [];
                     elements.push(viewButtonBuilder());
+                    elements.push(noteButtonBuilder());
                     elements.push(addButtonBuilder());
                     elements.push(editButtonBuilder());
                     elements.push(attachedFilesButtonBuilder());
@@ -1661,7 +1781,7 @@
                 editButtonBuilder = function () {
                     var anchorClassName, dataset, props, spanGlyphIcon;
                     spanGlyphIcon = doc.createElement('span');
-                    spanGlyphIcon.className = 'glyphicon glyphicon-edit';
+                    spanGlyphIcon.className = 'glyphicon glyphicon-pencil';
                     anchorClassName = htmlBindings.btnActionEdit.slice(1) + ' btn-action btn btn-primary btn-sm';
                     dataset = {
                         equipid: item.equipid,
@@ -1691,6 +1811,15 @@
                         };
                     }
                     return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", dataset, props);
+                };
+                noteButtonBuilder = function () {
+                    var anchorClassName, spanGlyphIcon;
+                    spanGlyphIcon = doc.createElement('span');
+                    spanGlyphIcon.className = 'glyphicon glyphicon-file';
+                    anchorClassName = htmlBindings.btnActionNote.slice(1) + ' btn-action btn btn-primary btn-sm';
+                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {
+                        equipid: item.equipid
+                    });
                 };
                 viewButtonBuilder = function () {
                     var anchorClassName, spanGlyphIcon;

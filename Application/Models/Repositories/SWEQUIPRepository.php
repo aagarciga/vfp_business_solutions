@@ -46,6 +46,25 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         return $result;
     }
 
+    public function GetByEquipid($equipid)
+    {
+        $tableName = $this->getEntityWhitCompanySuffix();
+        $equipid = strtolower($equipid);
+        $predicate = "WHERE LOWER([EQUIPID]) = '$equipid'";
+        $sqlString = "SELECT * FROM $tableName";
+        $sqlString .= ' ' . $predicate;
+
+        $query = $this->dbDriver->GetQuery();
+        $queryResult = $query->Execute($sqlString);
+        $result = array();
+
+        foreach($queryResult as $row){
+            $result []= new SWEQUIP(trim($row->EQUIPID), trim($row->DESCRIP), trim($row->ITEMNO), trim($row->MODEL), trim($row->MAN_CODE), trim($row->VENDNO), trim($row->SERIALNO), trim($row->NOTES), trim($row->SRVAGRENO), trim($row->INSTALLDTE), trim($row->WARRANTDTE), trim($row->PRTYPCODE), trim($row->CUSTNO), trim($row->SHIPTONO), trim($row->NFLG0), trim($row->MANWAREXP), trim($row->CUSTWAREXP), trim($row->MAKE), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->WARRANTY), trim($row->QBLISTID), trim($row->TOOLBOXID), trim($row->ORDNUM), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->STATUS), trim($row->ORDER), trim($row->ASSETTAG), trim($row->VOLTAGE), trim($row->EQUIPTYPE), trim($row->EQUIPIMAGE), trim($row->AssetDesc), trim($row->Locno), trim($row->VESSELID));
+        }
+
+        return $result[0];
+    }
+
     public function UpdateWorkOrderFor($equipid, $workorder, $status, $qbtxlineid){
         $tableName = $this->entityName . $this->companySuffix;
         $equipid = strtolower($equipid);
@@ -77,6 +96,15 @@ class SWEQUIPRepository extends VFPRepository implements IRepository {
         $expdtein = $expdtein === '' ? 'NULL' : "'$expdtein'";
         $daterec = $daterec === '' ? 'NULL' : "'$daterec'";
         $sqlString = "UPDATE $tableName  SET [INSTALLDTE] = $installdte, [EXPDTEIN] = $expdtein, [DATEREC] = $daterec WHERE LOWER([EQUIPID]) = '$equipid'";
+        $query = $this->dbDriver->GetQuery();
+        return $query->Execute($sqlString);
+    }
+
+    public function UpdateNotes($equipid, $notes){
+        $tableName = $this->getEntityWhitCompanySuffix();
+        $equipid = strtolower($equipid);
+
+        $sqlString = "UPDATE $tableName SET [NOTES] = '$notes' WHERE LOWER([EQUIPID]) = '$equipid'";
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
