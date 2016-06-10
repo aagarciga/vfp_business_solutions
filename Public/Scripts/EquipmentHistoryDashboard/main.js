@@ -8,13 +8,17 @@
      * @type {{init, setItemsPerPage, setItemsPerPageSelector, setStatusSelector, addDictionary, addUrl, getCurrentID}}
      */
     App.EquipmentHistoryDashboard = (function () {
-        var urls, status, functions, dictionaries, htmlBindings, eventHandlers, mvvm, modules, ProjectFiles, DynamicFilter;
+        var urls, status, functions, dictionaries, htmlBindings, eventHandlers, mvvm, modules, ProjectFiles, colors;
 
         ProjectFiles = App.EquipmentHistoryDashboard.ProjectFiles;
         /**
          * Urls
          */
         urls = {};
+
+        colors = {
+            selectedItemColor: '#F5EEDE'
+        };
 
         /**
          * Status
@@ -52,6 +56,12 @@
             dateRangePickerSingle: '.daterangepicker-single',
             tableMain: '#equipmentHistoryDashboardTable',
             sortButtons: '.btn-table-sort',
+            itemsSelectorContainer: '.items-selector-actions-container',
+            itemsSelectorControl: '.items-selector-control',
+            itemSelectorControl: '.item-selector-control',
+            batchActions: '.batch-action',
+            batchActionDelete:  '.batch-action-delete',
+            batchActionEdit:  '.batch-action-edit',
             pagerContainer: '.pager-wrapper',
             pagerButton: '.pager-btn',
             tableMainFieldWorkOrder: '.field-work-order',
@@ -63,8 +73,7 @@
             tableMainFiledDateOut: '.field-date-out',
             tableMainFiledExpectedIn: '.field-expected-in',
             tableMainFiledReceived: '.field-received',
-            formFilterSavedFilters: '.form-filter-saved-filters',
-            //modalEquipmentHistoryFormEdit: '#modal-equipment-history-form-edit'
+            formFilterSavedFilters: '.form-filter-saved-filters'
         };
 
         /**
@@ -858,7 +867,184 @@
                     hide: hide,
                 };
 
+            }(global, $, knockBack, knockout, backbone)),
+            modalEquipmentHistoryFormBatchEdit: (function (global, $, knockBack, knockout, backbone) {
+                var _htmlBindings, _functions, _eventHandlers,
+                    EquipmentHistoryModel, EquipmentHistoryViewModel,
+                    equipmentHistoryModel, equipmentHistoryViewModel;
+
+                _htmlBindings = {
+                    modalViewElement: '#modal-equipment-history-form-batch-edit',
+                    controlProjectManager: '.control-project-manager-batch-edit',
+                    controlDateOut: '.control-installdte-batch-edit',
+                    controlExpactedIn: '.control-expdtein-batch-edit',
+                    controlReceived: '.control-daterec-batch-edit',
+                };
+
+                _functions = {
+                    usePlugins: function () {
+                        // Third party component initialization here...
+                    },
+                    reset: function () {
+                        equipmentHistoryViewModel.reset();
+                        // Reseting Select2 Controls
+                        $(_htmlBindings.controlProjectManager).val(null).trigger('change');
+                        // Reseting Date Range Picker Single Controls
+                        $(_htmlBindings.controlDateOut).val('');
+                        $(_htmlBindings.controlExpactedIn).val('');
+                        $(_htmlBindings.controlReceived).val('');
+                    },
+                    updateHistoriesCallback : function () {
+                        throw 'Exception: Not implemented yet. Must be set by SetUpdateHistoryCallback function.';
+                    }
+                };
+
+                _eventHandlers = {
+                    updateHistory_OnDone: function (response) {
+                        console.log('On Update:', response);
+                        var data = $.parseJSON(response);
+                        if (data.success) {
+                            _functions.updateHistoriesCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec, data.vesselid);
+                        }
+                        hide();
+                    },
+                    getEquipmentHistory_OnDone: function (response) {
+                        var data;
+                        data = $.parseJSON(response);
+                        if (data.success) {
+                            equipmentHistoryViewModel.equipid(data.equipmentHistoryObject.equipid);
+                            equipmentHistoryViewModel.qbtxlineid(data.equipmentHistoryObject.qbtxlineid);
+                            equipmentHistoryViewModel.inspectno(data.equipmentHistoryObject.inspectno);
+                            equipmentHistoryViewModel.installdte(data.equipmentHistoryObject.installdte);
+                            equipmentHistoryViewModel.expdtein(data.equipmentHistoryObject.expdtein);
+                            equipmentHistoryViewModel.daterec(data.equipmentHistoryObject.daterec);
+
+                            $(_htmlBindings.controlProjectManager).append('<option value="' + data.equipmentHistoryObject.inspectno + '">' + data.equipmentHistoryObject.inspectnoName + '</option>')
+                            $(_htmlBindings.controlProjectManager).select2({
+                                theme: "bootstrap",
+                                ajax: {
+                                    url: urls.projectManagerSelectorAjaxUrl,
+                                    dataType: 'json',
+                                    delay: 250,
+                                    processResults: function (data, params) {
+                                        //global.console.log('data: ', data);
+                                        //global.console.log('params: ', params);
+                                        params.page = params.page || 1;
+                                        return {
+                                            results: data.items,
+                                            pagination: {
+                                                more: (params.page * 30) < data.totalCount
+                                            }
+                                        };
+                                    },
+                                    cache: true
+                                }
+                            }).val(data.equipmentHistoryObject.inspectno).trigger('change');
+                        }
+
+
+                    }
+                };
+
+                EquipmentHistoryModel = backbone.Model.extend({
+                    defaults: {
+                        "qbtxlineid": '',
+                        "equipid": '',
+                        "inspectno": '',
+                        "installdte": '',
+                        "expdtein": '',
+                        "daterec": ''
+                    }
+                });
+
+                EquipmentHistoryViewModel = function (model) {
+                    var self = this;
+                    self.qbtxlineid = knockBack.observable(model, 'qbtxlineid');
+                    self.equipid = knockBack.observable(model, 'equipid');
+                    self.inspectno = knockBack.observable(model, 'inspectno');
+                    self.installdte = knockBack.observable(model, 'installdte');
+                    self.expdtein = knockBack.observable(model, 'expdtein');
+                    self.daterec = knockBack.observable(model, 'daterec');
+
+                    self.updateHistories = function () {
+                        var projectManager, installdte, expdtein, daterec;
+                        projectManager = $(_htmlBindings.controlProjectManager).val();
+                        installdte = $(_htmlBindings.controlDateOut).val();
+                        expdtein = $(_htmlBindings.controlExpactedIn).val();
+                        daterec = $(_htmlBindings.controlReceived).val();
+                        $.post(
+                            urls.updateEquipmentHistoryUrl,
+                            {
+                                qbtxlineid: self.qbtxlineid(),
+                                equipid: self.equipid(),
+                                inspectno: projectManager, // Because knockout can't do binding with this control
+                                installdte: installdte,
+                                expdtein: expdtein,
+                                daterec: daterec
+                            }
+                        ).done(_eventHandlers.updateHistory_OnDone).fail(function onFail(response) {
+                            throw 'POST Fail with :' + response;
+                        });
+                    };
+                    self.reset = function () {
+                        self.equipid('');
+                        self.inspectno('');
+                        self.installdte('');
+                        self.expdtein('');
+                        self.daterec('');
+                    };
+                };
+
+                /**
+                 * Update/Delete equipment history modal form MVVM logic initialization
+                 */
+                function init() {
+                    var view;
+                    view = global.document.getElementById((_htmlBindings.modalViewElement).slice(1));
+                    equipmentHistoryModel = new EquipmentHistoryModel({});
+                    equipmentHistoryViewModel = new EquipmentHistoryViewModel(equipmentHistoryModel);
+                    knockout.applyBindings(equipmentHistoryViewModel, view);
+                    _functions.usePlugins();
+                }
+
+                /**
+                 * Show Update/Delete Equipment History Modal Window
+                 */
+                function show(firstqbtxlineid) {
+                    _functions.reset();
+
+                    $.post(
+                        urls.getEquipmentHistoryUrl,
+                        {
+                            qbtxlineid : firstqbtxlineid
+                        }
+                    ).done(_eventHandlers.getEquipmentHistory_OnDone).fail(function onFail(response) {
+                        throw 'POST Fail with :' + response;
+                    });
+
+                    $(_htmlBindings.modalViewElement).modal('show');
+                }
+
+                /**
+                 * Hide Update/Delete Equipment History Modal Window
+                 */
+                function hide() {
+                    $(_htmlBindings.modalViewElement).modal('hide');
+                }
+
+                function setUpdateHistoryCallback(callback) {
+                    _functions.updateHistoryCallback = callback;
+                }
+
+                return {
+                    init: init,
+                    showFor: show,
+                    hide: hide,
+                    setUpdateHistoryCallback: setUpdateHistoryCallback
+                };
+
             }(global, $, knockBack, knockout, backbone))
+
         };
 
         /**
@@ -1503,9 +1689,6 @@
                 $('.loading').show();
             },
             paginate_OnSuccess: function (response) {
-
-                global.console.log("Pagination Success with items: ", response.itemsCount);
-
                 var data, pager, items, pagerControl;
                 data = $.parseJSON(response);
                 pager = new BootstrapPager(data, eventHandlers.pagerButton_OnClick);
@@ -1519,6 +1702,44 @@
 
                 $('.loading').hide();
             },
+            itemSelectorControl_OnClick: function (event){
+                var $checkbox;
+                $checkbox = $(this);
+                if ($checkbox.data('qbtxlineid') === '') {
+                    $checkbox.prop('checked', false).trigger('change');
+                }
+            },
+            itemsSelectorControl_OnClick: function (event){
+                var $a;
+                $a = $(this);
+
+                if ($a.html() === 'All'){
+                    $(htmlBindings.itemSelectorControl).prop('checked', true).trigger('change');
+                    functions.enableBatchActions();
+                } else {
+                    $(htmlBindings.itemSelectorControl).prop('checked', false).trigger('change');
+                }
+            },
+            itemSelectorControl_OnChange: function (event){
+                var $checkbox, checkedArray;
+                $checkbox = $(this);
+                if ($checkbox.prop('checked')){
+                    $(this).parents('tr').children('td').css('background-color', colors.selectedItemColor);
+                    functions.enableBatchActions();
+                } else {
+                    $(this).parents('tr').children('td').css('background-color', 'transparent');
+                    checkedArray = functions.getCheckedSelectors();
+                    if (checkedArray.length === 0) {
+                        functions.disableBatchActions();
+                    }
+                }
+            },
+            batchActionEdit_OnClick: function (event) {
+                var chechedSelectorControls, $firstSelectorControl;
+                chechedSelectorControls = functions.getCheckedSelectors();
+                $firstSelectorControl = $(chechedSelectorControls).first();
+                mvvm.modalEquipmentHistoryFormBatchEdit.showFor($firstSelectorControl.data('qbtxlineid'));
+            },
         };
 
         /**
@@ -1526,12 +1747,23 @@
          * @type {{bindEventHandlers: functions.bindEventHandlers, bindTableItemsEventHandlers: functions.bindTableItemsEventHandlers, buildClassBy: functions.buildClassBy, usePlugins: functions.usePlugins, paginate: functions.paginate, getRowByEquipID: functions.getRowByEquipID, updateEquip: functions.updateEquip, updateEquipStatus: functions.updateEquipStatus, setActionsState: functions.setActionsState, enableRowActionAdd: functions.enableRowActionAdd, disableRowActionAdd: functions.disableRowActionAdd, enableRowActionEdit: functions.enableRowActionEdit, disableRowActionEdit: functions.disableRowActionEdit, updateStatus: functions.updateStatus, buildTableItem: functions.buildTableItem, updateTable: functions.updateTable}}
          */
         functions = {
+            getCheckedSelectors: function () {
+                var selectorsArray;
+                selectorsArray = $(htmlBindings.itemSelectorControl);
+                return $.grep(selectorsArray, function (element, index) {
+                    return $(element).prop('checked');
+                });
+            },
             bindEventHandlers: function () {
                 $(htmlBindings.dropdown).on('click', 'a', eventHandlers.dropdown_OnClick);
                 $(htmlBindings.itemsPerPageSelector).on('click', 'a', eventHandlers.itemsPerPageSelector_OnClick);
                 $(htmlBindings.sortButtons).on('click', eventHandlers.sortButtons_OnClick);
 
                 $(htmlBindings.pagerButton).on('click', eventHandlers.pagerButton_OnClick);
+                $(htmlBindings.itemsSelectorControl).on('click', 'a', eventHandlers.itemsSelectorControl_OnClick);
+
+                $(htmlBindings.batchActionEdit).on('click', eventHandlers.batchActionEdit_OnClick);
+
                 functions.bindTableItemsEventHandlers();
             },
             bindTableItemsEventHandlers: function () {
@@ -1542,6 +1774,14 @@
                 $(htmlBindings.btnActionEdit).on('click', eventHandlers.btnActionEdit_OnClick);
                 $(htmlBindings.btnActionNote).on('click', eventHandlers.btnActionNote_OnClick);
                 $(htmlBindings.btnActionView).on('click', eventHandlers.btnActionView_OnClick);
+                $(htmlBindings.itemSelectorControl).on('click', eventHandlers.itemSelectorControl_OnClick);
+                $(htmlBindings.itemSelectorControl).on('change', eventHandlers.itemSelectorControl_OnChange);
+            },
+            enableBatchActions: function () {
+                $(htmlBindings.batchActions).prop('disabled', false).removeClass('disabled');
+            },
+            disableBatchActions: function () {
+                $(htmlBindings.batchActions).prop('disabled', true).addClass('disabled');
             },
             buildClassBy: function (value) {
                 return value.toLowerCase().replace(' ', '-');
@@ -1656,11 +1896,15 @@
                 });
             },
             buildTableItem: function (item, trClass, tdClass) {
-                var addButtonBuilder, attachedFilesButtonBuilder, doc, editButtonBuilder, result, tdActionsTagBuilder, tdAssetTagBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdVesselidBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder, viewButtonBuilder, noteButtonBuilder;
+                var tdItemSelectorBuilder, addButtonBuilder, attachedFilesButtonBuilder, doc, editButtonBuilder, result, tdActionsTagBuilder, tdAssetTagBuilder, tdDaterecBuilder, tdDescripBuilder, tdEquipTypeBuilder, tdEquipidBuilder, tdExpdteinBuilder, tdInstalldteBuilder, tdItemnoBuilder, tdLocnoBuilder, tdMakeBuilder, tdModelBuilder, tdNotesBuilder, tdOrdnumBuilder, tdVesselidBuilder, tdPicture_fiBuilder, tdSerialnoBuilder, tdStatusBuilder, tdVoltageBuilder, viewButtonBuilder, noteButtonBuilder;
 
                 doc = global.document;
                 result = doc.createElement('tr');
 
+                tdItemSelectorBuilder = function (tdClass) {
+                    tdClass += ' item-selector';
+                    return App.Helpers.withCheckboxTdBuilder(tdClass, 'item-selector-control', {equipid: item.equipid});
+                };
                 tdOrdnumBuilder = function (tdClass) {
                     tdClass += ' field-work-order';
                     return App.Helpers.withLinkTdBuilder(item.ordnum, tdClass, 'field-work-order-link', '#', {workorder: item.ordnum});
@@ -1833,6 +2077,8 @@
                 result.className = trClass;
                 result.dataset.equipid = item.equipid;
 
+                //Item Selector
+                result.appendChild(tdItemSelectorBuilder(tdClass));
                 //Id
                 result.appendChild(tdEquipidBuilder(tdClass));
                 //Work Order

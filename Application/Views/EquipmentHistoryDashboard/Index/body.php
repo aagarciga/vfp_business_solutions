@@ -102,6 +102,29 @@
                     </div>
                 </div>
                 <!--    End Filter-->
+
+                <!-- Item Selector Actions -->
+                <div class="items-selector-actions-container btn-group">
+                    <div class="dropdown btn-group items-selector-control">
+                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="">Select</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">All</a></li>
+                            <li><a href="#">None</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-danger btn-sm batch-action batch-action-delete disabled" title="Delete selected equipments" disabled="disabled">
+                        <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-primary btn-sm batch-action batch-action-edit disabled" title="Edit selected equipments" disabled="disabled">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <!-- End Item Selector Actions -->
+
                 <!--    Table-->
                 <div class="panel-table">
 
@@ -117,6 +140,7 @@
                         </colgroup>
                         <thead>
                         <tr>
+                            <th></th>
                             <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
                                 <?php $displayName = $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition)?>
                                 <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
@@ -135,6 +159,7 @@
                         <?php foreach ($Items as $item): ?>
                             <?php $currentStatus = ''; ?>
                             <tr data-equipid="<?php echo $item->getEquipid() ?>">
+                                <td class="item-selector"><input type="checkbox" class="item-selector-control" data-equipid="<?php echo $item->getEquipid()?>" data-qbtxlineid="<?php echo $item->getQbtxlineid()?>" ></td>
                                 <?php foreach ($EquipmentHistoryDashboardFieldsDefinition as $field => $fieldDefinition): ?>
                                     <?php $displayName = $EquipmentHistoryDashboardViewModelName::getDisplayNameFor($fieldDefinition)?>
                                     <?php if ($EquipmentHistoryDashboardViewModelName::isVisible($fieldDefinition)): ?>
@@ -440,5 +465,67 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="modal-equipment-history-form-batch-edit" class="modal fade" role="dialog" tabindex="-1" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Update Equipments Histories</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form action="?" class="">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Project Manager</label>
+                                <select class="form-control control-project-manager-batch-edit" style="width: 100%" data-bind="value: inspectno">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Date Out</label>
+                                <div class="input-prepend input-group">
+                                    <span class="add-on input-group-addon">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                    </span>
+                                    <input class="form-control daterangepicker-single control-installdte-batch-edit" type="text" placeholder="" data-bind="value: installdte"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Expected In</label>
+                                <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        </span>
+                                    <input class="form-control daterangepicker-single control-expdtein-batch-edit" type="text" placeholder="" data-bind="value: expdtein"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Received</label>
+                                <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        </span>
+                                    <input class="form-control daterangepicker-single control-daterec-batch-edit" type="text" placeholder="" data-bind="value: daterec"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bind="click: updateHistories">Update</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 <!--Modal Section ends-->

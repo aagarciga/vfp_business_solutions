@@ -120,6 +120,21 @@ if (window.jQuery === 'undefined') {
         return td;
     };
 
+    App.Helpers.withCheckboxTdBuilder = function (tdClass, checkboxClass, dataset) {
+        var checkbox, td, doc = global.document;
+
+        td = doc.createElement('td');
+        checkbox = doc.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = checkboxClass;
+        for (var key in dataset) {
+            checkbox.dataset[key] = dataset[key];
+        }
+        td.className = tdClass;
+        td.appendChild(checkbox);
+        return td;
+    };
+
     /**
      * Link Element
      * @param data

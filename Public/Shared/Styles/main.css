@@ -127,6 +127,27 @@
   margin-top: -23px;
   left: -5px;
 }
+.dashboard-container div.panel .panel-body .items-selector-actions-container {
+  float: none;
+  margin-top: 10px;
+}
+@media only screen and (min-width: 408px) {
+  .dashboard-container div.panel .panel-body .items-selector-actions-container {
+    float: right;
+    margin-top: -30px;
+  }
+}
+.dashboard-container div.panel .panel-body .items-selector-actions-container .dropdown {
+  display: inline-block;
+}
+.dashboard-container div.panel .panel-body .items-selector-actions-container .dropdown .dropdown-menu {
+  right: 0;
+  left: auto;
+  min-width: 67px;
+}
+.dashboard-container div.panel .panel-body .items-selector-actions-container .dropdown .dropdown-menu > li > a {
+  padding: 3px 15px;
+}
 .dashboard-container div.panel .panel-body .panel-table {
   margin-top: 10px;
 }
