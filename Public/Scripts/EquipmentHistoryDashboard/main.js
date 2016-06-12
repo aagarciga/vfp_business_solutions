@@ -871,14 +871,19 @@
             modalEquipmentHistoryFormBatchEdit: (function (global, $, knockBack, knockout, backbone) {
                 var _htmlBindings, _functions, _eventHandlers,
                     EquipmentHistoryModel, EquipmentHistoryViewModel,
-                    equipmentHistoryModel, equipmentHistoryViewModel;
+                    equipmentHistoryModel, equipmentHistoryViewModel, _status;
+
+                _status = {
+                    qbtxlineidCollection: undefined,
+                    equipidCollection: undefined
+                };
 
                 _htmlBindings = {
                     modalViewElement: '#modal-equipment-history-form-batch-edit',
                     controlProjectManager: '.control-project-manager-batch-edit',
                     controlDateOut: '.control-installdte-batch-edit',
                     controlExpactedIn: '.control-expdtein-batch-edit',
-                    controlReceived: '.control-daterec-batch-edit',
+                    controlReceived: '.control-daterec-batch-edit'
                 };
 
                 _functions = {
@@ -900,11 +905,11 @@
                 };
 
                 _eventHandlers = {
-                    updateHistory_OnDone: function (response) {
+                    updateHistories_OnDone: function (response) {
                         console.log('On Update:', response);
                         var data = $.parseJSON(response);
                         if (data.success) {
-                            _functions.updateHistoriesCallback(data.equipid, data.ordnum, data.status, data.qbtxlineid, data.installdte, data.expdtein, data.daterec, data.vesselid);
+                            _functions.updateHistoriesCallback(data.equipidCollection, data.ordnum, data.status, data.qbtxlineidCollection, data.installdte, data.expdtein, data.daterec, data.vesselid);
                         }
                         hide();
                     },
@@ -912,6 +917,7 @@
                         var data;
                         data = $.parseJSON(response);
                         if (data.success) {
+                            //Only for first data modal visualization
                             equipmentHistoryViewModel.equipid(data.equipmentHistoryObject.equipid);
                             equipmentHistoryViewModel.qbtxlineid(data.equipmentHistoryObject.qbtxlineid);
                             equipmentHistoryViewModel.inspectno(data.equipmentHistoryObject.inspectno);
@@ -973,16 +979,18 @@
                         expdtein = $(_htmlBindings.controlExpactedIn).val();
                         daterec = $(_htmlBindings.controlReceived).val();
                         $.post(
-                            urls.updateEquipmentHistoryUrl,
+                            urls.updateEquipmentHistoriesUrl,
                             {
-                                qbtxlineid: self.qbtxlineid(),
-                                equipid: self.equipid(),
+                                // qbtxlineid: self.qbtxlineid(),
+                                // equipid: self.equipid(),
+                                qbtxlineidCollection: JSON.stringify(_status.qbtxlineidCollection),
+                                equipidCollection: JSON.stringify(_status.equipidCollection),
                                 inspectno: projectManager, // Because knockout can't do binding with this control
                                 installdte: installdte,
                                 expdtein: expdtein,
                                 daterec: daterec
                             }
-                        ).done(_eventHandlers.updateHistory_OnDone).fail(function onFail(response) {
+                        ).done(_eventHandlers.updateHistories_OnDone).fail(function onFail(response) {
                             throw 'POST Fail with :' + response;
                         });
                     };
@@ -1010,13 +1018,16 @@
                 /**
                  * Show Update/Delete Equipment History Modal Window
                  */
-                function show(firstqbtxlineid) {
+                function show(qbtxlineidCollection, equipidCollection) {
                     _functions.reset();
+
+                    _status.qbtxlineidCollection = qbtxlineidCollection;
+                    _status.equipidCollection = equipidCollection;
 
                     $.post(
                         urls.getEquipmentHistoryUrl,
                         {
-                            qbtxlineid : firstqbtxlineid
+                            qbtxlineid : qbtxlineidCollection[0]
                         }
                     ).done(_eventHandlers.getEquipmentHistory_OnDone).fail(function onFail(response) {
                         throw 'POST Fail with :' + response;
@@ -1032,15 +1043,15 @@
                     $(_htmlBindings.modalViewElement).modal('hide');
                 }
 
-                function setUpdateHistoryCallback(callback) {
-                    _functions.updateHistoryCallback = callback;
+                function setUpdateHistoriesCallback(callback) {
+                    _functions.updateHistoriesCallback = callback;
                 }
 
                 return {
                     init: init,
                     showFor: show,
                     hide: hide,
-                    setUpdateHistoryCallback: setUpdateHistoryCallback
+                    setUpdateHistoriesCallback: setUpdateHistoriesCallback
                 };
 
             }(global, $, knockBack, knockout, backbone))
@@ -1735,10 +1746,21 @@
                 }
             },
             batchActionEdit_OnClick: function (event) {
-                var chechedSelectorControls, $firstSelectorControl;
+                // var chechedSelectorControls, $firstSelectorControl;
+                // chechedSelectorControls = functions.getCheckedSelectors();
+                // $firstSelectorControl = $(chechedSelectorControls).first();
+                // mvvm.modalEquipmentHistoryFormBatchEdit.showFor($firstSelectorControl.data('qbtxlineid'));
+
+                var chechedSelectorControls, qbtxlineidCollection, equipidCollection;
                 chechedSelectorControls = functions.getCheckedSelectors();
-                $firstSelectorControl = $(chechedSelectorControls).first();
-                mvvm.modalEquipmentHistoryFormBatchEdit.showFor($firstSelectorControl.data('qbtxlineid'));
+                qbtxlineidCollection = $(chechedSelectorControls).map(function () {
+                    return $(this).data('qbtxlineid');
+                });
+                equipidCollection = $(chechedSelectorControls).map(function () {
+                    return $(this).data('equipid');
+                });
+
+                mvvm.modalEquipmentHistoryFormBatchEdit.showFor($.makeArray(qbtxlineidCollection), $.makeArray(equipidCollection));
             },
         };
 
@@ -1846,6 +1868,41 @@
                 $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
 
                 functions.setActionsState(equipID, status);
+            },
+            updateEquips: function (equipIDCollection, workOrder, status, historyIDCollection, dateOut, expectedIn, received, vesselid) {
+                var statusClass, $row, index, length;
+                global.console.log("equipIDCollection", equipIDCollection);
+                global.console.log("workOrder", workOrder);
+                global.console.log("status", status);
+                global.console.log("historyID", historyIDCollection);
+                global.console.log("DateOut", dateOut);
+                global.console.log("ExpectedIn", expectedIn);
+                global.console.log("Received", received);
+                global.console.log("Vessel", vesselid);
+
+                statusClass = functions.buildClassBy(status);
+
+                index = 0;
+                length = equipIDCollection.length;
+
+                for(index; index < length; index = index + 1){
+                    $row = functions.getRowByEquipID(equipIDCollection[index]);
+                    if(workOrder === ''){
+                        $row.find(htmlBindings.tableMainFieldWorkOrder).html('');
+                    }
+                    if(vesselid === ''){
+                        $row.find(htmlBindings.tableMainFieldVessel).html('');
+                    }
+                    $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
+                    $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
+                    $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyIDCollection[index]);
+
+                    $row.find(htmlBindings.tableMainFiledDateOut).html(dateOut);
+                    $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
+
+                    functions.setActionsState(equipIDCollection[index], status);
+                }
+                $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
             },
             updateEquipStatus: function (equipID, status) {
                 var statusClass, $row;
@@ -2222,6 +2279,9 @@
             mvvm.modalEquipmentHistoryFormAdd.setSaveHistoryCallback(functions.updateEquip);
             mvvm.modalEquipmentHistoryFormEdit.setUpdateHistoryCallback(functions.updateEquip);
             mvvm.modalEquipmentHistoryFormEdit.setDeleteHistoryCallback(functions.updateEquip);
+
+            mvvm.modalEquipmentHistoryFormBatchEdit.setUpdateHistoriesCallback(functions.updateEquips);
+
 
             global.console.log('Initializing Modules related logic:');
             for (index in modules) {

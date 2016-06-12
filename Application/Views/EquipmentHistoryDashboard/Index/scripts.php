@@ -53,6 +53,7 @@
     EquipmentHistoryDashboard.addUrl('getEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetEquipmentHistory')?>');
     EquipmentHistoryDashboard.addUrl('addEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'AddEquipmentHistory')?>');
     EquipmentHistoryDashboard.addUrl('updateEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateEquipmentHistory')?>');
+    EquipmentHistoryDashboard.addUrl('updateEquipmentHistoriesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateEquipmentHistories')?>');
     EquipmentHistoryDashboard.addUrl('deleteEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'DeleteEquipmentHistory')?>');
     EquipmentHistoryDashboard.addUrl('getEquipmentNotesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetEquipmentNotes')?>');
     EquipmentHistoryDashboard.addUrl('updateEquipmentNotesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateEquipmentNotes')?>');
