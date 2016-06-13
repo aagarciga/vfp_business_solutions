@@ -1054,6 +1054,124 @@
                     setUpdateHistoriesCallback: setUpdateHistoriesCallback
                 };
 
+            }(global, $, knockBack, knockout, backbone)),
+            modalEquipmentHistoryFormBatchDelete: (function (global, $, knockBack, knockout, backbone) {
+                var _htmlBindings, _functions, _eventHandlers,
+                    DeleteEquipmentHistoryModel, DeleteEquipmentHistoryViewModel,
+                    deleteEquipmentHistoryModel, deleteEquipmentHistoryViewModel, _status;
+
+                _status = {
+                    qbtxlineidCollection: undefined,
+                    equipidCollection: undefined
+                };
+
+                _htmlBindings = {
+                    modalViewElement: '#modal-equipment-history-form-batch-delete',
+                    deleteEquipmentList: '.modal-equipment-history-form-batch-delete-list'
+                };
+
+                _functions = {
+                    usePlugins: function () {
+                        // Third party component initialization here...
+                    },
+                    reset: function () {
+                        deleteEquipmentHistoryViewModel.reset();
+
+                    },
+                    deleteHistoriesCallback : function () {
+                        throw 'Exception: Not implemented yet. Must be set by SetDeleteHistoryCallback function.';
+                    }
+                };
+
+                _eventHandlers = {
+                    deleteHistories_OnDone: function (response) {
+                        console.log('On Delete:', response);
+                        var data = $.parseJSON(response);
+                        if (data.success) {
+                            _functions.deleteHistoriesCallback(data.equipidCollection, data.ordnum, data.status, data.qbtxlineidCollection, data.installdte, data.expdtein, data.daterec, data.vesselid);
+                        }
+                        hide();
+                    }
+                };
+
+                DeleteEquipmentHistoryModel = backbone.Model.extend({
+                    defaults: {
+                        "qbtxlineids": '',
+                        "equipids": ''
+                    }
+                });
+
+                DeleteEquipmentHistoryViewModel = function (model) {
+                    var self = this;
+                    self.qbtxlineids = knockBack.observable(model, 'qbtxlineids');
+                    self.equipids = knockBack.observable(model, 'equipids');
+
+                    self.deleteHistories = function () {
+                        $.post(
+                            urls.deleteEquipmentHistoriesUrl,
+                            {
+                                qbtxlineidCollection: JSON.stringify(_status.qbtxlineidCollection),
+                                equipidCollection: JSON.stringify(_status.equipidCollection)
+                            }
+                        ).done(_eventHandlers.deleteHistories_OnDone).fail(function onFail(response) {
+                            throw 'POST Fail with :' + response;
+                        });
+                    };
+                    self.reset = function () {
+                        self.equipids('');
+                        self.qbtxlineids('');
+                    };
+                };
+
+                /**
+                 * Update/Delete equipment history modal form MVVM logic initialization
+                 */
+                function init() {
+                    var view;
+                    view = global.document.getElementById((_htmlBindings.modalViewElement).slice(1));
+                    deleteEquipmentHistoryModel = new DeleteEquipmentHistoryModel({});
+                    deleteEquipmentHistoryViewModel = new DeleteEquipmentHistoryViewModel(deleteEquipmentHistoryModel);
+                    knockout.applyBindings(deleteEquipmentHistoryViewModel, view);
+                    _functions.usePlugins();
+                }
+
+                /**
+                 * Show Update/Delete Equipment History Modal Window
+                 */
+                function show(qbtxlineidCollection, equipidCollection) {
+                    var index;
+                    _functions.reset();
+
+                    _status.qbtxlineidCollection = qbtxlineidCollection;
+                    _status.equipidCollection = equipidCollection;
+
+                    for (index in equipidCollection) {
+                        if (equipidCollection.hasOwnProperty(index)) {
+                            $(_htmlBindings.deleteEquipmentList).append($('<li>' + equipidCollection[index] + '</li>'));
+                        }
+                    }
+
+                    $(_htmlBindings.modalViewElement).modal('show');
+                }
+
+                /**
+                 * Hide Update/Delete Equipment History Modal Window
+                 */
+                function hide() {
+                    $(_htmlBindings.modalViewElement).modal('hide');
+                }
+
+                function setDeleteHistoriesCallback(callback) {
+                    _functions.deleteHistoriesCallback = callback;
+                }
+
+                return {
+                    init: init,
+                    showFor: show,
+                    hide: hide,
+                    setDeleteHistoriesCallback: setDeleteHistoriesCallback
+                };
+
             }(global, $, knockBack, knockout, backbone))
 
         };
@@ -1762,6 +1880,18 @@
 
                 mvvm.modalEquipmentHistoryFormBatchEdit.showFor($.makeArray(qbtxlineidCollection), $.makeArray(equipidCollection));
             },
+            batchActionDelete_OnClick: function (event) {
+                var chechedSelectorControls, qbtxlineidCollection, equipidCollection;
+                chechedSelectorControls = functions.getCheckedSelectors();
+                qbtxlineidCollection = $(chechedSelectorControls).map(function () {
+                    return $(this).data('qbtxlineid');
+                });
+                equipidCollection = $(chechedSelectorControls).map(function () {
+                    return $(this).data('equipid');
+                });
+
+                mvvm.modalEquipmentHistoryFormBatchDelete.showFor($.makeArray(qbtxlineidCollection), $.makeArray(equipidCollection));
+            },
         };
 
         /**
@@ -1785,6 +1915,7 @@
                 $(htmlBindings.itemsSelectorControl).on('click', 'a', eventHandlers.itemsSelectorControl_OnClick);
 
                 $(htmlBindings.batchActionEdit).on('click', eventHandlers.batchActionEdit_OnClick);
+                $(htmlBindings.batchActionDelete).on('click', eventHandlers.batchActionDelete_OnClick);
 
                 functions.bindTableItemsEventHandlers();
             },
@@ -1903,6 +2034,19 @@
                     functions.setActionsState(equipIDCollection[index], status);
                 }
                 $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
+            },
+            deleteEquips: function (equipIDCollection, historyIDCollection) {
+                // var $row, index, length;
+                // global.console.log("equipIDCollection", equipIDCollection);
+                // global.console.log("historyID", historyIDCollection);
+                //
+                // index = 0;
+                // length = equipIDCollection.length;
+                //
+                // for(index; index < length; index = index + 1){
+                //     $row = functions.getRowByEquipID(equipIDCollection[index]);
+                //     // $row.remove();
+                // }
             },
             updateEquipStatus: function (equipID, status) {
                 var statusClass, $row;
@@ -2281,6 +2425,7 @@
             mvvm.modalEquipmentHistoryFormEdit.setDeleteHistoryCallback(functions.updateEquip);
 
             mvvm.modalEquipmentHistoryFormBatchEdit.setUpdateHistoriesCallback(functions.updateEquips);
+            mvvm.modalEquipmentHistoryFormBatchDelete.setDeleteHistoriesCallback(functions.updateEquips);
 
 
             global.console.log('Initializing Modules related logic:');

@@ -55,6 +55,7 @@
     EquipmentHistoryDashboard.addUrl('updateEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateEquipmentHistory')?>');
     EquipmentHistoryDashboard.addUrl('updateEquipmentHistoriesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateEquipmentHistories')?>');
     EquipmentHistoryDashboard.addUrl('deleteEquipmentHistoryUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'DeleteEquipmentHistory')?>');
+    EquipmentHistoryDashboard.addUrl('deleteEquipmentHistoriesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'DeleteEquipmentHistories')?>');
     EquipmentHistoryDashboard.addUrl('getEquipmentNotesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'GetEquipmentNotes')?>');
     EquipmentHistoryDashboard.addUrl('updateEquipmentNotesUrl', '<?php echo $View->Href('EquipmentHistoryDashboard', 'UpdateEquipmentNotes')?>');
     // WorkOrder equals SalesOrder
