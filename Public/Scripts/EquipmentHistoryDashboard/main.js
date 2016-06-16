@@ -2058,19 +2058,6 @@
                 }
                 $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
             },
-            deleteEquips: function (equipIDCollection, historyIDCollection) {
-                // var $row, index, length;
-                // global.console.log("equipIDCollection", equipIDCollection);
-                // global.console.log("historyID", historyIDCollection);
-                //
-                // index = 0;
-                // length = equipIDCollection.length;
-                //
-                // for(index; index < length; index = index + 1){
-                //     $row = functions.getRowByEquipID(equipIDCollection[index]);
-                //     // $row.remove();
-                // }
-            },
             updateEquipStatus: function (equipID, status) {
                 var statusClass, $row;
                 statusClass = functions.buildClassBy(status);
@@ -2127,7 +2114,7 @@
 
                 tdItemSelectorBuilder = function (tdClass) {
                     tdClass += ' item-selector';
-                    return App.Helpers.withCheckboxTdBuilder(tdClass, 'item-selector-control', {equipid: item.equipid});
+                    return App.Helpers.withCheckboxTdBuilder(tdClass, 'item-selector-control', {equipid: item.equipid, qbtxlineid: item.qbtxlineid});
                 };
                 tdOrdnumBuilder = function (tdClass) {
                     tdClass += ' field-work-order';

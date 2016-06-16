@@ -4,6 +4,8 @@
  * Copyright: 2014. VFP Business Solutions, LLC
  */
 
+define('DEFAULT_SESSION_FILTER_ID', 'SESSION_FILTER');
+
 /**
  * Global Definitions
  */

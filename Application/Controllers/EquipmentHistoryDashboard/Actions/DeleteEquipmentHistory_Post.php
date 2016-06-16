@@ -23,6 +23,7 @@ class DeleteEquipmentHistory_Post extends Action {
      */
     public function Execute() {
         $result = array('success' => false);
+        $isSuccess = false;
 
         $this->qbtxlineid = $this->Request->hasProperty('qbtxlineid') ? $this->Request->qbtxlineid : '';
         $this->equipid = $this->Request->hasProperty('equipid') ? $this->Request->equipid : '';
@@ -30,19 +31,23 @@ class DeleteEquipmentHistory_Post extends Action {
 
         $this->status = EQUIPMENT_HISTORY_DASHBORD_STATUS_AVAILABLE;
 
-        $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($this->qbtxlineid);
-        $this->ordnum = '';
-        $this->vesselid = '';
-        $this->installdte = '';
-        $this->expdtein = '';
-        $this->daterec = '';
+        if ($this->qbtxlineid !== ''){
+            $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($this->qbtxlineid);
+            $this->ordnum = '';
+            $this->vesselid = '';
+            $this->installdte = '';
+            $this->expdtein = '';
+            $this->daterec = '';
 
-        $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Delete($entity);
-        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
-        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateDates($this->equipid, $this->installdte, $this->expdtein, $this->daterec);
-        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastHistoryReference($this->equipid);
-        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastWorkOrder($this->equipid);
-        $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastVesselid($this->equipid);
+            if($entity){
+                $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Delete($entity);
+                $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($this->equipid, $this->status);
+                $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateDates($this->equipid, $this->installdte, $this->expdtein, $this->daterec);
+                $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastHistoryReference($this->equipid);
+                $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastWorkOrder($this->equipid);
+                $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastVesselid($this->equipid);
+            }
+        }
 
         if ($isSuccess) {
             $result['success'] = true;

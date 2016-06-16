@@ -23,6 +23,7 @@ class UpdateEquipmentHistories_Post extends Action {
      */
     public function Execute() {
         $result = array('success' => false);
+        $isSuccess = false;
 
         $this->qbtxlineidCollection = $this->Request->hasProperty('qbtxlineidCollection') ? json_decode($this->Request->qbtxlineidCollection) : array();
         $this->equipidCollection = $this->Request->hasProperty('equipidCollection') ? json_decode($this->Request->equipidCollection) : array();
@@ -45,6 +46,13 @@ class UpdateEquipmentHistories_Post extends Action {
 
         $this->ordnum = 'HAVE';
         $this->vesselid = 'HAVE';
+
+        error_log(print_r($this->qbtxlineidCollection,true));
+        error_log(print_r($this->equipidCollection,true));
+        error_log(print_r($this->inspectno,true));
+        error_log(print_r($this->installdte,true));
+        error_log(print_r($this->expdtein,true));
+        error_log(print_r($this->daterec,true));
 
         foreach ($this->qbtxlineidCollection as $index => $qbtxlineid){
             $currentEquipid = $this->equipidCollection[$index];

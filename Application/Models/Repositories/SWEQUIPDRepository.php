@@ -68,7 +68,7 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
             $result []= new SWEQUIPD(trim($row->EQUIPID), trim($row->ORDNUM), trim($row->INSPECTNO), trim($row->INSTALLDTE), trim($row->EXPDTEIN), trim($row->DATEREC), trim($row->FUPDTIME), trim($row->FUPDDATE), trim($row->FSTATION), trim($row->FUSERID), trim($row->QBLISTID), trim($row->QBTXLINEID), trim($row->NFLG0), trim($row->VESSELID));
         }
 
-        return $result[0];
+        return (count($result)) ? $result[0] : null;
     }
 
     /**
