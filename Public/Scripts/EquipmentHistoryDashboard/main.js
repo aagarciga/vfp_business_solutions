@@ -1024,14 +1024,35 @@
                     _status.qbtxlineidCollection = qbtxlineidCollection;
                     _status.equipidCollection = equipidCollection;
 
-                    $.post(
-                        urls.getEquipmentHistoryUrl,
-                        {
-                            qbtxlineid : qbtxlineidCollection[0]
+                    // $.post(
+                    //     urls.getEquipmentHistoryUrl,
+                    //     {
+                    //         qbtxlineid : qbtxlineidCollection[0]
+                    //     }
+                    // ).done(_eventHandlers.getEquipmentHistory_OnDone).fail(function onFail(response) {
+                    //     throw 'POST Fail with :' + response;
+                    // });
+
+                    $(_htmlBindings.controlProjectManager).select2({
+                        theme: "bootstrap",
+                        ajax: {
+                            url: urls.projectManagerSelectorAjaxUrl,
+                            dataType: 'json',
+                            delay: 250,
+                            processResults: function (data, params) {
+                                //global.console.log('data: ', data);
+                                //global.console.log('params: ', params);
+                                params.page = params.page || 1;
+                                return {
+                                    results: data.items,
+                                    pagination: {
+                                        more: (params.page * 30) < data.totalCount
+                                    }
+                                };
+                            },
+                            cache: true
                         }
-                    ).done(_eventHandlers.getEquipmentHistory_OnDone).fail(function onFail(response) {
-                        throw 'POST Fail with :' + response;
-                    });
+                    })
 
                     $(_htmlBindings.modalViewElement).modal('show');
                 }
@@ -1075,6 +1096,8 @@
                         // Third party component initialization here...
                     },
                     reset: function () {
+                        _status.qbtxlineidCollection = undefined;
+                        _status.equipidCollection = undefined;
                         deleteEquipmentHistoryViewModel.reset();
 
                     },
@@ -1144,7 +1167,7 @@
 
                     _status.qbtxlineidCollection = qbtxlineidCollection;
                     _status.equipidCollection = equipidCollection;
-
+                    $(_htmlBindings.deleteEquipmentList).empty();
                     for (index in equipidCollection) {
                         if (equipidCollection.hasOwnProperty(index)) {
                             $(_htmlBindings.deleteEquipmentList).append($('<li>' + equipidCollection[index] + '</li>'));

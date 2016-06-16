@@ -51,11 +51,31 @@ class UpdateEquipmentHistories_Post extends Action {
 
             $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($qbtxlineid);
 
-            $entity->setInspectno($this->inspectno);
-            $entity->setInstalldte($this->installdte);
-            $entity->setExpdtein($this->expdtein);
-            $entity->setDaterec($this->daterec);
-            $entity->setFupddate($this->fupddate);
+            if ($this->inspectno !== ''){
+                $entity->setInspectno($this->inspectno);
+            } else {
+                $this->inspectno = $entity->getInspectno();
+            }
+            if ($this->installdte !== ''){
+                $entity->setInstalldte($this->installdte);
+            } else {
+                $this->installdte = $entity->getInstalldte();
+            }
+            if ($this->expdtein !== ''){
+                $entity->setExpdtein($this->expdtein);
+            } else {
+                $this->expdtein = $entity->getExpdtein();
+            }
+            if ($this->daterec !== ''){
+                $entity->setDaterec($this->daterec);
+            } else {
+                $this->daterec = $entity->getDaterec();
+            }
+            if ($this->fupddate !== ''){
+                $entity->setFupddate($this->fupddate);
+            } else {
+                $this->fupddate = $entity->getFupddate();
+            }
             $entity->setFuserid($this->userID);
 
 //        $this->ordnum = $entity->getOrdnum();
