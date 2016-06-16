@@ -1855,11 +1855,11 @@
                 $('.loading').hide();
             },
             itemSelectorControl_OnClick: function (event){
-                var $checkbox;
-                $checkbox = $(this);
-                if ($checkbox.data('qbtxlineid') === '') {
-                    $checkbox.prop('checked', false).trigger('change');
-                }
+                // var $checkbox;
+                // $checkbox = $(this);
+                // if ($checkbox.data('qbtxlineid') === '') {
+                //     $checkbox.prop('checked', false).trigger('change');
+                // }
             },
             itemsSelectorControl_OnClick: function (event){
                 var $a;

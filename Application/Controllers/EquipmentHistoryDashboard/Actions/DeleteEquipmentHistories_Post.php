@@ -23,7 +23,7 @@ class DeleteEquipmentHistories_Post extends Action {
      */
     public function Execute() {
         $result = array('success' => false);
-
+        $isSuccess = false;
         $this->qbtxlineidCollection = $this->Request->hasProperty('qbtxlineidCollection') ? json_decode($this->Request->qbtxlineidCollection) : array();
         $this->equipidCollection = $this->Request->hasProperty('equipidCollection') ? json_decode($this->Request->equipidCollection) : array();
 
@@ -36,6 +36,7 @@ class DeleteEquipmentHistories_Post extends Action {
 
         foreach ($this->qbtxlineidCollection as $index => $qbtxlineid){
             $currentEquipid = $this->equipidCollection[$index];
+
             if ($qbtxlineid !== ''){
                 $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($qbtxlineid);
                 if ($entity) {

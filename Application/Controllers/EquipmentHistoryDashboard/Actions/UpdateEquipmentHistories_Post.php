@@ -24,6 +24,7 @@ class UpdateEquipmentHistories_Post extends Action {
     public function Execute() {
         $result = array('success' => false);
         $isSuccess = false;
+        $qbtxlineidCollection = array();
 
         $this->qbtxlineidCollection = $this->Request->hasProperty('qbtxlineidCollection') ? json_decode($this->Request->qbtxlineidCollection) : array();
         $this->equipidCollection = $this->Request->hasProperty('equipidCollection') ? json_decode($this->Request->equipidCollection) : array();
@@ -47,17 +48,30 @@ class UpdateEquipmentHistories_Post extends Action {
         $this->ordnum = 'HAVE';
         $this->vesselid = 'HAVE';
 
-        error_log(print_r($this->qbtxlineidCollection,true));
-        error_log(print_r($this->equipidCollection,true));
-        error_log(print_r($this->inspectno,true));
-        error_log(print_r($this->installdte,true));
-        error_log(print_r($this->expdtein,true));
-        error_log(print_r($this->daterec,true));
+//        error_log(print_r($this->qbtxlineidCollection,true));
+//        error_log(print_r($this->equipidCollection,true));
+//        error_log(print_r($this->inspectno,true));
+//        error_log(print_r($this->installdte,true));
+//        error_log(print_r($this->expdtein,true));
+//        error_log(print_r($this->daterec,true));
 
         foreach ($this->qbtxlineidCollection as $index => $qbtxlineid){
             $currentEquipid = $this->equipidCollection[$index];
 
             $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($qbtxlineid);
+
+            if ($entity === null) {
+                $ordnum = '';
+                $inspectno = 'LOST';
+                $historyId = GUIDGenerator::getGUID();
+                $vesselid = '';
+                $entity = new SWEQUIPD($currentEquipid, $ordnum, $inspectno, $this->installdte, $this->expdtein, $this->daterec, '', $this->fupddate, '', $this->userID, '', $historyId, '', $vesselid);
+                $qbtxlineid = $historyId;
+                $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateWorkOrderFor($currentEquipid, $ordnum, $this->status, $historyId);
+
+            }
+
+            $qbtxlineidCollection []= $qbtxlineid;
 
             if ($this->inspectno !== ''){
                 $entity->setInspectno($this->inspectno);
@@ -89,7 +103,7 @@ class UpdateEquipmentHistories_Post extends Action {
 //        $this->ordnum = $entity->getOrdnum();
 //        $this->vesselid = $entity->getVesselid();
 
-            $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Update($entity);
+            $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPDRepository->Update($entity);
             $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateDates($currentEquipid, $this->installdte, $this->expdtein, $this->daterec);
 
             if ($this->daterec) {
@@ -108,7 +122,7 @@ class UpdateEquipmentHistories_Post extends Action {
             $result['equipidCollection'] = $this->equipidCollection;
             $result['ordnum'] = $this->ordnum;
             $result['status'] = $this->status;
-            $result['qbtxlineidCollection'] = $this->qbtxlineidCollection;
+            $result['qbtxlineidCollection'] = $qbtxlineidCollection;
             $result['installdte'] = $this->installdte;
             $result['expdtein'] = $this->expdtein;
             $result['daterec'] = $this->daterec;
