@@ -1196,7 +1196,6 @@
                 };
 
             }(global, $, knockBack, knockout, backbone))
-
         };
 
         /**
@@ -2012,7 +2011,8 @@
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
                 $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyID);
-
+                console.log("control:", $row.find(htmlBindings.itemSelectorControl));
+                $row.find(htmlBindings.itemSelectorControl).data('qbtxlineid', historyID);
                 $row.find(htmlBindings.tableMainFiledDateOut).html(dateOut);
                 $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
                 // Received Date Field removed by request (vivian)
@@ -2047,10 +2047,12 @@
                     if(vesselid === ''){
                         $row.find(htmlBindings.tableMainFieldVessel).html('');
                     }
+
                     $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
                     $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
                     $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyIDCollection[index]);
-
+                    console.log("control:", $row.find(htmlBindings.itemSelectorControl));
+                    $row.find(htmlBindings.itemSelectorControl).data('qbtxlineid', historyIDCollection[index]);
                     $row.find(htmlBindings.tableMainFiledDateOut).html(dateOut);
                     $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
 
