@@ -24,6 +24,7 @@ class DeleteEquipmentHistories_Post extends Action {
     public function Execute() {
         $result = array('success' => false);
         $isSuccess = false;
+        $qbtxlineidCollection = array();
         $this->qbtxlineidCollection = $this->Request->hasProperty('qbtxlineidCollection') ? json_decode($this->Request->qbtxlineidCollection) : array();
         $this->equipidCollection = $this->Request->hasProperty('equipidCollection') ? json_decode($this->Request->equipidCollection) : array();
 
@@ -36,9 +37,10 @@ class DeleteEquipmentHistories_Post extends Action {
 
         foreach ($this->qbtxlineidCollection as $index => $qbtxlineid){
             $currentEquipid = $this->equipidCollection[$index];
-
+            $currentHistory = $qbtxlineid;
             if ($qbtxlineid !== ''){
                 $entity = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($qbtxlineid);
+
                 if ($entity) {
                     $isSuccess = $this->controller->DatUnitOfWork->SWEQUIPDRepository->Delete($entity);
                     $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->UpdateStatus($currentEquipid, $this->status);
@@ -46,8 +48,10 @@ class DeleteEquipmentHistories_Post extends Action {
                     $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastHistoryReference($currentEquipid);
                     $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastWorkOrder($currentEquipid);
                     $isSuccess &= $this->controller->DatUnitOfWork->SWEQUIPRepository->RemoveLastVesselid($currentEquipid);
+                    $currentHistory = '';
                 }
             }
+            $qbtxlineidCollection []= $currentHistory;
         }
 
         if ($isSuccess) {
@@ -56,7 +60,7 @@ class DeleteEquipmentHistories_Post extends Action {
             $result['ordnum'] = $this->ordnum;
             $result['vesselid'] = $this->vesselid;
             $result['status'] = $this->status;
-            $result['qbtxlineidCollection'] = $this->qbtxlineidCollection;
+            $result['qbtxlineidCollection'] = $qbtxlineidCollection;
             $result['installdte'] = $this->installdte;
             $result['expdtein'] = $this->expdtein;
             $result['daterec'] = $this->daterec;

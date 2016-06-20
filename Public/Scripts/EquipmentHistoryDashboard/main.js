@@ -1823,7 +1823,7 @@
                 mvvm.modalEquipmentHistoryFormAdd.showFor($(this).data('equipid'));
             },
             btnActionEdit_OnClick: function (event) {
-                mvvm.modalEquipmentHistoryFormEdit.showFor($(this).data('qbtxlineid'));
+                mvvm.modalEquipmentHistoryFormEdit.showFor($(this).attr('data-qbtxlineid'));
             },
             btnActionNote_OnClick: function (event) {
                 mvvm.modalEquipmentHistoryFormNote.showFor($(this).data('equipid'));
@@ -1894,7 +1894,7 @@
                 var chechedSelectorControls, qbtxlineidCollection, equipidCollection;
                 chechedSelectorControls = functions.getCheckedSelectors();
                 qbtxlineidCollection = $(chechedSelectorControls).map(function () {
-                    return $(this).data('qbtxlineid');
+                    return $(this).attr('data-qbtxlineid');
                 });
                 equipidCollection = $(chechedSelectorControls).map(function () {
                     return $(this).data('equipid');
@@ -1906,7 +1906,7 @@
                 var chechedSelectorControls, qbtxlineidCollection, equipidCollection;
                 chechedSelectorControls = functions.getCheckedSelectors();
                 qbtxlineidCollection = $(chechedSelectorControls).map(function () {
-                    return $(this).data('qbtxlineid');
+                    return $(this).attr('data-qbtxlineid');
                 });
                 equipidCollection = $(chechedSelectorControls).map(function () {
                     return $(this).data('equipid');
@@ -1993,7 +1993,7 @@
                 }).parent();
             },
             updateEquip: function (equipID, workOrder, status, historyID, dateOut, expectedIn, received, vesselid) {
-                var statusClass, $row;
+                var statusClass, $row, $itemSelector;
                 global.console.log("equipID", equipID);
                 global.console.log("workOrder", workOrder);
                 global.console.log("status", status);
@@ -2010,9 +2010,15 @@
                 $row.find(htmlBindings.tableMainFieldVessel).html('<a href="#" class="' + (htmlBindings.tableMainFieldVesselLink).slice(1) + '" data-vessel="' + vesselid + '">' + vesselid + '</a>');
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
-                $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyID);
-                console.log("control:", $row.find(htmlBindings.itemSelectorControl));
-                $row.find(htmlBindings.itemSelectorControl).data('qbtxlineid', historyID);
+                $row.find(htmlBindings.btnActionEdit).attr('data-qbtxlineid', historyID);
+
+                $itemSelector = $row.find(htmlBindings.itemSelectorControl);
+                // The .data() call is special - not only does it retrieve HTML5 data attributes
+                // it also attempts to evaluate/parse the attributes. So with an attribute like
+                // data-myjson='{"hello":"world"}' when retrieved via .data() will return an Object
+                // while retrieval via .attr() will return a string.
+                // $itemSelector.data('qbtxlineid', historyID);
+                $itemSelector.attr('data-qbtxlineid', historyID);
                 $row.find(htmlBindings.tableMainFiledDateOut).html(dateOut);
                 $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
                 // Received Date Field removed by request (vivian)
@@ -2024,7 +2030,7 @@
                 functions.setActionsState(equipID, status);
             },
             updateEquips: function (equipIDCollection, workOrder, status, historyIDCollection, dateOut, expectedIn, received, vesselid) {
-                var statusClass, $row, index, length;
+                var statusClass, $row, index, length, $itemSelector;
                 global.console.log("equipIDCollection", equipIDCollection);
                 global.console.log("workOrder", workOrder);
                 global.console.log("status", status);
@@ -2050,9 +2056,14 @@
 
                     $row.find(htmlBindings.tableMainFieldStatus).find('.value').text(status);
                     $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
-                    $row.find(htmlBindings.btnActionEdit).data('qbtxlineid', historyIDCollection[index]);
-                    console.log("control:", $row.find(htmlBindings.itemSelectorControl));
-                    $row.find(htmlBindings.itemSelectorControl).data('qbtxlineid', historyIDCollection[index]);
+                    $row.find(htmlBindings.btnActionEdit).attr('data-qbtxlineid', historyIDCollection[index]);
+                    $itemSelector = $row.find(htmlBindings.itemSelectorControl);
+                    // The .data() call is special - not only does it retrieve HTML5 data attributes
+                    // it also attempts to evaluate/parse the attributes. So with an attribute like
+                    // data-myjson='{"hello":"world"}' when retrieved via .data() will return an Object
+                    // while retrieval via .attr() will return a string.
+                    // $itemSelector.data('qbtxlineid', historyIDCollection[index]);
+                    $itemSelector.attr('data-qbtxlineid', historyIDCollection[index]);
                     $row.find(htmlBindings.tableMainFiledDateOut).html(dateOut);
                     $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
 

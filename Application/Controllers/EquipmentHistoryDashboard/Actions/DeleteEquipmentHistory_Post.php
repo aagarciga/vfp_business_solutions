@@ -55,7 +55,7 @@ class DeleteEquipmentHistory_Post extends Action {
             $result['ordnum'] = $this->ordnum;
             $result['vesselid'] = $this->vesselid;
             $result['status'] = $this->status;
-            $result['qbtxlineid'] = $this->qbtxlineid;
+            $result['qbtxlineid'] = '';
             $result['installdte'] = $this->installdte;
             $result['expdtein'] = $this->expdtein;
             $result['daterec'] = $this->daterec;
