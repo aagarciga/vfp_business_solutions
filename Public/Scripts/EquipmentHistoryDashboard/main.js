@@ -2043,6 +2043,10 @@
                 $row.find(htmlBindings.tableMainFieldStatus).find('.value').removeClass().addClass('value ' + statusClass).text(status);
                 $row.find(htmlBindings.btnActionEdit).attr('data-qbtxlineid', historyID);
 
+                if (historyID){ // if history have a value, enable batch actions
+                    functions.enableBatchActions();
+                }
+
                 $itemSelector = $row.find(htmlBindings.itemSelectorControl);
                 // The .data() call is special - not only does it retrieve HTML5 data attributes
                 // it also attempts to evaluate/parse the attributes. So with an attribute like
@@ -2059,9 +2063,10 @@
                 $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
 
                 functions.setActionsState(equipID, status);
+
             },
             updateEquips: function (equipIDCollection, workOrder, status, historyIDCollection, dateOut, expectedIn, received, vesselid) {
-                var statusClass, $row, index, length, $itemSelector;
+                var statusClass, $row, index, length, $itemSelector, anyHistoryID;
                 global.console.log("equipIDCollection", equipIDCollection);
                 global.console.log("workOrder", workOrder);
                 global.console.log("status", status);
@@ -2075,6 +2080,7 @@
 
                 index = 0;
                 length = equipIDCollection.length;
+                anyHistoryID = false;
 
                 for(index; index < length; index = index + 1){
                     $row = functions.getRowByEquipID(equipIDCollection[index]);
@@ -2095,10 +2101,18 @@
                     // while retrieval via .attr() will return a string.
                     // $itemSelector.data('qbtxlineid', historyIDCollection[index]);
                     $itemSelector.attr('data-qbtxlineid', historyIDCollection[index]);
+
+                    if (historyIDCollection[index] !== '') {
+                        anyHistoryID = anyHistoryID || true;
+                    }
                     $row.find(htmlBindings.tableMainFiledDateOut).html(dateOut);
                     $row.find(htmlBindings.tableMainFiledExpectedIn).html(expectedIn);
 
                     functions.setActionsState(equipIDCollection[index], status);
+                }
+
+                if (anyHistoryID){ // if history have a value, enable batch actions
+                    functions.enableBatchActions();
                 }
                 $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
             },
