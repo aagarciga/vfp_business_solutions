@@ -59,7 +59,6 @@ class SWEQUIPDRepository extends VFPRepository implements IRepository{
         $entityName = $this->getEntityWhitCompanySuffix();
         $sqlString = "SELECT * FROM $entityName";
         $sqlString .= " WHERE [QBTXLINEID] = '$qbtxlineid' ORDER BY [FUPDDATE] ASC";
-error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         $queryResult = $query->Execute($sqlString);
         $result = array();

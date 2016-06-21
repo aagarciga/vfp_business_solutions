@@ -25,16 +25,18 @@ class GetEquipmentHistory_Post extends Action {
         $result = array('success' => false);
         $equipmentHistoryID = $this->Request->hasProperty('qbtxlineid') ? $this->Request->qbtxlineid : '';
         $equipmentHistory = $this->controller->DatUnitOfWork->SWEQUIPDRepository->GetByQbtxlineid($equipmentHistoryID);
-        $projectmanager = $this->controller->DatUnitOfWork->SWINSPRepository->GetActiveBy($equipmentHistory->getInspectno());
-        if ($equipmentHistory) {
 
+        if ($equipmentHistory) {
+            $projectmanager = $this->controller->DatUnitOfWork->SWINSPRepository->GetActiveBy($equipmentHistory->getInspectno());
             $result['success'] = true;
             $result['equipmentHistoryObject']['qbtxlineid'] = $equipmentHistory->getQbtxlineid();
             $result['equipmentHistoryObject']['equipid'] = $equipmentHistory->getEquipid();
             $result['equipmentHistoryObject']['inspectno'] = $equipmentHistory->getInspectno();
             if ($projectmanager) {
+//                error_log('Exist Project Manager');
                 $result['equipmentHistoryObject']['inspectnoName'] = $projectmanager->getInspectnm();
             } else {
+//                error_log('NOT Exist Project Manager');
                 $result['equipmentHistoryObject']['inspectnoName'] = 'Project Manager Not Found';
             }
 

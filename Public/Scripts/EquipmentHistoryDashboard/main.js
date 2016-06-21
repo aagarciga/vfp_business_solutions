@@ -1838,9 +1838,7 @@
 
                     mvvm.modalEquipmentHistoryFormBatchEdit.showFor($.makeArray(qbtxlineidCollection), $.makeArray(equipidCollection));
                 } else {
-                    $oneChecked = $(checkedSelectorControls[0]);
-                    console.log('$oneChecked', $oneChecked);
-                    mvvm.modalEquipmentHistoryFormEdit.showFor($oneChecked.attr('data-qbtxlineid'));
+                    mvvm.modalEquipmentHistoryFormEdit.showFor($(this).attr('data-qbtxlineid'));
                 }
             },
             btnActionNote_OnClick: function (event) {
@@ -1928,6 +1926,7 @@
                     mvvm.modalEquipmentHistoryFormBatchEdit.showFor($.makeArray(qbtxlineidCollection), $.makeArray(equipidCollection));
                 } else {
                     $oneChecked = $(checkedSelectorControls[0]);
+                    console.log('$oneChecked', checkedSelectorControls[0]);
                     console.log('$oneChecked', $oneChecked);
                     mvvm.modalEquipmentHistoryFormEdit.showFor($oneChecked.attr('data-qbtxlineid'));
                 }
@@ -2045,6 +2044,8 @@
 
                 if (historyID){ // if history have a value, enable batch actions
                     functions.enableBatchActions();
+                } else {
+                    functions.disableBatchActions();
                 }
 
                 $itemSelector = $row.find(htmlBindings.itemSelectorControl);
@@ -2113,7 +2114,10 @@
 
                 if (anyHistoryID){ // if history have a value, enable batch actions
                     functions.enableBatchActions();
+                } else {
+                    functions.disableBatchActions();
                 }
+
                 $(htmlBindings.tableMainFieldWorkOrderLink).on('click', eventHandlers.tableMainFieldWorkOrderLink_OnClick);
             },
             updateEquipStatus: function (equipID, status) {
