@@ -32,7 +32,12 @@ class GetEquipmentHistory_Post extends Action {
             $result['equipmentHistoryObject']['qbtxlineid'] = $equipmentHistory->getQbtxlineid();
             $result['equipmentHistoryObject']['equipid'] = $equipmentHistory->getEquipid();
             $result['equipmentHistoryObject']['inspectno'] = $equipmentHistory->getInspectno();
-            $result['equipmentHistoryObject']['inspectnoName'] = $projectmanager->getInspectnm();
+            if ($projectmanager) {
+                $result['equipmentHistoryObject']['inspectnoName'] = $projectmanager->getInspectnm();
+            } else {
+                $result['equipmentHistoryObject']['inspectnoName'] = 'Project Manager Not Found';
+            }
+
             $result['equipmentHistoryObject']['installdte'] = $equipmentHistory->getInstalldte();
             $result['equipmentHistoryObject']['expdtein'] = $equipmentHistory->getExpdtein();
             $result['equipmentHistoryObject']['daterec'] = $equipmentHistory->getDaterec();
