@@ -1823,7 +1823,25 @@
                 mvvm.modalEquipmentHistoryFormAdd.showFor($(this).data('equipid'));
             },
             btnActionEdit_OnClick: function (event) {
-                mvvm.modalEquipmentHistoryFormEdit.showFor($(this).attr('data-qbtxlineid'));
+                // mvvm.modalEquipmentHistoryFormEdit.showFor($(this).attr('data-qbtxlineid'));
+
+                var checkedSelectorControls, qbtxlineidCollection, equipidCollection, $oneChecked;
+                checkedSelectorControls = functions.getCheckedSelectors();
+
+                if (checkedSelectorControls.length > 1) {
+                    qbtxlineidCollection = $(checkedSelectorControls).map(function () {
+                        return $(this).attr('data-qbtxlineid');
+                    });
+                    equipidCollection = $(checkedSelectorControls).map(function () {
+                        return $(this).data('equipid');
+                    });
+
+                    mvvm.modalEquipmentHistoryFormBatchEdit.showFor($.makeArray(qbtxlineidCollection), $.makeArray(equipidCollection));
+                } else {
+                    $oneChecked = $(checkedSelectorControls[0]);
+                    console.log('$oneChecked', $oneChecked);
+                    mvvm.modalEquipmentHistoryFormEdit.showFor($oneChecked.attr('data-qbtxlineid'));
+                }
             },
             btnActionNote_OnClick: function (event) {
                 mvvm.modalEquipmentHistoryFormNote.showFor($(this).data('equipid'));
@@ -1874,33 +1892,46 @@
             itemSelectorControl_OnChange: function (event){
                 var $checkbox, checkedArray;
                 $checkbox = $(this);
+                checkedArray = functions.getCheckedSelectors();
+                // If check a checkbox
                 if ($checkbox.prop('checked')){
+                    // Mark selected its row
                     $(this).parents('tr').children('td').css('background-color', colors.selectedItemColor);
-                    functions.enableBatchActions();
+                    // If are many selected then enable batch actions
+                    if(checkedArray.length > 1){
+                        functions.enableBatchActions();
+                    // or if is only one selected and have a qbtxlineid value
+                    } else if($(checkedArray[0]).attr('data-qbtxlineid') !== '') {
+                        functions.enableBatchActions();
+                    }
                 } else {
                     $(this).parents('tr').children('td').css('background-color', 'transparent');
-                    checkedArray = functions.getCheckedSelectors();
+                    // checkedArray = functions.getCheckedSelectors();
                     if (checkedArray.length === 0) {
                         functions.disableBatchActions();
                     }
                 }
             },
             batchActionEdit_OnClick: function (event) {
-                // var chechedSelectorControls, $firstSelectorControl;
-                // chechedSelectorControls = functions.getCheckedSelectors();
-                // $firstSelectorControl = $(chechedSelectorControls).first();
-                // mvvm.modalEquipmentHistoryFormBatchEdit.showFor($firstSelectorControl.data('qbtxlineid'));
 
-                var chechedSelectorControls, qbtxlineidCollection, equipidCollection;
-                chechedSelectorControls = functions.getCheckedSelectors();
-                qbtxlineidCollection = $(chechedSelectorControls).map(function () {
-                    return $(this).attr('data-qbtxlineid');
-                });
-                equipidCollection = $(chechedSelectorControls).map(function () {
-                    return $(this).data('equipid');
-                });
+                var checkedSelectorControls, qbtxlineidCollection, equipidCollection, $oneChecked;
+                checkedSelectorControls = functions.getCheckedSelectors();
 
-                mvvm.modalEquipmentHistoryFormBatchEdit.showFor($.makeArray(qbtxlineidCollection), $.makeArray(equipidCollection));
+                if (checkedSelectorControls.length > 1) {
+                    qbtxlineidCollection = $(checkedSelectorControls).map(function () {
+                        return $(this).attr('data-qbtxlineid');
+                    });
+                    equipidCollection = $(checkedSelectorControls).map(function () {
+                        return $(this).data('equipid');
+                    });
+
+                    mvvm.modalEquipmentHistoryFormBatchEdit.showFor($.makeArray(qbtxlineidCollection), $.makeArray(equipidCollection));
+                } else {
+                    $oneChecked = $(checkedSelectorControls[0]);
+                    console.log('$oneChecked', $oneChecked);
+                    mvvm.modalEquipmentHistoryFormEdit.showFor($oneChecked.attr('data-qbtxlineid'));
+                }
+
             },
             batchActionDelete_OnClick: function (event) {
                 var chechedSelectorControls, qbtxlineidCollection, equipidCollection;
