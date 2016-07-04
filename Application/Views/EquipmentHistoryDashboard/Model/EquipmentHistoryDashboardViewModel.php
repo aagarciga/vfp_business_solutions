@@ -6,6 +6,7 @@
 
 namespace Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Models;
 
+use Helpers;
 
 class EquipmentHistoryDashboardViewModel
 {
@@ -67,7 +68,7 @@ class EquipmentHistoryDashboardViewModel
         $this->daterec = trim($daterec);
         $this->status = trim($status);
         $this->notes = trim($notes);
-        $this->picture_fi = trim($picture_fi);
+        $this->picture_fi = Helpers::buildAssetHref($picture_fi);
         $this->assettag = trim($assettag);
         $this->locno = trim($locno);
         $this->qbtxlineid = trim($qbtxlineid);

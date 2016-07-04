@@ -6,6 +6,9 @@
  */
 
 namespace Dandelion\MVC\Application\Controllers\InventoryDashboard\Models;
+
+use Helpers;
+
 class InventoryDashboardViewModel
 {
 
@@ -45,7 +48,8 @@ class InventoryDashboardViewModel
         $this->_onhand = number_format(trim($onhand));
         $this->_onorder = number_format(trim($onorder));
         $this->_committed = number_format(trim($committed));
-        $this->_picture = \Dandelion\MVC\Application\Tools\fix_href($picture);
+//        $this->_picture = \Dandelion\MVC\Application\Tools\fix_href($picture);
+        $this->_picture = Helpers::buildAssetHref($picture);
     }
 
     /*

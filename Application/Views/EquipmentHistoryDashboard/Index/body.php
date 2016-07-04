@@ -220,7 +220,9 @@
                                         <a href="#" class="btn btn-primary btn-sm btn-action btn-action-note" data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-file"></span>
                                         </a>
-                                        <a href="#" class="btn btn-primary btn-sm btn-action btn-action-view" data-equipid="<?php echo $item->getEquipid()?>">
+
+                                        <?php $pictureHref = $item->getPicture_fi() ?>
+                                        <a href="<?php echo $pictureHref ?>" class="btn btn-primary btn-sm btn-action btn-action-view" <?php echo ($pictureHref === "#")?'disabled="disabled"': '' ?> data-equipid="<?php echo $item->getEquipid()?>">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </a>
                                     </div>

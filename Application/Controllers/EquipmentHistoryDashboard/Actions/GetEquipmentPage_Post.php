@@ -6,6 +6,7 @@
 
 namespace Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Actions;
 
+use Helpers;
 use Dandelion\MVC\Core\Action;
 use Dandelion\MVC\Application\Controllers\EquipmentHistoryDashboard\Models\EquipmentHistoryDashboardViewModel;
 
@@ -26,7 +27,6 @@ class GetEquipmentPage_Post extends Action
         $this->EquipmentHistoryDashboardFieldsDefinition = EquipmentHistoryDashboardViewModel::getFieldsDefinitionFor($this->CompanyID);
 
         $this->JsonFilterTree = $this->Request->hasProperty('filterTree') ? $this->Request->filterTree : "";
-//        error_log("JSON FIlter tree". print_r($this->JsonFilterTree, true));
 
         $this->FilterPredicate = $this->controller->setSessionFilterTree($this->JsonFilterTree);
         $this->Page = $this->Request->hasProperty('page') ? $this->Request->page : $this->Session->getSessionValue(DASHBOARD_SESSION_PARAM_PAGE, $this->controller->getDefaultPage());
@@ -47,16 +47,6 @@ class GetEquipmentPage_Post extends Action
         foreach ($currentPagedItems as $item){
             $result[] = $this->createViewModel($item, $this->EquipmentHistoryDashboardFieldsDefinition);
         }
-
-
-//        $this->Items = $this->Pager->getCurrentPagedItems();
-//
-//        foreach ($this->Items as $item) {
-////            $current = $this->createViewModel($item, $this->EquipmentHistoryDashboardFieldsDefinition);
-////            error_log(print_r($current, true));
-////            $result['currentPagedItems'][] = $current;
-//            $result['currentPagedItems'][] = $item;
-//        }
 
         $pager['currentPagedItems'] = $result;
 
@@ -96,11 +86,8 @@ class GetEquipmentPage_Post extends Action
         return ($value === MODEL_TYPE_DATE_DEFAULT) ? '' : $value;
     }
 
-    private function sanatiteLink($value) {
-        if (is_null($value) || $value == "") $value = '#';
-        $value = trim($value);
-        $value = View::ServerFileContext($value);
-        return (string) $value;
+    private function sanitizeLink($value) {
+        return Helpers::buildAssetHref($value);
     }
 
 }

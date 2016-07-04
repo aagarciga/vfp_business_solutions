@@ -53,7 +53,7 @@ function fix_date($value){
 }
 
 function fix_href($value){
-    if (is_null($value) || $value == ""){
+    if (is_null($value) || $value === ""){
         return "#";
     }
     $value = trim($value);

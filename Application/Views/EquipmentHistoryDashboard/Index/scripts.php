@@ -5,12 +5,18 @@
 <script src="<?php echo $View->PublicVendorContext('dropzone/dropzone.min.js'); ?>"></script>
 <script src="<?php echo $View->PublicVendorContext('responsive-tables/responsive-tables.js'); ?>"></script>
 
-<!--<script src="--><?php //echo $View->ScriptsContext('EquipmentHistoryDashboard/EquipmentHistoryDashboardDynamicFilter.min.js'); ?><!--"></script>-->
 <script src="<?php echo $View->ScriptsContext('EquipmentHistoryDashboard/ProjectFiles.min.js'); ?>"></script>
-<!--<script src="--><?php //echo $View->ScriptsContext('InventoryDashboard/main.min.js'); ?><!--"></script>-->
-<!--<script src="--><?php //echo $View->PublicVendorContext('lightbox2-master/dist/js/lightbox.min.js')?><!--"></script>-->
+<script src="<?php echo $View->PublicVendorContext('lightbox2-master/dist/js/lightbox.min.js')?>"></script>
 
 <script src="<?php echo $View->ScriptsContext('EquipmentHistoryDashboard/main.min.js'); ?>"></script>
+
+<script>
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true
+    })
+</script>
+
 <script>
 /**
  * @author Alex

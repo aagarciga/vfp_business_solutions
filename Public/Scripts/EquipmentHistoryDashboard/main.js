@@ -2339,13 +2339,18 @@
                     });
                 };
                 viewButtonBuilder = function () {
-                    var anchorClassName, spanGlyphIcon;
+                    var anchorClassName, spanGlyphIcon, props;
+                    props = {};
                     spanGlyphIcon = doc.createElement('span');
                     spanGlyphIcon.className = 'glyphicon glyphicon-eye-open';
                     anchorClassName = htmlBindings.btnActionView.slice(1) + ' btn-action btn btn-primary btn-sm';
-                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, "#", {
-                        equipid: item.equipid
-                    });
+                    if (item.picture_fi === "#") {
+                        props.disabled = true;
+                    }
+                    return App.Helpers.linkBuilder(spanGlyphIcon, anchorClassName, item.picture_fi, {
+                        equipid: item.equipid,
+                        lightbox: item.equipid
+                    }, props);
                 };
                 result.className = trClass;
                 result.dataset.equipid = item.equipid;
