@@ -22,7 +22,11 @@ class ShipmentUpdate_Post extends Action {
     public function Execute() {
         $pono = filter_input(INPUT_POST, 'pono');
         $updateObjects = json_decode($_POST['updateObjects']);
-        
+
+//        error_log("ShipmentUpdate_Post: PONO: ".$pono);
+//        error_log(print_r($updateObjects,true));
+
+
         $result = array();
         
         $qtyrec0Sum = 0;

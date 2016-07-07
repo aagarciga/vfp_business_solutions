@@ -85,6 +85,7 @@ class POHDOPRepository extends VFPRepository implements IRepository {
                 
         $sqlString = "UPDATE $tablename SET POPSTAT = '$postat'"
                 . " WHERE lower(PONO) = '$lowerPono'";
+        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }

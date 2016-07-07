@@ -1,3 +1,22 @@
+<script src="<?php echo $View->ScriptsContext('Shipment/main.min.js'); ?>"></script>
+
+<script>
+    (function (global, $, App) {
+        "use strict";
+
+        var dandelion                       = global.dandelion,
+            Shipment       = dandelion.namespace('App.Shipment', global);
+
+
+//        Shipment.addDictionary('status', <?php //echo json_encode($StatusDictionary)?>//);
+
+//        Shipment.addUrl('workOrderSelectorAjaxUrl', '<?php //echo $View->Href('EquipmentHistoryDashboard', 'WorkOrderSearch')?>//');
+
+        Shipment.init();
+
+    }(window, jQuery, App));
+</script>
+
 <script>
     /// TODO: The code below can be used like verification template. 
     /// The input control associated to the verification data is in one place.
@@ -46,11 +65,13 @@
 </script>
 
 <script>
-    function showQtyFormWithSugerence(qtyleft){
+    function showQtyFormWithSugerence(qtyleft, itemno){
+        console.log("inside showQtyFormWithSugerence qtyleft:", qtyleft);
+        console.log("inside showQtyFormWithSugerence itemno:", itemno);
         if (qtyleft < 0) {
             qtyleft = 0;
         }
-        ShowFeedback("Quantity must be less or equal to: " + qtyleft);
+        ShowFeedback("For " + itemno + ", quantity must be less or equal to: " + qtyleft);
         $('#quantityForm').show();                    
         $('#unknow-Key').attr('title', 'Possible greatest value').children('span').text(qtyleft).css('visibility', 'visible');
     }
@@ -74,7 +95,9 @@
                 if (_response.verified === true) { 
                     $barcode.parent().removeClass('has-error').addClass('has-success');                    
                     $barcode.blur();                    
-                    showQtyFormWithSugerence(_response.qtyleft);                    
+//                    showQtyFormWithSugerence(_response.qtyleft);
+                    getSelectedTr($barcode.val());
+                    showQtyFormWithSugerence(parseInt($.$SelectedTr.children('.td-qty-left').html()), $barcode.val().toUpperCase());
                 }
                 else{
                     $barcode.parent().removeClass('has-success').addClass('has-error');
@@ -206,11 +229,19 @@
             }
             if($.$SelectedTr === undefined){
                 var barcode = $('#txBarcode').val();
-                $('#related-pono-items > tbody > tr > td').each(function(){
-                    if($(this).children('a').html() === barcode){
-                        $.$SelectedTr = $(this).parent();
-                    }
-                });
+//                $('#related-pono-items > tbody > tr > td > a').each(function(){
+//                    var lowercaseBarcode, currentLinkText, lowercaseCurrentLinkText;
+//                    currentLinkText = $(this).children('a').html();
+//                    currentLinkText = $(this).html();
+//                    console.log("currentLinkText",currentLinkText);
+//                    lowercaseBarcode = barcode.toLowerCase();
+//                    lowercaseCurrentLinkText = currentLinkText.toLowerCase();
+//                    console.log(barcode, lowercaseBarcode, lowercaseCurrentLinkText);
+//                    if(lowercaseCurrentLinkText === lowercaseBarcode){
+//                        $.$SelectedTr = $(this).parents('tr');
+//                    }
+//                });
+                getSelectedTr(barcode);
             }    
             
             var $recv = $.$SelectedTr.children('.td-qty-recv'),
@@ -237,6 +268,22 @@
 </script>
 
 <script>
+    function getSelectedTr(barcode){
+        console.log("using getSelectedTr with barcode: ", barcode);
+        $('#related-pono-items > tbody > tr > td > a').each(function(){
+            var lowercaseBarcode, currentLinkText, lowercaseCurrentLinkText;
+            currentLinkText = $(this).children('a').html();
+            currentLinkText = $(this).html();
+            lowercaseBarcode = barcode.toLowerCase();
+            lowercaseCurrentLinkText = currentLinkText.toLowerCase();
+            if(lowercaseCurrentLinkText === lowercaseBarcode){
+                $.$SelectedTr = $(this).parents('tr');
+            }
+        });
+    }
+</script>
+
+<script>
     function relatedPonoItemsDataBind($table, $pono){
         var params = {
             'pono' : $pono.val()
@@ -256,9 +303,12 @@
                     with (_response[index]){
                         var $tr = $('<tr><td class="td-itemno"><a href="#">'+itemno+'</a></td><td class="td-qty-left">'+qtyleft+'</td><td class="td-qty-recv">'+qtyrec0+'</td><td class="td-binloc">'+locno+"</td></tr>");
                         $table.children('tbody').append($tr);
-                        $tr.children('.td-itemno').children('a').on('click', function(){                         
+                        $tr.children('.td-itemno').children('a').on('click', function(){
+                            console.log("Giselle esta aqui");
                             $.$SelectedTr = $(this).parent().parent();
-                            showQtyFormWithSugerence(parseInt($.$SelectedTr.children('.td-qty-left').html()));
+                            console.log("$.$SelectedTr", $.$SelectedTr);
+
+                            showQtyFormWithSugerence(parseInt($.$SelectedTr.children('.td-qty-left').html()), itemno);
                         }).attr('title', 'Edit');
 //                        $tr.on('click', function(){
 //                            var $itemno = $(this).children('.td-itemno'),
@@ -358,11 +408,12 @@
         
         if($.$SelectedTr === undefined){
             var barcode = $('#txBarcode').val();
-            $('#related-pono-items > tbody > tr > td').each(function(){
-                if($(this).children('a').html() === barcode){
-                    $.$SelectedTr = $(this).parent();
-                }
-            });
+//            $('#related-pono-items > tbody > tr > td').each(function(){
+//                if($(this).children('a').html() === barcode){
+//                    $.$SelectedTr = $(this).parent();
+//                }
+//            });
+            getSelectedTr(barcode);
         }
 
         var $recv = $.$SelectedTr.children('.td-qty-recv'),

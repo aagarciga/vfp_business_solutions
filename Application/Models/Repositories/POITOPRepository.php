@@ -139,6 +139,7 @@ class POITOPRepository extends VFPRepository implements IRepository {
                 
         $sqlString = "UPDATE $tablename SET LARV_DATE = '$larv_date', QTYREC0 = $qtyrec0, LOCNO = '$locno'"
                 . " WHERE lower(PONO) = '$lowerPono' AND lower(ITEMNO) = '$lowerItemno'";
+        error_log($sqlString);
         $query = $this->dbDriver->GetQuery();
         return $query->Execute($sqlString);
     }
