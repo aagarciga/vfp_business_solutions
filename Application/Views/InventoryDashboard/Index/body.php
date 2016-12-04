@@ -103,7 +103,7 @@
                     <body>
                         <?php foreach ($Items as $item): ?>
                         <tr>
-                            <td class="item-field"><?php echo $item->getItemno() ?></td>
+                            <td class="item-field"><a href="index.php?controller=ItemDashboard&action=Index&itemno=<?php echo $item->getItemno()?>"><?php echo $item->getItemno()?></a></td>
                             <td class="item-field"><?php echo $item->getItmwhs() ?></td>
                             <td class="item-field"><?php echo $item->getDescrip() ?></td>
                             <td class="item-field number"><?php echo $item->getOnhand() ?></td>

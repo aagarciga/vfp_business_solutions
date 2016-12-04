@@ -4,6 +4,8 @@
  * User: Victor
  * Date: 13/01/2016
  * Time: 0:34
+ * Project:  VFP Business Series
+ * Copyright: 2014. VFP Business Solutions, LLC
  */
 
 namespace Dandelion\MVC\Application\Controllers\ItemDashboard\Actions;
@@ -11,13 +13,16 @@ namespace Dandelion\MVC\Application\Controllers\ItemDashboard\Actions;
 use Dandelion\MVC\Application\Controllers\ItemDashboard\Models\ItemDashboardViewModel;
 use Dandelion\MVC\Core\Action;
 
+/**
+ * Create By Victor.
+*/
 class Index extends Action
 {
     public function Execute()
     {
         $itemno = $this->Request->hasProperty('itemno') ? $this->Request->itemno : '';
 
-        $this->Title = 'Item Dashboard | VFP Business Series';
+        $this->Title = 'On Sales Order Dashboard | VFP Business Series';
 
         $defaultItemsPerPage = $this->Request->Application->getDefaultPagerItermsPerPage();
 
@@ -26,7 +31,7 @@ class Index extends Action
 
         $this->Itemno = $itemno;
 
-        $this->FilterPredicate = "";
+        $this->FilterPredicate = (is_string($itemno) && $itemno != "") ? "itemno = '$itemno'" : "";
 
         $this->Pager = $this->controller->GetPager($this->FilterPredicate, $this->ItemPerPage);
         $this->Pager->Paginate();

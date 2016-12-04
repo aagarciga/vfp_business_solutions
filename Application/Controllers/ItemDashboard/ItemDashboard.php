@@ -30,8 +30,13 @@ class ItemDashboard extends DatActionsController
      * @internal Because in the feature this will be an INNER JOIN
      */
     public function GetPager($predicate, $itemsPerpage = 50, $middleRange = 5,
-                             $showPagerControlsIfMoreThan = 10, $orderby = "itemno", $order = "ASC")
+                             $showPagerControlsIfMoreThan = 10, $orderby = "ordnum", $order = "ASC")
     {
+        if ($predicate !== "")
+        {
+            $predicate = "WHERE $predicate ";
+        }
+
         $companysuffix = $this->DatUnitOfWork->CompanySuffix;
         $sqlString = "SELECT "
             .'ordnum, '
@@ -44,8 +49,8 @@ class ItemDashboard extends DatActionsController
             .'qtyshp0, '
             .'qtyshprel, '
             .'shipdate '
-            ."FROM SOITEM$companysuffix";
+            ."FROM SOITEM$companysuffix $predicate ORDER BY $orderby $order";
 
-        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString);
+        return new BootstrapPager($this->DatUnitOfWork->DBDriver, $sqlString, $itemsPerpage, $middleRange, $showPagerControlsIfMoreThan);
     }
 }
